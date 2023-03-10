@@ -85,10 +85,60 @@ body {
 
 
 /* Footer */
-footer {
+/*footer {
     background-color: var(--primary-color);
     color: var(--secondary-color);
     padding: 20px 0;
     text-align: center;
     margin-top: auto;
+}*/
+
+.site-footer {
+  background-color: #f8f8f8;
+  border-top: 1px solid #e7e7e7;
+  padding: 30px 0;
+  margin-top: 50px;
+}
+
+.site-footer p {
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
+.site-footer a {
+  color: #666;
+  transition: all 0.3s ease-in-out;
+}
+
+.site-footer a:hover {
+  color: #1abc9c;
+}
+
+.social-icons li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.social-icons a {
+  display: block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+}
+
+.social-icons a:hover {
+  background-color: #1abc9c;
+  color: #fff;
+}
+
+.github {
+  background-color: #333;
+  color: #fff;
+}
+
+.github:hover {
+  background-color: #1abc9c;
 }
