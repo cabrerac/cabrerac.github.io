@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+  {% include head.html %}
+  <body class="{{ page.body_class }}{% if page.sidebar %} with-sidebar{% endif %}">
+    <main id="content" class="main{% if page.sidebar %} main--with-sidebar{% endif %}">
+      {{ content }}
+    </main>
+    {% include sidebar.html %}
+    {% include footer.html %}
+    {% if jekyll.environment == 'production' and site.google_analytics %}
+      {% include google-analytics.html %}
+    {% endif %}
+  </body>
+</html>
