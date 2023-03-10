@@ -76,10 +76,19 @@ p {
     background-color: #5c9be6;
 }
 
+/* Body */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+
 /* Footer */
 footer {
     background-color: var(--primary-color);
     color: var(--secondary-color);
     padding: 20px 0;
     text-align: center;
+    margin-top: auto;
 }
