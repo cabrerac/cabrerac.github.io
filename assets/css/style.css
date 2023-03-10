@@ -1,0 +1,85 @@
+/* Font */
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Color Palette */
+:root {
+    --primary-color: #1E1E1E;
+    --secondary-color: #EFEFEF;
+    --accent-color: #6CB4EE;
+}
+
+/* Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Navigation */
+nav {
+    background-color: var(--primary-color);
+    padding: 20px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    display: inline-block;
+    margin: 0 20px;
+}
+
+nav a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-size: 20px;
+}
+
+nav a:hover {
+    color: var(--accent-color);
+}
+
+/* Heading */
+h1 {
+    font-size: 48px;
+    color: var(--primary-color);
+    text-align: center;
+    margin: 50px 0;
+}
+
+/* Paragraph */
+p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* Button */
+.button {
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    margin: 20px 0;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.button:hover {
+    background-color: #5c9be6;
+}
+
+/* Footer */
+footer {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    padding: 20px 0;
+    text-align: center;
+}
