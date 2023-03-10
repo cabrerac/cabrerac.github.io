@@ -91,30 +91,33 @@ main {
 
 
 /* Footer */
-footer {
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
+.site-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   height: 1.5cm;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 1.5cm;
-  position: sticky;
-  bottom: 0;
+  padding: 0 20px;
   font-size: 14px;
 }
 
-footer a {
-  color: var(--accent-color);
+.site-footer a {
+  color: var(--secondary-color);
   text-decoration: none;
 }
 
-footer a:hover {
-  text-decoration: underline;
+.site-footer a:hover {
+  color: var(--accent-color);
 }
 
-footer i {
-  color: var(--accent-color);
-  font-size: 1.2rem;
-  margin-right: 0.5rem;
+.footer-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
