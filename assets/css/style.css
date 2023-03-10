@@ -6,7 +6,7 @@ body {
 /* Color Palette */
 :root {
     --primary-color: #1E1E1E;
-    --secondary-color: #EFEFEF;
+    --secondary-color: #FFFFFF;
     --accent-color: #6CB4EE;
 }
 
@@ -36,7 +36,7 @@ nav li {
 }
 
 nav a {
-    color: var(--secondary-color);
+    color: var(--primary-color);
     text-decoration: none;
     font-size: 20px;
 }
@@ -100,7 +100,7 @@ main {
   background-color: var(--primary-color);
   color: var(--secondary-color);
   display: flex;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
   align-items: center;
   padding: 0 20px;
   font-size: 14px;
@@ -118,6 +118,6 @@ main {
 .footer-section {
   display: flex;
   align-items: center;
-  justify-content: center;
+  /*justify-content: center;*/
 }
 
