@@ -19,7 +19,7 @@ body {
 
 /* Navigation */
 nav {
-    background-color: var(--primary-color);
+    background-color: var(--secondary-color);
     padding: 20px 0;
     text-align: center;
 }
