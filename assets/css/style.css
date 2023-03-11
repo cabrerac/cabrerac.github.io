@@ -55,9 +55,10 @@ h1 {
 
 /* Paragraph */
 p {
-    font-size: 18px;
+    font-size: 12px;
     line-height: 1.5;
     margin-bottom: 20px;
+    width: 80%;
 }
 
 /* Button */
