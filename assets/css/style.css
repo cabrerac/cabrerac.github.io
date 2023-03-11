@@ -114,9 +114,3 @@ main {
   color: var(--accent-color);
 }
 
-.footer-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
