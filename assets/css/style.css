@@ -57,9 +57,10 @@ h1 {
 p {
     font-size: 12px;
     line-height: 1.5;
-    margin-bottom: 20px;
+    text-align: justify;
     width: 50%;
     margin: 25px auto;
+    
 }
 
 /* Button */
