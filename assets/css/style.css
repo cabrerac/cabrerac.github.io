@@ -100,6 +100,7 @@ main {
   background-color: var(--primary-color);
   color: var(--secondary-color);
   display: flex;
+  justify-content: space-between;
   align-items: center;
   padding: 0 20px;
   font-size: 14px;
@@ -114,3 +115,8 @@ main {
   color: var(--accent-color);
 }
 
+.footer-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
