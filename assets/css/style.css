@@ -58,9 +58,8 @@ p {
     font-size: 12px;
     line-height: 1.5;
     margin-bottom: 20px;
-    width: 75%;
-    text-align: center;
-    align-items: center;
+    width: 50%;
+    margin: 25px auto;
 }
 
 /* Button */
