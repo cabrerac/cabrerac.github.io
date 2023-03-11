@@ -5,9 +5,16 @@
 layout: default
 ---
 
-<p> Christian Cabrera-Jojoa is a Postdoctoral Research Associate at the University of Cambridge. His research focuses on the intersection between 
-AI, systems architectures, and software engineering with the goal of developing alternative approaches for designing, building, monitoring, and adapting
-real-world AI-based systems</p>
+<div>
+   <p>
+      Christian Cabrera-Jojoa is a Postdoctoral Research Associate at the University of Cambridge. 
+      His research focuses on the intersection between AI, systems architectures, and software engineering to 
+      alternative approaches for designing, building, monitoring, and adapting real-world AI-based systems.
+   </p>
 
-<p>He has a Ph.D. in Computer Science from Trinity College Dublin, where he was also a Postdoctoral Research Fellow. His research at Trinity was focused
-on the provision of context-aware, pervasive and resilient applications in large and dynamic urban environments.</p>
+   <p>
+      He was also a Postdoctoral Research Fellow at Trinity College Dublin, where he received a Ph.D. in 
+      Computer Science in 2020. His research at Trinity focused on context-aware, pervasive, and resilient systems 
+      architectures for large, distributed, and dynamic urban environments.
+   </p>
+<\div>
