@@ -102,7 +102,7 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 20px 0 20px;
   font-size: 14px;
   flex-wrap: wrap;
 }
