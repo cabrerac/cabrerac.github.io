@@ -99,11 +99,10 @@ main {
   height: 1.5cm;
   background-color: var(--primary-color);
   color: var(--secondary-color);
-  justify-content: space-between;
+  display: flex;
   align-items: center;
-  padding: 0 20px 0 20px;
+  padding: 0 20px;
   font-size: 14px;
-  flex-wrap: wrap;
 }
 
 .site-footer a {
@@ -112,11 +111,10 @@ main {
 }
 
 .site-footer a:hover {
-A  color: var(--accent-color);
+  color: var(--accent-color);
 }
 
 .footer-section {
   display: flex;
   align-items: center;
-  justify-content: center;
 }
