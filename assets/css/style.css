@@ -99,7 +99,6 @@ main {
   height: 1.5cm;
   background-color: var(--primary-color);
   color: var(--secondary-color);
-  display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px 0 20px;
