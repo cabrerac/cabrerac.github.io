@@ -109,14 +109,15 @@ nav button:hover {
   }
 }
 
+main {
+  margin-top: 80px;
+}
+
 footer {
   background-color: var(--primary-color);
   color: var(--secondary-color);
   padding: 20px 0;
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }
 
 .footer-container {
