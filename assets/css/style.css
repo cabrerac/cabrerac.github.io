@@ -98,13 +98,13 @@ nav button:hover {
 }
 
 @media (max-width: 768px) {
-  nav a {
-    display: none;
+  nav ul {
+	display: none;
   }
   nav button {
     display: block;
   }
-  .menu-open nav a {
+  .menu-open nav ul {
     display: block;
   }
 }
