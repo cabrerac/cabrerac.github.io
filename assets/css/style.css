@@ -11,7 +11,7 @@ body {
   font-size: 16px;
   line-height: 1.5;
   color: #333;
-  background-color: #f1f1f1;
+  background-color: #ffffff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -19,7 +19,7 @@ body {
 
 /* Header Styles */
 header {
-  background-color: #f1f1f1;
+  background-color: #ffffff;
   color: #fff;
   padding: 1rem;
   text-align: center;
@@ -34,7 +34,7 @@ h1 {
 nav {
   display: flex;
   justify-content: center;
-  background-color: #f1f1f1;
+  background-color: #ffffff;
   padding: 0.5rem;
 }
 
@@ -66,8 +66,8 @@ main {
 footer {
   text-align: center;
   padding: 1rem;
-  background-color: #333;
-  color: #fff;
+  background-color: #ffffff;
+  color: #333;
   margin-top: auto;
 }
 
