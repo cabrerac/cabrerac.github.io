@@ -19,7 +19,7 @@ body {
 
 /* Header Styles */
 header {
-  background-color: #333;
+  background-color: #f1f1f1;
   color: #fff;
   padding: 1rem;
   text-align: center;
@@ -34,7 +34,7 @@ h1 {
 nav {
   display: flex;
   justify-content: center;
-  background-color: #eee;
+  background-color: #f1f1f1;
   padding: 0.5rem;
 }
 
