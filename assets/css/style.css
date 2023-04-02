@@ -12,6 +12,9 @@ body {
   line-height: 1.5;
   color: #333;
   background-color: #f1f1f1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Header Styles */
@@ -56,6 +59,7 @@ main {
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1; 
 }
 
 /* Footer Styles */
@@ -64,6 +68,7 @@ footer {
   padding: 1rem;
   background-color: #333;
   color: #fff;
+  margin-top: auto;
 }
 
 /* Computer Science Touch */
