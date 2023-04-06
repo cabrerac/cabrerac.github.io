@@ -8,8 +8,8 @@
 /* Body Styles */
 body {
   font-family: Consolas, monospace;
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: 14px; /* Update this value to your desired font size for the body text */
+  line-height: 1.6; /* Update this value to adjust the spacing between paragraphs */
   color: #333;
   background-color: #ffffff;
   min-height: 100vh;
@@ -19,7 +19,7 @@ body {
 
 /* Header Styles */
 header {
-  background-color: #ffffff;
+  background-color: #007bff; /* Update this value to your desired shade of blue */
   color: #fff;
   padding: 1rem;
   text-align: center;
@@ -34,7 +34,7 @@ h1 {
 nav {
   display: flex;
   justify-content: center;
-  background-color: #ffffff;
+  background-color: #007bff; /* Update this value to your desired shade of blue */
   padding: 0.5rem;
 }
 
@@ -59,15 +59,15 @@ main {
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  flex: 1; 
+  flex: 1;
 }
 
 /* Footer Styles */
 footer {
   text-align: center;
   padding: 1rem;
-  background-color: #ffffff;
-  color: #333;
+  background-color: #007bff; /* Update this value to your desired shade of blue */
+  color: #fff;
   margin-top: auto;
 }
 
@@ -123,8 +123,4 @@ code {
   code {
     font-size: 0.8rem;
   }
-}
-
-p {
-  margin-bottom: 1.5rem; /* Adjust the value to increase or decrease the space */
 }
