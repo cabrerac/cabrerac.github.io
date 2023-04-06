@@ -124,3 +124,7 @@ code {
     font-size: 0.8rem;
   }
 }
+
+p {
+  margin-bottom: 1.5rem; /* Adjust the value to increase or decrease the space */
+}
