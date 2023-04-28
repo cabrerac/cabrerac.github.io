@@ -32,7 +32,7 @@ google_analytics: UA-123213042-1
 
 # BibTex file
 bibtex:
-  bibfiles: [_bibliography/bibfile.bib]
+  bibfiles: [./_bibliography/bibfile.bib]
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
