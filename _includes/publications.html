@@ -1,7 +1,7 @@
 {% assign publications = site.data.publications | sort: 'year' | reverse %}
 {% for pub in publications %}
   <div class="publication">
-    <h3>{{ pub.title }}</h3><a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.bibkey }}" class="bibtex-link">[bibtex]</a>
+    <h4>{{ pub.title }}</h4> <a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.bibkey }}" class="bibtex-link" target="_blank">[bibtex]</a>
 	<br>
     {{ pub.authors }}
 	<br>
