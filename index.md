@@ -6,12 +6,13 @@ permalink: /
 ---
 
 <p>
-   I am Christian Cabrera-Jojoa a Postdoctoral Research Associate at the University of Cambridge.
-   My current research addresses the problems and challenges that arise from the deployment of 
-   Artificial Intelligence systems in the real world. Previous to this position, I was a Postdoctoral 
-   Research Fellow at Trinity College Dublin, where I also received a Ph.D. in Computer Science (2020). 
-   My research at Trinity focused on context-aware, pervasive, and resilient systems architectures for 
-   large, distributed, and dynamic urban environments.
+  <img src="/assets/images/christian-cabrera.jpeg" style="float: left; margin-right: 10px;">
+  I am Christian Cabrera-Jojoa a Postdoctoral Research Associate at the University of Cambridge. 
+  My current research addresses the problems and challenges that arise from the deployment of 
+  Artificial Intelligence systems in the real world. Previous to this position, I was a Postdoctoral 
+  Research Fellow at Trinity College Dublin, where I also received a Ph.D. in Computer Science (2020). 
+  My research at Trinity focused on context-aware, pervasive, and resilient systems architectures for 
+  large, distributed, and dynamic urban environments.
 </p>
 <p>
    We are already witnessing the benefits that the new AI-based technologies can bring to our lives. 
