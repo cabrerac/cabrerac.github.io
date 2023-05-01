@@ -140,8 +140,8 @@ p {
   display: inline-block;
   width: 24px;
   height: 24px;
-  background-color: #000; /* replace with your desired background color */
-  border-radius: 50%;
+  background-color: #fff; /* replace with your desired background color */
+  border-radius: 0;
   padding: 6px;
 }
 .custom-icon img {
