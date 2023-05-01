@@ -142,7 +142,7 @@ p {
   height: 28px;
   background-color: #fff; /* replace with your desired background color */
   border-radius: 0;
-  padding: 4px;
+  padding: 0px;
   margin-top: 10px;
 }
 .custom-icon img {
