@@ -21,8 +21,8 @@ permalink: /
 
 <!-- social media links -->
 <div class="social-icons-container">
-  <a href="https://www.cst.cam.ac.uk/people/chc79" target="_blank"><i class="custom-icon fa-2x"><img src="/assets/images/university-of-cambridge.svg" alt="University of Cambridge" /></i></a>
-  <a href="https://mlatcl.github.io/people/christian-cabrera.html" target="_blank"><i class="custom-icon fa-2x"><img src="/assets/images/mlcl.ico" alt="ML@CL" /></i></a>
+  <a href="https://www.cst.cam.ac.uk/people/chc79" target="_blank"><i class="custom-icon"><img src="/assets/images/university-of-cambridge.svg" alt="University of Cambridge" /></i></a>
+  <a href="https://mlatcl.github.io/people/christian-cabrera.html" target="_blank"><i class="custom-icon"><img src="/assets/images/mlcl.jpg" alt="ML@CL" /></i></a>
   <a href="https://scholar.google.com/citations?user=NITUwmcAAAAJ&hl=en" target="_blank"><i class="ai ai-google-scholar-square ai-2x"></i></a>
   <a href="https://www.researchgate.net/profile/Christian-Cabrera-5" target="_blank"><i class="ai ai-researchgate-square ai-2x"></i></a>
   <a href="https://www.linkedin.com/in/christian-cabrera-39a70254/" target="_blank"><i class="fab fa-linkedin-in fa-2x"></i></a>
