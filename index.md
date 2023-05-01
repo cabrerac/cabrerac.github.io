@@ -18,3 +18,13 @@ permalink: /
    This website presents the outputs of my current and previous research, as well as content that I find 
    interesting to share.
 </p>
+
+<!-- social media links -->
+<div class="social-icons">
+  <a href="https://www.cst.cam.ac.uk/people/chc79" target="_blank"><i class="fab fa-chrome"></i></a>
+  <a href="https://mlatcl.github.io/people/christian-cabrera.html" target="_blank"><i class="fas fa-network-wired"></i></a>
+  <a href="https://scholar.google.com/citations?user=NITUwmcAAAAJ&hl=en" target="_blank"><i class="ai ai-google-scholar-square ai-2x"></i></a>
+  <a href="https://www.researchgate.net/profile/Christian-Cabrera-5" target="_blank"><i class="ai ai-researchgate-square ai-2x"></i></a>
+  <a href="https://www.linkedin.com/in/christian-cabrera-39a70254/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+  <a href="https://github.com/cabrerac/" target="_blank"><i class="fab fa-github"></i></a>
+</div>
