@@ -28,7 +28,3 @@ permalink: /
   <a href="https://www.linkedin.com/in/christian-cabrera-39a70254/" target="_blank"><i class="fab fa-linkedin-in fa-2x"></i></a>
   <a href="https://github.com/cabrerac/" target="_blank"><i class="fab fa-github fa-2x"></i></a>
 </div>
-<!-- Curriculum vitae -->
-<div style="clear: both; margin-top: 20px;">
-  <a href="/assets/docs/cv.pdf" target="_blank" class="cv-button">Curriculum vitae</a>
-</div>
