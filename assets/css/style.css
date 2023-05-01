@@ -149,9 +149,21 @@ p {
   height: 100%;
 }
 
-.cv-link {
+.cv-button {
   display: block;
-  clear: both;
+  margin: 0 auto;
   text-align: center;
   margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #333;
+  text-decoration: none;
+  width: 150px;
 }
+
+.cv-button:hover {
+  background-color: #444;
+}
+
