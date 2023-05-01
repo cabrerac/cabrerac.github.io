@@ -141,8 +141,6 @@ p {
   width: 24.5px;
   height: 24.5px;
   background-color: #fff; /* replace with your desired background color */
-  border-radius: 0;
-  padding: 0px;
   margin-top: 10px;
 }
 .custom-icon img {

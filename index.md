@@ -19,6 +19,10 @@ permalink: /
    interesting to share.
 </p>
 
+<p>
+  <a href="/assets/docs/cv.pdf" target="_blank" class="btn btn-primary">Curriculum vitae</a>
+</p>
+
 <!-- social media links -->
 <div class="social-icons-container">
   <a href="https://www.cst.cam.ac.uk/people/chc79" target="_blank"><i class="custom-icon"><img src="/assets/images/university-of-cambridge.svg" alt="University of Cambridge" /></i></a>
