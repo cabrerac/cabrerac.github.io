@@ -29,5 +29,5 @@ permalink: /
 </div>
 <!-- Curriculum vitae -->
 <div style="clear: both; margin-top: 20px;">
-  <a href="/assets/docs/cv.pdf" target="_blank" style="display: inline-block; padding: 10px; background-color: #007bff; color: #fff; text-decoration: none;">Curriculum vitae</a>
+  <a href="/assets/docs/cv.pdf" target="_blank" class="cv-button">Curriculum vitae</a>
 </div>
