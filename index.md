@@ -18,11 +18,6 @@ permalink: /
    This website presents the outputs of my current and previous research, as well as content that I find 
    interesting to share.
 </p>
-
-<p>
-  <a href="/assets/docs/cv.pdf" target="_blank" class="btn btn-primary">Curriculum vitae</a>
-</p>
-
 <!-- social media links -->
 <div class="social-icons-container">
   <a href="https://www.cst.cam.ac.uk/people/chc79" target="_blank"><i class="custom-icon"><img src="/assets/images/university-of-cambridge.svg" alt="University of Cambridge" /></i></a>
@@ -31,4 +26,8 @@ permalink: /
   <a href="https://www.researchgate.net/profile/Christian-Cabrera-5" target="_blank"><i class="ai ai-researchgate-square ai-2x"></i></a>
   <a href="https://www.linkedin.com/in/christian-cabrera-39a70254/" target="_blank"><i class="fab fa-linkedin-in fa-2x"></i></a>
   <a href="https://github.com/cabrerac/" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+</div>
+<!-- Curriculum vitae -->
+<div style="clear: both; margin-top: 20px;">
+  <a href="/assets/docs/cv.pdf" target="_blank" style="display: inline-block; padding: 10px; background-color: #007bff; color: #fff; text-decoration: none;">Curriculum vitae</a>
 </div>
