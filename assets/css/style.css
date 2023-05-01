@@ -138,12 +138,12 @@ p {
 
 .custom-icon {
   display: inline-block;
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
   background-color: #fff; /* replace with your desired background color */
   border-radius: 0;
-  padding: 6px;
-  margin-top: 8px;
+  padding: 4px;
+  margin-top: 10px;
 }
 .custom-icon img {
   display: block;
