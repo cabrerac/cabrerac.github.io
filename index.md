@@ -6,7 +6,7 @@ permalink: /
 ---
 
 <p>
-  <img src="/assets/images/christian-cabrera.jpeg" style="float: left; margin-right: 10px;" width="25%" height="auto">
+  <img src="/assets/images/christian-cabrera.jpeg" style="float: left; margin-right: 10px;" width="15%" height="auto">
   I am Christian Cabrera-Jojoa a Postdoctoral Research Associate at the University of Cambridge. 
   My current research addresses the problems and challenges that arise from the deployment of 
   Artificial Intelligence Systems in the real world. Particularly, I am looking at approaches for 
