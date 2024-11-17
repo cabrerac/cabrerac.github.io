@@ -7,15 +7,14 @@ permalink: /
 
 <p>
   <img src="/assets/images/christian-cabrera.jpeg" style="float: left; margin-right: 10px;" width="20%" height="auto">
-  I am Christian Cabrera-Jojoa a Research Associate and Affiliated Lecturer at the University of Cambridge. 
-  My current research addresses the problems and challenges that arise from the deployment of 
-  Artificial Intelligence Systems in the real world. Particularly, I am looking at approaches for 
-  desiging self-sustaining AI-systems to improve their interpretability and autonomous adaptation. 
+  Christian Cabrera-Jojoa is a Research Associate and Affiliated Lecturer at the University of Cambridge. 
 </p>
 <p>
-  Previous to this position, I was a Postdoctoral Research Fellow at Trinity College Dublin, where 
-  I also received a Ph.D. in Computer Science (2020). My research at Trinity focused on context-aware, 
-  pervasive, and resilient systems architectures for large, distributed, and dynamic urban environments.
+  My current research addresses the problems and challenges that arise from the deployment of Artificial Intelligence Systems in the real world. Particularly, I am developing approaches for designing self-sustaining AI-based systems to improve their interpretability and autonomous adaptation while keeping them aligned with socio-technical systems. 
+</p>
+
+<p>
+  Previously, I was a Postdoctoral Research Fellow at Trinity College Dublin, where I also received a Ph.D. in Computer  Science (2020). My research at Trinity focused on context-aware, pervasive, and resilient systems architectures for large, distributed, and dynamic urban environments.
 </p>
 <!-- social media links -->
 <div class="social-icons-container">
