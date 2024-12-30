@@ -1,6 +1,22 @@
 ---
 layout: default
 title: Teaching
-description: "Courses I have helped with"
+description: "Lecturing activities"
 permalink: /teaching/
 ---
+
+{% assign courses = site._content._courses | sort: 'start_date' | reverse %}
+{% assign grouped_courses = courses | group_by: 'year' %}
+
+{% for year in grouped_courses %}
+  <h2>{{ year.name }}</h2>
+  <ul>
+    {% for course in year.items %}
+      <li>
+        <strong>{{ course.title }}</strong><br>
+        Date: {{ course.date | date: "%B %d, %Y" }}<br>
+        Description: {{ course.description }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endfor %}
