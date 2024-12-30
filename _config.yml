@@ -49,5 +49,5 @@ bibtex:
 collections:
   courses:
      output: true
-     permalink: /courses/:title/
-     directory: _content/_courses
+     permalink: /teaching/:title/
+     directory: /_content/_courses
