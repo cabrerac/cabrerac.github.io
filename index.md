@@ -6,7 +6,7 @@ permalink: /
 ---
 
 <p>
-  <img src="/_assets/images/christian-cabrera.jpeg" style="float: left; margin-right: 10px;" width="20%" height="auto">
+  <img src="/assets/images/christian-cabrera.jpeg" style="float: left; margin-right: 10px;" width="20%" height="auto">
   Christian Cabrera-Jojoa is a Research Associate and Affiliated Lecturer at the University of Cambridge. 
 </p>
 <p>
@@ -18,9 +18,9 @@ permalink: /
 </p>
 <!-- social media links -->
 <div class="social-icons-container">
-  <a href="/_assets/docs/cv.pdf" target="_blank"><i class="ai ai-cv ai-2x"></i></a>
-  <a href="https://www.cst.cam.ac.uk/people/chc79" target="_blank"><i class="custom-icon"><img src="/_assets/images/university-of-cambridge.svg" alt="University of Cambridge" /></i></a>
-  <a href="https://mlatcl.github.io/people/christian-cabrera.html" target="_blank"><i class="custom-icon"><img src="/_assets/images/mlcl.jpg" alt="ML@CL" /></i></a>
+  <a href="/assets/docs/cv.pdf" target="_blank"><i class="ai ai-cv ai-2x"></i></a>
+  <a href="https://www.cst.cam.ac.uk/people/chc79" target="_blank"><i class="custom-icon"><img src="/assets/images/university-of-cambridge.svg" alt="University of Cambridge" /></i></a>
+  <a href="https://mlatcl.github.io/people/christian-cabrera.html" target="_blank"><i class="custom-icon"><img src="/assets/images/mlcl.jpg" alt="ML@CL" /></i></a>
   <a href="https://scholar.google.com/citations?user=NITUwmcAAAAJ&hl=en" target="_blank"><i class="ai ai-google-scholar ai-2x"></i></a>
   <a href="https://www.researchgate.net/profile/Christian-Cabrera-5" target="_blank"><i class="ai ai-researchgate ai-2x"></i></a>
   <a href="https://www.linkedin.com/in/christian-cabrera-39a70254/" target="_blank"><i class="fab fa-linkedin-in fa-2x"></i></a>
