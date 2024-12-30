@@ -1,0 +1,169 @@
+/* Reset Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body Styles */
+body {
+  font-family: Consolas, monospace;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  background-color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header Styles */
+header {
+  background-color: #ffffff;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+/* Navigation Styles */
+nav {
+  display: flex;
+  justify-content: center;
+  background-color: #ffffff;
+  padding: 0.5rem;
+}
+
+nav a {
+  color: #333;
+  text-decoration: none;
+  margin: 0 1rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-size: 16;
+}
+
+nav a:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Main Content Styles */
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 14px;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1; 
+}
+
+/* Footer Styles */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #ffffff;
+  color: #333;
+  margin-top: auto;
+  font-size: 16;
+}
+
+/* Computer Science Touch */
+code {
+  background-color: #f1f1f1;
+  color: #c7254e;
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+  font-size: 0.9rem;
+}
+
+/* Media Queries */
+@media only screen and (max-width: 768px) {
+  /* Navigation Styles */
+  nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  nav a {
+    margin: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  /* Main Content Styles */
+  main {
+    padding: 0.5rem;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  /* Header Styles */
+  header {
+    padding: 0.5rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  /* Navigation Styles */
+  nav a {
+    padding: 0.3rem;
+  }
+
+  /* Main Content Styles */
+  main {
+    padding: 0.3rem;
+  }
+
+  /* Computer Science Touch */
+  code {
+    font-size: 0.8rem;
+  }
+}
+
+p {
+  margin-bottom: 1.5rem; 
+}
+
+.social-icons-container {
+  text-align: center;
+}
+
+.custom-icon {
+  display: inline-block;
+  width: 24.5px;
+  height: 24.5px;
+  background-color: #fff; /* replace with your desired background color */
+  margin-top: 10px;
+}
+.custom-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cv-button {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #333;
+  text-decoration: none;
+  width: 150px;
+}
+
+.cv-button:hover {
+  background-color: #444;
+}
+
