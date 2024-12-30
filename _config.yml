@@ -46,8 +46,8 @@ bibtex:
 #   - vendor/ruby/
 
 # Additional directories
-collections:
-  courses:
-    output: true
-    permalink: /teaching/:title/
-    directory: ./_content/_courses
+#collections_dir: _content
+#collections:
+#  courses:
+#    permalink: /teaching/:collection/:code
+#    output: true
