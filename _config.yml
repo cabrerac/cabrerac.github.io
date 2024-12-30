@@ -44,3 +44,10 @@ bibtex:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+# Additional directories
+collections:
+  courses:
+     output: true
+     permalink: /courses/:title/
+     directory: _content/_courses
