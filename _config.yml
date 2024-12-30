@@ -48,6 +48,6 @@ bibtex:
 # Additional directories
 collections:
   courses:
-     output: true
-     permalink: /teaching/:title/
-     directory: /_content/_courses
+    output: true
+    permalink: /teaching/:title/
+    directory: /_content/_courses
