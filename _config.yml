@@ -50,4 +50,4 @@ collections:
   courses:
     output: true
     permalink: /teaching/:title/
-    directory: /_content/_courses
+    directory: ./_content/_courses
