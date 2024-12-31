@@ -6,13 +6,13 @@
     {% include header.html %}
     <main id="content" class="main{% if page.sidebar %} main--with-sidebar{% endif %}">
       <h1>{{ page.title }}</h1> <!-- Display course title -->
-      <p><strong>Description:</strong> {{ page.description }}</p> <!-- Display description -->
-      <p><strong>Institution:</strong> {{ page.institution }}</p> <!-- Display institution -->
-      <p><strong>Lectures:</strong> {{ page.lectures }}</p> <!-- Display number of lectures -->
-      <p><strong>Hours:</strong> {{ page.hours }}</p> <!-- Display number of hours -->
-      <p><strong>From:</strong> {{ page.start_date }}</p> <!-- Display start date -->
-      <p><strong>To:</strong> {{ page.end_date }}</p> <!-- Display end date -->
-      <p><strong>Year:</strong> {{ page.year }}</p> <!-- Display year -->
+      <strong>Description:</strong> {{ page.description }}<br> <!-- Display description -->
+      <strong>Institution:</strong> {{ page.institution }}<br> <!-- Display institution -->
+      <strong>Lectures:</strong> {{ page.lectures }}<br> <!-- Display number of lectures -->
+      <strong>Hours:</strong> {{ page.hours }}<br> <!-- Display number of hours -->
+      <strong>From:</strong> {{ page.start_date }}<br> <!-- Display start date -->
+      <strong>To:</strong> {{ page.end_date }}<br> <!-- Display end date -->
+      <strong>Year:</strong> {{ page.year }}<br> <!-- Display year -->
       {{ content }}
     </main>
     {% include footer.html %}

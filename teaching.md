@@ -10,19 +10,17 @@ permalink: /teaching/
 
 <h1>Courses</h1>
 <br>
-<br>
 {% for year in grouped_courses %}
   <h2>{{ year.name }}</h2>
-  <br>
   <ul>
     {% for course in year.items %}
       <li>
-         <a href="{{ course.permalink }}"> <!-- Added link to course page -->
+        <a href="{{ course.permalink }}"> <!-- Added link to course page -->
           <strong>{{ course.title }}</strong>
-        </a><br>
-        Institution: {{ course.institution }}<br>
-        Description: {{ course.description }}<br>
-        Year: {{ course.year }}<br>
+        </a>
+        <strong>Description:</strong> {{ course.description }}
+        <strong>Institution:</strong> {{ course.institution }}
+        <strong>Year:</strong> {{ course.year }}
       </li>
     {% endfor %}
   </ul>
