@@ -1,12 +1,14 @@
 ---
 layout: lecture
+code: lecture-1
 title: "Introduction to Machine Learning"
 description: "This lecture presents the course Introduction to Machine Learning"
-course: intro-ml-udenar-25
+course: 25-udenar-ml-intro
 date: 01/03/2024
 start_time: 8:00
 end_time: 12:00
 hours: 4
 session: 1
-permalink: /ml-intro
+permalink: /teaching/25-udenar-ml-intro/lecture-1
 ---
+
