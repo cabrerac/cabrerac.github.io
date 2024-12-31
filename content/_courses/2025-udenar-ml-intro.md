@@ -1,6 +1,6 @@
 ---
 layout: course
-code: intro-ml-udenar-25
+code: 25-udenar-ml-intro
 title: "Introduction to Machine Learning"
 description: "Course of Introduction to Machine Learning."
 institution: "Universidad de Nariño"
@@ -10,7 +10,7 @@ end_date: 30/06/2025
 year: 2025
 lectures: 10
 hours: 40
-permalink: /2025-udenar-ml-intro
+permalink: /teaching/25-udenar-ml-intro
 ---
 
 <h1>{{ course.title }}</h1>

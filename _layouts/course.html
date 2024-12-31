@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+  {% include head.html %}
+  <body class="container {{ page.body_class }}{% if page.sidebar %} with-sidebar{% endif %}">
+    <a class="skip-link screen-reader-text" href="#content">{{ site.data.translation.skip_to_content }}</a>
+    {% include header.html %}
+    <main id="content" class="main{% if page.sidebar %} main--with-sidebar{% endif %}">
+      {{ content }}
+    </main>
+    {% include footer.html %}
+  </body>
+</html>

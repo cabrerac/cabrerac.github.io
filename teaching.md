@@ -19,8 +19,8 @@ permalink: /teaching/
           <strong>{{ course.title }}</strong>
         </a><br>
         Institution: {{ course.institution }}<br>
-        Date: {{ course.start_date | date: "%B %d, %Y" }}<br>
         Description: {{ course.description }}
+        Year: {{ course.year }}<br>
       </li>
     {% endfor %}
   </ul>
