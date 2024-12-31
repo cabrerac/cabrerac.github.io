@@ -1,9 +1,9 @@
 ---
 layout: lecture
-code: data-first
+lecture_code: data-first
 title: "Data First"
 description: "This lecture introduces the concept of data first"
-course: 25-udenar-ml-intro
+course_code: 25-udenar-ml-intro
 date: 05/03/2025
 start_time: 8:00
 end_time: 12:00

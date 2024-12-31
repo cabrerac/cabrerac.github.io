@@ -1,6 +1,6 @@
 ---
 layout: course
-code: 25-udenar-ml-intro
+course_code: 25-udenar-ml-intro
 title: "Introduction to Machine Learning"
 description: "Course of Introduction to Machine Learning"
 institution: "Universidad de Nariño"
@@ -13,7 +13,7 @@ hours: 40
 permalink: /teaching/25-udenar-ml-intro/
 ---
 
-{% assign course_lectures = site.lectures | where: "course", page.code | sort: 'session' %}
+{% assign course_lectures = site.lectures | where: "course_code", page.course_code | sort: 'session' %}
 <br>
 <h2>Lectures</h2>
 <ul>
@@ -22,7 +22,6 @@ permalink: /teaching/25-udenar-ml-intro/
     <a href="{{ lecture.permalink }}" target="_blank">
       <strong>{{ lecture.title }}</strong>
     </a><br>
-    Text: {{ lecture.permalink }}<br>
     Date: {{ lecture.date | date: "%B %d, %Y" }}<br>
     Description: {{ lecture.description }}<br>
   </li>
