@@ -9,6 +9,6 @@ start_time: 8:00
 end_time: 12:00
 hours: 4
 session: 2
-permalink: /teaching/25-udenar-ml-intro/data-first/
+permalink: /teaching/data-first/
 ---
 
