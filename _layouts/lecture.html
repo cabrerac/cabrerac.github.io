@@ -5,12 +5,12 @@
     <a class="skip-link screen-reader-text" href="#content">{{ site.data.translation.skip_to_content }}</a>
     {% include header.html %}
     <main id="content" class="main{% if page.sidebar %} main--with-sidebar{% endif %}">
-      {% assign course = site.courses.page.course %}
-      <h1>{{ page.title }}</h1> <!-- Display course title -->
+      {% assign course = site.courses.page.course_code %}
+      <h1>Lecture {{ page.session }}: {{ page.title }}</h1> <!-- Display course title -->
       <strong>Description:</strong> {{ page.description }}<br> <!-- Display description -->
       <strong>Department:</strong> {{ course.department }}<br> <!-- Display department -->  
       <strong>Institution:</strong> {{ course.institution }}<br> <!-- Display institution -->
-      <strong>Date:</strong> {{ page.date }}<br> <!-- Display date -->
+      <strong>Date:</strong> {{ page.date | date: "%B %d, %Y" }}<br> <!-- Display date -->
       <strong>Hours:</strong> {{ page.hours }}<br> <!-- Display number of hours -->
       <strong>From:</strong> {{ page.start_time }}<br> <!-- Display start date -->
       <strong>To:</strong> {{ page.end_time }}<br> <!-- Display end date -->
