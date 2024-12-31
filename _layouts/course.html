@@ -5,6 +5,14 @@
     <a class="skip-link screen-reader-text" href="#content">{{ site.data.translation.skip_to_content }}</a>
     {% include header.html %}
     <main id="content" class="main{% if page.sidebar %} main--with-sidebar{% endif %}">
+      <h1>{{ page.title }}</h1> <!-- Display course title -->
+      <p><strong>Description:</strong> {{ page.description }}</p> <!-- Display description -->
+      <p><strong>Institution:</strong> {{ page.institution }}</p> <!-- Display institution -->
+      <p><strong>Lectures:</strong> {{ page.lectures }}</p> <!-- Display number of lectures -->
+      <p><strong>Hours:</strong> {{ page.hours }}</p> <!-- Display number of hours -->
+      <p><strong>From:</strong> {{ page.start_date }}</p> <!-- Display start date -->
+      <p><strong>To:</strong> {{ page.end_date }}</p> <!-- Display end date -->
+      <p><strong>Year:</strong> {{ page.year }}</p> <!-- Display year -->
       {{ content }}
     </main>
     {% include footer.html %}

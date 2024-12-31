@@ -9,9 +9,11 @@ permalink: /teaching/
 {% assign grouped_courses = courses | group_by: 'year' %}
 
 <h1>Courses</h1>
-
+<br>
+<br>
 {% for year in grouped_courses %}
   <h2>{{ year.name }}</h2>
+  <br>
   <ul>
     {% for course in year.items %}
       <li>
@@ -19,7 +21,7 @@ permalink: /teaching/
           <strong>{{ course.title }}</strong>
         </a><br>
         Institution: {{ course.institution }}<br>
-        Description: {{ course.description }}
+        Description: {{ course.description }}<br>
         Year: {{ course.year }}<br>
       </li>
     {% endfor %}

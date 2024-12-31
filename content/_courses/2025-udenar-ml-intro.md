@@ -13,6 +13,4 @@ hours: 40
 permalink: /teaching/25-udenar-ml-intro
 ---
 
-<h1>{{ course.title }}</h1>
-
 
