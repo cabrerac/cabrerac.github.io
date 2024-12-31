@@ -8,15 +8,18 @@ permalink: /teaching/
 {% assign courses = site.courses | sort: 'start_date' | reverse %}
 {% assign grouped_courses = courses | group_by: 'year' %}
 
-<h2>Courses: {{ courses | size }}</h2>
+<h1>Courses</h1>
 
 {% for year in grouped_courses %}
   <h2>{{ year.name }}</h2>
   <ul>
     {% for course in year.items %}
       <li>
-        <strong>{{ course.title }}</strong><br>
-        Date: {{ course.date | date: "%B %d, %Y" }}<br>
+         <a href="{{ course.permalink }}"> <!-- Added link to course page -->
+          <strong>{{ course.title }}</strong>
+        </a><br>
+        Institution: {{ course.institution }}<br>
+        Date: {{ course.start_date | date: "%B %d, %Y" }}<br>
         Description: {{ course.description }}
       </li>
     {% endfor %}
