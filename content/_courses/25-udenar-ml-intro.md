@@ -22,6 +22,7 @@ permalink: /teaching/25-udenar-ml-intro/
     <a href="{{ lecture.permalink }}" target="_blank">
       <strong>{{ lecture.title }}</strong>
     </a><br>
+    Text: {{ lecture.permalink }}<br>
     Date: {{ lecture.date | date: "%B %d, %Y" }}<br>
     Description: {{ lecture.description }}<br>
   </li>
