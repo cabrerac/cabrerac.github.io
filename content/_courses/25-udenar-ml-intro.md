@@ -10,7 +10,7 @@ end_date: 30/06/2025
 year: 2025
 lectures: 10
 hours: 40
-permalink: /teaching/25-udenar-ml-intro
+permalink: /teaching/25-udenar-ml-intro/
 ---
 
 {% assign course_lectures = site.lectures | where: "course", page.code | sort: 'session' %}

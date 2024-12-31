@@ -49,8 +49,8 @@ bibtex:
 collections_dir: content
 collections:
   courses:
-    permalink: /teaching/:code
+    permalink: /teaching/:code/
     output: true
   lectures:
-    permalink: /teaching/:course/:code
+    permalink: /teaching/:course/:code/
     output: true

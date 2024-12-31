@@ -9,6 +9,6 @@ start_time: 8:00
 end_time: 12:00
 hours: 4
 session: 1
-permalink: /teaching/25-udenar-ml-intro/ml-introduction
+permalink: /teaching/25-udenar-ml-intro/ml-introduction/
 ---
 
