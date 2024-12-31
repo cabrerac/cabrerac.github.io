@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: lecture
 code: ml-introduction
 title: "Introduction to Machine Learning"
 description: "This lecture presents the course"

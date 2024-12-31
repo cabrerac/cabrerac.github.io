@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: lecture
 code: data-first
 title: "Data First"
 description: "This lecture introduces the concept of data first"
