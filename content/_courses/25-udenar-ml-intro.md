@@ -13,7 +13,7 @@ hours: 40
 permalink: /teaching/25-udenar-ml-intro
 ---
 
-{% assign course_lectures = site.lectures | where: "course_code", page.code | sort: 'session' %}
+{% assign course_lectures = site.lectures | where: "course", page.code | sort: 'session' %}
 <br>
 <h2>Lectures</h2>
 <ul>
