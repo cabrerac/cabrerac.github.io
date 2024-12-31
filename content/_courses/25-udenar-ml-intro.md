@@ -19,7 +19,7 @@ permalink: /teaching/25-udenar-ml-intro/
 <ul>
 {% for lecture in course_lectures %}
   <li>
-    <a href="{{ lecture.permalink }}">
+    <a href="{{ lecture.permalink }}" target="_blank">
       <strong>{{ lecture.title }}</strong>
     </a><br>
     Date: {{ lecture.date | date: "%B %d, %Y" }}<br>

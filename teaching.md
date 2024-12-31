@@ -14,7 +14,7 @@ permalink: /teaching/
   <ul>
     {% for course in year.items %}
       <li>
-        <a href="{{ course.permalink }}"> <!-- Added link to course page -->
+        <a href="{{ course.permalink }}" target="_blank"> <!-- Added link to course page -->
           <strong>{{ course.title }}</strong>
         </a>
         <br>
