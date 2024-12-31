@@ -13,7 +13,7 @@
       <strong>Date:</strong> {{ page.date | date: "%B %d, %Y" }}<br> <!-- Display date -->
       <strong>Hours:</strong> {{ page.hours }}<br> <!-- Display number of hours -->
       <strong>From:</strong> {{ page.start_time | date: "%HH:%MM" }}<br> <!-- Display start time -->
-      <strong>To:</strong> {{ page.end_time date: "%HH:%MM" }}<br> <!-- Display end time -->
+      <strong>To:</strong> {{ page.end_time | date: "%HH:%MM" }}<br> <!-- Display end time -->
       {{ content }}
     </main>
     {% include footer.html %}
