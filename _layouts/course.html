@@ -11,8 +11,8 @@
       <strong>Institution:</strong> {{ page.institution }}<br> <!-- Display institution -->
       <strong>Lectures:</strong> {{ page.lectures }}<br> <!-- Display number of lectures -->
       <strong>Hours:</strong> {{ page.hours }}<br> <!-- Display number of hours -->
-      <strong>From:</strong> {{ page.start_date }}<br> <!-- Display start date -->
-      <strong>To:</strong> {{ page.end_date }}<br> <!-- Display end date -->
+      <strong>From:</strong> {{ page.start_date | date: "%B %d, %Y" }}<br> <!-- Display start date -->
+      <strong>To:</strong> {{ page.end_date | date: "%B %d, %Y" }}<br> <!-- Display end date -->
       {{ content }}
     </main>
     {% include footer.html %}
