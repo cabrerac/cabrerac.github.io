@@ -2,7 +2,7 @@
 layout: course
 code: 25-udenar-ml-intro
 title: "Introduction to Machine Learning"
-description: "Course of Introduction to Machine Learning."
+description: "Course of Introduction to Machine Learning"
 institution: "Universidad de Nariño"
 department: "Centro de Estudios y Asesoría en Estadística (CEASE)"
 start_date: 01/03/2025
