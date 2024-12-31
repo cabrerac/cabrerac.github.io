@@ -52,4 +52,5 @@ collections:
     permalink: /teaching/:code
     output: true
   lectures:
+    permalink: /teaching/:course/:code
     output: true
