@@ -5,7 +5,7 @@ description: "Lecturing activities"
 permalink: /teaching/
 ---
 
-{% assign courses = site.courses | sort: 'start_date' | reverse %}
+{% assign courses = site.courses | sort: 'start_date' %}
 {% assign grouped_courses = courses | group_by: 'year' %}
 
 <h1>Courses</h1><br>
