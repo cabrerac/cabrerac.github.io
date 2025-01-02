@@ -51,4 +51,6 @@ collections:
   courses:
     permalink: ":permalink"
     output: true
+  lectures:
+    output: true
   
