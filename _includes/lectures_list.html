@@ -1,8 +1,7 @@
 {% if site.lectures %}
   {% assign course_lectures = site.lectures | where: "course_code", page.course_code | sort: 'session' %}
   {% if course_lectures.size > 0 %}
-    <br>
-    <h2>Lectures</h2>
+    ##Lectures<
     <ul>
     {% for lecture in course_lectures %}
       <li>
