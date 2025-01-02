@@ -14,7 +14,6 @@ slides: /assets/slides/engineering-data-science.pdf
 ---
 <br>
 {% if page.slides %}
-  [slides]({{ page.slides }}){:target="_blank"}
+  [<slides>]({{ page.slides }}){:target="_blank"}
 {% endif %}
-<br>
 The details and materials of this lecture are available in [the course website](https://mlatcl.github.io/advds/lectures/04-03-engineering-data-science.html){:target="_blank"}.
