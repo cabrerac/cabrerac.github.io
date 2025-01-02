@@ -12,8 +12,9 @@ session: 2
 permalink: /teaching/24-camb-ads/data-oriented-architectures/
 slides: /assets/slides/data-oriented-architectures.pdf
 ---
-<br>
+<p>
 {% if page.slides %}
   [(slides)]({{ page.slides }}){:target="_blank"}
 {% endif %}
 The details and materials of this lecture are available in [the course website](https://mlatcl.github.io/advds/lectures/05-01-data-oriented-architectures.html){:target="_blank"}.
+</p>
