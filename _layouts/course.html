@@ -31,6 +31,7 @@
         <strong>To:</strong> {{ page.end_date | date: "%B %d, %Y" }}<br> <!-- Display end date -->
       {% endif %}
       {{ content }}
+      {% include lectures_list.html %}
     </main>
     {% include footer.html %}
   </body>
