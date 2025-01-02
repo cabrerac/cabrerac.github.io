@@ -21,6 +21,5 @@ Three phases constitute the data science process: *access* makes the data availa
 <br>
  In particular, I lectured on how data science projects should be engieered with a purpose and how to access data as the first step of the data science pipeline:
  <br>
-
  {% include lectures_list.html %}
  
