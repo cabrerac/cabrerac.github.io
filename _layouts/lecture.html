@@ -25,10 +25,10 @@
       <strong>Hours:</strong> {{ page.hours }}<br> <!-- Display number of hours -->
       {% endif %}
       {% if page.start_time %}
-      <strong>From:</strong> {{ page.start_time | date: "%I:%M" }}<br> <!-- Display start time -->
+      <strong>From:</strong> {{ page.start_time | start_time: "%I:%M" }}<br> <!-- Display start time -->
       {% endif %}
       {% if page.end_time %}
-      <strong>To:</strong> {{ page.end_time | date: "%I:%M" }}<br> <!-- Display end time -->
+      <strong>To:</strong> {{ page.end_time | end_time: "%I:%M" }}<br> <!-- Display end time -->
       {% endif %}
       {{ content }}
     </main>
