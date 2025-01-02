@@ -19,5 +19,5 @@ As the course director, I designed the ADS course focusing on the alignment betw
 Three phases constitute the data science process: *access* makes the data available, *assess* evaluates the data, and *address* uses the data to find insights. The University's course description is [here](https://www.cl.cam.ac.uk/teaching/2425/ADS/){:target="_blank"}, while the full content of the ADS course is available [here](https://mlatcl.github.io/advds/){:target="_blank"}.
 <br>
 <br>
- In particular, I lectured on how data science projects should be engieered with a purpose and how to access data as the first step of the data science pipeline.
+ In particular, I lectured on how data science projects should be engineered with a purpose and how to access data as the first step of the data science pipeline.
  <br> 
