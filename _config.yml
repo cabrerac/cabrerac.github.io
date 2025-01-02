@@ -48,9 +48,6 @@ bibtex:
 # Additional directories
 collections_dir: content
 collections:
-  lectures:
-    permalink: ":permalink"
-    output: true
   courses:
     permalink: ":permalink"
     output: true
