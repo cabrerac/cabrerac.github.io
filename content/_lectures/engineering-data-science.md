@@ -14,7 +14,7 @@ slides: /assets/slides/engineering-data-science.pdf
 ---
 <p>
 {% if page.slides %}
-  [(slides)]({{ page.slides }}){:target="_blank"}
+  <a href="{{ page.slides }}" target="_blank">[slides]</a>
 {% endif %}
-The details and materials of this lecture are available in [the course website](https://mlatcl.github.io/advds/lectures/04-03-engineering-data-science.html){:target="_blank"}.
+The details and materials of this lecture are available in <a href="https://mlatcl.github.io/advds/lectures/04-03-engineering-data-science.html" target="_blank">the course website</a>.
 </p>
