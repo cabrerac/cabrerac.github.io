@@ -10,6 +10,11 @@ end_time: "10:50 UCT"
 hours: 1
 session: 1
 permalink: /teaching/24-camb-ads/engineering-data-science/
+slides: /assets/slides/engineering-data-science.pdf
 ---
-
-The details and materials of this lecture are available in [the course website](https://mlatcl.github.io/advds/lectures/04-03-engineering-data-science.html).
+<br>
+{% if page.slides %}
+  [slides]({{ page.slides }}){:target="_blank"}
+{% endif %}
+<br>
+The details and materials of this lecture are available in [the course website](https://mlatcl.github.io/advds/lectures/04-03-engineering-data-science.html){:target="_blank"}.
