@@ -6,13 +6,27 @@
     {% include header.html %}
     <main id="content" class="main{% if page.sidebar %} main--with-sidebar{% endif %}">
       <h1>{{ page.title }}</h1> <!-- Display course title -->
-      <strong>Description:</strong> {{ page.description }}<br> <!-- Display description -->
-      <strong>Department:</strong> {{ page.department }}<br> <!-- Display department -->
-      <strong>Institution:</strong> {{ page.institution }}<br> <!-- Display institution -->
-      <strong>Lectures:</strong> {{ page.lectures }}<br> <!-- Display number of lectures -->
-      <strong>Hours:</strong> {{ page.hours }}<br> <!-- Display number of hours -->
-      <strong>From:</strong> {{ page.start_date | date: "%B %d, %Y" }}<br> <!-- Display start date -->
-      <strong>To:</strong> {{ page.end_date | date: "%B %d, %Y" }}<br> <!-- Display end date -->
+      {% if page.description %}
+        <strong>Description:</strong> {{ page.description }}<br> <!-- Display description -->
+      {% endif %}
+      {% if page.department %}
+        <strong>Department:</strong> {{ page.department }}<br> <!-- Display department -->
+      {% endif %}
+      {% if page.institution %}
+        <strong>Institution:</strong> {{ page.institution }}<br> <!-- Display institution -->
+      {% endif %}
+      {% if page.lectures %}
+        <strong>Lectures:</strong> {{ page.lectures }}<br> <!-- Display number of lectures -->
+      {% endif %}
+      {% if page.hours %}
+        <strong>Hours:</strong> {{ page.hours }}<br> <!-- Display number of hours -->
+      {% endif %}
+      {% if page.start_date %}
+        <strong>From:</strong> {{ page.start_date | date: "%B %d, %Y" }}<br> <!-- Display start date -->
+      {% endif %}
+      {% if page.end_date %}
+        <strong>To:</strong> {{ page.end_date | date: "%B %d, %Y" }}<br> <!-- Display end date -->
+      {% endif %}
       {{ content }}
     </main>
     {% include footer.html %}
