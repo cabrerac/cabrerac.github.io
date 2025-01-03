@@ -3,13 +3,13 @@ layout: lecture
 lecture_code: data-access
 title: "Data Access"
 description: "This is a lecture on data-access."
-course_code: 24-camb-ads
+course_code: 25-udenar-ml-intro
 date: 06/11/2024
 start_time: "10:00 UCT"
 end_time: "10:50 UCT"
 hours: 1
 session: 1
-permalink: /teaching/24-camb-ads/data-access/
+permalink: /teaching/25-udenar-ml-intro/data-access/
 slides: /assets/slides/engineering-data-science.pdf
 ---
 <p>
