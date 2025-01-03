@@ -18,8 +18,8 @@
       {% if course.institution %}
       <strong>Institution:</strong> {{ course.institution }}<br> <!-- Display institution -->
       {% endif %}
-      {% if page.date %}
-      <strong>Date:</strong> {{ page.date | date: "%B %d, %Y" }}<br> <!-- Display date -->
+      {% if page.lecture_date %}
+      <strong>Date:</strong> {{ page.lecture_date | date: "%B %d, %Y" }}<br> <!-- Display date -->
       {% endif %}
       {% if page.hours %}
       <strong>Hours:</strong> {{ page.hours }}<br> <!-- Display number of hours -->
