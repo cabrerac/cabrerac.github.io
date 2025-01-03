@@ -9,6 +9,6 @@ start_time: "8:00 UTC-5"
 end_time: "12:00 UTC-5"
 hours: 4
 session: 2
-permalink: /teaching/24-camb-ads/data-oriented-architectures/
+permalink: /teaching/25-udenar-ml-intro/data-first/
 ---
 
