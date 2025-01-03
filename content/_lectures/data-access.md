@@ -4,13 +4,12 @@ lecture_code: data-access
 title: "Data Access"
 description: "This is a lecture on data-access."
 course_code: 25-udenar-ml-intro
-date: 06/11/2024
-start_time: "10:00 UCT"
-end_time: "10:50 UCT"
-hours: 1
-session: 1
+date: 05/03/2025
+start_time: "8:00 UTC-5"
+end_time: "12:00 UTC-5"
+hours: 4
+session: 2
 permalink: /teaching/25-udenar-ml-intro/data-first/
-slides: /assets/slides/engineering-data-science.pdf
 ---
 <p>
 {% if page.slides %}
@@ -18,5 +17,5 @@ slides: /assets/slides/engineering-data-science.pdf
 {% endif %}
 </p>
 <p>
-The details and materials of this lecture are available in <a href="https://mlatcl.github.io/advds/lectures/04-03-engineering-data-science.html" target="_blank">the course website</a>.
+TBD.
 </p>
