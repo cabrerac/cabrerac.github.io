@@ -9,6 +9,6 @@ start_time: "TBD"
 end_time: "TBD"
 hours: 4
 session: 1
-permalink: /teaching/24-camb-ads/data-oriented-architectures/
+permalink: /teaching/25-udenar-ml-intro/ml-introduction/
 ---
 
