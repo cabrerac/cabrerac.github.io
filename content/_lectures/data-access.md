@@ -1,0 +1,22 @@
+---
+layout: lecture
+lecture_code: data-access
+title: "Data Access"
+description: "This is a lecture on data-access."
+course_code: 24-camb-ads
+date: 06/11/2024
+start_time: "10:00 UCT"
+end_time: "10:50 UCT"
+hours: 1
+session: 1
+permalink: /teaching/24-camb-ads/data-access/
+slides: /assets/slides/engineering-data-science.pdf
+---
+<p>
+{% if page.slides %}
+  <a href="{{ page.slides }}" target="_blank">[slides]</a>
+{% endif %}
+</p>
+<p>
+The details and materials of this lecture are available in <a href="https://mlatcl.github.io/advds/lectures/04-03-engineering-data-science.html" target="_blank">the course website</a>.
+</p>
