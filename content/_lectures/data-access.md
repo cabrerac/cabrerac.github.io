@@ -9,7 +9,7 @@ start_time: "10:00 UCT"
 end_time: "10:50 UCT"
 hours: 1
 session: 1
-permalink: /teaching/25-udenar-ml-intro/data-access/
+permalink: /teaching/25-udenar-ml-intro/data-first/
 slides: /assets/slides/engineering-data-science.pdf
 ---
 <p>
