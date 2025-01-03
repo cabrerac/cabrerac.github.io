@@ -4,7 +4,7 @@ lecture_code: data-first
 title: "Data First"
 description: "This is a lecture on data-first."
 course_code: 25-udenar-ml-intro
-date: "TBD"
+lecture_date: 05/03/2025
 start_time: "TBD"
 end_time: "TBD"
 hours: 1
