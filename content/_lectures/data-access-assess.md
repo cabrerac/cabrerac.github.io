@@ -1,7 +1,7 @@
 ---
 layout: lecture
 lecture_code: data-access-assess
-title: "Data Acess and Asess"
+title: "Data Access and Assess"
 description: "This is a lecture on data access and assess methods."
 course_code: 25-udenar-ml-intro
 lecture_date: 08/03/2025
