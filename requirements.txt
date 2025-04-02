@@ -1,1 +1,15 @@
- 
+# Core dependencies
+nbformat==5.9.2  # For Jupyter notebook generation
+pyyaml==6.0.1    # For YAML front matter parsing
+pillow==10.1.0   # For image processing
+python-magic-bin==0.4.14  # For file type detection (Windows compatible)
+
+# Development dependencies
+pytest==7.4.3    # For testing
+black==23.11.0   # For code formatting
+flake8==6.1.0    # For linting
+mypy==1.7.1      # For type checking
+
+# Optional dependencies
+jupyter==1.0.0   # For notebook preview
+ipykernel==6.25.1  # For Jupyter kernel support 

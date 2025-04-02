@@ -24,6 +24,7 @@ MANIFEST
 .venv
 env/
 venv/
+wvenv/
 ENV/
 env.bak/
 venv.bak/
@@ -33,7 +34,6 @@ venv.bak/
 */.ipynb_checkpoints/*
 
 # Generated content
-# Note: We keep slides and notebooks as they are part of the website content
 # Only exclude temporary and system files
 *.tmp
 *.temp
