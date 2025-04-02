@@ -1,0 +1,8 @@
+{% assign snippet_path = include.path %}
+{% assign snippet_content = "" %}
+
+{% capture snippet_content %}
+{% include_relative {{ snippet_path }} %}
+{% endcapture %}
+
+{{ snippet_content | markdownify }} 
