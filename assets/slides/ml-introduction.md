@@ -22,6 +22,16 @@ style: |
 
 ---
 
+<div class="lecture-resources">
+  <p>
+    <a href="/assets/slides/ml-introduction.pdf" target="_blank">[PDF Slides]</a>
+    <a href="/assets/slides/ml-introduction.md" target="_blank">[Markdown Slides]</a>
+    <a href="https://colab.research.google.com/github/yourusername/course-notebooks/blob/main/ml-intro-session1.ipynb" target="_blank">[Colab Notebook]</a>
+  </p>
+</div>
+
+---
+
 ## Course Overview
 
 ---
@@ -104,10 +114,6 @@ In this session's practical component, we will:
 1. Set up our development environment
 2. Explore basic Python libraries for ML
 3. Create our first ML pipeline
-
----
-
-[Link to Colab Notebook](https://colab.research.google.com/github/yourusername/course-notebooks/blob/main/ml-intro-session1.ipynb)
 
 ---
 
