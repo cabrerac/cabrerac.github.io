@@ -53,4 +53,6 @@ collections:
     output: true
   lectures:
     output: true
+  snippets:
+    output: true
   
