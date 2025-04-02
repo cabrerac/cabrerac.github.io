@@ -29,11 +29,11 @@ By the end of this course, you will:
 - Know how to evaluate ML models
 - Have practical experience with real-world datasets
 
-{% include_relative _snippets/ml/what-is-ml.md %}
+{% include_relative content/_snippets/ml/what-is-ml.md %}
 
-{% include_relative _snippets/ml/history.md %}
+{% include_relative content/_snippets/ml/history.md %}
 
-{% include_relative _snippets/ml/applications.md %}
+{% include_relative content/_snippets/ml/applications.md %}
 
 ## Benefits and Risks
 
