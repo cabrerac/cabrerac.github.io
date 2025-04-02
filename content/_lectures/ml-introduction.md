@@ -12,6 +12,14 @@ session: 1
 permalink: /teaching/25-udenar-ml-intro/ml-introduction/
 ---
 
+<div class="lecture-resources">
+  <p>
+    <a href="/assets/slides/ml-introduction.pdf" target="_blank">[PDF Slides]</a>
+    <a href="/assets/slides/ml-introduction.md" target="_blank">[Markdown Slides]</a>
+    <a href="https://colab.research.google.com/github/yourusername/course-notebooks/blob/main/ml-intro-session1.ipynb" target="_blank">[Colab Notebook]</a>
+  </p>
+</div>
+
 ## Course Overview
 
 Welcome to Introduction to Machine Learning! This course will provide you with a comprehensive understanding of machine learning concepts, algorithms, and practical applications.
@@ -68,8 +76,6 @@ In this session's practical component, we will:
 1. Set up our development environment
 2. Explore basic Python libraries for ML
 3. Create our first ML pipeline
-
-[Link to Colab Notebook](https://colab.research.google.com/github/yourusername/course-notebooks/blob/main/ml-intro-session1.ipynb)
 
 ## Resources
 
