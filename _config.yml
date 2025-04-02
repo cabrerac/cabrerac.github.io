@@ -45,8 +45,6 @@ bibtex:
 #   - vendor/gems/
 #   - vendor/ruby/
 
-include: ['_snippets']
-
 # Additional directories
 collections_dir: content
 collections:
@@ -54,7 +52,5 @@ collections:
     permalink: ":permalink"
     output: true
   lectures:
-    output: true
-  snippets:
     output: true
   
