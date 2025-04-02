@@ -47,15 +47,15 @@ By the end of this course, you will:
 
 ---
 
-{% include snippet.html path="_snippets/ml/what-is-ml.md" %}
+{% include _snippets/ml/what-is-ml.md %}
 
 ---
 
-{% include snippet.html path="_snippets/ml/history.md" %}
+{% include _snippets/ml/history.md %}
 
 ---
 
-{% include snippet.html path="_snippets/ml/applications.md" %}
+{% include _snippets/ml/applications.md %}
 
 ---
 
