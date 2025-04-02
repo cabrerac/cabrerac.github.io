@@ -68,7 +68,32 @@ include:
 # Collections
 collections:
   courses:
-    permalink: ":permalink"
     output: true
+    permalink: /teaching/:collection/:path/
   lectures:
-    output: true  
+    output: true
+    permalink: /teaching/:course_code/:path/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "courses"
+    values:
+      layout: "course"
+  - scope:
+      path: ""
+      type: "lectures"
+    values:
+      layout: "lecture"
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+  
