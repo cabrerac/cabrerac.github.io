@@ -45,6 +45,8 @@ bibtex:
 #   - vendor/gems/
 #   - vendor/ruby/
 
+include: ['_snippets']
+
 # Additional directories
 collections_dir: content
 collections:
