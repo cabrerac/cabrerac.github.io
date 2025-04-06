@@ -11,6 +11,7 @@ hours: 1
 session: 2
 permalink: /teaching/24-camb-ads/data-oriented-architectures/
 slides: /assets/slides/data-oriented-architectures.pdf
+visible: true
 ---
 <p>
 {% if page.slides %}

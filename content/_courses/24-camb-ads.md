@@ -11,6 +11,7 @@ end_date: 03/12/2024
 hours: 16
 year: 2024
 permalink: /teaching/25-camb-ads/
+visible: true
 ---
 <br>
 As the course director, I designed the ADS course focusing on the alignment between data problems and data science projects through software systems that implement a flexible, scalable, and reusable data science process. 

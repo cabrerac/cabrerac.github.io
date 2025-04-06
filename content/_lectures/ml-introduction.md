@@ -4,12 +4,13 @@ lecture_code: ml-introduction
 title: "Introduction to Machine Learning"
 description: "This lecture presents the course and a brief context and history of the Machine Learning (ML) field."
 course_code: 25-udenar-ml-intro
-lecture_date: 01/03/2025
+lecture_date: 10/05/2025
 start_time: "TBD"
 end_time: "TBD"
 hours: 4
 session: 1
 permalink: /teaching/25-udenar-ml-intro/ml-introduction/
+visible: true
 ---
 
 <div class="lecture-resources">

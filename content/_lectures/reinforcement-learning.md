@@ -4,12 +4,13 @@ lecture_code: reinforcement-learning
 title: "Reinforcement Learning Models"
 description: "This is a introductory lecture on Reinforcement Learning models."
 course_code: 25-udenar-ml-intro
-lecture_date: 05/04/2025
+lecture_date: 14/06/2025
 start_time: "TBD"
 end_time: "TBD"
 hours: 4
 session: 6
 permalink: /teaching/25-udenar-ml-intro/reinforcement-learning/
+visible: false
 ---
 <p>
 {% if page.slides %}

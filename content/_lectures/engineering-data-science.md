@@ -11,6 +11,7 @@ hours: 1
 session: 1
 permalink: /teaching/24-camb-ads/engineering-data-science/
 slides: /assets/slides/engineering-data-science.pdf
+visible: true
 ---
 <p>
 {% if page.slides %}
