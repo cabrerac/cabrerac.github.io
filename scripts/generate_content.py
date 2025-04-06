@@ -80,10 +80,10 @@ class ContentGenerator:
             if len(path_parts) >= 7:  # Ensure we have enough path components
                 owner = path_parts[2]
                 repo = path_parts[3]
-                branch = path_parts[5]
                 file_path = '/'.join(path_parts[6:])
                 
-                raw_url = f"https://raw.githubusercontent.com/{owner}/{repo}/{branch}/{file_path}"
+                # Use gh-pages branch
+                raw_url = f"https://raw.githubusercontent.com/{owner}/{repo}/gh-pages/{file_path}"
                 
                 # Make HEAD request to check if file exists
                 response = requests.head(raw_url, allow_redirects=True)
@@ -149,9 +149,26 @@ style: |
         
         # Generate PDF and HTML slides using Marp CLI
         try:
+            # Try to find marp in common locations
+            marp_paths = [
+                'marp',  # Global install
+                os.path.expanduser('~/.npm-global/bin/marp'),  # User install
+                os.path.expanduser('~/.npm/bin/marp'),  # Alternative user install
+                '/usr/local/bin/marp',  # System install
+            ]
+            
+            marp_cmd = None
+            for path in marp_paths:
+                if shutil.which(path):
+                    marp_cmd = path
+                    break
+            
+            if not marp_cmd:
+                raise FileNotFoundError("Marp CLI not found in any common locations")
+            
             # Generate PDF
             subprocess.run([
-                'marp',
+                marp_cmd,
                 str(output_file),
                 '--pdf',
                 '--allow-local-files',
@@ -160,16 +177,22 @@ style: |
             
             # Generate HTML
             subprocess.run([
-                'marp',
+                marp_cmd,
                 str(output_file),
                 '--html',
                 '--allow-local-files',
                 '-o', str(self.assets_dir / "slides" / f"{lecture_file.stem}.html")
             ], check=True)
+            
+            print(f"✓ Successfully generated slides for {lecture_file.stem}")
         except subprocess.CalledProcessError as e:
-            print(f"Warning: Failed to generate slides: {e}")
-        except FileNotFoundError:
-            print("Warning: Marp CLI not found. Please install it with: npm install -g @marp-team/marp-cli")
+            print(f"Error: Failed to generate slides: {e}")
+        except FileNotFoundError as e:
+            print(f"Error: {e}")
+            print("Please install Marp CLI using one of these methods:")
+            print("1. npm install -g @marp-team/marp-cli")
+            print("2. yarn global add @marp-team/marp-cli")
+            print("3. npx @marp-team/marp-cli")
 
     def generate_notebook(self, lecture_file):
         """Generate Jupyter notebook from lecture content."""
@@ -211,15 +234,18 @@ drive.mount('/content/drive')
         with open(output_file, 'w', encoding='utf-8') as f:
             nbf.write(nb, f)
         
-        # Create Colab link using the current repository
-        colab_link = f"https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/main/assets/notebooks/{lecture_file.stem}.ipynb"
+        # Create Colab link using the current repository and gh-pages branch
+        colab_link = f"https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/{lecture_file.stem}.ipynb"
         
         # Verify the link
         if self.verify_colab_link(colab_link):
             print(f"✓ Colab notebook link is accessible: {colab_link}")
         else:
             print(f"⚠ Colab notebook link may not be accessible: {colab_link}")
-            print("  Please ensure the notebook is committed and pushed to the repository.")
+            print("  Please ensure:")
+            print("  1. The notebook is committed to the repository")
+            print("  2. The changes are pushed to the gh-pages branch")
+            print("  3. The GitHub Pages site is up to date")
 
     def process_lecture(self, lecture_file):
         """Process a lecture file to generate all formats."""
