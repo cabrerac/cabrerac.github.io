@@ -11,5 +11,5 @@ year: 2025
 lectures: 10
 hours: 40
 permalink: /teaching/25-udenar-ml-intro/
-visible: false
+visible: true
 ---

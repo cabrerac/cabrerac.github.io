@@ -1,16 +1,18 @@
 {% if site.lectures %}
-  {% assign course_lectures = site.lectures | where: "course_code", page.course_code | sort: 'session' %}
+  {% assign course_lectures = site.lectures | where: "course_code", page.course_code | where: "visible", true | sort: 'session' %}
   {% if course_lectures.size > 0 %}
     <div class="lectures">
         <h2>Lectures</h2>
-        <ul>
+        <ul class="lectures-list">
         {% for lecture in course_lectures %}
-            <li>
-                <a href="{{ lecture.permalink }}" target="_blank">
-                    <strong>{{ lecture.title }}</strong>
-                </a><br>
-                Date: {{ lecture.lecture_date | date: "%B %d, %Y" }}<br>
-                Description: {{ lecture.description }}<br>
+            <li class="lecture-item">
+                <a href="{{ lecture.permalink }}" class="lecture-title">
+                    {{ lecture.title }}
+                </a>
+                <div class="lecture-meta">
+                    <span class="lecture-date">Date: {{ lecture.lecture_date | date: "%B %d, %Y" }}</span>
+                    <span class="lecture-description">Description: {{ lecture.description }}</span>
+                </div>
             </li>
         {% endfor %}
         </ul>

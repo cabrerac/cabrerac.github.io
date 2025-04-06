@@ -14,25 +14,17 @@
   }
 }
 
-.course-link {
-  display: block;
-  text-decoration: none;
-  color: var(--text-color);
-  
-  &:hover {
-    color: var(--link-color);
-    
-    .course-title {
-      text-decoration: underline;
-    }
-  }
-}
-
 .course-title {
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
   color: var(--heading-color);
+  text-decoration: none;
+  
+  &:hover {
+    color: var(--link-color);
+    text-decoration: underline;
+  }
 }
 
 .course-meta {
@@ -56,4 +48,49 @@
   font-size: 1rem;
   line-height: 1.5;
   color: var(--text-color);
+}
+
+.lectures-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+
+.lecture-item {
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.lecture-title {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--heading-color);
+  text-decoration: none;
+  
+  &:hover {
+    color: var(--link-color);
+    text-decoration: underline;
+  }
+}
+
+.lecture-meta {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.lecture-date {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.lecture-description {
+  display: block;
+  line-height: 1.4;
 } 

@@ -9,20 +9,18 @@ permalink: /teaching/
   <div class="courses-list">
     {% for course in visible_courses %}
       <div class="course-item">
-        <a href="{{ course.url | relative_url }}" class="course-link">
-          <h2 class="course-title">{{ course.title }}</h2>
-          <div class="course-meta">
-            {% if course.institution %}
-              <span class="course-institution">{{ course.institution }}</span>
-            {% endif %}
-            {% if course.start_date %}
-              <span class="course-date">{{ course.start_date | date: "%B %Y" }}</span>
-            {% endif %}
-          </div>
-          {% if course.description %}
-            <p class="course-description">{{ course.description }}</p>
+        <a href="{{ course.url | relative_url }}" class="course-title">{{ course.title }}</a>
+        <div class="course-meta">
+          {% if course.institution %}
+            <span class="course-institution">{{ course.institution }}</span>
           {% endif %}
-        </a>
+          {% if course.start_date %}
+            <span class="course-date">{{ course.start_date | date: "%B %Y" }}</span>
+          {% endif %}
+        </div>
+        {% if course.description %}
+          <p class="course-description">{{ course.description }}</p>
+        {% endif %}
       </div>
     {% endfor %}
   </div>
