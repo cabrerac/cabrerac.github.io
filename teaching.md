@@ -3,9 +3,8 @@ layout: page
 title: Teaching
 permalink: /teaching/
 ---
-
+<h1>Courses</h1><br>
 {% assign visible_courses = site.courses | where: "visible", true | sort: "start_date" | reverse %}
-
 {% if visible_courses.size > 0 %}
   <div class="courses-list">
     {% for course in visible_courses %}
