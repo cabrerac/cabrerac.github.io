@@ -26,7 +26,7 @@ style: |
   <p>
     <a href="/assets/slides/ml-introduction.pdf" target="_blank">[PDF Slides]</a>
     <a href="/assets/slides/ml-introduction.html" target="_blank">[HTML Slides]</a>
-    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/main/assets/notebooks/ml-intro-session1.ipynb" target="_blank">[Colab Notebook]</a>
+    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/ml-introduction.ipynb" target="_blank">[Colab Notebook]</a>
   </p>
 </div>
 

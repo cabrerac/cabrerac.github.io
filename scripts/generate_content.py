@@ -229,13 +229,14 @@ drive.mount('/content/drive')
                     # Markdown cell
                     nb.cells.append(nbf.v4.new_markdown_cell(section))
         
-        # Save notebook
-        output_file = self.assets_dir / "notebooks" / f"{lecture_file.stem}.ipynb"
+        # Save notebook with consistent naming
+        notebook_name = f"{lecture_file.stem}.ipynb"
+        output_file = self.assets_dir / "notebooks" / notebook_name
         with open(output_file, 'w', encoding='utf-8') as f:
             nbf.write(nb, f)
         
         # Create Colab link using the current repository and gh-pages branch
-        colab_link = f"https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/{lecture_file.stem}.ipynb"
+        colab_link = f"https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/{notebook_name}"
         
         # Verify the link
         if self.verify_colab_link(colab_link):
