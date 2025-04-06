@@ -123,8 +123,9 @@ style: |
         with open(output_file, 'w', encoding='utf-8') as f:
             f.write(slides_content)
         
-        # Generate PDF slides using Marp CLI
+        # Generate PDF and HTML slides using Marp CLI
         try:
+            # Generate PDF
             subprocess.run([
                 'marp',
                 str(output_file),
@@ -132,8 +133,17 @@ style: |
                 '--allow-local-files',
                 '-o', str(self.assets_dir / "slides" / f"{lecture_file.stem}.pdf")
             ], check=True)
+            
+            # Generate HTML
+            subprocess.run([
+                'marp',
+                str(output_file),
+                '--html',
+                '--allow-local-files',
+                '-o', str(self.assets_dir / "slides" / f"{lecture_file.stem}.html")
+            ], check=True)
         except subprocess.CalledProcessError as e:
-            print(f"Warning: Failed to generate PDF slides: {e}")
+            print(f"Warning: Failed to generate slides: {e}")
         except FileNotFoundError:
             print("Warning: Marp CLI not found. Please install it with: npm install -g @marp-team/marp-cli")
 
@@ -178,7 +188,7 @@ drive.mount('/content/drive')
             nbf.write(nb, f)
         
         # Create Colab link
-        colab_link = f"https://colab.research.google.com/github/{os.getenv('GITHUB_USERNAME', 'yourusername')}/course-notebooks/blob/main/{lecture_file.stem}.ipynb"
+        colab_link = f"https://colab.research.google.com/github/cabrerac/course-notebooks/blob/main/{lecture_file.stem}.ipynb"
         print(f"Colab notebook link: {colab_link}")
 
     def process_lecture(self, lecture_file):
