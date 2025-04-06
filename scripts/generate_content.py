@@ -9,6 +9,8 @@ import nbformat as nbf
 import magic
 from PIL import Image
 import mimetypes
+import requests
+from urllib.parse import urlparse
 
 class ContentGenerator:
     def __init__(self, base_dir):
@@ -68,6 +70,28 @@ class ContentGenerator:
                     print(f"Warning: Media file {media_name} not found in assets/media")
         
         return processed_content
+
+    def verify_colab_link(self, colab_link):
+        """Verify if a Colab notebook link is accessible."""
+        try:
+            # Convert Colab link to raw GitHub content URL
+            parsed_url = urlparse(colab_link)
+            path_parts = parsed_url.path.split('/')
+            if len(path_parts) >= 7:  # Ensure we have enough path components
+                owner = path_parts[2]
+                repo = path_parts[3]
+                branch = path_parts[5]
+                file_path = '/'.join(path_parts[6:])
+                
+                raw_url = f"https://raw.githubusercontent.com/{owner}/{repo}/{branch}/{file_path}"
+                
+                # Make HEAD request to check if file exists
+                response = requests.head(raw_url, allow_redirects=True)
+                return response.status_code == 200
+        except Exception as e:
+            print(f"Error verifying Colab link: {e}")
+            return False
+        return False
 
     def generate_slides(self, lecture_file):
         """Generate Marp slides from lecture content."""
@@ -187,9 +211,15 @@ drive.mount('/content/drive')
         with open(output_file, 'w', encoding='utf-8') as f:
             nbf.write(nb, f)
         
-        # Create Colab link
-        colab_link = f"https://colab.research.google.com/github/cabrerac/course-notebooks/blob/main/{lecture_file.stem}.ipynb"
-        print(f"Colab notebook link: {colab_link}")
+        # Create Colab link using the current repository
+        colab_link = f"https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/main/assets/notebooks/{lecture_file.stem}.ipynb"
+        
+        # Verify the link
+        if self.verify_colab_link(colab_link):
+            print(f"✓ Colab notebook link is accessible: {colab_link}")
+        else:
+            print(f"⚠ Colab notebook link may not be accessible: {colab_link}")
+            print("  Please ensure the notebook is committed and pushed to the repository.")
 
     def process_lecture(self, lecture_file):
         """Process a lecture file to generate all formats."""
