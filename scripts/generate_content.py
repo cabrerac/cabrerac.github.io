@@ -93,6 +93,118 @@ class ContentGenerator:
             return False
         return False
 
+    def check_marp_installation(self):
+        """Check Marp CLI installation and PATH configuration."""
+        print("\nChecking Marp CLI installation...")
+        
+        # First check if npm is available
+        try:
+            # Try to find npm in common Windows locations
+            npm_paths = [
+                'npm',
+                'npm.cmd',
+                os.path.join(os.environ.get('ProgramFiles', ''), 'nodejs', 'npm.cmd'),
+                os.path.join(os.environ.get('ProgramFiles(x86)', ''), 'nodejs', 'npm.cmd'),
+                os.path.join(os.environ.get('APPDATA', ''), 'npm', 'npm.cmd'),
+            ]
+            
+            npm_cmd = None
+            for path in npm_paths:
+                if shutil.which(path):
+                    npm_cmd = path
+                    break
+            
+            if not npm_cmd:
+                print("⚠ npm not found in PATH")
+                print("\nPlease install Node.js and npm:")
+                print("1. Download Node.js from https://nodejs.org/")
+                print("2. Run the installer")
+                print("3. Check 'Add to PATH' during installation")
+                print("4. Restart your terminal after installation")
+                return False
+            
+            print(f"✓ Found npm at: {npm_cmd}")
+            
+            # Check npm global installation
+            try:
+                npm_prefix = subprocess.check_output([npm_cmd, 'config', 'get', 'prefix'], text=True).strip()
+                print(f"✓ npm global prefix: {npm_prefix}")
+                
+                # Check if Marp is installed globally
+                try:
+                    marp_version = subprocess.check_output([npm_cmd, 'list', '-g', '@marp-team/marp-cli'], text=True)
+                    print("✓ Marp CLI is installed globally")
+                    print(f"  Installation details:\n{marp_version}")
+                except subprocess.CalledProcessError:
+                    print("⚠ Marp CLI is not installed globally")
+                    print("\nPlease install Marp CLI:")
+                    print(f"1. Run: {npm_cmd} install -g @marp-team/marp-cli")
+                    print("2. Restart your terminal after installation")
+                    return False
+                
+                # Check common Marp locations
+                marp_locations = [
+                    os.path.join(npm_prefix, 'bin', 'marp'),
+                    os.path.join(npm_prefix, 'bin', 'marp.cmd'),
+                    os.path.join(os.environ.get('APPDATA', ''), 'npm', 'marp.cmd'),
+                    os.path.join(os.path.expanduser('~'), '.npm-global', 'bin', 'marp'),
+                    os.path.join(os.path.expanduser('~'), '.npm-global', 'bin', 'marp.cmd'),
+                ]
+                
+                print("\nChecking Marp executable locations:")
+                found = False
+                for location in marp_locations:
+                    if os.path.exists(location):
+                        print(f"✓ Found Marp at: {location}")
+                        found = True
+                    else:
+                        print(f"✗ Not found: {location}")
+                
+                if not found:
+                    print("\n⚠ Marp executable not found in common locations")
+                    print(f"  Try running: {npm_cmd} install -g @marp-team/marp-cli")
+                    return False
+                
+                # Check PATH
+                print("\nChecking PATH environment variable:")
+                path_dirs = os.environ['PATH'].split(os.pathsep)
+                npm_bin_dirs = [
+                    os.path.join(npm_prefix, 'bin'),
+                    os.path.join(os.environ.get('APPDATA', ''), 'npm'),
+                    os.path.join(os.path.expanduser('~'), '.npm-global', 'bin'),
+                ]
+                
+                for dir_path in npm_bin_dirs:
+                    if dir_path in path_dirs:
+                        print(f"✓ npm bin directory in PATH: {dir_path}")
+                    else:
+                        print(f"✗ npm bin directory not in PATH: {dir_path}")
+                        print("  You may need to add this to your PATH")
+                
+                # Try running marp directly
+                try:
+                    marp_version = subprocess.check_output(['marp', '--version'], text=True)
+                    print(f"\n✓ Marp CLI is accessible: {marp_version.strip()}")
+                    return True
+                except:
+                    print("\n⚠ Marp CLI is not accessible from PATH")
+                    print("  Try restarting your terminal or adding the npm bin directory to PATH")
+                    return False
+                    
+            except subprocess.CalledProcessError as e:
+                print(f"Error checking npm configuration: {e}")
+                print("Make sure npm is installed and in your PATH")
+                return False
+                
+        except Exception as e:
+            print(f"Error: {e}")
+            print("\nPlease ensure Node.js and npm are properly installed:")
+            print("1. Download and install Node.js from https://nodejs.org/")
+            print("2. Make sure to check 'Add to PATH' during installation")
+            print("3. Restart your terminal")
+            print("4. Verify installation by running 'node --version' and 'npm --version'")
+            return False
+
     def generate_slides(self, lecture_file):
         """Generate Marp slides from lecture content."""
         lecture_content = self.read_snippet(lecture_file)
@@ -149,50 +261,89 @@ style: |
         
         # Generate PDF and HTML slides using Marp CLI
         try:
-            # Try to find marp in common locations
+            # Try to find marp in common locations, with your specific path first
             marp_paths = [
-                'marp',  # Global install
-                os.path.expanduser('~/.npm-global/bin/marp'),  # User install
-                os.path.expanduser('~/.npm/bin/marp'),  # Alternative user install
-                '/usr/local/bin/marp',  # System install
+                os.path.join(os.environ.get('APPDATA', ''), 'npm', 'marp.cmd'),  # Your specific path
+                'marp.cmd',  # Windows global install
+                os.path.join(os.environ.get('ProgramFiles', ''), 'nodejs', 'marp.cmd'),
+                os.path.join(os.environ.get('ProgramFiles(x86)', ''), 'nodejs', 'marp.cmd'),
+                os.path.join(os.path.expanduser('~'), '.npm-global', 'bin', 'marp.cmd'),
             ]
             
             marp_cmd = None
             for path in marp_paths:
-                if shutil.which(path):
+                if os.path.exists(path):
+                    print(f"Found Marp at: {path}")
+                    marp_cmd = path
+                    break
+                elif shutil.which(path):
+                    print(f"Found Marp in PATH: {path}")
                     marp_cmd = path
                     break
             
             if not marp_cmd:
-                raise FileNotFoundError("Marp CLI not found in any common locations")
+                # Try using npx as a fallback
+                try:
+                    subprocess.run(['npx', '--version'], check=True, capture_output=True)
+                    marp_cmd = ['npx', '@marp-team/marp-cli']
+                    print("Using npx to run Marp")
+                except:
+                    raise FileNotFoundError("Marp CLI not found in any common locations")
             
             # Generate PDF
-            subprocess.run([
-                marp_cmd,
-                str(output_file),
-                '--pdf',
-                '--allow-local-files',
-                '-o', str(self.assets_dir / "slides" / f"{lecture_file.stem}.pdf")
-            ], check=True)
+            if isinstance(marp_cmd, list):
+                pdf_cmd = marp_cmd + [
+                    str(output_file),
+                    '--pdf',
+                    '--allow-local-files',
+                    '-o', str(self.assets_dir / "slides" / f"{lecture_file.stem}.pdf")
+                ]
+            else:
+                pdf_cmd = [
+                    marp_cmd,
+                    str(output_file),
+                    '--pdf',
+                    '--allow-local-files',
+                    '-o', str(self.assets_dir / "slides" / f"{lecture_file.stem}.pdf")
+                ]
+            
+            print(f"Running command: {' '.join(pdf_cmd)}")
+            subprocess.run(pdf_cmd, check=True)
             
             # Generate HTML
-            subprocess.run([
-                marp_cmd,
-                str(output_file),
-                '--html',
-                '--allow-local-files',
-                '-o', str(self.assets_dir / "slides" / f"{lecture_file.stem}.html")
-            ], check=True)
+            if isinstance(marp_cmd, list):
+                html_cmd = marp_cmd + [
+                    str(output_file),
+                    '--html',
+                    '--allow-local-files',
+                    '-o', str(self.assets_dir / "slides" / f"{lecture_file.stem}.html")
+                ]
+            else:
+                html_cmd = [
+                    marp_cmd,
+                    str(output_file),
+                    '--html',
+                    '--allow-local-files',
+                    '-o', str(self.assets_dir / "slides" / f"{lecture_file.stem}.html")
+                ]
+            
+            print(f"Running command: {' '.join(html_cmd)}")
+            subprocess.run(html_cmd, check=True)
             
             print(f"✓ Successfully generated slides for {lecture_file.stem}")
         except subprocess.CalledProcessError as e:
             print(f"Error: Failed to generate slides: {e}")
+            print(f"Command output: {e.output.decode() if e.output else 'No output'}")
         except FileNotFoundError as e:
             print(f"Error: {e}")
             print("Please install Marp CLI using one of these methods:")
             print("1. npm install -g @marp-team/marp-cli")
             print("2. yarn global add @marp-team/marp-cli")
             print("3. npx @marp-team/marp-cli")
+            print("\nIf Marp is already installed, try:")
+            print("1. Restart your terminal")
+            print("2. Check if the installation path is in your system's PATH")
+            print("3. Try running 'marp --version' to verify the installation")
 
     def generate_notebook(self, lecture_file):
         """Generate Jupyter notebook from lecture content."""
