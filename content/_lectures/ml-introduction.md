@@ -16,7 +16,7 @@ permalink: /teaching/25-udenar-ml-intro/ml-introduction/
   <p>
     <a href="/assets/slides/ml-introduction.pdf" target="_blank">[PDF Slides]</a>
     <a href="/assets/slides/ml-introduction.md" target="_blank">[Markdown Slides]</a>
-    <a href="https://colab.research.google.com/github/cabrerac/course-notebooks/blob/main/ml-intro-session1.ipynb" target="_blank">[Colab Notebook]</a>
+    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/assets/notebooks/ml-intro-session1.ipynb" target="_blank">[Colab Notebook]</a>
   </p>
 </div>
 
