@@ -1,43 +1,44 @@
-.lectures-list {
-  list-style: none;
-  padding: 0;
-  margin: 2rem 0;
-}
+// Remove the added styles
+// .lectures-list {
+//   list-style: none;
+//   padding: 0;
+//   margin: 2rem 0;
+// }
 
-.lecture-item {
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 1rem;
-}
+// .lecture-item {
+//   margin-bottom: 1.5rem;
+//   border-bottom: 1px solid var(--border-color);
+//   padding-bottom: 1rem;
+// }
 
-.lecture-link {
-  display: block;
-  text-decoration: none;
-  color: var(--text-color);
+// .lecture-link {
+//   display: block;
+//   text-decoration: none;
+//   color: var(--text-color);
   
-  &:hover {
-    color: var(--link-color);
-  }
-}
+//   &:hover {
+//     color: var(--link-color);
+//   }
+// }
 
-.lecture-title {
-  display: block;
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
+// .lecture-title {
+//   display: block;
+//   font-size: 1.2rem;
+//   font-weight: 600;
+//   margin-bottom: 0.5rem;
+// }
 
-.lecture-meta {
-  display: block;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-}
+// .lecture-meta {
+//   display: block;
+//   font-size: 0.9rem;
+//   color: var(--text-muted);
+// }
 
-.lecture-institution {
-  display: inline-block;
-  margin-right: 1rem;
-}
+// .lecture-institution {
+//   display: inline-block;
+//   margin-right: 1rem;
+// }
 
-.lecture-date {
-  display: inline-block;
-} 
+// .lecture-date {
+//   display: inline-block;
+// } 

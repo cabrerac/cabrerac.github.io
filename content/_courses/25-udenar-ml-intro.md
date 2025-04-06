@@ -5,8 +5,8 @@ title: "Introduction to Machine Learning"
 description: "Course of Introduction to Machine Learning"
 institution: "Universidad de Nariño"
 department: "Centro de Estudios y Asesoría en Estadística (CEASE)"
-start_date: 01/03/2025
-end_date: 03/05/2025
+start_date: 10/05/2025
+end_date: 12/07/2025
 year: 2025
 lectures: 10
 hours: 40

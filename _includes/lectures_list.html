@@ -1,22 +1,19 @@
-{% assign courses = site.courses | where: "visible", true | sort: "start_date" | reverse %}
-
-{% if courses.size > 0 %}
-  <h2>Courses</h2>
-  <ul class="lectures-list">
-    {% for course in courses %}
-      <li class="lecture-item">
-        <a href="{{ course.url | relative_url }}" class="lecture-link">
-          <span class="lecture-title">{{ course.title }}</span>
-          <span class="lecture-meta">
-            {% if course.institution %}
-              <span class="lecture-institution">{{ course.institution }}</span>
-            {% endif %}
-            {% if course.start_date %}
-              <span class="lecture-date">{{ course.start_date | date: "%B %Y" }}</span>
-            {% endif %}
-          </span>
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
+{% if site.lectures %}
+  {% assign course_lectures = site.lectures | where: "course_code", page.course_code | sort: 'session' %}
+  {% if course_lectures.size > 0 %}
+    <div class="lectures">
+        <h2>Lectures</h2>
+        <ul>
+        {% for lecture in course_lectures %}
+            <li>
+                <a href="{{ lecture.permalink }}" target="_blank">
+                    <strong>{{ lecture.title }}</strong>
+                </a><br>
+                Date: {{ lecture.lecture_date | date: "%B %d, %Y" }}<br>
+                Description: {{ lecture.description }}<br>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+  {% endif %}
 {% endif %}
