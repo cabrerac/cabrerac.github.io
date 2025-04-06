@@ -11,6 +11,7 @@ from PIL import Image
 import mimetypes
 import requests
 from urllib.parse import urlparse
+import argparse
 
 class ContentGenerator:
     def __init__(self, base_dir):
@@ -406,10 +407,19 @@ drive.mount('/content/drive')
         self.generate_notebook(lecture_file)
 
 def main():
+    # Set up argument parser
+    parser = argparse.ArgumentParser(description='Generate content for lectures')
+    parser.add_argument('lectures', nargs='+', help='Names of lecture files to process (without .md extension)')
+    args = parser.parse_args()
+
     generator = ContentGenerator(os.getcwd())
     
-    # Process all lectures
-    for lecture_file in generator.lectures_dir.glob("*.md"):
+    # Process each specified lecture
+    for lecture_name in args.lectures:
+        lecture_file = generator.lectures_dir / f"{lecture_name}.md"
+        if not lecture_file.exists():
+            print(f"Error: Lecture file {lecture_file} not found")
+            continue
         generator.process_lecture(lecture_file)
 
 if __name__ == "__main__":
