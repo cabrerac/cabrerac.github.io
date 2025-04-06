@@ -41,4 +41,64 @@
 
 // .lecture-date {
 //   display: inline-block;
-// } 
+// }
+
+.courses-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+}
+
+.course-item {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1.5rem;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.course-link {
+  display: block;
+  text-decoration: none;
+  color: var(--text-color);
+  
+  &:hover {
+    color: var(--link-color);
+    
+    .course-title {
+      text-decoration: underline;
+    }
+  }
+}
+
+.course-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--heading-color);
+}
+
+.course-meta {
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.course-institution {
+  display: inline-block;
+  margin-right: 1rem;
+  font-weight: 500;
+}
+
+.course-date {
+  display: inline-block;
+}
+
+.course-description {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text-color);
+} 

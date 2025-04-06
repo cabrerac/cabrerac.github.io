@@ -1,27 +1,32 @@
 ---
-layout: default
+layout: page
 title: Teaching
-description: "Lecturing activities"
 permalink: /teaching/
 ---
 
-{% assign courses = site.courses | sort: 'start_date' %}
-{% assign grouped_courses = courses | group_by: 'year' %}
+{% assign visible_courses = site.courses | where: "visible", true | sort: "start_date" | reverse %}
 
-<h1>Courses</h1><br>
-{% for year in grouped_courses %}
-  <h3>{{ year.name }}</h3>
-  <ul>
-    {% for course in year.items %}
-      <li>
-        <a href="{{ course.permalink }}" target="_blank"> <!-- Added link to course page -->
-          <strong>{{ course.title }}</strong>
+{% if visible_courses.size > 0 %}
+  <div class="courses-list">
+    {% for course in visible_courses %}
+      <div class="course-item">
+        <a href="{{ course.url | relative_url }}" class="course-link">
+          <h2 class="course-title">{{ course.title }}</h2>
+          <div class="course-meta">
+            {% if course.institution %}
+              <span class="course-institution">{{ course.institution }}</span>
+            {% endif %}
+            {% if course.start_date %}
+              <span class="course-date">{{ course.start_date | date: "%B %Y" }}</span>
+            {% endif %}
+          </div>
+          {% if course.description %}
+            <p class="course-description">{{ course.description }}</p>
+          {% endif %}
         </a>
-        <br>
-        <strong>Description:</strong> {{ course.description }}<br>
-        <strong>Institution:</strong> {{ course.institution }}<br>
-        <strong>Year:</strong> {{ course.year }}<br>
-      </li>
+      </div>
     {% endfor %}
-  </ul>
-{% endfor %}
+  </div>
+{% else %}
+  <p>No courses available at the moment.</p>
+{% endif %}
