@@ -17,5 +17,15 @@
         {% endfor %}
         </ul>
     </div>
+  {% else %}
+    <div class="lectures">
+        <h2>Lectures</h2>
+        <p>No lectures available for this course yet.</p>
+    </div>
   {% endif %}
+{% else %}
+    <div class="lectures">
+        <h2>Lectures</h2>
+        <p>No lectures available.</p>
+    </div>
 {% endif %}

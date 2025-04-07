@@ -16,18 +16,36 @@ import argparse
 class ContentGenerator:
     def __init__(self, base_dir):
         self.base_dir = Path(base_dir)
-        self.snippets_dir = self.base_dir / "content" / "_snippets"
+        self.sources_dir = self.base_dir / "scripts" / "lectures-sources"
         self.lectures_dir = self.base_dir / "content" / "_lectures"
         self.assets_dir = self.base_dir / "assets"
         self.media_dir = self.base_dir / "assets" / "media"
         
-        # Create output directories in assets
+        # Create output directories
+        self.lectures_dir.mkdir(parents=True, exist_ok=True)
         (self.assets_dir / "slides").mkdir(parents=True, exist_ok=True)
         (self.assets_dir / "notebooks").mkdir(parents=True, exist_ok=True)
-        (self.assets_dir / "media").mkdir(parents=True, exist_ok=True)
+        (self.media_dir).mkdir(parents=True, exist_ok=True)
         
         # Initialize mime type detector
         self.mime = magic.Magic(mime=True)
+
+    def get_course_metadata(self, course_code):
+        """Get course metadata from the course file."""
+        course_file = self.base_dir / "content" / "_courses" / f"{course_code}.md"
+        if not course_file.exists():
+            print(f"Warning: Course file {course_file} not found")
+            return {}
+            
+        with open(course_file, 'r', encoding='utf-8') as f:
+            content = f.read()
+            
+        # Extract front matter
+        front_matter = re.match(r'^---\n(.*?)\n---', content, re.DOTALL)
+        if not front_matter:
+            return {}
+            
+        return yaml.safe_load(front_matter.group(1))
 
     def read_snippet(self, snippet_path):
         """Read a snippet file and return its content."""
@@ -206,7 +224,107 @@ class ContentGenerator:
             print("4. Verify installation by running 'node --version' and 'npm --version'")
             return False
 
-    def generate_slides(self, lecture_file):
+    def process_includes(self, content):
+        """Process include statements in the content."""
+        # Pattern to match include statements
+        include_pattern = r'{%\s*include\s+([^%}]+)\s*%}'
+        
+        def replace_include(match):
+            include_path = match.group(1).strip()
+            # Remove quotes if present
+            include_path = include_path.strip('"\'')
+            
+            # Look for the include file in _includes
+            include_file = self.base_dir / "_includes" / include_path
+            if not include_file.exists():
+                print(f"Warning: Include file {include_file} not found")
+                return match.group(0)
+                
+            # Read and process the include file
+            with open(include_file, 'r', encoding='utf-8') as f:
+                include_content = f.read()
+                
+            # Process nested includes
+            include_content = self.process_includes(include_content)
+            
+            return include_content
+            
+        # Replace all include statements
+        processed_content = re.sub(include_pattern, replace_include, content)
+        
+        return processed_content
+
+    def process_lecture(self, lecture_file):
+        """Process a lecture file to generate all formats."""
+        print(f"Processing {lecture_file}...")
+        
+        # Get course code from path
+        course_code = lecture_file.parent.name
+        
+        # Get course metadata
+        course_metadata = self.get_course_metadata(course_code)
+        
+        # Create course-specific directories
+        course_lectures_dir = self.lectures_dir / course_code
+        course_slides_dir = self.assets_dir / "slides" / course_code
+        course_notebooks_dir = self.assets_dir / "notebooks" / course_code
+        
+        for dir_path in [course_lectures_dir, course_slides_dir, course_notebooks_dir]:
+            dir_path.mkdir(parents=True, exist_ok=True)
+        
+        # Generate content with course-specific paths
+        self.generate_rendered_lecture(lecture_file, course_lectures_dir, course_metadata)
+        self.generate_slides(lecture_file, course_slides_dir)
+        self.generate_notebook(lecture_file, course_notebooks_dir)
+
+    def generate_rendered_lecture(self, lecture_file, output_dir, course_metadata):
+        """Generate the rendered lecture file with proper metadata and content."""
+        # Read source content
+        with open(lecture_file, 'r', encoding='utf-8') as f:
+            content = f.read()
+            
+        # Extract front matter from source
+        front_matter = re.match(r'^---\n(.*?)\n---', content, re.DOTALL)
+        if front_matter:
+            lecture_metadata = yaml.safe_load(front_matter.group(1))
+            content = content[front_matter.end():]
+        else:
+            lecture_metadata = {}
+            
+        # Merge course and lecture metadata, preserving all fields
+        metadata = lecture_metadata.copy()  # Start with all lecture metadata
+        metadata.update({
+            'layout': 'lecture',
+            'lecture_code': lecture_file.stem,
+            'course_code': course_metadata.get('course_code', ''),
+            'permalink': f"/teaching/{course_metadata.get('course_code', '')}/{lecture_file.stem}/"
+        })
+        
+        # Process content
+        processed_content = self.process_includes(content)
+        processed_content = self.process_media(processed_content)
+        
+        # Create rendered content with metadata and resources
+        rendered_content = f"""---
+{yaml.dump(metadata, default_flow_style=False)}---
+
+<div class="lecture-resources">
+  <p>
+    <a href="/assets/slides/{course_metadata.get('course_code', '')}/{lecture_file.stem}.pdf" target="_blank">[PDF Slides]</a>
+    <a href="/assets/slides/{course_metadata.get('course_code', '')}/{lecture_file.stem}.html" target="_blank">[HTML Slides]</a>
+    <a href="https://colab.research.google.com/github/cabrerac/course-notebooks/blob/main/{lecture_file.stem}.ipynb" target="_blank">[Colab Notebook]</a>
+  </p>
+</div>
+
+{processed_content}
+"""
+        
+        # Save rendered lecture
+        output_file = output_dir / lecture_file.name
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write(rendered_content)
+
+    def generate_slides(self, lecture_file, output_dir):
         """Generate Marp slides from lecture content."""
         lecture_content = self.read_snippet(lecture_file)
         
@@ -256,7 +374,7 @@ style: |
                 slides_content += f"\n---\n\n{section}\n"
         
         # Save markdown slides
-        output_file = self.assets_dir / "slides" / f"{lecture_file.stem}.md"
+        output_file = output_dir / f"{lecture_file.stem}.md"
         with open(output_file, 'w', encoding='utf-8') as f:
             f.write(slides_content)
         
@@ -297,7 +415,7 @@ style: |
                     str(output_file),
                     '--pdf',
                     '--allow-local-files',
-                    '-o', str(self.assets_dir / "slides" / f"{lecture_file.stem}.pdf")
+                    '-o', str(output_dir / f"{lecture_file.stem}.pdf")
                 ]
             else:
                 pdf_cmd = [
@@ -305,7 +423,7 @@ style: |
                     str(output_file),
                     '--pdf',
                     '--allow-local-files',
-                    '-o', str(self.assets_dir / "slides" / f"{lecture_file.stem}.pdf")
+                    '-o', str(output_dir / f"{lecture_file.stem}.pdf")
                 ]
             
             print(f"Running command: {' '.join(pdf_cmd)}")
@@ -317,7 +435,7 @@ style: |
                     str(output_file),
                     '--html',
                     '--allow-local-files',
-                    '-o', str(self.assets_dir / "slides" / f"{lecture_file.stem}.html")
+                    '-o', str(output_dir / f"{lecture_file.stem}.html")
                 ]
             else:
                 html_cmd = [
@@ -325,7 +443,7 @@ style: |
                     str(output_file),
                     '--html',
                     '--allow-local-files',
-                    '-o', str(self.assets_dir / "slides" / f"{lecture_file.stem}.html")
+                    '-o', str(output_dir / f"{lecture_file.stem}.html")
                 ]
             
             print(f"Running command: {' '.join(html_cmd)}")
@@ -346,7 +464,7 @@ style: |
             print("2. Check if the installation path is in your system's PATH")
             print("3. Try running 'marp --version' to verify the installation")
 
-    def generate_notebook(self, lecture_file):
+    def generate_notebook(self, lecture_file, output_dir):
         """Generate Jupyter notebook from lecture content."""
         lecture_content = self.read_snippet(lecture_file)
         
@@ -382,13 +500,12 @@ drive.mount('/content/drive')
                     nb.cells.append(nbf.v4.new_markdown_cell(section))
         
         # Save notebook with consistent naming
-        notebook_name = f"{lecture_file.stem}.ipynb"
-        output_file = self.assets_dir / "notebooks" / notebook_name
+        output_file = output_dir / f"{lecture_file.stem}.ipynb"
         with open(output_file, 'w', encoding='utf-8') as f:
             nbf.write(nb, f)
         
         # Create Colab link using the current repository and gh-pages branch
-        colab_link = f"https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/{notebook_name}"
+        colab_link = f"https://colab.research.google.com/github/cabrerac/course-notebooks/blob/main/{lecture_file.stem}.ipynb"
         
         # Verify the link
         if self.verify_colab_link(colab_link):
@@ -397,29 +514,32 @@ drive.mount('/content/drive')
             print(f"⚠ Colab notebook link may not be accessible: {colab_link}")
             print("  Please ensure:")
             print("  1. The notebook is committed to the repository")
-            print("  2. The changes are pushed to the gh-pages branch")
+            print("  2. The changes are pushed to the main branch")
             print("  3. The GitHub Pages site is up to date")
-
-    def process_lecture(self, lecture_file):
-        """Process a lecture file to generate all formats."""
-        print(f"Processing {lecture_file}...")
-        self.generate_slides(lecture_file)
-        self.generate_notebook(lecture_file)
 
 def main():
     # Set up argument parser
     parser = argparse.ArgumentParser(description='Generate content for lectures')
-    parser.add_argument('lectures', nargs='+', help='Names of lecture files to process (without .md extension)')
+    parser.add_argument('lectures', nargs='+', help='Names of lecture files to process (format: course_code/lecture_name)')
     args = parser.parse_args()
 
     generator = ContentGenerator(os.getcwd())
     
     # Process each specified lecture
-    for lecture_name in args.lectures:
-        lecture_file = generator.lectures_dir / f"{lecture_name}.md"
+    for lecture_path in args.lectures:
+        # Split course_code/lecture_name
+        parts = lecture_path.split('/')
+        if len(parts) != 2:
+            print(f"Error: Invalid lecture path format. Use course_code/lecture_name")
+            continue
+            
+        course_code, lecture_name = parts
+        lecture_file = generator.sources_dir / course_code / f"{lecture_name}.md"
+        
         if not lecture_file.exists():
             print(f"Error: Lecture file {lecture_file} not found")
             continue
+            
         generator.process_lecture(lecture_file)
 
 if __name__ == "__main__":
