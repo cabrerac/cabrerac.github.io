@@ -64,5 +64,4 @@ plt.show()
     }
 </script>
 ```
-```
 
