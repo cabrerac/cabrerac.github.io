@@ -275,7 +275,7 @@ class ContentGenerator:
         # Generate content with course-specific paths
         self.generate_rendered_lecture(lecture_file, course_lectures_dir, course_metadata)
         self.generate_slides(lecture_file, course_slides_dir)
-        self.generate_notebook(lecture_file, course_notebooks_dir)
+        self.generate_notebook(lecture_file, course_notebooks_dir, course_metadata)
 
     def generate_rendered_lecture(self, lecture_file, output_dir, course_metadata):
         """Generate the rendered lecture file with proper metadata and content."""
@@ -312,7 +312,7 @@ class ContentGenerator:
   <p>
     <a href="/assets/slides/{course_metadata.get('course_code', '')}/{lecture_file.stem}.pdf" target="_blank">[PDF Slides]</a>
     <a href="/assets/slides/{course_metadata.get('course_code', '')}/{lecture_file.stem}.html" target="_blank">[HTML Slides]</a>
-    <a href="https://colab.research.google.com/github/cabrerac/course-notebooks/blob/main/{lecture_file.stem}.ipynb" target="_blank">[Colab Notebook]</a>
+    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/{course_metadata.get('course_code', '')}/{lecture_file.stem}.ipynb" target="_blank">[Colab Notebook]</a>
   </p>
 </div>
 
@@ -464,7 +464,7 @@ style: |
             print("2. Check if the installation path is in your system's PATH")
             print("3. Try running 'marp --version' to verify the installation")
 
-    def generate_notebook(self, lecture_file, output_dir):
+    def generate_notebook(self, lecture_file, output_dir, course_metadata):
         """Generate Jupyter notebook from lecture content."""
         lecture_content = self.read_snippet(lecture_file)
         
@@ -505,7 +505,7 @@ drive.mount('/content/drive')
             nbf.write(nb, f)
         
         # Create Colab link using the current repository and gh-pages branch
-        colab_link = f"https://colab.research.google.com/github/cabrerac/course-notebooks/blob/main/{lecture_file.stem}.ipynb"
+        colab_link = f"https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/{course_metadata.get('course_code', '')}/{lecture_file.stem}.ipynb"
         
         # Verify the link
         if self.verify_colab_link(colab_link):
@@ -514,7 +514,7 @@ drive.mount('/content/drive')
             print(f"⚠ Colab notebook link may not be accessible: {colab_link}")
             print("  Please ensure:")
             print("  1. The notebook is committed to the repository")
-            print("  2. The changes are pushed to the main branch")
+            print("  2. The changes are pushed to the gh-pages branch")
             print("  3. The GitHub Pages site is up to date")
 
 def main():

@@ -18,7 +18,7 @@ visible: true
   <p>
     <a href="/assets/slides/25-udenar-ml-intro/ml-introduction.pdf" target="_blank">[PDF Slides]</a>
     <a href="/assets/slides/25-udenar-ml-intro/ml-introduction.html" target="_blank">[HTML Slides]</a>
-    <a href="https://colab.research.google.com/github/cabrerac/course-notebooks/blob/main/ml-introduction.ipynb" target="_blank">[Colab Notebook]</a>
+    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-udenar-ml-intro/ml-introduction.ipynb" target="_blank">[Colab Notebook]</a>
   </p>
 </div>
 
