@@ -328,6 +328,12 @@ class ContentGenerator:
         """Generate Marp slides from lecture content."""
         lecture_content = self.read_snippet(lecture_file)
         
+        # Process media content
+        lecture_content = self.process_media(lecture_content)
+        
+        # Process includes
+        lecture_content = self.process_includes(lecture_content)
+        
         # Extract front matter
         front_matter = re.match(r'^---\n(.*?)\n---', lecture_content, re.DOTALL)
         if front_matter:
@@ -339,9 +345,6 @@ class ContentGenerator:
                 'session': '1',
                 'description': 'Lecture'
             }
-        
-        # Process media content
-        lecture_content = self.process_media(lecture_content)
         
         # Create Marp slides
         slides_content = f"""---
@@ -470,6 +473,9 @@ style: |
         
         # Process media content
         lecture_content = self.process_media(lecture_content)
+        
+        # Process includes
+        lecture_content = self.process_includes(lecture_content)
         
         # Create notebook
         nb = nbf.v4.new_notebook()

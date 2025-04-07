@@ -47,15 +47,112 @@ By the end of this course, you will:
 
 ---
 
-{% include _snippets/ml/what-is-ml.md %}
+# What is Machine Learning?
 
 ---
 
-{% include _snippets/ml/history.md %}
+Machine Learning is a field of study that gives computers the ability to learn without being explicitly programmed. It's a subset of Artificial Intelligence that focuses on building systems that can learn from and make decisions based on data.
 
 ---
 
-{% include _snippets/ml/applications.md %}
+![ML Overview](/assets/media/images/ml-overview.png)
+
+---
+
+## Key Characteristics
+- Data-driven approach
+- Pattern recognition
+- Statistical methods
+- Iterative learning
+
+---
+
+<video width="100%" controls>
+  <source src="/assets/media/videos/ml-intro.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+---
+
+## Interactive Example
+Here's a simple example of how ML works:
+
+---
+
+```python
+from sklearn.datasets import make_blobs
+import matplotlib.pyplot as plt
+
+---
+
+# Generate sample data
+X, y = make_blobs(n_samples=100, centers=2, random_state=42)
+
+---
+
+# Plot the data
+plt.scatter(X[:, 0], X[:, 1], c=y)
+plt.title("Sample ML Dataset")
+plt.show()
+``` 
+
+---
+
+# History of AI and ML
+
+---
+
+## Early Days (1950s-1960s)
+- Alan Turing's "Turing Test"
+- First neural networks
+- Perceptron development
+
+---
+
+## AI Winter (1970s-1980s)
+- Limited computing power
+- High expectations vs. reality
+- Funding cuts
+
+---
+
+## Renaissance (1990s-Present)
+- Increased computing power
+- Big data availability
+- Deep learning revolution 
+
+---
+
+# ML Applications
+
+---
+
+## Current Applications
+1. Computer Vision
+   - Image recognition
+   - Object detection
+   - Medical imaging
+
+---
+
+2. Natural Language Processing
+   - Machine translation
+   - Sentiment analysis
+   - Chatbots
+
+---
+
+3. Recommendation Systems
+   - Content recommendations
+   - Product suggestions
+   - Personalized marketing
+
+---
+
+4. Healthcare
+   - Disease diagnosis
+   - Drug discovery
+   - Patient care optimization 
 
 ---
 
