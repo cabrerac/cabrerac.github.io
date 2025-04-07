@@ -119,7 +119,6 @@ plt.show()
 
 
 
-
 # History of AI and ML
 
 ## Early Days (1950s-1960s)
@@ -218,7 +217,6 @@ In our next session, we will dive deeper into:
 
 You can run the following code in your browser using Pyodide:
 
-```html
 <div>
     <h3>Interactive Example</h3>
     <button onclick="runLinearRegression()">Run Linear Regression Example</button>
@@ -256,5 +254,5 @@ plt.show()
         await pyodide.runPythonAsync(code);
     }
 </script>
-```
+
 

@@ -35,7 +35,6 @@ plt.show()
 
 You can run the following code in your browser using Pyodide:
 
-```html
 <div>
     <h3>Interactive Example</h3>
     <button onclick="runExample()">Run Example</button>
@@ -63,5 +62,4 @@ plt.show()
         await pyodide.runPythonAsync(code);
     }
 </script>
-```
 
