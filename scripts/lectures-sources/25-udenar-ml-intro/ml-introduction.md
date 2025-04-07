@@ -89,3 +89,48 @@ In our next session, we will dive deeper into:
 - Feature engineering
 - Basic ML algorithms
 - Model evaluation metrics
+
+### Example: Linear Regression
+
+You can run the following code in your browser using Pyodide:
+
+```html
+<div>
+    <h3>Interactive Example</h3>
+    <button onclick="runLinearRegression()">Run Linear Regression Example</button>
+    <pre id="output"></pre>
+</div>
+
+<script>
+    async function runLinearRegression() {
+        let pyodide = await loadPyodide();
+        let code = `
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+# Generate sample data
+X = np.random.rand(100, 1) * 10  # Features
+y = 2.5 * X + np.random.randn(100, 1) * 2  # Target with noise
+
+# Fit linear regression model
+model = LinearRegression()
+model.fit(X, y)
+
+# Predict
+X_new = np.array([[0], [10]])
+y_predict = model.predict(X_new)
+
+# Plot the data and the regression line
+plt.scatter(X, y, color='blue')
+plt.plot(X_new, y_predict, color='red', linewidth=2)
+plt.title("Linear Regression Example")
+plt.xlabel("Feature")
+plt.ylabel("Target")
+plt.show()
+        `;
+        await pyodide.runPythonAsync(code);
+    }
+</script>
+```
+```

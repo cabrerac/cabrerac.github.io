@@ -30,3 +30,39 @@ plt.scatter(X[:, 0], X[:, 1], c=y)
 plt.title("Sample ML Dataset")
 plt.show()
 ``` 
+
+### Example: Creating a Simple Dataset
+
+You can run the following code in your browser using Pyodide:
+
+```html
+<div>
+    <h3>Interactive Example</h3>
+    <button onclick="runExample()">Run Example</button>
+    <pre id="output"></pre>
+</div>
+
+<script>
+    async function runExample() {
+        let pyodide = await loadPyodide();
+        let code = `
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Generate sample data
+X = np.random.rand(100, 2)
+y = np.array([1 if x[0] + x[1] > 1 else 0 for x in X])
+
+# Plot the data
+plt.scatter(X[:, 0], X[:, 1], c=y, cmap='viridis')
+plt.title("Sample ML Dataset")
+plt.xlabel("Feature 1")
+plt.ylabel("Feature 2")
+plt.show()
+        `;
+        await pyodide.runPythonAsync(code);
+    }
+</script>
+```
+```
+
