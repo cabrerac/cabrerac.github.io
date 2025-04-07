@@ -14,10 +14,10 @@ title: Introduction to Machine Learning
 visible: true
 ---
 
-<script src="https://cdn.jsdelivr.net/pyodide/v0.18.1/full/pyodide.js"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
 <script>
     async function main() {
-        let pyodide = await loadPyodide();
+        let pyodide = await loadPyodide({ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/'});
         // Example of executing Python code
         let result = await pyodide.runPythonAsync(`print("Hello from Pyodide!")`);
         console.log(result);

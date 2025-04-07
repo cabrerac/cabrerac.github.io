@@ -303,15 +303,15 @@ class ContentGenerator:
         # Process content
         processed_content = self.process_includes(content)
         processed_content = self.process_media(processed_content)
-        
+        index_url = "{ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/'}"        
         # Create rendered content with metadata and resources
         rendered_content = f"""---
 {yaml.dump(metadata, default_flow_style=False)}---
 
-<script src="https://cdn.jsdelivr.net/pyodide/v0.18.1/full/pyodide.js"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
 <script>
     async function main() {{
-        let pyodide = await loadPyodide();
+        let pyodide = await loadPyodide({index_url});
         // Example of executing Python code
         let result = await pyodide.runPythonAsync(`print("Hello from Pyodide!")`);
         console.log(result);
