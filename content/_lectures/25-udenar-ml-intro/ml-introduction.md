@@ -99,6 +99,7 @@ You can run the following code in your browser using Pyodide:
     async function runExample() {
         let pyodide = await loadPyodide();
         await pyodide.loadPackage("numpy");
+        await pyodide.loadPackage("matplotlib");
         let code = `
 import numpy as np
 import matplotlib.pyplot as plt
