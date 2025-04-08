@@ -261,21 +261,24 @@ class ContentGenerator:
         
         # Define patterns for each marker type
         patterns = {
-            'ALL': r'<!--\s*ALL:\s*-->(.+?)(?=<!--|\Z)',
-            f'{target}': fr'<!--\s*{target}:\s*-->(.+?)(?=<!--|\Z)',
-            f'RENDER+{target}': fr'<!--\s*RENDER\+{target}:\s*-->(.+?)(?=<!--|\Z)',
-            f'{target}+NOTEBOOK': fr'<!--\s*{target}\+NOTEBOOK:\s*-->(.+?)(?=<!--|\Z)',
-            f'SLIDES+{target}': fr'<!--\s*SLIDES\+{target}:\s*-->(.+?)(?=<!--|\Z)',
+            'ALL': r'<!--\s*ALL:\s*-->(.*?)(?=<!--|\Z)',
+            'TARGET': fr'<!--\s*{target}:\s*-->(.*?)(?=<!--|\Z)',
+            'RENDER_TARGET': fr'<!--\s*RENDER\+{target}:\s*-->(.*?)(?=<!--|\Z)',
+            'TARGET_NOTEBOOK': fr'<!--\s*{target}\+NOTEBOOK:\s*-->(.*?)(?=<!--|\Z)',
+            'SLIDES_TARGET': fr'<!--\s*SLIDES\+{target}:\s*-->(.*?)(?=<!--|\Z)',
         }
         
         filtered_content = []
         
         # Extract content for each pattern
-        for pattern in patterns.values():
+        for pattern_type, pattern in patterns.items():
             matches = re.finditer(pattern, content_without_frontmatter, re.DOTALL)
             for match in matches:
-                filtered_content.append(match.group(1).strip())
+                content_part = match.group(1).strip()
+                if content_part:  # Only add non-empty content
+                    filtered_content.append(content_part)
         
+        # Join all filtered content with double newlines
         return '\n\n'.join(filtered_content)
 
     def process_lecture(self, lecture_file):
