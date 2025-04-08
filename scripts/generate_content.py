@@ -254,6 +254,30 @@ class ContentGenerator:
         
         return processed_content
 
+    def filter_content(self, content, target):
+        """Filter content based on markers for specific target (RENDER, SLIDES, or NOTEBOOK)."""
+        # Remove front matter first
+        content_without_frontmatter = re.sub(r'^---\n.*?\n---\n', '', content, flags=re.DOTALL)
+        
+        # Define patterns for each marker type
+        patterns = {
+            'ALL': r'<!--\s*ALL:\s*-->(.+?)(?=<!--|\Z)',
+            f'{target}': fr'<!--\s*{target}:\s*-->(.+?)(?=<!--|\Z)',
+            f'RENDER+{target}': fr'<!--\s*RENDER\+{target}:\s*-->(.+?)(?=<!--|\Z)',
+            f'{target}+NOTEBOOK': fr'<!--\s*{target}\+NOTEBOOK:\s*-->(.+?)(?=<!--|\Z)',
+            f'SLIDES+{target}': fr'<!--\s*SLIDES\+{target}:\s*-->(.+?)(?=<!--|\Z)',
+        }
+        
+        filtered_content = []
+        
+        # Extract content for each pattern
+        for pattern in patterns.values():
+            matches = re.finditer(pattern, content_without_frontmatter, re.DOTALL)
+            for match in matches:
+                filtered_content.append(match.group(1).strip())
+        
+        return '\n\n'.join(filtered_content)
+
     def process_lecture(self, lecture_file):
         """Process a lecture file to generate all formats."""
         print(f"Processing {lecture_file}...")
@@ -292,7 +316,7 @@ class ContentGenerator:
             lecture_metadata = {}
             
         # Merge course and lecture metadata, preserving all fields
-        metadata = lecture_metadata.copy()  # Start with all lecture metadata
+        metadata = lecture_metadata.copy()
         metadata.update({
             'layout': 'lecture',
             'lecture_code': lecture_file.stem,
@@ -300,10 +324,14 @@ class ContentGenerator:
             'permalink': f"/teaching/{course_metadata.get('course_code', '')}/{lecture_file.stem}/"
         })
         
+        # Filter content for rendered markdown
+        filtered_content = self.filter_content(content, 'RENDER')
+        
         # Process content
-        processed_content = self.process_includes(content)
+        processed_content = self.process_includes(filtered_content)
         processed_content = self.process_media(processed_content)
-        index_url = "{ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/'}"        
+        
+        index_url = "{ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/'}"
         # Create rendered content with metadata and resources
         rendered_content = f"""---
 {yaml.dump(metadata, default_flow_style=False)}---
@@ -312,9 +340,8 @@ class ContentGenerator:
 <script>
     async function main() {{
         let pyodide = await loadPyodide({index_url});
-        // Example of executing Python code
-        let result = await pyodide.runPythonAsync(`print("Hello from Pyodide!")`);
-        console.log(result);
+        await pyodide.loadPackage("numpy");
+        await pyodide.loadPackage("matplotlib");
     }}
     main();
 </script>
@@ -339,17 +366,17 @@ class ContentGenerator:
         """Generate Marp slides from lecture content."""
         lecture_content = self.read_snippet(lecture_file)
         
-        # Process media content
-        lecture_content = self.process_media(lecture_content)
+        # Filter content for slides
+        filtered_content = self.filter_content(lecture_content, 'SLIDES')
         
-        # Process includes
-        lecture_content = self.process_includes(lecture_content)
+        # Process content
+        processed_content = self.process_includes(filtered_content)
+        processed_content = self.process_media(processed_content)
         
         # Extract front matter
         front_matter = re.match(r'^---\n(.*?)\n---', lecture_content, re.DOTALL)
         if front_matter:
             metadata = yaml.safe_load(front_matter.group(1))
-            lecture_content = lecture_content[front_matter.end():]
         else:
             metadata = {
                 'title': lecture_file.stem,
@@ -379,13 +406,8 @@ style: |
 # {metadata.get('title', '')}
 ## Session {metadata.get('session', '1')}: {metadata.get('description', '')}
 
+{processed_content}
 """
-        
-        # Process content and create slides
-        sections = lecture_content.split('\n\n')
-        for section in sections:
-            if section.strip():
-                slides_content += f"\n---\n\n{section}\n"
         
         # Save markdown slides
         output_file = output_dir / f"{lecture_file.stem}.md"
@@ -482,11 +504,12 @@ style: |
         """Generate Jupyter notebook from lecture content."""
         lecture_content = self.read_snippet(lecture_file)
         
-        # Process media content
-        lecture_content = self.process_media(lecture_content)
+        # Filter content for notebook
+        filtered_content = self.filter_content(lecture_content, 'NOTEBOOK')
         
-        # Process includes
-        lecture_content = self.process_includes(lecture_content)
+        # Process content
+        processed_content = self.process_includes(filtered_content)
+        processed_content = self.process_media(processed_content)
         
         # Create notebook
         nb = nbf.v4.new_notebook()
@@ -495,17 +518,8 @@ style: |
         title_cell = nbf.v4.new_markdown_cell(f"# {lecture_file.stem}")
         nb.cells.append(title_cell)
         
-        # Add Colab setup cell
-        colab_setup = """# Mount Google Drive (if needed)
-from google.colab import drive
-drive.mount('/content/drive')
-
-# Install required packages
-!pip install -r requirements.txt"""
-        nb.cells.append(nbf.v4.new_code_cell(colab_setup))
-        
         # Process content and create cells
-        sections = lecture_content.split('\n\n')
+        sections = processed_content.split('\n\n')
         for section in sections:
             if section.strip():
                 if section.startswith('```python'):
@@ -516,7 +530,7 @@ drive.mount('/content/drive')
                     # Markdown cell
                     nb.cells.append(nbf.v4.new_markdown_cell(section))
         
-        # Save notebook with consistent naming
+        # Save notebook
         output_file = output_dir / f"{lecture_file.stem}.ipynb"
         with open(output_file, 'w', encoding='utf-8') as f:
             nbf.write(nb, f)
