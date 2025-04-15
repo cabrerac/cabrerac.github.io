@@ -427,7 +427,7 @@ class ContentGenerator:
         # Create Marp slides
         marp_content = f"""---
 marp: true
-theme: beam
+theme: default
 paginate: true
 header: "Session {metadata.get('session', '1')} - {metadata.get('title', '')} | ${{_PAGENUM}}"
 footer: ""
@@ -502,6 +502,7 @@ style: |
   }}
   
   /* Progress bar styling */
+  /* Note: --progress is automatically set by Marp based on the current slide position */
   section::after {{
     content: '';
     position: fixed;
@@ -529,14 +530,25 @@ style: |
     border-bottom: 1px solid var(--accent-color);
   }}
 
+  /* Title slide specific styling */
+  section.lead h1 {{
+    margin-bottom: 10px;
+  }}
+  
+  section.lead p {{
+    font-size: 24px;
+    margin: 5px 0;
+    line-height: 1.2;
+  }}
+
 ---
 
 <!-- _class: lead -->
 # {metadata.get('title', '')}
-### {metadata.get('author', '')}
-#### {metadata.get('position', '')}
-#### {metadata.get('department', '')}, {metadata.get('institution', '')}
-#### {metadata.get('email', '')}
+<p>{metadata.get('author', '')}</p>
+<p>{metadata.get('position', '')}</p>
+<p>{metadata.get('department', '')}, {metadata.get('institution', '')}</p>
+<p>{metadata.get('email', '')}</p>
 
 ---
 
@@ -546,7 +558,7 @@ style: |
 
 <!-- _class: lead -->
 # Many Thanks!
-### {metadata.get('email', '')}
+<p>{metadata.get('email', '')}</p>
 """
         
         # Save markdown slides

@@ -1,6 +1,6 @@
 ---
 marp: true
-theme: beam
+theme: default
 paginate: true
 header: "Session 1 - Introduction to Machine Learning | ${_PAGENUM}"
 footer: ""
@@ -75,6 +75,7 @@ style: |
   }
   
   /* Progress bar styling */
+  /* Note: --progress is automatically set by Marp based on the current slide position */
   section::after {
     content: '';
     position: fixed;
@@ -102,14 +103,25 @@ style: |
     border-bottom: 1px solid var(--accent-color);
   }
 
+  /* Title slide specific styling */
+  section.lead h1 {
+    margin-bottom: 10px;
+  }
+  
+  section.lead p {
+    font-size: 24px;
+    margin: 5px 0;
+    line-height: 1.2;
+  }
+
 ---
 
 <!-- _class: lead -->
 # Introduction to Machine Learning
-### Christian Cabrera Jojoa
-#### Senior Research Associate and Affiliated Lecturer
-#### Department of Computer Science and Technology, University of Cambridge
-#### chc79@cam.ac.uk
+<p>Christian Cabrera Jojoa</p>
+<p>Senior Research Associate and Affiliated Lecturer</p>
+<p>Department of Computer Science and Technology, University of Cambridge</p>
+<p>chc79@cam.ac.uk</p>
 
 ---
 
@@ -278,4 +290,4 @@ In our next session, we will dive deeper into:
 
 <!-- _class: lead -->
 # Many Thanks!
-### chc79@cam.ac.uk
+<p>chc79@cam.ac.uk</p>
