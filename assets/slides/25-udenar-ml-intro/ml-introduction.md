@@ -84,11 +84,7 @@ style: |
     text-decoration: underline;
   }
   
-  /* Progress bar styling */
-  section {
-    position: relative;
-  }
-    
+  /* Pagination styling */
   section::before {
     font-size: 0.6em;
     content: attr(data-marpit-pagination) " / " attr(data-marpit-pagination-total);
@@ -99,6 +95,16 @@ style: |
     right: 0;
     left: -0.5em;
     color: var(--secondary-color);
+  }
+  
+  /* Hide default Marp pagination */
+  section::after {
+    display: none;
+  }
+  
+  /* Hide pagination on lead slides */
+  section.lead::before {
+    display: none;
   }
   
   /* Header styling */
