@@ -504,15 +504,15 @@ style: |
   /* Progress bar styling */
   /* Note: --progress is automatically set by Marp based on the current slide position */
   section::after {{
-    content: '';
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: calc(var(--progress) * 100%);
-    height: 2px;
-    background: var(--progress-color);
-    transition: width 0.3s ease;
-    z-index: 1;
+    font-size: 0.6em;
+    content: attr(data-marpit-pagination) " / " attr(data-marpit-pagination-total);
+    position: absolute;
+    text-align: right;
+    top: 96.2%;
+    width: 100%;
+    right: 0;
+    left: -0.5em;
+    color: white;
   }}
   
   /* Header styling */
