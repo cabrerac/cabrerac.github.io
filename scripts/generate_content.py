@@ -430,7 +430,7 @@ marp: true
 theme: default
 paginate: true
 header: "Session {metadata.get('session', '1')} - {metadata.get('title', '')}"
-footer: ""
+footer: "${{_PAGENUM}}"
 style: |
   :root {{
     --primary-color: #0A192F;    /* Deep navy blue */
@@ -507,11 +507,10 @@ style: |
     position: fixed;
     bottom: 0;
     left: 0;
-    width: 100%;
-    height: 2px;  /* Progress bar height */
+    width: calc(var(--progress) * 1%);
+    height: 2px;
     background: var(--progress-color);
-    transform: scaleX(calc(var(--progress) / 100));
-    transition: transform 0.3s ease;
+    transition: width 0.3s ease;
     z-index: 1;
   }}
   
@@ -524,7 +523,9 @@ style: |
     top: 0;
     left: 0;
     width: 100%;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     border-bottom: 1px solid var(--accent-color);
   }}
 
