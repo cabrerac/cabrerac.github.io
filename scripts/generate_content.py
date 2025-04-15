@@ -515,20 +515,7 @@ style: |
   section {{
     position: relative;
   }}
-  
-  section::after {{
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: calc(100% * (var(--marp-current-page) / var(--marp-total-pages)));
-    height: 2px;
-    background: var(--progress-color);
-    transition: width 0.3s ease;
-    z-index: 1;
-  }}
-  
-  /* Pagination styling */
+    
   section::before {{
     font-size: 0.6em;
     content: attr(data-marpit-pagination) " / " attr(data-marpit-pagination-total);
