@@ -2,7 +2,7 @@
 marp: true
 theme: default
 paginate: true
-header: "Session 1 - Introduction to Machine Learning | ${_PAGENUM}"
+header: "Session 1 - Introduction to Machine Learning"
 footer: ""
 style: |
   :root {
@@ -114,14 +114,20 @@ style: |
     line-height: 1.2;
   }
 
+  /* Hide header on lead slides */
+  section.lead header {
+    display: none;
+  }
+
 ---
 
 <!-- _class: lead -->
 # Introduction to Machine Learning
-<p>Christian Cabrera Jojoa</p>
+<p><b>Christian Cabrera Jojoa</b></p>
 <p>Senior Research Associate and Affiliated Lecturer</p>
-<p>Department of Computer Science and Technology, University of Cambridge</p>
-<p>chc79@cam.ac.uk</p>
+<p>Department of Computer Science and Technology</p>
+<p>University of Cambridge</p>
+<p><a href="mailto:chc79@cam.ac.uk">chc79@cam.ac.uk</a></p>
 
 ---
 
@@ -290,4 +296,4 @@ In our next session, we will dive deeper into:
 
 <!-- _class: lead -->
 # Many Thanks!
-<p>chc79@cam.ac.uk</p>
+<p><a href="mailto:chc79@cam.ac.uk">chc79@cam.ac.uk</a></p>

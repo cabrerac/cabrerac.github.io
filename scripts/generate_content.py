@@ -429,7 +429,7 @@ class ContentGenerator:
 marp: true
 theme: default
 paginate: true
-header: "Session {metadata.get('session', '1')} - {metadata.get('title', '')} | ${{_PAGENUM}}"
+header: "Session {metadata.get('session', '1')} - {metadata.get('title', '')}"
 footer: ""
 style: |
   :root {{
@@ -541,14 +541,20 @@ style: |
     line-height: 1.2;
   }}
 
+  /* Hide header on lead slides */
+  section.lead header {{
+    display: none;
+  }}
+
 ---
 
 <!-- _class: lead -->
 # {metadata.get('title', '')}
-<p>{metadata.get('author', '')}</p>
+<p><b>{metadata.get('author', '')}</b></p>
 <p>{metadata.get('position', '')}</p>
-<p>{metadata.get('department', '')}, {metadata.get('institution', '')}</p>
-<p>{metadata.get('email', '')}</p>
+<p>{metadata.get('department', '')}</p>
+<p>{metadata.get('institution', '')}</p>
+<p><a href="mailto:{metadata.get('email', '')}">{metadata.get('email', '')}</a></p>
 
 ---
 
@@ -558,7 +564,7 @@ style: |
 
 <!-- _class: lead -->
 # Many Thanks!
-<p>{metadata.get('email', '')}</p>
+<p><a href="mailto:{metadata.get('email', '')}">{metadata.get('email', '')}</a></p>
 """
         
         # Save markdown slides
