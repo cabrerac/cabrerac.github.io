@@ -138,6 +138,23 @@ style: |
     display: none;
   }
 
+  /* Center content on the last slide */
+  section.lead:last-of-type {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  section.lead:last-of-type h1 {
+    margin-bottom: 20px;
+  }
+
+  section.lead:last-of-type p {
+    margin: 10px 0;
+  }
+
 ---
 
 <!-- _class: lead -->
