@@ -1,7 +1,7 @@
 ---
 marp: true
 theme: default
-paginate: true
+paginate: false
 header: "Session 1 - Introduction to Machine Learning"
 footer: ""
 style: |
@@ -97,7 +97,7 @@ style: |
     width: 100%;
     right: 0;
     left: -0.5em;
-    color: var(--text-color);
+    color: var(--secondary-color);
   }
   
   /* Header styling */
