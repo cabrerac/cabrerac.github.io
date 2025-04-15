@@ -7,14 +7,37 @@ footer: "Session 1"
 style: |
   section {
     background-color: white;
+    padding: 20px;
+    font-size: 28px;
+  }
+  h1 {
+    font-size: 40px;
+    color: #333;
+  }
+  h2 {
+    font-size: 36px;
+    color: #444;
+  }
+  h3 {
+    font-size: 32px;
+    color: #555;
+  }
+  ul, ol {
+    margin-left: 30px;
   }
   img {
-    max-width: 100%;
-    height: auto;
+    max-width: 80%;
+    margin: 20px auto;
+    display: block;
   }
-  video {
-    max-width: 100%;
+  code {
+    font-size: 24px;
+    background-color: #f5f5f5;
+    padding: 4px 8px;
+    border-radius: 4px;
   }
+
+---
 
 # Introduction to Machine Learning
 ## Session 1: This lecture presents the course and a brief context and history of the Machine Learning (ML) field.
@@ -46,33 +69,6 @@ Machine Learning is a field of study that gives computers the ability to learn w
 
 ![ML Overview](/assets/media/images/ml-overview.png)
 
-### Course Structure
-- 10 sessions of 4 hours each
-- Combination of theory and practice
-- Hands-on exercises using Python
-- Interactive elements (polls, cloud numbers)
-
-### Learning Objectives
-By the end of this course, you will:
-- Understand fundamental ML concepts
-- Be able to implement basic ML algorithms
-- Know how to evaluate ML models
-- Have practical experience with real-world datasets
-
-## Benefits and Risks
-
-### Benefits
-- Automation of complex tasks
-- Improved decision-making
-- Personalization
-- Efficiency gains
-
-### Risks and Challenges
-- Data privacy concerns
-- Algorithmic bias
-- Job displacement
-- Ethical considerations
-
 # ML Applications
 
 ## Current Applications
@@ -103,3 +99,30 @@ In our next session, we will dive deeper into:
 - Feature engineering
 - Basic ML algorithms
 - Model evaluation metrics
+
+### Course Structure
+- 10 sessions of 4 hours each
+- Combination of theory and practice
+- Hands-on exercises using Python
+- Interactive elements (polls, cloud numbers)
+
+### Learning Objectives
+By the end of this course, you will:
+- Understand fundamental ML concepts
+- Be able to implement basic ML algorithms
+- Know how to evaluate ML models
+- Have practical experience with real-world datasets
+
+## Benefits and Risks
+
+### Benefits
+- Automation of complex tasks
+- Improved decision-making
+- Personalization
+- Efficiency gains
+
+### Risks and Challenges
+- Data privacy concerns
+- Algorithmic bias
+- Job displacement
+- Ethical considerations

@@ -369,11 +369,38 @@ class ContentGenerator:
         """Generate Marp slides from lecture content."""
         lecture_content = self.read_snippet(lecture_file)
         
-        # Filter content for slides
-        filtered_content = self.filter_content(lecture_content, 'SLIDES')
+        # Filter content for slides - include ALL, SLIDES, SLIDES+NOTEBOOK, and RENDER+SLIDES content
+        filtered_content = []
+        
+        # Get content marked as ALL
+        all_content = re.finditer(r'<!--\s*ALL:\s*-->(.*?)(?=<!--|\Z)', lecture_content, re.DOTALL)
+        for match in all_content:
+            if match.group(1).strip():
+                filtered_content.append(match.group(1).strip())
+        
+        # Get content marked as SLIDES
+        slides_content = re.finditer(r'<!--\s*SLIDES:\s*-->(.*?)(?=<!--|\Z)', lecture_content, re.DOTALL)
+        for match in slides_content:
+            if match.group(1).strip():
+                filtered_content.append(match.group(1).strip())
+        
+        # Get content marked as SLIDES+NOTEBOOK
+        slides_notebook_content = re.finditer(r'<!--\s*SLIDES\+NOTEBOOK:\s*-->(.*?)(?=<!--|\Z)', lecture_content, re.DOTALL)
+        for match in slides_notebook_content:
+            if match.group(1).strip():
+                filtered_content.append(match.group(1).strip())
+        
+        # Get content marked as RENDER+SLIDES
+        render_slides_content = re.finditer(r'<!--\s*RENDER\+SLIDES:\s*-->(.*?)(?=<!--|\Z)', lecture_content, re.DOTALL)
+        for match in render_slides_content:
+            if match.group(1).strip():
+                filtered_content.append(match.group(1).strip())
+        
+        # Join all filtered content
+        processed_content = '\n\n'.join(filtered_content)
         
         # Process content
-        processed_content = self.process_includes(filtered_content)
+        processed_content = self.process_includes(processed_content)
         processed_content = self.process_media(processed_content)
         
         # Extract front matter
@@ -397,14 +424,37 @@ footer: "Session {metadata.get('session', '1')}"
 style: |
   section {{
     background-color: white;
+    padding: 20px;
+    font-size: 28px;
+  }}
+  h1 {{
+    font-size: 40px;
+    color: #333;
+  }}
+  h2 {{
+    font-size: 36px;
+    color: #444;
+  }}
+  h3 {{
+    font-size: 32px;
+    color: #555;
+  }}
+  ul, ol {{
+    margin-left: 30px;
   }}
   img {{
-    max-width: 100%;
-    height: auto;
+    max-width: 80%;
+    margin: 20px auto;
+    display: block;
   }}
-  video {{
-    max-width: 100%;
+  code {{
+    font-size: 24px;
+    background-color: #f5f5f5;
+    padding: 4px 8px;
+    border-radius: 4px;
   }}
+
+---
 
 # {metadata.get('title', '')}
 ## Session {metadata.get('session', '1')}: {metadata.get('description', '')}
