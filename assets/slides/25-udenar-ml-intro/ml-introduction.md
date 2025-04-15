@@ -139,7 +139,7 @@ style: |
   }
 
   /* Center content only on the last slide */
-  section.lead:last-of-type {
+  section.lead.last-slide {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -148,26 +148,12 @@ style: |
     min-height: 100vh;
   }
 
-  section.lead:last-of-type h1 {
+  section.lead.last-slide h1 {
     margin-bottom: 20px;
   }
 
-  section.lead:last-of-type p {
+  section.lead.last-slide p {
     margin: 10px 0;
-  }
-
-  /* Reset centering for the first slide */
-  section.lead:first-of-type {
-    display: block;
-    text-align: left;
-  }
-
-  section.lead:first-of-type h1 {
-    margin-bottom: 10px;
-  }
-
-  section.lead:first-of-type p {
-    margin: 5px 0;
   }
 
 ---
@@ -345,6 +331,6 @@ In our next session, we will dive deeper into:
 
 ---
 
-<!-- _class: lead -->
+<!-- _class: lead last-slide -->
 # Many Thanks!
 <p><a href="mailto:chc79@cam.ac.uk">chc79@cam.ac.uk</a></p>
