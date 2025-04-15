@@ -1,17 +1,17 @@
 ---
 marp: true
 theme: default
-paginate: false
+paginate: true
 header: "Session 1 - Introduction to Machine Learning"
 footer: ""
 style: |
   :root {
-    --primary-color: #00264F;    /* Navy blue */
-    --secondary-color: #6dd7fd;  /* Slightly lighter navy */
-    --accent-color: #6dd7fd;     /* Slightly lighter navy */
-    --text-color: #00264F;       /* Navy blue for text */
+    --primary-color: #29347A;    /* Dark indigo */
+    --secondary-color: #8EEBD8;  /* Cambridge blue */
+    --accent-color: #8EEBD8;     /* Cambridge blue */
+    --text-color: #29347A;       /* Dark indigo for text */
     --background-color: #FFFFFF; /* White background */
-    --progress-color: #00264F;   /* Navy blue for progress bar */
+    --progress-color: #29347A;   /* Dark indigo for progress bar */
   }
   
   section {
