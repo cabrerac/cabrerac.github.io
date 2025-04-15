@@ -6,12 +6,12 @@ header: "Session 1 - Introduction to Machine Learning"
 footer: ""
 style: |
   :root {
-    --primary-color: #29347A;    /* Dark indigo */
+    --primary-color: #00244A;    /* Blue navy indigo */
     --secondary-color: #00BDB6;  /* Cambridge warm blue */
     --accent-color: #00BDB6;     /* Cambridge warm blue */
-    --text-color: #29347A;       /* Dark indigo for text */
+    --text-color: #00244A;       /* Blue navy indigo for text */
     --background-color: #FFFFFF; /* White background */
-    --progress-color: #29347A;   /* Dark indigo for progress bar */
+    --progress-color: #00244A;   /* Blue navy indigo for progress bar */
   }
   
   section {
