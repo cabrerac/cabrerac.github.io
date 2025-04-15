@@ -74,13 +74,27 @@ style: |
     overflow-x: auto;
   }
   
+  /* Link styling */
+  a {
+    color: var(--secondary-color);
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
   /* Progress bar styling */
+  section {
+    position: relative;
+  }
+  
   section::after {
     content: '';
-    position: fixed;
+    position: absolute;
     bottom: 0;
     left: 0;
-    width: calc(var(--progress) * 100%);
+    width: calc(100% * (var(--marp-current-page) / var(--marp-total-pages)));
     height: 2px;
     background: var(--progress-color);
     transition: width 0.3s ease;
