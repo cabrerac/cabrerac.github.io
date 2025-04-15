@@ -391,12 +391,30 @@ class ContentGenerator:
                 if content_part:  # Only add non-empty content
                     filtered_content.append(content_part)
         
-        # Join all filtered content
-        processed_content = '\n\n'.join(filtered_content)
-        
         # Process content
+        processed_content = '\n\n'.join(filtered_content)
         processed_content = self.process_includes(processed_content)
         processed_content = self.process_media(processed_content)
+        
+        # Split content into slides based on headings
+        slides = []
+        current_slide = []
+        
+        # Split content into lines and process
+        lines = processed_content.split('\n')
+        for line in lines:
+            # If line is a heading (starts with #), start a new slide
+            if line.strip().startswith('#') and current_slide:
+                slides.append('\n'.join(current_slide))
+                current_slide = []
+            current_slide.append(line)
+        
+        # Add the last slide
+        if current_slide:
+            slides.append('\n'.join(current_slide))
+        
+        # Join slides with Marp slide separator
+        slides_content = '\n\n---\n\n'.join(slides)
         
         # Extract front matter
         front_matter = re.match(r'^---\n(.*?)\n---', lecture_content, re.DOTALL)
@@ -410,7 +428,7 @@ class ContentGenerator:
             }
         
         # Create Marp slides
-        slides_content = f"""---
+        marp_content = f"""---
 marp: true
 theme: default
 paginate: true
@@ -454,13 +472,13 @@ style: |
 # {metadata.get('title', '')}
 ## Session {metadata.get('session', '1')}: {metadata.get('description', '')}
 
-{processed_content}
+{slides_content}
 """
         
         # Save markdown slides
         output_file = output_dir / f"{lecture_file.stem}.md"
         with open(output_file, 'w', encoding='utf-8') as f:
-            f.write(slides_content)
+            f.write(marp_content)
         
         # Generate PDF and HTML slides using Marp CLI
         try:
