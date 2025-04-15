@@ -1,6 +1,6 @@
 ---
 marp: true
-theme: default
+theme: beam
 paginate: false
 header: "Session 1 - Introduction to Machine Learning"
 footer: ""

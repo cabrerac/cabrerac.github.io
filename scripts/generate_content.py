@@ -427,7 +427,7 @@ class ContentGenerator:
         # Create Marp slides
         marp_content = f"""---
 marp: true
-theme: default
+theme: beam
 paginate: false
 header: "Session {metadata.get('session', '1')} - {metadata.get('title', '')}"
 footer: ""
