@@ -112,22 +112,34 @@ Machine Learning is a field of study that gives computers the ability to learn w
 ---
 
 ## Current Applications
-1. Computer Vision
+
+---
+
+### Computer Vision
    - Image recognition
    - Object detection
    - Medical imaging
 
-2. Natural Language Processing
+
+---
+
+### Natural Language Processing
    - Machine translation
    - Sentiment analysis
    - Chatbots
 
-3. Recommendation Systems
+
+---
+
+### Recommendation Systems
    - Content recommendations
    - Product suggestions
    - Personalized marketing
 
-4. Healthcare
+
+---
+
+### Healthcare
    - Disease diagnosis
    - Drug discovery
    - Patient care optimization
