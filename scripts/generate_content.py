@@ -433,12 +433,12 @@ header: "Session {metadata.get('session', '1')} - {metadata.get('title', '')}"
 footer: ""
 style: |
   :root {{
-    --primary-color: #00244A;    /* Blue navy indigo */
+    --primary-color: #00244A;    /* Blue navy */
     --secondary-color: #00BDB6;  /* Cambridge warm blue */
     --accent-color: #00BDB6;     /* Cambridge warm blue */
-    --text-color: #00244A;       /* Blue navy indigo for text */
+    --text-color: #00244A;       /* Blue navy for text */
     --background-color: #FFFFFF; /* White background */
-    --progress-color: #00244A;   /* Blue navy indigo for progress bar */
+    --progress-color: #00244A;   /* Blue navy for progress bar */
   }}
   
   section {{
@@ -565,13 +565,14 @@ style: |
     display: none;
   }}
 
-  /* Center content on the last slide */
+  /* Center content only on the last slide */
   section.lead:last-of-type {{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
+    min-height: 100vh;
   }}
 
   section.lead:last-of-type h1 {{
@@ -580,6 +581,20 @@ style: |
 
   section.lead:last-of-type p {{
     margin: 10px 0;
+  }}
+
+  /* Reset centering for the first slide */
+  section.lead:first-of-type {{
+    display: block;
+    text-align: left;
+  }}
+
+  section.lead:first-of-type h1 {{
+    margin-bottom: 10px;
+  }}
+
+  section.lead:first-of-type p {{
+    margin: 5px 0;
   }}
 
 ---
