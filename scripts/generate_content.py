@@ -428,8 +428,8 @@ class ContentGenerator:
         marp_content = f"""---
 marp: true
 theme: default
-paginate: true
-header: "Session {metadata.get('session', '1')} - {metadata.get('title', '')} | ${{_PAGENUM}}"
+paginate: false
+header: "Session {metadata.get('session', '1')} - {metadata.get('title', '')}"
 footer: ""
 style: |
   :root {{

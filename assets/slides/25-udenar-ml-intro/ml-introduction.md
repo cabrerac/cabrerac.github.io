@@ -1,8 +1,8 @@
 ---
 marp: true
 theme: default
-paginate: true
-header: "Session 1 - Introduction to Machine Learning | ${_PAGENUM}"
+paginate: false
+header: "Session 1 - Introduction to Machine Learning"
 footer: ""
 style: |
   :root {
