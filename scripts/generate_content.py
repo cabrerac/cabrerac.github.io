@@ -533,9 +533,10 @@ style: |
 
 <!-- _class: lead -->
 # {metadata.get('title', '')}
-## {metadata.get('description', '')}
-### Carlos Cabrera
-#### {metadata.get('institution', '')}
+### {metadata.get('author', '')}
+#### {metadata.get('position', '')}
+#### {metadata.get('department', '')}, {metadata.get('institution', '')}
+#### {metadata.get('email', '')}
 
 ---
 
@@ -545,6 +546,7 @@ style: |
 
 <!-- _class: lead -->
 # Many Thanks!
+### {metadata.get('email', '')}
 """
         
         # Save markdown slides

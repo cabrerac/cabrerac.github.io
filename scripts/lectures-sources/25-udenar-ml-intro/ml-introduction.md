@@ -1,15 +1,20 @@
 ---
 course_code: 25-udenar-ml-intro
+title: Introduction to Machine Learning
 description: This lecture presents the course and a brief context and history of the Machine Learning (ML) field.
+session: 1
+start_time: TBD
 end_time: TBD
 hours: 4
+author: Christian Cabrera Jojoa
+email: chc79@cam.ac.uk
+position: Senior Research Associate and Affiliated Lecturer
+department: Department of Computer Science and Technology
+institution: University of Cambridge
 layout: lecture
 lecture_code: ml-introduction
 lecture_date: 10/05/2025
 permalink: /teaching/25-udenar-ml-intro/ml-introduction/
-session: 1
-start_time: TBD
-title: Introduction to Machine Learning
 visible: true
 ---
 

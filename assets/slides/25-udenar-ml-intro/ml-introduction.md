@@ -106,9 +106,10 @@ style: |
 
 <!-- _class: lead -->
 # Introduction to Machine Learning
-## This lecture presents the course and a brief context and history of the Machine Learning (ML) field.
-### Carlos Cabrera
-#### 
+### Christian Cabrera Jojoa
+#### Senior Research Associate and Affiliated Lecturer
+#### Department of Computer Science and Technology, University of Cambridge
+#### chc79@cam.ac.uk
 
 ---
 
@@ -277,3 +278,4 @@ In our next session, we will dive deeper into:
 
 <!-- _class: lead -->
 # Many Thanks!
+### chc79@cam.ac.uk
