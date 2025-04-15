@@ -508,7 +508,7 @@ style: |
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 4px;
+    height: 2px;  /* Thinner progress bar */
     background: var(--progress-color);
     transform: scaleX(calc(var(--progress) / 100));
     transition: transform 0.3s ease;
