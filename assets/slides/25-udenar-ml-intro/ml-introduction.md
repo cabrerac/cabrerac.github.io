@@ -5,36 +5,101 @@ paginate: true
 header: "Introduction to Machine Learning"
 footer: "Session 1"
 style: |
+  :root {
+    --primary-color: #1a365d;
+    --secondary-color: #2c5282;
+    --accent-color: #4299e1;
+    --text-color: #ffffff;
+    --background-color: #1a365d;
+    --progress-color: #4299e1;
+  }
+  
   section {
-    background-color: white;
-    padding: 20px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 40px;
     font-size: 28px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
   }
+  
   h1 {
-    font-size: 40px;
-    color: #333;
+    font-size: 48px;
+    color: var(--text-color);
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 10px;
   }
+  
   h2 {
-    font-size: 36px;
-    color: #444;
+    font-size: 40px;
+    color: var(--text-color);
+    margin-bottom: 15px;
   }
+  
   h3 {
     font-size: 32px;
-    color: #555;
+    color: var(--text-color);
+    margin-bottom: 10px;
   }
+  
   ul, ol {
     margin-left: 30px;
+    margin-top: 15px;
   }
+  
+  li {
+    margin-bottom: 10px;
+  }
+  
   img {
     max-width: 80%;
     margin: 20px auto;
     display: block;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
+  
   code {
     font-size: 24px;
-    background-color: #f5f5f5;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
     padding: 4px 8px;
     border-radius: 4px;
+    font-family: 'Fira Code', monospace;
+  }
+  
+  pre {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    overflow-x: auto;
+  }
+  
+  /* Progress bar styling */
+  section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--progress-color);
+    transform-origin: left;
+    transform: scaleX(calc(var(--progress) / 100));
+    transition: transform 0.3s ease;
+  }
+  
+  /* Header and footer styling */
+  header {
+    color: var(--text-color);
+    font-size: 20px;
+    padding: 10px;
+  }
+  
+  footer {
+    color: var(--text-color);
+    font-size: 18px;
+    padding: 10px;
   }
 
 ---
@@ -73,6 +138,31 @@ By the end of this course, you will:
 Machine Learning is a field of study that gives computers the ability to learn without being explicitly programmed. It's a subset of Artificial Intelligence that focuses on building systems that can learn from and make decisions based on data.
 
 ![ML Overview](/assets/media/images/ml-overview.png)
+
+
+---
+
+## Interactive Example
+Here's a simple example of how ML works:
+
+```python
+from sklearn.datasets import make_blobs
+import matplotlib.pyplot as plt
+
+
+---
+
+# Generate sample data
+X, y = make_blobs(n_samples=100, centers=2, random_state=42)
+
+
+---
+
+# Plot the data
+plt.scatter(X[:, 0], X[:, 1], c=y)
+plt.title("Sample ML Dataset")
+plt.show()
+```
 
 
 ---

@@ -71,7 +71,7 @@ Machine Learning is a field of study that gives computers the ability to learn w
   Your browser does not support the video tag.
 </video>
 
-<!-- RENDER+NOTEBOOK: -->
+<!-- ALL: -->
 ## Interactive Example
 Here's a simple example of how ML works:
 
