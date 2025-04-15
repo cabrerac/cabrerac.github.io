@@ -2,7 +2,7 @@
 marp: true
 theme: beam
 paginate: true
-header: "Session 1 - Introduction to Machine Learning"
+header: "Session 1 - Introduction to Machine Learning | ${_PAGENUM}"
 footer: ""
 style: |
   :root {
@@ -104,8 +104,13 @@ style: |
 
 ---
 
+<!-- _class: lead -->
 # Introduction to Machine Learning
 ## This lecture presents the course and a brief context and history of the Machine Learning (ML) field.
+### Carlos Cabrera
+#### 
+
+---
 
 ## Course Overview
 
@@ -267,3 +272,8 @@ In our next session, we will dive deeper into:
 - Feature engineering
 - Basic ML algorithms
 - Model evaluation metrics
+
+---
+
+<!-- _class: lead -->
+# Many Thanks!

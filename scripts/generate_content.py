@@ -429,7 +429,7 @@ class ContentGenerator:
 marp: true
 theme: beam
 paginate: true
-header: "Session {metadata.get('session', '1')} - {metadata.get('title', '')}"
+header: "Session {metadata.get('session', '1')} - {metadata.get('title', '')} | ${{_PAGENUM}}"
 footer: ""
 style: |
   :root {{
@@ -531,10 +531,20 @@ style: |
 
 ---
 
+<!-- _class: lead -->
 # {metadata.get('title', '')}
 ## {metadata.get('description', '')}
+### Carlos Cabrera
+#### {metadata.get('institution', '')}
+
+---
 
 {slides_content}
+
+---
+
+<!-- _class: lead -->
+# Many Thanks!
 """
         
         # Save markdown slides
