@@ -433,12 +433,12 @@ header: "Session {metadata.get('session', '1')} - {metadata.get('title', '')}"
 footer: ""
 style: |
   :root {{
-    --primary-color: #1C529C;    /* Deep navy blue */
+    --primary-color: #00264F;    /* Deep navy blue */
     --secondary-color: #112240;  /* Slightly lighter navy */
-    --accent-color: #1C529C;     /* Deep navy blue for progress bar */
-    --text-color: #1C529C;       /* Deep navy blue for text */
+    --accent-color: #112240;     /* Deep navy blue for progress bar */
+    --text-color: #00264F;       /* Deep navy blue for text */
     --background-color: #FFFFFF; /* White background */
-    --progress-color: #1C529C;   /* Deep navy blue for progress bar */
+    --progress-color: #00264F;   /* Deep navy blue for progress bar */
   }}
   
   section {{
@@ -502,8 +502,20 @@ style: |
   }}
   
   /* Progress bar styling */
-  /* Note: --progress is automatically set by Marp based on the current slide position */
   section::after {{
+    content: '';
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: calc(var(--progress) * 100%);
+    height: 2px;
+    background: var(--progress-color);
+    transition: width 0.3s ease;
+    z-index: 1;
+  }}
+  
+  /* Pagination styling */
+  section::before {{
     font-size: 0.6em;
     content: attr(data-marpit-pagination) " / " attr(data-marpit-pagination-total);
     position: absolute;
@@ -512,7 +524,7 @@ style: |
     width: 100%;
     right: 0;
     left: -0.5em;
-    color: white;
+    color: var(--text-color);
   }}
   
   /* Header styling */
