@@ -2,16 +2,16 @@
 marp: true
 theme: default
 paginate: true
-header: "Introduction to Machine Learning"
-footer: "Session 1"
+header: "Session 1 - Introduction to Machine Learning"
+footer: ""
 style: |
   :root {
-    --primary-color: #1a365d;
-    --secondary-color: #2c5282;
-    --accent-color: #4299e1;
-    --text-color: #ffffff;
-    --background-color: #1a365d;
-    --progress-color: #4299e1;
+    --primary-color: #00264F;
+    --secondary-color: #003366;
+    --accent-color: #4A90E2;
+    --text-color: #FFFFFF;
+    --background-color: #00264F;
+    --progress-color: #4A90E2;
   }
   
   section {
@@ -78,7 +78,7 @@ style: |
   /* Progress bar styling */
   section::after {
     content: '';
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -87,25 +87,26 @@ style: |
     transform-origin: left;
     transform: scaleX(calc(var(--progress) / 100));
     transition: transform 0.3s ease;
+    z-index: 1;
   }
   
-  /* Header and footer styling */
+  /* Header styling */
   header {
     color: var(--text-color);
     font-size: 20px;
     padding: 10px;
-  }
-  
-  footer {
-    color: var(--text-color);
-    font-size: 18px;
-    padding: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid var(--accent-color);
   }
 
 ---
 
 # Introduction to Machine Learning
-## Session 1: This lecture presents the course and a brief context and history of the Machine Learning (ML) field.
+## This lecture presents the course and a brief context and history of the Machine Learning (ML) field.
 
 ## Course Overview
 

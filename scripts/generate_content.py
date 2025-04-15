@@ -429,16 +429,16 @@ class ContentGenerator:
 marp: true
 theme: default
 paginate: true
-header: "{metadata.get('title', '')}"
-footer: "Session {metadata.get('session', '1')}"
+header: "Session {metadata.get('session', '1')} - {metadata.get('title', '')}"
+footer: ""
 style: |
   :root {{
-    --primary-color: #1a365d;
-    --secondary-color: #2c5282;
-    --accent-color: #4299e1;
-    --text-color: #ffffff;
-    --background-color: #1a365d;
-    --progress-color: #4299e1;
+    --primary-color: #00264F;
+    --secondary-color: #003366;
+    --accent-color: #4A90E2;
+    --text-color: #FFFFFF;
+    --background-color: #00264F;
+    --progress-color: #4A90E2;
   }}
   
   section {{
@@ -505,7 +505,7 @@ style: |
   /* Progress bar styling */
   section::after {{
     content: '';
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -514,25 +514,26 @@ style: |
     transform-origin: left;
     transform: scaleX(calc(var(--progress) / 100));
     transition: transform 0.3s ease;
+    z-index: 1;
   }}
   
-  /* Header and footer styling */
+  /* Header styling */
   header {{
     color: var(--text-color);
     font-size: 20px;
     padding: 10px;
-  }}
-  
-  footer {{
-    color: var(--text-color);
-    font-size: 18px;
-    padding: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid var(--accent-color);
   }}
 
 ---
 
 # {metadata.get('title', '')}
-## Session {metadata.get('session', '1')}: {metadata.get('description', '')}
+## {metadata.get('description', '')}
 
 {slides_content}
 """
