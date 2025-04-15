@@ -2,8 +2,8 @@
 marp: true
 theme: default
 paginate: true
-header: "Session 1 - Introduction to Machine Learning"
-footer: "${_PAGENUM}"
+header: "Session 1 - Introduction to Machine Learning | ${_PAGENUM}"
+footer: ""
 style: |
   :root {
     --primary-color: #0A192F;    /* Deep navy blue */
@@ -80,7 +80,7 @@ style: |
     position: fixed;
     bottom: 0;
     left: 0;
-    width: calc(var(--progress) * 1%);
+    width: calc(var(--progress) * 100%);
     height: 2px;
     background: var(--progress-color);
     transition: width 0.3s ease;

@@ -429,8 +429,8 @@ class ContentGenerator:
 marp: true
 theme: default
 paginate: true
-header: "Session {metadata.get('session', '1')} - {metadata.get('title', '')}"
-footer: "${{_PAGENUM}}"
+header: "Session {metadata.get('session', '1')} - {metadata.get('title', '')} | ${{_PAGENUM}}"
+footer: ""
 style: |
   :root {{
     --primary-color: #0A192F;    /* Deep navy blue */
@@ -507,7 +507,7 @@ style: |
     position: fixed;
     bottom: 0;
     left: 0;
-    width: calc(var(--progress) * 1%);
+    width: calc(var(--progress) * 100%);
     height: 2px;
     background: var(--progress-color);
     transition: width 0.3s ease;
