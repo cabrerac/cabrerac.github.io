@@ -49,9 +49,30 @@ Welcome to Introduction to Machine Learning! This course will provide you with a
 
 ---
 
+### Course Structure
+- 10 sessions of 4 hours each
+- Combination of theory and practice
+- Hands-on exercises using Python
+- Interactive elements (polls, cloud numbers)
+
+
+---
+
+### Learning Objectives
+By the end of this course, you will:
+- Understand fundamental ML concepts
+- Be able to implement basic ML algorithms
+- Know how to evaluate ML models
+- Have practical experience with real-world datasets
+
+
+---
+
 # What is Machine Learning?
 
 Machine Learning is a field of study that gives computers the ability to learn without being explicitly programmed. It's a subset of Artificial Intelligence that focuses on building systems that can learn from and make decisions based on data.
+
+![ML Overview](/assets/media/images/ml-overview.png)
 
 
 ---
@@ -81,8 +102,6 @@ Machine Learning is a field of study that gives computers the ability to learn w
 - Increased computing power
 - Big data availability
 - Deep learning revolution
-
-![ML Overview](/assets/media/images/ml-overview.png)
 
 
 ---
@@ -116,36 +135,6 @@ Machine Learning is a field of study that gives computers the ability to learn w
 
 ---
 
-## Next Session Preview
-
-In our next session, we will dive deeper into:
-- Data preprocessing techniques
-- Feature engineering
-- Basic ML algorithms
-- Model evaluation metrics
-
-
----
-
-### Course Structure
-- 10 sessions of 4 hours each
-- Combination of theory and practice
-- Hands-on exercises using Python
-- Interactive elements (polls, cloud numbers)
-
-
----
-
-### Learning Objectives
-By the end of this course, you will:
-- Understand fundamental ML concepts
-- Be able to implement basic ML algorithms
-- Know how to evaluate ML models
-- Have practical experience with real-world datasets
-
-
----
-
 ## Benefits and Risks
 
 
@@ -165,3 +154,14 @@ By the end of this course, you will:
 - Algorithmic bias
 - Job displacement
 - Ethical considerations
+
+
+---
+
+## Next Session Preview
+
+In our next session, we will dive deeper into:
+- Data preprocessing techniques
+- Feature engineering
+- Basic ML algorithms
+- Model evaluation metrics

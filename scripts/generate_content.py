@@ -372,27 +372,24 @@ class ContentGenerator:
         # Remove front matter first
         content_without_frontmatter = re.sub(r'^---\n.*?\n---\n', '', lecture_content, flags=re.DOTALL)
         
-        # Filter content for slides - include ALL, SLIDES, SLIDES+NOTEBOOK, and RENDER+SLIDES content
-        filtered_content = []
+        # Find all content blocks with their markers
+        content_blocks = []
         
-        # Define patterns for each marker type
-        patterns = [
-            r'<!--\s*ALL:\s*-->(.*?)(?=<!--|\Z)',
-            r'<!--\s*SLIDES:\s*-->(.*?)(?=<!--|\Z)',
-            r'<!--\s*SLIDES\+NOTEBOOK:\s*-->(.*?)(?=<!--|\Z)',
-            r'<!--\s*RENDER\+SLIDES:\s*-->(.*?)(?=<!--|\Z)'
-        ]
+        # Pattern to match any of our markers and their content
+        pattern = r'<!--\s*(ALL|SLIDES|SLIDES\+NOTEBOOK|RENDER\+SLIDES):\s*-->(.*?)(?=<!--|\Z)'
         
-        # Extract content for each pattern
-        for pattern in patterns:
-            matches = re.finditer(pattern, content_without_frontmatter, re.DOTALL)
-            for match in matches:
-                content_part = match.group(1).strip()
-                if content_part:  # Only add non-empty content
-                    filtered_content.append(content_part)
+        # Find all matches in order
+        matches = re.finditer(pattern, content_without_frontmatter, re.DOTALL)
+        for match in matches:
+            marker_type = match.group(1)
+            content = match.group(2).strip()
+            if content:  # Only add non-empty content
+                content_blocks.append(content)
+        
+        # Join all content blocks in their original order
+        processed_content = '\n\n'.join(content_blocks)
         
         # Process content
-        processed_content = '\n\n'.join(filtered_content)
         processed_content = self.process_includes(processed_content)
         processed_content = self.process_media(processed_content)
         
