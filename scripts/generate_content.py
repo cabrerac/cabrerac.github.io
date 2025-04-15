@@ -369,32 +369,27 @@ class ContentGenerator:
         """Generate Marp slides from lecture content."""
         lecture_content = self.read_snippet(lecture_file)
         
+        # Remove front matter first
+        content_without_frontmatter = re.sub(r'^---\n.*?\n---\n', '', lecture_content, flags=re.DOTALL)
+        
         # Filter content for slides - include ALL, SLIDES, SLIDES+NOTEBOOK, and RENDER+SLIDES content
         filtered_content = []
         
-        # Get content marked as ALL
-        all_content = re.finditer(r'<!--\s*ALL:\s*-->(.*?)(?=<!--|\Z)', lecture_content, re.DOTALL)
-        for match in all_content:
-            if match.group(1).strip():
-                filtered_content.append(match.group(1).strip())
+        # Define patterns for each marker type
+        patterns = [
+            r'<!--\s*ALL:\s*-->(.*?)(?=<!--|\Z)',
+            r'<!--\s*SLIDES:\s*-->(.*?)(?=<!--|\Z)',
+            r'<!--\s*SLIDES\+NOTEBOOK:\s*-->(.*?)(?=<!--|\Z)',
+            r'<!--\s*RENDER\+SLIDES:\s*-->(.*?)(?=<!--|\Z)'
+        ]
         
-        # Get content marked as SLIDES
-        slides_content = re.finditer(r'<!--\s*SLIDES:\s*-->(.*?)(?=<!--|\Z)', lecture_content, re.DOTALL)
-        for match in slides_content:
-            if match.group(1).strip():
-                filtered_content.append(match.group(1).strip())
-        
-        # Get content marked as SLIDES+NOTEBOOK
-        slides_notebook_content = re.finditer(r'<!--\s*SLIDES\+NOTEBOOK:\s*-->(.*?)(?=<!--|\Z)', lecture_content, re.DOTALL)
-        for match in slides_notebook_content:
-            if match.group(1).strip():
-                filtered_content.append(match.group(1).strip())
-        
-        # Get content marked as RENDER+SLIDES
-        render_slides_content = re.finditer(r'<!--\s*RENDER\+SLIDES:\s*-->(.*?)(?=<!--|\Z)', lecture_content, re.DOTALL)
-        for match in render_slides_content:
-            if match.group(1).strip():
-                filtered_content.append(match.group(1).strip())
+        # Extract content for each pattern
+        for pattern in patterns:
+            matches = re.finditer(pattern, content_without_frontmatter, re.DOTALL)
+            for match in matches:
+                content_part = match.group(1).strip()
+                if content_part:  # Only add non-empty content
+                    filtered_content.append(content_part)
         
         # Join all filtered content
         processed_content = '\n\n'.join(filtered_content)
