@@ -433,12 +433,12 @@ header: "Session {metadata.get('session', '1')} - {metadata.get('title', '')}"
 footer: ""
 style: |
   :root {{
-    --primary-color: #00264F;
-    --secondary-color: #003366;
-    --accent-color: #4A90E2;
-    --text-color: #FFFFFF;
-    --background-color: #00264F;
-    --progress-color: #4A90E2;
+    --primary-color: #0A192F;    /* Deep navy blue */
+    --secondary-color: #112240;  /* Slightly lighter navy */
+    --accent-color: #64FFDA;     /* Bright teal for highlights */
+    --text-color: #FFFFFF;       /* Pure white for text */
+    --background-color: #0A192F; /* Deep navy blue background */
+    --progress-color: #64FFDA;   /* Bright teal for progress bar */
   }}
   
   section {{
@@ -453,7 +453,6 @@ style: |
     font-size: 48px;
     color: var(--text-color);
     margin-bottom: 20px;
-    border-bottom: 2px solid var(--accent-color);
     padding-bottom: 10px;
   }}
   
@@ -511,7 +510,6 @@ style: |
     width: 100%;
     height: 4px;
     background: var(--progress-color);
-    transform-origin: left;
     transform: scaleX(calc(var(--progress) / 100));
     transition: transform 0.3s ease;
     z-index: 1;
