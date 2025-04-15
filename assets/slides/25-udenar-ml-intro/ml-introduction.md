@@ -8,10 +8,10 @@ style: |
   :root {
     --primary-color: #0A192F;    /* Deep navy blue */
     --secondary-color: #112240;  /* Slightly lighter navy */
-    --accent-color: #64FFDA;     /* Bright teal for highlights */
-    --text-color: #FFFFFF;       /* Pure white for text */
-    --background-color: #0A192F; /* Deep navy blue background */
-    --progress-color: #64FFDA;   /* Bright teal for progress bar */
+    --accent-color: #0A192F;     /* Deep navy blue for progress bar */
+    --text-color: #0A192F;       /* Deep navy blue for text */
+    --background-color: #FFFFFF; /* White background */
+    --progress-color: #0A192F;   /* Deep navy blue for progress bar */
   }
   
   section {
@@ -60,7 +60,7 @@ style: |
   
   code {
     font-size: 24px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(10, 25, 47, 0.1);
     color: var(--text-color);
     padding: 4px 8px;
     border-radius: 4px;
@@ -68,7 +68,7 @@ style: |
   }
   
   pre {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(10, 25, 47, 0.1);
     padding: 15px;
     border-radius: 8px;
     overflow-x: auto;
@@ -81,7 +81,7 @@ style: |
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 2px;  /* Thinner progress bar */
+    height: 4px;  /* Progress bar height */
     background: var(--progress-color);
     transform: scaleX(calc(var(--progress) / 100));
     transition: transform 0.3s ease;
