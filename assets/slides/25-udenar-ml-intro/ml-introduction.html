@@ -6818,7 +6818,45 @@ section.lead.last-slide p {
       
       html[data-theme='dark'] pre,
       html[data-theme='dark'] code {
-        background-color: rgba(255, 255, 255, 0.1) !important;
+        background-color: #2A2A2A !important;
+        color: #E0E0E0 !important;
+      }
+      
+      html[data-theme='dark'] pre {
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5) !important;
+        padding: 16px !important;
+      }
+      
+      html[data-theme='dark'] code {
+        font-weight: 500 !important;
+      }
+      
+      /* Syntax highlighting for dark mode */
+      html[data-theme='dark'] .hljs-keyword,
+      html[data-theme='dark'] .hljs-selector-tag,
+      html[data-theme='dark'] .hljs-title,
+      html[data-theme='dark'] .hljs-section {
+        color: #C792EA !important; /* Purple for keywords */
+      }
+      
+      html[data-theme='dark'] .hljs-string,
+      html[data-theme='dark'] .hljs-doctag {
+        color: #C3E88D !important; /* Green for strings */
+      }
+      
+      html[data-theme='dark'] .hljs-number,
+      html[data-theme='dark'] .hljs-literal {
+        color: #F78C6C !important; /* Orange for numbers */
+      }
+      
+      html[data-theme='dark'] .hljs-comment {
+        color: #607D8B !important; /* Blue-gray for comments */
+      }
+      
+      html[data-theme='dark'] .hljs-function,
+      html[data-theme='dark'] .hljs-class .hljs-title {
+        color: #82AAFF !important; /* Blue for function names */
       }
       
       html[data-theme='dark'] body,
