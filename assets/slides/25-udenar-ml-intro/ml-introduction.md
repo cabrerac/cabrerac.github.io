@@ -11,7 +11,7 @@ style: |
     --accent-color: #00BDB6;     /* Cambridge warm blue */
     --text-color: #00244A;       /* Blue navy for text */
     --background-color: #FFFFFF; /* White background */
-    --progress-color: #00244A;   /* Blue navy for progress bar */
+    --progress-color: #00BDB6;   /* Cambridge warm blue */
   }
   
   section {
@@ -97,19 +97,30 @@ style: |
     color: var(--secondary-color);
   }
   
-  /* Progress bar styling - new approach */
+  /* Progress bar styling */
   section {
     --progress: calc(var(--marp-current-page) / var(--marp-total-pages));
-    background: linear-gradient(
-      to right, 
-      var(--progress-color) calc(var(--progress) * 100%), 
-      transparent 0
-    ) bottom / 100% 4px no-repeat;
-    background-color: var(--background-color);
+    position: relative;
   }
   
-  /* Remove default pagination */
   section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    width: calc(100% * (var(--marp-current-page) / var(--marp-total-pages)));
+    background-color: var(--progress-color);
+    z-index: 9;
+  }
+  
+  /* Remove background gradient that was previously used */
+  section {
+    background: var(--background-color) !important;
+  }
+  
+  /* Remove progress bar from lead slides */
+  section.lead::after {
     display: none;
   }
   
