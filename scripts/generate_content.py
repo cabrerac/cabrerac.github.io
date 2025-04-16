@@ -636,67 +636,34 @@ style: |
   });
 </script>
 
-<!-- Theme Toggle Button -->
-<div id="theme-toggle">🌙 Dark Mode</div>
-
-<style>
-  :root {
-    --primary-color: #00244A;
-    --secondary-color: #00BDB6;
-    --accent-color: #00BDB6;
-    --text-color: #00244A;
-    --background-color: #FFFFFF;
-    --progress-color: #00BDB6;
-  }
-
-  [data-theme="dark"] {
-    --primary-color: #00BDB6;
-    --secondary-color: #00244A;
-    --accent-color: #00BDB6;
-    --text-color: #FFFFFF;
-    --background-color: #00244A;
-    --progress-color: #FFFFFF;
-  }
-
-  section {
-    background-color: var(--background-color);
-    color: var(--text-color);
-  }
-
-  header {
-    color: var(--text-color);
-    border-bottom: 1px solid var(--accent-color);
-  }
-
-  a {
-    color: var(--secondary-color);
-  }
-
-  code, pre {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: var(--text-color);
-  }
-
-  #theme-toggle {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    background: var(--accent-color);
-    color: var(--background-color);
-    padding: 0.5em 1em;
-    border-radius: 999px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 9999;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    user-select: none;
-  }
-</style>
-
+<!-- _script: true -->
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const toggle = document.getElementById("theme-toggle");
+  // Add theme toggle button to body once slides load
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.createElement("div");
+    toggle.id = "theme-toggle";
+    toggle.textContent = "🌙 Dark Mode";
+    document.body.appendChild(toggle);
+
+    const style = document.createElement("style");
+    style.textContent = `
+      #theme-toggle {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        background: var(--accent-color);
+        color: var(--background-color);
+        padding: 0.5em 1em;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 9999;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        user-select: none;
+      }
+    `;
+    document.head.appendChild(style);
 
     function setTheme(theme) {
       document.documentElement.setAttribute("data-theme", theme);
@@ -704,12 +671,10 @@ style: |
       toggle.textContent = theme === "dark" ? "☀ Light Mode" : "🌙 Dark Mode";
     }
 
-    function toggleTheme() {
+    toggle.addEventListener("click", () => {
       const current = document.documentElement.getAttribute("data-theme") || "light";
       setTheme(current === "dark" ? "light" : "dark");
-    }
-
-    toggle.addEventListener("click", toggleTheme);
+    });
 
     const stored = localStorage.getItem("theme");
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
