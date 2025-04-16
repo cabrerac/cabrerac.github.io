@@ -161,20 +161,7 @@ style: |
   section.lead.last-slide p {
     margin: 10px 0;
   }
-
-  #theme-toggle {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    background: var(--secondary-color);
-    color: var(--background-color);
-    padding: 6px 10px;
-    font-size: 14px;
-    border-radius: 6px;
-    cursor: pointer;
-    z-index: 9999;
-    user-select: none;
-  }
+  
 ---
 
 <!-- _class: lead -->
