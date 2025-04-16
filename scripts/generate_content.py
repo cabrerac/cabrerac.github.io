@@ -662,6 +662,56 @@ style: |
         box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         user-select: none;
       }
+      
+      html[data-theme='dark'] {
+        --primary-color: #00BDB6;
+        --secondary-color: #80FFF6;
+        --accent-color: #00BDB6;
+        --text-color: #FFFFFF;
+        --background-color: #1E1E1E;
+        --progress-color: #00BDB6;
+      }
+      
+      html[data-theme='light'] {
+        --primary-color: #00244A;
+        --secondary-color: #00BDB6;
+        --accent-color: #00BDB6;
+        --text-color: #00244A;
+        --background-color: #FFFFFF;
+        --progress-color: #00BDB6;
+      }
+      
+      html[data-theme='dark'] section {
+        background-color: #1E1E1E !important;
+        color: #FFFFFF !important;
+      }
+      
+      html[data-theme='dark'] h1, 
+      html[data-theme='dark'] h2, 
+      html[data-theme='dark'] h3, 
+      html[data-theme='dark'] h4, 
+      html[data-theme='dark'] h5, 
+      html[data-theme='dark'] h6 {
+        color: #FFFFFF !important;
+      }
+      
+      html[data-theme='dark'] a {
+        color: #80FFF6 !important;
+      }
+      
+      html[data-theme='dark'] pre,
+      html[data-theme='dark'] code {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+      }
+      
+      html[data-theme='dark'] body,
+      html[data-theme='dark'] .marpit {
+        background-color: #1E1E1E !important;
+      }
+      
+      html[data-theme='dark'] header {
+        color: #FFFFFF !important;
+      }
     `;
     document.head.appendChild(style);
 
