@@ -526,11 +526,23 @@ style: |
   
   /* Hide default Marp pagination */
   section::after {{
-    display: none;
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: calc(100% * var(--marp-progress));
+    height: 4px;
+    background: var(--accent-color);
+    z-index: 2;
   }}
   
   /* Hide pagination on lead slides */
   section.lead::before {{
+    display: none;
+  }}
+  
+  /* Hide progress bar on lead slides */
+  section.lead::after {{
     display: none;
   }}
   
