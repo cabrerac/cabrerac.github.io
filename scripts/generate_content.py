@@ -524,33 +524,6 @@ style: |
     color: var(--secondary-color);
   }}
   
-  /* Progress bar styling */
-  section {{
-    --progress: calc(var(attr(data-marpit-pagination) / attr(data-marpit-pagination-total));
-    position: relative;
-  }}
-  
-  section::after {{
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 4px;
-    width: calc(100% * var(--progress));
-    background-color: var(--progress-color);
-    z-index: 9;
-  }}
-  
-  /* Remove background gradient that was previously used */
-  section {{
-    background: var(--background-color) !important;
-  }}
-  
-  /* Remove progress bar from lead slides */
-  section.lead::after {{
-    display: none;
-  }}
-  
   /* Hide pagination on lead slides */
   section.lead::before {{
     display: none;
@@ -634,7 +607,6 @@ style: |
 
 <script>
   document.querySelectorAll('section').forEach((section, i, all) => {{
-    if (section.classList.contains('lead')) return;
     const bar = document.createElement('div');
     bar.style.position = 'absolute';
     bar.style.bottom = '0';
