@@ -526,7 +526,7 @@ style: |
   
   /* Progress bar styling */
   section {{
-    --progress: calc(var(--marp-current-page) / var(--marp-total-pages));
+    --progress: calc(var(attr(data-marpit-pagination) " / " attr(data-marpit-pagination-total));
     position: relative;
   }}
   
@@ -536,7 +536,7 @@ style: |
     bottom: 0;
     left: 0;
     height: 4px;
-    width: calc(100% * (var(--marp-current-page) / var(--marp-total-pages)));
+    width: calc(100% * var(--progress));
     background-color: var(--progress-color);
     z-index: 9;
   }}
