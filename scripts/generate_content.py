@@ -642,7 +642,7 @@ style: |
   document.addEventListener("DOMContentLoaded", () => {
     const toggle = document.createElement("div");
     toggle.id = "theme-toggle";
-    toggle.textContent = "🌙 Dark Mode";
+    toggle.innerHTML = "🌙";
     document.body.appendChild(toggle);
 
     const style = document.createElement("style");
@@ -653,14 +653,23 @@ style: |
         right: 1rem;
         background: var(--accent-color);
         color: var(--background-color);
-        padding: 0.5em 1em;
-        border-radius: 999px;
+        padding: 0.5em;
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 50%;
         font-size: 14px;
-        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         cursor: pointer;
         z-index: 9999;
         box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         user-select: none;
+        transition: transform 0.3s ease;
+      }
+      
+      #theme-toggle:hover {
+        transform: scale(1.1);
       }
       
       html[data-theme='dark'] {
@@ -756,7 +765,7 @@ style: |
     function setTheme(theme) {
       document.documentElement.setAttribute("data-theme", theme);
       localStorage.setItem("theme", theme);
-      toggle.textContent = theme === "dark" ? "☀ Light Mode" : "🌙 Dark Mode";
+      toggle.innerHTML = theme === "dark" ? "☀️" : "🌙";
     }
 
     toggle.addEventListener("click", () => {
@@ -812,6 +821,8 @@ style: |
                     str(output_file),
                     '--pdf',
                     '--allow-local-files',
+                    '--theme-set', str(Path(__file__).parent / 'dark-theme.css'),
+                    '--html',
                     '-o', str(output_dir / f"{lecture_file.stem}.pdf")
                 ]
             else:
@@ -820,6 +831,8 @@ style: |
                     str(output_file),
                     '--pdf',
                     '--allow-local-files',
+                    '--theme-set', str(Path(__file__).parent / 'dark-theme.css'),
+                    '--html',
                     '-o', str(output_dir / f"{lecture_file.stem}.pdf")
                 ]
             
