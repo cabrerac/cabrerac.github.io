@@ -629,6 +629,24 @@ style: |
 <!-- _class: lead last-slide -->
 # Many Thanks!
 <p><a href="mailto:{metadata.get('email', '')}">{metadata.get('email', '')}</a></p>
+
+<!-- _script: true -->
+
+<script>
+  document.querySelectorAll('section').forEach((section, i, all) => {{
+    if (section.classList.contains('lead')) return;
+    const bar = document.createElement('div');
+    bar.style.position = 'absolute';
+    bar.style.bottom = '0';
+    bar.style.left = '0';
+    bar.style.height = '4px';
+    bar.style.backgroundColor = '#00BDB6';
+    bar.style.width = `${{((i + 1) / all.length) * 100}}%`;
+    bar.style.zIndex = '9';
+    section.appendChild(bar);
+  }});
+</script>
+
 """
         
         # Save markdown slides
