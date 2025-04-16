@@ -648,7 +648,7 @@ style: |
     });
   });
 </script>
-<footer>
+
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const toggle = document.createElement("div");
@@ -677,7 +677,6 @@ style: |
     }
   });
 </script>
-</footer>
 """)
         
         # Generate PDF and HTML slides using Marp CLI
