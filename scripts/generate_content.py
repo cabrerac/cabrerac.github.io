@@ -524,14 +524,9 @@ style: |
     color: var(--secondary-color);
   }}
   
-  /* Hide pagination on lead slides */
-  section.lead::before {{
-    display: none;
-  }}
-  
-  /* Reset background for lead slides */
-  section.lead {{
-    background: var(--background-color);
+  /* Hide default Marp pagination */
+  section::after {{
+    display: none !important;
   }}
   
   /* Header styling */
@@ -604,18 +599,20 @@ style: |
 <p><a href="mailto:{metadata.get('email', '')}">{metadata.get('email', '')}</a></p>
 
 <!-- _script: true -->
-
+<!-- This script will only execute in HTML slides, not in PDF -->
 <script>
-  document.querySelectorAll('section').forEach((section, i, all) => {{
-    const bar = document.createElement('div');
-    bar.style.position = 'absolute';
-    bar.style.bottom = '0';
-    bar.style.left = '0';
-    bar.style.height = '4px';
-    bar.style.backgroundColor = '#00BDB6';
-    bar.style.width = `${{((i + 1) / all.length) * 100}}%`;
-    bar.style.zIndex = '9';
-    section.appendChild(bar);
+  document.addEventListener('DOMContentLoaded', () => {{
+    document.querySelectorAll('section').forEach((section, i, all) => {{
+      const bar = document.createElement('div');
+      bar.style.position = 'absolute';
+      bar.style.bottom = '0';
+      bar.style.left = '0';
+      bar.style.height = '4px';
+      bar.style.backgroundColor = '#00BDB6';
+      bar.style.width = `${{((i + 1) / all.length) * 100}}%`;
+      bar.style.zIndex = '9';
+      section.appendChild(bar);
+    }});
   }});
 </script>
 
