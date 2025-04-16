@@ -14,28 +14,22 @@ style: |
     --progress-color: #00BDB6;
   }
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --primary-color: #00BDB6;
-      --secondary-color: #80FFF6;
-      --accent-color: #00BDB6;
-      --text-color: #FFFFFF;
-      --background-color: #1E1E1E;
-      --progress-color: #00BDB6;
-    }
+  html[data-theme='dark'] {
+    --primary-color: #00BDB6;
+    --secondary-color: #80FFF6;
+    --accent-color: #00BDB6;
+    --text-color: #FFFFFF;
+    --background-color: #1E1E1E;
+    --progress-color: #00BDB6;
+  }
 
-    code, pre {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
+  html {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
 
-    section {
-      background-color: var(--background-color);
-      color: var(--text-color);
-    }
-
-    header {
-      border-bottom: 1px solid var(--accent-color);
-    }
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
   }
 
   section {
@@ -167,7 +161,51 @@ style: |
   section.lead.last-slide p {
     margin: 10px 0;
   }
+
+  #theme-toggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: var(--secondary-color);
+    color: var(--background-color);
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    z-index: 9999;
+    user-select: none;
+  }
 ---
+
+<!-- Theme toggle script -->
+<script>
+  (function() {
+    const toggle = document.createElement('div');
+    toggle.id = 'theme-toggle';
+    document.body.appendChild(toggle);
+
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      toggle.textContent = theme === 'dark' ? '☀ Light Mode' : '🌙 Dark Mode';
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'light';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    toggle.addEventListener('click', toggleTheme);
+
+    const stored = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (stored) {
+      setTheme(stored);
+    } else {
+      setTheme(prefersDark ? 'dark' : 'light');
+    }
+  })();
+</script>
 
 <!-- _class: lead -->
 # Introduction to Machine Learning
