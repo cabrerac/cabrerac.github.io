@@ -99,7 +99,7 @@ style: |
   
   /* Progress bar styling */
   section {
-    --progress: calc(var(attr(data-marpit-pagination) " / " attr(data-marpit-pagination-total));
+    --progress: calc(var(attr(data-marpit-pagination) / attr(data-marpit-pagination-total));
     position: relative;
   }
   
