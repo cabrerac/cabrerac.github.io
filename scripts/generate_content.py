@@ -532,7 +532,7 @@ style: |
     left: 0;
     width: calc(100% * var(--marp-progress));
     height: 4px;
-    background: var(--accent-color);
+    background: var(--progress-color);
     z-index: 2;
   }}
   
