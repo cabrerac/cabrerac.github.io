@@ -161,7 +161,7 @@ style: |
   section.lead.last-slide p {
     margin: 10px 0;
   }
-  
+
 ---
 
 <!-- _class: lead -->
