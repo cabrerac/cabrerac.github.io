@@ -524,16 +524,20 @@ style: |
     color: var(--secondary-color);
   }}
   
-  /* Hide default Marp pagination */
+  /* Progress bar styling - new approach */
+  section {{
+    --progress: calc(var(--marp-current-page) / var(--marp-total-pages));
+    background: linear-gradient(
+      to right, 
+      var(--progress-color) calc(var(--progress) * 100%), 
+      transparent 0
+    ) bottom / 100% 4px no-repeat;
+    background-color: var(--background-color);
+  }}
+  
+  /* Remove default pagination */
   section::after {{
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: calc(100% * var(--marp-progress));
-    height: 4px;
-    background: var(--progress-color);
-    z-index: 2;
+    display: none;
   }}
   
   /* Hide pagination on lead slides */
@@ -541,9 +545,9 @@ style: |
     display: none;
   }}
   
-  /* Hide progress bar on lead slides */
-  section.lead::after {{
-    display: none;
+  /* Reset background for lead slides */
+  section.lead {{
+    background: var(--background-color);
   }}
   
   /* Header styling */
