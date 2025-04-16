@@ -597,31 +597,35 @@ style: |
 <!-- _class: lead last-slide -->
 # Many Thanks!
 <p><a href="mailto:{metadata.get('email', '')}">{metadata.get('email', '')}</a></p>
+"""
 
+        # Save markdown slides
+        output_file = output_dir / f"{lecture_file.stem}.md"
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write(marp_content)
+            
+        # Add HTML-specific content for the progress bar (won't be in the PDF)
+        html_output_file = output_dir / f"{lecture_file.stem}.html.md"
+        with open(html_output_file, 'w', encoding='utf-8') as f:
+            f.write(marp_content + """
 <!-- _script: true -->
-<!-- This script will only execute in HTML slides, not in PDF -->
+<!-- This script will only execute in HTML slides -->
 <script>
-  document.addEventListener('DOMContentLoaded', () => {{
-    document.querySelectorAll('section').forEach((section, i, all) => {{
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('section').forEach((section, i, all) => {
       const bar = document.createElement('div');
       bar.style.position = 'absolute';
       bar.style.bottom = '0';
       bar.style.left = '0';
       bar.style.height = '4px';
       bar.style.backgroundColor = '#00BDB6';
-      bar.style.width = `${{((i + 1) / all.length) * 100}}%`;
+      bar.style.width = `${((i + 1) / all.length) * 100}%`;
       bar.style.zIndex = '9';
       section.appendChild(bar);
-    }});
-  }});
+    });
+  });
 </script>
-
-"""
-        
-        # Save markdown slides
-        output_file = output_dir / f"{lecture_file.stem}.md"
-        with open(output_file, 'w', encoding='utf-8') as f:
-            f.write(marp_content)
+""")
         
         # Generate PDF and HTML slides using Marp CLI
         try:
@@ -674,10 +678,10 @@ style: |
             print(f"Running command: {' '.join(pdf_cmd)}")
             subprocess.run(pdf_cmd, check=True)
             
-            # Generate HTML
+            # Generate HTML from the HTML-specific file
             if isinstance(marp_cmd, list):
                 html_cmd = marp_cmd + [
-                    str(output_file),
+                    str(html_output_file),
                     '--html',
                     '--allow-local-files',
                     '-o', str(output_dir / f"{lecture_file.stem}.html")
@@ -685,7 +689,7 @@ style: |
             else:
                 html_cmd = [
                     marp_cmd,
-                    str(output_file),
+                    str(html_output_file),
                     '--html',
                     '--allow-local-files',
                     '-o', str(output_dir / f"{lecture_file.stem}.html")
@@ -693,6 +697,9 @@ style: |
             
             print(f"Running command: {' '.join(html_cmd)}")
             subprocess.run(html_cmd, check=True)
+            
+            # Remove the temporary HTML source file
+            os.remove(html_output_file)
             
             print(f"✓ Successfully generated slides for {lecture_file.stem}")
         except subprocess.CalledProcessError as e:

@@ -329,22 +329,3 @@ In our next session, we will dive deeper into:
 <!-- _class: lead last-slide -->
 # Many Thanks!
 <p><a href="mailto:chc79@cam.ac.uk">chc79@cam.ac.uk</a></p>
-
-<!-- _script: true -->
-<!-- This script will only execute in HTML slides, not in PDF -->
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('section').forEach((section, i, all) => {
-      const bar = document.createElement('div');
-      bar.style.position = 'absolute';
-      bar.style.bottom = '0';
-      bar.style.left = '0';
-      bar.style.height = '4px';
-      bar.style.backgroundColor = '#00BDB6';
-      bar.style.width = `${((i + 1) / all.length) * 100}%`;
-      bar.style.zIndex = '9';
-      section.appendChild(bar);
-    });
-  });
-</script>
-
