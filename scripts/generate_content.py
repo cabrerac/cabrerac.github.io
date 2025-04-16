@@ -433,14 +433,38 @@ header: "Session {metadata.get('session', '1')} - {metadata.get('title', '')}"
 footer: ""
 style: |
   :root {{
-    --primary-color: #00244A;    /* Blue navy */
-    --secondary-color: #00BDB6;  /* Cambridge warm blue */
-    --accent-color: #00BDB6;     /* Cambridge warm blue */
-    --text-color: #00244A;       /* Blue navy for text */
-    --background-color: #FFFFFF; /* White background */
-    --progress-color: #00BDB6;   /* Cambridge warm blue */
+    --primary-color: #00244A;
+    --secondary-color: #00BDB6;
+    --accent-color: #00BDB6;
+    --text-color: #00244A;
+    --background-color: #FFFFFF;
+    --progress-color: #00BDB6;
   }}
-  
+
+  @media (prefers-color-scheme: dark) {{
+    :root {{
+      --primary-color: #00BDB6;
+      --secondary-color: #80FFF6;
+      --accent-color: #00BDB6;
+      --text-color: #FFFFFF;
+      --background-color: #1E1E1E;
+      --progress-color: #00BDB6;
+    }}
+
+    code, pre {{
+      background-color: rgba(255, 255, 255, 0.1);
+    }}
+
+    section {{
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }}
+
+    header {{
+      border-bottom: 1px solid var(--accent-color);
+    }}
+  }}
+
   section {{
     background-color: var(--background-color);
     color: var(--text-color);
@@ -448,35 +472,35 @@ style: |
     font-size: 28px;
     font-family: 'Helvetica Neue', Arial, sans-serif;
   }}
-  
+
   h1 {{
     font-size: 48px;
     color: var(--text-color);
     margin-bottom: 20px;
     padding-bottom: 10px;
   }}
-  
+
   h2 {{
     font-size: 40px;
     color: var(--text-color);
     margin-bottom: 15px;
   }}
-  
+
   h3 {{
     font-size: 32px;
     color: var(--text-color);
     margin-bottom: 10px;
   }}
-  
+
   ul, ol {{
     margin-left: 30px;
     margin-top: 15px;
   }}
-  
+
   li {{
     margin-bottom: 10px;
   }}
-  
+
   img {{
     max-width: 80%;
     margin: 20px auto;
@@ -484,7 +508,7 @@ style: |
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }}
-  
+
   code {{
     font-size: 24px;
     background-color: rgba(10, 25, 47, 0.1);
@@ -493,25 +517,23 @@ style: |
     border-radius: 4px;
     font-family: 'Fira Code', monospace;
   }}
-  
+
   pre {{
     background-color: rgba(10, 25, 47, 0.1);
     padding: 15px;
     border-radius: 8px;
     overflow-x: auto;
   }}
-  
-  /* Link styling */
+
   a {{
     color: var(--secondary-color);
     text-decoration: none;
   }}
-  
+
   a:hover {{
     text-decoration: underline;
   }}
-  
-  /* Pagination styling */
+
   section::before {{
     font-size: 0.6em;
     content: attr(data-marpit-pagination) " / " attr(data-marpit-pagination-total);
@@ -523,13 +545,11 @@ style: |
     left: -0.5em;
     color: var(--secondary-color);
   }}
-  
-  /* Hide default Marp pagination */
+
   section::after {{
     display: none !important;
   }}
-  
-  /* Header styling */
+
   header {{
     color: var(--text-color);
     font-size: 20px;
@@ -544,23 +564,20 @@ style: |
     border-bottom: 1px solid var(--accent-color);
   }}
 
-  /* Title slide specific styling */
   section.lead h1 {{
     margin-bottom: 10px;
   }}
-  
+
   section.lead p {{
     font-size: 24px;
     margin: 5px 0;
     line-height: 1.2;
   }}
 
-  /* Hide header on lead slides */
   section.lead header {{
     display: none;
   }}
 
-  /* Center content only on the last slide */
   section.lead.last-slide {{
     display: flex;
     flex-direction: column;
@@ -577,7 +594,6 @@ style: |
   section.lead.last-slide p {{
     margin: 10px 0;
   }}
-
 ---
 
 <!-- _class: lead -->
@@ -598,6 +614,7 @@ style: |
 # Many Thanks!
 <p><a href="mailto:{metadata.get('email', '')}">{metadata.get('email', '')}</a></p>
 """
+
 
         # Save markdown slides
         output_file = output_dir / f"{lecture_file.stem}.md"
