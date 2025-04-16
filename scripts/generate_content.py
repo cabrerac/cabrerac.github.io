@@ -604,36 +604,6 @@ style: |
   }}
 ---
 
-<!-- Theme toggle script -->
-<script>
-  (function() {{
-    const toggle = document.createElement('div');
-    toggle.id = 'theme-toggle';
-    document.body.appendChild(toggle);
-
-    function setTheme(theme) {{
-      document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('theme', theme);
-      toggle.textContent = theme === 'dark' ? '☀ Light Mode' : '🌙 Dark Mode';
-    }}
-
-    function toggleTheme() {{
-      const current = document.documentElement.getAttribute('data-theme') || 'light';
-      setTheme(current === 'dark' ? 'light' : 'dark');
-    }}
-
-    toggle.addEventListener('click', toggleTheme);
-
-    const stored = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (stored) {{
-      setTheme(stored);
-    }} else {{
-      setTheme(prefersDark ? 'dark' : 'light');
-    }}
-  }})();
-</script>
-
 <!-- _class: lead -->
 # {metadata.get('title', '')}
 <p><b>{metadata.get('author', '')}</b></p>
@@ -678,6 +648,36 @@ style: |
     });
   });
 </script>
+<footer>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggle = document.createElement("div");
+    toggle.id = "theme-toggle";
+    document.body.appendChild(toggle);
+
+    function setTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      localStorage.setItem("theme", theme);
+      toggle.textContent = theme === "dark" ? "☀ Light Mode" : "🌙 Dark Mode";
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute("data-theme") || "light";
+      setTheme(current === "dark" ? "light" : "dark");
+    }
+
+    toggle.addEventListener("click", toggleTheme);
+
+    const stored = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (stored) {
+      setTheme(stored);
+    } else {
+      setTheme(prefersDark ? "dark" : "light");
+    }
+  });
+</script>
+</footer>
 """)
         
         # Generate PDF and HTML slides using Marp CLI
