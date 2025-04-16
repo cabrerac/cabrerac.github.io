@@ -588,20 +588,7 @@ style: |
   section.lead.last-slide p {{
     margin: 10px 0;
   }}
-
-  #theme-toggle {{
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    background: var(--secondary-color);
-    color: var(--background-color);
-    padding: 6px 10px;
-    font-size: 14px;
-    border-radius: 6px;
-    cursor: pointer;
-    z-index: 9999;
-    user-select: none;
-  }}
+  
 ---
 
 <!-- _class: lead -->
@@ -649,11 +636,29 @@ style: |
   });
 </script>
 
+<!-- Theme Toggle Button -->
+<div id="theme-toggle">🌙 Dark Mode</div>
+
+<style>
+  #theme-toggle {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    background: var(--accent-color);
+    color: white;
+    padding: 0.5em 1em;
+    border-radius: 999px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 9999;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    user-select: none;
+  }
+</style>
+
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const toggle = document.createElement("div");
-    toggle.id = "theme-toggle";
-    document.body.appendChild(toggle);
+    const toggle = document.getElementById("theme-toggle");
 
     function setTheme(theme) {
       document.documentElement.setAttribute("data-theme", theme);
