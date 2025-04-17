@@ -642,7 +642,7 @@ style: |
   document.addEventListener("DOMContentLoaded", () => {
     const toggle = document.createElement("div");
     toggle.id = "theme-toggle";
-    toggle.innerHTML = "🌙";
+    toggle.innerHTML = "🌔";
     document.body.appendChild(toggle);
 
     const style = document.createElement("style");
@@ -765,7 +765,7 @@ style: |
     function setTheme(theme) {
       document.documentElement.setAttribute("data-theme", theme);
       localStorage.setItem("theme", theme);
-      toggle.innerHTML = theme === "dark" ? "☀️" : "🌙";
+      toggle.innerHTML = theme === "dark" ? "🌔" : "🌒";
     }
 
     toggle.addEventListener("click", () => {
