@@ -2,25 +2,25 @@
 marp: true
 theme: default
 paginate: true
-header: "Session 1 - Introduction to Machine Learning"
+header: "Session 1 - Artificial Intelligence and Machine Learning"
 footer: ""
 style: |
   :root {
     --primary-color: #00244A;
-    --secondary-color: #00BDB6;
-    --accent-color: #00BDB6;
+    --secondary-color: #0E73B8;
+    --accent-color: #0E73B8;
     --text-color: #00244A;
     --background-color: #FFFFFF;
-    --progress-color: #00BDB6;
+    --progress-color: #0E73B8;
   }
 
   html[data-theme='dark'] {
-    --primary-color: #00BDB6;
+    --primary-color: #0E73B8;
     --secondary-color: #80FFF6;
-    --accent-color: #00BDB6;
+    --accent-color: #0E73B8;
     --text-color: #FFFFFF;
     --background-color: #1E1E1E;
-    --progress-color: #00BDB6;
+    --progress-color: #0E73B8;
   }
 
   html {
@@ -165,7 +165,7 @@ style: |
 ---
 
 <!-- _class: lead -->
-# Introduction to Machine Learning
+# Artificial Intelligence and Machine Learning
 <p><b>Christian Cabrera Jojoa</b></p>
 <p>Senior Research Associate and Affiliated Lecturer</p>
 <p>Department of Computer Science and Technology</p>

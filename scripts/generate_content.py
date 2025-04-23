@@ -434,20 +434,20 @@ footer: ""
 style: |
   :root {{
     --primary-color: #00244A;
-    --secondary-color: #00BDB6;
-    --accent-color: #00BDB6;
+    --secondary-color: #0E73B8;
+    --accent-color: #0E73B8;
     --text-color: #00244A;
     --background-color: #FFFFFF;
-    --progress-color: #00BDB6;
+    --progress-color: #0E73B8;
   }}
 
   html[data-theme='dark'] {{
-    --primary-color: #00BDB6;
+    --primary-color: #0E73B8;
     --secondary-color: #80FFF6;
-    --accent-color: #00BDB6;
+    --accent-color: #0E73B8;
     --text-color: #FFFFFF;
     --background-color: #1E1E1E;
-    --progress-color: #00BDB6;
+    --progress-color: #0E73B8;
   }}
 
   html {{

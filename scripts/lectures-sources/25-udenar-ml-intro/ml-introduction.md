@@ -1,7 +1,7 @@
 ---
 course_code: 25-udenar-ml-intro
-title: Introduction to Machine Learning
-description: This lecture presents the course and a brief context and history of the Machine Learning (ML) field.
+title: Artificial Intelligence and Machine Learning
+description: This lecture presents the Artificial Intelligence and Machine Learning concepts. Their definition, history, implications, and applications.
 session: 1
 start_time: TBD
 end_time: TBD

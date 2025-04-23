@@ -2,8 +2,8 @@
 author: Christian Cabrera Jojoa
 course_code: 25-udenar-ml-intro
 department: Department of Computer Science and Technology
-description: This lecture presents the course and a brief context and history of the
-  Machine Learning (ML) field.
+description: This lecture presents the Artificial Intelligence and Machine Learning
+  concepts. Their definition, history, implications, and applications.
 email: chc79@cam.ac.uk
 end_time: TBD
 hours: 4
@@ -15,7 +15,7 @@ permalink: /teaching/25-udenar-ml-intro/ml-introduction/
 position: Senior Research Associate and Affiliated Lecturer
 session: 1
 start_time: TBD
-title: Introduction to Machine Learning
+title: Artificial Intelligence and Machine Learning
 visible: true
 ---
 
