@@ -174,166 +174,20 @@ style: |
 
 ---
 
-## Course Overview
+# Artificial Intelligence
 
-Welcome to Introduction to Machine Learning! This course will provide you with a comprehensive understanding of machine learning concepts, algorithms, and practical applications.
+<p>"The field of Artificial Intelligence (AI) is concerned with <em>understanding and building intelligent entities</em>".</p>
 
+<p><em>Stuart Russell and Peter Norvig, Artificial Intelligence: A Modern Approach (4th Edition)</em></p>
 
----
-
-### Course Structure
-- 10 sessions of 4 hours each
-- Combination of theory and practice
-- Hands-on exercises using Python
-- Interactive elements (polls, cloud numbers)
+<img src="{{ site.url }}/assets/media/images/ai-modern-approach.jpeg" alt="Artificial Intelligence: A Modern Approach book cover" style="max-width: 300px; display: block; margin: 0 auto;">
 
 
 ---
 
-### Learning Objectives
-By the end of this course, you will:
-- Understand fundamental ML concepts
-- Be able to implement basic ML algorithms
-- Know how to evaluate ML models
-- Have practical experience with real-world datasets
+## Artificial Intelligence - Intelligent Entities
 
-
----
-
-# What is Machine Learning?
-
-Machine Learning is a field of study that gives computers the ability to learn without being explicitly programmed. It's a subset of Artificial Intelligence that focuses on building systems that can learn from and make decisions based on data.
-
-![ML Overview](/assets/media/images/ml-overview.png)
-
-
----
-
-## Interactive Example
-Here's a simple example of how ML works:
-
-```python
-from sklearn.datasets import make_blobs
-import matplotlib.pyplot as plt
-
-
----
-
-# Generate sample data
-X, y = make_blobs(n_samples=100, centers=2, random_state=42)
-
-
----
-
-# Plot the data
-plt.scatter(X[:, 0], X[:, 1], c=y)
-plt.title("Sample ML Dataset")
-plt.show()
-```
-
-
----
-
-# History of AI and ML
-
-
----
-
-## Early Days (1950s-1960s)
-- Alan Turing's "Turing Test"
-- First neural networks
-- Perceptron development
-
-
----
-
-## AI Winter (1970s-1980s)
-- Limited computing power
-- High expectations vs. reality
-- Funding cuts
-
-
----
-
-## Renaissance (1990s-Present)
-- Increased computing power
-- Big data availability
-- Deep learning revolution
-
-
----
-
-# ML Applications
-
-
----
-
-## Current Applications
-
----
-
-### Computer Vision
-   - Image recognition
-   - Object detection
-   - Medical imaging
-
-
----
-
-### Natural Language Processing
-   - Machine translation
-   - Sentiment analysis
-   - Chatbots
-
-
----
-
-### Recommendation Systems
-   - Content recommendations
-   - Product suggestions
-   - Personalized marketing
-
-
----
-
-### Healthcare
-   - Disease diagnosis
-   - Drug discovery
-   - Patient care optimization
-
-
----
-
-## Benefits and Risks
-
-
----
-
-### Benefits
-- Automation of complex tasks
-- Improved decision-making
-- Personalization
-- Efficiency gains
-
-
----
-
-### Risks and Challenges
-- Data privacy concerns
-- Algorithmic bias
-- Job displacement
-- Ethical considerations
-
-
----
-
-## Next Session Preview
-
-In our next session, we will dive deeper into:
-- Data preprocessing techniques
-- Feature engineering
-- Basic ML algorithms
-- Model evaluation metrics
+<p>"The field of Artificial Intelligence (AI) is concerned with <em>understanding and building intelligent entities</em>".</p>
 
 ---
 
