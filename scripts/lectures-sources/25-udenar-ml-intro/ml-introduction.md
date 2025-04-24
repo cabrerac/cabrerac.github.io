@@ -38,4 +38,4 @@ visible: true
 </script>
 
 <!-- SLIDES: -->
-{% include _includes/_snippets/ai-concept.md %}
+{% include _snippets/ai-concept.md %}
