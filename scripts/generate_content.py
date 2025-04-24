@@ -821,7 +821,7 @@ style: |
                     str(output_file),
                     '--pdf',
                     '--allow-local-files',
-                    '--theme-set', str(Path(__file__).parent / 'dark-theme.css'),
+                    '--theme-set', 'dark',
                     '--html',
                     '-o', str(output_dir / f"{lecture_file.stem}.pdf")
                 ]
