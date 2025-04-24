@@ -235,7 +235,7 @@ class ContentGenerator:
             include_path = include_path.strip('"\'')
             
             # Look for the include file in _includes
-            include_file = self.base_dir / include_path
+            include_file = self.base_dir / "_includes" / include_path
             if not include_file.exists():
                 print(f"Warning: Include file {include_file} not found")
                 return match.group(0)
