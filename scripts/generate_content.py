@@ -244,6 +244,11 @@ class ContentGenerator:
             with open(include_file, 'r', encoding='utf-8') as f:
                 include_content = f.read()
                 
+            # Process Liquid template variables
+            # Replace {{ site.url }} with the actual site URL for local images
+            site_url = "https://cabrerac.github.io"  # Replace with your actual site URL
+            include_content = include_content.replace('{{ site.url }}', site_url)
+            
             # Process nested includes
             include_content = self.process_includes(include_content)
             
@@ -338,6 +343,8 @@ class ContentGenerator:
         # Create rendered content with metadata and resources
         rendered_content = f"""---
 {yaml.dump(metadata, default_flow_style=False)}---
+
+<link rel="stylesheet" href="/assets/css/slides.css">
 
 <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
 <script>

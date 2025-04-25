@@ -1,0 +1,28 @@
+.two-column-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+  margin: 2rem 0;
+}
+
+.column {
+  padding: 1rem;
+}
+
+.text-column {
+  text-align: left;
+}
+
+.image-column {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .two-column-layout {
+    grid-template-columns: 1fr;
+  }
+} 
