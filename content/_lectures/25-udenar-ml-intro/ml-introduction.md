@@ -19,6 +19,8 @@ title: Artificial Intelligence and Machine Learning
 visible: true
 ---
 
+<link rel="stylesheet" href="/assets/css/slides.css">
+
 <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
 <script>
     async function main() {
