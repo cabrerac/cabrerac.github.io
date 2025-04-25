@@ -1,0 +1,69 @@
+/* @theme custom */
+
+section {
+  background: white;
+  color: #333;
+  font-size: 1.5em;
+  padding: 40px;
+}
+
+h1 {
+  color: #00244A;
+  font-size: 1.8em;
+  margin-bottom: 0.5em;
+}
+
+h2 {
+  color: #0E73B8;
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+p {
+  margin: 0.5em 0;
+}
+
+.two-column-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+  margin: 2rem 0;
+}
+
+.column {
+  padding: 1rem;
+}
+
+.text-column {
+  text-align: left;
+}
+
+.image-column {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+  section {
+    background: #1E1E1E;
+    color: #FFFFFF;
+  }
+
+  h1 {
+    color: #80FFF6;
+  }
+
+  h2 {
+    color: #0E73B8;
+  }
+} 

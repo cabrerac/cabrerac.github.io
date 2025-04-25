@@ -1,17 +1,53 @@
-# Artificial Intelligence
+## Artificial Intelligence
 
-<div class="two-column-layout">
-  <div class="column text-column">
-    <p>"The field of Artificial Intelligence (AI) is concerned with <em>understanding and building intelligent entities</em>".</p>
+<div class="columns">
+<div class="column">
 
-    <p><em>Stuart Russell and Peter Norvig, Artificial Intelligence: A Modern Approach (4th Edition)</em></p>
+<p>"The field of Artificial Intelligence (AI) is concerned with <em>understanding and building intelligent entities</em>".</p>
+
+<em>Stuart Russell and Peter Norvig, Artificial Intelligence: A Modern Approach (4th Edition)</em>
+
+</div>
+<div class="column">
+
+<img src="{{ site.url }}/assets/media/images/ai-modern-approach.jpeg" alt="Artificial Intelligence: A Modern Approach book cover">
+
+</div>
+</div>
+
+## Artificial Intelligence - Intelligent Entities
+<div class="rows">
+  <div class="row">
+    "The field of Artificial Intelligence (AI) is concerned with understanding and building intelligent entities."
   </div>
-  
-  <div class="column image-column">
-    <img src="https://m.media-amazon.com/images/I/51wOX2p9fmL._SY445_SX342_.jpg" alt="Artificial Intelligence: A Modern Approach book cover" style="max-width: 300px; display: block; margin: 0 auto;">
+  <div class="row">
+    <img src="{{ site.url }}/assets/media/images/ai-modern-approach.jpeg" alt="Artificial Intelligence: A Modern Approach book cover">
+  </div>
+  <div class="row">
+    <img src="{{ site.url }}/assets/media/images/ai-modern-approach.jpeg" alt="Artificial Intelligence: A Modern Approach book cover">
   </div>
 </div>
 
 ## Artificial Intelligence - Intelligent Entities
-
-<p>"The field of Artificial Intelligence (AI) is concerned with <em>understanding and building intelligent entities</em>".</p>
+<div class="rows">
+  <div class="row">
+    <div class="columns">
+        <div class="column">
+            The field of Artificial Intelligence (AI) is concerned with understanding and building intelligent entities"
+        </div>
+        <div class="column">
+            <img src="{{ site.url }}/assets/media/images/ai-modern-approach.jpeg" alt="Artificial Intelligence: A Modern Approach book cover">
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="columns">
+        <div class="column">
+            <img src="{{ site.url }}/assets/media/images/ai-modern-approach.jpeg" alt="Artificial Intelligence: A Modern Approach book cover">
+        </div>
+        <div class="column">
+            The field of Artificial Intelligence (AI) is concerned with understanding and building intelligent entities"
+        </div>
+    </div>
+  </div>
+</div>

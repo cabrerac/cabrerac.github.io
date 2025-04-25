@@ -457,6 +457,82 @@ style: |
     --progress-color: #0E73B8;
   }}
 
+  .columns {{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    align-items: start;
+    margin: 1rem 0;
+  }}
+
+  .rows {{
+    display: grid;
+    grid-template-rows: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    align-items: start;
+    margin: 1rem 0;
+  }}
+
+  .column, .row {{
+    padding: 0.5rem;
+    min-width: 0; /* Prevents overflow */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }}
+
+  .column img, .row img {{
+    max-width: 100%;
+    max-height: 300px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0.5rem auto;
+  }}
+
+  .column p, .row p {{
+    margin: 0.5rem 0;
+    text-align: center;
+  }}
+
+  .column em, .row em {{
+    margin-top: 0.5rem;
+    display: block;
+    font-size: 0.9em;
+    text-align: center;
+  }}
+
+  section {{
+    padding-top: 60px; /* Add space for header */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    min-height: calc(100vh - 60px);
+  }}
+
+  section > *:first-child {{
+    margin-top: 0;
+  }}
+
+  h1, h2 {{
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }}
+
+  h1 {{
+    font-size: 2em;
+    margin-bottom: 1rem;
+  }}
+
+  h2 {{
+    font-size: 1.5em;
+    margin-bottom: 0.5rem;
+  }}
+
   html {{
     transition: background-color 0.3s ease, color 0.3s ease;
   }}
@@ -464,75 +540,6 @@ style: |
   body {{
     background-color: var(--background-color);
     color: var(--text-color);
-  }}
-
-  section {{
-    background-color: var(--background-color);
-    color: var(--text-color);
-    padding: 40px;
-    font-size: 28px;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-  }}
-
-  h1 {{
-    font-size: 48px;
-    color: var(--text-color);
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-  }}
-
-  h2 {{
-    font-size: 40px;
-    color: var(--text-color);
-    margin-bottom: 15px;
-  }}
-
-  h3 {{
-    font-size: 32px;
-    color: var(--text-color);
-    margin-bottom: 10px;
-  }}
-
-  ul, ol {{
-    margin-left: 30px;
-    margin-top: 15px;
-  }}
-
-  li {{
-    margin-bottom: 10px;
-  }}
-
-  img {{
-    max-width: 80%;
-    margin: 20px auto;
-    display: block;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }}
-
-  code {{
-    font-size: 24px;
-    background-color: rgba(10, 25, 47, 0.1);
-    color: var(--text-color);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-family: 'Fira Code', monospace;
-  }}
-
-  pre {{
-    background-color: rgba(10, 25, 47, 0.1);
-    padding: 15px;
-    border-radius: 8px;
-    overflow-x: auto;
-  }}
-
-  a {{
-    color: var(--secondary-color);
-    text-decoration: none;
-  }}
-
-  a:hover {{
-    text-decoration: underline;
   }}
 
   section::before {{
@@ -563,6 +570,7 @@ style: |
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid var(--accent-color);
+    z-index: 100;
   }}
 
   section.lead h1 {{
