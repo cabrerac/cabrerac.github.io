@@ -304,10 +304,35 @@ class ContentGenerator:
         for dir_path in [course_lectures_dir, course_slides_dir, course_notebooks_dir]:
             dir_path.mkdir(parents=True, exist_ok=True)
         
+        # Read and clean the content first
+        with open(lecture_file, 'r', encoding='utf-8') as f:
+            content = f.read()
+            
+        # Clean code blocks to remove any markdown/HTML artifacts
+        content = self.clean_code_blocks(content)
+        
         # Generate content with course-specific paths
         self.generate_rendered_lecture(lecture_file, course_lectures_dir, course_metadata)
         self.generate_slides(lecture_file, course_slides_dir)
         self.generate_notebook(lecture_file, course_notebooks_dir, course_metadata)
+
+    def clean_code_blocks(self, content):
+        """Clean code blocks to remove markdown/HTML artifacts."""
+        # Pattern to match code blocks
+        code_block_pattern = r'```(?:python)?\n(.*?)```'
+        
+        def clean_code(match):
+            code = match.group(1)
+            # Remove any HTML tags
+            code = re.sub(r'<[^>]+>', '', code)
+            # Remove any markdown syntax
+            code = re.sub(r'^---$', '', code, flags=re.MULTILINE)
+            # Remove empty lines at start and end
+            code = code.strip()
+            return f'```python\n{code}\n```'
+        
+        # Replace all code blocks with cleaned versions
+        return re.sub(code_block_pattern, clean_code, content, flags=re.DOTALL)
 
     def generate_rendered_lecture(self, lecture_file, output_dir, course_metadata):
         """Generate the rendered lecture file with proper metadata and content."""
@@ -409,13 +434,29 @@ class ContentGenerator:
         for line in lines:
             # If line is a heading (starts with #), start a new slide
             if line.strip().startswith('#') and current_slide:
-                slides.append('\n'.join(current_slide))
+                # Wrap the content in a container div
+                slide_content = '\n'.join(current_slide)
+                if not slide_content.strip().startswith('<!-- _class: lead -->'):
+                    # Extract the heading and content
+                    heading = current_slide[0]
+                    content = '\n'.join(current_slide[1:])
+                    # Create the slide with heading outside container
+                    slide_content = f'{heading}\n\n<div class="slide-content">\n{content}\n</div>'
+                slides.append(slide_content)
                 current_slide = []
             current_slide.append(line)
         
         # Add the last slide
         if current_slide:
-            slides.append('\n'.join(current_slide))
+            # Wrap the content in a container div
+            slide_content = '\n'.join(current_slide)
+            if not slide_content.strip().startswith('<!-- _class: lead -->'):
+                # Extract the heading and content
+                heading = current_slide[0]
+                content = '\n'.join(current_slide[1:])
+                # Create the slide with heading outside container
+                slide_content = f'{heading}\n\n<div class="slide-content">\n{content}\n</div>'
+            slides.append(slide_content)
         
         # Join slides with Marp slide separator
         slides_content = '\n\n---\n\n'.join(slides)
@@ -440,121 +481,205 @@ header: "Session {metadata.get('session', '1')} - {metadata.get('title', '')}"
 footer: ""
 style: |
   :root {{
-    --primary-color: #00244A;
-    --secondary-color: #0E73B8;
-    --accent-color: #0E73B8;
-    --text-color: #00244A;
-    --background-color: #FFFFFF;
-    --progress-color: #0E73B8;
+    --primary-color: #224466;
+    --secondary-color: #0e73b8;
+    --accent-color: #0e73b8;
+    --text-color: #224466;
+    --background-color: #ffffff;
+    --progress-color: #0e73b8;
+    --code-bg: #f6f8fa;
+    --code-text: #24292e;
+    --code-border: #e1e4e8;
   }}
 
   html[data-theme='dark'] {{
-    --primary-color: #FFFFFF;
-    --secondary-color: #0E73B8;
-    --accent-color: #0E73B8;
-    --text-color: #FFFFFF;
-    --background-color: #1E1E1E;
-    --progress-color: #0E73B8;
+    --primary-color: #ffffff;
+    --secondary-color: #0e73b8;
+    --accent-color: #0e73b8;
+    --text-color: #ffffff;
+    --background-color: #0d1117;
+    --progress-color: #0e73b8;
+    --code-bg: #161b22;
+    --code-text: #c9d1d9;
+    --code-border: #30363d;
   }}
 
-  section {{
+  section:not(.lead) {{
+    position: relative;
+  }}
+
+  section:not(.lead) > h2 {{
+    text-align: left;
+    font-size: 1.25em;
     color: var(--text-color);
+    margin: 1em 0;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    width: calc(100% - 2rem);
+  }}
+
+  section:not(.lead) .slide-content {{
+    position: absolute;
+    top: calc(1.75rem + 1.25em + 1em);
+    left: 0.5rem;
+    width: calc(100% - 1rem);
+    height: calc(100% - (2rem + 1.5em + 1em + 1rem));
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }}
 
   /* Main title (h1) styling */
-  section:not(.lead) > h1 {{
+  section:not(.lead) .slide-content > h1 {{
     text-align: left;
     font-size: 1.5em;
     font-weight: bold;
     margin: 0;
     padding: 0;
     color: var(--text-color);
-    position: absolute;
-    top: 50%;
-    left: 1rem;
-    transform: translateY(-50%);
-    width: calc(100% - 2rem);
+    width: 100%;
   }}
 
-  /* Section title (h2) styling */
-  section:not(.lead) > h2 {{
-    text-align: left;
-    font-size: 1.25em;
-    color: var(--text-color);
+  /* Content styling */
+  section:not(.lead) .slide-content > *:not(h1):not(h2) {{
     margin: 0;
-    padding: 0;
-    position: absolute;
-    top: calc(1rem + 1cm);
-    left: 1rem;
-    width: calc(100% - 2rem);
+    width: 100%;
   }}
 
   /* Code block styling */
   pre {{
-    background-color: var(--background-color);
-    border: 1px solid var(--accent-color);
-    border-radius: 4px;
-    padding: 0.25em;
-    margin: 1.5em 0;
+    background-color: var(--code-bg);
+    border: 1px solid var(--code-border);
+    border-radius: 6px;
+    padding: 16px;
+    margin: 0;
+    width: 100%;
+    font-size: 0.9em;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-width: 100%;
+    box-sizing: border-box;
   }}
 
   code {{
-    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-    font-size: 0.65em;
-    line-height: 1.1;
-    color: var(--text-color);
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 0.9em;
+    line-height: 1.45;
+    color: var(--code-text);
+    max-width: 100%;
+    display: block;
+  }}      
+
+  /* Syntax highlighting for light theme */
+  .hljs-keyword,
+  .hljs-selector-tag,
+  .hljs-title,
+  .hljs-section {{
+    color: #0000FF;  /* Python blue for keywords */
+  }}
+
+  .hljs-string,
+  .hljs-doctag {{
+    color: #008000;  /* Python green for strings */
+  }}
+
+  .hljs-number,
+  .hljs-literal {{
+    color: #0000CD;  /* Python medium blue for numbers */
+  }}
+
+  .hljs-comment {{
+    color: #808080;  /* Python gray for comments */
+  }}
+
+  .hljs-function,
+  .hljs-class .hljs-title {{
+    color: #000000;  /* Python black for function names */
+  }}
+
+  /* Syntax highlighting for dark theme */
+  html[data-theme='dark'] .hljs-keyword,
+  html[data-theme='dark'] .hljs-selector-tag,
+  html[data-theme='dark'] .hljs-title,
+  html[data-theme='dark'] .hljs-section {{
+    color: #569CD6;  /* Light blue for keywords */
+  }}
+
+  html[data-theme='dark'] .hljs-string,
+  html[data-theme='dark'] .hljs-doctag {{
+    color: #6A9955;  /* Light green for strings */
+  }}
+
+  html[data-theme='dark'] .hljs-number,
+  html[data-theme='dark'] .hljs-literal {{
+    color: #B5CEA8;  /* Light blue-green for numbers */
+  }}
+
+  html[data-theme='dark'] .hljs-comment {{
+    color: #6A9955;  /* Light gray-green for comments */
+  }}
+
+  html[data-theme='dark'] .hljs-function,
+  html[data-theme='dark'] .hljs-class .hljs-title {{
+    color: #DCDCAA;  /* Light yellow for function names */
   }}
 
   .columns {{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1rem;
-    align-items: center;
-    margin: -2.5em 0;
-    color: var(--text-color);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.5rem;
+    align-items: start;
+    margin: 0;
+    width: 100%;
   }}
 
   .rows {{
     display: grid;
-    grid-template-rows: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-    align-items: center;
-    margin: 3.5em 0;
-    color: var(--text-color);
+    grid-template-rows: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 0.5rem;
+    align-items: start;
+    margin: 0;
+    width: 100%;
   }}
 
   .column, .row {{
-    padding: 0.5rem;
+    padding: 0.25rem;
     min-width: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     color: var(--text-color);
+    width: 100%;
   }}
 
   .column p, .row p {{
     margin: 0;
     text-align: left;
     white-space: normal;
-    line-height: 1.5;
+    line-height: 1.3;
     color: var(--text-color);
+    width: 100%;
+    font-size: 0.9em;
   }}
 
   .column img, .row img {{
     max-width: 100%;
-    max-height: 300px;
+    max-height: 100%;
     width: auto;
     height: auto;
     object-fit: contain;
-    margin: 0.5rem auto;
+    margin: 0;
   }}
 
   .footnote {{
     font-size: 0.6em;
     color: var(--secondary-color);
-    margin-top: 0;
+    margin: 0;
     text-align: center;
     font-style: italic;
+    width: 100%;
   }}
 
   section::before {{
@@ -620,11 +745,11 @@ style: |
 
 <!-- _class: lead -->
 # {metadata.get('title', '')}
-<p><b>{metadata.get('author', '')}</b></p>
-<p>{metadata.get('position', '')}</p>
-<p>{metadata.get('department', '')}</p>
-<p>{metadata.get('institution', '')}</p>
-<p><a href="mailto:{metadata.get('email', '')}">{metadata.get('email', '')}</a></p>
+<p style="color: var(--text-color);"><b>{metadata.get('author', '')}</b></p>
+<p style="color: var(--text-color);">{metadata.get('position', '')}</p>
+<p style="color: var(--text-color);">{metadata.get('department', '')}</p>
+<p style="color: var(--text-color);">{metadata.get('institution', '')}</p>
+<p style="color: var(--accent-color);"><a href="mailto:{metadata.get('email', '')}" style="color: var(--accent-color);">{metadata.get('email', '')}</a></p>
 
 ---
 
@@ -634,7 +759,7 @@ style: |
 
 <!-- _class: lead last-slide -->
 # Many Thanks!
-<p><a href="mailto:{metadata.get('email', '')}">{metadata.get('email', '')}</a></p>
+<p style="color: var(--accent-color);"><a href="mailto:{metadata.get('email', '')}" style="color: var(--accent-color);">{metadata.get('email', '')}</a></p>
 """
         # Save markdown slides
         output_file = output_dir / f"{lecture_file.stem}.md"
@@ -735,49 +860,6 @@ style: |
         color: #0E73B8 !important;
       }
       
-      html[data-theme='dark'] pre,
-      html[data-theme='dark'] code {
-        background-color: #2A2A2A !important;
-        color: #E0E0E0 !important;
-      }
-      
-      html[data-theme='dark'] pre {
-        border: 1px solid rgba(255, 255, 255, 0.2) !important;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5) !important;
-        padding: 16px !important;
-      }
-      
-      html[data-theme='dark'] code {
-        font-weight: 500 !important;
-      }
-      
-      /* Syntax highlighting for dark mode */
-      html[data-theme='dark'] .hljs-keyword,
-      html[data-theme='dark'] .hljs-selector-tag,
-      html[data-theme='dark'] .hljs-title,
-      html[data-theme='dark'] .hljs-section {
-        color: #C792EA !important; /* Purple for keywords */
-      }
-      
-      html[data-theme='dark'] .hljs-string,
-      html[data-theme='dark'] .hljs-doctag {
-        color: #C3E88D !important; /* Green for strings */
-      }
-      
-      html[data-theme='dark'] .hljs-number,
-      html[data-theme='dark'] .hljs-literal {
-        color: #F78C6C !important; /* Orange for numbers */
-      }
-      
-      html[data-theme='dark'] .hljs-comment {
-        color: #607D8B !important; /* Blue-gray for comments */
-      }
-      
-      html[data-theme='dark'] .hljs-function,
-      html[data-theme='dark'] .hljs-class .hljs-title {
-        color: #82AAFF !important; /* Blue for function names */
-      }
-      
       html[data-theme='dark'] body,
       html[data-theme='dark'] .marpit {
         background-color: #1E1E1E !important;
@@ -802,10 +884,36 @@ style: |
       html[data-theme='dark'] section .row p em {
         color: #FFFFFF !important;
       }
+                    
+      html[data-theme='dark'] section .pre {
+        background-color: #2A2A2A !important;
+      }
 
-      /* Ensure email links maintain their blue color in dark mode */
+      /* Link styling */
+      a {
+        color: var(--accent-color);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      /* Ensure links maintain accent color in dark mode */
+      html[data-theme='dark'] a {
+        color: var(--accent-color) !important;
+      }
+
+      /* Override any specific link colors */
+      html[data-theme='dark'] section p a,
+      html[data-theme='dark'] section .column p a,
+      html[data-theme='dark'] section .row p a {
+        color: var(--accent-color) !important;
+      }
+
+      /* Ensure email links maintain accent color */
       html[data-theme='dark'] section p a[href^="mailto:"] {
-        color: #0969DA !important;
+        color: var(--accent-color) !important;
       }
     `;
     document.head.appendChild(style);
