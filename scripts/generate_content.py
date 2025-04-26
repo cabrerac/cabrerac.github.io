@@ -425,13 +425,31 @@ class ContentGenerator:
         processed_content = self.process_includes(processed_content)
         processed_content = self.process_media(processed_content)
         
-        # Split content into slides based on headings
+        # Split content into slides based on headings, preserving code blocks
         slides = []
         current_slide = []
+        in_code_block = False
+        code_block_content = []
         
         # Split content into lines and process
         lines = processed_content.split('\n')
         for line in lines:
+            # Handle code blocks
+            if line.strip().startswith('```'):
+                if not in_code_block:
+                    in_code_block = True
+                    code_block_content = [line]
+                else:
+                    in_code_block = False
+                    code_block_content.append(line)
+                    current_slide.extend(code_block_content)
+                    code_block_content = []
+                continue
+            
+            if in_code_block:
+                code_block_content.append(line)
+                continue
+            
             # If line is a heading (starts with #), start a new slide
             if line.strip().startswith('#') and current_slide:
                 # Wrap the content in a container div
@@ -444,6 +462,7 @@ class ContentGenerator:
                     slide_content = f'{heading}\n\n<div class="slide-content">\n{content}\n</div>'
                 slides.append(slide_content)
                 current_slide = []
+            
             current_slide.append(line)
         
         # Add the last slide
