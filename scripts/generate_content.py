@@ -457,70 +457,36 @@ style: |
     --progress-color: #0E73B8;
   }}
 
-  html[data-theme='dark'] section,
-  html[data-theme='dark'] section h1,
-  html[data-theme='dark'] section h2,
-  html[data-theme='dark'] .columns,
-  html[data-theme='dark'] .rows,
-  html[data-theme='dark'] .column,
-  html[data-theme='dark'] .row,
-  html[data-theme='dark'] p,
-  html[data-theme='dark'] strong,
-  html[data-theme='dark'] em {{
-    color: #FFFFFF !important;
-  }}
-
   section {{
-    padding-top: 60px; /* Add space for header */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: stretch;
-    min-height: calc(100vh - 60px);
     color: var(--text-color);
   }}
 
   /* Main title (h1) styling */
-  section > h1 {{
+  section:not(.lead) > h1 {{
     text-align: left;
     font-size: 1.5em;
     font-weight: bold;
     margin: 0;
     padding: 0;
-    padding-left: 0;
     color: var(--text-color);
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    width: calc(100% - 2rem);
   }}
 
   /* Section title (h2) styling */
-  section > h2 {{
-    position: absolute;
-    top: 2cm;
-    left: 1.5cm;
-    right: 0;
+  section:not(.lead) > h2 {{
+    text-align: left;
+    font-size: 1.25em;
+    color: var(--text-color);
     margin: 0;
     padding: 0;
-    padding-left: 0;
-    font-size: 1.5em;
-    text-align: left;
-    z-index: 1;
-    color: var(--text-color);
-  }}
-
-  /* Content spacing for sections with h2 titles */
-  section:has(h2) > *:not(h2) {{
-    margin-top: 3.5cm;
-  }}
-
-  /* Additional spacing for rows and columns layouts */
-  section:has(.rows) > .rows,
-  section:has(.columns) > .columns {{
-    margin-top: 2.5cm;
-  }}
-
-  /* Spacing for nested rows and columns */
-  .rows .rows,
-  .columns .columns {{
-    margin-top: 2.5cm;
+    position: absolute;
+    top: calc(1rem + 1cm);
+    left: 1rem;
+    width: calc(100% - 2rem);
   }}
 
   /* Code block styling */
@@ -528,48 +494,15 @@ style: |
     background-color: var(--background-color);
     border: 1px solid var(--accent-color);
     border-radius: 4px;
-    padding: 1em;
-    margin: -0.5cm 0;
-    max-width: 100%;
-    height: calc(100vh - 3.5cm);
-    box-sizing: border-box;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    display: flex;
-    flex-direction: column;
+    padding: 0.25em;
+    margin: 1.5em 0;
   }}
 
   code {{
     font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-    font-size: 0.65em; /* Slightly smaller font to fit more content */
+    font-size: 0.65em;
     line-height: 1.1;
     color: var(--text-color);
-    display: block;
-    width: 100%;
-    height: 100%;
-  }}
-
-  /* Ensure paragraphs after titles have proper spacing */
-  section > p {{
-    margin-top: 1.5cm;
-  }}
-
-  /* Syntax highlighting for code blocks */
-  .hljs {{
-    background: transparent !important;
-    padding: 0 !important;
-    width: 100%;
-    height: 100%;
-  }}
-
-  /* Dark mode specific code styles */
-  html[data-theme='dark'] pre {{
-    background-color: #2A2A2A !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  }}
-
-  html[data-theme='dark'] code {{
-    color: #E0E0E0 !important;
   }}
 
   .columns {{
@@ -577,7 +510,7 @@ style: |
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1rem;
     align-items: center;
-    margin: 1rem 0;
+    margin: -2.5em 0;
     color: var(--text-color);
   }}
 
@@ -586,13 +519,13 @@ style: |
     grid-template-rows: repeat(auto-fit, minmax(150px, 1fr));
     gap: 1rem;
     align-items: center;
-    margin: 1rem 0;
+    margin: 3.5em 0;
     color: var(--text-color);
   }}
 
   .column, .row {{
     padding: 0.5rem;
-    min-width: 0; /* Prevents overflow */
+    min-width: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -613,46 +546,7 @@ style: |
     width: auto;
     height: auto;
     object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 0.5rem auto;
-  }}
-
-  /* Ensure code blocks in columns and rows work properly */
-  .column pre, .row pre {{
-    height: 100%;
-    margin: 0;
-    padding: 0.5em;
-  }}
-
-  .column code, .row code {{
-    font-size: 0.65em;
-    line-height: 1.1;
-  }}
-
-  /* Dark mode styles for code in columns and rows */
-  html[data-theme='dark'] .column pre,
-  html[data-theme='dark'] .row pre {{
-    background-color: #2A2A2A !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  }}
-
-  html[data-theme='dark'] .column code,
-  html[data-theme='dark'] .row code {{
-    color: #E0E0E0 !important;
-  }}
-
-  /* Add styles for HTML elements */
-  strong {{
-    font-weight: bold;
-    display: inline;
-    color: var(--text-color);
-  }}
-
-  em {{
-    font-style: italic;
-    display: inline;
-    color: var(--text-color);
   }}
 
   .footnote {{
@@ -663,77 +557,13 @@ style: |
     font-style: italic;
   }}
 
-  /* Override paragraph color in dark mode with more specific selectors */
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section .column p,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section .row p,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section p,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section .columns p,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section .rows p,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section .column p,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section .row p,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section div p,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section span p,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section .column > p,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section .row > p,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section .columns > p,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section .rows > p,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section div > p,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section span > p,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section p strong,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section p em,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section .column p strong,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section .column p em,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section .row p strong,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section .row p em,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section p * {{
-    color: #FFFFFF !important;
-  }}
-
-  /* Force all text in dark mode to be white */
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section * {{
-    color: #FFFFFF !important;
-  }}
-
-  /* Override any inline styles that might be setting text color */
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section [style*="color"],
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section [style*="text-align"],
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section [style*="display"],
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section [style*="align-items"] {{
-    color: #FFFFFF !important;
-  }}
-
-  /* Specific override for text within paragraphs */
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section p,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section p * {{
-    color: #FFFFFF !important;
-  }}
-
-  /* Override the root text color variable in dark mode */
-  html[data-theme='dark'] {{
-    --text-color: #FFFFFF !important;
-  }}
-
-  /* Force all text in dark mode sections */
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section *,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section p,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section p *,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section div,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section div *,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section span,
-  html[data-theme='dark'] div#\\:\\$p > svg > foreignObject > section span * {{
-    color: #FFFFFF !important;
-  }}
-
   section::before {{
     font-size: 0.6em;
     content: attr(data-marpit-pagination) " / " attr(data-marpit-pagination-total);
     position: absolute;
     text-align: right;
-    top: 96.2%;
-    width: 100%;
-    right: 0;
-    left: -0.5em;
+    bottom: 1em;
+    right: 1em;
     color: var(--secondary-color);
   }}
 
@@ -776,7 +606,6 @@ style: |
     justify-content: center;
     align-items: center;
     text-align: center;
-    min-height: 100vh;
   }}
 
   section.lead.last-slide h1 {{
