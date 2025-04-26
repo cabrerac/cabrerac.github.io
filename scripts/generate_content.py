@@ -1088,6 +1088,9 @@ style: |
             # Remove the temporary HTML source file
             os.remove(html_output_file)
             
+            # Remove the temporary markdown source file
+            os.remove(output_file)
+            
             print(f"✓ Successfully generated slides for {lecture_file.stem}")
         except subprocess.CalledProcessError as e:
             print(f"Error: Failed to generate slides: {e}")
