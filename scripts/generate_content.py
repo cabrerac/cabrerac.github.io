@@ -547,6 +547,7 @@ style: |
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    overflow: hidden;
   }}
 
   /* Main title (h1) styling */
@@ -590,6 +591,23 @@ style: |
     max-width: 100%;
     display: block;
   }}      
+
+  /* Ensure code blocks fit in columns */
+  .column pre, .row pre {{
+    width: 100%;
+    max-width: 100%;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: calc(0.9em * var(--column-width) / 100);
+  }}
+
+  .column code, .row code {{
+    width: 100%;
+    max-width: 100%;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: calc(0.9em * var(--column-width) / 100);
+  }}
 
   /* Syntax highlighting for light theme */
   .hljs-keyword,
@@ -646,59 +664,175 @@ style: |
   }}
 
   .columns {{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 0.5rem;
-    align-items: start;
-    margin: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1rem;
     width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
   }}
 
   .rows {{
-    display: grid;
-    grid-template-rows: repeat(auto-fit, minmax(80px, 1fr));
-    gap: 0.5rem;
-    align-items: start;
-    margin: 0;
-    width: 100%;
-  }}
-
-  .column, .row {{
-    padding: 0.25rem;
-    min-width: 0;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    color: var(--text-color);
+    gap: 1rem;
     width: 100%;
-  }}
-
-  .column p, .row p {{
+    height: 100%;
     margin: 0;
-    text-align: left;
-    white-space: normal;
-    line-height: 1.3;
-    color: var(--text-color);
-    width: 100%;
-    font-size: 0.9em;
+    padding: 0;
+    overflow: hidden;
   }}
 
+  /* Default equal distribution for columns */
+  .columns > .column {{
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    overflow: hidden;
+    color: var(--text-color);
+  }}
+
+  /* Default equal distribution for rows */
+  .rows > .row {{
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    overflow: hidden;
+    color: var(--text-color);
+  }}
+
+  /* Specific column widths */
+  .columns > .column[style*="width:"] {{
+    flex: 0 0 auto;
+    width: var(--column-width);
+  }}
+
+  /* Specific row heights */
+  .rows > .row[style*="height:"] {{
+    flex: 0 0 auto;
+    height: var(--row-height);
+  }}
+
+  /* Vertical positioning for column and row content */
+  .column.vertical-top, .row.vertical-top {{
+    justify-content: flex-start;
+  }}
+
+  .column.vertical-middle, .row.vertical-middle {{
+    justify-content: center;
+  }}
+
+  .column.vertical-bottom, .row.vertical-bottom {{
+    justify-content: flex-end;
+  }}
+
+  /* Specific styles for text alignment */
+  .column.text-center, .row.text-center {{
+    text-align: center;
+  }}
+
+  .column.text-left, .row.text-left {{
+    text-align: left;
+  }}
+
+  .column.text-right, .row.text-right {{
+    text-align: right;
+  }}
+
+  /* Content styling */
+  .column p, .row p {{
+    margin: 0;  
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-color);
+  }}
+
+  .column strong, .row strong {{
+    color: var(--text-color);
+  }}
+
+  .column em, .row em {{
+    color: var(--text-color);
+  }}
+
+  /* Image scaling styles */
   .column img, .row img {{
+    object-fit: contain;
     max-width: 100%;
     max-height: 100%;
     width: auto;
     height: auto;
+    display: block;
+    margin: 0 auto;
+  }}
+
+  /* Specific height with auto width */
+  .column img[style*="height:"], .row img[style*="height:"] {{
+    width: auto !important;
+    max-width: 100%;
+  }}
+
+  /* Specific width with auto height */
+  .column img[style*="width:"], .row img[style*="width:"] {{
+    height: auto !important;
+    max-height: 100%;
+  }}
+
+  /* Fix for inline styles */
+  .column img[style*="width:"][style*="height:"], 
+  .row img[style*="width:"][style*="height:"] {{
     object-fit: contain;
-    margin: 0;
+    max-width: 100%;
+    max-height: 100%;
+  }}
+
+  /* Ensure containers properly contain their content */
+  .column > *, .row > * {{
+    max-width: 100%;
+    overflow: hidden;
   }}
 
   .footnote {{
     font-size: 0.6em;
-    color: var(--secondary-color);
+    color: var(--accent-color);
     margin: 0;
     text-align: center;
     font-style: italic;
     width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }}    
+
+  /* Ensure links use accent color */
+  .column a, .row a {{
+    color: var(--accent-color);
+    text-decoration: none;
+  }}
+
+  .column a:hover, .row a:hover {{
+    text-decoration: underline;
+  }}
+
+  /* Override any specific link colors in dark mode */
+  html[data-theme='dark'] .column a,
+  html[data-theme='dark'] .row a {{
+    color: var(--accent-color) !important;
+  }}
+
+  /* Ensure email links maintain accent color */
+  html[data-theme='dark'] .column a[href^="mailto:"],
+  html[data-theme='dark'] .row a[href^="mailto:"] {{
+    color: var(--accent-color) !important;
   }}
 
   section::before {{
