@@ -385,9 +385,9 @@
       <!-- 1943 Event - Connectionist -->
       <line x1="457" y1="50%" x2="457" y2="45%" stroke="var(--secondary-color)" stroke-width="1"/>
       <circle cx="457" cy="45%" r="1" fill="var(--secondary-color)"/>
-      <text x="457" y="40%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
-        <tspan x="457" dy="0">PROLOG</tspan>
-        <tspan x="457" dy="15">(Colmerauer, 1943)</tspan>
+      <text x="447" y="40%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
+        <tspan x="447" dy="0">PROLOG</tspan>
+        <tspan x="447" dy="15">(1943)</tspan>
       </text>
       <!-- 1972 Event - Symbolic -->
       <line x1="457" y1="50%" x2="457" y2="57%" stroke="var(--secondary-color)" stroke-width="1"/>
