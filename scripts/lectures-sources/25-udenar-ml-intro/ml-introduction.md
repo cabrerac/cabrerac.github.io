@@ -39,6 +39,36 @@ visible: true
 
 <!-- SLIDES: -->
 
-# The Machine Learning Context
+# The ML Context
 
 {% include _snippets/ai-concept.md %}
+
+{% include _snippets/ai-history.md %}
+
+{% include _snippets/ai-perception.md %}
+
+# The ML Concept
+
+{% include _snippets/ml-concept.md %}
+
+{% include _snippets/ml-history.md %}
+
+{% include _snippets/ml-perception.md %}
+
+# The Objective Definition of ML
+
+{% include _snippets/ml-subjective.md %}
+
+{% include _snippets/ml-objective.md %}
+
+# ML Promises
+
+{% include _snippets/ml-promises.md %}
+
+# ML Risks
+
+{% include _snippets/ml-risks.md %}
+
+# ML in Practice
+
+{% include _snippets/ml-practice.md %}

@@ -252,6 +252,17 @@ class ContentGenerator:
             # Process nested includes
             include_content = self.process_includes(include_content)
             
+            # Handle SVG content
+            if '<svg' in include_content:
+                # Find SVG content
+                svg_pattern = r'(<svg.*?</svg>)'
+                def format_svg(match):
+                    svg_content = match.group(1)
+                    # Use Marp's HTML directive
+                    return f'<div class="timeline-container">\n{svg_content}\n</div>'
+                
+                include_content = re.sub(svg_pattern, format_svg, include_content, flags=re.DOTALL)
+            
             return include_content
             
         # Replace all include statements
@@ -550,6 +561,115 @@ style: |
     overflow: hidden;
   }}
 
+  /* Timeline specific styles */
+  .timeline-container {{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }}
+
+  .timeline-container svg {{
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    margin: 0 auto;
+  }}
+
+  .timeline-container path {{
+    stroke: var(--secondary-color);
+    stroke-width: 3;
+    fill: none;
+    stroke-dasharray: 5,5;
+  }}
+
+  .timeline-container circle {{
+    fill: var(--secondary-color);
+    r: 6;
+  }}
+
+  .timeline-container text {{
+    fill: var(--text-color);
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+  }}
+
+  .timeline-container image {{
+    fill: var(--secondary-color);
+  }}
+
+  .timeline-container .event-description {{
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 200px;
+    color: var(--text-color);
+  }}
+
+  .timeline-container .event-description p {{
+    font-size: 14px;
+    margin: 5px 0;
+  }}
+
+  /* Ensure all direct children of slide-content respect its boundaries */
+  section:not(.lead) .slide-content > * {{
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+  }}
+
+  /* Ensure rows and columns respect their container's boundaries */
+  .rows, .columns {{
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+  }}
+
+  .row, .column {{
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+  }}
+
+  /* Ensure images scale properly */
+  .slide-content img {{
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    width: auto;
+    height: auto;
+  }}
+
+  /* Ensure code blocks fit without scrolling */
+  .slide-content pre {{
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    font-size: 0.8em;
+    line-height: 1.2;
+    padding: 0.5em;
+  }}
+
+  /* Ensure text content fits */
+  .slide-content p {{
+    margin: 0;
+    padding: 0.2em;
+    font-size: 0.9em;
+    line-height: 1.2;
+  }}
+
+  /* Scale down content if it would overflow */
+  .slide-content {{
+    transform-origin: top left;
+  }}
+
+  .slide-content.overflow {{
+    transform: scale(0.95);
+  }}
+
   /* Main title (h1) styling */
   section:not(.lead) .slide-content > h1 {{
     text-align: left;
@@ -591,23 +711,6 @@ style: |
     max-width: 100%;
     display: block;
   }}      
-
-  /* Ensure code blocks fit in columns */
-  .column pre, .row pre {{
-    width: 100%;
-    max-width: 100%;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    font-size: calc(0.9em * var(--column-width) / 100);
-  }}
-
-  .column code, .row code {{
-    width: 100%;
-    max-width: 100%;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    font-size: calc(0.9em * var(--column-width) / 100);
-  }}
 
   /* Syntax highlighting for light theme */
   .hljs-keyword,
@@ -666,7 +769,7 @@ style: |
   .columns {{
     display: flex;
     flex-wrap: nowrap;
-    gap: 1rem;
+    gap: 0;
     width: 100%;
     height: 100%;
     margin: 0;
@@ -677,7 +780,7 @@ style: |
   .rows {{
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0;
     width: 100%;
     height: 100%;
     margin: 0;
@@ -692,8 +795,8 @@ style: |
     min-height: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    padding: 0.5rem;
+    gap: 0;
+    padding: 0;
     overflow: hidden;
     color: var(--text-color);
   }}
@@ -705,8 +808,8 @@ style: |
     min-height: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    padding: 0.5rem;
+    gap: 0;
+    padding: 0;
     overflow: hidden;
     color: var(--text-color);
   }}
@@ -1040,6 +1143,13 @@ style: |
                     
       html[data-theme='dark'] section .pre {
         background-color: #2A2A2A !important;
+      }
+                    
+      html[data-theme='dark'] section .timeline-container circle {
+        fill: #0E73B8 !important;
+      }
+      html[data-theme='dark'] section .timeline-container image {
+        fill: #0E73B8 !important;
       }
 
       /* Link styling */
