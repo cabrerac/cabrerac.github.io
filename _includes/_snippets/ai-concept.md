@@ -423,7 +423,7 @@
         <tspan x="505" dy="15">(1975)</tspan>
       </text>
       <!-- 1982 Event - Connectionist -->
-      <line x1="592" y1="50%" x2="593" y2="45%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <line x1="592" y1="50%" x2="592" y2="45%" stroke="var(--secondary-color)" stroke-width="1"/>
       <circle cx="592" cy="45%" r="1" fill="var(--secondary-color)"/>
       <text x="592" y="40%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
         <tspan x="592" dy="0">Hopfield net</tspan>
