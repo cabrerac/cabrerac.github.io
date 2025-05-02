@@ -284,12 +284,24 @@
       <line x1="1226.5" y1="49%" x2="1226.5" y2="51%" stroke="var(--secondary-color)" stroke-width="1"/>
       <line x1="1240" y1="48%" x2="1240" y2="52%" stroke="var(--secondary-color)" stroke-width="1"/>
       <text x="1235" y="55%" text-anchor="middle">2030</text>
+      <!-- First AI Winter (1974-1980) -->
+      <rect x="484" y="0%" width="81" height="100%" fill="rgba(128, 128, 128, 0.2)" stroke="var(--secondary-color)" stroke-width="1"/>
+      <text x="525.5" y="5%" text-anchor="middle" style="font-size: 12px; fill: var(--secondary-color);">
+        <tspan x="525.5" dy="0">First AI Winter</tspan>
+        <tspan x="525.5" dy="15">(1974-1980)</tspan>
+      </text>
+      <!-- Second AI Winter (1987-1994) -->
+      <rect x="659.5" y="0%" width="94.5" height="100%" fill="rgba(128, 128, 128, 0.2)" stroke="var(--secondary-color)" stroke-width="1"/>
+      <text x="707.75" y="5%" text-anchor="middle" style="font-size: 12px; fill: var(--secondary-color);">
+        <tspan x="707.75" dy="0">Second AI Winter</tspan>
+        <tspan x="707.75" dy="15">(1987-1994)</tspan>
+      </text>
       <!-- 1943 Event - Connectionist -->
       <line x1="65.5" y1="50%" x2="65.5" y2="45%" stroke="var(--secondary-color)" stroke-width="1"/>
       <circle cx="65.5" cy="45%" r="1" fill="var(--secondary-color)"/>
       <text x="75.0" y="40%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
         <tspan x="75" dy="0">Artificial Neuron Model</tspan>
-        <tspan x="75" dy="15">(MaCulloch & Pitts, 1943)</tspan>
+        <tspan x="75" dy="15">(McCulloch & Pitts, 1943)</tspan>
       </text>
       <!-- 1948 Event - Conceptual -->
       <line x1="133" y1="50%" x2="133" y2="65%" stroke="var(--secondary-color)" stroke-width="1"/>
@@ -382,12 +394,12 @@
         <tspan x="416.5" dy="0">Perceptrons Book</tspan>
         <tspan x="416.5" dy="15">(Minsky & Papert, 1969)</tspan>
       </text>
-      <!-- 1943 Event - Connectionist -->
+      <!-- 1972 Event - Symbolic -->
       <line x1="457" y1="50%" x2="457" y2="45%" stroke="var(--secondary-color)" stroke-width="1"/>
       <circle cx="457" cy="45%" r="1" fill="var(--secondary-color)"/>
-      <text x="447" y="40%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
-        <tspan x="447" dy="0">PROLOG</tspan>
-        <tspan x="447" dy="15">(1943)</tspan>
+      <text x="445" y="40%" text-anchor="middle" style="font-size: 12px; fill: var(--symbolic-color);">
+        <tspan x="445" dy="0">PROLOG</tspan>
+        <tspan x="445" dy="15">(1972)</tspan>
       </text>
       <!-- 1972 Event - Symbolic -->
       <line x1="457" y1="50%" x2="457" y2="57%" stroke="var(--secondary-color)" stroke-width="1"/>
@@ -403,12 +415,55 @@
         <tspan x="470.5" dy="0">Lighthill Report</tspan>
         <tspan x="470.5" dy="15">(UK, 1973)</tspan>
       </text>
+      <!-- 1975 Event - Symbolic -->
+      <line x1="497.5" y1="50%" x2="497.5" y2="45%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="497.5" cy="45%" r="1" fill="var(--secondary-color)"/>
+      <text x="505" y="40%" text-anchor="middle" style="font-size: 12px; fill: var(--symbolic-color);">
+        <tspan x="505" dy="0">FRAMES</tspan>
+        <tspan x="505" dy="15">(1975)</tspan>
+      </text>
+      <!-- 1982 Event - Connectionist -->
+      <line x1="592" y1="50%" x2="593" y2="45%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="592" cy="45%" r="1" fill="var(--secondary-color)"/>
+      <text x="592" y="40%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
+        <tspan x="592" dy="0">Hopfield net</tspan>
+        <tspan x="592" dy="15">(1982)</tspan>
+      </text>
       <!-- 1982 Event - Symbolic -->
       <line x1="592" y1="50%" x2="592" y2="57%" stroke="var(--secondary-color)" stroke-width="1"/>
       <circle cx="592" cy="57%" r="1" fill="var(--secondary-color)"/>
       <text x="592" y="60%" text-anchor="middle" style="font-size: 12px; fill: var(--symbolic-color);">
         <tspan x="592" dy="0">R1</tspan>
         <tspan x="592" dy="15">(McDermott, 1982)</tspan>
+      </text>
+      <!-- 1986 Event - Connectionist -->
+      <line x1="646" y1="50%" x2="646" y2="25%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="646" cy="25%" r="1" fill="var(--secondary-color)"/>
+      <text x="646" y="17%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
+        <tspan x="646" dy="0">Parallel Distributed Processing</tspan>
+        <tspan x="646" dy="15">(Rumerlhart &</tspan>
+        <tspan x="646" dy="17">McClelland, 1986)</tspan>
+      </text>
+      <!-- 1988 Event - Symbolic -->
+      <line x1="673" y1="50%" x2="673" y2="35%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="673" cy="35%" r="1" fill="var(--secondary-color)"/>
+      <text x="705" y="30%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
+        <tspan x="705" dy="0">Bayesian Networks</tspan>
+        <tspan x="705" dy="15">(Pearls, 1988)</tspan>
+      </text>
+      <!-- 1988 Event - Symbolic -->
+      <line x1="673" y1="50%" x2="673" y2="73%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="673" cy="73%" r="1" fill="var(--secondary-color)"/>
+      <text x="673" y="76%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
+        <tspan x="673" dy="0">Reinforcement Learning</tspan>
+        <tspan x="673" dy="15">(Sutton, 1988)</tspan>
+      </text>
+      <!-- 1990 Event - Connectionist -->
+      <line x1="700" y1="50%" x2="700" y2="65%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="700" cy="65%" r="1" fill="var(--secondary-color)"/>
+      <text x="730" y="68%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
+        <tspan x="730" dy="0">Image Recognition</tspan>
+        <tspan x="730" dy="15">(LeCun et al., 1990)</tspan>
       </text>
     </svg>
   </div>
