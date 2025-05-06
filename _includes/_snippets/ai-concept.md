@@ -465,6 +465,139 @@
         <tspan x="730" dy="0">Image Recognition</tspan>
         <tspan x="730" dy="15">(LeCun et al., 1990)</tspan>
       </text>
+      <!-- 1997 Event - Symbolic -->
+      <line x1="794.5" y1="50%" x2="794.5" y2="45%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="794.5" cy="45%" r="1" fill="var(--secondary-color)"/>
+      <text x="780.5" y="40%" text-anchor="middle" style="font-size: 12px; fill: var(--symbolic-color);">
+        <tspan x="780.5" dy="0">Deep Blue beats</tspan>
+        <tspan x="780.5" dy="15">Kasparov (IBM, 1997)</tspan>
+      </text>
+      <!-- 2006 Event - Connectionist -->
+      <line x1="916" y1="50%" x2="916" y2="20%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="916" cy="20%" r="1" fill="var(--secondary-color)"/>
+      <text x="916" y="15%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
+        <tspan x="916" dy="0">Deep Learning</tspan>
+        <tspan x="916" dy="15">(Hinton, 2006)</tspan>
+      </text>
+      <!-- 2011 Event - Symbolic -->
+      <line x1="983.5" y1="50%" x2="983.5" y2="60%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="983.5" cy="60%" r="1" fill="var(--secondary-color)"/>
+      <text x="955" y="63%" text-anchor="middle" style="font-size: 12px; fill: var(--symbolic-color);">
+        <tspan x="955" dy="0">Watson wins</tspan>
+        <tspan x="955" dy="15">Jeopardy (2011)</tspan>
+      </text>
+      <!-- 2012 Event - Connectionist -->
+      <line x1="997" y1="50%" x2="997" y2="25%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="997" cy="25%" r="1" fill="var(--secondary-color)"/>
+      <text x="997" y="20%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
+        <tspan x="997" dy="0">AlexNet</tspan>
+        <tspan x="997" dy="15">(Krizhevsky, 2012)</tspan>
+      </text>
+      <!-- 2014 Event - Connectionist -->
+      <line x1="1024" y1="50%" x2="1024" y2="75%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="1024" cy="75%" r="1" fill="var(--secondary-color)"/>
+      <text x="1000" y="78%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
+        <tspan x="1000" dy="0">GANs</tspan>
+        <tspan x="1000" dy="15">(Goodfellow, 2014)</tspan>
+      </text>
+      <!-- 2016 Event - Connectionist -->
+      <line x1="1051" y1="50%" x2="1051" y2="15%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="1051" cy="15%" r="1" fill="var(--secondary-color)"/>
+      <text x="1051" y="5%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
+        <tspan x="1051" dy="0">AlphaGo beats</tspan>
+        <tspan x="1051" dy="15">Lee Sedol</tspan>
+        <tspan x="1051" dy="15">(DeepMind, 2016)</tspan>
+      </text>
+      <!-- 2017 Event - Connectionist -->
+      <line x1="1064.5" y1="50%" x2="1064.5" y2="94%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="1064.5" cy="94%" r="1" fill="var(--secondary-color)"/>
+      <text x="1064.5" y="97%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
+        <tspan x="1064.5" dy="0">Transformer</tspan>
+        <tspan x="1064.5" dy="15">(Vaswani, 2017)</tspan>
+      </text>
+      <!-- 2018 Event - Connectionist -->
+      <line x1="1078" y1="50%" x2="1078" y2="83%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="1078" cy="83%" r="1" fill="var(--secondary-color)"/>
+      <text x="1150" y="87%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
+        <tspan x="1105" dy="0">AlphaFold</tspan>
+        <tspan x="1105" dy="15">(DeepMind,</tspan>
+        <tspan x="1105" dy="15">2018)</tspan>
+      </text>
+      <!-- 2018 Event - Connectionist -->
+      <line x1="1078" y1="50%" x2="1078" y2="25%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="1078" cy="25%" r="1" fill="var(--secondary-color)"/>
+      <text x="1095" y="20%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
+        <tspan x="1095" dy="0">GPT-1</tspan>
+        <tspan x="1095" dy="15">(OpenAI, 2020)</tspan>
+      </text>
+      <!-- 2019 Event - Connectionist -->
+      <line x1="1091.5" y1="50%" x2="1091.5" y2="58%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="1091.5" cy="58%" r="1" fill="var(--secondary-color)"/>
+      <text x="1105" y="62%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
+        <tspan x="1105" dy="0">BERT</tspan>
+        <tspan x="1105" dy="15">(Google,</tspan>
+        <tspan x="1105" dy="15">2019)</tspan>
+      </text>
+      <!-- 2022 Event - Connectionist -->
+      <line x1="1132" y1="50%" x2="1132" y2="43%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="1132" cy="43%" r="1" fill="var(--secondary-color)"/>
+      <text x="1114" y="35%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
+        <tspan x="1114" dy="0">Chinchilla</tspan>
+        <tspan x="1114" dy="15">(DeepMind,</tspan>
+        <tspan x="1114" dy="15">2022)</tspan>
+      </text>
+      <!-- 2022 Event - Connectionist -->
+      <line x1="1132" y1="50%" x2="1132" y2="70%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="1132" cy="70%" r="1" fill="var(--secondary-color)"/>
+      <text x="1115" y="74%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
+        <tspan x="1115" dy="0">ChatGPT</tspan>
+        <tspan x="1115" dy="15">(OpenAI,</tspan>
+        <tspan x="1115" dy="15">2022)</tspan>
+      </text>
+      <!-- 2023 Event - Connectionist -->
+      <line x1="1145.5" y1="50%" x2="1145.5" y2="15%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="1145.5" cy="15%" r="1" fill="var(--secondary-color)"/>
+      <text x="1145.5" y="10%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
+        <tspan x="1145.5" dy="0">LLaMA</tspan>
+        <tspan x="1145.5" dy="15">(Meta AI, 2023)</tspan>
+      </text>
+      <!-- 2023 Event - Connectionist -->
+      <line x1="1145.5" y1="50%" x2="1145.5" y2="94%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="1145.5" cy="94%" r="1" fill="var(--secondary-color)"/>
+      <text x="1180" y="95%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
+        <tspan x="1180" dy="0">Claude 2</tspan>
+        <tspan x="1180" dy="15">(Anthropic, 2023)</tspan>
+      </text>
+      <!-- 2024 Event - Connectionist -->
+      <line x1="1159" y1="50%" x2="1159" y2="25%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="1159" cy="25%" r="1" fill="var(--secondary-color)"/>
+      <text x="1200" y="20%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
+        <tspan x="1200" dy="0">phi-3</tspan>
+        <tspan x="1200" dy="15">(Microsoft, 2024)</tspan>
+      </text>
+      <!-- 2024 Event - Connectionist -->
+      <line x1="1159" y1="50%" x2="1159" y2="70%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="1159" cy="70%" r="1" fill="var(--secondary-color)"/>
+      <text x="1205" y="72%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
+        <tspan x="1202" dy="0">Gemini 1.5</tspan>
+        <tspan x="1202" dy="15">(Google DeepMind,</tspan>
+        <tspan x="1202" dy="15">2024)</tspan>
+      </text>
+      <!-- 2025 Event - Connectionist -->
+      <line x1="1172.5" y1="50%" x2="1172.5" y2="35%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="1172.5" cy="35%" r="1" fill="var(--secondary-color)"/>
+      <text x="1205" y="30%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
+        <tspan x="1205" dy="0">Qwen3</tspan>
+        <tspan x="1205" dy="15">(Alibaba, 2025)</tspan>
+      </text>
+      <!-- 2025 Event - Connectionist -->
+      <line x1="1172.5" y1="50%" x2="1172.5" y2="60%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="1172.5" cy="60%" r="1" fill="var(--secondary-color)"/>
+      <text x="1200" y="61%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
+        <tspan x="1200" dy="0">R1</tspan>
+        <tspan x="1200" dy="15">(DeepSeek)</tspan>
+        <tspan x="1200" dy="15">2025)</tspan>
+      </text>
     </svg>
   </div>
 </div>
