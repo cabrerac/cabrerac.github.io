@@ -955,15 +955,15 @@ img[src=""], img[src="#"] {
 
 <div class="columns" style="width: 100%; height: 100%;">
 <div class="column vertical-middle text-center" style="width: 50%">
-<img src="{{ site.url }}/assets/media/images/turing.jpg" alt="Statue of Alan Turing, Bletchley Park" style="height: 400px">
-<div class="footnote">Statue of Alan Turing, Bletchley Park (Stephen Kettle, 2007)</div>
-</div>
-<div class="column vertical-middle text-center" style="width: 50%">
-<video controls>
-  <source src="{{ site.url }}/assets/media/videos/bombe.MOV" type="video/quicktime">
+<video controls style="max-width: 100%; height: auto; transform: rotate(0deg);">
+  <source src="{{ site.url }}/assets/media/videos/bombe.mp4" type="video/quicktime">
   Your browser does not support the video tag.
 </video>
 <div class="footnote">The Bombe, Bletchley Park (Alan Turing, 1939)</div>
+</div>
+<div class="column vertical-middle text-center" style="width: 50%">
+<img src="{{ site.url }}/assets/media/images/turing.jpg" alt="Statue of Alan Turing, Bletchley Park" style="height: 400px">
+<div class="footnote">Statue of Alan Turing, Bletchley Park (Stephen Kettle, 2007)</div>
 </div>
 </div>
 </div>
