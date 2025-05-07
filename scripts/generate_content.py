@@ -1145,6 +1145,10 @@ style: |
         background-color: #2A2A2A !important;
       }
                     
+      html[data-theme='dark'] section .slide-content img {
+        background-color: #2A2A2A !important;
+      }
+                    
       html[data-theme='dark'] section .timeline-container circle {
         fill: #0E73B8 !important;
       }

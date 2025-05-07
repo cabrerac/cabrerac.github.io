@@ -43,6 +43,8 @@ visible: true
 
 {% include _snippets/ai-concept.md %}
 
+{% include _snippets/ai-foundations.md %}
+
 {% include _snippets/ai-history.md %}
 
 {% include _snippets/ai-perception.md %}
