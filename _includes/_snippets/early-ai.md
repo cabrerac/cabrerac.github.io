@@ -10,7 +10,7 @@
 - Basis for artificial neural networks
 </div>
 <div class="column" style="width: 50%">
-![McCulloch-Pitts Neuron Diagram](/assets/media/diagrams/mcculloch-pitts.svg)
+<img src="{{ site.url }}/assets/media/diagrams/mcculloch-pitts.svg" alt="McCulloch-Pitts Neuron Diagram" style="width: 100%; height: auto;">
 </div>
 </div>
 
@@ -23,7 +23,7 @@
 - Basis for neural plasticity
 </div>
 <div class="column" style="width: 50%">
-![Hebbian Learning Diagram](/assets/media/diagrams/hebbian-learning.svg)
+<img src="{{ site.url }}/assets/media/diagrams/hebbian-learning.svg" alt="Hebbian Learning Diagram" style="width: 100%; height: auto;">
 </div>
 </div>
 
@@ -36,7 +36,7 @@
 - Binary classification
 </div>
 <div class="column" style="width: 50%">
-![Perceptron Diagram](/assets/media/diagrams/perceptron.svg)
+<img src="{{ site.url }}/assets/media/diagrams/perceptron.svg" alt="Perceptron Diagram" style="width: 100%; height: auto;">
 </div>
 </div>
 
@@ -49,7 +49,7 @@
 - A* Algorithm (1968)
 </div>
 <div class="column" style="width: 50%">
-![Search Algorithms Diagram](/assets/media/diagrams/search-algorithms.svg)
+<img src="{{ site.url }}/assets/media/diagrams/search-algorithms.svg" alt="Search Algorithms Diagram" style="width: 100%; height: auto;">
 </div>
 </div>
 
@@ -62,7 +62,7 @@
 - Problem reduction
 </div>
 <div class="column" style="width: 50%">
-![GPS Diagram](/assets/media/diagrams/gps.svg)
+<img src="{{ site.url }}/assets/media/diagrams/gps.svg" alt="GPS Diagram" style="width: 100%; height: auto;">
 </div>
 </div>
 
@@ -75,7 +75,7 @@
 - Rule-based reasoning
 </div>
 <div class="column" style="width: 50%">
-![DENDRAL Diagram](/assets/media/diagrams/dendral.svg)
+<img src="{{ site.url }}/assets/media/diagrams/dendral.svg" alt="DENDRAL Diagram" style="width: 100%; height: auto;">
 </div>
 </div>
 
