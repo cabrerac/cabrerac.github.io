@@ -327,6 +327,8 @@
   </div>
 </div>
 
+{% include _snippets/early-ai.md %}
+
 ## AI History - Expert Systems (1969 - 1986)
 <div class="rows" style="width: 100%; height: 100%">
   <div class = "row"  style="width: 100%; height:100%; display: flex; align-items: center;">

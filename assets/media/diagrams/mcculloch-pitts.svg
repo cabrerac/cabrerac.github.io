@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+    <!-- Input nodes -->
+    <circle cx="50" cy="100" r="15" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
+    <circle cx="50" cy="200" r="15" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
+    
+    <!-- Input labels -->
+    <text x="50" y="90" text-anchor="middle" fill="#224466" font-size="12">x₁</text>
+    <text x="50" y="240" text-anchor="middle" fill="#224466" font-size="12">x₂</text>
+    
+    <!-- Input weights -->
+    <text x="80" y="100" text-anchor="middle" fill="#224466" font-size="12">w₁</text>
+    <text x="80" y="200" text-anchor="middle" fill="#224466" font-size="12">w₂</text>
+    
+    <!-- Neuron body -->
+    <circle cx="200" cy="150" r="30" fill="#50c878" stroke="#224466" stroke-width="2"/>
+    
+    <!-- Threshold symbol -->
+    <text x="200" y="150" text-anchor="middle" fill="#224466" font-size="14">θ</text>
+    
+    <!-- Output -->
+    <circle cx="350" cy="150" r="15" fill="#ffa500" stroke="#224466" stroke-width="2"/>
+    <text x="350" y="190" text-anchor="middle" fill="#224466" font-size="12">y</text>
+    
+    <!-- Connection lines -->
+    <line x1="65" y1="100" x2="170" y2="150" stroke="#224466" stroke-width="2"/>
+    <line x1="65" y1="200" x2="170" y2="150" stroke="#224466" stroke-width="2"/>
+    <line x1="230" y1="150" x2="335" y2="150" stroke="#224466" stroke-width="2"/>
+    
+    <!-- Summation symbol -->
+    <text x="170" y="130" text-anchor="middle" fill="#224466" font-size="20">Σ</text>
+    
+    <!-- Step function -->
+    <path d="M 230 150 L 260 150 L 260 100 L 290 100 L 290 150 L 335 150" 
+          fill="none" stroke="#224466" stroke-width="2"/>
+    
+    <!-- Title -->
+    <text x="200" y="30" text-anchor="middle" fill="#224466" font-size="16" font-weight="bold">
+        McCulloch-Pitts Neuron
+    </text>
+</svg> 

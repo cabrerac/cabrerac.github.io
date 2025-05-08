@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="500" height="400" xmlns="http://www.w3.org/2000/svg">
+    <!-- Title -->
+    <text x="250" y="30" text-anchor="middle" fill="#224466" font-size="16" font-weight="bold">
+        DENDRAL Expert System
+    </text>
+    
+    <!-- Input: Mass Spectrum -->
+    <rect x="50" y="100" width="120" height="60" rx="10" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
+    <text x="110" y="135" text-anchor="middle" fill="#224466" font-size="12">Mass Spectrum</text>
+    <text x="110" y="150" text-anchor="middle" fill="#224466" font-size="10">Input Data</text>
+    
+    <!-- Knowledge Base -->
+    <rect x="200" y="50" width="100" height="160" rx="10" fill="#50c878" stroke="#224466" stroke-width="2"/>
+    <text x="250" y="75" text-anchor="middle" fill="#224466" font-size="12">Knowledge Base</text>
+    
+    <!-- Rules -->
+    <rect x="220" y="90" width="60" height="30" rx="5" fill="#ffa500" stroke="#224466" stroke-width="2"/>
+    <text x="250" y="110" text-anchor="middle" fill="#224466" font-size="10">Rules</text>
+    
+    <!-- Chemical DB -->
+    <rect x="220" y="130" width="60" height="30" rx="5" fill="#ffa500" stroke="#224466" stroke-width="2"/>
+    <text x="250" y="150" text-anchor="middle" fill="#224466" font-size="10">Chemical DB</text>
+    
+    <!-- Inference Engine -->
+    <rect x="200" y="230" width="100" height="60" rx="10" fill="#9b59b6" stroke="#224466" stroke-width="2"/>
+    <text x="250" y="265" text-anchor="middle" fill="#224466" font-size="12">Inference Engine</text>
+    
+    <!-- Output: Structure -->
+    <rect x="330" y="100" width="120" height="60" rx="10" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
+    <text x="390" y="135" text-anchor="middle" fill="#224466" font-size="12">Chemical Structure</text>
+    <text x="390" y="150" text-anchor="middle" fill="#224466" font-size="10">Output</text>
+    
+    <!-- Connections -->
+    <line x1="170" y1="130" x2="200" y2="130" stroke="#224466" stroke-width="2"/>
+    <line x1="300" y1="130" x2="330" y2="130" stroke="#224466" stroke-width="2"/>
+    <line x1="250" y1="210" x2="250" y2="230" stroke="#224466" stroke-width="2"/>
+    
+    <!-- Arrows -->
+    <path d="M 195 130 L 200 125 L 205 130" fill="none" stroke="#224466" stroke-width="2"/>
+    <path d="M 295 130 L 300 125 L 305 130" fill="none" stroke="#224466" stroke-width="2"/>
+    <path d="M 245 210 L 250 205 L 255 210" fill="none" stroke="#224466" stroke-width="2"/>
+    
+    <!-- Example -->
+    <text x="250" y="350" text-anchor="middle" fill="#224466" font-size="12">
+        Example: Identifying Chemical Fragments
+    </text>
+    
+    <!-- Legend -->
+    <rect x="50" y="320" width="15" height="15" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
+    <text x="75" y="332" fill="#224466" font-size="10">Data</text>
+    
+    <rect x="150" y="320" width="15" height="15" fill="#50c878" stroke="#224466" stroke-width="2"/>
+    <text x="175" y="332" fill="#224466" font-size="10">Knowledge</text>
+    
+    <rect x="250" y="320" width="15" height="15" fill="#9b59b6" stroke="#224466" stroke-width="2"/>
+    <text x="275" y="332" fill="#224466" font-size="10">Processing</text>
+</svg> 
