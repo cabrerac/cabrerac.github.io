@@ -9,7 +9,7 @@
         --critical-color: #9b59b6;    /* Purple for critical/reflective reports */
       }
     </style>
-    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1250 100%" preserveAspectRatio="xMidYMid meet">
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
       <line x1="25" y1="50%" x2="1250" y2="50%" stroke="var(--secondary-color)" stroke-width="2"/>
       <line x1="25" y1="48%" x2="25" y2="52%" stroke="var(--secondary-color)" stroke-width="1"/>
       <text x="25" y="55%" text-anchor="middle">1940</text>

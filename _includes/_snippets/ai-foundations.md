@@ -953,22 +953,21 @@ img[src=""], img[src="#"] {
 
 ## AI Foundations
 
-<div class="columns" style="width: 100%; height: 100%;">
-  <div class="column vertical-middle text-center" style="width: 30%">
-    <img src="{{ site.url }}/assets/media/images/enigma.jpg" alt="Enigma Machine, Bletchley Park" style="height: 100%">
-    <div class="footnote">Enigma Machine, Bletchley Park<div>
-    </div>
+<div class="columns" style="width: 100%; height: 100%; display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
+  <div class="column vertical-middle text-center" style="width: 35%;">
+    <img src="{{ site.url }}/assets/media/images/enigma.jpg" alt="Enigma Machine, Bletchley Park" style="height: auto; max-width: 100%;">
+    <div class="footnote">Enigma Machine, Bletchley Park</div>
   </div>
-  <div class="column vertical-middle text-center" style="width: 30%">
-    <video controls autoplay loop muted style="max-width: 100%; height: 95%; transform: rotate(0deg); aspect-ratio: 9/16;">
+  <div class="column vertical-middle text-center" style="width: 35%;">
+    <img src="{{ site.url }}/assets/media/images/turing.jpg" alt="Statue of Alan Turing, Bletchley Park" style="height: auto; max-width: 100%;">
+    <div class="footnote">Statue of Alan Turing, Bletchley Park 
+    (Stephen Kettle, 2007)</div>
+  </div>
+  <div class="column vertical-middle text-center" style="width: 30%;">
+    <video controls autoplay loop muted style="max-width: 100%; height: 90%; transform: rotate(0deg); aspect-ratio: 9/16;">
       <source src="{{ site.url }}/assets/media/videos/bombe.mp4" type="video/mp4">
-        Your browser does not support the video tag.
+      Your browser does not support the video tag.
     </video>
     <div class="footnote">The Bombe, Bletchley Park (Alan Turing, 1939)</div>
-  </div>
-  <div class="column vertical-middle text-center" style="width: 40%">
-    <img src="{{ site.url }}/assets/media/images/turing.jpg" alt="Statue of Alan Turing, Bletchley Park" style="height: 100%">
-    <div class="footnote">Statue of Alan Turing, Bletchley Park (Stephen Kettle, 2007)<div>
-    </div>
   </div>
 </div>

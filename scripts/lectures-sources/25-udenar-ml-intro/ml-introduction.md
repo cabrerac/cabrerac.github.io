@@ -46,7 +46,7 @@ visible: true
 {% include _snippets/ai-foundations.md %}
 
 {% include _snippets/ai-history.md %}
-
+<!-- 
 {% include _snippets/ai-perception.md %}
 
 # The ML Concept
@@ -74,3 +74,4 @@ visible: true
 # ML in Practice
 
 {% include _snippets/ml-practice.md %}
+-->
