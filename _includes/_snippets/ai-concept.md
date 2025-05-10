@@ -3,13 +3,13 @@
 ## Artificial Intelligence (AI)
 
 <div class="columns" style="width: 100%; height: 100%;">
-<div class="column vertical-middle text-center" style="width: 50%">
-<p>"The field of <strong>Artificial Intelligence</strong> (AI) is concerned with <em>understanding and building intelligent entities."</em></p>
-</div>
-<div class="column vertical-middle text-center" style="width: 50%">
-<img src="{{ site.url }}/assets/media/images/ai-modern-approach.jpeg" alt="Artificial Intelligence: A Modern Approach book cover" style="height: 400px">
-<div class="footnote">Stuart Russell and Peter Norvig, Artificial Intelligence: A Modern Approach (4th Edition)</div>
-</div>
+  <div class="column vertical-middle text-center" style="width: 50%">
+    <p>"The field of <strong>Artificial Intelligence</strong> (AI) is concerned with <em>understanding and building intelligent entities."</em></p>
+  </div>
+  <div class="column vertical-middle text-center" style="width: 50%">
+    <img src="{{ site.url }}/assets/media/images/ai-modern-approach.jpeg" alt="Artificial Intelligence: A Modern Approach book cover" style="height: 400px">
+    <div class="footnote">Stuart Russell and Peter Norvig, Artificial Intelligence: A Modern Approach (4th Edition)</div>
+  </div>
 </div>
 
 ## AI Dimensions
@@ -72,7 +72,10 @@
         <p><strong>Thought</strong></p>
       </div>
       <div class="column vertical-middle text-left" style="width: 40%">
-        <p>Systems that <em>think like humans,</em> focusing on cognitive and mental models that <em>mimic human reasoning.</em><br>• Example: Context-aware chatbots</p>
+        <p>
+          Systems that <em>think like humans,</em> focusing on cognitive and mental models that <em>mimic human reasoning.</em><br>
+            • Example: Context-aware chatbots
+        </p>
       </div>
       <div class="column vertical-middle text-left" style="width: 40%">
       </div>
@@ -112,10 +115,16 @@
         <p><strong>Thought</strong></p>
       </div>
       <div class="column vertical-middle text-left" style="width: 40%">
-        <p>Systems that <em>think like humans,</em> focusing on cognitive and mental models that <em>mimic human reasoning.</em><br>• Example: Context-aware chatbots</p>
+        <p>
+          Systems that <em>think like humans,</em> focusing on cognitive and mental models that <em>mimic human reasoning.</em><br>
+            • Example: Context-aware chatbots
+        </p>
       </div>
       <div class="column vertical-middle text-left" style="width: 40%">
-        <p>Systems that <em>think rationally,</em> using logical principles and formal reasoning to <em>solve problems and make decisions.</em><br>• Example: Rule-based problem solvers</p>
+        <p>
+          Systems that <em>think rationally,</em> using logical principles and formal reasoning to <em>solve problems and make decisions.</em><br>
+            • Example: Rule-based problem solvers
+        </p>
       </div>
     </div>
   </div>
@@ -153,10 +162,16 @@
         <p><strong>Thought</strong></p>
       </div>
       <div class="column vertical-middle text-left" style="width: 40%">
-        <p>Systems that <em>think like humans,</em> focusing on cognitive and mental models that <em>mimic human reasoning.</em><br>• Example: Context-aware chatbots</p>
+        <p>
+          Systems that <em>think like humans,</em> focusing on cognitive and mental models that <em>mimic human reasoning.</em><br>
+            • Example: Context-aware chatbots
+        </p>
       </div>
       <div class="column vertical-middle text-left" style="width: 40%">
-        <p>Systems that <em>think rationally,</em> using logical principles and formal reasoning to <em>solve problems and make decisions.</em><br>• Example: Rule-based problem solvers</p>
+        <p>
+          Systems that <em>think rationally,</em> using logical principles and formal reasoning to <em>solve problems and make decisions.</em><br>
+            • Example: Rule-based problem solvers
+        </p>
       </div>
     </div>
   </div>
@@ -166,7 +181,11 @@
         <p><strong>Behaviour</strong></p>
       </div>
       <div class="column vertical-middle text-left" style="width: 40%">
-        <p>Systems that <em>act like humans,</em> exhibiting behaviours and interactions that are <em>natural and intuitive for human users.</em><br>• Example: Human-like robots</p>
+        <p>
+          Systems that <em>act like humans,</em> exhibiting behaviours and interactions that are <em>natural and intuitive for human users.</em>
+          <br>
+            • Example: Human-like robots
+        </p>
       </div>
       <div class="column vertical-middle text-left" style="width: 40%">
       </div>
@@ -195,10 +214,16 @@
         <p><strong>Thought</strong></p>
       </div>
       <div class="column vertical-middle text-left" style="width: 40%">
-        <p>Systems that <em>think like humans,</em> focusing on cognitive and mental models that <em>mimic human reasoning.</em><br>• Example: Context-aware chatbots</p>
+        <p>
+          Systems that <em>think like humans,</em> focusing on cognitive and mental models that <em>mimic human reasoning.</em><br>
+            • Example: Context-aware chatbots
+        </p>
       </div>
       <div class="column vertical-middle text-left" style="width: 40%">
-        <p>Systems that <em>think rationally,</em> using logical principles and formal reasoning to <em>solve problems and make decisions.</em><br>• Example: Rule-based problem solvers</p>
+        <p>
+          Systems that <em>think rationally,</em> using logical principles and formal reasoning to <em>solve problems and make decisions.</em><br>
+            • Example: Rule-based problem solvers
+        </p>
       </div>
     </div>
   </div>
@@ -208,10 +233,16 @@
         <p><strong>Behaviour</strong></p>
       </div>
       <div class="column vertical-middle text-left" style="width: 40%">
-        <p>Systems that <em>act like humans,</em> exhibiting behaviours and interactions that are <em>natural and intuitive for human users.</em><br>• Example: Human-like robots</p>
+        <p>
+          Systems that <em>act like humans,</em> exhibiting behaviours and interactions that are <em>natural and intuitive for human users.</em><br>
+            • Example: Human-like robots
+        </p>
       </div>
       <div class="column vertical-middle text-left" style="width: 40%">
-        <p>Systems that <em>act rationally,</em> making optimal decisions based on available <em>information and defined goals.</em><br>• Example: Optimal decision makers</p>
+        <p>
+          Systems that <em>act rationally,</em> making optimal decisions based on available <em>information and defined goals.</em><br>
+            • Example: Optimal decision makers
+        </p>
       </div>
     </div>
   </div>
@@ -238,10 +269,20 @@
         <p><strong>Thought</strong></p>
       </div>
       <div class="column vertical-middle text-left" style="width: 40%">
-        <p>• Cognitive modeling<br>• Human-like reasoning<br>• Natural language understanding<br>• Common sense reasoning</p>
+        <p>
+          • Cognitive modeling<br>
+          • Human-like reasoning<br>
+          • Natural language understanding<br>
+          • Common sense reasoning
+        </p>
       </div>
       <div class="column vertical-middle text-left" style="width: 40%">
-        <p>• Logic-based systems<br>• Theorem proving<br>• Knowledge representation<br>• Expert systems</p>
+        <p>
+          • Logic-based systems<br>
+          • Theorem proving<br>
+          • Knowledge representation<br>
+          • Expert systems
+        </p>
       </div>
     </div>
   </div>
@@ -251,10 +292,20 @@
         <p><strong>Behaviour</strong></p>
       </div>
       <div class="column vertical-middle text-left" style="width: 40%">
-        <p>• Natural language processing<br>• Computer vision<br>• Robotics<br>• Human-computer interaction</p>
+        <p>
+          • Natural language processing<br>
+          • Computer vision<br>
+          • Robotics<br>
+          • Human-computer interaction
+        </p>
       </div>
       <div class="column vertical-middle text-left" style="width: 40%">
-        <p>• Optimization algorithms<br>• Game theory<br>• Planning systems<br>• Decision theory</p>
+        <p>
+          • Optimization algorithms<br>
+          • Game theory<br>
+          • Planning systems<br>
+          • Decision theory
+        </p>
       </div>
     </div>
   </div>

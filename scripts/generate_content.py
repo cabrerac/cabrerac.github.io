@@ -296,6 +296,35 @@ class ContentGenerator:
                     seen_blocks.add(block_content)
         return '\n\n'.join(filtered_content)
 
+    def preprocess_math_blocks(self, content):
+        """
+        Ensure block math ($$...$$) is always at the root level in Markdown output, not inside HTML tags.
+        This helps Marp/Markdown/MathJax render AI/ML equations (matrices, vectors, sums, integrals, etc.) correctly.
+        - Extracts all block math from anywhere (even inside HTML tags), replaces with placeholders, and re-inserts at root level.
+        - Leaves inline math ($...$) as is.
+        """
+        import re
+        # Find all block math
+        block_math_pattern = re.compile(r'(\${2}.*?\${2})', re.DOTALL)
+        math_blocks = []
+        def math_replacer(match):
+            idx = len(math_blocks)
+            math_blocks.append(match.group(1))
+            return f'__MATH_BLOCK_{idx}__'
+        # Replace all block math with placeholders
+        content_with_placeholders = block_math_pattern.sub(math_replacer, content)
+        # Now, for each placeholder, move it to its own line at the root level
+        def move_placeholder_to_root(match):
+            return f'\n{match.group(0)}\n'
+        # Placeholders may be inside HTML, so just ensure they are on their own line
+        content_with_placeholders = re.sub(r'__MATH_BLOCK_\d+__', move_placeholder_to_root, content_with_placeholders)
+        # Remove extra blank lines
+        content_with_placeholders = re.sub(r'\n{3,}', '\n\n', content_with_placeholders)
+        # Replace placeholders with actual math blocks
+        for idx, math_block in enumerate(math_blocks):
+            content_with_placeholders = content_with_placeholders.replace(f'__MATH_BLOCK_{idx}__', math_block)
+        return content_with_placeholders
+
     def process_lecture(self, lecture_file):
         """Process a lecture file to generate all formats."""
         print(f"Processing {lecture_file}...")
@@ -371,6 +400,8 @@ class ContentGenerator:
         processed_content = self.process_includes(content)
         processed_content = self.process_media(processed_content)
         filtered_content = self.filter_content(processed_content, 'RENDER')
+        # Preprocess math blocks for correct rendering
+        filtered_content = self.preprocess_math_blocks(filtered_content)
         
         index_url = "{ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/'}"
         # Create rendered content with metadata and resources
@@ -404,6 +435,8 @@ class ContentGenerator:
 
         # Filter content for slides
         filtered_content = self.filter_content(processed_content, 'SLIDES')
+        # Preprocess math blocks for correct rendering
+        filtered_content = self.preprocess_math_blocks(filtered_content)
 
         # Split into slide blocks using # and ## as slide boundaries
         slide_blocks = []
@@ -1277,6 +1310,8 @@ style: |
 
         # Filter content for notebook
         filtered_content = self.filter_content(processed_content, 'NOTEBOOK')
+        # Preprocess math blocks for correct rendering
+        filtered_content = self.preprocess_math_blocks(filtered_content)
 
         # Create notebook
         nb = nbf.v4.new_notebook()
