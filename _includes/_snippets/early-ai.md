@@ -1,45 +1,39 @@
-<!-- SLIDES: -->
-# Early AI Approaches (1943-1969)
+<!-- ALL: -->
 
-## Neural Networks Evolution
-<div class="columns">
-<div class="column" style="width: 50%">
-### 1943: McCulloch-Pitts Neuron
-- Binary threshold unit
-- First mathematical model of a neuron
-- Basis for artificial neural networks
-</div>
-<div class="column" style="width: 50%">
-<img src="{{ site.url }}/assets/media/diagrams/mcculloch-pitts.svg" alt="McCulloch-Pitts Neuron Diagram" style="width: 100%; height: auto;">
-</div>
-</div>
+## Early AI Approaches (1943-1969) - Searching Algorithms
 
-## Learning Rules
-<div class="columns">
-<div class="column" style="width: 50%">
-### 1949: Hebbian Learning
-- "Neurons that fire together, wire together"
-- Unsupervised learning rule
-- Basis for neural plasticity
-</div>
-<div class="column" style="width: 50%">
-<img src="{{ site.url }}/assets/media/diagrams/hebbian-learning.svg" alt="Hebbian Learning Diagram" style="width: 100%; height: auto;">
-</div>
-</div>
-
-## First Learnable Neural Network
-<div class="columns">
-<div class="column" style="width: 50%">
-### 1957: The Perceptron
-- First neural network that could learn
-- Supervised learning
-- Binary classification
-</div>
-<div class="column" style="width: 50%">
-<img src="{{ site.url }}/assets/media/diagrams/perceptron.svg" alt="Perceptron Diagram" style="width: 100%; height: auto;">
-</div>
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 20%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 33%">
+                <strong>Problem Definition</strong>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 33%">
+                <strong>Formalisation</strong>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 33%">
+                <strong>Approaches</strong>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 80%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 33%">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 33%">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 33%">
+                - Breadth-First Search (BFS)
+                - Depth-First Search (DFS)
+                - A* Algorithm (1968)
+            </div>
+        </div>
+    </div>
 </div>
 
+<!-- end ALL: -->
+
+<!--
 ## Early Search Algorithms
 <div class="columns">
 <div class="column" style="width: 50%">
@@ -77,9 +71,9 @@
 <div class="column" style="width: 50%">
 <img src="{{ site.url }}/assets/media/diagrams/dendral.svg" alt="DENDRAL Diagram" style="width: 100%; height: auto;">
 </div>
-</div>
+</div>-->
 
-<!-- NOTEBOOK: -->
+<!-- RENDER+NOTEBOOK: -->
 # Early AI Approaches (1943-1969)
 
 ## The Artificial Neuron (1943)
@@ -369,7 +363,9 @@ dendral.add_rule(
 spectrum = {15: 1.0, 29: 0.8, 43: 0.6, 17: 1.0, 31: 0.9}
 conclusions = dendral.analyze_spectrum(spectrum)
 ```
+<!-- end RENDER+NOTEBOOK-->
 
+<!--
 ## Key Concepts and Methods
 
 1. **Neural Networks**
@@ -396,4 +392,4 @@ conclusions = dendral.analyze_spectrum(spectrum)
    - Pattern matching
    - Rule-based reasoning
 
-These early approaches laid the foundation for modern AI and machine learning. They demonstrated both the potential and limitations of different AI paradigms, leading to the development of more sophisticated methods in later years.
+These early approaches laid the foundation for modern AI and machine learning. They demonstrated both the potential and limitations of different AI paradigms, leading to the development of more sophisticated methods in later years.-->

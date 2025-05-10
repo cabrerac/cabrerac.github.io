@@ -271,30 +271,29 @@ class ContentGenerator:
         return processed_content
 
     def filter_content(self, content, target):
-        """Filter content based on markers for specific target (RENDER, SLIDES, or NOTEBOOK)."""
+        """Filter content based on markers for specific target (RENDER, SLIDES, or NOTEBOOK), supporting explicit closing tags and all tag combinations. Deduplicate blocks and preserve order."""
         # Remove front matter first
         content_without_frontmatter = re.sub(r'^---\n.*?\n---\n', '', content, flags=re.DOTALL)
-        
-        # Define patterns for each marker type
-        patterns = {
-            'ALL': r'<!--\s*ALL:\s*-->(.*?)(?=<!--|\Z)',
-            'TARGET': fr'<!--\s*{target}:\s*-->(.*?)(?=<!--|\Z)',
-            'RENDER_TARGET': fr'<!--\s*RENDER\+{target}:\s*-->(.*?)(?=<!--|\Z)',
-            'TARGET_NOTEBOOK': fr'<!--\s*{target}\+NOTEBOOK:\s*-->(.*?)(?=<!--|\Z)',
-            'SLIDES_TARGET': fr'<!--\s*SLIDES\+{target}:\s*-->(.*?)(?=<!--|\Z)',
-        }
-        
+
+        # Normalize target for case-insensitive matching
+        target = target.upper()
+
+        # Regex to match any tag block, capturing the tag(s) and the content
+        tag_block_pattern = re.compile(r'<!--\s*([A-Z0-9\+]+):\s*-->(.*?)<!--\s*end [A-Z0-9\+]+:\s*-->', re.DOTALL | re.IGNORECASE)
+
         filtered_content = []
-        
-        # Extract content for each pattern
-        for pattern_type, pattern in patterns.items():
-            matches = re.finditer(pattern, content_without_frontmatter, re.DOTALL)
-            for match in matches:
-                content_part = match.group(1).strip()
-                if content_part:  # Only add non-empty content
-                    filtered_content.append(content_part)
-        
-        # Join all filtered content with double newlines
+        seen_blocks = set()
+        # Iterate sequentially through the content
+        for match in tag_block_pattern.finditer(content_without_frontmatter):
+            tag_combo = match.group(1)
+            block_content = match.group(2).strip()
+            tags = [t.strip().upper() for t in tag_combo.split('+')]
+            # Debug print for troubleshooting
+            print(f"Target: {target}, Block tags: {tags}, Include: {'ALL' in tags or target in tags}")
+            if 'ALL' in tags or target in tags:
+                if block_content and block_content not in seen_blocks:
+                    filtered_content.append(block_content)
+                    seen_blocks.add(block_content)
         return '\n\n'.join(filtered_content)
 
     def process_lecture(self, lecture_file):
@@ -350,7 +349,7 @@ class ContentGenerator:
         # Read source content
         with open(lecture_file, 'r', encoding='utf-8') as f:
             content = f.read()
-            
+        
         # Extract front matter from source
         front_matter = re.match(r'^---\n(.*?)\n---', content, re.DOTALL)
         if front_matter:
@@ -358,7 +357,7 @@ class ContentGenerator:
             content = content[front_matter.end():]
         else:
             lecture_metadata = {}
-            
+        
         # Merge course and lecture metadata, preserving all fields
         metadata = lecture_metadata.copy()
         metadata.update({
@@ -368,40 +367,17 @@ class ContentGenerator:
             'permalink': f"/teaching/{course_metadata.get('course_code', '')}/{lecture_file.stem}/"
         })
         
-        # Filter content for rendered markdown
-        filtered_content = self.filter_content(content, 'RENDER')
-        
-        # Process content
-        processed_content = self.process_includes(filtered_content)
+        # Process includes and media first, then filter for RENDER tags
+        processed_content = self.process_includes(content)
         processed_content = self.process_media(processed_content)
+        filtered_content = self.filter_content(processed_content, 'RENDER')
         
         index_url = "{ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/'}"
         # Create rendered content with metadata and resources
         rendered_content = f"""---
 {yaml.dump(metadata, default_flow_style=False)}---
 
-<link rel="stylesheet" href="/assets/css/slides.css">
-
-<script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
-<script>
-    async function main() {{
-        let pyodide = await loadPyodide({index_url});
-        await pyodide.loadPackage("numpy");
-        await pyodide.loadPackage("matplotlib");
-    }}
-    main();
-</script>
-
-<div class="lecture-resources">
-  <p>
-    <a href="/assets/slides/{course_metadata.get('course_code', '')}/{lecture_file.stem}.pdf" target="_blank">[PDF Slides]</a>
-    <a href="/assets/slides/{course_metadata.get('course_code', '')}/{lecture_file.stem}.html" target="_blank">[HTML Slides]</a>
-    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/{course_metadata.get('course_code', '')}/{lecture_file.stem}.ipynb" target="_blank">[Colab Notebook]</a>
-  </p>
-</div>
-
-{processed_content}
-"""
+<link rel=\"stylesheet\" href=\"/assets/css/slides.css\">\n\n<script src=\"https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js\"></script>\n<script>\n    async function main() {{\n        let pyodide = await loadPyodide({index_url});\n        await pyodide.loadPackage(\"numpy\");\n        await pyodide.loadPackage(\"matplotlib\");\n    }}\n    main();\n</script>\n\n<div class=\"lecture-resources\">\n  <p>\n    <a href=\"/assets/slides/{course_metadata.get('course_code', '')}/{lecture_file.stem}.pdf\" target=\"_blank\">[PDF Slides]</a>\n    <a href=\"/assets/slides/{course_metadata.get('course_code', '')}/{lecture_file.stem}.html\" target=\"_blank\">[HTML Slides]</a>\n    <a href=\"https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/{course_metadata.get('course_code', '')}/{lecture_file.stem}.ipynb\" target=\"_blank\">[Colab Notebook]</a>\n  </p>\n</div>\n\n{filtered_content}\n"""
         
         # Save rendered lecture
         output_file = output_dir / lecture_file.name
@@ -411,86 +387,57 @@ class ContentGenerator:
     def generate_slides(self, lecture_file, output_dir):
         """Generate Marp slides from lecture content."""
         lecture_content = self.read_snippet(lecture_file)
-        
-        # Remove front matter first
-        content_without_frontmatter = re.sub(r'^---\n.*?\n---\n', '', lecture_content, flags=re.DOTALL)
-        
-        # Find all content blocks with their markers
-        content_blocks = []
-        
-        # Pattern to match any of our markers and their content
-        pattern = r'<!--\s*(ALL|SLIDES|SLIDES\+NOTEBOOK|RENDER\+SLIDES):\s*-->(.*?)(?=<!--|\Z)'
-        
-        # Find all matches in order
-        matches = re.finditer(pattern, content_without_frontmatter, re.DOTALL)
-        for match in matches:
-            marker_type = match.group(1)
-            content = match.group(2).strip()
-            if content:  # Only add non-empty content
-                content_blocks.append(content)
-        
-        # Join all content blocks in their original order
-        processed_content = '\n\n'.join(content_blocks)
-        
-        # Process content
-        processed_content = self.process_includes(processed_content)
+
+        # Process includes first
+        processed_content = self.process_includes(lecture_content)
         processed_content = self.process_media(processed_content)
-        
-        # Split content into slides based on headings, preserving code blocks
-        slides = []
-        current_slide = []
-        in_code_block = False
-        code_block_content = []
-        
-        # Split content into lines and process
-        lines = processed_content.split('\n')
+
+        # Filter content for slides
+        filtered_content = self.filter_content(processed_content, 'SLIDES')
+
+        # Split into slide blocks using # and ## as slide boundaries
+        slide_blocks = []
+        current_block = []
+        lines = filtered_content.split('\n')
         for line in lines:
-            # Handle code blocks
-            if line.strip().startswith('```'):
-                if not in_code_block:
-                    in_code_block = True
-                    code_block_content = [line]
-                else:
-                    in_code_block = False
-                    code_block_content.append(line)
-                    current_slide.extend(code_block_content)
-                    code_block_content = []
+            if re.match(r'^#{1,2} ', line.strip()):
+                if current_block:
+                    slide_blocks.append('\n'.join(current_block))
+                    current_block = []
+            current_block.append(line)
+        if current_block:
+            slide_blocks.append('\n'.join(current_block))
+
+        slides = []
+        for block in slide_blocks:
+            block_lines = block.strip().split('\n')
+            if not block_lines:
                 continue
-            
-            if in_code_block:
-                code_block_content.append(line)
-                continue
-            
-            # If line is a heading (starts with #), start a new slide
-            if line.strip().startswith('#') and current_slide:
-                # Wrap the content in a container div
-                slide_content = '\n'.join(current_slide)
-                if not slide_content.strip().startswith('<!-- _class: lead -->'):
-                    # Extract the heading and content
-                    heading = current_slide[0]
-                    content = '\n'.join(current_slide[1:])
-                    # Create the slide with heading outside container
-                    slide_content = f'{heading}\n\n<div class="slide-content">\n{content}\n</div>'
-                slides.append(slide_content)
-                current_slide = []
-            
-            current_slide.append(line)
-        
-        # Add the last slide
-        if current_slide:
-            # Wrap the content in a container div
-            slide_content = '\n'.join(current_slide)
-            if not slide_content.strip().startswith('<!-- _class: lead -->'):
-                # Extract the heading and content
-                heading = current_slide[0]
-                content = '\n'.join(current_slide[1:])
-                # Create the slide with heading outside container
-                slide_content = f'{heading}\n\n<div class="slide-content">\n{content}\n</div>'
-            slides.append(slide_content)
-        
+            first_line = block_lines[0].strip()
+            # Title slide (# ...)
+            if first_line.startswith('# '):
+                title = first_line[2:].strip()
+                # Everything after the title is ignored for title slide
+                slide = f'''<!-- _class: lead -->\n<div class="slide-content" style="display: flex; align-items: center; height: 100%; justify-content: flex-start;">\n<h1 style="margin: 0; padding: 0; text-align: left;">{title}</h1>\n</div>'''
+                slides.append(slide)
+            # Section slide (## ...)
+            elif first_line.startswith('## '):
+                heading = first_line
+                content = '\n'.join(block_lines[1:])
+                # Replace all ### ... with a styled subtitle inside slide-content
+                content = re.sub(r'^### (.*)$', r'<h3 style="margin-top:0;margin-bottom:0.5em;text-align:left;">\1</h3>', content, flags=re.MULTILINE)
+                slide = f'{heading}\n\n<div class="slide-content">\n{content}\n</div>'
+                slides.append(slide)
+            else:
+                # Fallback: treat as content slide
+                content = '\n'.join(block_lines)
+                content = re.sub(r'^### (.*)$', r'<h3 style="margin-top:0;margin-bottom:0.5em;text-align:left;">\1</h3>', content, flags=re.MULTILINE)
+                slide = f'<div class="slide-content">\n{content}\n</div>'
+                slides.append(slide)
+
         # Join slides with Marp slide separator
         slides_content = '\n\n---\n\n'.join(slides)
-        
+
         # Extract front matter
         front_matter = re.match(r'^---\n(.*?)\n---', lecture_content, re.DOTALL)
         if front_matter:
@@ -1313,14 +1260,14 @@ style: |
     def generate_notebook(self, lecture_file, output_dir, course_metadata):
         """Generate Jupyter notebook from lecture content."""
         lecture_content = self.read_snippet(lecture_file)
-        
-        # Filter content for notebook
-        filtered_content = self.filter_content(lecture_content, 'NOTEBOOK')
-        
-        # Process content
-        processed_content = self.process_includes(filtered_content)
+
+        # Process includes first
+        processed_content = self.process_includes(lecture_content)
         processed_content = self.process_media(processed_content)
-        
+
+        # Filter content for notebook
+        filtered_content = self.filter_content(processed_content, 'NOTEBOOK')
+
         # Create notebook
         nb = nbf.v4.new_notebook()
         
@@ -1329,7 +1276,7 @@ style: |
         nb.cells.append(title_cell)
         
         # Process content and create cells
-        sections = processed_content.split('\n\n')
+        sections = filtered_content.split('\n\n')
         for section in sections:
             if section.strip():
                 if section.startswith('```python'):

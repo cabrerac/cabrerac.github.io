@@ -1,3 +1,11 @@
+<!-- NOTEBOOK+RENDER: -->
+
+<div> NOTEBOOK+RENDER TEST</div>
+
+<!-- end NOTEBOOK+RENDER: -->
+
+<!-- SLIDES+NOTEBOOK: -->
+
 ## Artificial Intelligence (AI)
 
 <div class="columns" style="width: 100%; height: 100%;">
@@ -257,6 +265,7 @@
     </div>
   </div>
 </div>
+<!-- end SLIDES+NOTEBOOK: -->
 
 <!-- 
 ## Artificial Intelligence - Intelligent Entities Rows
@@ -382,3 +391,9 @@ plt.show()
   </div>
 </div>
 -->
+
+<!-- RENDER+NOTEBOOK: -->
+
+<div> RENDER+NOTEBOOK TEST</div>
+
+<!-- end RENDER+NOTEBOOK: -->

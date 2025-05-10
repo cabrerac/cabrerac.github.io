@@ -1,3 +1,5 @@
+<!-- NOTEBOOK+SLIDES: -->
+
 ## AI History
 
 <div class="rows" style="width: 100%; height: 100%">
@@ -117,7 +119,7 @@
   </div>
 </div>
 
-## AI History Inception and Early Developments (1943 - 1969)
+## AI History - Inception and Early Approaches (1943 - 1969)
 <div class="rows" style="width: 100%; height: 100%">
   <div class = "row"  style="width: 100%; height:100%; display: flex; align-items: center;">
     <style>
@@ -327,7 +329,11 @@
   </div>
 </div>
 
+<!-- end NOTEBOOK+SLIDES: -->
+
 {% include _snippets/early-ai.md %}
+
+<!-- SLIDES+RENDER: -->
 
 ## AI History - Expert Systems (1969 - 1986)
 <div class="rows" style="width: 100%; height: 100%">
@@ -581,6 +587,12 @@
     </svg>
   </div>
 </div>
+
+<!-- end SLIDES+RENDER: -->
+
+<!-- {% include _snippets/expert-systems.md %} -->
+
+<!-- SLIDES+RENDER: -->
 
 ## AI History - The Return of Neural Networks (1987 - present)
 <div class="rows" style="width: 100%; height: 100%">
@@ -862,6 +874,12 @@
     </svg>
   </div>
 </div>
+
+<!-- end SLIDES+RENDER: -->
+
+<!-- {% include _snippets/early-neural-networks.md %} -->
+
+<!-- SLIDES: -->
 
 ## AI History - Big Data (2001 - present)
 <div class="rows" style="width: 100%; height: 100%">
@@ -1269,6 +1287,12 @@
     </svg>
   </div>
 </div>
+
+<!-- end SLIDES: -->
+
+<!-- {% include _snippets/big-data-impact.md %} -->
+
+<!-- SLIDES: -->
 
 ## AI History - First Winter (1974 - 1980)
 <div class="rows" style="width: 100%; height: 100%">
@@ -2583,3 +2607,5 @@
     </svg>
   </div>
 </div>
+
+<!-- end SLIDES: -->
