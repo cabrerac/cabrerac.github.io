@@ -289,7 +289,7 @@ class ContentGenerator:
             block_content = match.group(2).strip()
             tags = [t.strip().upper() for t in tag_combo.split('+')]
             # Debug print for troubleshooting
-            print(f"Target: {target}, Block tags: {tags}, Include: {'ALL' in tags or target in tags}")
+            #print(f"Target: {target}, Block tags: {tags}, Include: {'ALL' in tags or target in tags}")
             if 'ALL' in tags or target in tags:
                 if block_content and block_content not in seen_blocks:
                     filtered_content.append(block_content)
@@ -377,7 +377,26 @@ class ContentGenerator:
         rendered_content = f"""---
 {yaml.dump(metadata, default_flow_style=False)}---
 
-<link rel=\"stylesheet\" href=\"/assets/css/slides.css\">\n\n<script src=\"https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js\"></script>\n<script>\n    async function main() {{\n        let pyodide = await loadPyodide({index_url});\n        await pyodide.loadPackage(\"numpy\");\n        await pyodide.loadPackage(\"matplotlib\");\n    }}\n    main();\n</script>\n\n<div class=\"lecture-resources\">\n  <p>\n    <a href=\"/assets/slides/{course_metadata.get('course_code', '')}/{lecture_file.stem}.pdf\" target=\"_blank\">[PDF Slides]</a>\n    <a href=\"/assets/slides/{course_metadata.get('course_code', '')}/{lecture_file.stem}.html\" target=\"_blank\">[HTML Slides]</a>\n    <a href=\"https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/{course_metadata.get('course_code', '')}/{lecture_file.stem}.ipynb\" target=\"_blank\">[Colab Notebook]</a>\n  </p>\n</div>\n\n{filtered_content}\n"""
+<link rel=\"stylesheet\" href=\"/assets/css/slides.css\">\n\n
+<script src=\"https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js\"></script>\n
+<script>\n    
+  async function main() {{\n        
+    let pyodide = await loadPyodide({index_url});\n        
+    await pyodide.loadPackage(\"numpy\");\n        
+    await pyodide.loadPackage(\"matplotlib\");\n    
+  }}\n    
+  main();\n
+</script>\n\n
+
+<div class=\"lecture-resources\">\n  
+  <p>\n    
+    <a href=\"/assets/slides/{course_metadata.get('course_code', '')}/{lecture_file.stem}.pdf\" target=\"_blank\">[PDF Slides]</a>\n    
+    <a href=\"/assets/slides/{course_metadata.get('course_code', '')}/{lecture_file.stem}.html\" target=\"_blank\">[HTML Slides]</a>\n    
+    <a href=\"https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/{course_metadata.get('course_code', '')}/{lecture_file.stem}.ipynb\" target=\"_blank\">[Colab Notebook]</a>\n  
+  </p>\n
+  </div>\n\n
+  
+  {filtered_content}\n"""
         
         # Save rendered lecture
         output_file = output_dir / lecture_file.name
