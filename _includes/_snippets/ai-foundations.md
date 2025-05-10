@@ -1,4 +1,4 @@
-<!-- SLIDES+RENDER: -->
+<!-- SLIDES: -->
 
 ## AI Foundations
 
@@ -973,4 +973,4 @@ img[src=""], img[src="#"] {
     <div class="footnote">The Bombe, Bletchley Park (Alan Turing, 1939)</div>
   </div>
 </div>
-<!-- end SLIDES+RENDER: -->
+<!-- end SLIDES: -->

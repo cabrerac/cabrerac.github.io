@@ -1,10 +1,4 @@
-<!-- NOTEBOOK+RENDER: -->
-
-<div> NOTEBOOK+RENDER TEST</div>
-
-<!-- end NOTEBOOK+RENDER: -->
-
-<!-- SLIDES+NOTEBOOK: -->
+<!-- SLIDES: -->
 
 ## Artificial Intelligence (AI)
 
@@ -265,7 +259,7 @@
     </div>
   </div>
 </div>
-<!-- end SLIDES+NOTEBOOK: -->
+<!-- end SLIDES: -->
 
 <!-- 
 ## Artificial Intelligence - Intelligent Entities Rows
@@ -391,9 +385,3 @@ plt.show()
   </div>
 </div>
 -->
-
-<!-- RENDER+NOTEBOOK: -->
-
-<div> RENDER+NOTEBOOK TEST</div>
-
-<!-- end RENDER+NOTEBOOK: -->

@@ -1,4 +1,4 @@
-<!-- NOTEBOOK+SLIDES: -->
+<!-- SLIDES: -->
 
 ## AI History
 
@@ -329,11 +329,11 @@
   </div>
 </div>
 
-<!-- end NOTEBOOK+SLIDES: -->
+<!-- end SLIDES: -->
 
 {% include _snippets/early-ai.md %}
 
-<!-- SLIDES+RENDER: -->
+<!-- SLIDES: -->
 
 ## AI History - Expert Systems (1969 - 1986)
 <div class="rows" style="width: 100%; height: 100%">
@@ -588,11 +588,11 @@
   </div>
 </div>
 
-<!-- end SLIDES+RENDER: -->
+<!-- end SLIDES: -->
 
 <!-- {% include _snippets/expert-systems.md %} -->
 
-<!-- SLIDES+RENDER: -->
+<!-- SLIDES: -->
 
 ## AI History - The Return of Neural Networks (1987 - present)
 <div class="rows" style="width: 100%; height: 100%">
@@ -875,7 +875,7 @@
   </div>
 </div>
 
-<!-- end SLIDES+RENDER: -->
+<!-- end SLIDES: -->
 
 <!-- {% include _snippets/early-neural-networks.md %} -->
 

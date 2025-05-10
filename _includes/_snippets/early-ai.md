@@ -1,4 +1,4 @@
-<!-- ALL: -->
+<!-- SLIDES: -->
 
 ## Early AI Approaches (1943-1969) - Searching Algorithms
 
@@ -31,7 +31,7 @@
     </div>
 </div>
 
-<!-- end ALL: -->
+<!-- end SLIDES: -->
 
 <!--
 ## Early Search Algorithms
@@ -71,9 +71,8 @@
 <div class="column" style="width: 50%">
 <img src="{{ site.url }}/assets/media/diagrams/dendral.svg" alt="DENDRAL Diagram" style="width: 100%; height: auto;">
 </div>
-</div>-->
+</div>
 
-<!-- RENDER+NOTEBOOK: -->
 # Early AI Approaches (1943-1969)
 
 ## The Artificial Neuron (1943)
@@ -363,9 +362,6 @@ dendral.add_rule(
 spectrum = {15: 1.0, 29: 0.8, 43: 0.6, 17: 1.0, 31: 0.9}
 conclusions = dendral.analyze_spectrum(spectrum)
 ```
-<!-- end RENDER+NOTEBOOK-->
-
-<!--
 ## Key Concepts and Methods
 
 1. **Neural Networks**
@@ -392,4 +388,6 @@ conclusions = dendral.analyze_spectrum(spectrum)
    - Pattern matching
    - Rule-based reasoning
 
-These early approaches laid the foundation for modern AI and machine learning. They demonstrated both the potential and limitations of different AI paradigms, leading to the development of more sophisticated methods in later years.-->
+These early approaches laid the foundation for modern AI and machine learning. They demonstrated both the potential and limitations of different AI paradigms, leading to the development of more sophisticated methods in later years.
+
+-->

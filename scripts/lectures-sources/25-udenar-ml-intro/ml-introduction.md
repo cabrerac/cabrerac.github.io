@@ -19,12 +19,12 @@ visible: true
 ---
 
 <!-- ALL: content that goes everywhere -->
-<!-- RENDER: content that only goes to rendered markdown -->
 <!-- SLIDES: content that only goes to slides -->
+<!-- RENDER: content that only goes to rendered markdown -->
 <!-- NOTEBOOK: content that only goes to notebook -->
-<!-- RENDER+SLIDES: content that goes to both rendered markdown and slides -->
-<!-- RENDER+NOTEBOOK: content that goes to both rendered markdown and notebook -->
+<!-- SLIDES+RENDER: content that goes to both rendered markdown and slides -->
 <!-- SLIDES+NOTEBOOK: content that goes to both slides and notebook -->
+<!-- RENDER+NOTEBOOK: content that goes to both rendered markdown and notebook -->
 
 <!-- RENDER: -->
 <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
