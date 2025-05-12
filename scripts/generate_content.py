@@ -957,6 +957,10 @@ style: |
     color: var(--accent-color) !important;
   }}
 
+  html[data-theme='dark'] section .slide-content img.external-svg {{
+        background-color: #f6f8fa !important;
+  }}
+
   section::before {{
     font-size: 0.6em;
     content: attr(data-marpit-pagination) " / " attr(data-marpit-pagination-total);
@@ -1195,6 +1199,10 @@ style: |
       html[data-theme='dark'] section .column p a,
       html[data-theme='dark'] section .row p a {
         color: var(--accent-color) !important;
+      }
+                    
+      html[data-theme='dark'] section .slide-content img.external-svg {
+        background-color: #f6f8fa !important;
       }
 
       /* Ensure email links maintain accent color */
