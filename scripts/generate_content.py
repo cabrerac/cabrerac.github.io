@@ -1150,6 +1150,8 @@ style: |
 
       /* Explicit dark mode styles for paragraphs and their children */
       html[data-theme='dark'] section p,
+      html[data-theme='dark'] section ul,
+      html[data-theme='dark'] section ol,
       html[data-theme='dark'] section p *,
       html[data-theme='dark'] section .column p,
       html[data-theme='dark'] section .column p *,

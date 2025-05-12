@@ -157,15 +157,18 @@ $G$: set of goal states
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <p>Uninformed Search Algorithms</p>
-                <ul>
-                    <li>Breadth-First Search (BFS)</li>
-                    <li>Depth-First Search (DFS)</li>
-                    <li>...</li>
-                </ul>
+            <div class="column vertical-middle text-left" style="width: 35%">
+                <p><b>Non-Informed Search Algorithms</b>
+                    <ul>
+                        <li>Breadth-First Search (BFS)</li>
+                        <li>Depth-First Search (DFS)</li>
+                        <li>...</li>
+                    </ul>
+                    <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/search-problem-instance.svg" alt="Maze navigation search problem" style="width: 80%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+                    <div class="footnote">BFS finds the shortest path in terms of steps; DFS may find a longer path but can be more memory-efficient</div>
+                </p>
             </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
+            <div class="column vertical-middle text-center" style="width: 65%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/non-informed-search.svg" alt="Non-informed search algorithms comparison" style="width: 90%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
             </div>
         </div>
