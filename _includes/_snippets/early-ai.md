@@ -19,35 +19,133 @@
     <div class="row" style="height: 80%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 33%">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 33%">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 33%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Early AI Approaches (1943-1969) - Searching Algorithms
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 20%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 33%">
+                <p><strong>Problem Definition</strong></p>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 33%">
+                <p><strong>Formal Definition</strong></p>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 33%">
+                <p><strong>Computational Representation</strong></p>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 80%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 33%">
                 <p>
                     <b>An agent</b> must find a way to reach <b>a goal</b> in its <b>environment</b>. But, the next step is not obvious.
                 </p>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Shortest_path_with_direct_weights.svg" alt="Shortest path problem" style="width: 90%; margin-top: 0.5em;">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Shortest_path_with_direct_weights.svg" alt="Shortest path problem" style="width: 90%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+                <div class="footnote">Shortest path problem: https://en.wikipedia.org/wiki/Shortest_path_problem</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 33%">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 33%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Early AI Approaches (1943-1969) - Searching Algorithms
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 20%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 33%">
+                <p><strong>Problem Definition</strong></p>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 33%">
+                <p><strong>Formal Definition</strong></p>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 33%">
+                <p><strong>Computational Representation</strong></p>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 80%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 33%">
+                <p>
+                    <b>An agent</b> must find a way to reach <b>a goal</b> in its <b>environment</b>. But, the next step is not obvious.
+                </p>
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Shortest_path_with_direct_weights.svg" alt="Shortest path problem" style="width: 90%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
                 <div class="footnote">Shortest path problem: https://en.wikipedia.org/wiki/Shortest_path_problem</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 33%">
                 <p>
-                    A <b>search problem</b> is defined by a <em>set of states, an initial state, a set of goal states, and a set of actions or transitions between states</em>.<br><br><br>
-
+                    A <b>search problem</b> is defined by a <em>set of states, an initial state, a set of goal states, and a set of actions or transitions between states</em>.
+                </p>
 $$
 P = (S, A, s_0, G)
 $$
-<br><br>
-- $S$: set of states
-- $A$: set of actions
-- $s_0$: initial state
-- $G$: set of goal states
+$S$: set of states
+$A$: set of actions
+$s_0$: initial state
+$G$: set of goal states
+</div>
+            <div class="column vertical-middle text-left" style="width: 33%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Early AI Approaches (1943-1969) - Searching Algorithms
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 20%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 33%">
+                <p><strong>Problem Definition</strong></p>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 33%">
+                <p><strong>Formal Definition</strong></p>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 33%">
+                <p><strong>Computational Representation</strong></p>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 80%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 33%">
+                <p>
+                    <b>An agent</b> must find a way to reach <b>a goal</b> in its <b>environment</b>. But, the next step is not obvious.
                 </p>
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Shortest_path_with_direct_weights.svg" alt="Shortest path problem" style="width: 90%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+                <div class="footnote">Shortest path problem: https://en.wikipedia.org/wiki/Shortest_path_problem</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 33%">
                 <p>
-                    A <b>search problem</b> is typically <em>modelled</em> using data structures such as:
-                    • Graphs
-                    • Adjacency matrix
-                    • Node objects
-                    • Queues/stacks
+                    A <b>search problem</b> is defined by a <em>set of states, an initial state, a set of goal states, and a set of actions or transitions between states</em>.
                 </p>
-                <img src="{{ site.url }}/assets/media/diagrams/adjacency-matrix.svg" alt="Adjacency matrix for shortest path graph" style="width: 90%; margin-top: 0.5em;">
+$$
+P = (S, A, s_0, G)
+$$
+$S$: set of states
+$A$: set of actions
+$s_0$: initial state
+$G$: set of goal states
+</div>
+            <div class="column vertical-middle text-left" style="width: 33%">
+                <p>
+                    A <b>search problem</b> is typically <em>modelled</em> using data structures such as graphs, adjacency matrices, queues and stacks.
+                </p>
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/adjacency-matrix.svg" alt="Adjacency matrix for shortest path graph" style="width: 70%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
                 <div class="footnote">Adjacency matrix: https://en.wikipedia.org/wiki/Adjacency_matrix</div>
             </div>
         </div>
