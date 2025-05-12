@@ -300,29 +300,58 @@ class ContentGenerator:
         """
         Ensure block math ($$...$$) is always at the root level in Markdown output, not inside HTML tags.
         This helps Marp/Markdown/MathJax render AI/ML equations (matrices, vectors, sums, integrals, etc.) correctly.
-        - Extracts all block math from anywhere (even inside HTML tags), replaces with placeholders, and re-inserts at root level.
-        - Leaves inline math ($...$) as is.
+        After rendering, the expressions are wrapped in p tags for consistent styling.
         """
         import re
-        # Find all block math
+        
+        # First handle block math
         block_math_pattern = re.compile(r'(\${2}.*?\${2})', re.DOTALL)
         math_blocks = []
         def math_replacer(match):
             idx = len(math_blocks)
             math_blocks.append(match.group(1))
             return f'__MATH_BLOCK_{idx}__'
+            
         # Replace all block math with placeholders
         content_with_placeholders = block_math_pattern.sub(math_replacer, content)
-        # Now, for each placeholder, move it to its own line at the root level
+        
+        # Now handle inline math
+        inline_math_pattern = re.compile(r'(?<!\$)\$(?!\$)(.*?)(?<!\$)\$(?!\$)')
+        def inline_math_replacer(match):
+            math_expr = match.group(1)
+            # Only wrap in p tags if not already inside a p tag
+            if not re.search(r'<p[^>]*>.*?\$' + re.escape(math_expr) + r'\$.*?</p>', content_with_placeholders):
+                return f'${math_expr}$'
+            return f'${math_expr}$'
+            
+        # Replace inline math with wrapped versions
+        content_with_placeholders = inline_math_pattern.sub(inline_math_replacer, content_with_placeholders)
+        
+        # Move block math placeholders to root level
         def move_placeholder_to_root(match):
             return f'\n{match.group(0)}\n'
-        # Placeholders may be inside HTML, so just ensure they are on their own line
         content_with_placeholders = re.sub(r'__MATH_BLOCK_\d+__', move_placeholder_to_root, content_with_placeholders)
+        
         # Remove extra blank lines
         content_with_placeholders = re.sub(r'\n{3,}', '\n\n', content_with_placeholders)
+        
         # Replace placeholders with actual math blocks
         for idx, math_block in enumerate(math_blocks):
             content_with_placeholders = content_with_placeholders.replace(f'__MATH_BLOCK_{idx}__', math_block)
+            
+        # After all math is processed, wrap rendered math expressions in p tags
+        # This will happen after Marp/MathJax has rendered the expressions
+        content_with_placeholders = re.sub(
+            r'(<span class="math inline">.*?</span>)',
+            r'<p>\1</p>',
+            content_with_placeholders
+        )
+        content_with_placeholders = re.sub(
+            r'(<span class="math display">.*?</span>)',
+            r'<p>\1</p>',
+            content_with_placeholders
+        )
+            
         return content_with_placeholders
 
     def process_lecture(self, lecture_file):
