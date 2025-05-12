@@ -158,9 +158,12 @@ $G$: set of goal states
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 50%">
-                <p><strong>Breadth-First Search (BFS)</strong></p>
-                <p><strong>Depth-First Search (DFS)</strong></p>
-                <p><strong>Uniform Cost Search (UCS)</strong></p>
+                <p>Uninformed Search Algorithms</p>
+                <ul>
+                    <li>Breadth-First Search (BFS)</li>
+                    <li>Depth-First Search (DFS)</li>
+                    <li>...</li>
+                </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/non-informed-search.svg" alt="Non-informed search algorithms comparison" style="width: 90%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
