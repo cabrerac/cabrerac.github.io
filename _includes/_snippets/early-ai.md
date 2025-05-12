@@ -152,6 +152,87 @@ $G$: set of goal states
     </div>
 </div>
 
+## Early AI Approaches (1943-1969) - Searching Algorithms
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 20%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 33%">
+                <p><strong>Breadth-First Search (BFS)</strong></p>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 33%">
+                <p><strong>Depth-First Search (DFS)</strong></p>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 33%">
+                <p><strong>Uniform Cost Search (UCS)</strong></p>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 60%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 33%">
+                <p>
+                    Explores nodes level by level, using a <b>queue</b> (FIFO). <em>Complete</em> and <em>optimal</em> for unit costs.
+                </p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 33%">
+                <p>
+                    Explores deepest path first, using a <b>stack</b> (LIFO). <em>Not complete</em> but <em>memory efficient</em>.
+                </p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 33%">
+                <p>
+                    Expands by lowest <b>path cost</b> using a <b>priority queue</b>. <em>Complete</em> and <em>optimal</em> for all positive costs.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 20%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/non-informed-search.svg" alt="Non-informed search algorithms comparison" style="width: 90%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Early AI Approaches (1943-1969) - Searching Algorithms
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 20%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <p><strong>A* Search</strong></p>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <p><strong>Greedy Best-First Search</strong></p>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 20%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>
+                    Uses <b>f(n) = g(n) + h(n)</b> where g(n) is the <em>path cost</em> and h(n) is the <em>heuristic</em> estimate. <b>Complete</b> and <b>optimal</b> with <em>admissible</em> heuristics.
+                </p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>
+                    Uses <b>f(n) = h(n)</b>, evaluating nodes solely by their <em>heuristic</em> value. <b>Fast</b> but <b>not optimal</b>, as it ignores path costs.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 60%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/informed-search.svg" alt="Informed search algorithms comparison" style="width: 80%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+                <div class="footnote">Heuristics measure estimated distance to goal, guiding search toward promising paths</div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- end SLIDES: -->
 
 <!--
