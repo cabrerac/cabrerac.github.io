@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+    <!-- Title -->
+    <text x="300" y="30" text-anchor="middle" fill="#224466" font-size="16" font-weight="bold">
+        Search Problem: Maze Navigation
+    </text>
+    
+    <!-- Maze grid -->
+    <rect x="50" y="60" width="500" height="290" fill="#f6f8fa" stroke="#ddd" stroke-width="1" rx="5" ry="5"/>
+    
+    <!-- Grid lines - vertical -->
+    <line x1="100" y1="60" x2="100" y2="350" stroke="#ddd" stroke-width="1"/>
+    <line x1="150" y1="60" x2="150" y2="350" stroke="#ddd" stroke-width="1"/>
+    <line x1="200" y1="60" x2="200" y2="350" stroke="#ddd" stroke-width="1"/>
+    <line x1="250" y1="60" x2="250" y2="350" stroke="#ddd" stroke-width="1"/>
+    <line x1="300" y1="60" x2="300" y2="350" stroke="#ddd" stroke-width="1"/>
+    <line x1="350" y1="60" x2="350" y2="350" stroke="#ddd" stroke-width="1"/>
+    <line x1="400" y1="60" x2="400" y2="350" stroke="#ddd" stroke-width="1"/>
+    <line x1="450" y1="60" x2="450" y2="350" stroke="#ddd" stroke-width="1"/>
+    <line x1="500" y1="60" x2="500" y2="350" stroke="#ddd" stroke-width="1"/>
+    
+    <!-- Grid lines - horizontal -->
+    <line x1="50" y1="110" x2="550" y2="110" stroke="#ddd" stroke-width="1"/>
+    <line x1="50" y1="160" x2="550" y2="160" stroke="#ddd" stroke-width="1"/>
+    <line x1="50" y1="210" x2="550" y2="210" stroke="#ddd" stroke-width="1"/>
+    <line x1="50" y1="260" x2="550" y2="260" stroke="#ddd" stroke-width="1"/>
+    <line x1="50" y1="310" x2="550" y2="310" stroke="#ddd" stroke-width="1"/>
+    
+    <!-- Maze walls -->
+    <!-- Horizontal walls -->
+    <line x1="100" y1="110" x2="200" y2="110" stroke="#224466" stroke-width="4"/>
+    <line x1="250" y1="110" x2="400" y2="110" stroke="#224466" stroke-width="4"/>
+    <line x1="100" y1="160" x2="150" y2="160" stroke="#224466" stroke-width="4"/>
+    <line x1="250" y1="160" x2="300" y2="160" stroke="#224466" stroke-width="4"/>
+    <line x1="350" y1="160" x2="450" y2="160" stroke="#224466" stroke-width="4"/>
+    <line x1="150" y1="210" x2="200" y2="210" stroke="#224466" stroke-width="4"/>
+    <line x1="250" y1="210" x2="350" y2="210" stroke="#224466" stroke-width="4"/>
+    <line x1="400" y1="210" x2="500" y2="210" stroke="#224466" stroke-width="4"/>
+    <line x1="50" y1="260" x2="150" y2="260" stroke="#224466" stroke-width="4"/>
+    <line x1="250" y1="260" x2="300" y2="260" stroke="#224466" stroke-width="4"/>
+    <line x1="400" y1="260" x2="450" y2="260" stroke="#224466" stroke-width="4"/>
+    <line x1="100" y1="310" x2="200" y2="310" stroke="#224466" stroke-width="4"/>
+    <line x1="300" y1="310" x2="400" y2="310" stroke="#224466" stroke-width="4"/>
+    <line x1="450" y1="310" x2="500" y2="310" stroke="#224466" stroke-width="4"/>
+    
+    <!-- Vertical walls -->
+    <line x1="100" y1="60" x2="100" y2="110" stroke="#224466" stroke-width="4"/>
+    <line x1="200" y1="110" x2="200" y2="160" stroke="#224466" stroke-width="4"/>
+    <line x1="300" y1="60" x2="300" y2="110" stroke="#224466" stroke-width="4"/>
+    <line x1="400" y1="110" x2="400" y2="160" stroke="#224466" stroke-width="4"/>
+    <line x1="500" y1="60" x2="500" y2="110" stroke="#224466" stroke-width="4"/>
+    <line x1="150" y1="160" x2="150" y2="210" stroke="#224466" stroke-width="4"/>
+    <line x1="250" y1="160" x2="250" y2="210" stroke="#224466" stroke-width="4"/>
+    <line x1="350" y1="110" x2="350" y2="160" stroke="#224466" stroke-width="4"/>
+    <line x1="450" y1="160" x2="450" y2="210" stroke="#224466" stroke-width="4"/>
+    <line x1="100" y1="210" x2="100" y2="260" stroke="#224466" stroke-width="4"/>
+    <line x1="300" y1="210" x2="300" y2="260" stroke="#224466" stroke-width="4"/>
+    <line x1="400" y1="210" x2="400" y2="260" stroke="#224466" stroke-width="4"/>
+    <line x1="200" y1="260" x2="200" y2="310" stroke="#224466" stroke-width="4"/>
+    <line x1="350" y1="260" x2="350" y2="310" stroke="#224466" stroke-width="4"/>
+    <line x1="450" y1="260" x2="450" y2="310" stroke="#224466" stroke-width="4"/>
+    <line x1="150" y1="310" x2="150" y2="350" stroke="#224466" stroke-width="4"/>
+    <line x1="250" y1="310" x2="250" y2="350" stroke="#224466" stroke-width="4"/>
+    <line x1="400" y1="310" x2="400" y2="350" stroke="#224466" stroke-width="4"/>
+    
+    <!-- Start and Goal -->
+    <circle cx="75" cy="85" r="15" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
+    <text x="75" y="90" text-anchor="middle" fill="white" font-size="14" font-weight="bold">S</text>
+    
+    <circle cx="525" cy="335" r="15" fill="#ffa500" stroke="#224466" stroke-width="2"/>
+    <text x="525" y="340" text-anchor="middle" fill="white" font-size="14" font-weight="bold">G</text>
+    
+    <!-- BFS Solution Path -->
+    <path d="M75,85 L75,135 L75,185 L75,235 L75,285 L75,335 L125,335 L175,335 L225,335 L275,335 L325,335 L375,335 L425,335 L475,335 L525,335" 
+          stroke="#4a90e2" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
+    
+    <!-- DFS Solution Path -->
+    <path d="M75,85 L125,85 L175,85 L225,85 L275,85 L325,85 L375,85 L425,85 L475,85 L525,85 L525,135 L525,185 L525,235 L525,285 L525,335" 
+          stroke="#50c878" stroke-width="3" fill="none"/>
+    
+    <!-- Numbered nodes for BFS exploration -->
+    <circle cx="75" cy="85" r="10" fill="#4a90e2" stroke="#224466" stroke-width="1" opacity="0.5"/>
+    <text x="75" y="89" text-anchor="middle" fill="white" font-size="8" font-weight="bold">1</text>
+    
+    <circle cx="125" cy="85" r="10" fill="#4a90e2" stroke="#224466" stroke-width="1" opacity="0.5"/>
+    <text x="125" y="89" text-anchor="middle" fill="white" font-size="8" font-weight="bold">2</text>
+    
+    <circle cx="75" cy="135" r="10" fill="#4a90e2" stroke="#224466" stroke-width="1" opacity="0.5"/>
+    <text x="75" y="139" text-anchor="middle" fill="white" font-size="8" font-weight="bold">3</text>
+    
+    <circle cx="175" cy="85" r="10" fill="#4a90e2" stroke="#224466" stroke-width="1" opacity="0.5"/>
+    <text x="175" y="89" text-anchor="middle" fill="white" font-size="8" font-weight="bold">4</text>
+    
+    <circle cx="125" cy="135" r="10" fill="#4a90e2" stroke="#224466" stroke-width="1" opacity="0.5"/>
+    <text x="125" y="139" text-anchor="middle" fill="white" font-size="8" font-weight="bold">5</text>
+    
+    <!-- Legend -->
+    <rect x="50" y="360" width="500" height="30" fill="#f6f8fa" stroke="#ddd" stroke-width="1" rx="5" ry="5"/>
+    
+    <rect x="70" y="370" width="12" height="12" fill="#4a90e2" stroke="#224466" stroke-width="1"/>
+    <text x="165" y="380" text-anchor="middle" fill="#224466" font-size="12">BFS Path (explores level by level)</text>
+    
+    <rect x="290" y="370" width="12" height="12" fill="#50c878" stroke="#224466" stroke-width="1"/>
+    <text x="400" y="380" text-anchor="middle" fill="#224466" font-size="12">DFS Path (explores deep first)</text>
+</svg> 
