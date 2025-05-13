@@ -158,7 +158,21 @@ $G$: set of goal states
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/search-problem-instance.svg" alt="Maze navigation search problem" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/search-problem-instance-uninf.svg" alt="Maze navigation search problem" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+            </div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Early AI Approaches (1943-1969) - Searching Algorithms
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/search-problem-instance-uninf.svg" alt="Maze navigation search problem" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/non-informed-search.svg" alt="Non-informed search algorithms comparison" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
@@ -170,35 +184,13 @@ $G$: set of goal states
 ## Early AI Approaches (1943-1969) - Searching Algorithms
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 20%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <p><strong>A* Search</strong></p>
-            </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <p><strong>Greedy Best-First Search</strong></p>
-            </div>
-        </div>
-    </div>
-    <div class="row" style="height: 20%">
+    <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>
-                    Uses <b>f(n) = g(n) + h(n)</b> where g(n) is the <em>path cost</em> and h(n) is the <em>heuristic</em> estimate. <b>Complete</b> and <b>optimal</b> with <em>admissible</em> heuristics.
-                </p>
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/search-problem-instance-inf.svg" alt="Maze navigation search problem" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
             </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p>
-                    Uses <b>f(n) = h(n)</b>, evaluating nodes solely by their <em>heuristic</em> value. <b>Fast</b> but <b>not optimal</b>, as it ignores path costs.
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="row" style="height: 60%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/informed-search.svg" alt="Informed search algorithms comparison" style="width: 80%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
-                <div class="footnote">Heuristics measure estimated distance to goal, guiding search toward promising paths</div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/informed-search.svg" alt="Non-informed search algorithms comparison" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
             </div>
         </div>
     </div>
