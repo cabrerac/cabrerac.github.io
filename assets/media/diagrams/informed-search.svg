@@ -110,8 +110,8 @@
     
     <!-- Legend -->
     <rect x="50" y="340" width="15" height="15" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
-    <text x="280" y="352" fill="#224466" font-size="14">A* - Complete and optimal with admissible heuristics</text>
+    <text x="80" y="352" fill="#224466" font-size="14">A* - Complete and optimal with admissible heuristics</text>
     
     <rect x="50" y="370" width="15" height="15" fill="#50c878" stroke="#224466" stroke-width="2"/>
-    <text x="245" y="382" fill="#224466" font-size="14">Greedy - Fast but not optimal, follows heuristic</text>
+    <text x="80" y="382" fill="#224466" font-size="14">Greedy - Fast but not optimal, follows heuristic</text>
 </svg> 
