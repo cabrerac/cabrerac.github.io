@@ -5,70 +5,113 @@
         Informed Search Algorithms
     </text>
     
-    <!-- Graph visual for both algorithms -->
-    <rect x="60" y="70" width="480" height="180" fill="#f6f8fa" stroke="#ddd" stroke-width="1" rx="5" ry="5"/>
+    <!-- A* Section -->
+    <text x="150" y="60" text-anchor="middle" fill="#224466" font-size="18" font-weight="bold">
+        A* Search
+    </text>
     
-    <!-- Grid for representing map/space -->
-    <line x1="120" y1="80" x2="120" y2="240" stroke="#ddd" stroke-width="1"/>
-    <line x1="180" y1="80" x2="180" y2="240" stroke="#ddd" stroke-width="1"/>
-    <line x1="240" y1="80" x2="240" y2="240" stroke="#ddd" stroke-width="1"/>
-    <line x1="300" y1="80" x2="300" y2="240" stroke="#ddd" stroke-width="1"/>
-    <line x1="360" y1="80" x2="360" y2="240" stroke="#ddd" stroke-width="1"/>
-    <line x1="420" y1="80" x2="420" y2="240" stroke="#ddd" stroke-width="1"/>
-    <line x1="480" y1="80" x2="480" y2="240" stroke="#ddd" stroke-width="1"/>
+    <!-- A* Tree -->
+    <circle cx="150" cy="100" r="15" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
+    <text x="150" y="105" text-anchor="middle" fill="white" font-size="16" font-weight="bold">1</text>
     
-    <line x1="60" y1="100" x2="540" y2="100" stroke="#ddd" stroke-width="1"/>
-    <line x1="60" y1="140" x2="540" y2="140" stroke="#ddd" stroke-width="1"/>
-    <line x1="60" y1="180" x2="540" y2="180" stroke="#ddd" stroke-width="1"/>
-    <line x1="60" y1="220" x2="540" y2="220" stroke="#ddd" stroke-width="1"/>
+    <circle cx="100" cy="150" r="15" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
+    <text x="100" y="155" text-anchor="middle" fill="white" font-size="16" font-weight="bold">2</text>
     
-    <!-- Obstacles -->
-    <rect x="180" y="100" width="60" height="80" fill="#555" rx="3" ry="3"/>
-    <rect x="300" y="140" width="60" height="80" fill="#555" rx="3" ry="3"/>
-    <rect x="420" y="100" width="60" height="40" fill="#555" rx="3" ry="3"/>
+    <circle cx="200" cy="150" r="15" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
+    <text x="200" y="155" text-anchor="middle" fill="white" font-size="16" font-weight="bold">11</text>
     
-    <!-- Start and goal -->
-    <circle cx="90" cy="120" r="12" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
-    <text x="90" y="124" text-anchor="middle" fill="white" font-size="14" font-weight="bold">S</text>
+    <circle cx="75" cy="200" r="15" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
+    <text x="75" y="205" text-anchor="middle" fill="white" font-size="16" font-weight="bold">12</text>
     
-    <circle cx="510" cy="200" r="12" fill="#ffa500" stroke="#224466" stroke-width="2"/>
-    <text x="510" y="204" text-anchor="middle" fill="white" font-size="14" font-weight="bold">G</text>
+    <circle cx="125" cy="200" r="15" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
+    <text x="125" y="205" text-anchor="middle" fill="white" font-size="16" font-weight="bold">13</text>
     
-    <!-- A* Path -->
-    <path d="M90,120 L120,120 L150,120 L150,180 L210,180 L240,180 L270,180 L270,220 L330,220 L390,220 L450,220 L480,200 L510,200" 
-          stroke="#4a90e2" stroke-width="3" fill="none" stroke-dasharray="none"/>
-    <text x="170" y="65" fill="#4a90e2" font-size="18" font-weight="bold">A* Search Path</text>
+    <circle cx="175" cy="200" r="15" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
+    <text x="175" y="205" text-anchor="middle" fill="white" font-size="16" font-weight="bold">21</text>
     
-    <!-- Greedy Search Path -->
-    <path d="M90,120 L120,120 L150,120 L150,100 L240,100 L240,180 L270,180 L270,220 L330,220 L390,220 L450,220 L480,200 L510,200" 
-          stroke="#50c878" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
-    <text x="430" y="65" fill="#50c878" font-size="18" font-weight="bold">Greedy Best-First Path</text>
+    <circle cx="225" cy="200" r="15" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
+    <text x="225" y="205" text-anchor="middle" fill="white" font-size="16" font-weight="bold">22</text>
     
-    <!-- Heuristic visualization -->
-    <text x="300" y="270" text-anchor="middle" fill="#224466" font-size="18" font-weight="bold">Heuristic Function Visualization</text>
+    <circle cx="175" cy="250" r="15" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
+    <text x="175" y="255" text-anchor="middle" fill="white" font-size="16" font-weight="bold">31</text>
     
-    <!-- Heuristic formula -->
-    <text x="150" y="295" text-anchor="middle" fill="#224466" font-size="14">Manhattan Distance: h(n) = |x₁-x₂| + |y₁-y₂|</text>
-    <text x="450" y="295" text-anchor="middle" fill="#224466" font-size="14">Euclidean Distance: h(n) = √[(x₁-x₂)² + (y₁-y₂)²]</text>
+    <circle cx="225" cy="250" r="15" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
+    <text x="225" y="255" text-anchor="middle" fill="white" font-size="16" font-weight="bold">32</text>
     
-    <!-- A* formula -->
-    <text x="150" y="330" text-anchor="middle" fill="#224466" font-size="14" font-weight="bold">A* evaluation function:</text>
-    <text x="150" y="350" text-anchor="middle" fill="#224466" font-size="14">f(n) = g(n) + h(n)</text>
-    <text x="150" y="365" text-anchor="middle" fill="#224466" font-size="12">g(n): path cost from start to node n</text>
-    <text x="150" y="380" text-anchor="middle" fill="#224466" font-size="12">h(n): estimated cost from n to goal</text>
+    <!-- A* Path Costs -->
+    <text x="120" y="125" text-anchor="middle" fill="#d24939" font-size="12">f=7</text>
+    <text x="180" y="125" text-anchor="middle" fill="#d24939" font-size="12">f=8</text>
+    <text x="75" y="175" text-anchor="middle" fill="#d24939" font-size="12">f=10</text>
+    <text x="125" y="175" text-anchor="middle" fill="#d24939" font-size="12">f=12</text>
+    <text x="175" y="175" text-anchor="middle" fill="#d24939" font-size="12">f=13</text>
+    <text x="225" y="175" text-anchor="middle" fill="#d24939" font-size="12">f=15</text>
+    <text x="175" y="225" text-anchor="middle" fill="#d24939" font-size="12">f=18</text>
+    <text x="225" y="225" text-anchor="middle" fill="#d24939" font-size="12">f=20</text>
     
-    <!-- Greedy formula -->
-    <text x="450" y="330" text-anchor="middle" fill="#224466" font-size="14" font-weight="bold">Greedy Best-First function:</text>
-    <text x="450" y="350" text-anchor="middle" fill="#224466" font-size="14">f(n) = h(n)</text>
-    <text x="450" y="365" text-anchor="middle" fill="#224466" font-size="12">Only considers the heuristic</text>
-    <text x="450" y="380" text-anchor="middle" fill="#224466" font-size="12">Ignores path cost so far</text>
+    <!-- A* Connections -->
+    <line x1="150" y1="115" x2="100" y2="135" stroke="#224466" stroke-width="2"/>
+    <line x1="150" y1="115" x2="200" y2="135" stroke="#224466" stroke-width="2"/>
+    <line x1="100" y1="165" x2="75" y2="185" stroke="#224466" stroke-width="2"/>
+    <line x1="100" y1="165" x2="125" y2="185" stroke="#224466" stroke-width="2"/>
+    <line x1="200" y1="165" x2="175" y2="185" stroke="#224466" stroke-width="2"/>
+    <line x1="200" y1="165" x2="225" y2="185" stroke="#224466" stroke-width="2"/>
+    <line x1="175" y1="215" x2="175" y2="235" stroke="#224466" stroke-width="2"/>
+    <line x1="225" y1="215" x2="225" y2="235" stroke="#224466" stroke-width="2"/>
+    
+    <!-- Greedy Best-First Section -->
+    <text x="450" y="60" text-anchor="middle" fill="#224466" font-size="18" font-weight="bold">
+        Greedy Best-First Search
+    </text>
+    
+    <!-- Greedy Best-First Tree -->
+    <circle cx="450" cy="100" r="15" fill="#50c878" stroke="#224466" stroke-width="2"/>
+    <text x="450" y="105" text-anchor="middle" fill="white" font-size="16" font-weight="bold">1</text>
+    
+    <circle cx="400" cy="150" r="15" fill="#50c878" stroke="#224466" stroke-width="2"/>
+    <text x="400" y="155" text-anchor="middle" fill="white" font-size="16" font-weight="bold">2</text>
+    
+    <circle cx="500" cy="150" r="15" fill="#50c878" stroke="#224466" stroke-width="2"/>
+    <text x="500" y="155" text-anchor="middle" fill="white" font-size="16" font-weight="bold">11</text>
+    
+    <circle cx="500" cy="200" r="15" fill="#50c878" stroke="#224466" stroke-width="2"/>
+    <text x="500" y="205" text-anchor="middle" fill="white" font-size="16" font-weight="bold">12</text>
+    
+    <circle cx="500" cy="250" r="15" fill="#50c878" stroke="#224466" stroke-width="2"/>
+    <text x="500" y="255" text-anchor="middle" fill="white" font-size="16" font-weight="bold">22</text>
+    
+    <circle cx="450" cy="200" r="15" fill="#50c878" stroke="#224466" stroke-width="2"/>
+    <text x="450" y="205" text-anchor="middle" fill="white" font-size="16" font-weight="bold">3</text>
+    
+    <circle cx="400" cy="250" r="15" fill="#50c878" stroke="#224466" stroke-width="2"/>
+    <text x="400" y="255" text-anchor="middle" fill="white" font-size="16" font-weight="bold">13</text>
+    
+    <!-- Greedy Heuristic Values -->
+    <text x="420" y="125" text-anchor="middle" fill="#d24939" font-size="12">h=5</text>
+    <text x="480" y="125" text-anchor="middle" fill="#d24939" font-size="12">h=4</text>
+    <text x="525" y="175" text-anchor="middle" fill="#d24939" font-size="12">h=3</text>
+    <text x="525" y="225" text-anchor="middle" fill="#d24939" font-size="12">h=2</text>
+    <text x="425" y="175" text-anchor="middle" fill="#d24939" font-size="12">h=4</text>
+    <text x="375" y="225" text-anchor="middle" fill="#d24939" font-size="12">h=5</text>
+    
+    <!-- Greedy Best-First Connections -->
+    <line x1="450" y1="115" x2="400" y2="135" stroke="#224466" stroke-width="2"/>
+    <line x1="450" y1="115" x2="500" y2="135" stroke="#224466" stroke-width="2"/>
+    <line x1="500" y1="165" x2="500" y2="185" stroke="#224466" stroke-width="2"/>
+    <line x1="500" y1="215" x2="500" y2="235" stroke="#224466" stroke-width="2"/>
+    <line x1="400" y1="165" x2="450" y2="185" stroke="#224466" stroke-width="2"/>
+    <line x1="400" y1="165" x2="400" y2="235" stroke="#224466" stroke-width="2"/>
+    
+    <!-- Algorithm Descriptions -->
+    <text x="150" y="290" text-anchor="middle" fill="#224466" font-size="16" font-style="italic">f(n) = g(n) + h(n)</text>
+    <text x="150" y="310" text-anchor="middle" fill="#224466" font-size="14">Balances cost so far and heuristic</text>
+    
+    <text x="450" y="290" text-anchor="middle" fill="#224466" font-size="16" font-style="italic">f(n) = h(n)</text>
+    <text x="450" y="310" text-anchor="middle" fill="#224466" font-size="14">Only considers heuristic distance</text>
     
     <!-- Legend -->
-    <rect x="270" y="320" width="60" height="25" fill="none" stroke="#224466" stroke-width="1"/>
-    <line x1="280" y1="330" x2="300" y2="330" stroke="#4a90e2" stroke-width="3"/>
-    <text x="310" y="334" fill="#224466" font-size="12">A*</text>
+    <rect x="50" y="340" width="15" height="15" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
+    <text x="280" y="352" fill="#224466" font-size="14">A* - Complete and optimal with admissible heuristics</text>
     
-    <rect x="270" y="350" width="60" height="25" fill="none" stroke="#224466" stroke-width="1"/>
-    <line x1="280" y1="360" x2="300" y2="360" stroke="#50c878" stroke-width="3" stroke-dasharray="5,5"/>
-    <text x="310" y="364" fill="#224466" font-size="12">Greedy</text>
+    <rect x="50" y="370" width="15" height="15" fill="#50c878" stroke="#224466" stroke-width="2"/>
+    <text x="245" y="382" fill="#224466" font-size="14">Greedy - Fast but not optimal, follows heuristic</text>
 </svg> 

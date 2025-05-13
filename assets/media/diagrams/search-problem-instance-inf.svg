@@ -33,11 +33,11 @@
     
     <line x1="135" y1="85" x2="165" y2="85" stroke="#888" stroke-width="1"/>
     <polygon points="165,85 160,82 160,88" fill="#888"/>
-    <text x="150" y="80" text-anchor="middle" fill="#d24939" font-size="10" font-weight="bold">1</text>
+    <text x="150" y="80" text-anchor="middle" fill="#d24939" font-size="10" font-weight="bold">3</text>
     
     <line x1="185" y1="85" x2="215" y2="85" stroke="#888" stroke-width="1"/>
     <polygon points="215,85 210,82 210,88" fill="#888"/>
-    <text x="200" y="80" text-anchor="middle" fill="#d24939" font-size="10" font-weight="bold">2</text>
+    <text x="200" y="80" text-anchor="middle" fill="#d24939" font-size="10" font-weight="bold">5</text>
     
     <line x1="235" y1="85" x2="265" y2="85" stroke="#888" stroke-width="1"/>
     <polygon points="265,85 260,82 260,88" fill="#888"/>
@@ -67,7 +67,7 @@
     
     <line x1="75" y1="200" x2="75" y2="235" stroke="#888" stroke-width="1"/>
     <polygon points="75,235 72,230 78,230" fill="#888"/>
-    <text x="70" y="220" text-anchor="middle" fill="#d24939" font-size="10" font-weight="bold">2</text>
+    <text x="70" y="220" text-anchor="middle" fill="#d24939" font-size="10" font-weight="bold">10</text>
 
     <line x1="225" y1="100" x2="225" y2="135" stroke="#888" stroke-width="1"/>
     <polygon points="225,135 222,130 228,130" fill="#888"/>
@@ -81,10 +81,10 @@
     <text x="125" y="100" text-anchor="middle" fill="#333" font-size="12">c:2</text>
     
     <text x="175" y="85" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">3</text>
-    <text x="175" y="100" text-anchor="middle" fill="#333" font-size="12">c:1</text>
+    <text x="175" y="100" text-anchor="middle" fill="#333" font-size="12">c:3</text>
     
     <text x="225" y="85" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">4</text>
-    <text x="225" y="100" text-anchor="middle" fill="#333" font-size="12">c:2</text>
+    <text x="225" y="100" text-anchor="middle" fill="#333" font-size="12">c:5</text>
     
     <text x="275" y="85" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">5</text>
     <text x="275" y="100" text-anchor="middle" fill="#333" font-size="12">c:3</text>
@@ -106,7 +106,7 @@
     
     <!-- Cell labels (row 2) -->
     <text x="75" y="135" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">11</text>
-    <text x="75" y="150" text-anchor="middle" fill="#333" font-size="12">c:2</text>
+    <text x="75" y="150" text-anchor="middle" fill="#333" font-size="12">c:1</text>
     
     <text x="125" y="135" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">12</text>
     <text x="125" y="150" text-anchor="middle" fill="#333" font-size="12">c:1</text>
@@ -168,7 +168,7 @@
     
     <!-- Cell labels (row 4) -->
     <text x="75" y="235" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">31</text>
-    <text x="75" y="250" text-anchor="middle" fill="#333" font-size="12">c:2</text>
+    <text x="75" y="250" text-anchor="middle" fill="#333" font-size="12">c:10</text>
     
     <text x="125" y="235" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">32</text>
     <text x="125" y="250" text-anchor="middle" fill="#333" font-size="12">c:1</text>
