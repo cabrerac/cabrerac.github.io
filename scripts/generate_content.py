@@ -1,4 +1,40 @@
 #!/usr/bin/env python3
+"""
+Content Generator for Lecture Materials
+
+This script generates content for lectures, including:
+- Rendered lecture pages
+- Slides (HTML and PDF formats)
+- Jupyter notebooks
+
+Special tags for content filtering:
+- <!-- RENDER: --> ... <!-- end RENDER: -->
+- <!-- SLIDES: --> ... <!-- end SLIDES: -->
+- <!-- NOTEBOOK: --> ... <!-- end NOTEBOOK: -->
+- <!-- ALL: --> ... <!-- end ALL: --> (included in all formats)
+
+PDF slide optimization:
+- Add <!-- PDF --> anywhere inside a slide to mark it for inclusion in the PDF output
+- Only slides marked with this comment will be included in the PDF
+- All slides are always included in the HTML output
+- The title slide and final "Thank you" slide are automatically included in the PDF
+- This optimization helps reduce PDF file size and generation time
+
+Example usage:
+```python
+#!/usr/bin/env python3
+import os
+from scripts.generate_content import ContentGenerator
+
+generator = ContentGenerator(os.getcwd())
+generator.process_lecture("course_code/lecture_name.md")
+```
+
+or from the command line:
+```
+python scripts/generate_content.py course_code/lecture_name
+```
+"""
 import os
 import re
 import yaml
@@ -296,6 +332,12 @@ class ContentGenerator:
                     seen_blocks.add(block_content)
         return '\n\n'.join(filtered_content)
 
+    def check_pdf_slide(self, slide_content):
+        """Check if a slide should be included in the PDF output based on marker."""
+        # Look for the PDF marker in the slide (in any case, with or without spaces)
+        pdf_patterns = ["<!-- PDF -->", "<!--PDF-->", "<!-- pdf -->", "<!--pdf-->"]
+        return any(pattern in slide_content for pattern in pdf_patterns)
+
     def preprocess_math_blocks(self, content):
         """
         Ensure block math ($$...$$) is always at the root level in Markdown output, not inside HTML tags.
@@ -481,17 +523,25 @@ class ContentGenerator:
             slide_blocks.append('\n'.join(current_block))
 
         slides = []
+        pdf_slides = []  # Store slides marked for PDF separately
+        
         for block in slide_blocks:
             block_lines = block.strip().split('\n')
             if not block_lines:
                 continue
             first_line = block_lines[0].strip()
+            
+            # Check if this slide should be included in PDF
+            include_in_pdf = self.check_pdf_slide(block)
+            
             # Title slide (# ...)
             if first_line.startswith('# '):
                 title = first_line[2:].strip()
                 # Everything after the title is ignored for title slide
                 slide = f'''<!-- _class: lead -->\n<div class="slide-content" style="display: flex; align-items: center; height: 100%; justify-content: flex-start;">\n<h1 style="margin: 0; padding: 0; text-align: left;">{title}</h1>\n</div>'''
                 slides.append(slide)
+                # Always include title slide in PDF
+                pdf_slides.append(slide)
             # Section slide (## ...)
             elif first_line.startswith('## '):
                 heading = first_line
@@ -500,16 +550,21 @@ class ContentGenerator:
                 content = re.sub(r'^### (.*)$', r'<h3 style="margin-top:0;margin-bottom:0.5em;text-align:left;">\1</h3>', content, flags=re.MULTILINE)
                 slide = f'{heading}\n\n<div class="slide-content">\n{content}\n</div>'
                 slides.append(slide)
+                if include_in_pdf:
+                    pdf_slides.append(slide)
             else:
                 # Fallback: treat as content slide
                 content = '\n'.join(block_lines)
                 content = re.sub(r'^### (.*)$', r'<h3 style="margin-top:0;margin-bottom:0.5em;text-align:left;">\1</h3>', content, flags=re.MULTILINE)
                 slide = f'<div class="slide-content">\n{content}\n</div>'
                 slides.append(slide)
+                if include_in_pdf:
+                    pdf_slides.append(slide)
 
         # Join slides with Marp slide separator
         slides_content = '\n\n---\n\n'.join(slides)
-
+        pdf_slides_content = '\n\n---\n\n'.join(pdf_slides)
+        
         # Extract front matter
         front_matter = re.match(r'^---\n(.*?)\n---', lecture_content, re.DOTALL)
         if front_matter:
@@ -521,8 +576,8 @@ class ContentGenerator:
                 'description': 'Lecture'
             }
         
-        # Create Marp slides
-        marp_content = f"""---
+        # Template for slides (removing duplicated lead sections)
+        marp_template = f"""---
 marp: true
 theme: default
 paginate: true
@@ -1019,9 +1074,10 @@ style: |
   section.lead.last-slide p {{
     margin: 10px 0;
   }}
+---"""
 
----
-
+        # Create Marp slides for HTML (all slides)
+        html_content = f"""
 <!-- _class: lead -->
 # {metadata.get('title', '')}
 <p style="color: var(--text-color);"><b>{metadata.get('author', '')}</b></p>
@@ -1040,15 +1096,32 @@ style: |
 # Many Thanks!
 <p style="color: var(--accent-color);"><a href="mailto:{metadata.get('email', '')}" style="color: var(--accent-color);">{metadata.get('email', '')}</a></p>
 """
-        # Save markdown slides
-        output_file = output_dir / f"{lecture_file.stem}.md"
-        with open(output_file, 'w', encoding='utf-8') as f:
-            f.write(marp_content)
-            
-        # Add HTML-specific content for the progress bar (won't be in the PDF)
-        html_output_file = output_dir / f"{lecture_file.stem}.html.md"
-        with open(html_output_file, 'w', encoding='utf-8') as f:
-            f.write(marp_content + """
+
+        # Create Marp slides for PDF (only marked slides)
+        pdf_content = f"""
+<!-- _class: lead -->
+# {metadata.get('title', '')}
+<p style="color: var(--text-color);"><b>{metadata.get('author', '')}</b></p>
+<p style="color: var(--text-color);">{metadata.get('position', '')}</p>
+<p style="color: var(--text-color);">{metadata.get('department', '')}</p>
+<p style="color: var(--text-color);">{metadata.get('institution', '')}</p>
+<p style="color: var(--accent-color);"><a href="mailto:{metadata.get('email', '')}" style="color: var(--accent-color);">{metadata.get('email', '')}</a></p>
+
+---
+
+{pdf_slides_content}
+
+---
+
+<!-- _class: lead last-slide -->
+# Many Thanks!
+<p style="color: var(--accent-color);"><a href="mailto:{metadata.get('email', '')}" style="color: var(--accent-color);">{metadata.get('email', '')}</a></p>
+"""
+        
+        # Save markdown slides for HTML
+        html_file = output_dir / f"{lecture_file.stem}.html.md"
+        with open(html_file, 'w', encoding='utf-8') as f:
+            f.write(marp_template + html_content + """
 <!-- _script: true -->
 <!-- This script will only execute in HTML slides -->
 <script>
@@ -1242,7 +1315,12 @@ style: |
   });
 </script>
 """)
-        
+            
+        # Save markdown slides for PDF
+        #pdf_file = output_dir / f"{lecture_file.stem}.pdf.md"
+        #with open(pdf_file, 'w', encoding='utf-8') as f:
+        #    f.write(marp_template + pdf_content)
+            
         # Generate PDF and HTML slides using Marp CLI
         try:
             # Try to find marp in common locations, with your specific path first
@@ -1274,10 +1352,10 @@ style: |
                 except:
                     raise FileNotFoundError("Marp CLI not found in any common locations")
             
-            # Generate PDF
-            if isinstance(marp_cmd, list):
+            # Generate PDF from PDF-specific file
+            """if isinstance(marp_cmd, list):
                 pdf_cmd = marp_cmd + [
-                    str(output_file),
+                    str(pdf_file),
                     '--pdf',
                     '--allow-local-files',
                     '--theme-set', str(self.assets_dir / "css/dark-theme.css"),
@@ -1287,7 +1365,7 @@ style: |
             else:
                 pdf_cmd = [
                     marp_cmd,
-                    str(output_file),
+                    str(pdf_file),
                     '--pdf',
                     '--allow-local-files',
                     '--theme-set', str(self.assets_dir / "css/dark-theme.css"),
@@ -1296,12 +1374,12 @@ style: |
                 ]
             
             print(f"Running command: {' '.join(pdf_cmd)}")
-            subprocess.run(pdf_cmd, check=True)
+            subprocess.run(pdf_cmd, check=True)"""
             
             # Generate HTML from the HTML-specific file
             if isinstance(marp_cmd, list):
                 html_cmd = marp_cmd + [
-                    str(html_output_file),
+                    str(html_file),
                     '--html',
                     '--allow-local-files',
                     '-o', str(output_dir / f"{lecture_file.stem}.html")
@@ -1309,7 +1387,7 @@ style: |
             else:
                 html_cmd = [
                     marp_cmd,
-                    str(html_output_file),
+                    str(html_file),
                     '--html',
                     '--allow-local-files',
                     '-o', str(output_dir / f"{lecture_file.stem}.html")
@@ -1318,11 +1396,9 @@ style: |
             print(f"Running command: {' '.join(html_cmd)}")
             subprocess.run(html_cmd, check=True)
             
-            # Remove the temporary HTML source file
-            os.remove(html_output_file)
-            
-            # Remove the temporary markdown source file
-            os.remove(output_file)
+            # Remove the temporary files
+            os.remove(html_file)
+            #os.remove(pdf_file)
             
             print(f"✓ Successfully generated slides for {lecture_file.stem}")
         except subprocess.CalledProcessError as e:

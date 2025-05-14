@@ -2,6 +2,7 @@
 
 ## AI Foundations
 
+<!-- PDF -->
 ## AI Foundations
 
 <div class="word-cloud" style="width: 100%; height: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; padding: 20px;">
@@ -544,6 +545,7 @@ img[src=""], img[src="#"] {
 }
 </style> 
 
+<!-- PDF -->
 ## AI Foundations
 
 <div class="photo-collage" style="
@@ -953,6 +955,7 @@ img[src=""], img[src="#"] {
 }
 </style> 
 
+<!-- PDF -->
 ## AI Foundations
 
 <div class="columns" style="width: 100%; height: 100%; display: flex; flex-direction: row; align-items: center; justify-content: space-between;">

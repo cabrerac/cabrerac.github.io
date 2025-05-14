@@ -1,5 +1,6 @@
 <!-- SLIDES: -->
 
+<!-- PDF -->
 ## Artificial Intelligence (AI)
 
 <div class="columns" style="width: 100%; height: 100%;">
@@ -193,6 +194,7 @@
   </div>
 </div>
 
+<!-- PDF -->
 ## AI Dimensions
 
 <div class="rows" style="width: 100%; height: 100%;">
@@ -248,6 +250,7 @@
   </div>
 </div>
 
+<!-- PDF -->
 ## AI Dimensions
 
 <div class="rows" style="width: 100%; height: 100%;">
