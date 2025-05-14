@@ -100,10 +100,4 @@
     
     <rect x="50" y="370" width="15" height="15" fill="#50c878" stroke="#224466" stroke-width="2"/>
     <text x="75" y="385" fill="#224466" font-size="14">DFS - Not complete or optimal, memory efficient</text>
-
-    <circle cx="450" cy="565" r="10" fill="none" stroke="#ff6600" stroke-width="3" stroke-dasharray="5,3"/>
-    <text x="475" y="575" fill="#224466" font-size="14">Frontier nodes</text>
-    
-    <circle cx="450" cy="595" r="10" fill="none" stroke="#ff0000" stroke-width="3"/>
-    <text x="475" y="605" fill="#224466" font-size="14">Next node to explore</text>
 </svg> 

@@ -126,35 +126,19 @@
     <!-- Greedy Decision Path -->
     <text x="585" y="345" text-anchor="middle" fill="#224466" font-size="16" font-weight="bold">Greedy Path: A → B → H → ... → M</text>
     
-    <!-- Comparison Section -->
-    <rect x="100" y="380" width="600" height="150" fill="#f0f5ff" stroke="#224466" stroke-width="1" rx="10"/>
-    <!-- Comparison content -->
-    <line x1="400" y1="380" x2="400" y2="530" stroke="#c0c0c0" stroke-width="1"/>
-    
     <!-- A* side -->
-    <text x="225" y="415" text-anchor="middle" fill="#224466" font-size="16" font-weight="bold">A* Search</text>
-    <text x="225" y="435" text-anchor="middle" fill="#224466" font-size="14">• Uses f(n) = g(n) + h(n)</text>
-    <text x="225" y="455" text-anchor="middle" fill="#224466" font-size="14">• Balances cost so far and heuristic</text>
-    <text x="225" y="475" text-anchor="middle" fill="#224466" font-size="14">• Optimal path: 331 km</text>
-    <text x="225" y="495" text-anchor="middle" fill="#224466" font-size="14">• Guaranteed to find shortest path</text>
+    <text x="225" y="380" text-anchor="middle" fill="#224466" font-size="14">Uses f(n) = g(n) + h(n)</text>
+    <text x="225" y="400" text-anchor="middle" fill="#224466" font-size="14">Balances cost so far and heuristic</text>
     
     <!-- Greedy side -->
-    <text x="550" y="415" text-anchor="middle" fill="#224466" font-size="16" font-weight="bold">Greedy Best-First Search</text>
-    <text x="550" y="435" text-anchor="middle" fill="#224466" font-size="14">• Uses f(n) = h(n)</text>
-    <text x="550" y="455" text-anchor="middle" fill="#224466" font-size="14">• Only considers estimated distance to goal</text>
-    <text x="550" y="475" text-anchor="middle" fill="#224466" font-size="14">• Non-optimal path: 364 km</text>
-    <text x="550" y="495" text-anchor="middle" fill="#224466" font-size="14">• Fast but not guaranteed optimal</text>
+    <text x="600" y="380" text-anchor="middle" fill="#224466" font-size="14">Uses f(n) = h(n)</text>
+    <text x="600" y="400" text-anchor="middle" fill="#224466" font-size="14">Only considers estimated distance to goal</text>
     
     <!-- Legend -->
-    <rect x="170" y="560" width="15" height="15" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
-    <text x="195" y="575" fill="#224466" font-size="14">A* - Optimal, complete, admissible</text>
+    <rect x="170" y="420" width="15" height="15" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
+    <text x="195" y="435" fill="#224466" font-size="14">A* - Optimal, complete, admissible</text>
     
-    <rect x="170" y="590" width="15" height="15" fill="#50c878" stroke="#224466" stroke-width="2"/>
-    <text x="195" y="605" fill="#224466" font-size="14">Greedy - Fast, not optimal or complete</text>
-    
-    <circle cx="450" cy="565" r="10" fill="none" stroke="#ff6600" stroke-width="3" stroke-dasharray="5,3"/>
-    <text x="475" y="575" fill="#224466" font-size="14">Frontier nodes</text>
-    
-    <circle cx="450" cy="595" r="10" fill="none" stroke="#ff0000" stroke-width="3"/>
-    <text x="475" y="605" fill="#224466" font-size="14">Next node to explore</text>
+    <rect x="170" y="450" width="15" height="15" fill="#50c878" stroke="#224466" stroke-width="2"/>
+    <text x="195" y="465" fill="#224466" font-size="14">Greedy - Fast, not optimal or complete</text>
+
 </svg>
