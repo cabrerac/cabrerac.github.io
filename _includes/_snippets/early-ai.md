@@ -201,10 +201,10 @@ $G$: set of goal states
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/search-problem-instance-inf.svg" alt="Maze navigation search problem" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/search-problem-instance-inf.svg" alt="Finding path search problem" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/informed-search.svg" alt="Non-informed search algorithms comparison" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/informed-search.svg" alt="Informed search algorithms comparison" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
             </div>
         </div>
     </div>
