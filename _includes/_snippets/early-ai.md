@@ -210,7 +210,54 @@ $G$: set of goal states
     </div>
 </div>
 
-## Early AI Approaches (1943-1969) - Everyday Perception
+## Early AI Approaches (1943-1969) - AI Perception
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 20%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <p><strong>Optimistic Views</strong></p>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <p><strong>Pesimistic Views</strong></p>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 80%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+        </div>
+    </div>
+</div>
+
+## Early AI Approaches (1943-1969) - AI Perception
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 20%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <p><strong>Optimistic Views</strong></p>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <p><strong>Pesimistic Views</strong></p>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 80%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+            <p><em>"Within ten years a digital computer will be the world's chess champion." (Simon & Newell, 1958)</em></p>
+            <p><em>"Machines will be capable, within twenty years, of doing any work a man can do." (Simon, 1965)</em></p>
+            <p><em>"Within a generation... the problem of creating 'artificial intelligence' will substantially be solved." (Minsky, 1967)</em></p>
+            <p><em>"In from three to eight years we will have a machine with the general intelligence of an average human being." (Minsky, 1970)</em></p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+        </div>
+    </div>
+</div>
+
 
 ## Early AI Approaches (1943-1969) - Technology Limitations
 
