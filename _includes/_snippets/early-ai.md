@@ -171,11 +171,25 @@ $G$: set of goal states
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 40%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/search-problem-instance-uninf.svg" alt="Maze navigation search problem" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/non-informed-search.svg" alt="Non-informed search algorithms comparison" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Early AI Approaches (1943-1969) - Searching Algorithms
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 40%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/search-problem-instance-inf.svg" alt="Maze navigation search problem" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+            </div>
+            <div class="column vertical-middle text-center" style="width: 50%">
             </div>
         </div>
     </div>
@@ -195,6 +209,10 @@ $G$: set of goal states
         </div>
     </div>
 </div>
+
+## Early AI Approaches (1943-1969) - Everyday Perception
+
+## Early AI Approaches (1943-1969) - Technology Limitations
 
 <!-- end SLIDES: -->
 

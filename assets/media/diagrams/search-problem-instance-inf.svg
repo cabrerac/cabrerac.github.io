@@ -2,314 +2,168 @@
 <svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
     <!-- Title -->
     <text x="300" y="30" text-anchor="middle" fill="#224466" font-size="20" font-weight="bold">
-        Search Problem: Maze Navigation
+        Search Problem: Finding Path Between Cities
     </text>
     
-    <!-- Maze grid -->
-    <rect x="50" y="60" width="500" height="290" fill="#f6f8fa" stroke="#ddd" stroke-width="1" rx="5" ry="5"/>
-    
-    <!-- Grid lines - vertical -->
-    <line x1="100" y1="60" x2="100" y2="350" stroke="#ddd" stroke-width="1"/>
-    <line x1="150" y1="60" x2="150" y2="350" stroke="#ddd" stroke-width="1"/>
-    <line x1="200" y1="60" x2="200" y2="350" stroke="#ddd" stroke-width="1"/>
-    <line x1="250" y1="60" x2="250" y2="350" stroke="#ddd" stroke-width="1"/>
-    <line x1="300" y1="60" x2="300" y2="350" stroke="#ddd" stroke-width="1"/>
-    <line x1="350" y1="60" x2="350" y2="350" stroke="#ddd" stroke-width="1"/>
-    <line x1="400" y1="60" x2="400" y2="350" stroke="#ddd" stroke-width="1"/>
-    <line x1="450" y1="60" x2="450" y2="350" stroke="#ddd" stroke-width="1"/>
-    <line x1="500" y1="60" x2="500" y2="350" stroke="#ddd" stroke-width="1"/>
-    
-    <!-- Grid lines - horizontal -->
-    <line x1="50" y1="110" x2="550" y2="110" stroke="#ddd" stroke-width="1"/>
-    <line x1="50" y1="160" x2="550" y2="160" stroke="#ddd" stroke-width="1"/>
-    <line x1="50" y1="210" x2="550" y2="210" stroke="#ddd" stroke-width="1"/>
-    <line x1="50" y1="260" x2="550" y2="260" stroke="#ddd" stroke-width="1"/>
-    <line x1="50" y1="310" x2="550" y2="310" stroke="#ddd" stroke-width="1"/>
-    
-    <!-- Connection arrows (horizontal) -->
-    <line x1="85" y1="85" x2="115" y2="85" stroke="#888" stroke-width="1"/>
-    <polygon points="115,85 110,82 110,88" fill="#888"/>
-    <text x="100" y="80" text-anchor="middle" fill="#d24939" font-size="10" font-weight="bold">2</text>
-    
-    <line x1="135" y1="85" x2="165" y2="85" stroke="#888" stroke-width="1"/>
-    <polygon points="165,85 160,82 160,88" fill="#888"/>
-    <text x="150" y="80" text-anchor="middle" fill="#d24939" font-size="10" font-weight="bold">3</text>
-    
-    <line x1="185" y1="85" x2="215" y2="85" stroke="#888" stroke-width="1"/>
-    <polygon points="215,85 210,82 210,88" fill="#888"/>
-    <text x="200" y="80" text-anchor="middle" fill="#d24939" font-size="10" font-weight="bold">5</text>
-    
-    <line x1="235" y1="85" x2="265" y2="85" stroke="#888" stroke-width="1"/>
-    <polygon points="265,85 260,82 260,88" fill="#888"/>
-    <text x="250" y="80" text-anchor="middle" fill="#d24939" font-size="10" font-weight="bold">3</text>
+    <!-- Background -->
+    <rect x="50" y="60" width="500" height="300" fill="#f6f8fa" stroke="#ddd" stroke-width="1" rx="5" ry="5"/>
 
-    <line x1="85" y1="135" x2="115" y2="135" stroke="#888" stroke-width="1"/>
-    <polygon points="115,135 110,132 110,138" fill="#888"/>
-    <text x="100" y="130" text-anchor="middle" fill="#d24939" font-size="10" font-weight="bold">1</text>
-
-    <line x1="135" y1="135" x2="165" y2="135" stroke="#888" stroke-width="1"/>
-    <polygon points="165,135 160,132 160,138" fill="#888"/>
-    <text x="150" y="130" text-anchor="middle" fill="#d24939" font-size="10" font-weight="bold">3</text>
-
-    <line x1="85" y1="190" x2="115" y2="190" stroke="#888" stroke-width="1"/>
-    <polygon points="115,190 110,187 110,193" fill="#888"/>
-    <text x="100" y="185" text-anchor="middle" fill="#d24939" font-size="10" font-weight="bold">3</text>
-
-    <!-- Connection arrows (vertical) -->
-
-    <line x1="75" y1="95" x2="75" y2="135" stroke="#888" stroke-width="1"/>
-    <polygon points="75,135 72,130 78,130" fill="#888"/>
-    <text x="70" y="115" text-anchor="middle" fill="#d24939" font-size="10" font-weight="bold">2</text>
+    <!-- Cities -->
+    <!-- Row 1 -->
+    <circle cx="100" cy="100" r="22" fill="#f0f0f0" stroke="#224466" stroke-width="2"/>
+    <text x="100" y="100" text-anchor="middle" fill="#333" font-size="16" font-weight="bold">A</text>
     
-    <line x1="75" y1="150" x2="75" y2="185" stroke="#888" stroke-width="1"/>
-    <polygon points="75,185 72,180 78,180" fill="#888"/>
-    <text x="70" y="170" text-anchor="middle" fill="#d24939" font-size="10" font-weight="bold">1</text>
+    <circle cx="225" cy="100" r="22" fill="#f0f0f0" stroke="#224466" stroke-width="2"/>
+    <text x="225" y="100" text-anchor="middle" fill="#333" font-size="16" font-weight="bold">B</text>
     
-    <line x1="75" y1="200" x2="75" y2="235" stroke="#888" stroke-width="1"/>
-    <polygon points="75,235 72,230 78,230" fill="#888"/>
-    <text x="70" y="220" text-anchor="middle" fill="#d24939" font-size="10" font-weight="bold">10</text>
-
-    <line x1="225" y1="100" x2="225" y2="135" stroke="#888" stroke-width="1"/>
-    <polygon points="225,135 222,130 228,130" fill="#888"/>
-    <text x="220" y="120" text-anchor="middle" fill="#d24939" font-size="10" font-weight="bold">1</text>
+    <circle cx="350" cy="100" r="22" fill="#f0f0f0" stroke="#224466" stroke-width="2"/>
+    <text x="350" y="100" text-anchor="middle" fill="#333" font-size="16" font-weight="bold">C</text>
     
-    <!-- Cell labels (row 1) -->
-    <text x="75" y="85" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">1</text>
-    <text x="75" y="100" text-anchor="middle" fill="#333" font-size="12">c:1</text>
+    <circle cx="500" cy="100" r="22" fill="#f0f0f0" stroke="#224466" stroke-width="2"/>
+    <text x="500" y="100" text-anchor="middle" fill="#333" font-size="16" font-weight="bold">D</text>
     
-    <text x="125" y="85" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">2</text>
-    <text x="125" y="100" text-anchor="middle" fill="#333" font-size="12">c:2</text>
+    <!-- Row 2 -->
+    <circle cx="175" cy="175" r="22" fill="#f0f0f0" stroke="#224466" stroke-width="2"/>
+    <text x="175" y="175" text-anchor="middle" fill="#333" font-size="16" font-weight="bold">E</text>
     
-    <text x="175" y="85" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">3</text>
-    <text x="175" y="100" text-anchor="middle" fill="#333" font-size="12">c:3</text>
+    <circle cx="300" cy="175" r="22" fill="#f0f0f0" stroke="#224466" stroke-width="2"/>
+    <text x="300" y="175" text-anchor="middle" fill="#333" font-size="16" font-weight="bold">F</text>
     
-    <text x="225" y="85" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">4</text>
-    <text x="225" y="100" text-anchor="middle" fill="#333" font-size="12">c:5</text>
+    <circle cx="425" cy="175" r="22" fill="#f0f0f0" stroke="#224466" stroke-width="2"/>
+    <text x="425" y="175" text-anchor="middle" fill="#333" font-size="16" font-weight="bold">G</text>
     
-    <text x="275" y="85" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">5</text>
-    <text x="275" y="100" text-anchor="middle" fill="#333" font-size="12">c:3</text>
+    <!-- Row 3 -->
+    <circle cx="100" cy="250" r="22" fill="#f0f0f0" stroke="#224466" stroke-width="2"/>
+    <text x="100" y="250" text-anchor="middle" fill="#333" font-size="16" font-weight="bold">H</text>
     
-    <text x="325" y="85" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">6</text>
-    <text x="325" y="100" text-anchor="middle" fill="#333" font-size="12">c:1</text>
+    <circle cx="225" cy="250" r="22" fill="#f0f0f0" stroke="#224466" stroke-width="2"/>
+    <text x="225" y="250" text-anchor="middle" fill="#333" font-size="16" font-weight="bold">I</text>
     
-    <text x="375" y="85" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">7</text>
-    <text x="375" y="100" text-anchor="middle" fill="#333" font-size="12">c:4</text>
+    <circle cx="350" cy="250" r="22" fill="#f0f0f0" stroke="#224466" stroke-width="2"/>
+    <text x="350" y="250" text-anchor="middle" fill="#333" font-size="16" font-weight="bold">J</text>
     
-    <text x="425" y="85" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">8</text>
-    <text x="425" y="100" text-anchor="middle" fill="#333" font-size="12">c:2</text>
+    <!-- Row 4 -->
+    <circle cx="175" cy="325" r="22" fill="#f0f0f0" stroke="#224466" stroke-width="2"/>
+    <text x="175" y="325" text-anchor="middle" fill="#333" font-size="16" font-weight="bold">K</text>
     
-    <text x="475" y="85" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">9</text>
-    <text x="475" y="100" text-anchor="middle" fill="#333" font-size="12">c:1</text>
+    <circle cx="300" cy="325" r="22" fill="#f0f0f0" stroke="#224466" stroke-width="2"/>
+    <text x="300" y="325" text-anchor="middle" fill="#333" font-size="16" font-weight="bold">L</text>
     
-    <text x="525" y="85" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">10</text>
-    <text x="525" y="100" text-anchor="middle" fill="#333" font-size="12">c:3</text>
+    <circle cx="425" cy="325" r="22" fill="#f0f0f0" stroke="#224466" stroke-width="2"/>
+    <text x="425" y="325" text-anchor="middle" fill="#333" font-size="16" font-weight="bold">M</text>
     
-    <!-- Cell labels (row 2) -->
-    <text x="75" y="135" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">11</text>
-    <text x="75" y="150" text-anchor="middle" fill="#333" font-size="12">c:1</text>
+    <!-- Roads (connections) -->
+    <!-- Row 1 connections -->
+    <line x1="122" y1="100" x2="203" y2="100" stroke="#888" stroke-width="2"/>
+    <text x="160" y="90" text-anchor="middle" fill="#d24939" font-size="12" font-weight="bold">75</text>
     
-    <text x="125" y="135" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">12</text>
-    <text x="125" y="150" text-anchor="middle" fill="#333" font-size="12">c:1</text>
+    <line x1="247" y1="100" x2="328" y2="100" stroke="#888" stroke-width="2"/>
+    <text x="290" y="90" text-anchor="middle" fill="#d24939" font-size="12" font-weight="bold">118</text>
     
-    <text x="175" y="135" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">13</text>
-    <text x="175" y="150" text-anchor="middle" fill="#333" font-size="12">c:3</text>
+    <line x1="372" y1="100" x2="478" y2="100" stroke="#888" stroke-width="2"/>
+    <text x="425" y="90" text-anchor="middle" fill="#d24939" font-size="12" font-weight="bold">140</text>
     
-    <text x="225" y="135" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">14</text>
-    <text x="225" y="150" text-anchor="middle" fill="#333" font-size="12">c:1</text>
+    <!-- Row 1 to Row 2 connections -->
+    <line x1="100" y1="122" x2="165" y2="158" stroke="#888" stroke-width="2"/>
+    <text x="115" y="145" text-anchor="middle" fill="#d24939" font-size="12" font-weight="bold">71</text>
     
-    <text x="275" y="135" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">15</text>
-    <text x="275" y="150" text-anchor="middle" fill="#333" font-size="12">c:2</text>
+    <line x1="225" y1="122" x2="175" y2="158" stroke="#888" stroke-width="2"/>
+    <text x="180" y="145" text-anchor="middle" fill="#d24939" font-size="12" font-weight="bold">151</text>
     
-    <text x="325" y="135" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">16</text>
-    <text x="325" y="150" text-anchor="middle" fill="#333" font-size="12">c:1</text>
+    <line x1="225" y1="122" x2="290" y2="158" stroke="#888" stroke-width="2"/>
+    <text x="275" y="145" text-anchor="middle" fill="#d24939" font-size="12" font-weight="bold">99</text>
     
-    <text x="375" y="135" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">17</text>
-    <text x="375" y="150" text-anchor="middle" fill="#333" font-size="12">c:3</text>
+    <line x1="350" y1="122" x2="288" y2="160" stroke="#888" stroke-width="2"/>
+    <text x="330" y="145" text-anchor="middle" fill="#d24939" font-size="12" font-weight="bold">80</text>
     
-    <text x="425" y="135" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">18</text>
-    <text x="425" y="150" text-anchor="middle" fill="#333" font-size="12">c:2</text>
+    <line x1="350" y1="122" x2="413" y2="158" stroke="#888" stroke-width="2"/>
+    <text x="400" y="145" text-anchor="middle" fill="#d24939" font-size="12" font-weight="bold">97</text>
     
-    <text x="475" y="135" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">19</text>
-    <text x="475" y="150" text-anchor="middle" fill="#333" font-size="12">c:4</text>
+    <line x1="500" y1="122" x2="437" y2="160" stroke="#888" stroke-width="2"/>
+    <text x="480" y="145" text-anchor="middle" fill="#d24939" font-size="12" font-weight="bold">138</text>
     
-    <text x="525" y="135" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">20</text>
-    <text x="525" y="150" text-anchor="middle" fill="#333" font-size="12">c:2</text>
+    <!-- Row 2 connections -->
+    <line x1="197" y1="175" x2="278" y2="175" stroke="#888" stroke-width="2"/>
+    <text x="240" y="165" text-anchor="middle" fill="#d24939" font-size="12" font-weight="bold">101</text>
     
-    <!-- Cell labels (row 3) -->
-    <text x="75" y="185" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">21</text>
-    <text x="75" y="200" text-anchor="middle" fill="#333" font-size="12">c:1</text>
+    <line x1="322" y1="175" x2="403" y2="175" stroke="#888" stroke-width="2"/>
+    <text x="360" y="165" text-anchor="middle" fill="#d24939" font-size="12" font-weight="bold">111</text>
     
-    <text x="125" y="185" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">22</text>
-    <text x="125" y="200" text-anchor="middle" fill="#333" font-size="12">c:3</text>
+    <!-- Row 2 to Row 3 connections -->
+    <line x1="165" y1="195" x2="110" y2="233" stroke="#888" stroke-width="2"/>
+    <text x="115" y="220" text-anchor="middle" fill="#d24939" font-size="12" font-weight="bold">70</text>
     
-    <text x="175" y="185" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">23</text>
-    <text x="175" y="200" text-anchor="middle" fill="#333" font-size="12">c:2</text>
+    <line x1="185" y1="195" x2="215" y2="233" stroke="#888" stroke-width="2"/>
+    <text x="185" y="220" text-anchor="middle" fill="#d24939" font-size="12" font-weight="bold">90</text>
     
-    <text x="225" y="185" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">24</text>
-    <text x="225" y="200" text-anchor="middle" fill="#333" font-size="12">c:1</text>
+    <line x1="290" y1="195" x2="235" y2="233" stroke="#888" stroke-width="2"/>
+    <text x="275" y="220" text-anchor="middle" fill="#d24939" font-size="12" font-weight="bold">85</text>
     
-    <text x="275" y="185" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">25</text>
-    <text x="275" y="200" text-anchor="middle" fill="#333" font-size="12">c:4</text>
+    <line x1="310" y1="195" x2="338" y2="233" stroke="#888" stroke-width="2"/>
+    <text x="340" y="220" text-anchor="middle" fill="#d24939" font-size="12" font-weight="bold">79</text>
     
-    <text x="325" y="185" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">26</text>
-    <text x="325" y="200" text-anchor="middle" fill="#333" font-size="12">c:1</text>
+    <line x1="415" y1="195" x2="360" y2="233" stroke="#888" stroke-width="2"/>
+    <text x="400" y="220" text-anchor="middle" fill="#d24939" font-size="12" font-weight="bold">120</text>
     
-    <text x="375" y="185" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">27</text>
-    <text x="375" y="200" text-anchor="middle" fill="#333" font-size="12">c:2</text>
+    <!-- Row 3 connections -->
+    <line x1="122" y1="250" x2="203" y2="250" stroke="#888" stroke-width="2"/>
+    <text x="160" y="240" text-anchor="middle" fill="#d24939" font-size="12" font-weight="bold">86</text>
     
-    <text x="425" y="185" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">28</text>
-    <text x="425" y="200" text-anchor="middle" fill="#333" font-size="12">c:3</text>
+    <line x1="247" y1="250" x2="328" y2="250" stroke="#888" stroke-width="2"/>
+    <text x="290" y="240" text-anchor="middle" fill="#d24939" font-size="12" font-weight="bold">98</text>
     
-    <text x="475" y="185" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">29</text>
-    <text x="475" y="200" text-anchor="middle" fill="#333" font-size="12">c:1</text>
+    <!-- Row 3 to Row 4 connections -->
+    <line x1="110" y1="270" x2="163" y2="308" stroke="#888" stroke-width="2"/>
+    <text x="120" y="295" text-anchor="middle" fill="#d24939" font-size="12" font-weight="bold">75</text>
     
-    <text x="525" y="185" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">30</text>
-    <text x="525" y="200" text-anchor="middle" fill="#333" font-size="12">c:2</text>
+    <line x1="235" y1="270" x2="288" y2="308" stroke="#888" stroke-width="2"/>
+    <text x="285" y="295" text-anchor="middle" fill="#d24939" font-size="12" font-weight="bold">91</text>
     
-    <!-- Cell labels (row 4) -->
-    <text x="75" y="235" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">31</text>
-    <text x="75" y="250" text-anchor="middle" fill="#333" font-size="12">c:10</text>
+    <line x1="360" y1="270" x2="413" y2="308" stroke="#888" stroke-width="2"/>
+    <text x="410" y="295" text-anchor="middle" fill="#d24939" font-size="12" font-weight="bold">72</text>
     
-    <text x="125" y="235" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">32</text>
-    <text x="125" y="250" text-anchor="middle" fill="#333" font-size="12">c:1</text>
+    <!-- Row 4 connections -->
+    <line x1="197" y1="325" x2="278" y2="325" stroke="#888" stroke-width="2"/>
+    <text x="235" y="315" text-anchor="middle" fill="#d24939" font-size="12" font-weight="bold">113</text>
     
-    <text x="175" y="235" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">33</text>
-    <text x="175" y="250" text-anchor="middle" fill="#333" font-size="12">c:3</text>
-    
-    <text x="225" y="235" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">34</text>
-    <text x="225" y="250" text-anchor="middle" fill="#333" font-size="12">c:2</text>
-    
-    <text x="275" y="235" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">35</text>
-    <text x="275" y="250" text-anchor="middle" fill="#333" font-size="12">c:1</text>
-    
-    <text x="325" y="235" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">36</text>
-    <text x="325" y="250" text-anchor="middle" fill="#333" font-size="12">c:4</text>
-    
-    <text x="375" y="235" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">37</text>
-    <text x="375" y="250" text-anchor="middle" fill="#333" font-size="12">c:1</text>
-    
-    <text x="425" y="235" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">38</text>
-    <text x="425" y="250" text-anchor="middle" fill="#333" font-size="12">c:2</text>
-    
-    <text x="475" y="235" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">39</text>
-    <text x="475" y="250" text-anchor="middle" fill="#333" font-size="12">c:3</text>
-    
-    <text x="525" y="235" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">40</text>
-    <text x="525" y="250" text-anchor="middle" fill="#333" font-size="12">c:1</text>
-    
-    <!-- Cell labels (row 5) -->
-    <text x="75" y="285" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">41</text>
-    <text x="75" y="300" text-anchor="middle" fill="#333" font-size="12">c:1</text>
-    
-    <text x="125" y="285" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">42</text>
-    <text x="125" y="300" text-anchor="middle" fill="#333" font-size="12">c:2</text>
-    
-    <text x="175" y="285" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">43</text>
-    <text x="175" y="300" text-anchor="middle" fill="#333" font-size="12">c:1</text>
-    
-    <text x="225" y="285" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">44</text>
-    <text x="225" y="300" text-anchor="middle" fill="#333" font-size="12">c:3</text>
-    
-    <text x="275" y="285" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">45</text>
-    <text x="275" y="300" text-anchor="middle" fill="#333" font-size="12">c:2</text>
-    
-    <text x="325" y="285" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">46</text>
-    <text x="325" y="300" text-anchor="middle" fill="#333" font-size="12">c:1</text>
-    
-    <text x="375" y="285" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">47</text>
-    <text x="375" y="300" text-anchor="middle" fill="#333" font-size="12">c:3</text>
-    
-    <text x="425" y="285" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">48</text>
-    <text x="425" y="300" text-anchor="middle" fill="#333" font-size="12">c:1</text>
-    
-    <text x="475" y="285" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">49</text>
-    <text x="475" y="300" text-anchor="middle" fill="#333" font-size="12">c:2</text>
-    
-    <text x="525" y="285" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">50</text>
-    <text x="525" y="300" text-anchor="middle" fill="#333" font-size="12">c:1</text>
-    
-    <!-- Cell labels (row 6) -->
-    <text x="75" y="325" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">51</text>
-    <text x="75" y="340" text-anchor="middle" fill="#333" font-size="12">c:4</text>
-    
-    <text x="125" y="325" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">52</text>
-    <text x="125" y="340" text-anchor="middle" fill="#333" font-size="12">c:1</text>
-    
-    <text x="175" y="325" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">53</text>
-    <text x="175" y="340" text-anchor="middle" fill="#333" font-size="12">c:2</text>
-    
-    <text x="225" y="325" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">54</text>
-    <text x="225" y="340" text-anchor="middle" fill="#333" font-size="12">c:1</text>
-    
-    <text x="275" y="325" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">55</text>
-    <text x="275" y="340" text-anchor="middle" fill="#333" font-size="12">c:3</text>
-    
-    <text x="325" y="325" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">56</text>
-    <text x="325" y="340" text-anchor="middle" fill="#333" font-size="12">c:2</text>
-    
-    <text x="375" y="325" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">57</text>
-    <text x="375" y="340" text-anchor="middle" fill="#333" font-size="12">c:1</text>
-    
-    <text x="425" y="325" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">58</text>
-    <text x="425" y="340" text-anchor="middle" fill="#333" font-size="12">c:3</text>
-    
-    <text x="475" y="325" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">59</text>
-    <text x="475" y="340" text-anchor="middle" fill="#333" font-size="12">c:2</text>
-    
-    <text x="525" y="325" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">60</text>
-    <text x="525" y="340" text-anchor="middle" fill="#333" font-size="12">c:1</text>
-    
-    <!-- Maze walls -->
-    <!-- Horizontal walls -->
-    <line x1="100" y1="110" x2="200" y2="110" stroke="#224466" stroke-width="4"/>
-    <line x1="250" y1="110" x2="400" y2="110" stroke="#224466" stroke-width="4"/>
-    <line x1="100" y1="160" x2="150" y2="160" stroke="#224466" stroke-width="4"/>
-    <line x1="250" y1="160" x2="300" y2="160" stroke="#224466" stroke-width="4"/>
-    <line x1="350" y1="160" x2="450" y2="160" stroke="#224466" stroke-width="4"/>
-    <line x1="150" y1="210" x2="200" y2="210" stroke="#224466" stroke-width="4"/>
-    <line x1="250" y1="210" x2="350" y2="210" stroke="#224466" stroke-width="4"/>
-    <line x1="400" y1="210" x2="500" y2="210" stroke="#224466" stroke-width="4"/>
-    <line x1="50" y1="260" x2="150" y2="260" stroke="#224466" stroke-width="4"/>
-    <line x1="250" y1="260" x2="300" y2="260" stroke="#224466" stroke-width="4"/>
-    <line x1="400" y1="260" x2="450" y2="260" stroke="#224466" stroke-width="4"/>
-    <line x1="100" y1="310" x2="200" y2="310" stroke="#224466" stroke-width="4"/>
-    <line x1="300" y1="310" x2="400" y2="310" stroke="#224466" stroke-width="4"/>
-    <line x1="450" y1="310" x2="500" y2="310" stroke="#224466" stroke-width="4"/>
-    
-    <!-- Vertical walls -->
-    <line x1="200" y1="110" x2="200" y2="160" stroke="#224466" stroke-width="4"/>
-    <line x1="300" y1="60" x2="300" y2="110" stroke="#224466" stroke-width="4"/>
-    <line x1="400" y1="110" x2="400" y2="160" stroke="#224466" stroke-width="4"/>
-    <line x1="500" y1="60" x2="500" y2="110" stroke="#224466" stroke-width="4"/>
-    <line x1="150" y1="160" x2="150" y2="210" stroke="#224466" stroke-width="4"/>
-    <line x1="250" y1="160" x2="250" y2="210" stroke="#224466" stroke-width="4"/>
-    <line x1="350" y1="110" x2="350" y2="160" stroke="#224466" stroke-width="4"/>
-    <line x1="450" y1="160" x2="450" y2="210" stroke="#224466" stroke-width="4"/>
-    <line x1="100" y1="210" x2="100" y2="260" stroke="#224466" stroke-width="4"/>
-    <line x1="300" y1="210" x2="300" y2="260" stroke="#224466" stroke-width="4"/>
-    <line x1="400" y1="210" x2="400" y2="260" stroke="#224466" stroke-width="4"/>
-    <line x1="200" y1="260" x2="200" y2="310" stroke="#224466" stroke-width="4"/>
-    <line x1="350" y1="260" x2="350" y2="310" stroke="#224466" stroke-width="4"/>
-    <line x1="450" y1="260" x2="450" y2="310" stroke="#224466" stroke-width="4"/>
-    <line x1="150" y1="310" x2="150" y2="350" stroke="#224466" stroke-width="4"/>
-    <line x1="250" y1="310" x2="250" y2="350" stroke="#224466" stroke-width="4"/>
-    <line x1="400" y1="310" x2="400" y2="350" stroke="#224466" stroke-width="4"/>
+    <line x1="322" y1="325" x2="403" y2="325" stroke="#888" stroke-width="2"/>
+    <text x="360" y="315" text-anchor="middle" fill="#d24939" font-size="12" font-weight="bold">108</text>
     
     <!-- Start and Goal -->
-    <circle cx="75" cy="85" r="15" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
-    <text x="75" y="90" text-anchor="middle" fill="white" font-size="16" font-weight="bold">S0</text>
+    <circle cx="100" cy="100" r="25" fill="#4a90e2" stroke="#224466" stroke-width="3"/>
+    <text x="100" y="100" text-anchor="middle" fill="white" font-size="18" font-weight="bold">A</text>
     
-    <circle cx="525" cy="330" r="15" fill="#ffa500" stroke="#224466" stroke-width="2"/>
-    <text x="525" y="335" text-anchor="middle" fill="white" font-size="16" font-weight="bold">G</text>
+    <circle cx="425" cy="325" r="25" fill="#f44336" stroke="#224466" stroke-width="3"/>
+    <text x="425" y="325" text-anchor="middle" fill="white" font-size="18" font-weight="bold">M</text>
+    
+    <!-- Aerial distances (Manhattan heuristic) -->
+    <text x="100" y="115" text-anchor="middle" fill="#9c27b0" font-size="14" font-weight="bold">450</text>
+    <text x="225" y="115" text-anchor="middle" fill="#9c27b0" font-size="14" font-weight="bold">375</text>
+    <text x="350" y="115" text-anchor="middle" fill="#9c27b0" font-size="14" font-weight="bold">290</text>
+    <text x="500" y="115" text-anchor="middle" fill="#9c27b0" font-size="14" font-weight="bold">270</text>
+    
+    <text x="175" y="190" text-anchor="middle" fill="#9c27b0" font-size="14" font-weight="bold">330</text>
+    <text x="300" y="190" text-anchor="middle" fill="#9c27b0" font-size="14" font-weight="bold">250</text>
+    <text x="425" y="190" text-anchor="middle" fill="#9c27b0" font-size="14" font-weight="bold">150</text>
+    
+    <text x="100" y="265" text-anchor="middle" fill="#9c27b0" font-size="14" font-weight="bold">290</text>
+    <text x="225" y="265" text-anchor="middle" fill="#9c27b0" font-size="14" font-weight="bold">200</text>
+    <text x="350" y="265" text-anchor="middle" fill="#9c27b0" font-size="14" font-weight="bold">90</text>
+    
+    <text x="175" y="340" text-anchor="middle" fill="#9c27b0" font-size="14" font-weight="bold">210</text>
+    <text x="300" y="340" text-anchor="middle" fill="#9c27b0" font-size="14" font-weight="bold">125</text>
+    <text x="425" y="340" text-anchor="middle" fill="#9c27b0" font-size="14" font-weight="bold">0</text>
     
     <!-- Legend -->
-    <rect x="50" y="360" width="500" height="30" fill="#f6f8fa" stroke="#ddd" stroke-width="1" rx="5" ry="5"/>
+    <rect x="50" y="370" width="500" height="30" fill="#f6f8fa" stroke="#ddd" stroke-width="1" rx="5" ry="5"/>
     
-    <rect x="70" y="370" width="15" height="15" fill="#4a90e2" stroke="#224466" stroke-width="1"/>
-    <text x="125" y="380" text-anchor="middle" fill="#224466" font-size="14" font-weight="bold">Start: Cell 1</text>
+    <circle cx="60" cy="385" r="10" fill="#4a90e2" stroke="#224466" stroke-width="1"/>
+    <text x="100" y="390" text-anchor="middle" fill="#224466" font-size="14" font-weight="bold">StartA</text>
     
-    <rect x="250" y="370" width="15" height="15" fill="#ffa500" stroke="#224466" stroke-width="1"/>
-    <text x="310" y="380" text-anchor="middle" fill="#224466" font-size="14" font-weight="bold">Goal: Cell 60</text>
+    <circle cx="180" cy="385" r="10" fill="#f44336" stroke="#224466" stroke-width="1"/>
+    <text x="220" y="390" text-anchor="middle" fill="#224466" font-size="14" font-weight="bold">Goal</text>
     
-    <text x="500" y="380" text-anchor="middle" fill="#d24939" font-size="14" font-weight="bold">c: cost to enter</text>
+    <text x="320" y="390" text-anchor="middle" fill="#d24939" font-size="14" font-weight="bold">Road distance</text>
+    
+    <text x="470" y="390" text-anchor="middle" fill="#9c27b0" font-size="14" font-weight="bold">Aerial distance to goal</text>
 </svg> 

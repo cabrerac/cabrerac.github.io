@@ -36,6 +36,15 @@
     <line x1="200" y1="165" x2="175" y2="185" stroke="#224466" stroke-width="2"/>
     <line x1="200" y1="165" x2="225" y2="185" stroke="#224466" stroke-width="2"/>
     
+    <!-- BFS Search Frontier -->
+    <circle cx="75" cy="200" r="20" fill="none" stroke="#ff6600" stroke-width="3" stroke-dasharray="5,3"/>
+    <circle cx="175" cy="200" r="20" fill="none" stroke="#ff6600" stroke-width="3" stroke-dasharray="5,3"/>
+    <circle cx="225" cy="200" r="20" fill="none" stroke="#ff6600" stroke-width="3" stroke-dasharray="5,3"/>
+    
+    <!-- BFS Next to Expand -->
+    <circle cx="75" cy="200" r="25" fill="none" stroke="#ff0000" stroke-width="3"/>
+    <text x="30" y="205" text-anchor="end" fill="#ff0000" font-size="14" font-weight="bold">Next</text>
+    
     <!-- DFS Section -->
     <text x="450" y="60" text-anchor="middle" fill="#224466" font-size="18" font-weight="bold">
         Depth-First Search (DFS)
@@ -47,6 +56,9 @@
     
     <circle cx="400" cy="150" r="15" fill="#50c878" stroke="#224466" stroke-width="2"/>
     <text x="400" y="155" text-anchor="middle" fill="white" font-size="16" font-weight="bold">2</text>
+
+    <circle cx="500" cy="150" r="15" fill="#50c878" stroke="#224466" stroke-width="2"/>
+    <text x="500" y="155" text-anchor="middle" fill="white" font-size="16" font-weight="bold">11</text>
     
     <circle cx="375" cy="200" r="15" fill="#50c878" stroke="#224466" stroke-width="2"/>
     <text x="375" y="205" text-anchor="middle" fill="white" font-size="16" font-weight="bold">3</text>
@@ -62,19 +74,36 @@
     
     <!-- DFS Connections -->
     <line x1="450" y1="115" x2="400" y2="135" stroke="#224466" stroke-width="2"/>
+    <line x1="450" y1="115" x2="500" y2="135" stroke="#224466" stroke-width="2"/>
     <line x1="400" y1="165" x2="375" y2="185" stroke="#224466" stroke-width="2"/>
     <line x1="350" y1="265" x2="375" y2="285" stroke="#224466" stroke-width="2"/>
     
     <line x1="375" y1="215" x2="350" y2="235" stroke="#224466" stroke-width="2"/>
     <line x1="350" y1="265" x2="325" y2="285" stroke="#224466" stroke-width="2"/>
     
+    <!-- DFS Search Frontier -->
+    <circle cx="325" cy="300" r="20" fill="none" stroke="#ff6600" stroke-width="3" stroke-dasharray="5,3"/>
+    <circle cx="375" cy="300" r="20" fill="none" stroke="#ff6600" stroke-width="3" stroke-dasharray="5,3"/>
+    <circle cx="500" cy="150" r="20" fill="none" stroke="#ff6600" stroke-width="3" stroke-dasharray="5,3"/>
+    
+    <!-- DFS Next to Expand -->
+    <circle cx="325" cy="300" r="25" fill="none" stroke="#ff0000" stroke-width="3"/>
+    <text x="280" y="305" text-anchor="end" fill="#ff0000" font-size="14" font-weight="bold">Next</text>
+    
     <!-- Data structures -->
     <text x="150" y="250" text-anchor="middle" fill="#224466" font-size="16" font-style="italic">Uses: Queue (FIFO)</text>
-    <text x="450" y="270" text-anchor="middle" fill="#224466" font-size="16" font-style="italic">Uses: Stack (LIFO)</text>    
-    <!-- Legend -->
-    <rect x="50" y="320" width="15" height="15" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
-    <text x="75" y="332" fill="#224466" font-size="14">BFS - Complete, optimal for unit costs</text>
+    <text x="450" y="250" text-anchor="middle" fill="#224466" font-size="16" font-style="italic">Uses: Stack (LIFO)</text>    
     
-    <rect x="50" y="350" width="15" height="15" fill="#50c878" stroke="#224466" stroke-width="2"/>
-    <text x="75" y="362" fill="#224466" font-size="14">DFS - Not complete or optimal, memory efficient</text>
+    <!-- Legend -->
+    <rect x="50" y="340" width="15" height="15" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
+    <text x="75" y="355" fill="#224466" font-size="14">BFS - Complete, optimal for unit costs</text>
+    
+    <rect x="50" y="370" width="15" height="15" fill="#50c878" stroke="#224466" stroke-width="2"/>
+    <text x="75" y="385" fill="#224466" font-size="14">DFS - Not complete or optimal, memory efficient</text>
+
+    <circle cx="450" cy="565" r="10" fill="none" stroke="#ff6600" stroke-width="3" stroke-dasharray="5,3"/>
+    <text x="475" y="575" fill="#224466" font-size="14">Frontier nodes</text>
+    
+    <circle cx="450" cy="595" r="10" fill="none" stroke="#ff0000" stroke-width="3"/>
+    <text x="475" y="605" fill="#224466" font-size="14">Next node to explore</text>
 </svg> 
