@@ -22,35 +22,25 @@
                 <p>
                     Agents cannot be fully pre-programmed. Agent must <b>learn from examples</b> to perform a task.
                 </p>
-                <img src="{{ site.url }}/assets/media/diagrams/learning-from-data.svg" alt="Learning from data" style="width: 70%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
-                <div class="footnote">Learning from examples: classification problem with decision boundary</div>
+                <img src="{{ site.url }}/assets/media/diagrams/learning-from-data.svg" alt="Learning from data" style="width: 60%; background-color: #f6f8fa; margin-top: 1.0em;">
+                <div class="footnote">Learning from examples: classification problem</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 33%">
                 <p>
-                    A <b>neural network learning problem</b> is defined by a <em>set of training examples, an architecture of interconnected neurons, an objective function, and a learning algorithm</em>.
+                    <b>Learning from examples</b> requires a <em>function that approximates patterns in data, using a learning algorithm, and evaluation criteria</em>.
                 </p>
 $$
-NN = (D, A, L, \Theta)
+LD = (D, \mathcal{H}, L, A)
 $$
-$D$: training dataset $\{(x_i, y_i)\}_{i=1}^n$
-$A$: network architecture
-$L$: loss function
-$\Theta$: parameters to learn
+$D$: dataset of examples $\{x_i\}$ or pairs $\{(x_i, y_i)\}$
+$\mathcal{H}$: hypothesis space of possible functions
+$L$: loss/reward function measuring success
+$A$: algorithm to search through $\mathcal{H}$
             </div>
             <div class="column vertical-middle text-left" style="width: 33%">
                 <p>
-                    A <b>neural network</b> is a computational graph of interconnected units that transform input features through multiple layers of non-linear transformations.
+                    <b>Learning algorithms</b> use different computational representations during the <em>learning and inference</em>: dataframes, tuples, trees, graphs, matrices, etc. 
                 </p>
-                <p>
-                    For each layer $l$:
-$$
-\begin{align}
-z^{(l)} &= W^{(l)}a^{(l-1)} + b^{(l)} \\
-a^{(l)} &= \sigma(z^{(l)})
-\end{align}
-$$
-                </p>
-                <p>Learns through <b>backpropagation</b>: Computing gradients of error with respect to weights using the chain rule.</p>
             </div>
         </div>
     </div>

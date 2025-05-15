@@ -145,7 +145,7 @@ $G$: set of goal states
                 <p>
                     A <b>search problem</b> is typically <em>modelled</em> using data structures such as graphs, adjacency matrices, queues and stacks.
                 </p>
-                <img src="{{ site.url }}/assets/media/diagrams/adjacency-matrix.svg" alt="Adjacency matrix for shortest path graph" style="width: 55%; margin-top: 1.0em;">
+                <img src="{{ site.url }}/assets/media/diagrams/adjacency-matrix.svg" alt="Adjacency matrix for shortest path graph" style="width: 55%; background-color: #f6f8fa; margin-top: 1.0em;">
                 <div class="footnote">Adjacency matrix</div>
             </div>
         </div>

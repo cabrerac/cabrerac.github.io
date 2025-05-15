@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="390" height="480" xmlns="http://www.w3.org/2000/svg">
+    
+    <rect x="0" y="0" width="390" height="480" fill="#F8F8F8" stroke="#CCCCCC" stroke-width="1"/>
     <!-- Title -->
     <text x="200" y="40" text-anchor="middle" fill="#224466" font-size="30" font-weight="bold">
         Weighted Adjacency Matrix
