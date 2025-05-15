@@ -1,6 +1,6 @@
 <!-- SLIDES: -->
 
-## Expert Systems (1970-1990) - Knowledge-Based Systems
+## Expert Systems (1969-1986) - Knowledge-Based Systems
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 20%">
@@ -28,7 +28,7 @@
     </div>
 </div>
 
-## Expert Systems (1970-1990) - Knowledge-Based Systems
+## Expert Systems (1969-1986) - Knowledge-Based Systems
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 20%">
@@ -48,10 +48,10 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 33%">
                 <p>
-                    <b>Capture and apply</b> specialized human <b>expertise</b> to solve complex problems that typically require human experts.
+                    An agent must <b>emulate the reasoning and decision-making process</b> of humans to solve complex problems that require <b>human experts.</b>
                 </p>
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/dendral.svg" alt="DENDRAL expert system" style="width: 90%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
-                <div class="footnote">DENDRAL (1965-1970): First expert system developed at Stanford to analyze chemical compounds</div>
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/2/2d/LiewDIKrepresentation.png" alt="Data, Information, and Knowledge" style="width: 90%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+                <div class="footnote">Data, Information, and Knowledge (Per Liew, 2007)</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 33%">
             </div>
@@ -61,7 +61,7 @@
     </div>
 </div>
 
-## Expert Systems (1970-1990) - Knowledge-Based Systems
+## Expert Systems (1969-1986) - Knowledge-Based Systems
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 20%">
@@ -81,10 +81,10 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 33%">
                 <p>
-                    <b>Capture and apply</b> specialized human <b>expertise</b> to solve complex problems that typically require human experts.
+                    An agent must <b>emulate the reasoning and decision-making process</b> of humans to solve complex problems that require <b>human experts.</b>
                 </p>
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/dendral.svg" alt="DENDRAL expert system" style="width: 90%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
-                <div class="footnote">DENDRAL (1965-1970): First expert system developed at Stanford to analyze chemical compounds</div>
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/2/2d/LiewDIKrepresentation.png" alt="Data, Information, and Knowledge" style="width: 90%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+                <div class="footnote">Data, Information, and Knowledge (Per Liew, 2007)</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 33%">
                 <p>
@@ -93,17 +93,17 @@
 $$
 ES = (KB, IE, UI)
 $$
-$KB$: Knowledge Base (facts and rules)
+$KB$: Knowledge Base
 $IE$: Inference Engine
 $UI$: User Interface
-            </div>
+</div>
             <div class="column vertical-middle text-left" style="width: 33%">
             </div>
         </div>
     </div>
 </div>
 
-## Expert Systems (1970-1990) - Knowledge-Based Systems
+## Expert Systems (1969-1986) - Knowledge-Based Systems
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 20%">
@@ -123,10 +123,10 @@ $UI$: User Interface
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 33%">
                 <p>
-                    <b>Capture and apply</b> specialized human <b>expertise</b> to solve complex problems that typically require human experts.
+                    An agent must <b>emulate the reasoning and decision-making process</b> of humans to solve complex problems that require <b>human experts.</b>
                 </p>
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/dendral.svg" alt="DENDRAL expert system" style="width: 90%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
-                <div class="footnote">DENDRAL (1965-1970): First expert system developed at Stanford to analyze chemical compounds</div>
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/2/2d/LiewDIKrepresentation.png" alt="Data, Information, and Knowledge" style="width: 90%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+                <div class="footnote">Data, Information, and Knowledge (Per Liew, 2007)</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 33%">
                 <p>
@@ -135,121 +135,338 @@ $UI$: User Interface
 $$
 ES = (KB, IE, UI)
 $$
-$KB$: Knowledge Base (facts and rules)
+$KB$: Knowledge Base
 $IE$: Inference Engine
 $UI$: User Interface
-            </div>
+</div>
             <div class="column vertical-middle text-left" style="width: 33%">
                 <p>
-                    <b>Expert systems</b> are typically <em>modelled</em> using rule-based programming with if-then statements and knowledge representation formalisms.
+                    <b>Knowledge</b> is typically modelled using subject, object, predicate <b>semantic triple model.</b>
                 </p>
-                <p style="font-family: monospace; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
-                    IF patient_has_fever AND patient_has_cough<br>
-                    THEN consider_diagnosis(respiratory_infection)<br><br>
-                    
-                    IF respiratory_infection AND patient_has_chest_pain<br>
-                    THEN order_test(chest_x_ray)
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/8/88/Basic_RDF_Graph.svg" alt="Semantic Triple Model" style="width: 90%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+                <div class="footnote">Basic Semantic Triple</div>
+                <p>
+                    <b>Rules</b> are if statements.</b>
                 </p>
-                <div class="footnote">Rule-based knowledge representation in medical diagnosis expert system</div>
             </div>
         </div>
     </div>
 </div>
 
-## Expert Systems (1970-1990) - Architecture Components
+## Expert Systems (1969-1986) - Knowledge-Based Systems
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 60%">
-                <img src="https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/07/29075754/Expert-System-1024x649.jpg" alt="Expert System Architecture" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
-                <div class="footnote">Classic expert system architecture with knowledge base, inference engine, and user interface</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
             </div>
-            <div class="column vertical-middle text-left" style="width: 40%">
-                <p><strong>Knowledge Base</strong></p>
-                <p>Contains domain-specific knowledge represented as facts and rules</p>
-                <br>
-                <p><strong>Inference Engine</strong></p>
-                <p>Processes rules and facts to derive conclusions using forward chaining (data-driven) or backward chaining (goal-driven)</p>
-                <br>
-                <p><strong>User Interface</strong></p>
-                <p>Facilitates interaction between users and the system, including explanation facilities</p>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>"An <b>ontology</b> is an explicit specification of a <em>shared conceptualisation.</em>" (Gruber, 1993)</p>
             </div>
         </div>
     </div>
 </div>
 
-## Expert Systems (1970-1990) - Notable Examples
+## Expert Systems (1969-1986) - Knowledge-Based Systems
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><strong>MYCIN (1972)</strong></p>
-                <p>Diagnosed bacterial infections and recommended antibiotics with accuracy exceeding some doctors</p>
-                <br>
-                <p><strong>PROSPECTOR (1978)</strong></p>
-                <p>Identified potential mineral deposits, successfully predicting a molybdenum deposit worth over $100 million</p>
-                <br>
-                <p><strong>XCON/R1 (1980)</strong></p>
-                <p>Configured VAX computer systems for Digital Equipment Corporation, saving estimated $40 million annually</p>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/OntologyBasic.png" alt="Vehicles Ontology" style="width: 70%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+                <div class="footnote">Vehicles Ontology: ​English Wikipedia user Gwernol, CC BY-SA 3.0 <http://creativecommons.org/licenses/by-sa/3.0/>, via Wikimedia Commons</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><strong>DENDRAL (1965-1970)</strong></p>
-                <p>Identified unknown organic compounds from mass spectrometry data</p>
+                <p>"An <b>ontology</b> is an explicit specification of a <em>shared conceptualisation.</em>" (Gruber, 1993)</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Expert Systems (1969-1986) - Knowledge-Based Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Wikidata-spacecraft-ontology-2017-05-11.png" alt="Spacecraft Ontology" style="width: 90%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+                <div class="footnote">Spacecraft Ontology: Fuzheado, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>"An <b>ontology</b> is an explicit specification of a <em>shared conceptualisation.</em>" (Gruber, 1993)</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Expert Systems (1969-1986) - Knowledge-Based Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Ontology_of_Things_%28OoT%29_Framework_Using_Ontology_of_Ontology.png" alt="Ontology of Things" style="width: 90%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+                <div class="footnote">Ontology of Things: Niceclat, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>"An <b>ontology</b> is an explicit specification of a <em>shared conceptualisation.</em>" (Gruber, 1993)</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Expert Systems (1969-1986) - Knowledge-Based Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 20%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-bottom text-left" style="width: 50%">
+                <p><strong>Konwledge Base</strong></p>
+                <p><strong>Example:</strong> Medical diagnosis</p>
+                <p>The expert systems embodies medical knowledge</p>
+            </div>
+            <div class="column vertical-bottom text-left" style="width: 50%">
+                <p><strong>Forward Chaining (Data-Driven)</strong></p>
+                <p>Facts: The patient has fever, cough, headache, and muscle pain</p>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 80%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <pre style="background-color: #f8f8f8; padding: 8px; border-radius: 4px; margin-top: 5px;">
+Rules:
+R1: If (fever AND cough) then 
+(possible_flu)
+R2: If (possible_flu AND headache) then (influenza)
+R3: If (influenza AND muscle_pain) then (severe_case)</pre>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <pre style="background-color: #f8f8f8; padding: 8px; border-radius: 4px; margin-top: 5px;">
+Process:
+Facts: [fever, cough, headache, muscle_pain]
+→ apply R1: add possible_flue
+Facts: [headache, muscle_pain, possible_flue]
+→ apply R2: add influenza
+Facts: [muscle_pain, influenza]
+→ apply R3: conclude sever_case</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Expert Systems (1969-1986) - Knowledge-Based Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 35%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-bottom text-left" style="width: 50%">
+                <p><strong>Konwledge Base</strong></p>
+                <p><strong>Example:</strong> Medical diagnosis</p>
+                <p>The expert systems embodies medical knowledge</p>
+            </div>
+            <div class="column vertical-bottom text-left" style="width: 50%">
+                <p><strong>Backward Chaining (Goal-Driven)</strong></p>
+                <p>Facts: The patient has fever, cough, headache, and muscle pain</p>
+                <p><b>Goal: Determine if the patient's case is severe</b></p>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 65%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <pre style="background-color: #f8f8f8; padding: 8px; border-radius: 4px; margin-top: 5px;">
+Rules:
+R1: If (fever AND cough) then 
+(possible_flu)
+R2: If (possible_flu AND headache) then (influenza)
+R3: If (influenza AND muscle_pain) then (severe_case)</pre>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <pre style="background-color: #f8f8f8; padding: 8px; border-radius: 4px; margin-top: 5px;">
+Process:
+→ check for severe_case via R3
+→ check for muscle_pain (found)
+→ check for influenza via R2
+→ check for headache (found)
+→ check for possible_flu via R1
+→ check for fever and cough
+→ conclude severe_case is true</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Expert Systems (1969-1986) - Relative Success
+
+## Expert Systems (1969-1986) - Relative Success
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><strong>DENDRAL (1960s)</strong></p>
+                <p>Identified unknown organic molecules using knowledge of chemistry</p>
                 <br>
-                <p><strong>PUFF (1979)</strong></p>
+                <p><strong>MYCIN (Earlys 1970s)</strong></p>
+                <p>Supported bacterial infections diagnosis and treatment</p>
+                <br>
+                <p><strong>XCON/R1 (1982)</strong></p>
+                <p>eXpert CONfigurer - Automated the configuration of VAX computer systems (succesful deployment)</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Expert Systems (1969-1986) - Relative Success
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><strong>DENDRAL (1960s)</strong></p>
+                <p>Identified unknown organic molecules using knowledge of chemistry</p>
+                <br>
+                <p><strong>MYCIN (Earlys 1970s)</strong></p>
+                <p>Supported bacterial infections diagnosis and treatment</p>
+                <br>
+                <p><strong>XCON/R1 (1982)</strong></p>
+                <p>eXpert CONfigurer - Automated the configuration of VAX computer systems (succesful deployment)</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><strong>PUFF (1982)</strong></p>
                 <p>Interpreted pulmonary function test results to diagnose lung disorders</p>
                 <br>
-                <p><strong>CADUCEUS/INTERNIST-I (1982)</strong></p>
-                <p>Diagnosed complex internal medicine cases covering over 500 diseases</p>
+                <p><strong>PROSPECTOR (1986)</strong></p>
+                <p>An expert system for mineral exploration</p>
+                <br>
+                <p><strong>DEEP BLUE (1997)</strong></p>
+                <p>An expert system that defeated a chess world champion</p>
             </div>
         </div>
     </div>
 </div>
 
-## Expert Systems (1970-1990) - Reasoning Approaches
+## Expert Systems (1969-1986) - AI Perception
+
+## Expert Systems (1969-1986) - AI Perception
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><strong>Forward Chaining (Data-Driven)</strong></p>
-                <img src="https://www.researchgate.net/publication/329715657/figure/fig1/AS:705181092986881@1545139632989/Forward-chaining-inference-example.png" alt="Forward Chaining" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
-                <div class="footnote">Forward chaining: starting with available data and applying rules until reaching a conclusion</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><strong>Backward Chaining (Goal-Driven)</strong></p>
-                <img src="https://www.researchgate.net/publication/329715657/figure/fig2/AS:705181092991003@1545139633153/Backward-chaining-inference-example.png" alt="Backward Chaining" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
-                <div class="footnote">Backward chaining: starting with a goal and working backward to determine what facts are needed</div>
+            <p><em>"In medicine, management, and the military — indeed in most of the world's work — the daily tasks are those requiring symbolic reasoning with detailed professional knowledge." (Feigenbaum, 1982)</em></p>
+            <br>
+            <p><em>"Commercialising Artificial Intelligence." (The New York Times, 1982)</em></p>
+            <br>
+            <p><em>"Gains are Slow for Artificial Intelligence Industry." (The New York Times, 1987)</em></p>
+            <br>
+            <p><em>"New expert systems companies were being formed at a rate of what seemed like one a week. " (Hart, 2021)</em></p>
+            <br>
             </div>
         </div>
     </div>
 </div>
 
-## Expert Systems (1970-1990) - AI Perception
+## Expert Systems (1969-1986) - AI Perception
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-            <p><em>"Expert systems will be the most important commercial application for artificial intelligence in the next decade." (Bruce G. Buchanan, 1983)</em></p>
-            <br>
-            <p><em>"The use of knowledge in computer programs to solve problems that normally require human expertise is the basic characteristic of expert systems." (Feigenbaum, 1982)</em></p>
-            <br>
-            <p><em>"Within 10 years, expert systems will be so common that they will disappear as separate applications, and become part of every computer system." (Edward Feigenbaum, 1984)</em></p>
-            <br>
-            <p><em>"Japan's Fifth Generation Computer Systems project will revolutionize computing through the integration of large-scale knowledge bases." (MITI, Japan, 1982)</em></p>
+            <img src="{{ site.url }}/assets/media/images/ai-bytes-1981.jpg" alt="Artificial Intelligence (1981)" style="height: 520px">
+            <div class="footnote">Issues with knowledge libraries (Robersts, 1981) - https://microship.com/artificial-intelligence-byte/</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-            <img src="https://s3.amazonaws.com/s3.timetoast.com/public/uploads/photo/17871326/image/medium-c7cf33db9affa9895ea1daa7c3202a6c.png" alt="Expert Systems in Business (1980s)" style="height: 400px">
-            <div class="footnote">Time Magazine cover highlighting AI's business applications (1980s)</div>
+            <p><em>"In medicine, management, and the military — indeed in most of the world's work — the daily tasks are those requiring symbolic reasoning with detailed professional knowledge." (Feigenbaum, 1982)</em></p>
+            <br>
+            <p><em>"Commercialising Artificial Intelligence." (The New York Times, 1982)</em></p>
+            <br>
+            <p><em>"Gains are Slow for Artificial Intelligence Industry." (The New York Times, 1987)</em></p>
+            <br>
+            <p><em>"New expert systems companies were being formed at a rate of what seemed like one a week. " (Hart, 2021)</em></p>
+            <br>
             </div>
         </div>
     </div>
 </div>
 
-## Expert Systems (1970-1990) - Technology Limitations
+## Expert Systems (1969-1986) - AI Perception
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+            <img src="{{ site.url }}/assets/media/images/more-than-expert-the-sydney-morning-herald-1985.jpg" alt="Intelligence is more than experts (1985)" style="height: 520px">
+            <div class="footnote">Intelligence is More than Experts (The Sidney Morning Herald, 1985)</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+            <p><em>"In medicine, management, and the military — indeed in most of the world's work — the daily tasks are those requiring symbolic reasoning with detailed professional knowledge." (Feigenbaum, 1982)</em></p>
+            <br>
+            <p><em>"Commercialising Artificial Intelligence." (The New York Times, 1982)</em></p>
+            <br>
+            <p><em>"Gains are Slow for Artificial Intelligence Industry." (The New York Times, 1987)</em></p>
+            <br>
+            <p><em>"New expert systems companies were being formed at a rate of what seemed like one a week. " (Hart, 2021)</em></p>
+            <br>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Expert Systems (1969-1986) - AI Perception
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+            <img src="{{ site.url }}/assets/media/images/ai-stocks-1987.png" alt="AI just could be a smart buy (1987)" style="height: 520px">
+            <div class="footnote">AI just could be a smart buy (1987)/</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+            <p><em>"In medicine, management, and the military — indeed in most of the world's work — the daily tasks are those requiring symbolic reasoning with detailed professional knowledge." (Feigenbaum, 1982)</em></p>
+            <br>
+            <p><em>"Commercialising Artificial Intelligence." (The New York Times, 1982)</em></p>
+            <br>
+            <p><em>"Gains are Slow for Artificial Intelligence Industry." (The New York Times, 1987)</em></p>
+            <br>
+            <p><em>"New expert systems companies were being formed at a rate of what seemed like one a week. " (Hart, 2021)</em></p>
+            <br>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Expert Systems (1969-1986) - AI Perception
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+            <img src="{{ site.url }}/assets/media/images/kasparov-lost-angeles-1997.jpg" alt="Deep Blue defeats Kasparaov (1997)" style="height: 520px">
+            <div class="footnote">Deep Blue defeats Kasparaov (Los Angeles Times, 1997)/</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+            <p><em>"In medicine, management, and the military — indeed in most of the world's work — the daily tasks are those requiring symbolic reasoning with detailed professional knowledge." (Feigenbaum, 1982)</em></p>
+            <br>
+            <p><em>"Commercialising Artificial Intelligence." (The New York Times, 1982)</em></p>
+            <br>
+            <p><em>"Gains are Slow for Artificial Intelligence Industry." (The New York Times, 1987)</em></p>
+            <br>
+            <p><em>"New expert systems companies were being formed at a rate of what seemed like one a week. " (Hart, 2021)</em></p>
+            <br>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Expert Systems (1969-1986) - AI Limitations
+
+## Expert Systems (1969-1986) - AI Limitations
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -258,46 +475,13 @@ $UI$: User Interface
             <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/combinatorial-explosion.svg" alt="Combinatorial explosion diagram" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-            <p><strong>Knowledge Acquisition Bottleneck</strong></p>
             <p>Extracting knowledge from human experts and encoding it into rules was difficult, time-consuming, and expensive</p>
             <br>
-            <p><strong>Brittleness</strong></p>
             <p>Systems could not reason beyond their pre-programmed knowledge and failed when confronted with unexpected situations</p>
             <br>
-            <p><strong>Scaling Limitations</strong></p>
             <p>Adding more rules often led to rule interaction problems and combinatorial explosion</p>
             <br>
-            <p><strong>Maintenance Challenges</strong></p>
             <p>Updating knowledge bases as domains evolved required significant effort</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Expert Systems (1970-1990) - Legacy and Impact
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-            <p><strong>Commercial Success</strong></p>
-            <p>First AI systems to achieve commercial success and widespread industry adoption</p>
-            <br>
-            <p><strong>Knowledge Engineering</strong></p>
-            <p>Established knowledge engineering as a discipline for extracting and representing expertise</p>
-            <br>
-            <p><strong>Practical Applications</strong></p>
-            <p>Demonstrated AI's practical utility in specific domains like medicine, finance, and manufacturing</p>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-            <p><strong>AI Winter Contribution</strong></p>
-            <p>Overpromising capabilities led to disappointment and contributed to the AI winter of the late 1980s</p>
-            <br>
-            <p><strong>Modern Influence</strong></p>
-            <p>Evolved into business rule management systems and forms the foundation of many decision support systems today</p>
-            <br>
-            <p><strong>Human-AI Collaboration</strong></p>
-            <p>Pioneered the concept of AI systems complementing (rather than replacing) human expertise</p>
             </div>
         </div>
     </div>
@@ -305,7 +489,7 @@ $UI$: User Interface
 
 <!-- end SLIDES: -->
 
-<!-- RENDER: -->
+<!-- 
 
 # Expert Systems (1970-1990)
 
@@ -382,4 +566,4 @@ Expert systems represented the first wave of commercially successful AI applicat
 
 Despite these limitations, expert systems established knowledge engineering as a discipline and laid the groundwork for future rule-based and knowledge-based applications. Many modern business rule management systems and decision support tools trace their lineage to expert systems.
 
-<!-- end RENDER: -->
+-->

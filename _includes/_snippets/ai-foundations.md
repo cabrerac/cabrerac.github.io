@@ -976,4 +976,53 @@ img[src=""], img[src="#"] {
     <div class="footnote">The Bombe, Bletchley Park (Alan Turing, 1939)</div>
   </div>
 </div>
+
+## AI Foundations
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/The_Mansion%2C_Bletchley_Park_-_geograph.org.uk_-_5111842.jpg" alt="Bletchley Park" style="height: auto; max-width: 95%;">
+            <div class="footnote">Bletchley Park: https://en.wikipedia.org/wiki/Bletchley_Park</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+            <p>Almost ten thousand personnel worked at Bletchley park by 1945.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## AI Foundations
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Women_in_Bletchley_Park.jpg" alt="Bletchley Park Codebreakers" style="height: auto; max-width: 95%;">
+            <div class="footnote">Bletchley Park - Codebreakers: https://en.wikipedia.org/wiki/Bletchley_Park</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+            <p>Almost ten thousand personnel worked at Bletchley park by 1945.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## AI Foundations
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Colossus.jpg" alt="The Colossus" style="height: auto; max-width: 95%;">
+            <div class="footnote">Bletchley Park - The Colossus: https://en.wikipedia.org/wiki/Bletchley_Park</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+            <p>Almost ten thousand personnel worked at Bletchley park by 1945.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- end SLIDES: -->

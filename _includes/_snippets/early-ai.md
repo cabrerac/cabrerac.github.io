@@ -300,9 +300,9 @@ $G$: set of goal states
     </div>
 </div>
 
-## Early AI Approaches (1943-1969) - Technology Limitations
+## Early AI Approaches (1943-1969) - AI Limitations
 
-## Early AI Approaches (1943-1969) - Technology Limitations
+## Early AI Approaches (1943-1969) - AI Limitations
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -320,7 +320,7 @@ $G$: set of goal states
     </div>
 </div>
 
-## Early AI Approaches (1943-1969) - Technology Limitations
+## Early AI Approaches (1943-1969) - AI Limitations
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -339,7 +339,7 @@ $G$: set of goal states
     </div>
 </div>
 
-## Early AI Approaches (1943-1969) - Technology Limitations
+## Early AI Approaches (1943-1969) - AI Limitations
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -358,7 +358,7 @@ $G$: set of goal states
     </div>
 </div>
 
-## Early AI Approaches (1943-1969) - Technology Limitations
+## Early AI Approaches (1943-1969) - AI Limitations
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
