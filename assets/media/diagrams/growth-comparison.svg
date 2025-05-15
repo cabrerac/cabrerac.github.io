@@ -93,21 +93,29 @@
     
     <!-- Value demonstrations -->
     <!-- Linear values -->
-    <rect x="120" y="250" width="170" height="100" rx="5" ry="5" fill="white" stroke="#CCCCCC"/>
-    <text x="205" y="265" text-anchor="middle" fill="#333333" font-size="14" font-weight="bold">When n = 10</text>
-    <text x="135" y="285" text-anchor="start" fill="#4CAF50" font-size="14">O(n) = 10</text>
-    <text x="135" y="305" text-anchor="start" fill="#0E73B8" font-size="14">O(2^n) = 1,024</text>
-    <text x="135" y="325" text-anchor="start" fill="#F44336" font-size="14">O(n!) = 3,628,800</text>
+    <rect x="520" y="250" width="170" height="85" rx="5" ry="5" fill="#f6f8fa" stroke="#CCCCCC"/>
+    <text x="605" y="265" text-anchor="middle" fill="#333333" font-size="14" font-weight="bold">When n = 10</text>
+    <text x="535" y="285" text-anchor="start" fill="#4CAF50" font-size="14">O(n) = 10</text>
+    <text x="535" y="305" text-anchor="start" fill="#0E73B8" font-size="14">O(2^n) = 1,024</text>
+    <text x="535" y="325" text-anchor="start" fill="#F44336" font-size="14">O(n!) = 3,628,800</text>
+    
+    <!-- Scenarios box -->
+    <rect x="120" y="200" width="190" height="85" rx="5" ry="5" fill="#f6f8fa" stroke="#CCCCCC"/>
+    <text x="215" y="215" text-anchor="middle" fill="#224466" font-size="16" font-weight="bold">Real-World Examples</text>
+    
+    <text x="135" y="235" text-anchor="start" fill="#4CAF50" font-size="14">Finding an item in a list</text>
+    <text x="135" y="255" text-anchor="start" fill="#0E73B8" font-size="14">Chess (looking ahead)</text>
+    <text x="135" y="275" text-anchor="start" fill="#F44336" font-size="14">Traveling Salesman</text>
     
     <!-- Annotations -->
-    <text x="650" y="390" text-anchor="start" fill="#4CAF50" font-size="14" transform="rotate(-5,150,390)">Linear (manageable)</text>
-    <text x="500" y="350" text-anchor="start" fill="#0E73B8" font-size="14" transform="rotate(-45,400,250)">Exponential (challenging)</text>
+    <text x="650" y="400" text-anchor="start" fill="#4CAF50" font-size="14" transform="rotate(-5,150,390)">Linear (manageable)</text>
+    <text x="500" y="335" text-anchor="start" fill="#0E73B8" font-size="14" transform="rotate(-45,400,250)">Exponential (challenging)</text>
     <text x="300" y="255" text-anchor="start" fill="#F44336" font-size="14" transform="rotate(-65,380,200)">Factorial (intractable!)</text>
     
     <!-- Mathematical formulas -->
-    <rect x="120" y="155" width="170" height="85" rx="5" ry="5" fill="white" stroke="#CCCCCC"/>
-    <text x="205" y="170" text-anchor="middle" fill="#333333" font-size="14" font-weight="bold">Growth Formulas</text>
-    <text x="135" y="190" text-anchor="start" fill="#4CAF50" font-size="14">Linear: f(n) = n</text>
-    <text x="135" y="210" text-anchor="start" fill="#0E73B8" font-size="14">Exponential: f(n) = 2^n</text>
-    <text x="135" y="230" text-anchor="start" fill="#F44336" font-size="14">Factorial: f(n) = n!</text>
+    <rect x="120" y="100" width="170" height="85" rx="5" ry="5" fill="#f6f8fa" stroke="#CCCCCC"/>
+    <text x="205" y="115" text-anchor="middle" fill="#333333" font-size="14" font-weight="bold">Growth Formulas</text>
+    <text x="135" y="135" text-anchor="start" fill="#4CAF50" font-size="14">Linear: f(n) = n</text>
+    <text x="135" y="155" text-anchor="start" fill="#0E73B8" font-size="14">Exponential: f(n) = 2^n</text>
+    <text x="135" y="175" text-anchor="start" fill="#F44336" font-size="14">Factorial: f(n) = n!</text>
 </svg> 
