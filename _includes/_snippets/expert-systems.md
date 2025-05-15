@@ -48,7 +48,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 33%">
                 <p>
-                    An agent must <b>emulate the reasoning and decision-making process</b> of humans to solve complex problems that require <b>human experts.</b>
+                    Agents are limited because of the problems complexity. They should leverage <b>human knowledge</b> and emulate <b>human reasoning</b>.
                 </p>
                 <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/2/2d/LiewDIKrepresentation.png" alt="Data, Information, and Knowledge" style="width: 90%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
                 <div class="footnote">Data, Information, and Knowledge (Per Liew, 2007)</div>
@@ -81,7 +81,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 33%">
                 <p>
-                    An agent must <b>emulate the reasoning and decision-making process</b> of humans to solve complex problems that require <b>human experts.</b>
+                    Agents are limited because of the problems complexity. They should leverage <b>human knowledge</b> and emulate <b>human reasoning</b>.
                 </p>
                 <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/2/2d/LiewDIKrepresentation.png" alt="Data, Information, and Knowledge" style="width: 90%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
                 <div class="footnote">Data, Information, and Knowledge (Per Liew, 2007)</div>
@@ -123,7 +123,7 @@ $UI$: User Interface
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 33%">
                 <p>
-                    An agent must <b>emulate the reasoning and decision-making process</b> of humans to solve complex problems that require <b>human experts.</b>
+                    Agents are limited because of the problems complexity. They should leverage <b>human knowledge</b> and emulate <b>human reasoning</b>.
                 </p>
                 <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/2/2d/LiewDIKrepresentation.png" alt="Data, Information, and Knowledge" style="width: 90%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
                 <div class="footnote">Data, Information, and Knowledge (Per Liew, 2007)</div>

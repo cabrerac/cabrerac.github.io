@@ -1151,7 +1151,7 @@
 </div>
 
 <!-- PDF -->
-## AI History - The Return of Neural Networks (1987 - present)
+## AI History - Learning from Examples (1987 - present)
 <div class="rows" style="width: 100%; height: 100%">
   <div class = "row"  style="width: 100%; height:100%; display: flex; align-items: center;">
     <style>
@@ -1475,7 +1475,7 @@
 
 <!-- end SLIDES: -->
 
-<!-- {% include _snippets/early-neural-networks.md %} -->
+{% include _snippets/early-neural-networks.md %}
 
 <!-- SLIDES: -->
 <!-- PDF -->
