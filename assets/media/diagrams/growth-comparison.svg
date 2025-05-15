@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="500" xmlns="http://www.w3.org/2000/svg">
+    <!-- Title -->
+    <text x="400" y="40" text-anchor="middle" fill="#224466" font-size="24" font-weight="bold">
+        Computational Growth Comparison
+    </text>
+    
+    <!-- Subtitle -->
+    <text x="400" y="70" text-anchor="middle" fill="#224466" font-size="18">
+        Linear vs. Exponential vs. Combinatorial Explosion
+    </text>
+    
+    <!-- Axes -->
+    <!-- Y-axis (vertical) -->
+    <line x1="100" y1="420" x2="100" y2="100" stroke="#333333" stroke-width="2"/>
+    <polygon points="100,90 95,100 105,100" fill="#333333"/> <!-- arrow -->
+    
+    <!-- X-axis (horizontal) -->
+    <line x1="100" y1="420" x2="700" y2="420" stroke="#333333" stroke-width="2"/>
+    <polygon points="710,420 700,415 700,425" fill="#333333"/> <!-- arrow -->
+    
+    <!-- Axis labels -->
+    <text x="400" y="460" text-anchor="middle" fill="#333333" font-size="18">Problem Size (n)</text>
+    <text x="50" y="250" text-anchor="middle" fill="#333333" font-size="18" transform="rotate(-90,50,250)">Computational Effort</text>
+    
+    <!-- Grid lines (vertical) -->
+    <line x1="200" y1="420" x2="200" y2="415" stroke="#CCCCCC" stroke-width="1"/>
+    <line x1="300" y1="420" x2="300" y2="415" stroke="#CCCCCC" stroke-width="1"/>
+    <line x1="400" y1="420" x2="400" y2="415" stroke="#CCCCCC" stroke-width="1"/>
+    <line x1="500" y1="420" x2="500" y2="415" stroke="#CCCCCC" stroke-width="1"/>
+    <line x1="600" y1="420" x2="600" y2="415" stroke="#CCCCCC" stroke-width="1"/>
+    
+    <!-- Grid lines (horizontal) -->
+    <line x1="100" y1="350" x2="105" y2="350" stroke="#CCCCCC" stroke-width="1"/>
+    <line x1="100" y1="280" x2="105" y2="280" stroke="#CCCCCC" stroke-width="1"/>
+    <line x1="100" y1="210" x2="105" y2="210" stroke="#CCCCCC" stroke-width="1"/>
+    <line x1="100" y1="140" x2="105" y2="140" stroke="#CCCCCC" stroke-width="1"/>
+    
+    <!-- X-axis values -->
+    <text x="100" y="440" text-anchor="middle" fill="#333333" font-size="14">0</text>
+    <text x="200" y="440" text-anchor="middle" fill="#333333" font-size="14">1</text>
+    <text x="300" y="440" text-anchor="middle" fill="#333333" font-size="14">2</text>
+    <text x="400" y="440" text-anchor="middle" fill="#333333" font-size="14">3</text>
+    <text x="500" y="440" text-anchor="middle" fill="#333333" font-size="14">4</text>
+    <text x="600" y="440" text-anchor="middle" fill="#333333" font-size="14">5</text>
+    
+    <!-- Y-axis values -->
+    <text x="80" y="425" text-anchor="end" fill="#333333" font-size="14">0</text>
+    <text x="80" y="350" text-anchor="end" fill="#333333" font-size="14">20</text>
+    <text x="80" y="280" text-anchor="end" fill="#333333" font-size="14">40</text>
+    <text x="80" y="210" text-anchor="end" fill="#333333" font-size="14">60</text>
+    <text x="80" y="140" text-anchor="end" fill="#333333" font-size="14">80</text>
+    
+    <!-- Linear growth O(n) -->
+    <polyline points="100,420 200,410 300,400 400,390 500,380 600,370 700,360" 
+        stroke="#4CAF50" stroke-width="3" fill="none"/>
+        
+    <!-- Points for linear growth -->
+    <circle cx="100" cy="420" r="4" fill="#4CAF50"/>
+    <circle cx="200" cy="410" r="4" fill="#4CAF50"/>
+    <circle cx="300" cy="400" r="4" fill="#4CAF50"/>
+    <circle cx="400" cy="390" r="4" fill="#4CAF50"/>
+    <circle cx="500" cy="380" r="4" fill="#4CAF50"/>
+    <circle cx="600" cy="370" r="4" fill="#4CAF50"/>
+    <circle cx="700" cy="360" r="4" fill="#4CAF50"/>
+    
+    <!-- Exponential growth O(2^n) -->
+    <polyline points="100,420 200,400 300,380 400,340 500,260 600,100" 
+        stroke="#0E73B8" stroke-width="3" fill="none"/>
+        
+    <!-- Points for exponential growth -->
+    <circle cx="100" cy="420" r="4" fill="#0E73B8"/>
+    <circle cx="200" cy="400" r="4" fill="#0E73B8"/>
+    <circle cx="300" cy="380" r="4" fill="#0E73B8"/>
+    <circle cx="400" cy="340" r="4" fill="#0E73B8"/>
+    <circle cx="500" cy="260" r="4" fill="#0E73B8"/>
+    <circle cx="600" cy="100" r="4" fill="#0E73B8"/>
+    
+    <!-- Combinatorial explosion O(n!) -->
+    <polyline points="100,410 200,410 300,400 400,360 500,180" 
+        stroke="#F44336" stroke-width="3" fill="none"/>
+        
+    <!-- Points for combinatorial explosion -->
+    <circle cx="100" cy="410" r="4" fill="#F44336"/>
+    <circle cx="200" cy="410" r="4" fill="#F44336"/>
+    <circle cx="300" cy="400" r="4" fill="#F44336"/>
+    <circle cx="400" cy="360" r="4" fill="#F44336"/>
+    <circle cx="500" cy="180" r="4" fill="#F44336"/>
+    
+    <!-- Off-chart indicator for combinatorial explosion -->
+    <line x1="500" y1="180" x2="509" y2="100" stroke="#F44336" stroke-width="3" stroke-dasharray="5,5"/>
+    <text x="500" y="100" text-anchor="middle" fill="#F44336" font-size="16">Off the chart!</text>
+    
+    <!-- Value demonstrations -->
+    <!-- Linear values -->
+    <rect x="120" y="250" width="170" height="100" rx="5" ry="5" fill="white" stroke="#CCCCCC"/>
+    <text x="205" y="265" text-anchor="middle" fill="#333333" font-size="14" font-weight="bold">When n = 10</text>
+    <text x="135" y="285" text-anchor="start" fill="#4CAF50" font-size="14">O(n) = 10</text>
+    <text x="135" y="305" text-anchor="start" fill="#0E73B8" font-size="14">O(2^n) = 1,024</text>
+    <text x="135" y="325" text-anchor="start" fill="#F44336" font-size="14">O(n!) = 3,628,800</text>
+    
+    <!-- Annotations -->
+    <text x="650" y="390" text-anchor="start" fill="#4CAF50" font-size="14" transform="rotate(-5,150,390)">Linear (manageable)</text>
+    <text x="500" y="350" text-anchor="start" fill="#0E73B8" font-size="14" transform="rotate(-45,400,250)">Exponential (challenging)</text>
+    <text x="300" y="255" text-anchor="start" fill="#F44336" font-size="14" transform="rotate(-65,380,200)">Factorial (intractable!)</text>
+    
+    <!-- Mathematical formulas -->
+    <rect x="120" y="155" width="170" height="85" rx="5" ry="5" fill="white" stroke="#CCCCCC"/>
+    <text x="205" y="170" text-anchor="middle" fill="#333333" font-size="14" font-weight="bold">Growth Formulas</text>
+    <text x="135" y="190" text-anchor="start" fill="#4CAF50" font-size="14">Linear: f(n) = n</text>
+    <text x="135" y="210" text-anchor="start" fill="#0E73B8" font-size="14">Exponential: f(n) = 2^n</text>
+    <text x="135" y="230" text-anchor="start" fill="#F44336" font-size="14">Factorial: f(n) = n!</text>
+</svg> 

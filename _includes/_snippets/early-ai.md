@@ -358,6 +358,25 @@ $G$: set of goal states
     </div>
 </div>
 
+## Early AI Approaches (1943-1969) - Technology Limitations
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+            <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/growth-comparison.svg" alt="Maze navigation search problem" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+            <p>Computing power, algorithms, and data were insufficient to solve real-world problems.</p>
+            <br>
+            <p>Combinatorial explosion</p>
+            <br>
+            <p>Easy tasks for humans are difficult for AI (Moravec's Paradox)</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- end SLIDES: -->
 
 <!--
