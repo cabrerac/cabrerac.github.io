@@ -860,7 +860,7 @@
 
 <!-- end SLIDES: -->
 
-<!-- {% include _snippets/expert-systems.md %} -->
+{% include _snippets/expert-systems.md %}
 
 <!-- SLIDES: -->
 <!-- PDF -->
