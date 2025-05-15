@@ -424,8 +424,8 @@ Process:
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-            <img src="{{ site.url }}/assets/media/images/ai-stocks-1987.png" alt="AI just could be a smart buy (1987)" style="height: 520px">
-            <div class="footnote">AI just could be a smart buy (1987)/</div>
+            <img src="{{ site.url }}/assets/media/images/ai-stocks-1987.png" alt="AI just could be a smart buy (1987)" style="height: 400px">
+            <div class="footnote">AI just could be a smart buy (1987)</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
             <p><em>"In medicine, management, and the military — indeed in most of the world's work — the daily tasks are those requiring symbolic reasoning with detailed professional knowledge." (Feigenbaum, 1982)</em></p>
@@ -447,7 +447,7 @@ Process:
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-            <img src="{{ site.url }}/assets/media/images/kasparov-lost-angeles-1997.jpg" alt="Deep Blue defeats Kasparaov (1997)" style="height: 520px">
+            <img src="{{ site.url }}/assets/media/images/kasparov-lost-angeles-times-1997.jpg" alt="Deep Blue defeats Kasparaov (1997)" style="height: 460px">
             <div class="footnote">Deep Blue defeats Kasparaov (Los Angeles Times, 1997)/</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -472,8 +472,9 @@ Process:
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-            <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/combinatorial-explosion.svg" alt="Combinatorial explosion diagram" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Tree_of_Knowledge_System.png" alt="Knowledge Complexity" style="width: 90%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
             </div>
+            <div class="footnote">The Tree of Knowledge System: Gregg Henriques, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             <div class="column vertical-middle text-left" style="width: 50%">
             <p>Extracting knowledge from human experts and encoding it into rules was difficult, time-consuming, and expensive</p>
             <br>
