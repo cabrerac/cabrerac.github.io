@@ -1,83 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="390" height="480" xmlns="http://www.w3.org/2000/svg">
     <!-- Title -->
-    <text x="200" y="40" text-anchor="middle" fill="#224466" font-size="24" font-weight="bold">
+    <text x="200" y="40" text-anchor="middle" fill="#224466" font-size="30" font-weight="bold">
         Weighted Adjacency Matrix
     </text>
     
     <!-- Matrix rows -->
     <!-- Row 1 -->
     <rect x="30" y="100" width="360" height="50" fill="#F8F8F8" stroke="#CCCCCC" stroke-width="1"/>
-    <text x="65" y="135" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="125" y="135" text-anchor="middle" fill="#333333" font-size="24">4</text>
-    <text x="185" y="135" text-anchor="middle" fill="#333333" font-size="24">2</text>
-    <text x="245" y="135" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="305" y="135" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="365" y="135" text-anchor="middle" fill="#333333" font-size="24">0</text>
+    <text x="65" y="135" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="125" y="135" text-anchor="middle" fill="#333333" font-size="30">4</text>
+    <text x="185" y="135" text-anchor="middle" fill="#333333" font-size="30">2</text>
+    <text x="245" y="135" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="305" y="135" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="365" y="135" text-anchor="middle" fill="#333333" font-size="30">0</text>
     
     <!-- Row 2 -->
     <rect x="30" y="150" width="360" height="50" fill="white" stroke="#CCCCCC" stroke-width="1"/>
-    <text x="65" y="185" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="125" y="185" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="185" y="185" text-anchor="middle" fill="#333333" font-size="24">5</text>
-    <text x="245" y="185" text-anchor="middle" fill="#333333" font-size="24">10</text>
-    <text x="305" y="185" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="365" y="185" text-anchor="middle" fill="#333333" font-size="24">0</text>
+    <text x="65" y="185" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="125" y="185" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="185" y="185" text-anchor="middle" fill="#333333" font-size="30">5</text>
+    <text x="245" y="185" text-anchor="middle" fill="#333333" font-size="30">10</text>
+    <text x="305" y="185" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="365" y="185" text-anchor="middle" fill="#333333" font-size="30">0</text>
     
     <!-- Row 3 -->
     <rect x="30" y="200" width="360" height="50" fill="#F8F8F8" stroke="#CCCCCC" stroke-width="1"/>
-    <text x="65" y="235" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="125" y="235" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="185" y="235" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="245" y="235" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="305" y="235" text-anchor="middle" fill="#333333" font-size="24">3</text>
-    <text x="365" y="235" text-anchor="middle" fill="#333333" font-size="24">0</text>
+    <text x="65" y="235" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="125" y="235" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="185" y="235" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="245" y="235" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="305" y="235" text-anchor="middle" fill="#333333" font-size="30">3</text>
+    <text x="365" y="235" text-anchor="middle" fill="#333333" font-size="30">0</text>
     
     <!-- Row 4 -->
     <rect x="30" y="250" width="360" height="50" fill="white" stroke="#CCCCCC" stroke-width="1"/>
-    <text x="65" y="285" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="125" y="285" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="185" y="285" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="245" y="285" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="305" y="285" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="365" y="285" text-anchor="middle" fill="#333333" font-size="24">11</text>
+    <text x="65" y="285" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="125" y="285" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="185" y="285" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="245" y="285" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="305" y="285" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="365" y="285" text-anchor="middle" fill="#333333" font-size="30">11</text>
     
     <!-- Row 5 -->
     <rect x="30" y="300" width="360" height="50" fill="#F8F8F8" stroke="#CCCCCC" stroke-width="1"/>
-    <text x="65" y="335" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="125" y="335" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="185" y="335" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="245" y="335" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="305" y="335" text-anchor="middle" fill="#333333" font-size="24">4</text>
-    <text x="365" y="335" text-anchor="middle" fill="#333333" font-size="24">0</text>
+    <text x="65" y="335" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="125" y="335" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="185" y="335" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="245" y="335" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="305" y="335" text-anchor="middle" fill="#333333" font-size="30">4</text>
+    <text x="365" y="335" text-anchor="middle" fill="#333333" font-size="30">0</text>
     
     <!-- Row 6 -->
     <rect x="30" y="350" width="360" height="50" fill="white" stroke="#CCCCCC" stroke-width="1"/>
-    <text x="65" y="385" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="125" y="385" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="185" y="385" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="245" y="385" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="305" y="385" text-anchor="middle" fill="#333333" font-size="24">0</text>
-    <text x="365" y="385" text-anchor="middle" fill="#333333" font-size="24">0</text>
+    <text x="65" y="385" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="125" y="385" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="185" y="385" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="245" y="385" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="305" y="385" text-anchor="middle" fill="#333333" font-size="30">0</text>
+    <text x="365" y="385" text-anchor="middle" fill="#333333" font-size="30">0</text>
     
     <!-- Node labels -->
-    <text x="20" y="135" text-anchor="end" fill="#0E73B8" font-size="20" font-weight="bold">A</text>
-    <text x="20" y="185" text-anchor="end" fill="#0E73B8" font-size="20" font-weight="bold">B</text>
-    <text x="20" y="235" text-anchor="end" fill="#0E73B8" font-size="20" font-weight="bold">C</text>
-    <text x="20" y="285" text-anchor="end" fill="#0E73B8" font-size="20" font-weight="bold">D</text>
-    <text x="20" y="335" text-anchor="end" fill="#0E73B8" font-size="20" font-weight="bold">E</text>
-    <text x="20" y="385" text-anchor="end" fill="#0E73B8" font-size="20" font-weight="bold">F</text>
+    <text x="20" y="135" text-anchor="end" fill="#0E73B8" font-size="26" font-weight="bold">A</text>
+    <text x="20" y="185" text-anchor="end" fill="#0E73B8" font-size="26" font-weight="bold">B</text>
+    <text x="20" y="235" text-anchor="end" fill="#0E73B8" font-size="26" font-weight="bold">C</text>
+    <text x="20" y="285" text-anchor="end" fill="#0E73B8" font-size="26" font-weight="bold">D</text>
+    <text x="20" y="335" text-anchor="end" fill="#0E73B8" font-size="26" font-weight="bold">E</text>
+    <text x="20" y="385" text-anchor="end" fill="#0E73B8" font-size="26" font-weight="bold">F</text>
     
-    <text x="65" y="80" text-anchor="middle" fill="#0E73B8" font-size="20" font-weight="bold">A</text>
-    <text x="125" y="80" text-anchor="middle" fill="#0E73B8" font-size="20" font-weight="bold">B</text>
-    <text x="185" y="80" text-anchor="middle" fill="#0E73B8" font-size="20" font-weight="bold">C</text>
-    <text x="245" y="80" text-anchor="middle" fill="#0E73B8" font-size="20" font-weight="bold">D</text>
-    <text x="305" y="80" text-anchor="middle" fill="#0E73B8" font-size="20" font-weight="bold">E</text>
-    <text x="365" y="80" text-anchor="middle" fill="#0E73B8" font-size="20" font-weight="bold">F</text>
+    <text x="65" y="80" text-anchor="middle" fill="#0E73B8" font-size="26" font-weight="bold">A</text>
+    <text x="125" y="80" text-anchor="middle" fill="#0E73B8" font-size="26" font-weight="bold">B</text>
+    <text x="185" y="80" text-anchor="middle" fill="#0E73B8" font-size="26" font-weight="bold">C</text>
+    <text x="245" y="80" text-anchor="middle" fill="#0E73B8" font-size="26" font-weight="bold">D</text>
+    <text x="305" y="80" text-anchor="middle" fill="#0E73B8" font-size="26" font-weight="bold">E</text>
+    <text x="365" y="80" text-anchor="middle" fill="#0E73B8" font-size="26" font-weight="bold">F</text>
     
     <!-- Explanation -->
     <rect x="30" y="410" width="360" height="50" rx="5" ry="5" fill="#F5F5F5" stroke="#CCCCCC" stroke-width="1"/>
-    <text x="210" y="440" text-anchor="middle" fill="#224466" font-size="16">
+    <text x="210" y="440" text-anchor="middle" fill="#224466" font-size="24">
         A_(i,j) = weight of edge from node i to node j
     </text>
 </svg>
