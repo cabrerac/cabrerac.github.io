@@ -36,3 +36,13 @@ visible: true
     }
     main();
 </script>
+
+### Resources
+- [Turing A. M. (1950). Computing Machinery and Intelligence](https://courses.cs.umbc.edu/471/papers/turing.pdf)
+- [Lighthill J. (1972). Artificial Intelligence: A General Survey](https://www.chilton-computing.org.uk/inf/literature/reports/lighthill_report/p001.htm)
+- [Feigenbaum E. A. (1980). Expert Systems in the 1980s](https://stacks.stanford.edu/file/druid:vf069sz9374/vf069sz9374.pdf)
+- [Vol. 117, No. 1, Winter, 1988, Artificial Intelligence](https://www.jstor.org/stable/i20025133)
+- Russell, S. and Norvig, P. (2010). Artificial Intelligence: A Modern Approach. Prentice Hall (3rd ed.)
+- [Hart P. An Artificial Intelligence Odyssey: From the Research Lab to the Real World](https://ieeexplore.ieee.org/abstract/document/9423541)
+- [Shumailov I. et. al. (2024). AI models collapse when trained on recursively generated data](https://www.nature.com/articles/s41586-024-07566-y)
+- [Demmis Hassabis talk at Cambridge (2025)](https://www.youtube.com/watch?v=hHooQmmzG4k)
