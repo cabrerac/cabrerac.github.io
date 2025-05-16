@@ -84,6 +84,7 @@
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/images/musk.png" alt="Musk" style="height: 460px">
+                <div class="footnote">See full list of predictions: https://en.wikipedia.org/wiki/List_of_predictions_for_autonomous_Tesla_vehicles_by_Elon_Musk</div>
             </div>
         </div>
     </div>
@@ -151,12 +152,118 @@
                 <p><em>"We should stop training radiologists now. It’s just completely obvious that within five years, deep learning is going to do better than radiologists."</em> <b>(Hinton, 2016)</b></p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/radiology_crisis.png" alt="Radiology Crisis" style="height: 460px">
+                <img src="{{ site.url }}/assets/media/images/radiology-crisis.png" alt="Radiology Crisis" style="height: 460px">
                 <div class="footnote">Radiology Crisis - Independent: https://www.independent.co.uk/news/health/cancer-delays-nhs-staff-shortages-b2561385.html</div>
             </div>
         </div>
     </div>
 </div>
 
+## ML Perception
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><em>"We should stop training radiologists now. It’s just completely obvious that within five years, deep learning is going to do better than radiologists."</em> <b>(Hinton, 2016)</b></p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/radiology-crisis.png" alt="Radiology Crisis" style="height: 460px">
+                <div class="footnote">Radiology Crisis - Independent: https://www.independent.co.uk/news/health/cancer-delays-nhs-staff-shortages-b2561385.html</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## ML Perception
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">    
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Demis_Hassabis%2C_2024_Nobel_Prize_Laureate_in_Chemistry_%28cropped%29.jpg" alt="Musk" style="height: 460px">
+                <div class="footnote">NOBEL Prizes Ceremony 2024: Arthur Petron, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/3/38/Prote%C3%AFna_pappalisina-1_humana.gif" alt="Protein" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+                <div class="footnote">Protein Folding: BQUB23-Anialet, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## ML Perception
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">    
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Demis_Hassabis%2C_2024_Nobel_Prize_Laureate_in_Chemistry_%28cropped%29.jpg" alt="Musk" style="height: 460px">
+                <div class="footnote">NOBEL Prizes Ceremony 2024: Arthur Petron, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><em>"... step 1: solving intelligence, step 2: use it to solve everything else..."</em> <b>(Hassabis, 2025)</b></p>
+                <br>
+                <p><em>"Artificial General Intelligence (AGI) will emerge in the next fiver or 10 years."</em> <b>(Hassabis, 2025)</b></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## ML Perception
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><em>"In from three to eight years we will have a machine with the general intelligence of an average human being." <b>(Minsky, 1970)</b></em></p>
+                <br>
+                <p><em>"In medicine, management, and the military — indeed in most of the world's work — the daily tasks are those requiring symbolic reasoning with detailed professional knowledge." <b>(Feigenbaum, 1982)</b></em></p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><em>"... step 1: solving intelligence, step 2: use it to solve everything else..."</em> <b>(Hassabis, 2025)</b></p>
+                <br>
+                <p><em>"Artificial General Intelligence (AGI) will emerge in the next fiver or 10 years."</em> <b>(Hassabis, 2025)</b></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## ML Perception
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">    
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Demis_Hassabis%2C_2024_Nobel_Prize_Laureate_in_Chemistry_%28cropped%29.jpg" alt="Musk" style="height: 460px">
+                <div class="footnote">NOBEL Prizes Ceremony 2024: Arthur Petron, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+## ML Perception
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">    
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Demis_Hassabis%2C_2024_Nobel_Prize_Laureate_in_Chemistry_%28cropped%29.jpg" alt="Musk" style="height: 460px">
+                <div class="footnote">NOBEL Prizes Ceremony 2024: Arthur Petron, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Machine Learning Problem Requirements</b></p>
+                <p>1. Massive combinatorial search space</p>
+                <br>
+                <p>2. Clear objective function (metric) to optimise against</p>
+                <br>
+                <p>3. Lots of data and/or accurate and efficient simulators</p>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- end SLIDES: -->
 
