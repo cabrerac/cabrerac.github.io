@@ -84,4 +84,29 @@
     </div>
 </div>
 
+## AI Today - Risks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/people.jpg" alt="Risks" style="height: 460px">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <h3>Risks</h3>
+                <ul>
+                    <li>Bias and discrimination, privacy violations</li>
+                    <li>Job displacement, digital divide</li>
+                    <li>Data quality issues, system vulnerabilities</li>
+                    <li>Adversarial attacks, data breaches</li>
+                    <li>Implementation costs, market disruption</li>
+                    <li>Energy consumption, carbon footprint</li>
+                    <li>Regulatory compliance, liability issues</li>
+                    <li>...</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- end SLIDES: -->
