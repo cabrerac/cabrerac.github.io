@@ -482,7 +482,6 @@ class ContentGenerator:
 <link rel=\"stylesheet\" href=\"/assets/css/slides.css\">
 <div class=\"lecture-resources\">  
   <p>
-    <a href=\"/assets/slides/{course_metadata.get('course_code', '')}/{lecture_file.stem}.pdf\" target=\"_blank\">[PDF Slides]</a>
     <a href=\"/assets/slides/{course_metadata.get('course_code', '')}/{lecture_file.stem}.html\" target=\"_blank\">[HTML Slides]</a>    
     <a href=\"https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/{course_metadata.get('course_code', '')}/{lecture_file.stem}.ipynb\" target=\"_blank\">[Colab Notebook]</a>
   </p>
