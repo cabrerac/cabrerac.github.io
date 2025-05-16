@@ -1908,25 +1908,26 @@
       <text x="970" y="55%" text-anchor="middle">2010</text>
       <line x1="983.5" y1="49%" x2="983.5" y2="51%" stroke="var(--secondary-color)" stroke-width="1"/>
       <line x1="997" y1="49%" x2="997" y2="51%" stroke="var(--secondary-color)" stroke-width="1"/>
-      <line x1="1010.5" y1="49%" x2="1010.5" y2="51%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <line x1="1010.5" y1="49%" x2="1010.5" y2="51%" stroke="var(--secondary-color)" stroke-width="1">
       <line x1="1024" y1="49%" x2="1024" y2="51%" stroke="var(--secondary-color)" stroke-width="1"/>
-      <line x1="1037.5" y1="49%" x2="1037.5" y2="51%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <line x1="1037.5" y1="49%" x2="1037.5" y2="51%" stroke="var(--secondary-color)" stroke-width="1">
       <line x1="1051" y1="49%" x2="1051" y2="51%" stroke="var(--secondary-color)" stroke-width="1"/>
-      <line x1="1064.5" y1="49%" x2="1064.5" y2="51%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <line x1="1064.5" y1="49%" x2="1064.5" y2="51%" stroke="var(--secondary-color)" stroke-width="1">
       <line x1="1078" y1="49%" x2="1078" y2="51%" stroke="var(--secondary-color)" stroke-width="1"/>
-      <line x1="1091.5" y1="49%" x2="1091.5" y2="51%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <line x1="1091.5" y1="49%" x2="1091.5" y2="51%" stroke="var(--secondary-color)" stroke-width="1">
       <line x1="1105" y1="48%" x2="1105" y2="52%" stroke="var(--secondary-color)" stroke-width="1"/>
       <text x="1105" y="55%" text-anchor="middle">2020</text>
-      <line x1="1118.5" y1="49%" x2="1118.5" y2="51%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <line x1="1118.5" y1="49%" x2="1118.5" y2="51%" stroke="var(--secondary-color)" stroke-width="1">
       <line x1="1132" y1="49%" x2="1132" y2="51%" stroke="var(--secondary-color)" stroke-width="1"/>
-      <line x1="1145.5" y1="49%" x2="1145.5" y2="51%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <line x1="1145.5" y1="49%" x2="1145.5" y2="51%" stroke="var(--secondary-color)" stroke-width="1">
       <line x1="1159" y1="49%" x2="1159" y2="51%" stroke="var(--secondary-color)" stroke-width="1"/>
-      <line x1="1172.5" y1="49%" x2="1172.5" y2="51%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <line x1="1172.5" y1="49%" x2="1172.5" y2="51%" stroke="var(--secondary-color)" stroke-width="1">
       <line x1="1186" y1="49%" x2="1186" y2="51%" stroke="var(--secondary-color)" stroke-width="1"/>
-      <line x1="1199.5" y1="49%" x2="1199.5" y2="51%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <line x1="1199.5" y1="49%" x2="1199.5" y2="51%" stroke="var(--secondary-color)" stroke-width="1">
       <line x1="1213" y1="49%" x2="1213" y2="51%" stroke="var(--secondary-color)" stroke-width="1"/>
-      <line x1="1226.5" y1="49%" x2="1226.5" y2="51%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <line x1="1226.5" y1="49%" x2="1226.5" y2="51%" stroke="var(--secondary-color)" stroke-width="1">
       <line x1="1240" y1="48%" x2="1240" y2="52%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <text x="1235" y="55%" text-anchor="middle">2030</text>
       <!-- First AI Winter (1974-1980) -->
       <rect x="484" y="0%" width="81" height="100%" fill="rgba(128, 128, 128, 0.2)" stroke="var(--secondary-color)" stroke-width="1"/>
       <text x="525.5" y="5%" text-anchor="middle" style="font-size: 12px; fill: var(--secondary-color);">

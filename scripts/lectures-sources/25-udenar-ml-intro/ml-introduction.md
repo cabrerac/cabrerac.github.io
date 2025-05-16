@@ -50,3 +50,23 @@ visible: true
 
 {% include _snippets/ai-history.md %}
 
+<!-- SLIDES: -->
+
+# ML Today
+
+<!-- end SLIDES: -->
+
+{% include _snippets/ml-applications.md %}
+<!--
+
+{% include _snippets/ml-limitations.md %}
+
+{% include _snippets/ml-perceptions.md %}
+
+{% include _snippets/ml-subjective.md %}
+
+{% include _snippets/ml-objective.md %}
+-->
+
+
+
