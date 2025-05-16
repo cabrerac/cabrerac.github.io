@@ -130,5 +130,9 @@ visible: true
 
 <!-- end SLIDES: -->
 
+<!-- RENDER: -->
 
+### Resources
+
+<!-- end RENDER: -->
 
