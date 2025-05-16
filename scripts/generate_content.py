@@ -314,23 +314,46 @@ class ContentGenerator:
         # Normalize target for case-insensitive matching
         target = target.upper()
 
+        # Debug print for input content
+        print(f"\nFiltering content for target: {target}")
+        print("Content length:", len(content_without_frontmatter))
+        print("Content preview:", content_without_frontmatter[:200])
+
         # Regex to match any tag block, capturing the tag(s) and the content
         tag_block_pattern = re.compile(r'<!--\s*([A-Z0-9\+]+):\s*-->(.*?)<!--\s*end [A-Z0-9\+]+:\s*-->', re.DOTALL | re.IGNORECASE)
 
         filtered_content = []
         seen_blocks = set()
+        
+        # Find all matches
+        matches = list(tag_block_pattern.finditer(content_without_frontmatter))
+        print(f"\nFound {len(matches)} tag blocks")
+        
         # Iterate sequentially through the content
-        for match in tag_block_pattern.finditer(content_without_frontmatter):
+        for match in matches:
             tag_combo = match.group(1)
             block_content = match.group(2).strip()
             tags = [t.strip().upper() for t in tag_combo.split('+')]
-            # Debug print for troubleshooting
-            #print(f"Target: {target}, Block tags: {tags}, Include: {'ALL' in tags or target in tags}")
+            
+            # Debug print for each block
+            print(f"\nProcessing block:")
+            print(f"Tags: {tags}")
+            print(f"Content length: {len(block_content)}")
+            print(f"Content preview: {block_content[:100]}")
+            
             if 'ALL' in tags or target in tags:
                 if block_content and block_content not in seen_blocks:
                     filtered_content.append(block_content)
                     seen_blocks.add(block_content)
-        return '\n\n'.join(filtered_content)
+                    print(f"✓ Added block to {target} content")
+            else:
+                print(f"✗ Skipped block (not for {target})")
+
+        result = '\n\n'.join(filtered_content)
+        print(f"\nFinal filtered content length: {len(result)}")
+        print("Final content preview:", result[:200])
+        
+        return result
 
     def check_pdf_slide(self, slide_content):
         """Check if a slide should be included in the PDF output based on marker."""
@@ -1425,24 +1448,34 @@ style: |
 
     def generate_notebook(self, lecture_file, output_dir, course_metadata):
         """Generate Jupyter notebook from lecture content."""
+        print(f"\nGenerating notebook for {lecture_file}")
+        
         lecture_content = self.read_snippet(lecture_file)
+        print(f"Read {len(lecture_content)} bytes from lecture file")
 
         # Extract front matter from source
         front_matter = re.match(r'^---\n(.*?)\n---', lecture_content, re.DOTALL)
         if front_matter:
             lecture_metadata = yaml.safe_load(front_matter.group(1))
+            print("Found lecture metadata:", lecture_metadata)
         else:
             lecture_metadata = {}
+            print("No lecture metadata found")
 
         # Process includes first
         processed_content = self.process_includes(lecture_content)
+        print(f"Processed includes, content length: {len(processed_content)}")
+        
         processed_content = self.process_media(processed_content)
+        print(f"Processed media, content length: {len(processed_content)}")
         
         # Filter content for notebook
         filtered_content = self.filter_content(processed_content, 'NOTEBOOK')
+        print(f"\nFiltered notebook content length: {len(filtered_content)}")
         
         # Preprocess math blocks for correct rendering
         filtered_content = self.preprocess_math_blocks(filtered_content)
+        print(f"Preprocessed math blocks, content length: {len(filtered_content)}")
         
         # Create notebook
         nb = nbf.v4.new_notebook()
@@ -1469,21 +1502,33 @@ style: |
         nb.cells.append(title_cell)
         
         # Process content and create cells
-        sections = filtered_content.split('\n\n')
-        for section in sections:
-            if section.strip():
-                if section.startswith('```python'):
-                    # Code cell
-                    code = section.split('\n', 1)[1].rsplit('\n', 1)[0]
-                    nb.cells.append(nbf.v4.new_code_cell(code))
-                else:
-                    # Markdown cell
-                    nb.cells.append(nbf.v4.new_markdown_cell(section))
+        if filtered_content.strip():  # Only process if there's content
+            print("\nProcessing notebook content into cells")
+            sections = filtered_content.split('\n\n')
+            print(f"Found {len(sections)} sections")
+            
+            for i, section in enumerate(sections, 1):
+                if section.strip():
+                    print(f"\nProcessing section {i}:")
+                    print(f"Section preview: {section[:100]}")
+                    
+                    if section.startswith('```python'):
+                        # Code cell
+                        code = section.split('\n', 1)[1].rsplit('\n', 1)[0]
+                        print(f"Adding code cell, length: {len(code)}")
+                        nb.cells.append(nbf.v4.new_code_cell(code))
+                    else:
+                        # Markdown cell
+                        print(f"Adding markdown cell, length: {len(section)}")
+                        nb.cells.append(nbf.v4.new_markdown_cell(section))
+        else:
+            print("Warning: No content found for notebook cells")
         
         # Save notebook
         output_file = output_dir / f"{lecture_file.stem}.ipynb"
         with open(output_file, 'w', encoding='utf-8') as f:
             nbf.write(nb, f)
+        print(f"\nSaved notebook to {output_file}")
         
         # Create Colab link using the current repository and gh-pages branch
         colab_link = f"https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/{course_metadata.get('course_code', '')}/{lecture_file.stem}.ipynb"
