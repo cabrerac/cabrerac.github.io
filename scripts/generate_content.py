@@ -1427,20 +1427,45 @@ style: |
         """Generate Jupyter notebook from lecture content."""
         lecture_content = self.read_snippet(lecture_file)
 
+        # Extract front matter from source
+        front_matter = re.match(r'^---\n(.*?)\n---', lecture_content, re.DOTALL)
+        if front_matter:
+            lecture_metadata = yaml.safe_load(front_matter.group(1))
+        else:
+            lecture_metadata = {}
+
         # Process includes first
         processed_content = self.process_includes(lecture_content)
         processed_content = self.process_media(processed_content)
-
+        
         # Filter content for notebook
         filtered_content = self.filter_content(processed_content, 'NOTEBOOK')
+        
         # Preprocess math blocks for correct rendering
         filtered_content = self.preprocess_math_blocks(filtered_content)
-
+        
         # Create notebook
         nb = nbf.v4.new_notebook()
         
-        # Add title cell
-        title_cell = nbf.v4.new_markdown_cell(f"# {lecture_file.stem}")
+        # Add title and description cell
+        title_cell = nbf.v4.new_markdown_cell(f"""# Practical Session {lecture_metadata.get('session', '1')}: {lecture_metadata.get('title', lecture_file.stem)}
+
+{lecture_metadata.get('description', '')}
+
+---
+<font size="3">
+{lecture_metadata.get('author', '')}<br>
+{lecture_metadata.get('position', '')}<br>
+{lecture_metadata.get('department', '')}<br>
+{lecture_metadata.get('institution', '')}<br>
+{lecture_metadata.get('email', '')}
+</font>
+
+---
+**Course:** {course_metadata.get('title', '')}<br>
+**Course Department:** {course_metadata.get('department', '')}<br>
+**Course Institution:** {course_metadata.get('institution', '')}
+""")
         nb.cells.append(title_cell)
         
         # Process content and create cells
