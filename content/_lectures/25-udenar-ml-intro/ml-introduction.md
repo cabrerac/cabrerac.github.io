@@ -24,6 +24,7 @@ visible: true
   <p>
     <a href="/assets/slides/25-udenar-ml-intro/ml-introduction.html" target="_blank">[HTML Slides]</a>    
     <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-udenar-ml-intro/ml-introduction.ipynb" target="_blank">[Colab Notebook]</a>
+    <a href="/teaching/25-udenar-ml-intro/">[Back to Course]</a>    
   </p>
 </div>
   
@@ -36,12 +37,6 @@ visible: true
     }
     main();
 </script>
-
-<div class="lecture-resources">
-  <p>
-    <a href="/teaching/25-udenar-ml-intro/" style="color: var(--accent-color);">← Back to Course</a>
-  </p>
-</div>
 
 ### Resources
 

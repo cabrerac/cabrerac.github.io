@@ -37,12 +37,6 @@ visible: true
     main();
 </script>
 
-<div class="lecture-resources">
-  <p>
-    <a href="/teaching/25-udenar-ml-intro/" style="color: var(--accent-color);">← Back to Course</a>
-  </p>
-</div>
-
 <!-- end RENDER: -->
 
 <!-- SLIDES: -->
