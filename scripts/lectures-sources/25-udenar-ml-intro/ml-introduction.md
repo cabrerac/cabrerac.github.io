@@ -60,12 +60,15 @@ visible: true
 
 {% include _snippets/ml-perception.md %}
 
-<!--
+<!-- SLIDES: -->
 
-{% include _snippets/ml-subjective.md %}
+# ML Definition
+
+<!-- end SLIDES: -->
 
 {% include _snippets/ml-objective.md %}
--->
+
+
 
 
 
