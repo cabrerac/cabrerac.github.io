@@ -1253,7 +1253,7 @@ style: |
       }
                     
       html[data-theme='dark'] section .slide-content img {
-        background-color: #2A2A2A !important;
+        background-color: #1e1e1e !important;
       }
                     
       html[data-theme='dark'] section .timeline-container circle {
