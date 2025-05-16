@@ -41,6 +41,7 @@ visible: true
 
 #### Books
 - Russell, S. and Norvig, P. (2010). Artificial Intelligence: A Modern Approach. Prentice Hall (3rd ed.)
+- [Deisenroth M. P. et. al. (2020). Mathematics for Machine Learning](https://mml-book.github.io/)
 
 #### Papers and Reports
 - [Turing A. M. (1950). Computing Machinery and Intelligence](https://courses.cs.umbc.edu/471/papers/turing.pdf)
