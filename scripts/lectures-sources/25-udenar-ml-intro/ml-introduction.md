@@ -135,7 +135,7 @@ visible: true
 ### Resources
 
 #### Books
-- Russell, S. and Norvig, P. (2010). Artificial Intelligence: A Modern Approach. Prentice Hall (3rd ed.)
+- Russell, S. and Norvig, P. (2010). Artificial Intelligence: A Modern Approach 3rd ed. Prentice Hall
 - [Deisenroth M. P. et. al. (2020). Mathematics for Machine Learning](https://mml-book.github.io/)
 
 #### Papers and Reports
