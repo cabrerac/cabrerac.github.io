@@ -1467,6 +1467,7 @@ style: |
 {lecture_metadata.get('institution', '')}<br>
 {lecture_metadata.get('email', '')}
 </font>
+
 ---
 **Course:** {course_metadata.get('title', '')}<br>
 **Course Department:** {course_metadata.get('department', '')}<br>
