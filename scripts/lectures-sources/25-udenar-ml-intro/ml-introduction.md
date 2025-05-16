@@ -3,8 +3,8 @@ course_code: 25-udenar-ml-intro
 title: Artificial Intelligence and Machine Learning
 description: This lecture presents the Artificial Intelligence and Machine Learning concepts. Their definition, history, implications, and applications.
 session: 1
-start_time: TBD
-end_time: TBD
+start_time: 8:00 am
+end_time: 12:00 am
 hours: 4
 author: Christian Cabrera Jojoa
 email: chc79@cam.ac.uk
@@ -13,7 +13,7 @@ department: Department of Computer Science and Technology
 institution: University of Cambridge
 layout: lecture
 lecture_code: ml-introduction
-lecture_date: 10/05/2025
+lecture_date: 17/05/2025
 permalink: /teaching/25-udenar-ml-intro/ml-introduction/
 visible: true
 ---
