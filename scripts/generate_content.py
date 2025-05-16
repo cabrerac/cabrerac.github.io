@@ -727,6 +727,10 @@ style: |
     padding: 0.5em;
   }}
 
+  .slide-content div {{
+    color: var(--text-color);
+  }}
+
   /* Ensure text content fits */
   .slide-content p {{
     margin: 0;
@@ -1016,6 +1020,10 @@ style: |
         background-color: #f6f8fa !important;
   }}
 
+  html[data-theme='dark'] section .slide-content div {{
+    color: #FFFFFF !important;
+  }}
+
   section::before {{
     font-size: 0.6em;
     content: attr(data-marpit-pagination) " / " attr(data-marpit-pagination-total);
@@ -1223,6 +1231,7 @@ style: |
 
       /* Explicit dark mode styles for paragraphs and their children */
       html[data-theme='dark'] section p,
+      html[data-theme='dark'] section .slide-content div,
       html[data-theme='dark'] section ul,
       html[data-theme='dark'] section ol,
       html[data-theme='dark'] section p *,

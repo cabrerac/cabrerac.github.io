@@ -1810,7 +1810,7 @@
 
 <!-- end SLIDES: -->
 
-<!-- {% include _snippets/big-data-impact.md %} -->
+{% include _snippets/big-data-impact.md %}
 
 <!-- SLIDES: -->
 <!-- PDF -->
