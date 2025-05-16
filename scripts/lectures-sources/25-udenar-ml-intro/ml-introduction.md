@@ -36,6 +36,13 @@ visible: true
     }
     main();
 </script>
+
+<div class="lecture-resources">
+  <p>
+    <a href="/teaching/25-udenar-ml-intro/" style="color: var(--accent-color);">← Back to Course</a>
+  </p>
+</div>
+
 <!-- end RENDER: -->
 
 <!-- SLIDES: -->
@@ -163,22 +170,28 @@ This notebook introduces fundamental Python concepts that are essential for mach
 ## 1. Data Structures
 
 ### Lists and Arrays
+
 ```python
 # Lists in Python
 numbers = [1, 2, 3, 4, 5]
 names = ['Alice', 'Bob', 'Charlie']
+```
 
+```python
 # List operations
 print("First element:", numbers[0])
 print("Last element:", numbers[-1])
 print("Slice:", numbers[1:3])
+```
 
+```python
 # List comprehension (very useful in ML)
 squares = [x**2 for x in numbers]
 print("Squares:", squares)
 ```
 
 ### Dictionaries
+
 ```python
 # Dictionaries (key-value pairs)
 student = {
@@ -197,6 +210,7 @@ print("Squares dictionary:", squares_dict)
 ```
 
 ### NumPy Arrays
+
 ```python
 import numpy as np
 
@@ -214,6 +228,7 @@ print("Mean:", arr.mean())
 ## 2. Functions and Control Flow
 
 ### Functions
+
 ```python
 def calculate_statistics(data):
     """
@@ -236,6 +251,7 @@ print(f"Mean: {mean}, Variance: {var}")
 ```
 
 ### Loops and Control Statements
+
 ```python
 # For loops
 for i in range(5):
@@ -265,6 +281,7 @@ print(classify_number(0))
 ## 3. Applying Concepts to ML Algorithms
 
 ### Implementing a Simple Search Algorithm
+
 ```python
 def linear_search(arr, target):
     """
@@ -290,6 +307,7 @@ print(f"Target {target} found at index: {result}")
 ```
 
 ### Implementing a Simple Expert System
+
 ```python
 class SimpleExpertSystem:
     def __init__(self):
