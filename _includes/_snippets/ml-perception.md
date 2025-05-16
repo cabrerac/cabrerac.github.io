@@ -244,7 +244,6 @@
     </div>
 </div>
 
-
 ## ML Perception
 
 <div class="rows" style="height: 100%">
@@ -261,6 +260,69 @@
                 <p>2. Clear objective function (metric) to optimise against</p>
                 <br>
                 <p>3. Lots of data and/or accurate and efficient simulators</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## ML Perception
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">    
+                <img src="{{ site.url }}/assets/media/images/complexity.jpg" alt="Complexity" style="height: 460px">
+                <div class="footnote">Complexity (Designed by freepik.com)</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Machine Learning Problem Requirements</b></p>
+                <p><b>1. Massive combinatorial search space</b></p>
+                <br>
+                <p>2. Clear objective function (metric) to optimise against</p>
+                <br>
+                <p>3. Lots of data and/or accurate and efficient simulators</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## ML Perception
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">    
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Eso_De_La_Democracia_%28111305355%29.jpeg" alt="Social Problems" style="height: 460px">
+                <div class="footnote">Social Problems Metrics?: Jusezam, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Machine Learning Problem Requirements</b></p>
+                <p>1. Massive combinatorial search space</p>
+                <br>
+                <p><b>2. Clear objective function (metric) to optimise against</b></p>
+                <br>
+                <p>3. Lots of data and/or accurate and efficient simulators</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## ML Perception
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">    
+                <img src="{{ site.url }}/assets/media/images/ai-models-collapse.png" alt="AI Models Collapse" style="height: 460px">
+                <div class="footnote">AI Models Collapse: https://www.nature.com/articles/s41586-024-07566-y</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Machine Learning Problem Requirements</b></p>
+                <p>1. Massive combinatorial search space</p>
+                <br>
+                <p>2. Clear objective function (metric) to optimise against</p>
+                <br>
+                <p><b>3. Lots of data and/or accurate and efficient simulators</b></p>
             </div>
         </div>
     </div>
