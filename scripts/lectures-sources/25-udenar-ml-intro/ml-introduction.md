@@ -57,11 +57,10 @@ visible: true
 <!-- end SLIDES: -->
 
 {% include _snippets/ml-applications.md %}
+
+{% include _snippets/ml-perception.md %}
+
 <!--
-
-{% include _snippets/ml-limitations.md %}
-
-{% include _snippets/ml-perceptions.md %}
 
 {% include _snippets/ml-subjective.md %}
 
