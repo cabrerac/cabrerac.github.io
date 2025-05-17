@@ -98,31 +98,26 @@
     
     <!-- Greedy Connections -->
     <line x1="575" y1="155" x2="487" y2="183" stroke="#224466" stroke-width="2"/>
-    <text x="530" y="160" text-anchor="middle" fill="#888" font-size="14" font-weight="bold">75</text>
     
     <line x1="575" y1="155" x2="662" y2="183" stroke="#224466" stroke-width="2"/>
-    <text x="620" y="160" text-anchor="middle" fill="#888" font-size="14" font-weight="bold">71</text>
-    
+        
     <line x1="675" y1="225" x2="540" y2="252" stroke="#224466" stroke-width="2"/>
-    <text x="565" y="240" text-anchor="middle" fill="#888" font-size="14" font-weight="bold">99</text>
-    
+        
     <line x1="675" y1="225" x2="637" y2="252" stroke="#224466" stroke-width="2"/>
-    <text x="665" y="250" text-anchor="middle" fill="#888" font-size="14" font-weight="bold">70</text>
-    
+        
     <line x1="675" y1="225" x2="712" y2="252" stroke="#224466" stroke-width="2"/>
-    <text x="710" y="240" text-anchor="middle" fill="#888" font-size="14" font-weight="bold">90</text>
-    
+        
     <!-- Greedy Frontier -->
     <circle cx="525" cy="270" r="30" fill="none" stroke="#ff6600" stroke-width="3" stroke-dasharray="5,3"/>
     <circle cx="625" cy="270" r="30" fill="none" stroke="#ff6600" stroke-width="3" stroke-dasharray="5,3"/>
     <circle cx="725" cy="270" r="30" fill="none" stroke="#ff6600" stroke-width="3" stroke-dasharray="5,3"/>
     
     <!-- Greedy Next to Expand -->
-    <circle cx="625" cy="270" r="35" fill="none" stroke="#ff0000" stroke-width="3"/>
-    <text x="585" y="275" text-anchor="end" fill="#ff0000" font-size="14" font-weight="bold">Next</text>
+    <circle cx="725" cy="270" r="35" fill="none" stroke="#ff0000" stroke-width="3"/>
+    <text x="685" y="275" text-anchor="end" fill="#ff0000" font-size="14" font-weight="bold">Next</text>
         
     <!-- Greedy Decision Path -->
-    <text x="575" y="345" text-anchor="middle" fill="#224466" font-size="16" font-weight="bold">Greedy Path: A → B → H → ... → M</text>
+    <text x="575" y="345" text-anchor="middle" fill="#224466" font-size="16" font-weight="bold">Greedy Path: A → E → I → ... → M</text>
     
     <!-- A* side -->
     <text x="215" y="380" text-anchor="middle" fill="#224466" font-size="14">Uses f(n) = g(n) + h(n)</text>
