@@ -552,6 +552,7 @@ else:
    - How the greedy search work?
    - What is the importance of the heuristic?
    - How is the graph represented?
+   - How does the frontier work?
 
 #### Part 2: Implementing A* Search Algorithm
 
