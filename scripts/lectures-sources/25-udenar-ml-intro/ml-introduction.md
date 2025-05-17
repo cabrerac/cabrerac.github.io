@@ -179,14 +179,53 @@ names = ['Alice', 'Bob', 'Charlie']
 # List operations
 print("First element:", numbers[0])
 print("Last element:", numbers[-1])
-print("Slice:", numbers[1:3])
+print("Slice:", numbers[1:4])
+```
+
+List comprehensions are a concise and efficient way to create lists in Python. They are particularly useful in machine learning for data transformation and feature engineering. Let's explore different types of list comprehensions:
+
+```python
+# Basic list comprehension
+numbers = [1, 2, 3, 4, 5]
+squares = [x**2 for x in numbers]
+print("Basic comprehension:", squares)
 ```
 
 ```python
-# List comprehension (very useful in ML)
-squares = [x**2 for x in numbers]
-print("Squares:", squares)
+# List comprehension with condition
+even_squares = [x**2 for x in numbers if x % 2 == 0]
+print("Even squares only:", even_squares)
 ```
+
+```python
+# Nested list comprehension (useful for matrix operations)
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+flattened = [num for row in matrix for num in row]
+print("Flattened matrix:", flattened)
+```
+
+```python
+# List comprehension with multiple conditions
+filtered_numbers = [x for x in numbers if x > 2 and x < 5]
+print("Filtered numbers:", filtered_numbers)
+```
+
+```python
+# List comprehension with if-else
+categorized = ["Even" if x % 2 == 0 else "Odd" for x in numbers]
+print("Number categories:", categorized)
+```
+
+List comprehensions are especially valuable in machine learning for:
+1. Data preprocessing: Transforming raw data into features
+2. Feature engineering: Creating new features from existing ones
+3. Data filtering: Selecting subsets of data based on conditions
+4. Matrix operations: Manipulating multi-dimensional data
+
+For example, in a machine learning context, you might use list comprehensions to:
+- Normalize features: `normalized = [(x - min(data)) / (max(data) - min(data)) for x in data]`
+- Create polynomial features: `polynomial = [x**2 for x in features]`
+- Filter outliers: `clean_data = [x for x in data if x < threshold]`
 
 ### Dictionaries
 
