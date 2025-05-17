@@ -554,7 +554,7 @@ else:
    - How is the graph represented?
    - How does the frontier work?
 
-#### Part 2: Implementing A* Search Algorithm
+#### Part 2: Implementing A* Search Algorithm (Optional)
 
 In this assignment, you will implement the A* search algorithm, which is an extension of the greedy search. A* combines the best of both worlds: it uses a heuristic function like greedy search but also considers the actual cost of the path taken so far.
 
@@ -589,4 +589,19 @@ Implement the A* search function:
        """
        # Your implementation here
    ```
-3. Compare the performance of the Greedy algorithm and A*.
+3. Compare the performance of the Greedy algorithm and A*. (Optional)
+   - Create a table comparing path length and number of nodes explored
+   - Explain any differences in the paths found
+   - Analyze the trade-offs between computation time and path optimality
+
+#### Submission Guidelines
+- Submit your solution as a Jupyter notebook with the following name format: cease_ml_intro_session_1_<email_username>.ipynb
+- Include clear comments explaining your code
+- Provide a written analysis of your results
+- Include test cases and their outputs
+- Due date: [22/05/2025]
+
+#### Resources
+- [A* Pathfinding for Beginners](https://www.redblobgames.com/pathfinding/a-star/introduction.html)
+- [A* Search Algorithm - Wikipedia](https://en.wikipedia.org/wiki/A*_search_algorithm)
+- [Visualization of A* Algorithm](https://qiao.github.io/PathFinding.js/visual/)
