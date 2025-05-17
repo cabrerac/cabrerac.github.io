@@ -394,7 +394,7 @@ print(classify_number(-3))
 print(classify_number(0))
 ```
 
-## 3. Applying Concepts to AI Algorithms
+## 3. Homework - Applying Concepts to AI Algorithms
 
 Now that we understand the basic building blocks, let's apply these concepts to implement some fundamental AI algorithms.
 
@@ -433,14 +433,15 @@ def greedy_search(graph, start, goal):
     Returns:
     list: Path from start to goal if found, None otherwise
     """
-    # Priority queue to store nodes to explore
-    # Format: (heuristic_value, node, path)
-    frontier = [(graph.heuristics[start], start, [start])]
+    # Initialize the frontier with the start node
+    # Each element is a tuple of (node, path)
+    frontier = [(start, [start])]
     visited = set()
     
     while frontier:
         # Get the node with the lowest heuristic value
-        _, current, path = heapq.heappop(frontier)
+        current, path = min(frontier, key=lambda x: graph.heuristics[x[0]])
+        frontier.remove((current, path))
         
         if current == goal:
             return path
@@ -454,13 +455,57 @@ def greedy_search(graph, start, goal):
         for neighbor, _ in graph.graph[current]:
             if neighbor not in visited:
                 new_path = path + [neighbor]
-                # Use heuristic value for priority
-                heapq.heappush(frontier, (graph.heuristics[neighbor], neighbor, new_path))
+                frontier.append((neighbor, new_path))
     
     return None  # No path found
 ```
 
-```python
+# Understanding the Frontier
+"""
+The frontier is a crucial concept in search algorithms. Let's break down how it works in our simplified greedy search:
+
+1. Structure:
+   - The frontier is a simple list of tuples
+   - Each tuple contains: (node, path)
+   - We find the node with lowest heuristic using min() and a key function
+   - This is simpler to understand than a priority queue
+
+2. Initialization:
+   - We start with the initial node: frontier = [(start, [start])]
+   - The first element is the current node
+   - The second element is the path taken to reach this node
+
+3. Processing:
+   - At each step, we find the node with the lowest heuristic value using min()
+   - We remove this node from the frontier
+   - We add new nodes to the frontier as we discover them
+   - The visited set prevents us from re-exploring nodes
+
+4. Example:
+   Let's trace the frontier for our city graph:
+   
+   Initial frontier: [('A', ['A'])]
+   
+   After exploring 'A':
+   - Frontier: [('B', ['A', 'B']), ('C', ['A', 'C'])]
+   
+   After exploring 'C' (lower heuristic than 'B'):
+   - Frontier: [('B', ['A', 'B']), ('D', ['A', 'C', 'D']), ('E', ['A', 'C', 'E'])]
+   
+   And so on...
+
+5. Why This Approach?
+   - Simpler to understand and implement
+   - No need for heapq or complex data structures
+   - Still maintains the greedy property of always choosing the best node
+   - More intuitive for beginners
+
+6. Memory Management:
+   - The frontier only stores nodes we haven't explored yet
+   - The visited set prevents us from re-exploring nodes
+   - This helps manage memory usage for large graphs
+"""
+
 # Example usage: Finding the shortest path in a map
 def create_city_graph():
     # Create a graph representing cities and distances
@@ -502,36 +547,24 @@ else:
     print("No path found")
 ```
 
-This implementation demonstrates several important AI concepts:
+#### Part 1: Understanding Greedy algorithm
+1. Research and explain in your own words:
+   - How the greedy search work?
+   - What is the importance of the heuristic?
+   - How is the graph represented?
 
-1. **Heuristic Function**: The algorithm uses a heuristic function (represented by the `heuristics` dictionary) to estimate the distance to the goal. In a real application, this could be the straight-line distance to the destination (i.e., Euclidean distance).
+#### Part 2: Implementing A* Search Algorithm
 
-2. **Priority Queue**: We use a priority queue (implemented with `heapq`) to always explore the most promising path first, based on the heuristic value.
+In this assignment, you will implement the A* search algorithm, which is an extension of the greedy search. A* combines the best of both worlds: it uses a heuristic function like greedy search but also considers the actual cost of the path taken so far.
 
-3. **Graph Representation**: The graph is represented using an adjacency list, which is efficient for sparse graphs.
-
-4. **Greedy Choice**: At each step, the algorithm makes the locally optimal choice by selecting the node with the lowest heuristic value.
-
-The example creates a simple city navigation problem where we want to find a path from city A to city F. The heuristic values represent estimated distances to the goal city. The algorithm will find a path by always choosing the next city that appears closest to the goal according to the heuristic.
-
-Note that while greedy search is fast and memory-efficient, it doesn't guarantee finding the optimal path. This is because it only considers the heuristic value at each step, not the actual cost of the path taken so far.
-
-## 4. Homework Exercise
-
-### Implementing A* Search Algorithm
-
-In this assignment, you will implement the A* search algorithm, which is an extension of the greedy search we covered in class. A* combines the best of both worlds: it uses a heuristic function like greedy search but also considers the actual cost of the path taken so far.
-
-#### Part 1: Understanding A*
 1. Research and explain in your own words:
    - How A* differs from greedy search
    - The meaning of the f(n), g(n), and h(n) functions in A*
    - Why A* is guaranteed to find the optimal path when the heuristic is admissible
 
-#### Part 2: Implementation
-Implement the A* algorithm by modifying the greedy search code we developed in class. Your implementation should:
+2. Implement the A* algorithm by modifying the greedy search code we developed in class. Your implementation should:
 
-1. Create a new class `AStarGraph` that extends the `Graph` class:
+Create a new class `AStarGraph` that extends the `Graph` class:
    ```python
    class AStarGraph(Graph):
        def __init__(self):
@@ -539,7 +572,7 @@ Implement the A* algorithm by modifying the greedy search code we developed in c
            self.costs = {}  # Store actual costs between nodes
    ```
 
-2. Implement the A* search function:
+Implement the A* search function:
    ```python
    def astar_search(graph, start, goal):
        """
@@ -555,31 +588,4 @@ Implement the A* algorithm by modifying the greedy search code we developed in c
        """
        # Your implementation here
    ```
-
-3. Use the same city graph from the class example but add actual costs between cities.
-
-#### Part 3: Testing and Analysis
-1. Test your implementation with the following scenarios:
-   - Path from A to F (as in class example)
-   - Path from B to E
-   - Path from C to F
-   - A case where no path exists
-
-2. Compare the results with the greedy search algorithm:
-   - Create a table comparing path length and number of nodes explored
-   - Explain any differences in the paths found
-   - Analyze the trade-offs between computation time and path optimality
-
-#### Submission Guidelines
-- Submit your solution as a Jupyter notebook with the following name format: cease_ml_intro_session_1_<email_username>.ipynb
-- Include clear comments explaining your code
-- Provide a written analysis of your results
-- Include test cases and their outputs
-- Due date: [22/05/2025]
-
-#### Resources
-- [A* Pathfinding for Beginners](https://www.redblobgames.com/pathfinding/a-star/introduction.html)
-- [A* Search Algorithm - Wikipedia](https://en.wikipedia.org/wiki/A*_search_algorithm)
-- [Visualization of A* Algorithm](https://qiao.github.io/PathFinding.js/visual/)
-
-<!-- end NOTEBOOK: -->
+3. Compare the performance of the Greedy algorithm and A*.
