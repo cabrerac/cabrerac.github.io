@@ -56,7 +56,7 @@ visible: true
                 <li>You can ask questions at any moment</li>
                 <li>Participation is key</li>
                 <li>You will have (small) homework after each session</li>
-                <li>Contact by email: <a href="mailto:{metadata.get('email', '')}" style="color: var(--accent-color);">{metadata.get('email', '')}</a></li>
+                <li>Contact by email: <a href="chc79@cam.ac.uk" style="color: var(--accent-color);">chc79@cam.ac.uk</a></li>
             </ul>
             </div>
         </div>
