@@ -487,7 +487,7 @@ def greedy_search(graph, start, goal):
 ```
 
 # Understanding the Frontier
-"""
+
 The frontier is a crucial concept in search algorithms. Let's break down how it works in our simplified greedy search:
 
 1. Structure:
@@ -530,9 +530,10 @@ The frontier is a crucial concept in search algorithms. Let's break down how it 
    - The frontier only stores nodes we haven't explored yet
    - The visited set prevents us from re-exploring nodes
    - This helps manage memory usage for large graphs
-"""
 
 # Example usage: Finding the shortest path in a map
+
+```python
 def create_city_graph():
     # Create a graph representing cities and distances
     graph = Graph()
@@ -592,29 +593,32 @@ In this assignment, you will implement the A* search algorithm, which is an exte
 2. Implement the A* algorithm by modifying the greedy search code we developed in class. Your implementation should:
 
 Create a new class `AStarGraph` that extends the `Graph` class:
-   ```python
-   class AStarGraph(Graph):
-       def __init__(self):
-           super().__init__()
-           self.costs = {}  # Store actual costs between nodes
-   ```
+   
+```python
+class AStarGraph(Graph):
+    def __init__(self):
+        super().__init__()
+        self.costs = {}  # Store actual costs between nodes
+```
 
 Implement the A* search function:
-   ```python
-   def astar_search(graph, start, goal):
-       """
-       Implement A* search algorithm.
+
+```python
+def astar_search(graph, start, goal):
+    """
+    Implement A* search algorithm.
        
-       Parameters:
-       graph (AStarGraph): Graph object containing edges, heuristics, and costs
-       start: Starting node
-       goal: Goal node
+    Parameters:
+    graph (AStarGraph): Graph object containing edges, heuristics, and costs
+    start: Starting node
+    goal: Goal node
        
-       Returns:
-       tuple: (path, total_cost) if path found, (None, None) otherwise
-       """
-       # Your implementation here
-   ```
+    Returns:
+    tuple: (path, total_cost) if path found, (None, None) otherwise
+    """
+    # Your implementation here
+```
+
 3. Compare the performance of the Greedy algorithm and A*. (Optional)
    - Create a table comparing path length and number of nodes explored
    - Explain any differences in the paths found
@@ -631,3 +635,5 @@ Implement the A* search function:
 - [A* Pathfinding for Beginners](https://www.redblobgames.com/pathfinding/a-star/introduction.html)
 - [A* Search Algorithm - Wikipedia](https://en.wikipedia.org/wiki/A*_search_algorithm)
 - [Visualization of A* Algorithm](https://qiao.github.io/PathFinding.js/visual/)
+
+<!-- end NOTEBOOK: -->
