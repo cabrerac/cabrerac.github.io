@@ -30,8 +30,8 @@ visible: true
   
 ---
 
-### Resources  
-<br>
+## Resources  
+
 #### Books  
 
 - Russell, S. and Norvig, P. (2010). Artificial Intelligence: A Modern Approach 3rd ed. Prentice Hall
