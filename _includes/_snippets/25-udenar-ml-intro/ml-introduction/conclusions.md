@@ -50,7 +50,7 @@
                 <li>ML Adoption Process</li>
                 <li>ML with Purpose</li>
                 <li>ML and Socio-technical Systems</li>
-                <li>Data-First</li>
+                <li>Data Orientation</li>
                 <li>Data Access</li>
             </ul>
             </div>

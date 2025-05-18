@@ -31,7 +31,7 @@ visible: true
 ---
 
 ### Resources  
-
+<br>
 #### Books  
 
 - Russell, S. and Norvig, P. (2010). Artificial Intelligence: A Modern Approach 3rd ed. Prentice Hall
@@ -45,7 +45,7 @@ visible: true
 - [Vol. 117, No. 1, Winter, 1988, Artificial Intelligence](https://www.jstor.org/stable/i20025133)
 - [Hart P. (2021). An Artificial Intelligence Odyssey: From the Research Lab to the Real World](https://ieeexplore.ieee.org/abstract/document/9423541)
 - [Shumailov I. et. al. (2024). AI models collapse when trained on recursively generated data](https://www.nature.com/articles/s41586-024-07566-y)  
-
+<br>
 #### Talks  
 
 - [Geoffrey Hinton Lecture at Cambridge (2023)](https://www.youtube.com/watch?v=rGgGOccMEiY)
