@@ -2,7 +2,7 @@
 
 # Practical Introduction
 
-## 3. Homework - Applying Concepts to AI Algorithms
+## 3. Homework
 
 #### Submission Guidelines
 - Submit your solution as a Jupyter notebook with the following name format: cease_ml_intro_session_1_<email_username>.ipynb
