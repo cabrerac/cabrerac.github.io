@@ -58,3 +58,9 @@ visible: false
 # The Systems Engineering Approach
 
 <!-- end SLIDES: -->
+
+{% include _snippets/25-udenar-ml-intro/problem-first/conclusions.md %}
+
+{% include _snippets/25-udenar-ml-intro/problem-first/resources.md %}
+
+{% include _snippets/25-udenar-ml-intro/problem-first/practical.md %}

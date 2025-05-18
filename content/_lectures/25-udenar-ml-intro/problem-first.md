@@ -30,4 +30,6 @@ visible: false
   </p>
 </div>
   
+---
 
+## Resources

@@ -74,5 +74,5 @@ visible: true
 
 {% include _snippets/25-udenar-ml-intro/ml-introduction/resources.md %}
 
-{% include _snippets/25-udenar-ml-intro/ml-introduction/practical-1.md %}
+{% include _snippets/25-udenar-ml-intro/ml-introduction/practical.md %}
 
