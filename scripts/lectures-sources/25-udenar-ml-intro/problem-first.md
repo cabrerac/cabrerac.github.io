@@ -43,6 +43,18 @@ visible: false
 
 <!-- SLIDES: -->
 
-# Problem First
+# The Problem First
+
+<!-- end SLIDES: -->
+
+<!-- SLIDES: -->
+
+# Data Science Africa (DSA)
+
+<!-- end SLIDES: -->
+
+<!-- SLIDES: -->
+
+# The Systems Engineering Approach
 
 <!-- end SLIDES: -->
