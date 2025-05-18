@@ -542,7 +542,10 @@ class ContentGenerator:
             if first_line.startswith('# '):
                 title = first_line[2:].strip()
                 # Everything after the title is ignored for title slide
-                slide = f'''<!-- _class: lead -->\n<div class="slide-content" style="display: flex; align-items: center; height: 100%; justify-content: flex-start;">\n<h1 style="margin: 0; padding: 0; text-align: left;">{title}</h1>\n</div>'''
+                slide = f'''<!-- _class: lead -->
+<div class="slide-content" style="display: flex; align-items: center; height: 100%; justify-content: flex-start;">
+<h1 style="margin: 0; padding: 0; text-align: left;">{title}</h1>
+</div>'''
                 slides.append(slide)
                 # Always include title slide in PDF
                 pdf_slides.append(slide)

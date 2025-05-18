@@ -76,7 +76,7 @@ $$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{predic
 </div>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <p>Our ML projects must have <b>purpose...</b></p>
+                <p>Our ML projects must have a <b>purpose...</b></p>
                 <br>
                 <img src="{{ site.url }}/assets/media/images/people.jpg" alt="Risks" style="height: 460px">
             </div>

@@ -49,8 +49,8 @@
     <text x="65" y="335" text-anchor="middle" fill="#333333" font-size="30">0</text>
     <text x="125" y="335" text-anchor="middle" fill="#333333" font-size="30">0</text>
     <text x="185" y="335" text-anchor="middle" fill="#333333" font-size="30">0</text>
-    <text x="245" y="335" text-anchor="middle" fill="#333333" font-size="30">0</text>
-    <text x="305" y="335" text-anchor="middle" fill="#333333" font-size="30">4</text>
+    <text x="245" y="335" text-anchor="middle" fill="#333333" font-size="30">4</text>
+    <text x="305" y="335" text-anchor="middle" fill="#333333" font-size="30">0</text>
     <text x="365" y="335" text-anchor="middle" fill="#333333" font-size="30">0</text>
     
     <!-- Row 6 -->

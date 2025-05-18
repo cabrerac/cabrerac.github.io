@@ -1,9 +1,9 @@
 ---
 course_code: 25-udenar-ml-intro
-title: Artificial Intelligence and Machine Learning
-description: This lecture presents the Artificial Intelligence and Machine Learning concepts. Their definition, history, implications, and applications.
-session: 1
-start_time: 8:00 am
+title: The Problem First
+description: This lecture will emphasis on the importance of building ML-based systems with a purpose by focusing on the problem first. We will see the current status of ML applications, the adoption properties, and engineering mechanisms to ensure our ML projects align with the problems they are designed for.
+session: 2
+start_time: 10:00 am
 end_time: 12:00 am
 hours: 4
 author: Christian Cabrera Jojoa
@@ -12,12 +12,11 @@ position: Senior Research Associate and Affiliated Lecturer
 department: Department of Computer Science and Technology
 institution: University of Cambridge
 layout: lecture
-lecture_code: ml-introduction
-lecture_date: 17/05/2025
-permalink: /teaching/25-udenar-ml-intro/ml-introduction/
-visible: true
+lecture_code: problem-first
+lecture_date: 24/05/2025
+permalink: /teaching/25-udenar-ml-intro/problem-first/
+visible: false
 ---
-
 <!-- ALL: content that goes everywhere -->
 <!-- SLIDES: content that only goes to slides -->
 <!-- RENDER: content that only goes to rendered markdown -->
@@ -37,28 +36,6 @@ visible: true
     main();
 </script>
 
-<!-- end RENDER: -->
-
-<!-- SLIDES: -->
-
-# Course Structure
-
-<!-- end SLIDES -->
-
-{% include _snippets/25-udenar-ml-intro/ml-introduction/course-structure.md %}
-
-<!-- SLIDES: -->
-
-# The ML Context
-
-<!-- end SLIDES: -->
-
-{% include _snippets/ai-concept.md %}
-
-{% include _snippets/ai-foundations.md %}
-
-{% include _snippets/ai-history.md %}
-
 <!-- SLIDES: -->
 
 # ML Today
@@ -66,8 +43,6 @@ visible: true
 <!-- end SLIDES: -->
 
 {% include _snippets/ml-applications.md %}
-
-{% include _snippets/ml-perception.md %}
 
 <!-- SLIDES: -->
 
@@ -79,13 +54,6 @@ visible: true
 
 <!-- SLIDES: -->
 
-# Conclusions
+# Problem First
 
 <!-- end SLIDES: -->
-
-{% include _snippets/25-udenar-ml-intro/ml-introduction/conclusions.md %}
-
-{% include _snippets/25-udenar-ml-intro/ml-introduction/resources.md %}
-
-{% include _snippets/25-udenar-ml-intro/ml-introduction/practical_1.md %}
-
