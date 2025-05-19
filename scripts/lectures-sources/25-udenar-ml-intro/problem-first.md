@@ -55,7 +55,21 @@ visible: false
 
 <!-- SLIDES: -->
 
+# The ML Adoption Process
+
+<!-- end SLIDES: -->
+
+{% include _snippets/adoption_process.md %}
+
+<!-- SLIDES: -->
+
 # The Systems Engineering Approach
+
+<!-- end SLIDES: -->
+
+<!-- SLIDES: -->
+
+# The Systems Engineering Approach in Times of LLMs
 
 <!-- end SLIDES: -->
 
