@@ -43,15 +43,27 @@ visible: false
 
 <!-- SLIDES: -->
 
-# The Problem First
+# The "Technocentristic" View
 
 <!-- end SLIDES: -->
+
+{% include _snippets/technocentrism.md %}
+
+<!-- SLIDES: -->
+
+# The Problem First View
+
+<!-- end SLIDES: -->
+
+{% include _snippets/problem-first.md %}
 
 <!-- SLIDES: -->
 
 # Data Science Africa (DSA)
 
 <!-- end SLIDES: -->
+
+{% include _snippets/dsa-example.md %}
 
 <!-- SLIDES: -->
 
@@ -67,11 +79,15 @@ visible: false
 
 <!-- end SLIDES: -->
 
+{% include _snippets/sys-eng-approach.md %}
+
 <!-- SLIDES: -->
 
 # The Systems Engineering Approach in Times of LLMs
 
 <!-- end SLIDES: -->
+
+{% include _snippets/sys-eng-approach-llms.md %}
 
 {% include _snippets/25-udenar-ml-intro/problem-first/conclusions.md %}
 
