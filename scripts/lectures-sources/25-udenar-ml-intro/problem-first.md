@@ -43,11 +43,19 @@ visible: false
 
 <!-- SLIDES: -->
 
-# The "Technocentristic" View
+## The "Technocentric" View
 
 <!-- end SLIDES: -->
 
 {% include _snippets/technocentrism.md %}
+
+<!-- SLIDES: -->
+
+## Context Matters
+
+<!-- end SLIDES: -->
+
+{% include _snippets/context-matters.md %}
 
 <!-- SLIDES: -->
 

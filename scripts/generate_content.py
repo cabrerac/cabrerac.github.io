@@ -1089,6 +1089,57 @@ style: |
   section.lead.last-slide p {{
     margin: 10px 0;
   }}
+
+  /* Table specific styles */
+  .table {{
+    display: inline-block;
+    text-align: left;
+    background-color: white !important;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 0 auto;
+  }}
+
+  .table th,
+  .table td {{
+    color: #000000 !important;
+  }}
+
+  /* Ensure table text stays black in dark mode */
+  html[data-theme='dark'] .table th,
+  html[data-theme='dark'] .table td {{
+    color: #000000 !important;
+  }}
+
+  /* Ensure table background stays white in dark mode */
+  html[data-theme='dark'] .table {{
+    background-color: white !important;
+  }}
+
+  /* Ensure highlighted row maintains its color in dark mode */
+  html[data-theme='dark'] .table tr[style*="background-color: #e6ffe6"] {{
+    background-color: #e6ffe6 !important;
+  }}
+
+  /* Ensure table container is centered */
+  .column.text-center .table {{
+    margin: 0 auto;
+  }}
+
+  /* Ensure list elements match paragraph text size */
+  .slide-content ul li,
+  .slide-content ol li {{
+    font-size: 0.9em;
+    line-height: 1.2;
+    margin: 0;
+    padding: 0.2em;
+  }}
+
+  /* Ensure list elements maintain text color in dark mode */
+  html[data-theme='dark'] .slide-content ul li,
+  html[data-theme='dark'] .slide-content ol li {{
+    color: var(--text-color) !important;
+  }}
 ---"""
 
         # Create Marp slides for HTML (all slides)
