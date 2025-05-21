@@ -332,7 +332,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/context-people.png" alt="AI Puzzle" style="height: 300px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/context-people.png" alt="Context People" style="height: 300px">
             </div>
         </div>
     </div>

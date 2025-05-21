@@ -59,19 +59,19 @@ visible: false
 
 <!-- SLIDES: -->
 
-# The Problem First View
-
-<!-- end SLIDES: -->
-
-{% include _snippets/problem-first.md %}
-
-<!-- SLIDES: -->
-
 # Data Science Africa (DSA)
 
 <!-- end SLIDES: -->
 
 {% include _snippets/dsa-example.md %}
+
+<!-- SLIDES: -->
+
+# The Problem First View
+
+<!-- end SLIDES: -->
+
+{% include _snippets/problem-first.md %}
 
 <!-- SLIDES: -->
 
