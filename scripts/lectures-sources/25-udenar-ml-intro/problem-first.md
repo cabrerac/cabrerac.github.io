@@ -43,7 +43,7 @@ visible: false
 
 <!-- SLIDES: -->
 
-## The "Technocentric" View
+# The "Technocentric" View
 
 <!-- end SLIDES: -->
 

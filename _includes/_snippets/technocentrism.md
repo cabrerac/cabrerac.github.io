@@ -135,7 +135,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="column vertical-top text-left" style="width: 35%">
+            <div class="column vertical-middle text-left" style="width: 35%">
                 <p>Does Model v3 satisfy <b>users' requirements?</b></p>
             </div>
         </div>
@@ -174,7 +174,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="column vertical-top text-left" style="width: 35%">
+            <div class="column vertical-middle text-left" style="width: 35%">
                 <p>Does Model v3 satisfy <b>users' requirements?</b></p>
                 <p>For example:</p>
                 <ul>
@@ -198,7 +198,7 @@
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/single-model.png" alt="Single Model" style="height: 200px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Threat to AI Applications and Promises</b></p>
+                <p><b>Threat to AI applications and promises</b></p>
                 <br>
                 <ul>
                     <li>Mundane applications for problems we did not know we had</li>
