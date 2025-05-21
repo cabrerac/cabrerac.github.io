@@ -65,16 +65,6 @@ visible: false
 
 {% include _snippets/dsa-example.md %}
 
-<!-- SLIDES: -->
-
-# The Problem First View
-
-<!-- end SLIDES: -->
-
-{% include _snippets/problem-first.md %}
-
-<!-- SLIDES: -->
-
 # The ML Adoption Process
 
 <!-- end SLIDES: -->
@@ -83,11 +73,11 @@ visible: false
 
 <!-- SLIDES: -->
 
-# The Systems Engineering Approach
+# The Problem First
 
 <!-- end SLIDES: -->
 
-{% include _snippets/sys-eng-approach.md %}
+{% include _snippets/problem-first.md %}
 
 <!-- SLIDES: -->
 
