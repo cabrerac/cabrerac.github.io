@@ -96,7 +96,7 @@
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/images/water-level-dekut.png"" alt="Water Level Monitoring" style="height: 400px">
-                <div class="footnote">Water Level Monitoring System at DeKUT (Kabi, 2021)</div>
+                <div class="footnote">Water Level Monitoring System at DeKUT (Kabi & Maina, 2021)</div>
             </div>
         </div>
     </div>

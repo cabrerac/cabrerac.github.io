@@ -215,7 +215,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>PAISE® – Process Model for AI Systems Engineering</b></p>
-                <p>Learn more at <a href="https://doi.org/10.1515/auto-2022-0020 " target="_blank">(Hasterok et al., 2022)</a></p>
+                <p>Learn more at <a href="https://doi.org/10.1515/auto-2022-0020 " target="_blank">(Hasterok & Stompe, 2022)</a></p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/images/paise-results.jpg" alt="PAISE Framework" style="height: 600px">
@@ -234,7 +234,7 @@
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>ACDANS – System of Systems Engineering Approach for Complex Deterministic and Nondeterministic Systems</b></p>
-                <p>Learn more at <a href="https://ieeexplore.ieee.org/abstract/document/9497496" target="_blank">(Hershey et al., 2021)</a></p>
+                <p>Learn more at <a href="https://ieeexplore.ieee.org/abstract/document/9497496" target="_blank">(Hershey, 2021)</a></p>
             </div>
         </div>
     </div>
