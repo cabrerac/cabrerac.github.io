@@ -161,24 +161,83 @@
     <div class="row" style="height: 50%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/principles-alignment.png" alt="AI Adoption" style="height: 600px">
+                <img src="{{ site.url }}/assets/media/images/principles-alignment.png" alt="Alignment" style="height: 250px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/principles-interpretability.png" alt="AI Adoption" style="height: 600px">
+                <img src="{{ site.url }}/assets/media/images/principles-interpretability.png" alt="Interpretability" style="height: 250px">
             </div>
         </div>
     </div>
     <div class="row" style="height: 50%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/principles-maintainability.png" alt="AI Adoption" style="height: 600px">
+                <img src="{{ site.url }}/assets/media/images/principles-maintainability.png" alt="Maintainability" style="height: 250px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/principles-security.png" alt="AI Adoption" style="height: 600px">
+                <img src="{{ site.url }}/assets/media/images/principles-security.png" alt="Security" style="height: 250px">
             </div>
         </div>
     </div>
 </div>
 
+## The Systems Engineering Approach in Times of LLMs
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/mltrl-results.png" alt="AI Adoption" style="height: 600px">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>MLTRL - Technology Readiness Levels for Machine Learning Systems</b></p>
+                <p>Learn more at <a href="https://doi.org/10.1038/s41467-022-33128-9" target="_blank">(Lavin et al., 2022))</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## The Systems Engineering Approach in Times of LLMs
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/images/mltrl-results.png" alt="AI Adoption" style="height: 600px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## The Systems Engineering Approach in Times of LLMs
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>PAISE® – Process Model for AI Systems Engineering</b></p>
+                <p>Learn more at <a href="https://doi.org/10.1515/auto-2022-0020 " target="_blank">(Hasterok et al., 2022))</a></p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/paise-results.jpg" alt="AI Adoption" style="height: 600px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## The Systems Engineering Approach in Times of LLMs
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/acdans-results.png" alt="AI Adoption" style="height: 600px">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>ACDANS – System of Systems Engineering Approach for Complex Deterministic and Nondeterministic Systems</b></p>
+                <p>Learn more at <a href="https://ieeexplore.ieee.org/abstract/document/9497496" target="_blank">(Hershey et al., 2021))</a></p>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- end SLIDES: -->
