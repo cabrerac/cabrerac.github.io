@@ -4,10 +4,10 @@
 
 ## Resources  
 
-### Books
+#### Books
+
 - Haberfellner, R. and de Weck, O. and Fricke, E. and Vossner, S. (2019). Systems Engineering: Fundamentals and Applications. Springer Nature.
 <br>
-
 #### Papers and Reports  
 
 - [Bastidas V., Schooling J. (2025). Socio-Technical AI Design For Public Value](https://aisel.aisnet.org/treos_ecis2024/78/)
