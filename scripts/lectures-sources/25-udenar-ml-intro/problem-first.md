@@ -79,13 +79,7 @@ visible: false
 
 {% include _snippets/problem-first.md %}
 
-<!-- SLIDES: -->
-
-# The Systems Engineering Approach in Times of LLMs
-
-<!-- end SLIDES: -->
-
-{% include _snippets/sys-eng-approach-llms.md %}
+{% include _snippets/sys-eng-approach.md %}
 
 {% include _snippets/25-udenar-ml-intro/problem-first/conclusions.md %}
 

@@ -58,15 +58,11 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-            <img src="{{ site.url }}/assets/media/diagrams/ml-project-canvas.svg" alt="ML Project Canvas" style="height: 400px">
+            <div class="column vertical-middle text-left" style="width: 100%">
+            <img src="{{ site.url }}/assets/media/diagrams/ml-project-canvas.svg" alt="ML Project Canvas" style="height: 550px">
             </div>
         </div>
     </div>
 </div>
 
-## The Systems Engineering Approach
-
 <!-- end SLIDES: -->
-
-{% include _snippets/sys-eng-approach.md %}
