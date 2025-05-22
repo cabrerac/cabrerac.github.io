@@ -6,7 +6,8 @@
 
 #### Books
 
-- Haberfellner, R. and de Weck, O. and Fricke, E. and Vossner, S. (2019). Systems Engineering: Fundamentals and Applications. Springer Nature.
+- Haberfellner, R. and de Weck, O. and Fricke, E. and Vossner, S. (2019). Systems Engineering: Fundamentals and Applications. Springer Nature
+<br>
 <br>
 #### Papers and Reports  
 
@@ -17,7 +18,7 @@
 - [Hershey P. (2021). System of Systems Engineering Approach for Complex Deterministic and Nondeterministic Systems (ACDANS)](https://ieeexplore.ieee.org/abstract/document/9497496)
 - [Cabrera C., et al. (2025). The Systems Engineering Approach in Times of Large Language Models](https://scholarspace.manoa.hawaii.edu/items/ccd98c8b-bb61-4a86-9cd4-4719078d028f)  
 <br>
-### Web
+#### Web
 
 - [The AIAAIC Repository](https://www.aiaaic.org/home)
 - [Data Science Africa](https://www.datascienceafrica.org/)
