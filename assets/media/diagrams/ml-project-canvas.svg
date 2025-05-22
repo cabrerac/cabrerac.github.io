@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="1200" height="750" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+    
+    <!-- Title -->
+    <text x="600" y="50" font-family="Arial, sans-serif" font-size="40" text-anchor="middle" fill="#224466" font-weight="bold">ML Project Canvas</text>
+    
+    <!-- Main Sections -->
+    <!-- Problem Definition (Larger) -->
+    <g transform="translate(50, 100)">
+        <rect width="400" height="625" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
+        <text x="200" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Problem Definition</text>
+        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Business Objectives</text>
+        <text x="30" y="110" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Success Criteria</text>
+        <text x="30" y="140" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Stakeholders</text>
+        <text x="30" y="170" font-family="Arial, sans-serif" font-size="20" fill="#224466">• User Requirements</text>
+        <text x="30" y="200" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Project Constraints</text>
+    </g>
+    
+    <!-- Data -->
+    <g transform="translate(500, 100)">
+        <rect width="300" height="180" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
+        <text x="150" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Data</text>
+        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Available Data</text>
+        <text x="30" y="110" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Data Quality</text>
+        <text x="30" y="140" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Data Requirements</text>
+    </g>
+    
+    <!-- Model -->
+    <g transform="translate(850, 100)">
+        <rect width="300" height="180" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
+        <text x="150" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Model</text>
+        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Model Selection</text>
+        <text x="30" y="110" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Performance Metrics</text>
+        <text x="30" y="140" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Model Constraints</text>
+    </g>
+    
+    <!-- Infrastructure -->
+    <g transform="translate(500, 325)">
+        <rect width="300" height="180" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
+        <text x="150" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Infrastructure</text>
+        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Computing Resources</text>
+        <text x="30" y="110" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Deployment Environment</text>
+        <text x="30" y="140" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Scalability Needs</text>
+    </g>
+    
+    <!-- Monitoring -->
+    <g transform="translate(850, 325)">
+        <rect width="300" height="180" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
+        <text x="150" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Monitoring</text>
+        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Performance Monitoring</text>
+        <text x="30" y="110" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Model Updates</text>
+        <text x="30" y="140" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Maintenance Plan</text>
+    </g>
+
+    <!-- Ethics & Compliance (Larger) -->
+    <g transform="translate(500, 550)">
+        <rect width="650" height="175" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
+        <text x="325" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Ethics &amp; Compliance</text>
+        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Bias &amp; Fairness</text>
+        <text x="30" y="110" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Privacy &amp; Security</text>
+        <text x="30" y="140" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Regulatory Requirements</text>
+        <text x="380" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Social Impact</text>
+        <text x="380" y="110" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Environmental Impact</text>
+    </g>
+</svg> 
