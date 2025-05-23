@@ -24,7 +24,7 @@ import json
 import os
 ```
 
-We now define the interactive widgets.
+We now define a function to create the interactive widgets.
 
 ```python
 def create_form_widgets():
@@ -155,11 +155,12 @@ def create_form_widgets():
     return widgets_dict
 ```
 
+We then define the function to create the canvas display. The display uses the diagram we saw in the slides.
+
 ```python
-# Create the canvas display
 def create_canvas_display():
     # Load the SVG template
-    svg_path = 'assets/media/diagrams/ml-project-canvas.svg'
+    svg_path = '{{ site.url }}/assets/media/diagrams/ml-project-canvas.svg'
     if os.path.exists(svg_path):
         with open(svg_path, 'r') as f:
             svg_content = f.read()
@@ -175,8 +176,9 @@ def create_canvas_display():
     return SVG(svg_content)
 ```
 
+Now, we define a function to create the layout and puts all elements together.
+
 ```python
-# Create the layout
 def create_layout():
     widgets_dict = create_form_widgets()
     
@@ -226,14 +228,16 @@ def create_layout():
     return main_layout, widgets_dict
 ```
 
+We now can display the interactive canvas
+
 ```python
-# Create and display the interactive canvas
 layout, widgets_dict = create_layout()
 display(layout)
 ```
 
+We might want to save the canvas data so we need a function for that.
+
 ```python
-# Add a function to save the canvas state
 def save_canvas_state():
     state = {key: widget.value for key, widget in widgets_dict.items()}
     with open('ml_canvas_state.json', 'w') as f:
@@ -241,8 +245,9 @@ def save_canvas_state():
     print("Canvas state saved to ml_canvas_state.json")
 ```
 
+And a button that enables the functionality.
+
 ```python
-# Add a save button
 save_button = widgets.Button(description='Save Canvas State')
 save_button.on_click(lambda b: save_canvas_state())
 display(save_button)
