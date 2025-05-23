@@ -11,9 +11,9 @@
 
 #### Interactive ML Project Canvas
 
-The following blocks of code creates and interactive Canvas we can use in our practical session
+The following blocks of code create and interactive Canvas we can use in our practical session
 
-Run the code and then fill the form to populat the ML Project Canvas. The canvas will update in real-time as you type.
+Run the code and then fill the form to populate the ML Project Canvas. The canvas will update in real-time as you type.
 
 We start by importing the relevant Python libraries.
 
@@ -159,7 +159,6 @@ We then define the function to create the canvas display. The display uses the d
 
 ```python
 def create_canvas_display():
-    # Load the SVG template
     svg_path = '{{ site.url }}/assets/media/diagrams/ml-project-canvas.svg'
     if os.path.exists(svg_path):
         with open(svg_path, 'r') as f:
