@@ -7,6 +7,7 @@
 #### Books
 
 - Haberfellner, R. and de Weck, O. and Fricke, E. and Vossner, S. (2019). Systems Engineering: Fundamentals and Applications. Springer Nature
+- [Lawrence, N. D. (2024). The Atomic Human: Understanding Ourselves in the Age of AI. Penguin UK.](https://inverseprobability.com/atomic-human/)
 <br>
 <br>
 #### Papers and Reports  
@@ -22,5 +23,6 @@
 
 - [The AIAAIC Repository](https://www.aiaaic.org/home)
 - [Data Science Africa (DSA)](https://www.datascienceafrica.org/)
+- [Lawrence, N. D. (2025). AI that Serves Science, Citizens and Society](https://inverseprobability.com/talks/notes/ai-that-serves-science-citizens-and-society.html)
 
 <!-- end RENDER: -->
