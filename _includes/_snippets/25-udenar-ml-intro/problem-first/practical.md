@@ -22,6 +22,8 @@ import ipywidgets as widgets
 from IPython.display import display, HTML, SVG
 import json
 import os
+import requests
+from pathlib import Path
 ```
 
 We now define a function to create the interactive widgets.
@@ -159,19 +161,41 @@ We then define the function to create the canvas display. The display uses the d
 
 ```python
 def create_canvas_display():
-    svg_path = '{{ site.url }}/assets/media/diagrams/ml-project-canvas.svg'
-    if os.path.exists(svg_path):
-        with open(svg_path, 'r') as f:
-            svg_content = f.read()
-    else:
+    # Try to load the SVG from the local file system first
+    local_paths = [
+        'assets/media/diagrams/ml-project-canvas.svg',
+        '../assets/media/diagrams/ml-project-canvas.svg',
+        '../../assets/media/diagrams/ml-project-canvas.svg'
+    ]
+    
+    svg_content = None
+    for path in local_paths:
+        if os.path.exists(path):
+            with open(path, 'r') as f:
+                svg_content = f.read()
+            break
+    
+    # If local file not found, try to download from the web
+    if svg_content is None:
+        try:
+            # Try to get the SVG from the web
+            response = requests.get('https://cabrerac.github.io/assets/media/diagrams/ml-project-canvas.svg')
+            if response.status_code == 200:
+                svg_content = response.text
+        except:
+            pass
+    
+    # If still no content, use a fallback SVG
+    if svg_content is None:
         svg_content = '''
         <svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
             <!-- Add a message if SVG file is not found -->
             <text x="600" y="400" font-family="Arial" font-size="24" text-anchor="middle">
-                ML Project Canvas SVG file not found
+                ML Project Canvas SVG file not found. Please ensure the file exists at assets/media/diagrams/ml-project-canvas.svg
             </text>
         </svg>
         '''
+    
     return SVG(svg_content)
 ```
 
