@@ -250,39 +250,39 @@ def create_layout():
     
     # Define the mapping between widgets and SVG text elements
     svg_mapping = {
-        # Problem Definition section (x: 50, y: 100)
-        'business_objectives': {'x': 80, 'y': 120, 'group': 0},
-        'success_criteria': {'x': 80, 'y': 150, 'group': 0},
-        'stakeholders': {'x': 80, 'y': 180, 'group': 0},
-        'user_requirements': {'x': 80, 'y': 210, 'group': 0},
-        'project_constraints': {'x': 80, 'y': 240, 'group': 0},
+        # Problem Definition section
+        'business_objectives': {'x': 80, 'y': 120, 'section': 'Problem Definition'},
+        'success_criteria': {'x': 80, 'y': 150, 'section': 'Problem Definition'},
+        'stakeholders': {'x': 80, 'y': 180, 'section': 'Problem Definition'},
+        'user_requirements': {'x': 80, 'y': 210, 'section': 'Problem Definition'},
+        'project_constraints': {'x': 80, 'y': 240, 'section': 'Problem Definition'},
         
-        # Data section (x: 500, y: 100)
-        'available_data': {'x': 530, 'y': 120, 'group': 1},
-        'data_quality': {'x': 530, 'y': 150, 'group': 1},
-        'data_requirements': {'x': 530, 'y': 180, 'group': 1},
+        # Data section
+        'available_data': {'x': 530, 'y': 120, 'section': 'Data'},
+        'data_quality': {'x': 530, 'y': 150, 'section': 'Data'},
+        'data_requirements': {'x': 530, 'y': 180, 'section': 'Data'},
         
-        # Model section (x: 850, y: 100)
-        'model_selection': {'x': 880, 'y': 120, 'group': 2},
-        'performance_metrics': {'x': 880, 'y': 150, 'group': 2},
-        'model_constraints': {'x': 880, 'y': 180, 'group': 2},
+        # Model section
+        'model_selection': {'x': 880, 'y': 120, 'section': 'Model'},
+        'performance_metrics': {'x': 880, 'y': 150, 'section': 'Model'},
+        'model_constraints': {'x': 880, 'y': 180, 'section': 'Model'},
         
-        # Infrastructure section (x: 500, y: 325)
-        'computing_resources': {'x': 530, 'y': 345, 'group': 3},
-        'deployment_environment': {'x': 530, 'y': 375, 'group': 3},
-        'scalability_needs': {'x': 530, 'y': 405, 'group': 3},
+        # Infrastructure section
+        'computing_resources': {'x': 530, 'y': 345, 'section': 'Infrastructure'},
+        'deployment_environment': {'x': 530, 'y': 375, 'section': 'Infrastructure'},
+        'scalability_needs': {'x': 530, 'y': 405, 'section': 'Infrastructure'},
         
-        # Monitoring section (x: 850, y: 325)
-        'performance_monitoring': {'x': 880, 'y': 345, 'group': 4},
-        'model_updates': {'x': 880, 'y': 375, 'group': 4},
-        'maintenance_plan': {'x': 880, 'y': 405, 'group': 4},
+        # Monitoring section
+        'performance_monitoring': {'x': 880, 'y': 345, 'section': 'Monitoring'},
+        'model_updates': {'x': 880, 'y': 375, 'section': 'Monitoring'},
+        'maintenance_plan': {'x': 880, 'y': 405, 'section': 'Monitoring'},
         
-        # Ethics & Compliance section (x: 500, y: 550)
-        'bias_fairness': {'x': 530, 'y': 570, 'group': 5},
-        'privacy_security': {'x': 530, 'y': 600, 'group': 5},
-        'regulatory_requirements': {'x': 530, 'y': 630, 'group': 5},
-        'social_impact': {'x': 880, 'y': 570, 'group': 5},
-        'environmental_impact': {'x': 880, 'y': 600, 'group': 5}
+        # Ethics & Compliance section
+        'bias_fairness': {'x': 530, 'y': 570, 'section': 'Ethics & Compliance'},
+        'privacy_security': {'x': 530, 'y': 600, 'section': 'Ethics & Compliance'},
+        'regulatory_requirements': {'x': 530, 'y': 630, 'section': 'Ethics & Compliance'},
+        'social_impact': {'x': 880, 'y': 570, 'section': 'Ethics & Compliance'},
+        'environmental_impact': {'x': 880, 'y': 600, 'section': 'Ethics & Compliance'}
     }
     
     def update_svg(change):
@@ -306,14 +306,18 @@ def create_layout():
                     # Join all text elements
                     text_content = '\n'.join(text_elements)
                     
-                    # Find the appropriate group to insert the text
-                    groups = re.findall(r'<g transform="translate\([^)]*\)">', current_svg)
-                    if coords['group'] < len(groups):
-                        group_pattern = groups[coords['group']]
-                        # Remove any existing text elements in this group
-                        current_svg = re.sub(f'{group_pattern}.*?<text x="{coords["x"]}"[^>]*>.*?</text>', group_pattern, current_svg)
-                        # Add the new text elements
-                        current_svg = re.sub(group_pattern, f'{group_pattern}{text_content}', current_svg, count=1)
+                    # Find the section in the SVG
+                    section_pattern = f'<text[^>]*>{coords["section"]}</text>'
+                    section_match = re.search(section_pattern, current_svg)
+                    if section_match:
+                        # Find the group containing this section
+                        group_start = current_svg.rfind('<g', 0, section_match.start())
+                        if group_start != -1:
+                            # Remove any existing text elements in this section
+                            section_text = current_svg[group_start:current_svg.find('</g>', group_start)]
+                            current_svg = current_svg.replace(section_text, '')
+                            # Add the new text elements
+                            current_svg = current_svg[:group_start] + f'<g transform="translate({coords["x"]-30}, {coords["y"]-40})">\n{text_content}\n</g>' + current_svg[group_start:]
         
         # Update the SVG display
         canvas_display.value = f'<div style="width: 100%; height: 800px;">{current_svg}</div>'
