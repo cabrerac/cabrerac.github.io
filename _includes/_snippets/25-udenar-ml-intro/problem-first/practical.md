@@ -163,7 +163,7 @@ We then define the function to create the canvas display. The display uses the d
 def create_canvas_display():
     # Try to load the SVG from the local file system first
     local_paths = [
-        'assets/media/diagrams/ml-project-canvas.svg',
+        '{{ site.url }}/assets/media/diagrams/ml-project-canvas.svg',
         '../assets/media/diagrams/ml-project-canvas.svg',
         '../../assets/media/diagrams/ml-project-canvas.svg'
     ]
@@ -179,7 +179,7 @@ def create_canvas_display():
     if svg_content is None:
         try:
             # Try to get the SVG from the web
-            response = requests.get('https://cabrerac.github.io/assets/media/diagrams/ml-project-canvas.svg')
+            response = requests.get('{{ site.url }}/assets/media/diagrams/ml-project-canvas.svg')
             if response.status_code == 200:
                 svg_content = response.text
         except:
@@ -196,7 +196,9 @@ def create_canvas_display():
         </svg>
         '''
     
-    return SVG(svg_content)
+    # Create an HTML widget to display the SVG
+    svg_widget = widgets.HTML(value=f'<div style="width: 100%; height: 800px;">{svg_content}</div>')
+    return svg_widget
 ```
 
 Now, we define a function to create the layout and puts all elements together.
