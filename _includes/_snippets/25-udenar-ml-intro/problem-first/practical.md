@@ -10,7 +10,12 @@
 - Due date: [29/05/2025]
 
 #### Interactive ML Project Canvas
-Fill in the form below to populate your ML Project Canvas. The canvas will update in real-time as you type.
+
+The following blocks of code creates and interactive Canvas we can use in our practical session
+
+Run the code and then fill the form to populat the ML Project Canvas. The canvas will update in real-time as you type.
+
+We start by importing the relevant Python libraries.
 
 ```python
 import ipywidgets as widgets
@@ -19,8 +24,9 @@ import json
 import os
 ```
 
+We now define the interactive widgets.
+
 ```python
-# Create the form widgets
 def create_form_widgets():
     widgets_dict = {}
     
