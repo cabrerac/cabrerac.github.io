@@ -19,7 +19,7 @@ import json
 import os
 ```
 
-``` python
+```python
 # Create the form widgets
 def create_form_widgets():
     widgets_dict = {}
@@ -149,7 +149,7 @@ def create_form_widgets():
     return widgets_dict
 ```
 
-``` python
+```python
 # Create the canvas display
 def create_canvas_display():
     # Load the SVG template
@@ -169,7 +169,7 @@ def create_canvas_display():
     return SVG(svg_content)
 ```
 
-``` python
+```python
 # Create the layout
 def create_layout():
     widgets_dict = create_form_widgets()
@@ -220,13 +220,13 @@ def create_layout():
     return main_layout, widgets_dict
 ```
 
-``` python
+```python
 # Create and display the interactive canvas
 layout, widgets_dict = create_layout()
 display(layout)
 ```
 
-``` python
+```python
 # Add a function to save the canvas state
 def save_canvas_state():
     state = {key: widget.value for key, widget in widgets_dict.items()}
@@ -235,7 +235,7 @@ def save_canvas_state():
     print("Canvas state saved to ml_canvas_state.json")
 ```
 
-``` python
+```python
 # Add a save button
 save_button = widgets.Button(description='Save Canvas State')
 save_button.on_click(lambda b: save_canvas_state())
