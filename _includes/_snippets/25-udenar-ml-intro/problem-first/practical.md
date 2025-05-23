@@ -79,8 +79,8 @@ This exercise helps develop skills in planning ML projects using the systems eng
 - A monitoring and maintenance strategy
 
 #### Resources
-- [ML Project Canvas Template](https://www.mlcanvas.org/)
-- [Systems Engineering Guide](https://www.nasa.gov/wp-content/uploads/2015/04/nasa_systems_engineering_handbook_0.pdf)
+- [ML Project Canvas Template](https://cabrerac.github.io/assets/slides/25-udenar-ml-intro/problem-first.html#60)
+- [NASA Systems Engineering Guide](https://www.nasa.gov/wp-content/uploads/2018/09/nasa_systems_engineering_handbook_0.pdf)
 - [Ethical AI Guidelines](https://www.unesco.org/en/artificial-intelligence/recommendation-ethics)
 
 <!-- end NOTEBOOK: -->
