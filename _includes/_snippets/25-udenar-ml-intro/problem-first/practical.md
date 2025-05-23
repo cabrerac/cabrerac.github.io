@@ -24,6 +24,7 @@ import json
 import os
 import requests
 from pathlib import Path
+import re
 ```
 
 We now define a function to create the interactive widgets.
@@ -198,7 +199,7 @@ def create_canvas_display():
     
     # Create an HTML widget to display the SVG
     svg_widget = widgets.HTML(value=f'<div style="width: 100%; height: 800px;">{svg_content}</div>')
-    return svg_widget
+    return svg_widget, svg_content
 ```
 
 Now, we define a function to create the layout and puts all elements together.
@@ -245,7 +246,60 @@ def create_layout():
     ])
     
     # Create the canvas display
-    canvas_display = create_canvas_display()
+    canvas_display, original_svg = create_canvas_display()
+    
+    # Define the mapping between widgets and SVG text elements
+    svg_mapping = {
+        'business_objectives': {'x': 30, 'y': 80},
+        'success_criteria': {'x': 30, 'y': 110},
+        'stakeholders': {'x': 30, 'y': 140},
+        'user_requirements': {'x': 30, 'y': 170},
+        'project_constraints': {'x': 30, 'y': 200},
+        'available_data': {'x': 30, 'y': 80},
+        'data_quality': {'x': 30, 'y': 110},
+        'data_requirements': {'x': 30, 'y': 140},
+        'model_selection': {'x': 30, 'y': 80},
+        'performance_metrics': {'x': 30, 'y': 110},
+        'model_constraints': {'x': 30, 'y': 140},
+        'computing_resources': {'x': 30, 'y': 80},
+        'deployment_environment': {'x': 30, 'y': 110},
+        'scalability_needs': {'x': 30, 'y': 140},
+        'performance_monitoring': {'x': 30, 'y': 80},
+        'model_updates': {'x': 30, 'y': 110},
+        'maintenance_plan': {'x': 30, 'y': 140},
+        'bias_fairness': {'x': 30, 'y': 80},
+        'privacy_security': {'x': 30, 'y': 110},
+        'regulatory_requirements': {'x': 30, 'y': 140},
+        'social_impact': {'x': 380, 'y': 80},
+        'environmental_impact': {'x': 380, 'y': 110}
+    }
+    
+    def update_svg(change):
+        # Get the current SVG content
+        current_svg = original_svg
+        
+        # Update each text element based on widget values
+        for widget_id, coords in svg_mapping.items():
+            if widget_id in widgets_dict:
+                value = widgets_dict[widget_id].value
+                if value:
+                    # Create the text element with the widget value
+                    text_element = f'<text x="{coords["x"]}" y="{coords["y"]}" font-family="Arial, sans-serif" font-size="20" fill="#224466">{value}</text>'
+                    # Replace the existing text element or add a new one
+                    pattern = f'<text x="{coords["x"]}" y="{coords["y"]}"[^>]*>.*?</text>'
+                    if re.search(pattern, current_svg):
+                        current_svg = re.sub(pattern, text_element, current_svg)
+                    else:
+                        # Find the appropriate group to insert the text
+                        group_pattern = f'<g transform="translate\([^)]*\)">'
+                        current_svg = re.sub(group_pattern, f'\\g<0>{text_element}', current_svg, count=1)
+        
+        # Update the SVG display
+        canvas_display.value = f'<div style="width: 100%; height: 800px;">{current_svg}</div>'
+    
+    # Add observers to all widgets
+    for widget in widgets_dict.values():
+        widget.observe(update_svg, names='value')
     
     # Create the main layout
     main_layout = widgets.HBox([form_layout, canvas_display])
