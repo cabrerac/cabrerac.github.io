@@ -2,12 +2,7 @@
 
 # Practical Introduction
 
-#### Submission Guidelines
-- Submit your solution as a Jupyter notebook with the following name format: cease_ml_intro_session_1_<email_username>.ipynb
-- Include clear comments explaining your code
-- Provide a written analysis of your results
-- Include test cases and their outputs
-- Due date: [29/05/2025]
+In this practical, we will explore together how to define our ML projects using the canvas artefact.
 
 #### Interactive ML Project Canvas
 
@@ -143,9 +138,9 @@ def generate_svg(widgets_dict):
     # SVG template with placeholders for content
     svg_template = '''<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <div class="timeline-container">
-<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+<svg width="1200" height="1000" viewBox="0 0 1200 1000" xmlns="http://www.w3.org/2000/svg">
     <!-- Background -->
-    <rect width="1200" height="750" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+    <rect width="1200" height="950" fill="#ffffff" stroke="#224466" stroke-width="2"/>
     
     <!-- Title -->
     <text x="600" y="50" font-family="Arial, sans-serif" font-size="40" text-anchor="middle" fill="#224466" font-weight="bold">ML Project Canvas</text>
@@ -153,46 +148,47 @@ def generate_svg(widgets_dict):
     <!-- Main Sections -->
     <!-- Problem Definition (Larger) -->
     <g transform="translate(50, 100)">
-        <rect width="400" height="625" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
+        <rect width="400" height="800" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
         <text x="200" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Problem Definition</text>
         {problem_definition}
     </g>
     
     <!-- Data -->
     <g transform="translate(500, 100)">
-        <rect width="300" height="180" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
+        <rect width="300" height="250" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
         <text x="150" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Data</text>
         {data_section}
     </g>
     
     <!-- Model -->
     <g transform="translate(850, 100)">
-        <rect width="300" height="180" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
+        <rect width="300" height="250" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
         <text x="150" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Model</text>
         {model_section}
     </g>
     
     <!-- Infrastructure -->
-    <g transform="translate(500, 325)">
-        <rect width="300" height="180" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
+    <g transform="translate(500, 400)">
+        <rect width="300" height="250" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
         <text x="150" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Infrastructure</text>
         {infrastructure_section}
     </g>
     
     <!-- Monitoring -->
-    <g transform="translate(850, 325)">
-        <rect width="300" height="180" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
+    <g transform="translate(850, 400)">
+        <rect width="300" height="250" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
         <text x="150" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Monitoring</text>
         {monitoring_section}
     </g>
     <!-- Ethics &amp Compliance (Larger) -->
-    <g transform="translate(500, 550)">
-        <rect width="650" height="175" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
+    <g transform="translate(500, 700)">
+        <rect width="650" height="200" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
         <text x="325" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Ethics &amp; Compliance</text>
         {ethics_section}
     </g>
 </svg>
-</div>'''
+</div>
+'''
     def process_category_text(widgets, category_widgets, start_x, start_y, line_height=20):
         if not widgets:
             return ""
@@ -255,11 +251,9 @@ def generate_svg(widgets_dict):
         )
     # Replace placeholders with processed values
     svg_content = svg_template.format(**values)
-    
     # Save the SVG file
     with open('ml_project_canvas.svg', 'w') as f:
         f.write(svg_content)
-    
     # Display the generated SVG
     display(SVG(svg_content))
     print("SVG file generated as 'ml_project_canvas.svg'")
@@ -364,68 +358,20 @@ Ethical considerations are paramount in this healthcare setting. The system must
 The hospital is open to both traditional process improvements and innovative technological solutions, including ML-based approaches. However, they emphasize the need for practical, implementable solutions that can be easily adopted by the medical staff. The solution should be robust enough to handle the daily patient load while being flexible enough to adapt to changing circumstances and future growth.
 
 **Tasks**:
-1. Using the ML Project Canvas framework:
-   - Define the business objectives
-   - Identify key stakeholders
-   - List potential success criteria
-   - Document user requirements
-   - Identify project constraints
+1. Fill out the ML project canvas
 
-2. Analyze whether ML is necessary for this problem:
-   - What are the key variables to consider?
-   - What metrics would be important to track?
-   - What data would be needed?
-   - Could this be solved without ML?
+2. Share your solutions in the lecture
 
-**Deliverables**:
-- A detailed problem analysis document
-- A decision matrix comparing ML vs non-ML solutions
-- A data requirements specification
+## Homework - Applying the ML Project Canvas to your own project
 
-#### Exercise 2: Systems Thinking and Context Analysis
-This exercise focuses on understanding the broader context of ML applications.
+Find a problem of your interest and repeat the exercise of defining the ML Project canvas for it. Try to fill the most you can but it is okay if some bits are not as detailed as you would like.
 
-**Scenario**: A city wants to implement an AI-based traffic management system.
-
-**Tasks**:
-1. Apply systems thinking to analyze the problem:
-   - Identify different system views (technical, social, economic)
-   - Map the system dynamics
-   - Consider agility requirements
-
-2. Evaluate potential impacts:
-   - Social impact analysis
-   - Environmental considerations
-   - Ethical implications
-   - Security and privacy concerns
-
-**Deliverables**:
-- A systems analysis report
-- An impact assessment matrix
-- A risk mitigation plan
-
-#### Exercise 3: ML Project Planning
-This exercise helps develop skills in planning ML projects using the systems engineering approach.
-
-**Scenario**: You are tasked with developing a predictive maintenance system for industrial machinery.
-
-**Tasks**:
-1. Create a comprehensive project plan:
-   - Define the problem scope
-   - Identify required resources
-   - Plan the development phases
-   - Define monitoring and maintenance requirements
-
-2. Develop a technical specification:
-   - Model requirements
-   - Data requirements
-   - Infrastructure needs
-   - Performance metrics
-
-**Deliverables**:
-- A detailed project plan
-- A technical specification document
-- A monitoring and maintenance strategy
+#### Submission Guidelines
+- Submit a document with the following elements:
+-- The problem description with all the details you can capture.
+-- your canvas as an image
+- The document should have the following name format: cease_ml_intro_session_2_<email_username>.pdf
+- Due date: [29/05/2025]
 
 #### Resources
 - [ML Project Canvas Template](https://cabrerac.github.io/assets/slides/25-udenar-ml-intro/problem-first.html#60)
