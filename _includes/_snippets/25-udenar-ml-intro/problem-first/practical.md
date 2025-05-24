@@ -35,122 +35,100 @@ def create_form_widgets():
     
     # Problem Definition
     widgets_dict['business_objectives'] = widgets.Textarea(
-        description='Business Objectives:',
         placeholder='Enter business objectives...',
-        rows=3
+        rows=3,
     )
     widgets_dict['success_criteria'] = widgets.Textarea(
-        description='Success Criteria:',
         placeholder='Enter success criteria...',
         rows=3
     )
     widgets_dict['stakeholders'] = widgets.Textarea(
-        description='Stakeholders:',
         placeholder='Enter stakeholders...',
         rows=3
     )
     widgets_dict['user_requirements'] = widgets.Textarea(
-        description='User Requirements:',
         placeholder='Enter user requirements...',
         rows=3
     )
     widgets_dict['project_constraints'] = widgets.Textarea(
-        description='Project Constraints:',
         placeholder='Enter project constraints...',
         rows=3
     )
     
     # Data
     widgets_dict['available_data'] = widgets.Textarea(
-        description='Available Data:',
         placeholder='Enter available data...',
         rows=2
     )
     widgets_dict['data_quality'] = widgets.Textarea(
-        description='Data Quality:',
         placeholder='Enter data quality considerations...',
         rows=2
     )
     widgets_dict['data_requirements'] = widgets.Textarea(
-        description='Data Requirements:',
         placeholder='Enter data requirements...',
         rows=2
     )
     
     # Model
     widgets_dict['model_selection'] = widgets.Textarea(
-        description='Model Selection:',
         placeholder='Enter model selection criteria...',
         rows=2
     )
     widgets_dict['performance_metrics'] = widgets.Textarea(
-        description='Performance Metrics:',
         placeholder='Enter performance metrics...',
         rows=2
     )
     widgets_dict['model_constraints'] = widgets.Textarea(
-        description='Model Constraints:',
         placeholder='Enter model constraints...',
         rows=2
     )
     
     # Infrastructure
     widgets_dict['computing_resources'] = widgets.Textarea(
-        description='Computing Resources:',
         placeholder='Enter computing resources...',
         rows=2
     )
     widgets_dict['deployment_environment'] = widgets.Textarea(
-        description='Deployment Environment:',
         placeholder='Enter deployment environment...',
         rows=2
     )
     widgets_dict['scalability_needs'] = widgets.Textarea(
-        description='Scalability Needs:',
         placeholder='Enter scalability needs...',
         rows=2
     )
     
     # Monitoring
     widgets_dict['performance_monitoring'] = widgets.Textarea(
-        description='Performance Monitoring:',
         placeholder='Enter performance monitoring plan...',
         rows=2
     )
     widgets_dict['model_updates'] = widgets.Textarea(
-        description='Model Updates:',
         placeholder='Enter model update strategy...',
         rows=2
     )
     widgets_dict['maintenance_plan'] = widgets.Textarea(
-        description='Maintenance Plan:',
         placeholder='Enter maintenance plan...',
         rows=2
     )
     
     # Ethics & Compliance
     widgets_dict['bias_fairness'] = widgets.Textarea(
-        description='Bias & Fairness:',
         placeholder='Enter bias and fairness considerations...',
         rows=2
     )
     widgets_dict['privacy_security'] = widgets.Textarea(
-        description='Privacy & Security:',
         placeholder='Enter privacy and security measures...',
         rows=2
     )
     widgets_dict['regulatory_requirements'] = widgets.Textarea(
-        description='Regulatory Requirements:',
         placeholder='Enter regulatory requirements...',
         rows=2
     )
     widgets_dict['social_impact'] = widgets.Textarea(
-        description='Social Impact:',
         placeholder='Enter social impact considerations...',
         rows=2
     )
     widgets_dict['environmental_impact'] = widgets.Textarea(
-        description='Environmental Impact:',
         placeholder='Enter environmental impact considerations...',
         rows=2
     )
@@ -162,6 +140,7 @@ We define a function to generate the SVG file with the widget contents.
 
 ```python
 def generate_svg(widgets_dict):
+    # SVG template with placeholders for content
     svg_template = '''<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
     <!-- Background -->
@@ -175,63 +154,109 @@ def generate_svg(widgets_dict):
     <g transform="translate(50, 100)">
         <rect width="400" height="625" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
         <text x="200" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Problem Definition</text>
-        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Business Objectives: {business_objectives}</text>
-        <text x="30" y="110" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Success Criteria: {success_criteria}</text>
-        <text x="30" y="140" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Stakeholders: {stakeholders}</text>
-        <text x="30" y="170" font-family="Arial, sans-serif" font-size="20" fill="#224466">• User Requirements: {user_requirements}</text>
-        <text x="30" y="200" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Project Constraints: {project_constraints}</text>
+        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Business Objectives:</text>
+        {business_objectives}
+        <text x="30" y="140" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Success Criteria:</text>
+        {success_criteria}
+        <text x="30" y="200" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Stakeholders:</text>
+        {stakeholders}
+        <text x="30" y="260" font-family="Arial, sans-serif" font-size="20" fill="#224466">• User Requirements:</text>
+        {user_requirements}
+        <text x="30" y="320" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Project Constraints:</text>
+        {project_constraints}
     </g>
     
     <!-- Data -->
     <g transform="translate(500, 100)">
         <rect width="300" height="180" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
         <text x="150" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Data</text>
-        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Available Data: {available_data}</text>
-        <text x="30" y="110" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Data Quality: {data_quality}</text>
-        <text x="30" y="140" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Data Requirements: {data_requirements}</text>
+        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Available Data:</text>
+        {available_data}
+        <text x="30" y="120" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Data Quality:</text>
+        {data_quality}
+        <text x="30" y="160" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Data Requirements:</text>
+        {data_requirements}
     </g>
     
     <!-- Model -->
     <g transform="translate(850, 100)">
         <rect width="300" height="180" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
         <text x="150" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Model</text>
-        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Model Selection: {model_selection}</text>
-        <text x="30" y="110" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Performance Metrics: {performance_metrics}</text>
-        <text x="30" y="140" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Model Constraints: {model_constraints}</text>
+        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Model Selection:</text>
+        {model_selection}
+        <text x="30" y="120" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Performance Metrics:</text>
+        {performance_metrics}
+        <text x="30" y="160" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Model Constraints:</text>
+        {model_constraints}
     </g>
     
     <!-- Infrastructure -->
     <g transform="translate(500, 325)">
         <rect width="300" height="180" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
         <text x="150" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Infrastructure</text>
-        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Computing Resources: {computing_resources}</text>
-        <text x="30" y="110" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Deployment Environment: {deployment_environment}</text>
-        <text x="30" y="140" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Scalability Needs: {scalability_needs}</text>
+        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Computing Resources:</text>
+        {computing_resources}
+        <text x="30" y="120" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Deployment Environment:</text>
+        {deployment_environment}
+        <text x="30" y="160" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Scalability Needs:</text>
+        {scalability_needs}
     </g>
     
     <!-- Monitoring -->
     <g transform="translate(850, 325)">
         <rect width="300" height="180" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
         <text x="150" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Monitoring</text>
-        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Performance Monitoring: {performance_monitoring}</text>
-        <text x="30" y="110" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Model Updates: {model_updates}</text>
-        <text x="30" y="140" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Maintenance Plan: {maintenance_plan}</text>
+        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Performance Monitoring:</text>
+        {performance_monitoring}
+        <text x="30" y="120" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Model Updates:</text>
+        {model_updates}
+        <text x="30" y="160" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Maintenance Plan:</text>
+        {maintenance_plan}
     </g>
     <!-- Ethics &amp Compliance (Larger) -->
     <g transform="translate(500, 550)">
         <rect width="650" height="175" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
         <text x="325" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Ethics &amp; Compliance</text>
-        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Bias &amp; Fairness: {bias_fairness}</text>
-        <text x="30" y="110" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Privacy &amp; Security: {privacy_security}</text>
-        <text x="30" y="140" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Regulatory Requirements: {regulatory_requirements}</text>
-        <text x="380" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Social Impact: {social_impact}</text>
-        <text x="380" y="110" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Environmental Impact: {environmental_impact}</text>
+        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Bias &amp; Fairness:</text>
+        {bias_fairness}
+        <text x="30" y="120" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Privacy &amp; Security:</text>
+        {privacy_security}
+        <text x="30" y="160" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Regulatory Requirements:</text>
+        {regulatory_requirements}
+        <text x="380" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Social Impact:</text>
+        {social_impact}
+        <text x="380" y="120" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Environmental Impact:</text>
+        {environmental_impact}
     </g>
 </svg>'''
-    # Get values from widgets
-    values = {key: widget.value for key, widget in widgets_dict.items()}
-    
-    # Replace placeholders with actual values
+    def process_text(text, x, y, line_height=20):
+        if not text:
+            return ""
+        lines = text.split('\n')
+        svg_text = []
+        for i, line in enumerate(lines):
+            if line.strip():  # Only add non-empty lines
+                svg_text.append(f'<text x="{x}" y="{y + i * line_height}" font-family="Arial, sans-serif" font-size="16" fill="#224466">{line}</text>')
+        return '\n'.join(svg_text)
+    # Get values from widgets and process them
+    values = {}
+    for key, widget in widgets_dict.items():
+        text = widget.value
+        if key in ['business_objectives', 'success_criteria', 'stakeholders', 'user_requirements', 'project_constraints']:
+            values[key] = process_text(text, 30, 100)
+        elif key in ['available_data', 'data_quality', 'data_requirements']:
+            values[key] = process_text(text, 30, 100)
+        elif key in ['model_selection', 'performance_metrics', 'model_constraints']:
+            values[key] = process_text(text, 30, 100)
+        elif key in ['computing_resources', 'deployment_environment', 'scalability_needs']:
+            values[key] = process_text(text, 30, 100)
+        elif key in ['performance_monitoring', 'model_updates', 'maintenance_plan']:
+            values[key] = process_text(text, 30, 100)
+        elif key in ['bias_fairness', 'privacy_security', 'regulatory_requirements']:
+            values[key] = process_text(text, 30, 100)
+        elif key in ['social_impact', 'environmental_impact']:
+            values[key] = process_text(text, 380, 100)
+    # Replace placeholders with processed values
     svg_content = svg_template.format(**values)
     
     # Save the SVG file
@@ -250,34 +275,39 @@ def create_layout():
     widgets_dict = create_form_widgets()
     
     # Create the form layout
-    form_layout = widgets.VBox([
+    form_layout_def = widgets.VBox([
         widgets.HTML('<h3>Problem Definition</h3>'),
         widgets_dict['business_objectives'],
         widgets_dict['success_criteria'],
         widgets_dict['stakeholders'],
         widgets_dict['user_requirements'],
-        widgets_dict['project_constraints'],
-        
+        widgets_dict['project_constraints']
+    ])
+    form_layout_data = widgets.VBox([
         widgets.HTML('<h3>Data</h3>'),
         widgets_dict['available_data'],
         widgets_dict['data_quality'],
-        widgets_dict['data_requirements'],
-        
+        widgets_dict['data_requirements']
+    ])
+    form_layout_model = widgets.VBox([
         widgets.HTML('<h3>Model</h3>'),
         widgets_dict['model_selection'],
         widgets_dict['performance_metrics'],
-        widgets_dict['model_constraints'],
-        
+        widgets_dict['model_constraints']
+    ])
+    form_layout_infra = widgets.VBox([
         widgets.HTML('<h3>Infrastructure</h3>'),
         widgets_dict['computing_resources'],
         widgets_dict['deployment_environment'],
-        widgets_dict['scalability_needs'],
-        
+        widgets_dict['scalability_needs']
+    ])
+    form_layout_mon = widgets.VBox([
         widgets.HTML('<h3>Monitoring</h3>'),
         widgets_dict['performance_monitoring'],
         widgets_dict['model_updates'],
-        widgets_dict['maintenance_plan'],
-        
+        widgets_dict['maintenance_plan']
+    ])
+    form_layout_eth = widgets.VBox([        
         widgets.HTML('<h3>Ethics & Compliance</h3>'),
         widgets_dict['bias_fairness'],
         widgets_dict['privacy_security'],
@@ -285,14 +315,13 @@ def create_layout():
         widgets_dict['social_impact'],
         widgets_dict['environmental_impact']
     ])
-    
+    # Add the widgets in horizontal layout
+    form_layout_widgets = widgets.HBox([form_layout_def, form_layout_eth, form_layout_data, form_layout_model, form_layout_infra, form_layout_mon])
     # Create the generate button
     generate_button = widgets.Button(description='Generate Canvas')
     generate_button.on_click(lambda b: generate_svg(widgets_dict))
-    
     # Add the button to the layout
-    form_layout = widgets.VBox([form_layout, generate_button])
-    
+    form_layout = widgets.VBox([form_layout_widgets, generate_button])
     return form_layout, widgets_dict
 ```
 
