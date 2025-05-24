@@ -15,7 +15,7 @@ layout: lecture
 lecture_code: problem-first
 lecture_date: 24/05/2025
 permalink: /teaching/25-udenar-ml-intro/problem-first/
-visible: false
+visible: true
 ---
 <!-- ALL: content that goes everywhere -->
 <!-- SLIDES: content that only goes to slides -->
