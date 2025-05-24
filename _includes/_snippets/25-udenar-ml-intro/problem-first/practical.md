@@ -142,6 +142,7 @@ We define a function to generate the SVG file with the widget contents.
 def generate_svg(widgets_dict):
     # SVG template with placeholders for content
     svg_template = '''<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div class="timeline-container">
 <svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
     <!-- Background -->
     <rect width="1200" height="750" fill="#ffffff" stroke="#224466" stroke-width="2"/>
@@ -154,108 +155,104 @@ def generate_svg(widgets_dict):
     <g transform="translate(50, 100)">
         <rect width="400" height="625" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
         <text x="200" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Problem Definition</text>
-        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Business Objectives:</text>
-        {business_objectives}
-        <text x="30" y="140" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Success Criteria:</text>
-        {success_criteria}
-        <text x="30" y="200" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Stakeholders:</text>
-        {stakeholders}
-        <text x="30" y="260" font-family="Arial, sans-serif" font-size="20" fill="#224466">• User Requirements:</text>
-        {user_requirements}
-        <text x="30" y="320" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Project Constraints:</text>
-        {project_constraints}
+        {problem_definition}
     </g>
     
     <!-- Data -->
     <g transform="translate(500, 100)">
         <rect width="300" height="180" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
         <text x="150" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Data</text>
-        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Available Data:</text>
-        {available_data}
-        <text x="30" y="120" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Data Quality:</text>
-        {data_quality}
-        <text x="30" y="160" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Data Requirements:</text>
-        {data_requirements}
+        {data_section}
     </g>
     
     <!-- Model -->
     <g transform="translate(850, 100)">
         <rect width="300" height="180" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
         <text x="150" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Model</text>
-        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Model Selection:</text>
-        {model_selection}
-        <text x="30" y="120" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Performance Metrics:</text>
-        {performance_metrics}
-        <text x="30" y="160" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Model Constraints:</text>
-        {model_constraints}
+        {model_section}
     </g>
     
     <!-- Infrastructure -->
     <g transform="translate(500, 325)">
         <rect width="300" height="180" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
         <text x="150" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Infrastructure</text>
-        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Computing Resources:</text>
-        {computing_resources}
-        <text x="30" y="120" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Deployment Environment:</text>
-        {deployment_environment}
-        <text x="30" y="160" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Scalability Needs:</text>
-        {scalability_needs}
+        {infrastructure_section}
     </g>
     
     <!-- Monitoring -->
     <g transform="translate(850, 325)">
         <rect width="300" height="180" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
         <text x="150" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Monitoring</text>
-        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Performance Monitoring:</text>
-        {performance_monitoring}
-        <text x="30" y="120" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Model Updates:</text>
-        {model_updates}
-        <text x="30" y="160" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Maintenance Plan:</text>
-        {maintenance_plan}
+        {monitoring_section}
     </g>
     <!-- Ethics &amp Compliance (Larger) -->
     <g transform="translate(500, 550)">
         <rect width="650" height="175" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
         <text x="325" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Ethics &amp; Compliance</text>
-        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Bias &amp; Fairness:</text>
-        {bias_fairness}
-        <text x="30" y="120" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Privacy &amp; Security:</text>
-        {privacy_security}
-        <text x="30" y="160" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Regulatory Requirements:</text>
-        {regulatory_requirements}
-        <text x="380" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Social Impact:</text>
-        {social_impact}
-        <text x="380" y="120" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Environmental Impact:</text>
-        {environmental_impact}
+        {ethics_section}
     </g>
-</svg>'''
-    def process_text(text, x, y, line_height=20):
-        if not text:
+</svg>
+</div>'''
+    def process_category_text(widgets, category_widgets, start_x, start_y, line_height=20):
+        if not widgets:
             return ""
-        lines = text.split('\n')
+        
         svg_text = []
-        for i, line in enumerate(lines):
-            if line.strip():  # Only add non-empty lines
-                svg_text.append(f'<text x="{x}" y="{y + i * line_height}" font-family="Arial, sans-serif" font-size="16" fill="#224466">{line}</text>')
+        current_y = start_y
+        
+        for widget_name in category_widgets:
+            text = widgets[widget_name].value
+            if text:
+                lines = text.split('\n')
+                for line in lines:
+                    if line.strip():
+                        svg_text.append(f'<text x="{start_x}" y="{current_y}" font-family="Arial, sans-serif" font-size="16" fill="#224466">{line}</text>')
+                        current_y += line_height
+                current_y += line_height  # Add extra space between sections
+        
         return '\n'.join(svg_text)
-    # Get values from widgets and process them
+    # Define categories and their widgets
+    categories = {
+        'problem_definition': {
+            'widgets': ['business_objectives', 'success_criteria', 'stakeholders', 'user_requirements', 'project_constraints'],
+            'x': 30,
+            'y': 80
+        },
+        'data_section': {
+            'widgets': ['available_data', 'data_quality', 'data_requirements'],
+            'x': 30,
+            'y': 80
+        },
+        'model_section': {
+            'widgets': ['model_selection', 'performance_metrics', 'model_constraints'],
+            'x': 30,
+            'y': 80
+        },
+        'infrastructure_section': {
+            'widgets': ['computing_resources', 'deployment_environment', 'scalability_needs'],
+            'x': 30,
+            'y': 80
+        },
+        'monitoring_section': {
+            'widgets': ['performance_monitoring', 'model_updates', 'maintenance_plan'],
+            'x': 30,
+            'y': 80
+        },
+        'ethics_section': {
+            'widgets': ['bias_fairness', 'privacy_security', 'regulatory_requirements', 'social_impact', 'environmental_impact'],
+            'x': 30,
+            'y': 80
+        }
+    }
+    # Process each category
     values = {}
-    for key, widget in widgets_dict.items():
-        text = widget.value
-        if key in ['business_objectives', 'success_criteria', 'stakeholders', 'user_requirements', 'project_constraints']:
-            values[key] = process_text(text, 30, 100)
-        elif key in ['available_data', 'data_quality', 'data_requirements']:
-            values[key] = process_text(text, 30, 100)
-        elif key in ['model_selection', 'performance_metrics', 'model_constraints']:
-            values[key] = process_text(text, 30, 100)
-        elif key in ['computing_resources', 'deployment_environment', 'scalability_needs']:
-            values[key] = process_text(text, 30, 100)
-        elif key in ['performance_monitoring', 'model_updates', 'maintenance_plan']:
-            values[key] = process_text(text, 30, 100)
-        elif key in ['bias_fairness', 'privacy_security', 'regulatory_requirements']:
-            values[key] = process_text(text, 30, 100)
-        elif key in ['social_impact', 'environmental_impact']:
-            values[key] = process_text(text, 380, 100)
+    for category, config in categories.items():
+        values[category] = process_category_text(
+            widgets_dict,
+            config['widgets'],
+            config['x'],
+            config['y']
+        )
     # Replace placeholders with processed values
     svg_content = svg_template.format(**values)
     
@@ -336,6 +333,44 @@ display(layout)
 In this exercise, you will analyze a real-world problem and apply the systems engineering approach to determine if ML is an appropriate solution.
 
 **Scenario**: A local hospital wants to improve patient wait times in their emergency department.
+
+**Problem Description**:
+The General Hospital of Tilted Towers (GHTT) is facing significant challenges in managing patient flow through its emergency department (ED). The ED currently handles approximately 200 patients daily, with wait times averaging 4.5 hours from arrival to treatment. During peak hours (6 PM to 10 PM), wait times can exceed 8 hours, leading to patient dissatisfaction, increased stress on medical staff, and potential health risks for patients with urgent conditions.
+
+The hospital's current system relies on a basic triage process where nurses manually assess patients and assign priority levels (1-5) based on vital signs and reported symptoms. However, this process is time-consuming and often subjective. The hospital has access to historical data from the past 3 years, including:
+- Patient arrival times and demographics
+- Initial vital signs and reported symptoms
+- Triage priority levels assigned
+- Actual treatment times and outcomes
+- Staff schedules and availability
+- Seasonal patterns and special events
+
+The hospital's management team has identified several key challenges:
+1. Difficulty in predicting patient influx and required resources
+2. Inefficient allocation of medical staff during peak hours
+3. Limited ability to identify patients at risk of deterioration while waiting
+4. Lack of real-time insights for resource optimization
+5. Communication gaps between different departments
+
+The hospital's IT infrastructure includes:
+- A legacy patient management system
+- Basic network connectivity
+- Limited cloud storage capabilities
+- Standard workstations for medical staff
+- Mobile devices for nurses and doctors
+
+The project has a budget of $500,000 and must be completed within 6 months. The solution must comply with local healthcare regulations and maintain patient privacy standards. The hospital's management expects a 30% reduction in average wait times and improved patient satisfaction scores.
+
+Key stakeholders include:
+- Hospital management and board
+- ED medical staff (doctors, nurses, technicians)
+- Patients and their families
+- Insurance providers
+- Local health authorities
+- IT department
+- Emergency services (ambulance teams)
+
+The hospital is open to both traditional process improvements and innovative technological solutions, including ML-based approaches, but emphasizes the need for practical, implementable solutions that can be easily adopted by the medical staff.
 
 **Tasks**:
 1. Using the ML Project Canvas framework:
