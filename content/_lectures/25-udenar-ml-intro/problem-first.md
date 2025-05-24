@@ -18,7 +18,7 @@ position: Senior Research Associate and Affiliated Lecturer
 session: 2
 start_time: 10:00 am
 title: The Problem First
-visible: false
+visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
