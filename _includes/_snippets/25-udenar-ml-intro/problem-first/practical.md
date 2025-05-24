@@ -314,23 +314,17 @@ def create_layout():
     ])
     # Add the widgets in horizontal layout
     form_layout_widgets = widgets.HBox([form_layout_def, form_layout_eth, form_layout_data, form_layout_model, form_layout_infra, form_layout_mon])
-
     # Create an output widget to display the SVG
     output = widgets.Output()
-    
     # Create the generate button
     generate_button = widgets.Button(description='Generate Canvas')
-    
     def on_button_clicked(b):
         with output:
             output.clear_output(wait=True)
             generate_svg(widgets_dict)
-    
     generate_button.on_click(on_button_clicked)
-    
     # Add the button and output to the layout
     form_layout = widgets.VBox([form_layout_widgets, generate_button, output])
-    
     return form_layout, widgets_dict
 ```
 
@@ -351,6 +345,8 @@ The General Hospital of Tilted Towers (GHTT) is facing significant challenges in
 
 The hospital's current system relies on a basic triage process where nurses manually assess patients and assign priority levels (1-5) based on vital signs and reported symptoms. However, this process is time-consuming and often subjective. The hospital has access to historical data from the past 3 years, including patient arrival times and demographics, initial vital signs and reported symptoms, triage priority levels assigned, actual treatment times and outcomes, staff schedules and availability, and seasonal patterns and special events.
 
+The data quality varies significantly across different sources. The patient management system maintains accurate records of treatment times and outcomes, but the initial triage assessments often contain subjective observations and inconsistent documentation. Vital signs are recorded using various devices with different calibration standards, and some historical data contains missing values or inconsistencies in formatting. The hospital has recently implemented a new digital system for recording patient information, but it's not fully integrated with the legacy systems, creating additional challenges in data consistency and accessibility.
+
 The hospital's management team has been struggling with several operational challenges. They find it particularly difficult to predict patient influx and allocate resources accordingly, especially during peak hours. The current staff allocation system often leads to understaffing during busy periods and overstaffing during quieter times. Additionally, there's a growing concern about patients whose conditions might deteriorate while waiting, as the current system lacks the capability to monitor and reassess waiting patients effectively. The management also notes that the lack of real-time insights makes it challenging to optimize resource allocation, and there are frequent communication breakdowns between different departments that further complicate the patient flow process.
 
 The hospital's IT infrastructure presents both opportunities and constraints. They currently operate a legacy patient management system that, while functional, lacks modern integration capabilities. The hospital has basic network connectivity throughout the facility, with limited cloud storage capabilities that could be expanded. Medical staff use standard workstations and mobile devices for patient care, but these systems are not fully integrated with the patient management system.
@@ -358,6 +354,12 @@ The hospital's IT infrastructure presents both opportunities and constraints. Th
 The project comes with specific constraints and expectations. The hospital has allocated a budget of $500,000 for this initiative, with a strict timeline of 6 months for implementation. Any solution must comply with local healthcare regulations and maintain strict patient privacy standards. The hospital's management has set clear performance targets, expecting a 30% reduction in average wait times and improved patient satisfaction scores as key success metrics.
 
 The project involves multiple stakeholders with varying interests and concerns. The hospital management and board are primarily focused on operational efficiency and cost-effectiveness. The ED medical staff, including doctors, nurses, and technicians, are concerned about workload management and patient care quality. Patients and their families expect better service and reduced wait times, while insurance providers are interested in cost optimization. Local health authorities need to ensure regulatory compliance, and the IT department must maintain system stability. Emergency services teams, particularly ambulance crews, need better coordination for patient handovers.
+
+The hospital is particularly interested in implementing predictive models that can forecast patient influx and identify high-risk patients. They need models that can process real-time data from various sources, including vital signs monitors, patient records, and staff availability. The models should be able to adapt to changing patterns, such as seasonal variations in patient numbers or emerging health trends. However, the hospital emphasizes that any model must be interpretable by medical staff and provide clear explanations for its predictions, as this is crucial for maintaining trust and ensuring proper medical oversight.
+
+The monitoring and maintenance requirements are significant. The system needs to provide real-time dashboards for staff to track patient flow, resource utilization, and potential bottlenecks. Regular model performance monitoring is essential to ensure predictions remain accurate and to detect any drift in patient patterns or system behavior. The hospital requires a robust update mechanism that can incorporate new data and adjust to changing conditions without disrupting daily operations. Additionally, the system should maintain detailed logs for auditing purposes and to support continuous improvement efforts.
+
+Ethical considerations are paramount in this healthcare setting. The system must ensure fair treatment for all patients, regardless of their background or insurance status. There are concerns about potential biases in the data, particularly in historical triage decisions that might reflect existing healthcare disparities. The hospital is committed to maintaining strict patient privacy standards and needs to ensure that any ML system complies with healthcare data protection regulations. The solution should also consider its impact on staff workload and patient experience, ensuring it enhances rather than complicates the care process.
 
 The hospital is open to both traditional process improvements and innovative technological solutions, including ML-based approaches. However, they emphasize the need for practical, implementable solutions that can be easily adopted by the medical staff. The solution should be robust enough to handle the daily patient load while being flexible enough to adapt to changing circumstances and future growth.
 
