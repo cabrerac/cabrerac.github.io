@@ -314,11 +314,23 @@ def create_layout():
     ])
     # Add the widgets in horizontal layout
     form_layout_widgets = widgets.HBox([form_layout_def, form_layout_eth, form_layout_data, form_layout_model, form_layout_infra, form_layout_mon])
+
+    # Create an output widget to display the SVG
+    output = widgets.Output()
+    
     # Create the generate button
     generate_button = widgets.Button(description='Generate Canvas')
-    generate_button.on_click(lambda b: generate_svg(widgets_dict))
-    # Add the button to the layout
-    form_layout = widgets.VBox([form_layout_widgets, generate_button])
+    
+    def on_button_clicked(b):
+        with output:
+            output.clear_output(wait=True)
+            generate_svg(widgets_dict)
+    
+    generate_button.on_click(on_button_clicked)
+    
+    # Add the button and output to the layout
+    form_layout = widgets.VBox([form_layout_widgets, generate_button, output])
+    
     return form_layout, widgets_dict
 ```
 
@@ -337,40 +349,17 @@ In this exercise, you will analyze a real-world problem and apply the systems en
 **Problem Description**:
 The General Hospital of Tilted Towers (GHTT) is facing significant challenges in managing patient flow through its emergency department (ED). The ED currently handles approximately 200 patients daily, with wait times averaging 4.5 hours from arrival to treatment. During peak hours (6 PM to 10 PM), wait times can exceed 8 hours, leading to patient dissatisfaction, increased stress on medical staff, and potential health risks for patients with urgent conditions.
 
-The hospital's current system relies on a basic triage process where nurses manually assess patients and assign priority levels (1-5) based on vital signs and reported symptoms. However, this process is time-consuming and often subjective. The hospital has access to historical data from the past 3 years, including:
-- Patient arrival times and demographics
-- Initial vital signs and reported symptoms
-- Triage priority levels assigned
-- Actual treatment times and outcomes
-- Staff schedules and availability
-- Seasonal patterns and special events
+The hospital's current system relies on a basic triage process where nurses manually assess patients and assign priority levels (1-5) based on vital signs and reported symptoms. However, this process is time-consuming and often subjective. The hospital has access to historical data from the past 3 years, including patient arrival times and demographics, initial vital signs and reported symptoms, triage priority levels assigned, actual treatment times and outcomes, staff schedules and availability, and seasonal patterns and special events.
 
-The hospital's management team has identified several key challenges:
-1. Difficulty in predicting patient influx and required resources
-2. Inefficient allocation of medical staff during peak hours
-3. Limited ability to identify patients at risk of deterioration while waiting
-4. Lack of real-time insights for resource optimization
-5. Communication gaps between different departments
+The hospital's management team has been struggling with several operational challenges. They find it particularly difficult to predict patient influx and allocate resources accordingly, especially during peak hours. The current staff allocation system often leads to understaffing during busy periods and overstaffing during quieter times. Additionally, there's a growing concern about patients whose conditions might deteriorate while waiting, as the current system lacks the capability to monitor and reassess waiting patients effectively. The management also notes that the lack of real-time insights makes it challenging to optimize resource allocation, and there are frequent communication breakdowns between different departments that further complicate the patient flow process.
 
-The hospital's IT infrastructure includes:
-- A legacy patient management system
-- Basic network connectivity
-- Limited cloud storage capabilities
-- Standard workstations for medical staff
-- Mobile devices for nurses and doctors
+The hospital's IT infrastructure presents both opportunities and constraints. They currently operate a legacy patient management system that, while functional, lacks modern integration capabilities. The hospital has basic network connectivity throughout the facility, with limited cloud storage capabilities that could be expanded. Medical staff use standard workstations and mobile devices for patient care, but these systems are not fully integrated with the patient management system.
 
-The project has a budget of $500,000 and must be completed within 6 months. The solution must comply with local healthcare regulations and maintain patient privacy standards. The hospital's management expects a 30% reduction in average wait times and improved patient satisfaction scores.
+The project comes with specific constraints and expectations. The hospital has allocated a budget of $500,000 for this initiative, with a strict timeline of 6 months for implementation. Any solution must comply with local healthcare regulations and maintain strict patient privacy standards. The hospital's management has set clear performance targets, expecting a 30% reduction in average wait times and improved patient satisfaction scores as key success metrics.
 
-Key stakeholders include:
-- Hospital management and board
-- ED medical staff (doctors, nurses, technicians)
-- Patients and their families
-- Insurance providers
-- Local health authorities
-- IT department
-- Emergency services (ambulance teams)
+The project involves multiple stakeholders with varying interests and concerns. The hospital management and board are primarily focused on operational efficiency and cost-effectiveness. The ED medical staff, including doctors, nurses, and technicians, are concerned about workload management and patient care quality. Patients and their families expect better service and reduced wait times, while insurance providers are interested in cost optimization. Local health authorities need to ensure regulatory compliance, and the IT department must maintain system stability. Emergency services teams, particularly ambulance crews, need better coordination for patient handovers.
 
-The hospital is open to both traditional process improvements and innovative technological solutions, including ML-based approaches, but emphasizes the need for practical, implementable solutions that can be easily adopted by the medical staff.
+The hospital is open to both traditional process improvements and innovative technological solutions, including ML-based approaches. However, they emphasize the need for practical, implementable solutions that can be easily adopted by the medical staff. The solution should be robust enough to handle the daily patient load while being flexible enough to adapt to changing circumstances and future growth.
 
 **Tasks**:
 1. Using the ML Project Canvas framework:
