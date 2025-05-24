@@ -11,9 +11,9 @@
 
 #### Interactive ML Project Canvas
 
-The following blocks of code create and interactive Canvas we can use in our practical session
+The following blocks of code create an interactive Canvas we can use in our practical session.
 
-Run the code and then fill the form to populate the ML Project Canvas. The canvas will update in real-time as you type.
+Run the code and then fill the form to populate the ML Project Canvas. Once you have filled out all the fields, click the "Generate Canvas" button to create a new SVG file with your content.
 
 We start by importing the relevant Python libraries.
 
@@ -158,48 +158,89 @@ def create_form_widgets():
     return widgets_dict
 ```
 
-We then define the function to create the canvas display. The display uses the diagram we saw in the slides.
+We define a function to generate the SVG file with the widget contents.
 
 ```python
-def create_canvas_display():
-    # Try to load the SVG from the local file system first
-    local_paths = [
-        '{{ site.url }}/assets/media/diagrams/ml-project-canvas.svg',
-        '../assets/media/diagrams/ml-project-canvas.svg',
-        '../../assets/media/diagrams/ml-project-canvas.svg'
-    ]
+def generate_svg(widgets_dict):
+    svg_template = '''<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="1200" height="750" fill="#ffffff" stroke="#224466" stroke-width="2"/>
     
-    svg_content = None
-    for path in local_paths:
-        if os.path.exists(path):
-            with open(path, 'r') as f:
-                svg_content = f.read()
-            break
+    <!-- Title -->
+    <text x="600" y="50" font-family="Arial, sans-serif" font-size="40" text-anchor="middle" fill="#224466" font-weight="bold">ML Project Canvas</text>
     
-    # If local file not found, try to download from the web
-    if svg_content is None:
-        try:
-            # Try to get the SVG from the web
-            response = requests.get('{{ site.url }}/assets/media/diagrams/ml-project-canvas.svg')
-            if response.status_code == 200:
-                svg_content = response.text
-        except:
-            pass
+    <!-- Main Sections -->
+    <!-- Problem Definition (Larger) -->
+    <g transform="translate(50, 100)">
+        <rect width="400" height="625" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
+        <text x="200" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Problem Definition</text>
+        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Business Objectives: {business_objectives}</text>
+        <text x="30" y="110" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Success Criteria: {success_criteria}</text>
+        <text x="30" y="140" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Stakeholders: {stakeholders}</text>
+        <text x="30" y="170" font-family="Arial, sans-serif" font-size="20" fill="#224466">• User Requirements: {user_requirements}</text>
+        <text x="30" y="200" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Project Constraints: {project_constraints}</text>
+    </g>
     
-    # If still no content, use a fallback SVG
-    if svg_content is None:
-        svg_content = '''
-        <svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
-            <!-- Add a message if SVG file is not found -->
-            <text x="600" y="400" font-family="Arial" font-size="24" text-anchor="middle">
-                ML Project Canvas SVG file not found. Please ensure the file exists at assets/media/diagrams/ml-project-canvas.svg
-            </text>
-        </svg>
-        '''
+    <!-- Data -->
+    <g transform="translate(500, 100)">
+        <rect width="300" height="180" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
+        <text x="150" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Data</text>
+        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Available Data: {available_data}</text>
+        <text x="30" y="110" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Data Quality: {data_quality}</text>
+        <text x="30" y="140" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Data Requirements: {data_requirements}</text>
+    </g>
     
-    # Create an HTML widget to display the SVG
-    svg_widget = widgets.HTML(value=f'<div style="width: 100%; height: 800px;">{svg_content}</div>')
-    return svg_widget, svg_content
+    <!-- Model -->
+    <g transform="translate(850, 100)">
+        <rect width="300" height="180" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
+        <text x="150" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Model</text>
+        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Model Selection: {model_selection}</text>
+        <text x="30" y="110" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Performance Metrics: {performance_metrics}</text>
+        <text x="30" y="140" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Model Constraints: {model_constraints}</text>
+    </g>
+    
+    <!-- Infrastructure -->
+    <g transform="translate(500, 325)">
+        <rect width="300" height="180" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
+        <text x="150" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Infrastructure</text>
+        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Computing Resources: {computing_resources}</text>
+        <text x="30" y="110" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Deployment Environment: {deployment_environment}</text>
+        <text x="30" y="140" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Scalability Needs: {scalability_needs}</text>
+    </g>
+    
+    <!-- Monitoring -->
+    <g transform="translate(850, 325)">
+        <rect width="300" height="180" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
+        <text x="150" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Monitoring</text>
+        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Performance Monitoring: {performance_monitoring}</text>
+        <text x="30" y="110" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Model Updates: {model_updates}</text>
+        <text x="30" y="140" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Maintenance Plan: {maintenance_plan}</text>
+    </g>
+    <!-- Ethics &amp Compliance (Larger) -->
+    <g transform="translate(500, 550)">
+        <rect width="650" height="175" fill="#f0f7ff" stroke="#224466" stroke-width="2"/>
+        <text x="325" y="40" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#224466" font-weight="bold">Ethics &amp; Compliance</text>
+        <text x="30" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Bias &amp; Fairness: {bias_fairness}</text>
+        <text x="30" y="110" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Privacy &amp; Security: {privacy_security}</text>
+        <text x="30" y="140" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Regulatory Requirements: {regulatory_requirements}</text>
+        <text x="380" y="80" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Social Impact: {social_impact}</text>
+        <text x="380" y="110" font-family="Arial, sans-serif" font-size="20" fill="#224466">• Environmental Impact: {environmental_impact}</text>
+    </g>
+</svg>'''
+    # Get values from widgets
+    values = {key: widget.value for key, widget in widgets_dict.items()}
+    
+    # Replace placeholders with actual values
+    svg_content = svg_template.format(**values)
+    
+    # Save the SVG file
+    with open('ml_project_canvas.svg', 'w') as f:
+        f.write(svg_content)
+    
+    # Display the generated SVG
+    display(SVG(svg_content))
+    print("SVG file generated as 'ml_project_canvas.svg'")
 ```
 
 Now, we define a function to create the layout and puts all elements together.
@@ -245,93 +286,14 @@ def create_layout():
         widgets_dict['environmental_impact']
     ])
     
-    # Create the canvas display
-    canvas_display, original_svg = create_canvas_display()
+    # Create the generate button
+    generate_button = widgets.Button(description='Generate Canvas')
+    generate_button.on_click(lambda b: generate_svg(widgets_dict))
     
-    # Define the mapping between widgets and SVG text elements
-    svg_mapping = {
-        # Problem Definition section (x: 50, y: 100)
-        'business_objectives': {'x': 80, 'y': 120, 'section': 'Problem Definition'},
-        'success_criteria': {'x': 80, 'y': 150, 'section': 'Problem Definition'},
-        'stakeholders': {'x': 80, 'y': 180, 'section': 'Problem Definition'},
-        'user_requirements': {'x': 80, 'y': 210, 'section': 'Problem Definition'},
-        'project_constraints': {'x': 80, 'y': 240, 'section': 'Problem Definition'},
-        
-        # Data section (x: 500, y: 100)
-        'available_data': {'x': 530, 'y': 120, 'section': 'Data'},
-        'data_quality': {'x': 530, 'y': 150, 'section': 'Data'},
-        'data_requirements': {'x': 530, 'y': 180, 'section': 'Data'},
-        
-        # Model section (x: 850, y: 100)
-        'model_selection': {'x': 880, 'y': 120, 'section': 'Model'},
-        'performance_metrics': {'x': 880, 'y': 150, 'section': 'Model'},
-        'model_constraints': {'x': 880, 'y': 180, 'section': 'Model'},
-        
-        # Infrastructure section (x: 500, y: 325)
-        'computing_resources': {'x': 530, 'y': 345, 'section': 'Infrastructure'},
-        'deployment_environment': {'x': 530, 'y': 375, 'section': 'Infrastructure'},
-        'scalability_needs': {'x': 530, 'y': 405, 'section': 'Infrastructure'},
-        
-        # Monitoring section (x: 850, y: 325)
-        'performance_monitoring': {'x': 880, 'y': 345, 'section': 'Monitoring'},
-        'model_updates': {'x': 880, 'y': 375, 'section': 'Monitoring'},
-        'maintenance_plan': {'x': 880, 'y': 405, 'section': 'Monitoring'},
-        
-        # Ethics & Compliance section (x: 500, y: 550)
-        'bias_fairness': {'x': 530, 'y': 570, 'section': 'Ethics & Compliance'},
-        'privacy_security': {'x': 530, 'y': 600, 'section': 'Ethics & Compliance'},
-        'regulatory_requirements': {'x': 530, 'y': 630, 'section': 'Ethics & Compliance'},
-        'social_impact': {'x': 880, 'y': 570, 'section': 'Ethics & Compliance'},
-        'environmental_impact': {'x': 880, 'y': 600, 'section': 'Ethics & Compliance'}
-    }
+    # Add the button to the layout
+    form_layout = widgets.VBox([form_layout, generate_button])
     
-    def update_svg(change):
-        # Get the current SVG content
-        current_svg = original_svg
-        
-        # Update each text element based on widget values
-        for widget_id, coords in svg_mapping.items():
-            if widget_id in widgets_dict:
-                value = widgets_dict[widget_id].value
-                if value:
-                    # Create the text element with the widget value
-                    text_element = f'<text x="{coords["x"]}" y="{coords["y"]}" font-family="Arial, sans-serif" font-size="20" fill="#224466">{value}</text>'
-                    
-                    # Find the section in the SVG
-                    section_pattern = f'<text[^>]*>{coords["section"]}</text>'
-                    section_match = re.search(section_pattern, current_svg)
-                    if section_match:
-                        # Find the group containing this section
-                        group_start = current_svg.rfind('<g', 0, section_match.start())
-                        if group_start != -1:
-                            group_end = current_svg.find('</g>', group_start)
-                            if group_end != -1:
-                                # Get the section content
-                                section_content = current_svg[group_start:group_end]
-                                
-                                # Replace or add the text element in this section
-                                text_pattern = f'<text x="{coords["x"]}"[^>]*>.*?</text>'
-                                if re.search(text_pattern, section_content):
-                                    # Replace existing text
-                                    section_content = re.sub(text_pattern, text_element, section_content)
-                                else:
-                                    # Add new text
-                                    section_content = section_content + '\n' + text_element
-                                
-                                # Update the SVG with the modified section
-                                current_svg = current_svg[:group_start] + section_content + current_svg[group_end:]
-        
-        # Update the SVG display
-        canvas_display.value = f'<div style="width: 100%; height: 800px;">{current_svg}</div>'
-    
-    # Add observers to all widgets
-    for widget in widgets_dict.values():
-        widget.observe(update_svg, names='value')
-    
-    # Create the main layout
-    main_layout = widgets.HBox([form_layout, canvas_display])
-    
-    return main_layout, widgets_dict
+    return form_layout, widgets_dict
 ```
 
 We now can display the interactive canvas
@@ -339,24 +301,6 @@ We now can display the interactive canvas
 ```python
 layout, widgets_dict = create_layout()
 display(layout)
-```
-
-We might want to save the canvas data so we need a function for that.
-
-```python
-def save_canvas_state():
-    state = {key: widget.value for key, widget in widgets_dict.items()}
-    with open('ml_canvas_state.json', 'w') as f:
-        json.dump(state, f, indent=2)
-    print("Canvas state saved to ml_canvas_state.json")
-```
-
-And a button that enables the functionality.
-
-```python
-save_button = widgets.Button(description='Save Canvas State')
-save_button.on_click(lambda b: save_canvas_state())
-display(save_button)
 ```
 
 #### Exercise 1: Problem Analysis and Requirements Engineering
