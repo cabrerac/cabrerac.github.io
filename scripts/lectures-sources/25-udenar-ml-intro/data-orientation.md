@@ -39,7 +39,7 @@ visible: false
 
 <!-- end SLIDES: -->
 
-{% include _snippets/25-udenar-ml-intro/data-orientation.md %}
+{% include _snippets/data-orientation.md %}
 
 {% include _snippets/25-udenar-ml-intro/data-orientation/conclusions.md %}
 
