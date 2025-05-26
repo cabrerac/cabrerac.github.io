@@ -41,6 +41,22 @@ visible: false
 
 {% include _snippets/data-orientation.md %}
 
+<!-- SLIDES: -->
+
+# The Data Science Process
+
+<!-- end SLIDES: -->
+
+{% include _snippets/data-science-process.md %}
+
+<!-- SLIDES: -->
+
+# Data Access
+
+<!-- end SLIDES: -->
+
+{% include _snippets/data-access.md %}
+
 {% include _snippets/25-udenar-ml-intro/data-orientation/conclusions.md %}
 
 {% include _snippets/25-udenar-ml-intro/data-orientation/resources.md %}

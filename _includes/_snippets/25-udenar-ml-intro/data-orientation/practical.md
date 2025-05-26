@@ -56,7 +56,6 @@ def fetch_data_from_api(url, params=None):
     except requests.exceptions.RequestException as e:
         print(f"Error fetching data: {str(e)}")
         return None
-
 # Example usage with a public API
 # Note: Replace with actual API endpoint
 # data = fetch_data_from_api('https://api.example.com/data')
@@ -102,7 +101,6 @@ def generate_synthetic_data(n_samples=1000, n_features=5, n_classes=3):
             y[i] = 2
     
     return X, y
-
 # Generate and visualize synthetic data
 X, y = generate_synthetic_data()
 plt.figure(figsize=(10, 6))
@@ -120,7 +118,6 @@ When data is available on websites but not through APIs, we can use web scraping
 ```python
 from bs4 import BeautifulSoup
 import time
-
 def scrape_web_data(url):
     """
     Scrape data from a webpage
@@ -157,7 +154,6 @@ def scrape_web_data(url):
     except Exception as e:
         print(f"Error scraping data: {str(e)}")
         return None
-
 # Example usage:
 # data = scrape_web_data('https://example.com')
 ```
@@ -189,7 +185,6 @@ def assess_data_quality(data):
     }
     
     return quality_report
-
 # Example usage with synthetic data
 df = pd.DataFrame(X, columns=[f'feature_{i}' for i in range(X.shape[1])])
 df['target'] = y
