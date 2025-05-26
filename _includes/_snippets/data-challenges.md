@@ -48,7 +48,4 @@ $$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{predic
     </div>
 </div>
 
-## Data Orientation
-
-
 <!-- end SLIDES: -->

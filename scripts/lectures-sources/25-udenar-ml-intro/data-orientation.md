@@ -35,6 +35,14 @@ visible: false
 
 <!-- SLIDES: -->
 
+# Data Challenges
+
+<!-- end SLIDES: -->
+
+{% include _snippets/data-challenges.md %}
+
+<!-- SLIDES: -->
+
 # Data-Orientation
 
 <!-- end SLIDES: -->
