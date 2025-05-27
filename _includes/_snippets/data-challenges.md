@@ -59,8 +59,8 @@ $$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{predic
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/no-data.jpg" alt="No Data" style="height: 300px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>Data Availability</p>
-                <p>Each ML project is unique and data can be scare</p>
+                <p><b>Data Availability</b></p>
+                <p>Each ML project is unique and data can be scarce</p>
                 <ul>
                     <li>Specific requirements</li>
                     <li>Domain</li>
@@ -79,7 +79,7 @@ $$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{predic
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-            <p>Data Usability</p>
+            <p><b>Data Usability</b></p>
                 <p>ML Models require data in a specific format</p>
                 <ul>
                     <li>Structured vs Non structured data</li>
@@ -102,7 +102,7 @@ $$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{predic
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-            <p>Data Quality Issues</p>
+            <p><b>Data Quality Issues</b></p>
                 <p>ML Models are data-driven</p>
                 <ul>
                     <li>Missing values</li>
@@ -128,7 +128,7 @@ $$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{predic
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/data-theatre.png" alt="No Data" style="height: 300px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>Data Bias and Fairness</p>
+                <p><b>Data Bias and Fairness</b></p>
                 <p>ML Models are data-driven</p>
                 <ul>
                     <li>Sampling bias</li>
@@ -152,7 +152,7 @@ $$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{predic
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/complex-systems.png" alt="No Data" style="height: 300px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>Data Complexity</p>
+                <p><b>Data Complexity</b></p>
                 <p>Complex and dynamic systems</p>
                 <ul>
                     <li>Large systems</li>
