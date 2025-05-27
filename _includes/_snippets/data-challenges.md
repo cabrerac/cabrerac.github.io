@@ -48,4 +48,122 @@ $$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{predic
     </div>
 </div>
 
+## Data Challenges
+
+## Data Challenges
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/no-data.jpg" alt="No Data" style="height: 300px">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>Data Availability</p>
+                <p>Each ML project is unique and data can be scare</p>
+                <ul>
+                    <li>Specific requirements</li>
+                    <li>Domain</li>
+                    <li>Location</li>
+                    <li>Space</li>
+                    <li>...</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Challenges
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+            <p>Data Usability</p>
+                <p>ML Models require data in a specific format</p>
+                <ul>
+                    <li>Structured vs Non structured data</li>
+                    <li>Sparse data</li>
+                    <li>Legal regulations and privacy</li>
+                    <li>Storage technologies</li>
+                    <li>...</li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/data-usability.jpg" alt="No Data" style="height: 300px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Challenges
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+            <p>Data Quality Issues</p>
+                <p>ML Models are data-driven</p>
+                <ul>
+                    <li>Missing values</li>
+                    <li>Duplicate records</li>
+                    <li>Incorrect data</li>
+                    <li>Outlier values</li>
+                    <li>...</li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/data-quality.jpg" alt="No Data" style="height: 300px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Challenges
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/data-theatre.png" alt="No Data" style="height: 300px">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>Data Bias and Fairness</p>
+                <p>ML Models are data-driven</p>
+                <ul>
+                    <li>Sampling bias</li>
+                    <li>Historical bias</li>
+                    <li>Measurement bias</li>
+                    <li>Algorithmic bias</li>
+                    <li>Implicit bias</li>                    
+                    <li>...</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Challenges
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/complex-systems.png" alt="No Data" style="height: 300px">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>Data Complexity</p>
+                <p>Complex and dynamic systems</p>
+                <ul>
+                    <li>Large systems</li>
+                    <li>Data generation speed</li>
+                    <li>Current systems architectures</li>
+                    <li>Interpretability issues</li>                    
+                    <li>...</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- end SLIDES: -->
