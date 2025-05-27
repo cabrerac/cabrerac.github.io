@@ -1,14 +1,14 @@
 <!-- SLIDES: -->
 
-## Data Orientation
+## Data-Orientation
 
-## Data Orientation
+## Data-Orientation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/complex-systems.png" alt="No Data" style="height: 300px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/complex-systems.png" alt="Complex Systems" style="height: 300px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Focus on Operations</b></p>
@@ -17,13 +17,13 @@
     </div>
 </div>
 
-## Data Orientation
+## Data-Orientation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/soa-system.png" alt="No Data" style="height: 300px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/soa-system.png" alt="SOA ARchitecture" style="height: 300px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Focus on Operations</b></p>
@@ -32,34 +32,13 @@
     </div>
 </div>
 
-## Data Orientation
+## Data-Orientation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/soa-system.png" alt="No Data" style="height: 300px">
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Focus on Operations</b></p>
-                <ul>
-                    <li>Separation of concerns</li>
-                    <li>High availability</li>
-                    <li>Scalability</li>
-                    <li>Low latency</li>                    
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Data Orientation
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/soa-cloud.png" alt="No Data" style="height: 300px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/soa-system.png" alt="SOA Architecture" style="height: 300px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Focus on Operations</b></p>
@@ -74,13 +53,34 @@
     </div>
 </div>
 
-## Data Orientation
+## Data-Orientation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/soa-system.png" alt="No Data" style="height: 300px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/soa-cloud.png" alt="SOA Cloud" style="height: 300px">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Focus on Operations</b></p>
+                <ul>
+                    <li>Separation of concerns</li>
+                    <li>High availability</li>
+                    <li>Scalability</li>
+                    <li>Low latency</li>                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data-Orientation
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/soa-system.png" alt="SOA Architecture" style="height: 300px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>The Data Dichotomy</b></p>
@@ -90,7 +90,7 @@
     </div>
 </div>
 
-## Data Orientation
+## Data-Orientation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -100,6 +100,88 @@
                 <p>“While data-driven systems are about exposing data, service-oriented architectures are about hiding data.” (Stopford, 2016)</p>
                 <br>
                 <p><b>We need to design systems prioritising data!</b></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data-Orientation
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/doa-architecture.png" alt="DOA Architecture" style="height: 300px">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Data-Oriented Architectures</b></p>
+                <p>Data-First Systems</p>
+                <ul>
+                    <li>Data is available by design</li>
+                    <li>Traceability and monitoring</li>
+                    <li>Interpretability</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data-Orientation
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/doa-architecture.png" alt="DOA Architecture" style="height: 300px">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Data-Oriented Architectures</b></p>
+                <p>Data-First Systems</p>
+                <ul>
+                    <li>Data is available by design</li>
+                    <li>Traceability and monitoring</li>
+                    <li>Interpretability</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data-Orientation
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Data-Oriented Architectures</b></p>
+                <p>Prioritise Decentralisation</p>
+                <ul>
+                    <li>Super-low latency requirements</li>
+                    <li>Privacy by design</li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/doa-decentralisation.png" alt="Decentralisation" style="height: 300px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data-Orientation
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/doa-openness.png" alt="Openness" style="height: 300px">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Data-Oriented Architectures</b></p>
+                <p>Openness</p>
+                <ul>
+                    <li>Sustainable solutions</li>
+                    <li>Data ownership</li>
+                </ul>
             </div>
         </div>
     </div>
