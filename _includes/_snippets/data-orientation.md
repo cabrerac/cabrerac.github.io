@@ -8,7 +8,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/complex-systems.png" alt="Complex Systems" style="height: 300px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/complex-systems.png" alt="Complex Systems" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Focus on Operations</b></p>
@@ -23,7 +23,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/soa-system.png" alt="SOA ARchitecture" style="height: 300px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/soa-system.png" alt="SOA ARchitecture" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Focus on Operations</b></p>
@@ -38,28 +38,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/soa-system.png" alt="SOA Architecture" style="height: 300px">
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Focus on Operations</b></p>
-                <ul>
-                    <li>Separation of concerns</li>
-                    <li>High availability</li>
-                    <li>Scalability</li>
-                    <li>Low latency</li>                    
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Data-Orientation
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/soa-cloud.png" alt="SOA Cloud" style="height: 300px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/soa-system.png" alt="SOA Architecture" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Focus on Operations</b></p>
@@ -80,7 +59,28 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/soa-system.png" alt="SOA Architecture" style="height: 300px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/soa-cloud.png" alt="SOA Cloud" style="height: 400px">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Focus on Operations</b></p>
+                <ul>
+                    <li>Separation of concerns</li>
+                    <li>High availability</li>
+                    <li>Scalability</li>
+                    <li>Low latency</li>                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data-Orientation
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/soa-system.png" alt="SOA Architecture" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>The Data Dichotomy</b></p>
@@ -111,7 +111,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/doa-architecture.png" alt="DOA Architecture" style="height: 300px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/doa-architecture.png" alt="DOA Architecture" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Data-Oriented Architectures</b></p>
@@ -132,7 +132,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/doa-architecture.png" alt="DOA Architecture" style="height: 300px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/doa-architecture.png" alt="DOA Architecture" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Data-Oriented Architectures</b></p>
@@ -161,7 +161,7 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/doa-decentralisation.png" alt="Decentralisation" style="height: 300px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/doa-decentralisation.png" alt="Decentralisation" style="height: 400px">
             </div>
         </div>
     </div>
@@ -173,7 +173,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/doa-openness.png" alt="Openness" style="height: 300px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/doa-openness.png" alt="Openness" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Data-Oriented Architectures</b></p>
@@ -182,6 +182,18 @@
                     <li>Sustainable solutions</li>
                     <li>Data ownership</li>
                 </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data-Orientation
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/doa-survey.png" alt="Openness" style="height: 500px">
             </div>
         </div>
     </div>
