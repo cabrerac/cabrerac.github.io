@@ -8,6 +8,30 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/data-science-steps.png" alt="DOA Survey" style="height: 500px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## The Data Science Process
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/data-science-iterative.png" alt="DOA Survey" style="height: 500px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## The Data Science Process
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/data-science-process.png" alt="DOA Survey" style="height: 500px">
             </div>
         </div>
