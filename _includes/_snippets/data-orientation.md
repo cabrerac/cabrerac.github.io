@@ -193,7 +193,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/doa-survey.png" alt="Openness" style="height: 500px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/doa-survey.png" alt="DOA Survey" style="height: 500px">
             </div>
         </div>
     </div>
