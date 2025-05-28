@@ -370,7 +370,7 @@ Find a problem of your interest and repeat the exercise of defining the ML Proje
 - Submit a document with the following elements:
 -- The problem description with all the details you can capture.
 -- your canvas as an image
-- The document should have the following name format: cease_ml_intro_session_2_<email_username>.pdf
+- The document should have the following name format: `cease_ml_intro_session_2_<email_username>.pdf`
 - Due date: [29/05/2025]
 
 #### Resources
