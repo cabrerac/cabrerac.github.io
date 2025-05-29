@@ -48,6 +48,21 @@ $$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{predic
     </div>
 </div>
 
+## Data
+
+## Data
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p>"<b>Information</b>, especially facts or numbers, collected to be examined and considered and used to help <b>decision-making</b>, or information in an electronic form that can be <b>stored and used by a computer.</b>" <a               
+                href="https://dictionary.cambridge.org/dictionary/english/data" target="_blank">(Cambridge Dictionary, 2025)</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
 ## Data Challenges
 
 ## Data Challenges

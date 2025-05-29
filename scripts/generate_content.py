@@ -432,21 +432,203 @@ class ContentGenerator:
 
     def clean_code_blocks(self, content):
         """Clean code blocks to remove markdown/HTML artifacts."""
-        # Pattern to match code blocks
+        # Pattern to match code blocks, including those inside HTML elements
         code_block_pattern = r'```(?:python)?\n(.*?)```'
         
         def clean_code(match):
             code = match.group(1)
-            # Remove any HTML tags
+            # Remove any HTML tags while preserving their content
             code = re.sub(r'<[^>]+>', '', code)
             # Remove any markdown syntax
             code = re.sub(r'^---$', '', code, flags=re.MULTILINE)
             # Remove empty lines at start and end
             code = code.strip()
+            # Add line numbers and proper formatting
+            lines = code.split('\n')
+            numbered_lines = []
+            for i, line in enumerate(lines, 1):
+                # Add proper indentation and line number
+                numbered_lines.append(f"{i:3d} | {line}")
+            code = '\n'.join(numbered_lines)
             return f'```python\n{code}\n```'
         
-        # Replace all code blocks with cleaned versions
-        return re.sub(code_block_pattern, clean_code, content, flags=re.DOTALL)
+        # First, temporarily replace HTML elements containing code blocks
+        html_code_blocks = []
+        def replace_html_code(match):
+            html_content = match.group(0)
+            # Find all code blocks within this HTML element
+            code_matches = list(re.finditer(code_block_pattern, html_content, re.DOTALL))
+            if code_matches:
+                # Replace each code block with a placeholder
+                for i, code_match in enumerate(code_matches):
+                    placeholder = f'__CODE_BLOCK_{len(html_code_blocks)}_{i}__'
+                    html_code_blocks.append((placeholder, code_match.group(0)))
+                    html_content = html_content.replace(code_match.group(0), placeholder)
+            return html_content
+        
+        # Find HTML elements that might contain code blocks
+        html_pattern = r'<[^>]+>.*?```.*?```.*?</[^>]+>'
+        content = re.sub(html_pattern, replace_html_code, content, flags=re.DOTALL)
+        
+        # Now process all code blocks in the content
+        processed_content = re.sub(code_block_pattern, clean_code, content, flags=re.DOTALL)
+        
+        # Restore the code blocks from HTML elements
+        for placeholder, code_block in html_code_blocks:
+            processed_content = processed_content.replace(placeholder, clean_code(re.match(code_block_pattern, code_block)))
+        
+        # Add custom styling for code blocks
+        style_block = """
+<style>
+/* Code block container */
+pre {
+  background-color: var(--code-bg);
+  border: 1px solid var(--code-border);
+  border-radius: 6px;
+  padding: 16px;
+  margin: 0;
+  width: 100%;
+  font-size: 0.9em;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  overflow-x: auto;
+}
+
+/* Code content */
+code {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.9em;
+  line-height: 1.45;
+  color: var(--code-text);
+  max-width: 100%;
+  display: block;
+  tab-size: 4;
+}
+
+/* Line numbers */
+code::before {
+  content: attr(data-line-numbers);
+  position: absolute;
+  left: 0;
+  padding-right: 1em;
+  color: #666;
+  border-right: 1px solid #ddd;
+  user-select: none;
+}
+
+/* Syntax highlighting for light theme */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-title,
+.hljs-section {
+  color: #0000FF;  /* Python blue for keywords */
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #008000;  /* Python green for strings */
+}
+
+.hljs-number,
+.hljs-literal {
+  color: #0000CD;  /* Python medium blue for numbers */
+}
+
+.hljs-comment {
+  color: #808080;  /* Python gray for comments */
+}
+
+.hljs-function,
+.hljs-class .hljs-title {
+  color: #000000;  /* Python black for function names */
+}
+
+/* Syntax highlighting for dark theme */
+html[data-theme='dark'] .hljs-keyword,
+html[data-theme='dark'] .hljs-selector-tag,
+html[data-theme='dark'] .hljs-title,
+html[data-theme='dark'] .hljs-section {
+  color: #569CD6;  /* Light blue for keywords */
+}
+
+html[data-theme='dark'] .hljs-string,
+html[data-theme='dark'] .hljs-doctag {
+  color: #6A9955;  /* Light green for strings */
+}
+
+html[data-theme='dark'] .hljs-number,
+html[data-theme='dark'] .hljs-literal {
+  color: #B5CEA8;  /* Light blue-green for numbers */
+}
+
+html[data-theme='dark'] .hljs-comment {
+  color: #6A9955;  /* Light gray-green for comments */
+}
+
+html[data-theme='dark'] .hljs-function,
+html[data-theme='dark'] .hljs-class .hljs-title {
+  color: #DCDCAA;  /* Light yellow for function names */
+}
+
+/* Code block hover effect */
+pre:hover {
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+/* Copy button */
+pre::after {
+  content: '📋';
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 5px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+pre:hover::after {
+  opacity: 1;
+}
+
+/* Code block focus styles */
+pre:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent-color);
+}
+
+/* Ensure code blocks are properly contained */
+.slide-content pre {
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+/* Improve code readability */
+code {
+  letter-spacing: 0.3px;
+}
+
+/* Add subtle background to line numbers */
+code::before {
+  background-color: rgba(0,0,0,0.03);
+  padding: 0.5em 1em;
+  margin: -0.5em 0;
+}
+
+html[data-theme='dark'] code::before {
+  background-color: rgba(255,255,255,0.05);
+}
+</style>
+"""
+        # Add the style block to the content
+        processed_content = style_block + processed_content
+        
+        return processed_content
 
     def generate_rendered_lecture(self, lecture_file, output_dir, course_metadata):
         """Generate the rendered lecture file with proper metadata and content."""
