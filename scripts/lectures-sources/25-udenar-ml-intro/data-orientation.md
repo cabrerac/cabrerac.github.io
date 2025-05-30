@@ -35,7 +35,7 @@ visible: false
 
 <!-- SLIDES: -->
 
-# Data Challenges
+# Data
 
 <!-- end SLIDES: -->
 

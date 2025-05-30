@@ -467,7 +467,6 @@ if response.status_code == 200:
                     <li>This database is available at <a href="https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads">gov.uk</a></li>
                     <li>The total data is over 4 gigabytes in size and it is available in a single file or in multiple files splitted by years and semester</li>
                     <li>The example downloads the data for the first semester of 2020</li>
-                    <li>This can be read as a CSV file</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 70%">
@@ -500,7 +499,7 @@ print(dataset.head())
                 <ul>
                     <li>The <a href="https://www.getthedata.com/open-postcode-geo">OpenPostcode Geo dataset</a>provides additional information about the houses</li>
                     <li>It is a dataset of British postcodes with easting, northing, latitude, and longitude and with additional fields for geospace applications, including postcode area, postcode district, postcode sector, incode, and outcode</li>
-                    <li>This can be unzipped as a zip file</li>
+                    <li>This must be unzipped</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 70%">
