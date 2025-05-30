@@ -10,7 +10,10 @@
             <div class="column vertical-middle text-left" style="width: 50%">
             <h3>Overview</h3>
             <ul>
-                <li>...</li>
+                <li>Data definition and challenges</li>
+                <li>Data-Orientation</li>
+                <li>A Data Science Process</li>
+                <li>Data Access</li>
             </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -27,14 +30,18 @@
             <div class="column vertical-middle text-left" style="width: 50%">
             <h3>Overview</h3>
             <ul>
-                <li>...</li>
-            </ul>
+                <li>Data definition and challenges</li>
+                <li>Data-Orientation</li>
+                <li>A Data Science Process</li>
+                <li>Data Access</li>
             </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
             <h3>Next Time</h3>
             <ul>
-                <li>...</li>
+                <li>Data Quality</li>
+                <li>Data Assess</li>                
+                <li>Data Address</li>
             </ul>
             </div>
         </div>

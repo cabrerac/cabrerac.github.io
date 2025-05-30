@@ -20,7 +20,7 @@
             <div class="column vertical-middle text-left" style="width: 50%">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>No, it does not exist!</p>
+                <p><b>No, it does not exist!</b></p>
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>No, it does not exist!</p>
+                <p><b>No, it does not exist!</b></p>
             </div>
         </div>
     </div>
@@ -90,7 +90,7 @@
             <div class="column vertical-middle text-left" style="width: 50%">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>Yes, it does exist!</p>
+                <p><b>Yes, it does exist!</b></p>
             </div>
         </div>
     </div>
@@ -114,7 +114,7 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>Yes, it does exist!</p>
+                <p><b>Yes, it does exist!</b></p>
             </div>
         </div>
     </div>
@@ -143,6 +143,121 @@
                     <li>Outdated data</li>
                     <li>Relevancy issue</li>
                 </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Access
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Crash Map Kampala</b></p>
+                <ul>
+                    <li>Road traffic accidents are a leading cause of death for the young in many contexts</li>
+                    <li>Data is difficult to access and made impossible any analysis of the problem</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Access
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="https://mlatcl.github.io/advds/slides/diagrams//data-science/crash-map-kampala-location.png" alt="Crash Map Location" style="height: 400px">
+                <div class="footnote">Crash Map Kampala was an initiative by <a href="https://www.sheffield.ac.uk/cs/people/academic/michael-smith" target="_blank">Michael T. Smith</a> and Bagonza Jimmy Owa Kinyonyi to map the location, date and severity of vehicle accidents across the city of Kampala. Original storage location for the data was in police logbooks.</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Crash Map Kampala</b></p>
+                <ul>
+                    <li>Road traffic accidents are a leading cause of death for the young in many contexts</li>
+                    <li>Data is difficult to access and made impossible any analysis of the problem</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Access
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="https://mlatcl.github.io/advds/slides/diagrams//data-science/crash-map-kampala-date-time.png" alt="Crash Map Date Time" style="height: 400px">
+                <div class="footnote">Crash Map Kampala was an initiative by <a href="https://www.sheffield.ac.uk/cs/people/academic/michael-smith" target="_blank">Michael T. Smith</a> and Bagonza Jimmy Owa Kinyonyi to map the location, date and severity of vehicle accidents across the city of Kampala. Original storage location for the data was in police logbooks.</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Crash Map Kampala</b></p>
+                <ul>
+                    <li>Road traffic accidents are a leading cause of death for the young in many contexts</li>
+                    <li>Data is difficult to access and made impossible any analysis of the problem</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Access
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="https://mlatcl.github.io/advds/slides/diagrams//data-science/crash-map-kampala-severity.png" alt="Crash Map Severity" style="height: 400px">
+                <div class="footnote">Crash Map Kampala was an initiative by <a href="https://www.sheffield.ac.uk/cs/people/academic/michael-smith" target="_blank">Michael T. Smith</a> and Bagonza Jimmy Owa Kinyonyi to map the location, date and severity of vehicle accidents across the city of Kampala. Original storage location for the data was in police logbooks.</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Crash Map Kampala</b></p>
+                <ul>
+                    <li>Road traffic accidents are a leading cause of death for the young in many contexts</li>
+                    <li>Data is difficult to access and made impossible any analysis of the problem</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Access
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="https://mlatcl.github.io/advds/slides/diagrams//data-science/crash-map-kampala-vehicles-2.png" alt="Crash Map Vehicles 2" style="height: 400px">
+                <div class="footnote">Crash Map Kampala was an initiative by <a href="https://www.sheffield.ac.uk/cs/people/academic/michael-smith" target="_blank">Michael T. Smith</a> and Bagonza Jimmy Owa Kinyonyi to map the location, date and severity of vehicle accidents across the city of Kampala. Original storage location for the data was in police logbooks.</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Crash Map Kampala</b></p>
+                <ul>
+                    <li>Road traffic accidents are a leading cause of death for the young in many contexts</li>
+                    <li>Data is difficult to access and made impossible any analysis of the problem</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Access
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>The dataset creation is <b>a critical process</b> that cannot be skipped if we want to implement Data Science or ML projects</p>
+                <p>We can assume datasets exist, but they will likely enable <b>toy projects not relevant for our society</b></p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="https://mlatcl.github.io/advds/slides/diagrams//data-science/crash-map-kampala.png" alt="Crash Map Vehicles 2" style="height: 400px">
+                <div class="footnote">Crash Map Kampala was an initiative by <a href="https://www.sheffield.ac.uk/cs/people/academic/michael-smith" target="_blank">Michael T. Smith</a> and Bagonza Jimmy Owa Kinyonyi to map the location, date and severity of vehicle accidents across the city of Kampala. Original storage location for the data was in police logbooks.</div>
             </div>
         </div>
     </div>
@@ -383,17 +498,27 @@ print(dataset.head())
             <div class="column vertical-middle text-left" style="width: 30%">
                 <p><b>Accessing data via APIs</b></p>
                 <ul>
-                    <li>OpenStreetMaps (OSM) is a collaborative project to create a free editable map of the world <a href="https://www.openstreetmap.org/#map=14/1.21711/-77.26727">Explore OSM</a>.</li>
-                    <li>OSM enables the creation of custom maps, geospatial analysis, and location-based services</li>
-                    <li>It is open sources and anyone can access it</li>
-                    <li>The data lacks the structure we are used to</li>
-                    <li>We need to install the Python module first</li>
+                    <li>The <a href="https://www.getthedata.com/open-postcode-geo">OpenPostcode Geo dataset</a>provides additional information about the houses</li>
+                    <li>It is a dataset of British postcodes with easting, northing, latitude, and longitude and with additional fields for geospace applications, including postcode area, postcode district, postcode sector, incode, and outcode</li>
+                    <li>This can be unzipped as a zip file</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 70%">
 
 ```python
-pip install osmnx
+import requests
+import pandas as pd
+import zipfile
+import io
+url = 'https://www.getthedata.com/downloads/open_postcode_geo.csv.zip'
+response = requests.get(url)
+if response.status_code == 200:
+  with zipfile.ZipFile(io.BytesIO(response.content)) as zip_ref:
+    zip_ref.extractall('open_postcode_geo')
+dataset = pd.read_csv('open_postcode_geo/open_postcode_geo.csv')
+print("Dataset shape:", dataset.shape)
+print("\nFirst few rows:")
+print(dataset.head())
 ```
 </div>
         </div>
@@ -408,7 +533,32 @@ pip install osmnx
             <div class="column vertical-middle text-left" style="width: 30%">
                 <p><b>Accessing data via APIs</b></p>
                 <ul>
-                    <li>This example shows how to download the points of interest (POIs) of Pasto, Nariño, Colombia, using Python and storing these in a CSV file</li>
+                    <li>OpenStreetMaps (OSM) is a collaborative project to create a free editable map of the world <a href="https://www.openstreetmap.org/#map=14/1.21711/-77.26727">Explore OSM</a>.</li>
+                    <li>OSM enables the creation of custom maps, geospatial analysis, and location-based services</li>
+                    <li>It is open sources and anyone can access it</li>
+                    <li>The data lacks the structure we are used to</li>
+                    <li>We need to install the Python module first</li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 70%">
+
+```python
+%pip install osmnx
+```
+</div>
+        </div>
+    </div>
+</div>
+
+## Data Access
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 30%">
+                <p><b>Accessing data via APIs</b></p>
+                <ul>
+                    <li>This example shows how to download the points of interest (POIs) of Pasto, Nariño, Colombia, using Python</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 70%">
@@ -472,6 +622,164 @@ buildings.plot()
     </div>
 </div>
 
+## Data Access
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 30%">
+                <p><b>Joining datasets</b></p>
+                <p>We can join multiple datasets to improve our data access</p>
+                <p>For example, the postcode dataset can enrich the UK Price Paid data by adding coordinates information. We should join these datasets using the common aspects between them (i.e., postcode).</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 70%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Access
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 30%">
+                <p><b>Joining datasets</b></p>
+                <p>We can join multiple datasets to improve our data access</p>
+                <p>For example, the postcode dataset can enrich the UK Price Paid data by adding coordinates information. We should join these datasets using the common aspects between them (i.e., postcode).</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 70%">
+
+```python
+price_paid = pd.read_csv('pp-2020-part1.csv')
+postcodes = pd.read_csv('open_postcode_geo/open_postcode_geo.csv')
+merged_data = pd.merge(
+    price_paid,
+    postcodes,
+    on='postcode',
+    how='inner'
+)
+print("Original Price Paid dataset shape:", price_paid.shape)
+print("Original Postcodes dataset shape:", postcodes.shape)
+print("Merged dataset shape:", merged_data.shape)
+print("\nSample of merged data:")
+print(merged_data[['postcode', 'price', 'latitude', 'longitude']].head())
+merged_data.to_csv('price_paid_with_coordinates.csv', index=False)
+```
+</div>
+        </div>
+    </div>
+</div>
+
+## Data Access
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 30%">
+                <p><b>Web scrapping datasets</b></p>
+                <ul>
+                    <li>Get the text from web pages</li>
+                    <li>Operate as a web explorer programatically</li>
+                    <li>Parse the content, which can be unstructured</li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 70%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Access
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 30%">
+                <p><b>Web scrapping datasets</b></p>
+                <ul>
+                    <li>Get the text from web pages</li>
+                    <li>Operate as a web explorer programatically</li>
+                    <li>Parse the content, which can be unstructured</li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 70%">
+
+```python
+from bs4 import BeautifulSoup
+import time
+try:
+    url = '<url_of_the_website>'
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+    }
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, 'html.parser')
+    data = [p.text for p in soup.find_all('p')]
+    return data
+    
+except Exception as e:
+    print(f"Error scraping data: {str(e)}")
+    return None
+```
+</div>
+        </div>
+    </div>
+</div>
+
+## Data Access
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 30%">
+                <p><b>Creating synthetic datasets</b></p>
+                <ul>
+                    <li>Mimics real-world variables and their relations</li>
+                    <li>Randomised generation of features</li>
+                    <li>Generation of target variables, representing feature relationships</li>
+                    <li>Relationships depend on experts domain knowledge</li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 70%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Access
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 30%">
+                <p><b>Creating synthetic datasets</b></p>
+                <ul>
+                    <li>Mimics real-world variables and their relations</li>
+                    <li>Randomised generation of features</li>
+                    <li>Generation of target variables, representing feature relationships</li>
+                    <li>Relationships depend on experts domain knowledge</li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 70%">
+
+```python
+import numpy as np
+X = np.random.randn(n_samples, n_features)
+y = np.zeros(n_samples)
+for i in range(n_samples):
+    if X[i, 0] + X[i, 1] > 0:
+        y[i] = 0
+    elif X[i, 2] * X[i, 3] > 0:
+        y[i] = 1
+    else:
+        y[i] = 2
+```
+</div>
+        </div>
+    </div>
+</div>
 
 <!-- end SLIDES: -->
 

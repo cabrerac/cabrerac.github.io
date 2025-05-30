@@ -422,6 +422,25 @@ class ContentGenerator:
         with open(lecture_file, 'r', encoding='utf-8') as f:
             content = f.read()
             
+        # Protect Python comments in code blocks before any processing
+        code_block_pattern = r'```(?:python)?\n(.*?)```'
+        def protect_comments(match):
+            code = match.group(1)
+            # Split into lines and process each line
+            lines = code.split('\n')
+            protected_lines = []
+            for line in lines:
+                # Check if line starts with # (after any whitespace)
+                if re.match(r'^\s*#', line):
+                    # Replace # with a special marker that won't be interpreted as markdown
+                    protected_lines.append(re.sub(r'^\s*#', r'\1<comment>', line))
+                else:
+                    protected_lines.append(line)
+            return f'```python\n{chr(10).join(protected_lines)}\n```'
+        
+        # Replace comments in all code blocks
+        content = re.sub(code_block_pattern, protect_comments, content, flags=re.DOTALL)
+            
         # Clean code blocks to remove any markdown/HTML artifacts
         content = self.clean_code_blocks(content)
         
@@ -443,6 +462,7 @@ class ContentGenerator:
             code = re.sub(r'^---$', '', code, flags=re.MULTILINE)
             # Remove empty lines at start and end
             code = code.strip()
+            
             # Add line numbers and proper formatting
             lines = code.split('\n')
             numbered_lines = []
@@ -450,6 +470,7 @@ class ContentGenerator:
                 # Add proper indentation and line number
                 numbered_lines.append(f"{i:3d} | {line}")
             code = '\n'.join(numbered_lines)
+            
             return f'```python\n{code}\n```'
         
         # First, temporarily replace HTML elements containing code blocks
@@ -1332,7 +1353,7 @@ style: |
 <p style="color: var(--text-color);">{metadata.get('position', '')}</p>
 <p style="color: var(--text-color);">{metadata.get('department', '')}</p>
 <p style="color: var(--text-color);">{metadata.get('institution', '')}</p>
-<p style="color: var(--accent-color);"><a href="mailto:{metadata.get('email', '')}" style="color: var(--accent-color);">{metadata.get('email', '')}</a></p>
+<p style="color: var(--text-color);">{metadata.get('email', '')}</p>
 
 ---
 
@@ -1353,7 +1374,7 @@ style: |
 <p style="color: var(--text-color);">{metadata.get('position', '')}</p>
 <p style="color: var(--text-color);">{metadata.get('department', '')}</p>
 <p style="color: var(--text-color);">{metadata.get('institution', '')}</p>
-<p style="color: var(--accent-color);"><a href="mailto:{metadata.get('email', '')}" style="color: var(--accent-color);">{metadata.get('email', '')}</a></p>
+<p style="color: var(--text-color);">{metadata.get('email', '')}</p>
 
 ---
 
