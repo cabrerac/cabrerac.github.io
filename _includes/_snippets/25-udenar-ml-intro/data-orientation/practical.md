@@ -223,8 +223,13 @@ print(quality_report)
 ## Resources
 
 - [Pandas Documentation](https://pandas.pydata.org/docs/)
+- [OpenML Datasets](https://www.openml.org/)
+- [Tensorflow Datasets](https://www.tensorflow.org/datasets)
+- [Iris Dataset](https://www.geeksforgeeks.org/iris-dataset/)
+- [UK Price Paid Dataset](https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads)
+- [Open Postcode Geo Dataset](https://www.getthedata.com/open-postcode-geo)
+- [Open Street Maps API](https://wiki.openstreetmap.org/wiki/API)
 - [Beautiful Soup Documentation](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
-- [Scikit-learn Datasets](https://scikit-learn.org/stable/datasets.html)
 - [Web Scraping Best Practices](https://www.scrapehero.com/how-to-prevent-getting-blacklisted-while-scraping/)
 
 <!-- end NOTEBOOK: -->
