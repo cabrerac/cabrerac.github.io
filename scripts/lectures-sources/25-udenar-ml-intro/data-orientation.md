@@ -1,7 +1,7 @@
 ---
 course_code: 25-udenar-ml-intro
 title: Data-Orientation
-description: This lecture will start looking into the data dimension of the ML concept definition and the importance of data-orientation. We will first explore a data science methodology to iteratively build the datasets that will feed our machine learning models. This lecture will explore the first step of this methodology, "data orientation".
+description: This lecture will start looking into the data dimension of the ML concept and will emphasise on the importance of data-orientation. We first define the concept of data, the associated challenges, and provide examples of data collection processes. We then define a data science methodology to iteratively build the datasets that will feed our machine learning models. This lecture explores the first step of this methodology, "data access".
 session: 3
 start_time: 10:00 am
 end_time: 12:00 am
