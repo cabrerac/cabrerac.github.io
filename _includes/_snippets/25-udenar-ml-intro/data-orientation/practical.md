@@ -82,9 +82,6 @@ def fetch_data_from_api(url, params=None):
     except requests.exceptions.RequestException as e:
         print(f"Error fetching data: {str(e)}")
         return None
-# Example usage with a public API
-# Note: Replace with actual API endpoint
-# data = fetch_data_from_api('https://api.example.com/data')
 ```
 
 Now we can use the function to access different datasets. In the following example we are accessing [the UK Price Paid data](https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads) for houses for the first semester of 2020. The data is then written as a CSV file.
@@ -316,7 +313,7 @@ We can use our function to find all buildings and schools in Pasto.
 ```python
 # Example: Find all buildings and schools in Pasto
 place = "Pasto, Nariño, Colombia"
-buildings = get_pois(place, {"amenity": "building"})
+buildings = get_pois(place, {"building": True})
 schools = get_pois(place, {"amenity": "school"})
 if schools is not None:
     # Plot the schools
