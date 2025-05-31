@@ -519,6 +519,7 @@ if course_data is not None:
         if lecture.text:
             print(f"- {lecture.text}")
 ```
+
 ## Exercise 4: Creating Synthetic Data
 
 When real data is not available, we can create synthetic data that mimics real-world patterns:
