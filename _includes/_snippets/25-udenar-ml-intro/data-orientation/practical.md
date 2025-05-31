@@ -561,16 +561,73 @@ def generate_synthetic_data(n_samples=1000, n_features=5, n_classes=3):
 
 We can then generate and visualise the synthetic data.
 
+Let's create additional visualizations to better understand the patterns in our synthetic data:
+
 ```python
-# Generate and visualize synthetic data
-X, y = generate_synthetic_data()
-plt.figure(figsize=(10, 6))
-plt.scatter(X[:, 0], X[:, 1], c=y, cmap='viridis')
-plt.title('Synthetic Data Visualization')
-plt.xlabel('Feature 1')
-plt.ylabel('Feature 2')
+# Create a figure with multiple subplots
+fig, axes = plt.subplots(2, 2, figsize=(15, 15))
+fig.suptitle('Synthetic Data Patterns in Different Feature Spaces', fontsize=16)
+
+# Plot 1: Features 1 vs 2 (original plot)
+axes[0,0].scatter(X[:, 0], X[:, 1], c=y, cmap='viridis')
+axes[0,0].set_title('Features 1 vs 2\n(Linear Sum Pattern)')
+axes[0,0].set_xlabel('Feature 1')
+axes[0,0].set_ylabel('Feature 2')
+# Add the decision boundary
+x = np.linspace(X[:, 0].min(), X[:, 0].max(), 100)
+axes[0,0].plot(x, -x, 'r--', label='Decision Boundary')
+axes[0,0].legend()
+
+# Plot 2: Features 3 vs 4 (multiplicative pattern)
+axes[0,1].scatter(X[:, 2], X[:, 3], c=y, cmap='viridis')
+axes[0,1].set_title('Features 3 vs 4\n(Multiplicative Pattern)')
+axes[0,1].set_xlabel('Feature 3')
+axes[0,1].set_ylabel('Feature 4')
+# Add the decision boundaries
+axes[0,1].axhline(y=0, color='r', linestyle='--', label='y=0')
+axes[0,1].axvline(x=0, color='r', linestyle='--', label='x=0')
+axes[0,1].legend()
+
+# Plot 3: Features 1 vs 3
+axes[1,0].scatter(X[:, 0], X[:, 2], c=y, cmap='viridis')
+axes[1,0].set_title('Features 1 vs 3\n(Cross Feature Pattern)')
+axes[1,0].set_xlabel('Feature 1')
+axes[1,0].set_ylabel('Feature 3')
+
+# Plot 4: Features 2 vs 4
+axes[1,1].scatter(X[:, 2], X[:, 4], c=y, cmap='viridis')
+axes[1,1].set_title('Features 2 vs 4\n(Cross Feature Pattern)')
+axes[1,1].set_xlabel('Feature 2')
+axes[1,1].set_ylabel('Feature 4')
+
+plt.tight_layout()
 plt.show()
+# Print class distribution
+print("\nClass Distribution:")
+for i in range(3):
+    print(f"Class {i}: {np.sum(y == i)} samples")
 ```
+
+These visualizations help us understand the different patterns in our synthetic data:
+
+1. **Features 1 vs 2 (Top Left)**:
+   - Shows the linear sum pattern (X[0] + X[1] > 0)
+   - The red dashed line represents the decision boundary
+   - Points above the line are Class 0
+   - This is a linear decision boundary
+
+2. **Features 3 vs 4 (Top Right)**:
+   - Shows the multiplicative pattern (X[2] * X[3] > 0)
+   - The red dashed lines represent the decision boundaries
+   - Points in the first and third quadrants are Class 1
+   - This creates a non-linear decision boundary
+
+3. **Features 1 vs 3 (Bottom Left)** and **Features 2 vs 4 (Bottom Right)**:
+   - Show cross-feature relationships
+   - Help identify how different features interact
+   - Useful for understanding feature dependencies
+
+The class distribution shows how many samples fall into each class, which helps us understand if our synthetic data is balanced or imbalanced.
 
 ## Homework - Data Access
 
