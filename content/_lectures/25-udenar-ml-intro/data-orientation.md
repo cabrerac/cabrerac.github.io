@@ -20,7 +20,7 @@ position: Senior Research Associate and Affiliated Lecturer
 session: 3
 start_time: 10:00 am
 title: Data-Orientation
-visible: false
+visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
