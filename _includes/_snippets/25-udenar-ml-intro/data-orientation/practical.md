@@ -511,11 +511,9 @@ if course_data is not None:
     print("Course Information:")
     for item in course_data:
         print(f"- {item}")
-    
     # Extract lecture information
     soup = BeautifulSoup(requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}).text, 'html.parser')
     lectures = soup.find_all('li')
-    
     print("\nLecture Schedule:")
     for lecture in lectures:
         if lecture.text:
