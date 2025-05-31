@@ -6,7 +6,7 @@ In this practical session, we will explore different methods to access datasets 
 
 ## Exercise 1: Structured Data Access Methods
 
-Let's explore different ways to access data for ML projects:
+Let's explore different ways to access data for ML projects, but first let's import the basic libraries.
 
 ```python
 import pandas as pd
@@ -15,7 +15,7 @@ import numpy as np
 
 ### 1.2 Loading from CSV/Excel Files
 
-We can access local dataset files, which are normally stored as CSV (Comma Separeted Values) files. Let's define a function we can use and reuse
+We can access local dataset files, which are normally stored as CSV (Comma Separeted Values) files. Let's define a function we can use and reuse.
 
 ```python
 # Example of loading data from a CSV file
@@ -66,7 +66,6 @@ for i, ax in enumerate(axes.flat):
     ax.imshow(x_train[i])
     ax.set_title(f"Image {i+1}")
 plt.show()
-
 ```
 
 ### 1.3 Accessing Data via APIs
@@ -92,10 +91,11 @@ Now we can use the function to access different datasets. In the following examp
 
 ```python
 url = 'http://prod.publicdata.landregistry.gov.uk.s3-website-eu-west-1.amazonaws.com/pp-2020-part1.csv'
+file_name_part_1='pp-2020-part1.csv'
 # Using our function to fetch data from an API
 response = fetch_data_from_api(url)
 if response.status_code == 200:
-  with open("." + file_name_part_1, "wb") as file:
+  with open("./" + file_name_part_1, "wb") as file:
     file.write(response.content)
 ```
 
@@ -104,7 +104,7 @@ We can now open the CSV file using the function we defined before.
 ```python
 file_path = './pp-2020-part1.csv'
 # Using our function to load data from a CSV file
-dataset = load_csv_data()
+dataset = load_csv_data(file_path)
 print("Dataset shape:", dataset.shape)
 print("\nFirst few rows:")
 print(dataset.head())
@@ -113,6 +113,8 @@ print(dataset.head())
 As we defined a function to access data via APIs, we can reuse it for different datasets. In this example, we are accessing [the OpenPostcode Geo dataset](https://www.getthedata.com/open-postcode-geo). This time the downloaded file is a zipped file. We need to unzip and the save and open as a CSV file.
 
 ```python
+import io
+import zipfile
 url = 'https://www.getthedata.com/downloads/open_postcode_geo.csv.zip'
 response = fetch_data_from_api(url)
 if response.status_code == 200:
@@ -135,12 +137,63 @@ print("\nFirst few rows:")
 print(price_paid.head())
 ```
 
+Before joining we need to add names to the columns of our dataset.
+
+```python
+price_paid_columns = [
+    'transaction_unique_identifier',
+    'price',
+    'date_of_transfer',
+    'postcode',
+    'property_type',
+    'new_build_flag',
+    'tenure_type',
+    'primary_addressable_object_name',
+    'secondary_addressable_object_name',
+    'street',
+    'locality',
+    'town_city',
+    'district',
+    'county',
+    'ppd_category_type',
+    'record_status'
+]
+price_paid.columns = price_paid_columns
+print(price_paid.head())
+```
+
 We should now load and explore the postcodes data.
 
 ```python
-postcodes = pd.load_csv_data('open_postcode_geo/open_postcode_geo.csv')
+postcodes = load_csv_data('open_postcode_geo/open_postcode_geo.csv')
 print("Original Postcodes dataset shape:", postcodes.shape)
 print("\nFirst few rows:")
+print(postcodes.head())
+```
+
+Again, we should name the columns of our dataset:
+
+```python
+postcodes_columns = [
+    'postcode',
+    'status',
+    'usertype',
+    'easting',
+    'northing',
+    'positional_quality_indicator',
+    'country',
+    'latitude',
+    'longitude',
+    'postcode_no_space',
+    'postcode_fixed_width_seven',
+    'postcode_fixed_width_eight',
+    'postcode_area',
+    'postcode_district',
+    'postcode_sector',
+    'outcode',
+    'incode'
+]
+postcodes.columns = postcodes_columns
 print(postcodes.head())
 ```
 
@@ -170,7 +223,13 @@ OpenStreetMap (OSM) provides a rich source of geospatial data that can be access
 
 ### 2.1 Using OSMnx for Network Data
 
-OSMnx is a powerful Python package for working with street networks and other spatial data from OpenStreetMap:
+OSMnx is a powerful Python package for working with street networks and other spatial data from OpenStreetMap. We need to install the osmnx library first.
+
+```python
+%pip install osmnx
+```
+
+And the common imports as usual.
 
 ```python
 import osmnx as ox
@@ -244,7 +303,7 @@ def get_pois(place_name, tags):
         Points of interest
     """
     try:
-        pois = ox.geometries_from_place(place_name, tags=tags)
+        pois = ox.features_from_place(place_name, tags=tags)
         print(f"Found {len(pois)} points of interest")
         return pois
     except Exception as e:
@@ -252,22 +311,32 @@ def get_pois(place_name, tags):
         return None
 ```
 
-We can use our function to find all schools in Pasto.
+We can use our function to find all buildings and schools in Pasto.
 
 ```python
-# Example: Find all schools in Pasto
+# Example: Find all buildings and schools in Pasto
 place = "Pasto, Nariño, Colombia"
+buildings = get_pois(place, {"amenity": "building"})
 schools = get_pois(place, {"amenity": "school"})
 if schools is not None:
     # Plot the schools
-    ax = schools.plot(figsize=(10, 10), markersize=10, color='red')
-    plt.title("Schools in Pasto")
+    fig, ax = plt.subplots(figsize=(10, 10))
+    schools.plot(ax=ax, markersize=10, color='red')
+    if buildings is not None:
+        buildings.plot(ax=ax)
+    plt.title("Buildings and Schools in Pasto")
     plt.show()
 ```
 
 ### 2.3 Using Overpass API for Custom Queries
 
-The Overpass API allows for more specific queries to extract particular features from OSM:
+The Overpass API allows for more specific queries to extract particular features from OSM. We first must install the overpy module.
+
+```python
+%pip install overpy
+```
+
+And add the imports as usual.
 
 ```python
 import overpy
@@ -300,14 +369,14 @@ def query_osm_features(query):
         return None
 ```
 
-We must define a query in the OSM language. In our example we want to find all restaurants in Pasto. The query we use has the following parts:
+We must define a query in the `overpy` language. In our example we want to find all restaurants in Pasto. The query we use has the following parts:
 
 1. `[out:json][timeout:25];`
 
 - out:json specifies that we want the output in JSON format
 - timeout:25 sets a timeout of 25 seconds for the query
 
-2. `area[name="Pasto, Nariño, Colombia"]->.searchArea;`
+2. `area[name="Pasto"]->.searchArea;`
 
 - This creates a named area filter called "searchArea"
 - It looks for an area with the name "Pasto, Nariño, Colombia"
@@ -334,7 +403,7 @@ Let's execute the function to find all restaurants in Pasto.
 # Example: Find all restaurants in a specific area
 query = """
 [out:json][timeout:25];
-area[name="Pasto, Nariño, Colombia"]->.searchArea;
+area[name="Pasto"]->.searchArea;
 (
   node["amenity"="restaurant"](area.searchArea);
   way["amenity"="restaurant"](area.searchArea);
@@ -376,15 +445,6 @@ print("\nRestaurant names:")
 print(gdf['name'].value_counts().head())
 print("\nCuisine types:")
 print(gdf['cuisine'].value_counts().head())
-```
-
-And we can plot the restaurants on a map.
-
-```python
-# Plot the restaurants on a map
-ax = gdf.plot(figsize=(12, 8), markersize=50, color='blue', alpha=0.6)
-plt.title("Restaurants in Pasto")
-plt.show()
 ```
 
 These methods provide different ways to access and work with OpenStreetMap data, from street networks to points of interest.
@@ -450,7 +510,7 @@ We can manipulate the scrapped data now. We should consider the structure of the
 if course_data is not None:
     print("Course Information:")
     for item in course_data:
-        print(f"- {item.strip()}")
+        print(f"- {item}")
     
     # Extract lecture information
     soup = BeautifulSoup(requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}).text, 'html.parser')
@@ -458,10 +518,9 @@ if course_data is not None:
     
     print("\nLecture Schedule:")
     for lecture in lectures:
-        if lecture.text.strip():
-            print(f"- {lecture.text.strip()}")
+        if lecture.text:
+            print(f"- {lecture.text}")
 ```
-
 ## Exercise 4: Creating Synthetic Data
 
 When real data is not available, we can create synthetic data that mimics real-world patterns:
@@ -494,11 +553,11 @@ def generate_synthetic_data(n_samples=1000, n_features=5, n_classes=3):
     y = np.zeros(n_samples)
     for i in range(n_samples):
         # Create some pattern in the data
-        if X[i, 0] + X[i, 1] > 0:
+        if X[i, 0] + X[i, 1] > 0: # y is 0 when the sum of first two features is positive 
             y[i] = 0
-        elif X[i, 2] * X[i, 3] > 0:
+        elif X[i, 2] * X[i, 3] > 0: # y is 1 when the product of third and fourht features is positive 
             y[i] = 1
-        else:
+        else: # y is 2 when the above conditions are not satisfied
             y[i] = 2
     
     return X, y
@@ -565,3 +624,4 @@ The repository has more datasets for the Colombian context. Explore it and think
 - [Web Scraping Best Practices](https://www.scrapehero.com/how-to-prevent-getting-blacklisted-while-scraping/)
 
 <!-- end NOTEBOOK: -->
+
