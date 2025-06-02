@@ -589,6 +589,8 @@ print("\nDataset saved to 'synthetic_dataset.csv'")
 
 2. [The Humanitarian Data Exchange](https://data.humdata.org/) is a repository where you can find, share, and use humanitarian data. This platform has [datasets related to Colombia](https://data.humdata.org/group/col). For example, this is a [dataset of the health facilities in Colombia](https://data.humdata.org/dataset/colombia-health-facilities-2021). We can access this dataset programatically using the function we created in above.
 
+**IMPORTANT**: Datasets have a particular format which is usually defined by their creators. In this particular example, the delimiters of the CSV file are `;` and the file is written using the `latin1` encoding. You must consider these two aspects when downloading and opening the dataset file. You can modify the code in the function `load_csv_data` or create your own solution. Before implementing, have a look at the downloaded file and analyise its structure.
+
 ```python
 # URL of the dataset
 url = "https://data.humdata.org/dataset/9df9c9a5-cbd1-4d52-a292-8ac392f155a4/resource/7cce7e88-19b3-4e22-890e-884cd8328e70/download/registro_especial_de_prestadores_y_sedes_de_servicios_de_salud_20241120.csv"
