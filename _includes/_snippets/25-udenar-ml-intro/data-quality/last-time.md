@@ -1,5 +1,7 @@
 <!-- SLIDES: -->
 
+## Last Time
+
 In the previous lecture, we explored the importance of data in machine learning and the concept of data-orientation. We discussed:
 
 - The fundamental role of data in ML

@@ -1353,7 +1353,7 @@ style: |
 <p style="color: var(--text-color);">{metadata.get('position', '')}</p>
 <p style="color: var(--text-color);">{metadata.get('department', '')}</p>
 <p style="color: var(--text-color);">{metadata.get('institution', '')}</p>
-<p style="color: var(--text-color);">{metadata.get('email', '')}</p>
+<p style="color: var(--accent-color);"><a href="mailto:{metadata.get('email', '')}" style="color: var(--accent-color);">{metadata.get('email', '')}</a></p>
 
 ---
 

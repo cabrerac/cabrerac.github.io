@@ -1,6 +1,6 @@
 <!-- SLIDES: -->
 
-# Conclusions
+## Conclusions
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -26,6 +26,8 @@
         </div>
     </div>
 </div>
+
+## Conclusions
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
