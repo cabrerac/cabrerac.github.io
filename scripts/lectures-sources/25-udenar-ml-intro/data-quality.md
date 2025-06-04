@@ -49,38 +49,6 @@ visible: false
 
 {% include _snippets/data-assess.md %}
 
-<!-- SLIDES: -->
-
-# Data Cleaning
-
-<!-- end SLIDES: -->
-
-{% include _snippets/data-cleaning.md %}
-
-<!-- SLIDES: -->
-
-# Data Preprocessing
-
-<!-- end SLIDES: -->
-
-{% include _snippets/data-preprocessing.md %}
-
-<!-- SLIDES: -->
-
-# Feature Engineering
-
-<!-- end SLIDES: -->
-
-{% include _snippets/feature-engineering.md %}
-
-<!-- SLIDES: -->
-
-# Data Validation
-
-<!-- end SLIDES: -->
-
-{% include _snippets/data-validation.md %}
-
 {% include _snippets/25-udenar-ml-intro/data-quality/conclusions.md %}
 
 {% include _snippets/25-udenar-ml-intro/data-quality/resources.md %}
