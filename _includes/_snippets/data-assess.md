@@ -30,7 +30,26 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 800px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Assess
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 50%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 800px">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 50%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/context-3.png" alt="Data Assess Pipeline" style="height: 800px">
             </div>
         </div>
     </div>
