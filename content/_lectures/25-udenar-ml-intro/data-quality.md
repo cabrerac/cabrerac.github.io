@@ -44,6 +44,7 @@ visible: false
 - [Olson J. E. (2003). Data Quality: The Accuracy Dimension](https://www.oreilly.com/library/view/data-quality-the/9780123970336/)
  
 #### Web
+- [Meet the Data Quality Dimensions](https://www.gov.uk/government/news/meet-the-data-quality-dimensions)
 
 - [Data Cleaning and Preprocessing - Coursera](https://www.coursera.org/learn/data-cleaning)
 - [Data Preprocessing for Machine Learning - Udemy](https://www.udemy.com/course/data-preprocessing-for-machine-learning/)

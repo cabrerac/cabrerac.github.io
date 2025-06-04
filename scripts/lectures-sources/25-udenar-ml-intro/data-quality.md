@@ -39,7 +39,15 @@ visible: false
 
 <!-- end SLIDES: -->
 
-{% include _snippets/data-quality-intro.md %}
+{% include _snippets/data-quality.md %}
+
+<!-- SLIDES: -->
+
+# Data Assess
+
+<!-- end SLIDES: -->
+
+{% include _snippets/data-assess.md %}
 
 <!-- SLIDES: -->
 
