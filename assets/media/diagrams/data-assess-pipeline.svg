@@ -30,13 +30,13 @@
     <rect x="380" y="130" width="140" height="60" rx="10" fill="#e6f3ff" stroke="#0066cc" stroke-width="2"/>
     <text x="450" y="165" font-family="Arial" font-size="14" text-anchor="middle" fill="#333333">Preprocessing</text>
     
-    <!-- Feature Engineering -->
-    <rect x="540" y="130" width="140" height="60" rx="10" fill="#e6f3ff" stroke="#0066cc" stroke-width="2"/>
-    <text x="610" y="165" font-family="Arial" font-size="14" text-anchor="middle" fill="#333333">Feature Engineering</text>
-    
     <!-- Data Augmentation -->
+    <rect x="540" y="130" width="140" height="60" rx="10" fill="#e6f3ff" stroke="#0066cc" stroke-width="2"/>
+    <text x="610" y="165" font-family="Arial" font-size="14" text-anchor="middle" fill="#333333">Data Augmentation</text>
+    
+    <!-- Feature Engineering -->
     <rect x="700" y="130" width="140" height="60" rx="10" fill="#e6f3ff" stroke="#0066cc" stroke-width="2"/>
-    <text x="770" y="165" font-family="Arial" font-size="14" text-anchor="middle" fill="#333333">Data Augmentation</text>
+    <text x="770" y="165" font-family="Arial" font-size="14" text-anchor="middle" fill="#333333">Feature Engineering</text>
     
     <!-- Model Training -->
     <rect x="860" y="130" width="140" height="60" rx="10" fill="#e6f3ff" stroke="#0066cc" stroke-width="2"/>

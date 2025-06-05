@@ -8,56 +8,56 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>What is Data Validation?</b></p>
+                <p><b>What is Data Augmentation?</b></p>
                 <ul>
-                    <li>Process of verifying data quality and integrity</li>
-                    <li>Ensuring data meets specified requirements</li>
-                    <li>Detecting and preventing data issues</li>
+                    <li>Process of creating new data samples from existing data</li>
+                    <li>Improves model generalization and robustness</li>
+                    <li>Helps address data scarcity and class imbalance</li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
 
-## Data Validation
+## Data Augmentation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Validation Types</b></p>
+                <p><b>Types of Data Augmentation</b></p>
                 <ul>
-                    <li>Format Validation:
+                    <li>Image Data:
                         <ul>
-                            <li>Data type checking</li>
-                            <li>Range validation</li>
-                            <li>Pattern matching</li>
+                            <li>Rotation, flipping, cropping</li>
+                            <li>Scaling, translation, shearing</li>
+                            <li>Color jitter, noise injection</li>
                         </ul>
                     </li>
-                    <li>Business Rule Validation:
+                    <li>Text Data:
                         <ul>
-                            <li>Domain rules</li>
-                            <li>Cross-field validation</li>
-                            <li>Temporal validation</li>
+                            <li>Synonym replacement</li>
+                            <li>Random insertion/deletion</li>
+                            <li>Back translation</li>
                         </ul>
                     </li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Validation Techniques</b></p>
+                <p><b>Types of Data Augmentation (cont.)</b></p>
                 <ul>
-                    <li>Rule-based Validation:
+                    <li>Tabular Data:
                         <ul>
-                            <li>Regular expressions</li>
-                            <li>Custom functions</li>
-                            <li>Schema validation</li>
+                            <li>Noise injection</li>
+                            <li>SMOTE (Synthetic Minority Over-sampling Technique)</li>
+                            <li>Random sampling</li>
                         </ul>
                     </li>
-                    <li>Statistical Validation:
+                    <li>Time Series Data:
                         <ul>
-                            <li>Distribution analysis</li>
-                            <li>Correlation analysis</li>
-                            <li>Anomaly detection</li>
+                            <li>Window slicing</li>
+                            <li>Time warping</li>
+                            <li>Jittering</li>
                         </ul>
                     </li>
                 </ul>
@@ -66,54 +66,33 @@
     </div>
 </div>
 
-## Data Validation
+## Data Augmentation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Quality Metrics</b></p>
+                <p><b>Benefits</b></p>
                 <ul>
-                    <li>Completeness:
-                        <ul>
-                            <li>Missing values</li>
-                            <li>Null fields</li>
-                            <li>Empty records</li>
-                        </ul>
-                    </li>
-                    <li>Accuracy:
-                        <ul>
-                            <li>Data correctness</li>
-                            <li>Error rates</li>
-                            <li>Validation scores</li>
-                        </ul>
-                    </li>
+                    <li>Reduces overfitting</li>
+                    <li>Improves model generalization</li>
+                    <li>Enables use of smaller datasets</li>
+                    <li>Helps with class imbalance</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Quality Metrics (cont.)</b></p>
+                <p><b>Challenges</b></p>
                 <ul>
-                    <li>Consistency:
-                        <ul>
-                            <li>Format consistency</li>
-                            <li>Value consistency</li>
-                            <li>Cross-field consistency</li>
-                        </ul>
-                    </li>
-                    <li>Timeliness:
-                        <ul>
-                            <li>Data freshness</li>
-                            <li>Update frequency</li>
-                            <li>Processing time</li>
-                        </ul>
-                    </li>
+                    <li>May introduce unrealistic samples</li>
+                    <li>Can increase training time</li>
+                    <li>Requires domain knowledge for effective transformations</li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
 
-## Data Validation
+## Data Augmentation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -121,11 +100,10 @@
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Best Practices</b></p>
                 <ul>
-                    <li>Design validation pipeline</li>
-                    <li>Document validation rules</li>
-                    <li>Monitor validation results</li>
-                    <li>Maintain validation history</li>
-                    <li>Automate validation process</li>
+                    <li>Choose augmentation techniques relevant to your data type</li>
+                    <li>Validate augmented data for realism and label correctness</li>
+                    <li>Monitor model performance with and without augmentation</li>
+                    <li>Combine multiple augmentation methods for better results</li>
                 </ul>
             </div>
         </div>
