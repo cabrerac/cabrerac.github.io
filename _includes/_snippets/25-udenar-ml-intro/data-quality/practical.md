@@ -2,31 +2,37 @@
 
 # Practical Introduction
 
-In this practical session, we will explore different techniques for ensuring data quality in machine learning projects. We'll cover data cleaning, preprocessing, feature engineering, and validation methods.
+In this practical session, we will explore different techniques for ensuring data quality in machine learning projects. We'll cover data cleaning, preprocessing, augmentation, feature engineering, and validation methods.
 
 ## Exercise 1: Data Cleaning
 
-Let's start by importing the necessary libraries and loading a sample dataset that needs cleaning.
+Data cleaning is a fundamental step in any machine learning project. It involves identifying and handling issues in the data that could affect model performance. In this exercise, we'll learn various techniques for cleaning data using the Titanic dataset, which contains several common data quality challenges.
+
+Let's start by importing the necessary libraries. We'll use:
+- pandas and numpy for data manipulation
+- matplotlib and seaborn for visualization
+- scikit-learn for preprocessing and feature selection
 
 ```python
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
-from sklearn.impute import SimpleImputer, KNNImputer
-from sklearn.feature_selection import SelectKBest, f_classif
 ```
 
 ### 1.1 Loading and Exploring Data
 
-First, let's load a dataset with various data quality issues. We'll use the Titanic dataset as it contains several common data quality challenges.
+The first step in any data cleaning process is to understand your data. We'll use the Titanic dataset, which is perfect for learning data cleaning as it contains various data quality issues like missing values, outliers, and categorical variables.
 
 ```python
 # Load the Titanic dataset
 url = "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
 titanic_data = pd.read_csv(url)
+```
 
+Let's examine the dataset to understand its structure and the data it stores:
+
+```python
 # Display basic information about the dataset
 print("Dataset Shape:", titanic_data.shape)
 print("\nFirst few rows:")
@@ -37,51 +43,211 @@ print(titanic_data.info())
 
 ### 1.2 Handling Missing Values
 
-Let's analyze and handle missing values in the dataset.
+Missing values are one of the most common data quality issues. They can occur due to various reasons:
+- Data collection errors
+- System failures
+- Information not available
+- Data entry mistakes
+
+It's crucial to handle missing values appropriately as they can significantly impact our analysis and model performance. We'll explore different strategies:
+1. Deletion: Remove rows or columns with missing values
+2. Imputation: Fill missing values with estimated values
+3. Advanced techniques: Use machine learning models to predict missing values
+
+First, let's analyze the extent of missing values in our dataset:
 
 ```python
 # Check for missing values
 missing_values = titanic_data.isnull().sum()
 print("Missing values per column:")
 print(missing_values[missing_values > 0])
+```
 
+Let's visualize the missing values to better understand their distribution:
+
+```python
 # Visualize missing values
 plt.figure(figsize=(10, 6))
 sns.heatmap(titanic_data.isnull(), yticklabels=False, cbar=False, cmap='viridis')
 plt.title('Missing Values Heatmap')
 plt.show()
+```
 
-# Handle missing values in Age using different strategies
-# 1. Mean imputation
+Deletion strategies for handling missing values.
+
+```python
+# Create copies of the data for different deletion strategies
+titanic_data_row_drop = titanic_data.copy()
+titanic_data_col_drop = titanic_data.copy()
+```
+
+Row deletion: Remove rows with any missing values.
+
+```python
+rows_before = len(titanic_data_row_drop)
+titanic_data_row_drop = titanic_data_row_drop.dropna()
+rows_after = len(titanic_data_row_drop)
+print(f"\nRow deletion results:")
+print(f"Rows before: {rows_before}")
+print(f"Rows after: {rows_after}")
+print(f"Rows removed: {rows_before - rows_after}")
+print(f"Percentage of data lost: {((rows_before - rows_after) / rows_before * 100):.2f}%")
+```
+
+Column deletion: Remove columns with missing values.
+
+```python
+cols_before = len(titanic_data_col_drop.columns)
+titanic_data_col_drop = titanic_data_col_drop.dropna(axis=1)
+cols_after = len(titanic_data_col_drop.columns)
+print(f"\nColumn deletion results:")
+print(f"Columns before: {cols_before}")
+print(f"Columns after: {cols_after}")
+print(f"Columns removed: {cols_before - cols_after}")
+print(f"Percentage of features lost: {((cols_before - cols_after) / cols_before * 100):.2f}%")
+```
+
+Selective deletion: Remove rows only if they have missing values in specific columns (We can define the removing criteria).
+
+```python
+titanic_data_selective = titanic_data.copy()
+rows_before = len(titanic_data_selective)
+# Only drop rows with missing values in Age and Embarked
+titanic_data_selective = titanic_data_selective.dropna(subset=['Age', 'Embarked'])
+rows_after = len(titanic_data_selective)
+print(f"\nSelective deletion results (Age and Embarked):")
+print(f"Rows before: {rows_before}")
+print(f"Rows after: {rows_after}")
+print(f"Rows removed: {rows_before - rows_after}")
+print(f"Percentage of data lost: {((rows_before - rows_after) / rows_before * 100):.2f}%")
+```
+
+Imputation strategies fill missing values based on the values of other records.
+
+```python
+from sklearn.impute import SimpleImputer, KNNImputer
+```
+
+Mean imputation: Replaces missing values with the mean of the respective feature:
+    - Pros: Simple to implement, reduces variance
+    - Cons: Can be affected by outliers, doesn't preserve data distribution
+
+```python
 mean_imputer = SimpleImputer(strategy='mean')
 titanic_data['Age_Mean'] = mean_imputer.fit_transform(titanic_data[['Age']])
+```
 
-# 2. Median imputation
+Median imputation: Replaces missing values with the meadian of the respective feature:
+   - Pros: More robust to outliers than mean
+   - Cons: Still reduces variance
+
+```python
 median_imputer = SimpleImputer(strategy='median')
 titanic_data['Age_Median'] = median_imputer.fit_transform(titanic_data[['Age']])
+```
 
-# 3. KNN imputation
+More advanced methods can use ML models to fill the values:
+
+K-Nearest Neighbours (KNN) imputation: This value uses the values of similar data points to the record that is missing data. It selects the `k` most similar data points (i.e., neighbours), and uses ther values to estimate the missing value. 
+   - Pros: More sophisticated, considers similar instances
+   - Cons: Computationally expensive, requires complete features
+
+```python
 knn_imputer = KNNImputer(n_neighbors=5)
 titanic_data['Age_KNN'] = knn_imputer.fit_transform(titanic_data[['Age']])
+```
 
+Regression imputation: This method uses a regression model to predict missing values based on other features in the dataset. It's particularly useful when there's a strong relationship between the missing feature and other features.
+
+We first prepare the data for training the regression model. We select the features that can have strong relationship with the Age variable.
+
+```python
+from sklearn.linear_model import LinearRegression
+# Prepare data for regression imputation
+# Select features that might help predict Age
+features_for_age = ['Pclass', 'SibSp', 'Parch', 'Fare']
+X_train = titanic_data.dropna(subset=['Age'])[features_for_age]
+y_train = titanic_data.dropna(subset=['Age'])['Age']
+```
+
+We then train the model with the selected data features.
+
+```python
+# Train the regression model
+reg_imputer = LinearRegression()
+reg_imputer.fit(X_train, y_train)
+```
+
+We now use the trained model to determine the predicted ages and fill the missing values.
+
+```python
+# Predict missing Age values
+X_missing = titanic_data[titanic_data['Age'].isnull()][features_for_age]
+predicted_ages = reg_imputer.predict(X_missing)
+# Create a copy of the data for regression imputation
+titanic_data_reg = titanic_data.copy()
+titanic_data_reg.loc[titanic_data_reg['Age'].isnull(), 'Age'] = predicted_ages
+titanic_data['Age_Regression'] = titanic_data_reg['Age']
+```
+
+When we are dealing with data and different methods, we must always compare and select the better one according to our needs. This comparison can be based on plots:
+
+```python
 # Compare the different imputation strategies
 plt.figure(figsize=(15, 5))
-plt.subplot(1, 3, 1)
+plt.subplot(1, 4, 1)
 sns.histplot(data=titanic_data, x='Age_Mean', bins=30)
 plt.title('Mean Imputation')
-plt.subplot(1, 3, 2)
+plt.subplot(1, 4, 2)
 sns.histplot(data=titanic_data, x='Age_Median', bins=30)
 plt.title('Median Imputation')
-plt.subplot(1, 3, 3)
+plt.subplot(1, 4, 3)
 sns.histplot(data=titanic_data, x='Age_KNN', bins=30)
 plt.title('KNN Imputation')
+plt.subplot(1, 4, 4)
+sns.histplot(data=titanic_data, x='Age_Regression', bins=30)
+plt.title('Regression Imputation')
 plt.tight_layout()
 plt.show()
 ```
 
+Statistical analysis is also helpful to compare te imputation methods:
+
+```python
+import stats
+# Compare statistical properties of all imputation methods
+print("\nStatistical Properties Comparison:")
+print("\nOriginal Data (non-missing):")
+print(f"Mean: {titanic_data['Age'].mean():.3f}")
+print(f"Std: {titanic_data['Age'].std():.3f}")
+print(f"Skewness: {stats.skew(titanic_data['Age'].dropna()):.3f}")
+print("\nMean Imputation:")
+print(f"Mean: {titanic_data['Age_Mean'].mean():.3f}")
+print(f"Std: {titanic_data['Age_Mean'].std():.3f}")
+print(f"Skewness: {stats.skew(titanic_data['Age_Mean']):.3f}")
+print("\nMedian Imputation:")
+print(f"Mean: {titanic_data['Age_Median'].mean():.3f}")
+print(f"Std: {titanic_data['Age_Median'].std():.3f}")
+print(f"Skewness: {stats.skew(titanic_data['Age_Median']):.3f}")
+print("\nKNN Imputation:")
+print(f"Mean: {titanic_data['Age_KNN'].mean():.3f}")
+print(f"Std: {titanic_data['Age_KNN'].std():.3f}")
+print(f"Skewness: {stats.skew(titanic_data['Age_KNN']):.3f}")
+print("\nRegression Imputation:")
+print(f"Mean: {titanic_data['Age_Regression'].mean():.3f}")
+print(f"Std: {titanic_data['Age_Regression'].std():.3f}")
+print(f"Skewness: {stats.skew(titanic_data['Age_Regression']):.3f}")
+```
+
 ### 1.3 Handling Outliers
 
-Let's identify and handle outliers in the numerical features.
+Outliers are data points that significantly deviate from the rest of the data. They can be caused by:
+- Measurement errors
+- Data entry mistakes
+- Rare but valid observations
+- System malfunctions
+
+Outliers can significantly impact statistical analyses and machine learning models, so it's important to handle them appropriately. The Interquartile Range (IQR) method is a robust statistical approach for outlier detection. It works by first calculating the first quartile (Q1) and the third quartile (Q3) of the data. The IQR is then calculated as the difference between Q3 and Q1. Data points that fall below `Q1 - 1.5*IQR` or above `Q3 + 1.5*IQR` are considered outliers. This method is effective because it is resistant to the influence of outliers themselves, providing a more accurate representation of the data's spread.
 
 ```python
 # Function to detect outliers using IQR method
@@ -92,19 +258,33 @@ def detect_outliers(df, column):
     lower_bound = Q1 - 1.5 * IQR
     upper_bound = Q3 + 1.5 * IQR
     return df[(df[column] < lower_bound) | (df[column] > upper_bound)]
+```
 
+Let's apply this to the Fare column to detect the outliers:
+
+```python
 # Detect outliers in Fare
 outliers = detect_outliers(titanic_data, 'Fare')
 print(f"Number of outliers in Fare: {len(outliers)}")
+```
 
-# Visualize outliers
+Now we can visualise the outliers using a boxplot:
+
+```python
+# Visualise outliers
 plt.figure(figsize=(10, 6))
 sns.boxplot(x=titanic_data['Fare'])
 plt.title('Fare Distribution with Outliers')
 plt.show()
+```
 
-# Handle outliers using different strategies
-# 1. Capping
+Now, let's implement different strategies to handle outliers:
+
+1. Capping: Limits extreme values to a specified range
+   - Pros: Preserves data points while reducing their impact
+   - Cons: May lose information about extreme cases
+
+```python
 def cap_outliers(df, column):
     Q1 = df[column].quantile(0.25)
     Q3 = df[column].quantile(0.75)
@@ -113,14 +293,25 @@ def cap_outliers(df, column):
     upper_bound = Q3 + 1.5 * IQR
     df[column + '_capped'] = df[column].clip(lower=lower_bound, upper=upper_bound)
     return df
+```
 
-# 2. Log transformation
-titanic_data['Fare_log'] = np.log1p(titanic_data['Fare'])
+Applying capping
 
-# Apply capping
+```python
 titanic_data = cap_outliers(titanic_data, 'Fare')
+```
 
-# Compare the different strategies
+2. Log transformation: Reduces the impact of extreme values
+   - Pros: Preserves the order of values while reducing the impact of outliers
+   - Cons: Changes the scale of the data
+
+```python
+titanic_data['Fare_log'] = np.log1p(titanic_data['Fare'])
+```
+
+Let's compare the different strategies to see their impact on the data distribution:
+
+```python
 plt.figure(figsize=(15, 5))
 plt.subplot(1, 3, 1)
 sns.histplot(data=titanic_data, x='Fare', bins=30)
@@ -137,22 +328,53 @@ plt.show()
 
 ## Exercise 2: Data Preprocessing
 
+Data preprocessing is a crucial step in preparing data for machine learning models. It involves transforming the data into a format that is suitable for analysis and modeling. In this exercise, we'll explore two main preprocessing techniques: feature scaling and categorical feature encoding.
+
 ### 2.1 Feature Scaling
 
-Let's explore different scaling techniques for numerical features.
+Feature scaling is the process of transforming numerical features to a common scale, ensuring that all features contribute equally to the model.
 
 ```python
-# Select numerical features for scaling
-numerical_features = ['Age', 'Fare', 'SibSp', 'Parch']
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from sklearn.feature_selection import SelectKBest, f_classif
+```
 
-# 1. Standardization (Z-score normalization)
+- It ensures all features contribute equally to the model
+- It helps algorithms converge faster
+- It prevents features with larger scales from dominating the model
+
+We'll explore two common scaling techniques:
+1. Standardization (Z-score): Centers data around 0 with unit variance
+   - Best for: Algorithms that assume normal distribution
+   - Formula: z = (x - μ) / σ
+2. Min-Max scaling: Scales data to a fixed range (usually [0,1])
+   - Best for: Algorithms that require bounded input
+   - Formula: x_scaled = (x - x_min) / (x_max - x_min)
+
+Let's implement both techniques:
+
+We start by selecting the numerica features for scaling.
+
+```python
+numerical_features = ['Age', 'Fare', 'SibSp', 'Parch']
+```
+
+Then we can apply sandarisation (i.e., Z-score normalisation).
+
+```python
 scaler = StandardScaler()
 titanic_data[numerical_features + '_standardized'] = scaler.fit_transform(titanic_data[numerical_features])
+```
 
+```python
 # 2. Min-Max scaling
 minmax_scaler = MinMaxScaler()
 titanic_data[numerical_features + '_minmax'] = minmax_scaler.fit_transform(titanic_data[numerical_features])
+```
 
+Let's visualize the impact of different scaling techniques on the Age feature. This will help us understand how each technique affects the data distribution:
+
+```python
 # Compare the different scaling techniques
 plt.figure(figsize=(15, 5))
 plt.subplot(1, 3, 1)
@@ -170,72 +392,213 @@ plt.show()
 
 ### 2.2 Categorical Feature Encoding
 
-Let's handle categorical features using different encoding techniques.
+Categorical features need to be converted to numerical format for machine learning algorithms. Different encoding techniques have different advantages and use cases:
+
+1. One-hot encoding:
+   - Creates binary columns for each category
+   - Pros: No ordinal relationship, works well with most algorithms
+   - Cons: Can lead to high dimensionality (curse of dimensionality)
+   - Best for: Nominal categorical variables
+
+2. Label encoding:
+   - Assigns a unique number to each category
+   - Pros: Maintains dimensionality, simple to implement
+   - Cons: Can introduce artificial ordinal relationships
+   - Best for: Ordinal categorical variables
+
+Let's implement both techniques:
 
 ```python
 # Select categorical features
 categorical_features = ['Sex', 'Embarked', 'Pclass']
+```
 
-# 1. One-hot encoding
+```python
+# One-hot encoding
 titanic_data_encoded = pd.get_dummies(titanic_data, columns=categorical_features, prefix=categorical_features)
+```
 
-# 2. Label encoding
+```python
+# Label encoding
 from sklearn.preprocessing import LabelEncoder
 label_encoder = LabelEncoder()
 titanic_data['Sex_encoded'] = label_encoder.fit_transform(titanic_data['Sex'])
+```
 
-# Compare the encoding techniques
+Let's compare the encoding techniques to understand their differences:
+
+```python
 print("\nOne-hot encoding example:")
 print(titanic_data_encoded[['Sex_female', 'Sex_male']].head())
 print("\nLabel encoding example:")
 print(titanic_data[['Sex', 'Sex_encoded']].head())
 ```
 
-## Exercise 3: Feature Engineering
+## Exercise 3: Data Augmentation
 
-### 3.1 Creating New Features
+Data augmentation is a crucial technique in machine learning that helps us increase the size and diversity of our training dataset. This is particularly important when we have limited data or want to improve model robustness. In this exercise, we'll explore different techniques for augmenting numerical data.
 
-Let's create some new features that might be useful for the Titanic survival prediction.
+### 3.1 Numerical Data Augmentation
+
+We'll implement two main techniques:
+
+1. Gaussian Noise: Adds controlled random noise to the data, which helps the model become more robust to small variations in the input.
+2. SMOTE-like: Creates synthetic samples by interpolating between existing data points, which helps balance the dataset and prevent overfitting.
+
+First, let's prepare our data by selecting the numerical features we want to augment:
+
+```python
+import numpy as np
+from scipy import stats
+# Select numerical features for augmentation
+numerical_features = ['Age', 'Fare', 'SibSp', 'Parch', 'FamilySize']
+X_aug = titanic_data[numerical_features].fillna(titanic_data[numerical_features].mean())
+```
+
+Let's implement the Gaussian noise augmentation. This technique adds random noise from a normal distribution to our data, which helps the model learn to be invariant to small variations in the input:
+
+```python
+def add_gaussian_noise(data, noise_factor=0.05):
+    noise = np.random.normal(0, noise_factor, data.shape)
+    return data + noise
+```
+
+Now, let's implement a SMOTE-like augmentation. This technique creates synthetic samples by interpolating between existing data points and their nearest neighbors. This helps to:
+- Increase the size of the dataset
+- Create more balanced classes
+- Improve model generalization
+
+```python
+def numerical_smote(data, k=5):
+    augmented_data = []
+    for i in range(len(data)):
+        distances = np.abs(data - data[i])
+        nearest_indices = np.argsort(distances)[1:k+1]
+        for j in nearest_indices:
+            new_sample = data[i] + np.random.random() * (data[j] - data[i])
+            augmented_data.append(new_sample)
+    return np.array(augmented_data)
+```
+
+Let's apply these techniques to the Age feature and visualize the results. This will help us understand how each augmentation technique affects the data distribution:
+
+```python
+# Apply augmentations to Age feature
+age_data = X_aug['Age'].values
+gaussian_augmented = add_gaussian_noise(age_data)
+smote_augmented = numerical_smote(age_data)
+```
+
+```python
+# Visualize results
+plt.figure(figsize=(15, 5))
+plt.subplot(1, 3, 1)
+plt.hist(age_data, bins=30)
+plt.title('Original Age')
+plt.subplot(1, 3, 2)
+plt.hist(gaussian_augmented, bins=30)
+plt.title('Gaussian Noise Augmented')
+plt.subplot(1, 3, 3)
+plt.hist(smote_augmented, bins=30)
+plt.title('SMOTE Augmented')
+plt.tight_layout()
+plt.show()
+```
+
+Finally, let's analyze the statistical properties of the augmented data to understand how each technique affects the data distribution. This analysis helps us ensure that our augmentation techniques maintain the important characteristics of the original data while adding useful variations:
+
+```python
+# Compare statistical properties
+print("\nStatistical Properties Comparison:")
+print("\nOriginal Data:")
+print(f"Mean: {np.mean(age_data):.3f}")
+print(f"Std: {np.std(age_data):.3f}")
+print(f"Skewness: {stats.skew(age_data):.3f}")
+
+print("\nGaussian Noise Augmented:")
+print(f"Mean: {np.mean(gaussian_augmented):.3f}")
+print(f"Std: {np.std(gaussian_augmented):.3f}")
+print(f"Skewness: {stats.skew(gaussian_augmented):.3f}")
+
+print("\nSMOTE Augmented:")
+print(f"Mean: {np.mean(smote_augmented):.3f}")
+print(f"Std: {np.std(smote_augmented):.3f}")
+print(f"Skewness: {stats.skew(smote_augmented):.3f}")
+```
+
+## Exercise 4: Feature Engineering
+
+Feature engineering is the process of creating new features from existing data to improve model performance. It requires domain knowledge and creativity. In this exercise, we'll explore different feature engineering techniques and their impact on model performance.
+
+### 4.1 Creating New Features
+
+Creating new features can help capture important patterns and relationships in the data. We'll create several new features that might be useful for predicting survival in the Titanic dataset:
+
+1. Family size: Combines SibSp and Parch to create a more meaningful feature
+2. Title: Extracts social status information from the Name field
+3. Cabin information: Creates a binary feature indicating cabin availability
+4. Age groups: Bins age into meaningful categories
 
 ```python
 # 1. Family size
 titanic_data['FamilySize'] = titanic_data['SibSp'] + titanic_data['Parch'] + 1
-
 # 2. Title from Name
 titanic_data['Title'] = titanic_data['Name'].str.extract(' ([A-Za-z]+)\.', expand=False)
-
 # 3. Cabin information
 titanic_data['HasCabin'] = titanic_data['Cabin'].notna().astype(int)
-
 # 4. Age groups
 titanic_data['AgeGroup'] = pd.cut(titanic_data['Age'], 
                                  bins=[0, 12, 18, 35, 60, 100],
                                  labels=['Child', 'Teenager', 'Young Adult', 'Adult', 'Senior'])
+```
 
+Let's examine our new features to understand their distribution:
+
+```python
 # Display the new features
 print("\nNew features:")
 print(titanic_data[['FamilySize', 'Title', 'HasCabin', 'AgeGroup']].head())
 ```
 
-### 3.2 Feature Selection
+### 4.2 Feature Selection
 
-Let's use different feature selection techniques to identify the most important features.
+Feature selection helps us identify the most important features for our model. This is important because:
+- It reduces dimensionality
+- It helps prevent overfitting
+- It improves model interpretability
+- It can reduce training time
+
+We'll use two main approaches:
+1. Univariate feature selection: Selects features based on statistical tests
+2. Correlation analysis: Identifies relationships between features
+
+First, let's prepare our data:
 
 ```python
-# Prepare data for feature selection
 X = titanic_data_encoded.select_dtypes(include=[np.number]).dropna()
 y = titanic_data['Survived']
+```
 
-# 1. Univariate feature selection
+Let's apply univariate feature selection to identify the most important features:
+
+```python
 selector = SelectKBest(score_func=f_classif, k=5)
 X_selected = selector.fit_transform(X, y)
+```
 
+Let's examine the selected features:
+
+```python
 # Get selected feature names
 selected_features = X.columns[selector.get_support()].tolist()
 print("\nSelected features using univariate selection:")
 print(selected_features)
+```
 
-# 2. Correlation analysis
+Let's analyze the correlation between features to understand their relationships:
+
+```python
+# Correlation analysis
 correlation_matrix = titanic_data_encoded.corr()
 plt.figure(figsize=(12, 8))
 sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', center=0)
@@ -243,11 +606,119 @@ plt.title('Feature Correlation Matrix')
 plt.show()
 ```
 
-## Exercise 4: Data Validation
+### 4.3 Principal Component Analysis (PCA)
 
-### 4.1 Data Quality Checks
+PCA (Principal Component Analysis) is a dimensionality reduction technique that is widely used in machine learning and data analysis. It works by transforming the data into a new coordinate system, where the axes are the principal components. These principal components are the directions of maximum variance in the data. The first principal component is the direction in which the data varies the most, the second principal component is the direction in which the data varies the second most, and so on. The number of principal components is equal to the number of original features.
 
-Let's implement some data quality checks to ensure our dataset meets certain criteria.
+The main idea behind PCA is to reduce the dimensionality of the data while retaining as much of the original variance as possible. This can be useful in several ways. For example, it can make the data easier to visualize, it can make the data easier to work with in machine learning algorithms, and it can help to remove noise from the data.
+
+In practice, PCA is often used as a preprocessing step before applying a machine learning algorithm. The idea is to use PCA to reduce the dimensionality of the data, and then to apply the machine learning algorithm to the reduced data. This can make the machine learning algorithm faster and more accurate.
+
+PCA is a linear transformation, which means that it can only capture linear relationships in the data. If the data has non-linear relationships, PCA may not work well. In this case, other dimensionality reduction techniques, such as t-SNE or UMAP, may be more appropriate.
+
+PCA is a powerful dimensionality reduction technique that:
+- Reduces the number of features while preserving important information
+- Helps identify patterns in the data
+- Can improve model performance by removing noise
+- Makes visualization of high-dimensional data possible
+
+The PCA process involves:
+1. Standardizing the data
+2. Finding the principal components (directions of maximum variance)
+3. Projecting the data onto these components
+
+Let's implement PCA:
+
+```python
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+```
+
+We start preparing the data for PCA.
+
+```python
+numerical_features = ['Age', 'Fare', 'SibSp', 'Parch', 'FamilySize']
+X_pca = titanic_data[numerical_features].fillna(titanic_data[numerical_features].mean())
+```
+
+We then standarise the features and apply PCA.
+
+```python
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X_pca)
+# Apply PCA
+pca = PCA()
+X_pca_transformed = pca.fit_transform(X_scaled)
+```
+
+We then analyse the results.
+
+```python
+# Calculate explained variance ratio
+explained_variance_ratio = pca.explained_variance_ratio_
+cumulative_variance_ratio = np.cumsum(explained_variance_ratio)
+# Plot explained variance ratio
+plt.figure(figsize=(10, 6))
+plt.plot(range(1, len(explained_variance_ratio) + 1), 
+         cumulative_variance_ratio, 'bo-')
+plt.axhline(y=0.95, color='r', linestyle='--')
+plt.xlabel('Number of Components')
+plt.ylabel('Cumulative Explained Variance Ratio')
+plt.title('PCA Explained Variance Ratio')
+plt.grid(True)
+plt.show()
+```
+
+We can analyse the variance for each component.
+
+```python
+# Print explained variance for each component
+print("\nExplained variance ratio by component:")
+for i, ratio in enumerate(explained_variance_ratio):
+    print(f"Component {i+1}: {ratio:.4f}")
+```
+
+And continue our analysis of the principal components.
+
+```python
+# Create a DataFrame with PCA components
+pca_df = pd.DataFrame(
+    data=X_pca_transformed,
+    columns=[f'PC{i+1}' for i in range(X_pca_transformed.shape[1])]
+)
+# Visualize the first two principal components
+plt.figure(figsize=(10, 8))
+plt.scatter(pca_df['PC1'], pca_df['PC2'], alpha=0.5)
+plt.xlabel('First Principal Component')
+plt.ylabel('Second Principal Component')
+plt.title('PCA: First Two Principal Components')
+plt.grid(True)
+plt.show()
+```
+
+We can also examine the feature contributions to principal components.
+
+```python
+feature_contributions = pd.DataFrame(
+    pca.components_.T,
+    columns=[f'PC{i+1}' for i in range(pca.components_.shape[0])],
+    index=numerical_features
+)
+print("\nFeature contributions to principal components:")
+print(feature_contributions)
+```
+
+## Exercise 5: Data Validation
+
+Data validation is a crucial step in ensuring the quality and reliability of our processed data. It helps us verify that our data cleaning and preprocessing steps have been successful and that the data is ready for modeling. In this exercise, we'll implement various validation checks and calculate quality metrics.
+
+### 5.1 Data Quality Checks
+
+We'll create a comprehensive validation function that performs various data quality checks:
+1. Missing values: Ensures no unexpected missing values remain
+2. Duplicates: Identifies any duplicate records
+3. Data types: Verifies correct data types for each column
+4. Infinite values: Checks for any infinite values that might cause issues
 
 ```python
 def validate_data(df):
@@ -272,7 +743,11 @@ def validate_data(df):
     validation_results['infinite_values'] = inf_values[inf_values > 0]
     
     return validation_results
+```
 
+Let's run the validation checks on our processed dataset:
+
+```python
 # Perform validation
 validation_results = validate_data(titanic_data_encoded)
 print("\nValidation Results:")
@@ -281,9 +756,13 @@ for check, result in validation_results.items():
     print(result)
 ```
 
-### 4.2 Data Quality Metrics
+### 5.2 Data Quality Metrics
 
-Let's calculate some data quality metrics for our dataset.
+In addition to basic validation checks, we'll calculate various data quality metrics to assess the overall quality of our dataset:
+
+1. Completeness: Measures the proportion of non-missing values
+2. Uniqueness: Measures the proportion of unique values
+3. Consistency: Checks for logical consistency in the data
 
 ```python
 def calculate_quality_metrics(df):
@@ -309,7 +788,11 @@ def calculate_quality_metrics(df):
     metrics['consistency'] = consistency
     
     return metrics
+```
 
+Let's calculate and display the quality metrics:
+
+```python
 # Calculate metrics
 quality_metrics = calculate_quality_metrics(titanic_data_encoded)
 print("\nQuality Metrics:")
@@ -318,7 +801,212 @@ for metric, values in quality_metrics.items():
     print(values)
 ```
 
+## Exercise 6: Image Preprocessing
+
+Image preprocessing is a crucial step in preparing image data for machine learning models. In this exercise, we'll explore various techniques for preprocessing images using the MNIST dataset, which contains handwritten digits.
+
+```python
+from sklearn.datasets import fetch_openml
+import numpy as np
+import matplotlib.pyplot as plt
+```
+
+### 6.1 Loading and Exploring Image Data
+
+```python
+# Load MNIST dataset
+X, y = fetch_openml('mnist_784', version=1, return_X_y=True, as_frame=False)
+# Display basic information
+print("Dataset shape:", X.shape)
+print("Number of classes:", len(np.unique(y)))
+print("Image dimensions:", int(np.sqrt(X.shape[1])), "x", int(np.sqrt(X.shape[1])))
+```
+
+Let's display some sample images
+
+```python
+# Display sample images
+plt.figure(figsize=(10, 5))
+for i in range(5):
+    plt.subplot(1, 5, i+1)
+    plt.imshow(X[i].reshape(28, 28), cmap='gray')
+    plt.title(f'Label: {y[i]}')
+    plt.axis('off')
+plt.tight_layout()
+plt.show()
+```
+
+### 6.2 Basic Image Preprocessing
+
+Let's implement some image preprocessing techniques:
+
+```python
+from skimage.transform import resize
+from sklearn.preprocessing import MinMaxScaler
+```
+
+Resize images to a smaller size (e.g., 20x20).
+
+```python
+def resize_images(images, target_size=(20, 20)):
+    resized_images = np.array([resize(img.reshape(28, 28), target_size).flatten() 
+                             for img in images])
+    return resized_images
+```
+
+Normalize pixel values to [0, 1].
+
+```python
+def normalize_images(images):
+    scaler = MinMaxScaler()
+    return scaler.fit_transform(images)
+```
+
+Applying preprocessing.
+
+```python
+X_resized = resize_images(X[:1000])  # Process first 1000 images for demonstration
+X_normalized = normalize_images(X_resized)
+```
+
+And we can visualize the effects of preprocessing.
+
+```python
+plt.figure(figsize=(15, 5))
+for i in range(3):
+    plt.subplot(1, 3, i+1)
+    if i == 0:
+        plt.imshow(X[i].reshape(28, 28), cmap='gray')
+        plt.title('Original')
+    elif i == 1:
+        plt.imshow(X_resized[i].reshape(20, 20), cmap='gray')
+        plt.title('Resized')
+    else:
+        plt.imshow(X_normalized[i].reshape(20, 20), cmap='gray')
+        plt.title('Normalized')
+    plt.axis('off')
+plt.tight_layout()
+plt.show()
+```
+
+### 6.3 Advanced Image Preprocessing
+
+Some more advanced preprocessing techniques:
+
+```python
+from skimage import feature
+from scipy.ndimage import gaussian_filter
+from skimage.transform import rotate
+```
+
+Data augmentation: Adding random rotation and noise
+
+```python
+def augment_image(image, angle_range=(-15, 15)):
+    angle = np.random.uniform(angle_range[0], angle_range[1])
+    rotated = rotate(image.reshape(20, 20), angle, reshape=False)
+    noise = np.random.normal(0, 0.1, rotated.shape)
+    augmented = rotated + noise
+    return augmented.flatten()
+```
+
+Edge detection using Canny algorithm
+
+```python
+def detect_edges(image):
+    edges = feature.canny(image.reshape(20, 20), sigma=2)
+    return edges.flatten()
+```
+
+Noise reduction using Gaussian blur
+
+```python
+def reduce_noise(image):
+    blurred = gaussian_filter(image.reshape(20, 20), sigma=1)
+    return blurred.flatten()
+```
+
+Applying the preprocessing techniques
+
+```python
+X_augmented = np.array([augment_image(img) for img in X_normalized[:5]])
+X_edges = np.array([detect_edges(img) for img in X_normalized[:5]])
+X_denoised = np.array([reduce_noise(img) for img in X_normalized[:5]])
+```
+
+Visualising the effects of the preprocessing
+
+```python
+plt.figure(figsize=(15, 5))
+for i in range(3):
+    plt.subplot(1, 3, i+1)
+    if i == 0:
+        plt.imshow(X_augmented[0].reshape(20, 20), cmap='gray')
+        plt.title('Augmented')
+    elif i == 1:
+        plt.imshow(X_edges[0].reshape(20, 20), cmap='gray')
+        plt.title('Edge Detection')
+    else:
+        plt.imshow(X_denoised[0].reshape(20, 20), cmap='gray')
+        plt.title('Noise Reduction')
+    plt.axis('off')
+plt.tight_layout()
+plt.show()
+```
+
+### 6.4 Image Preprocessing Pipeline
+
+Let's create a complete preprocessing pipeline that combines all the techniques:
+
+```python
+class ImagePreprocessor:
+    def __init__(self, target_size=(20, 20)):
+        self.target_size = target_size
+        self.scaler = MinMaxScaler()
+    
+    def preprocess(self, images, augment=False):
+        # 1. Resize
+        resized = np.array([resize(img.reshape(28, 28), self.target_size).flatten() 
+                          for img in images])
+        
+        # 2. Normalize
+        normalized = self.scaler.fit_transform(resized)
+        
+        if augment:
+            # 3. Augment
+            augmented = np.array([augment_image(img) for img in normalized])
+            return augmented
+        
+        return normalized
+```
+
+Creating and using the preprocessor
+
+```python
+preprocessor = ImagePreprocessor()
+X_processed = preprocessor.preprocess(X[:1000], augment=True)
+```
+
+Visualising the final processed images
+
+```python
+plt.figure(figsize=(10, 5))
+for i in range(5):
+    plt.subplot(1, 5, i+1)
+    plt.imshow(X_processed[i].reshape(20, 20), cmap='gray')
+    plt.title(f'Processed {i+1}')
+    plt.axis('off')
+plt.tight_layout()
+plt.show()
+```
+
 ## Homework - Data Quality
+
+The homework assignment will help you apply the data quality techniques we've learned to real-world datasets. You'll need to:
+1. Choose and analyze a dataset
+2. Apply various data quality techniques
+3. Compare different approaches
+4. Document your findings
 
 1. Choose a dataset from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets.php) or [Kaggle](https://www.kaggle.com/datasets) that interests you. Apply the data quality techniques we've learned to prepare it for machine learning.
 
@@ -355,6 +1043,9 @@ for metric, values in quality_metrics.items():
 - Due date: [12/06/2025]
 
 ## Resources
+
+- [Dataset Transformations](https://scikit-learn.org/stable/data_transforms.html)
+
 
 - [Pandas Documentation](https://pandas.pydata.org/docs/)
 - [Scikit-learn Documentation](https://scikit-learn.org/stable/)
