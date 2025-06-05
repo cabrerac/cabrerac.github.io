@@ -42,7 +42,7 @@
     </div>
 </div>
 
-## ML Pipeline vs ML-based System
+## ML Pipelines vs ML-based Systems
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 60%">
@@ -61,72 +61,12 @@
     </div>
 </div>
 
-## Data Assess
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 95%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- end SLIDES: -->
 
 {% include _snippets/data-cleaning.md %}
 
-<!-- SLIDES: -->
-
-## Data Assess
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 95%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- end SLIDES: -->
-
 {% include _snippets/data-preprocessing.md %}
 
-<!-- SLIDES: -->
-
-## Data Assess
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 95%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- end SLIDES: -->
+{% include _snippets/data-augmentation.md %}
 
 {% include _snippets/feature-engineering.md %}
-
-<!-- SLIDES: -->
-
-## Data Assess
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 95%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- end SLIDES: -->
-
-{% include _snippets/data-augmentation.md %}

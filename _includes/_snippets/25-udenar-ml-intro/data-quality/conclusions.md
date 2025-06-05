@@ -5,23 +5,20 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Key Takeaways</b></p>
+            <div class="column vertical-middle text-left" style="width: 30%">
+                <p><b>Overview</b></p>
                 <ul>
-                    <li>Data quality is fundamental for ML success</li>
-                    <li>Quality issues affect all ML pipeline stages</li>
-                    <li>Multiple techniques available for each challenge</li>
-                    <li>Automation and documentation are crucial</li>
+                    <li>Data Quality</li>
+                    <li>Data Assess</li>
+                    <li>ML Pipeline</li>
+                    <li>ML Pipeline vs ML-based Systems</li>
+                    <li>Data Cleaning and Preprocessing</li>
+                    <li>Data Augmentation</li>
+                    <li>Feature Engineering</li>
                 </ul>
             </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Next Steps</b></p>
-                <ul>
-                    <li>Apply these techniques in your projects</li>
-                    <li>Develop your own quality pipelines</li>
-                    <li>Stay updated with new methods</li>
-                    <li>Share best practices with others</li>
-                </ul>
+            <div class="column vertical-middle text-left" style="width: 70%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
             </div>
         </div>
     </div>
@@ -32,14 +29,16 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Remember</b></p>
+            <div class="column vertical-middle text-left" style="width: 30%">
+                <p><b>Next Time</b></p>
                 <ul>
-                    <li>Quality data leads to quality models</li>
-                    <li>Invest time in data preparation</li>
-                    <li>Document your processes</li>
-                    <li>Validate your assumptions</li>
+                    <li>Data Address</li>
+                    <li>Linear Regression</li>
+                    <li>Clustering</li>
                 </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 70%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
             </div>
         </div>
     </div>
