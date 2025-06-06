@@ -363,7 +363,6 @@ Feature scaling is the process of transforming numerical features to a common sc
 
 ```python
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
-from sklearn.feature_selection import SelectKBest, f_classif
 ```
 
 - It ensures all features contribute equally to the model
@@ -678,6 +677,7 @@ plt.xlabel('Importance')
 plt.ylabel('Feature')
 plt.show()
 ```
+
 ### 4.3 Principal Component Analysis (PCA)
 
 PCA (Principal Component Analysis) is a dimensionality reduction technique that is widely used in machine learning and data analysis. It works by transforming the data into a new coordinate system, where the axes are the principal components. These principal components are the directions of maximum variance in the data. The first principal component is the direction in which the data varies the most, the second principal component is the direction in which the data varies the second most, and so on. The number of principal components is equal to the number of original features.
