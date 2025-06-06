@@ -10,7 +10,7 @@ Data cleaning is a fundamental step in any machine learning project. It involves
 
 Let's start by importing the necessary libraries. We'll use:
 - pandas and numpy for data manipulation
-- matplotlib and seaborn for visualization
+- matplotlib and seaborn for visualisation
 - scikit-learn for preprocessing and feature selection
 
 ```python
@@ -80,10 +80,10 @@ print("Missing values per column:")
 print(missing_values[missing_values > 0])
 ```
 
-Let's visualize the missing values to better understand their distribution:
+Let's visualise the missing values to better understand their distribution:
 
 ```python
-# Visualize missing values
+# Visualise missing values
 plt.figure(figsize=(10, 6))
 sns.heatmap(titanic_data.isnull(), yticklabels=False, cbar=False, cmap='viridis')
 plt.title('Missing Values Heatmap')
@@ -460,7 +460,7 @@ print(titanic_data[['Sex', 'Sex_encoded']].head())
 
 ## Exercise 3: Data Augmentation
 
-Data augmentation is a crucial technique in machine learning that helps us increase the size and diversity of our training dataset. This is particularly important when we have limited data or want to improve model robustness. In this exercise, we'll explore different techniques for augmenting numerical data.
+Data augmentation helps us increase the size and diversity of our datasets. This is particularly important when we have limited data or want to improve model robustness. In this exercise, we'll explore different techniques for augmenting numerical data.
 
 ### 3.1 Numerical Data Augmentation
 
@@ -925,7 +925,7 @@ for i in range(3):
         plt.title('Resized')
     else:
         plt.imshow(X_normalized[index].reshape(20, 20), cmap='gray')
-        plt.title('Normalized')
+        plt.title('Normalised')
     plt.axis('off')
 plt.tight_layout()
 plt.show()

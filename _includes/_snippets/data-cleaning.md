@@ -19,12 +19,120 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>What is Data Cleaning?</b></p>
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p>Process of detecting and correcting (or removing) corrupt or inaccurate records.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Cleaning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Missing Values</b></p>
+                <p>Missing datapoints in the dataset</p>
                 <ul>
-                    <li>Process of detecting and correcting (or removing) corrupt or inaccurate records</li>
-                    <li>Identifying incomplete, incorrect, inaccurate or irrelevant parts of the data</li>
-                    <li>Modifying, replacing or deleting the dirty or coarse data</li>
+                    <li>Data collection errors</li>
+                    <li>System failures</li>
+                    <li>Information not available</li>
+                    <li>Data entry mistakes</li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Cleaning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Missing Values</b></p>
+                <p>Missing datapoints in the dataset</p>
+                <ul>
+                    <li>Data collection errors</li>
+                    <li>System failures</li>
+                    <li>Information not available</li>
+                    <li>Data entry mistakes</li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/missing_values.png" alt="Missing Values" style="height: 500px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Cleaning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Missing Values</b></p>
+                <p>Missing datapoints in the dataset</p>
+                <ul>
+                    <li>Deletion: Remove rows or columns with missing values</li>
+                    <li>Imputation: Fill missing values with estimated values</li>
+                    <li>Advanced techniques: Use machine learning models to predict missing values</li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/missing_values.png" alt="Missing Values" style="height: 500px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Cleaning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+
+```python
+from sklearn.linear_model import LinearRegression
+features_for_age = ['Pclass', 'SibSp', 'Parch', 'Fare']
+X_train = titanic_data.dropna(subset=['Age'])[features_for_age]
+y_train = titanic_data.dropna(subset=['Age'])['Age']
+reg_imputer = LinearRegression()
+reg_imputer.fit(X_train, y_train)
+X_missing = titanic_data[titanic_data['Age'].isnull()][features_for_age]
+predicted_ages = reg_imputer.predict(X_missing)
+titanic_data_reg = titanic_data.copy()
+titanic_data_reg.loc[titanic_data_reg['Age'].isnull(), 'Age'] = predicted_ages
+titanic_data['Age_Regression'] = titanic_data_reg['Age']
+```
+</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/missing_values.png" alt="Missing Values" style="height: 500px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Cleaning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Outliers</b></p>
+                <p>Data points that significantly deviate from the rest of the data</p>
+                <ul>
+                    <li>Measurement errors</li>
+                    <li>Data entry mistakes</li>
+                    <li>Rare but valid observations</li>
+                    <li>System malfunctions</li>
                 </ul>
             </div>
         </div>
@@ -37,42 +145,16 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Handling Missing Values</b></p>
-                <ul>
-                    <li>Types of Missing Values:
-                        <ul>
-                            <li>MCAR (Missing Completely At Random)</li>
-                            <li>MAR (Missing At Random)</li>
-                            <li>MNAR (Missing Not At Random)</li>
-                        </ul>
-                    </li>
-                    <li>Techniques:
-                        <ul>
-                            <li>Deletion (listwise/pairwise)</li>
-                            <li>Mean/Median/Mode imputation</li>
-                            <li>KNN imputation</li>
-                            <li>Regression imputation</li>
-                        </ul>
-                    </li>
-                </ul>
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/outliers.png" alt="Outliers" style="height: 500px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Handling Outliers</b></p>
+                <p><b>Outliers</b></p>
+                <p>Data points that significantly deviate from the rest of the data</p>
                 <ul>
-                    <li>Detection Methods:
-                        <ul>
-                            <li>Statistical methods (Z-score, IQR)</li>
-                            <li>Visualization (box plots, scatter plots)</li>
-                            <li>Machine learning methods</li>
-                        </ul>
-                    </li>
-                    <li>Treatment:
-                        <ul>
-                            <li>Removal</li>
-                            <li>Capping/Flooring</li>
-                            <li>Transformation</li>
-                        </ul>
-                    </li>
+                    <li>Measurement errors</li>
+                    <li>Data entry mistakes</li>
+                    <li>Rare but valid observations</li>
+                    <li>System malfunctions</li>
                 </ul>
             </div>
         </div>
@@ -85,32 +167,14 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Data Standardization</b></p>
-                <ul>
-                    <li>Format standardization
-                        <ul>
-                            <li>Date formats</li>
-                            <li>Currency formats</li>
-                            <li>Units of measurement</li>
-                        </ul>
-                    </li>
-                    <li>Value standardization
-                        <ul>
-                            <li>Case normalization</li>
-                            <li>Whitespace handling</li>
-                            <li>Special character handling</li>
-                        </ul>
-                    </li>
-                </ul>
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/outliers.png" alt="Outliers" style="height: 500px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Data Validation</b></p>
+                <p><b>Outliers</b></p>
+                <p>Data points that significantly deviate from the rest of the data</p>
                 <ul>
-                    <li>Type checking</li>
-                    <li>Range validation</li>
-                    <li>Pattern matching</li>
-                    <li>Cross-field validation</li>
-                    <li>Business rule validation</li>
+                    <li>Capping: Limit values to a range</li>
+                    <li>Log Transformation: Reduce the impact of extreme values</li>
                 </ul>
             </div>
         </div>
@@ -122,16 +186,22 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Best Practices</b></p>
-                <ul>
-                    <li>Document all cleaning steps</li>
-                    <li>Automate cleaning processes</li>
-                    <li>Validate results after cleaning</li>
-                    <li>Maintain data lineage</li>
-                    <li>Consider impact on downstream analysis</li>
-                </ul>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/outliers.png" alt="Outliers" style="height: 500px">
             </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+
+```python
+def cap_outliers(df, column):
+    Q1 = df[column].quantile(0.25)
+    Q3 = df[column].quantile(0.75)
+    IQR = Q3 - Q1
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+    df[column + '_capped'] = df[column].clip(lower=lower_bound, upper=upper_bound)
+    return df
+```
+</div>
         </div>
     </div>
 </div>

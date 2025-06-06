@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+    <!-- Axes -->
+    <line x1="50" y1="250" x2="350" y2="250" stroke="#888" stroke-width="1"/>
+    <line x1="200" y1="250" x2="200" y2="50" stroke="#888" stroke-width="1"/>
+
+    <!-- Normal distribution curve (bell curve, sampled points) -->
+    <polyline fill="#2196F3" fill-opacity="0.15" stroke="none" points="
+        50,250
+        58,249
+        66,247
+        74,244
+        82,240
+        90,234
+        98,227
+        106,218
+        114,208
+        122,196
+        130,183
+        138,169
+        146,154
+        154,139
+        162,124
+        170,110
+        178,97
+        186,86
+        194,77
+        202,70
+        210,77
+        218,86
+        226,97
+        234,110
+        242,124
+        250,139
+        258,154
+        266,169
+        274,183
+        282,196
+        290,208
+        298,218
+        306,227
+        314,234
+        322,240
+        330,244
+        338,247
+        346,249
+        350,250
+        50,250
+    "/>
+    <polyline fill="none" stroke="#2196F3" stroke-width="3" points="
+        50,250
+        58,249
+        66,247
+        74,244
+        82,240
+        90,234
+        98,227
+        106,218
+        114,208
+        122,196
+        130,183
+        138,169
+        146,154
+        154,139
+        162,124
+        170,110
+        178,97
+        186,86
+        194,77
+        202,70
+        210,77
+        218,86
+        226,97
+        234,110
+        242,124
+        250,139
+        258,154
+        266,169
+        274,183
+        282,196
+        290,208
+        298,218
+        306,227
+        314,234
+        322,240
+        330,244
+        338,247
+        346,249
+        350,250
+    "/>
+
+    <!-- Mean and stddev markers -->
+    <line x1="200" y1="250" x2="200" y2="265" stroke="#444" stroke-width="2"/>
+    <text x="195" y="280" font-family="Arial" font-size="14">μ</text>
+    <line x1="125" y1="250" x2="125" y2="265" stroke="#444" stroke-width="2"/>
+    <text x="110" y="280" font-family="Arial" font-size="14">-σ</text>
+    <line x1="275" y1="250" x2="275" y2="265" stroke="#444" stroke-width="2"/>
+    <text x="265" y="280" font-family="Arial" font-size="14">+σ</text>
+
+    <!-- Axis labels -->
+    <text x="355" y="255" font-family="Arial" font-size="13">x</text>
+    <text x="210" y="60" font-family="Arial" font-size="13">P(x)</text>
+
+    <!-- Title -->
+    <text x="200" y="35" font-family="Arial" font-size="16" text-anchor="middle">Standard Normal Distribution</text>
+</svg> 

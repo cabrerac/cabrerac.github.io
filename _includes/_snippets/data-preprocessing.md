@@ -19,13 +19,8 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>What is Data Preprocessing?</b></p>
-                <ul>
-                    <li>Transforming raw data into a format suitable for machine learning</li>
-                    <li>Preparing data for model training and evaluation</li>
-                    <li>Ensuring data quality and consistency</li>
-                </ul>
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p>Process of transforming raw data into a format suitable for machine learning while ensuring data quality and consistency.</p>
             </div>
         </div>
     </div>
@@ -37,42 +32,15 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Feature Scaling</b></p>
+                <p><b>Featuring Scaling</b></p>
+                <p>Transforming numerical features to a common scale</p>
                 <ul>
-                    <li>Why Scale Features?
-                        <ul>
-                            <li>Equalize feature importance</li>
-                            <li>Improve model convergence</li>
-                            <li>Handle different scales</li>
-                        </ul>
-                    </li>
-                    <li>Techniques:
-                        <ul>
-                            <li>Min-Max Scaling</li>
-                            <li>Standardization (Z-score)</li>
-                            <li>Robust Scaling</li>
-                        </ul>
-                    </li>
+                    <li>All features contribute equally to the model</li>
+                    <li>Algorithms converge faster</li>
+                    <li>Features with larger scales do not dominate the model</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Categorical Feature Encoding</b></p>
-                <ul>
-                    <li>Types:
-                        <ul>
-                            <li>Nominal (no order)</li>
-                            <li>Ordinal (ordered)</li>
-                        </ul>
-                    </li>
-                    <li>Techniques:
-                        <ul>
-                            <li>One-Hot Encoding</li>
-                            <li>Label Encoding</li>
-                            <li>Target Encoding</li>
-                            <li>Embedding Encoding</li>
-                        </ul>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
@@ -84,42 +52,16 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Feature Selection</b></p>
-                <ul>
-                    <li>Why Select Features?
-                        <ul>
-                            <li>Reduce dimensionality</li>
-                            <li>Remove irrelevant features</li>
-                            <li>Improve model performance</li>
-                        </ul>
-                    </li>
-                    <li>Methods:
-                        <ul>
-                            <li>Filter methods</li>
-                            <li>Wrapper methods</li>
-                            <li>Embedded methods</li>
-                        </ul>
-                    </li>
-                </ul>
+                <p><b>Featuring Scaling</b></p>
+                <p>Standarisation (Z-score): Centers data around 0 with unit variance</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Feature Engineering</b></p>
-                <ul>
-                    <li>Types:
-                        <ul>
-                            <li>Numerical features</li>
-                            <li>Categorical features</li>
-                            <li>Temporal features</li>
-                        </ul>
-                    </li>
-                    <li>Techniques:
-                        <ul>
-                            <li>Polynomial features</li>
-                            <li>Binning</li>
-                            <li>Aggregation</li>
-                        </ul>
-                    </li>
-                </ul>
+$$
+z = (x - μ) / σ
+$$
+$x$: data point
+$μ$: dataset mean
+$σ$: dataset standard deviation
             </div>
         </div>
     </div>
@@ -130,15 +72,67 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Best Practices</b></p>
-                <ul>
-                    <li>Design preprocessing pipeline</li>
-                    <li>Validate preprocessing steps</li>
-                    <li>Monitor preprocessing impact</li>
-                    <li>Document preprocessing decisions</li>
-                    <li>Consider computational efficiency</li>
-                </ul>
+            <div class="column vertical-middle text-left" style="width: 50%">
+
+```python
+scaler = StandardScaler()
+standardized_columns = [col + '_standardized' for col in numerical_features]
+titanic_data[standardized_columns] = scaler.fit_transform(titanic_data[numerical_features])
+```
+</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+$$
+z = (x - μ) / σ
+$$
+$x$: data point
+$μ$: dataset mean
+$σ$: dataset standard deviation
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Preprocessing
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Featuring Scaling</b></p>
+                <p>Min-Max scaling: Scales data to a fixed range [0,1]</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+$$
+x_{scaled} = (x - x_{min}) / (x_{max} - x_{min})
+$$
+$x$: data point
+$x_{min}$: the minimum value of the feature
+$x_{max}$: the maximum value of the feature
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Preprocessing
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+
+```python
+minmax_scaler = MinMaxScaler()
+minmax_columns = [col + '_minmax' for col in numerical_features]
+titanic_data[minmax_columns] = minmax_scaler.fit_transform(titanic_data[numerical_features])
+```
+</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+$$
+x_{scaled} = (x - x_{min}) / (x_{max} - x_{min})
+$$
+$x$: data point
+$x_{min}$: the minimum value of the feature
+$x_{max}$: the maximum value of the feature
             </div>
         </div>
     </div>

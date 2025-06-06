@@ -19,13 +19,8 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>What is Data Augmentation?</b></p>
-                <ul>
-                    <li>Process of creating new data samples from existing data</li>
-                    <li>Improves model generalization and robustness</li>
-                    <li>Helps address data scarcity and class imbalance</li>
-                </ul>
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p>Data augmentation helps us increase the size and diversity of our datasets.</p>
             </div>
         </div>
     </div>
@@ -37,42 +32,82 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Types of Data Augmentation</b></p>
+                <p>Increasing diversity to make our models more robust</p>
                 <ul>
-                    <li>Image Data:
-                        <ul>
-                            <li>Rotation, flipping, cropping</li>
-                            <li>Scaling, translation, shearing</li>
-                            <li>Color jitter, noise injection</li>
-                        </ul>
-                    </li>
-                    <li>Text Data:
-                        <ul>
-                            <li>Synonym replacement</li>
-                            <li>Random insertion/deletion</li>
-                            <li>Back translation</li>
-                        </ul>
-                    </li>
+                    <li>Adding controlled noise</li>
+                    <li>Random rotations</li>
+                    <li>...</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Types of Data Augmentation (cont.)</b></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Augmentation
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>Increasing diversity to make our models more robust</p>
                 <ul>
-                    <li>Tabular Data:
-                        <ul>
-                            <li>Noise injection</li>
-                            <li>SMOTE (Synthetic Minority Over-sampling Technique)</li>
-                            <li>Random sampling</li>
-                        </ul>
-                    </li>
-                    <li>Time Series Data:
-                        <ul>
-                            <li>Window slicing</li>
-                            <li>Time warping</li>
-                            <li>Jittering</li>
-                        </ul>
-                    </li>
+                    <li>Adding controlled noise</li>
+                    <li>Random rotations</li>
+                    <li>...</li>
                 </ul>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/7/74/Normal_Distribution_PDF.svg" alt="Standard Normal Distribution" style="height: 300px">
+                <div class="footnote">Inductiveload, Public domain, via Wikimedia Commons</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Augmentation
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+
+```python
+def augment_image(image, angle_range=(-15, 15)):
+    angle = np.random.uniform(angle_range[0], angle_range[1])
+    rotated = rotate(image.reshape(20, 20), angle, mode='edge')
+    noise = np.random.normal(0, 0.05, rotated.shape)
+    augmented = rotated + (noise * (rotated > 0.1))
+    return augmented.flatten()
+```
+</div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/7/74/Normal_Distribution_PDF.svg" alt="Standard Normal Distribution" style="height: 300px">
+                <div class="footnote">Inductiveload, Public domain, via Wikimedia Commons</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Augmentation
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+
+```python
+def augment_image(image, angle_range=(-15, 15)):
+    angle = np.random.uniform(angle_range[0], angle_range[1])
+    rotated = rotate(image.reshape(20, 20), angle, mode='edge')
+    noise = np.random.normal(0, 0.05, rotated.shape)
+    augmented = rotated + (noise * (rotated > 0.1))
+    return augmented.flatten()
+```
+</div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/media/augmented.png" alt="Data Augmentation" style="height: 500px">
             </div>
         </div>
     </div>
