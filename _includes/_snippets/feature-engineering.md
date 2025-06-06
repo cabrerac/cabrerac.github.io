@@ -129,4 +129,23 @@ plt.show()
     </div>
 </div>
 
+## Feature Engineering
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/decision-tree.png" alt="Correlation Matrix" style="height: 500px">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+
+```python
+from sklearn.tree import DecisionTreeClassifier
+tree = DecisionTreeClassifier(random_state=42)
+tree.fit(X, y)
+```
+</div>
+    </div>
+</div>
+
 <!-- end SLIDES: --> 
