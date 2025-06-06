@@ -678,15 +678,22 @@ plt.ylabel('Feature')
 plt.show()
 ```
 
-We can also see the decision tree.
+We can also see the decision tree, which is a bit complex to interpret.
 
 ```python
-from sklearn.tree import plot_tree
-import matplotlib.pyplot as plt
-plt.figure(figsize=(20, 10))
-plot_tree(tree, feature_names=X.columns, class_names=['Not Survived', 'Survived'], filled=True, rounded=True, fontsize=10)
-plt.title('Decision Tree Visualization')
-plt.show()
+from sklearn.tree import export_graphviz
+import graphviz
+
+dot_data = export_graphviz(
+    tree, out_file=None, 
+    feature_names=X.columns,  
+    class_names=['Not Survived', 'Survived'],
+    filled=True, rounded=True, special_characters=True
+)
+graph = graphviz.Source(dot_data)
+graph.format = 'png'
+graph.render("titanic_tree")
+graph
 ```
 
 ### 4.3 Principal Component Analysis (PCA)
