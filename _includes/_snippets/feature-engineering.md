@@ -135,7 +135,7 @@ plt.show()
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/decision-tree.png" alt="Correlation Matrix" style="height: 500px">
+                <img src="{{ site.url }}/assets/media/images/feature-importance.png" alt="Feature Importance" style="height: 500px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
 
@@ -145,6 +145,18 @@ tree = DecisionTreeClassifier(random_state=42)
 tree.fit(X, y)
 ```
 </div>
+    </div>
+</div>
+
+## Feature Engineering
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/images/titanic-tree.png" alt="Titanic Tree" style="height: 600px">
+            </div>
+        </div>
     </div>
 </div>
 

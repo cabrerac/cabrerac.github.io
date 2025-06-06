@@ -678,6 +678,17 @@ plt.ylabel('Feature')
 plt.show()
 ```
 
+We can also see the decision tree.
+
+```python
+from sklearn.tree import plot_tree
+import matplotlib.pyplot as plt
+plt.figure(figsize=(20, 10))
+plot_tree(tree, feature_names=X.columns, class_names=['Not Survived', 'Survived'], filled=True, rounded=True, fontsize=10)
+plt.title('Decision Tree Visualization')
+plt.show()
+```
+
 ### 4.3 Principal Component Analysis (PCA)
 
 PCA (Principal Component Analysis) is a dimensionality reduction technique that is widely used in machine learning and data analysis. It works by transforming the data into a new coordinate system, where the axes are the principal components. These principal components are the directions of maximum variance in the data. The first principal component is the direction in which the data varies the most, the second principal component is the direction in which the data varies the second most, and so on. The number of principal components is equal to the number of original features.
