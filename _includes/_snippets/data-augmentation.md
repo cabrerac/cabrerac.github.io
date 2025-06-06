@@ -6,7 +6,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 95%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
+                <img src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
             </div>
         </div>
     </div>
@@ -107,7 +107,7 @@ def augment_image(image, angle_range=(-15, 15)):
 ```
 </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/media/augmented.png" alt="Data Augmentation" style="height: 500px">
+                <img src="{{ site.url }}/assets/media/images/augmented.png" alt="Data Augmentation" style="height: 500px">
             </div>
         </div>
     </div>
@@ -119,20 +119,14 @@ def augment_image(image, angle_range=(-15, 15)):
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Benefits</b></p>
-                <ul>
-                    <li>Reduces overfitting</li>
-                    <li>Improves model generalization</li>
-                    <li>Enables use of smaller datasets</li>
-                    <li>Helps with class imbalance</li>
-                </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Challenges</b></p>
+                <p>Increasing the size of our dataset to improve model generalisation</p>
                 <ul>
-                    <li>May introduce unrealistic samples</li>
-                    <li>Can increase training time</li>
-                    <li>Requires domain knowledge for effective transformations</li>
+                    <li>Interpolating between existing datapoints</li>
+                    <li>Applying domain-specific transformations</li>
+                    <li>Generating synthetic data using GANs</li>
+                    <li>...</li>
                 </ul>
             </div>
         </div>
@@ -144,13 +138,26 @@ def augment_image(image, angle_range=(-15, 15)):
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Best Practices</b></p>
+            <div class="column vertical-middle text-left" style="width: 50%">
+
+```python
+def numerical_smote(data, k=5):
+    augmented_data = []
+    for i in range(len(data)):
+        unique_values = np.unique(data[data != data[i]])
+        distances = np.abs(unique_values - data[i])
+        k_neighbors = unique_values[np.argsort(distances)[:k]]
+        for neighbor in k_neighbors:
+            new_sample = data[i] + np.random.random() * (neighbor - data[i])
+            augmented_data.append(new_sample)
+    return np.array(augmented_data)
+```
+</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>SMOTE (Synthtetic Minority Over-sampling Technique)</p>
                 <ul>
-                    <li>Choose augmentation techniques relevant to your data type</li>
-                    <li>Validate augmented data for realism and label correctness</li>
-                    <li>Monitor model performance with and without augmentation</li>
-                    <li>Combine multiple augmentation methods for better results</li>
+                    <li>Using the k-nearest neighbours</li>
+                    <li>Interpolation between the original data point and the neighbour</li>
                 </ul>
             </div>
         </div>

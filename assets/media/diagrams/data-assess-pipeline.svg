@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="1170" height="280" xmlns="http://www.w3.org/2000/svg">
+<svg width="1180" height="280" xmlns="http://www.w3.org/2000/svg">
     <!-- Background -->
-    <rect width="1170" height="280" fill="#ffffff"/>
+    <rect width="1180" height="280" fill="#ffffff"/>
     
     <!-- Title -->
     <text x="600" y="40" font-family="Arial" font-size="28" text-anchor="middle" fill="#224466">Machine Learning Pipeline</text>

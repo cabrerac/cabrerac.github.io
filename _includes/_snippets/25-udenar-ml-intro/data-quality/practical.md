@@ -498,10 +498,14 @@ Now, let's implement a SMOTE-like augmentation. This technique creates synthetic
 def numerical_smote(data, k=5):
     augmented_data = []
     for i in range(len(data)):
-        distances = np.abs(data - data[i])
-        nearest_indices = np.argsort(distances)[1:k+1]
-        for j in nearest_indices:
-            new_sample = data[i] + np.random.random() * (data[j] - data[i])
+        # Get all unique values except the current one
+        unique_values = np.unique(data[data != data[i]])
+        # Compute distances only to unique values
+        distances = np.abs(unique_values - data[i])
+        # Get up to k nearest unique neighbors
+        k_neighbors = unique_values[np.argsort(distances)[:k]]
+        for neighbor in k_neighbors:
+            new_sample = data[i] + np.random.random() * (neighbor - data[i])
             augmented_data.append(new_sample)
     return np.array(augmented_data)
 ```

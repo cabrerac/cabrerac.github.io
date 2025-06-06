@@ -6,7 +6,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 95%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
+                <img src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
             </div>
         </div>
     </div>
@@ -63,7 +63,7 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/missing_values.png" alt="Missing Values" style="height: 500px">
+                <img src="{{ site.url }}/assets/media/images/missing_values.png" alt="Missing Values" style="height: 500px">
             </div>
         </div>
     </div>
@@ -84,7 +84,7 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/missing_values.png" alt="Missing Values" style="height: 500px">
+                <img src="{{ site.url }}/assets/media/images/missing_values.png" alt="Missing Values" style="height: 500px">
             </div>
         </div>
     </div>
@@ -112,7 +112,7 @@ titanic_data['Age_Regression'] = titanic_data_reg['Age']
 ```
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/missing_values.png" alt="Missing Values" style="height: 500px">
+                <img src="{{ site.url }}/assets/media/images/missing_values.png" alt="Missing Values" style="height: 500px">
             </div>
         </div>
     </div>
@@ -145,7 +145,7 @@ titanic_data['Age_Regression'] = titanic_data_reg['Age']
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/outliers.png" alt="Outliers" style="height: 500px">
+                <img src="{{ site.url }}/assets/media/images/outliers.png" alt="Outliers" style="height: 500px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Outliers</b></p>
@@ -167,7 +167,7 @@ titanic_data['Age_Regression'] = titanic_data_reg['Age']
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/outliers.png" alt="Outliers" style="height: 500px">
+                <img src="{{ site.url }}/assets/media/images/outliers.png" alt="Outliers" style="height: 500px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Outliers</b></p>
@@ -187,7 +187,7 @@ titanic_data['Age_Regression'] = titanic_data_reg['Age']
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/outliers.png" alt="Outliers" style="height: 500px">
+                <img src="{{ site.url }}/assets/media/images/outliers.png" alt="Outliers" style="height: 500px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
 
