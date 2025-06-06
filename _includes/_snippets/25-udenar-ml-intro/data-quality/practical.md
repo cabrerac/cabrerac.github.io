@@ -683,7 +683,6 @@ We can also see the decision tree, which is a bit complex to interpret.
 ```python
 from sklearn.tree import export_graphviz
 import graphviz
-
 dot_data = export_graphviz(
     tree, out_file=None, 
     feature_names=X.columns,  
@@ -695,6 +694,72 @@ graph.format = 'png'
 graph.render("titanic_tree")
 graph
 ```
+
+Now, let's apply Principal Component Analysis (PCA) as another feature engineering technique. PCA helps us reduce the dimensionality of our dataset by transforming the original features into a new set of variables (principal components) that capture the most variance in the data. This can make our models simpler, faster, and sometimes even more accurate.
+
+First, we need to select the numerical features and standardize them, since PCA is sensitive to the scale of the data.
+
+```python
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+# Select numerical features and fill NaNs with mean
+numerical_features = ['Age', 'Fare', 'SibSp', 'Parch']
+X_pca = data[numerical_features].fillna(data[numerical_features].mean())
+# Standardize the features
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X_pca)
+```
+
+Now, let's apply PCA and examine how much variance each principal component explains.
+
+```python
+pca = PCA()
+X_pca_transformed = pca.fit_transform(X_scaled)
+# Calculate explained variance ratio
+explained_variance_ratio = pca.explained_variance_ratio_
+cumulative_variance_ratio = np.cumsum(explained_variance_ratio)
+```
+
+Let's Plot explained variance ratio
+
+```python
+import matplotlib.pyplot as plt
+plt.figure(figsize=(10, 6))
+plt.plot(range(1, len(explained_variance_ratio) + 1), cumulative_variance_ratio, 'bo-')
+plt.axhline(y=0.95, color='r', linestyle='--')
+plt.xlabel('Number of Components')
+plt.ylabel('Cumulative Explained Variance Ratio')
+plt.title('PCA Explained Variance Ratio')
+plt.grid(True)
+plt.show()
+```
+
+Let's also print the explained variance for each component.
+
+```python
+print(\"\\nExplained variance ratio by component:\")
+for i, ratio in enumerate(explained_variance_ratio):
+    print(f\"Component {i+1}: {ratio:.4f}\")
+```
+
+Finally, we can visualize the data projected onto the first two principal components.
+
+```python
+import pandas as pd
+pca_df = pd.DataFrame(
+    data=X_pca_transformed,
+    columns=[f'PC{i+1}' for i in range(X_pca_transformed.shape[1])]
+)
+plt.figure(figsize=(10, 8))
+plt.scatter(pca_df['PC1'], pca_df['PC2'], alpha=0.5)
+plt.xlabel('First Principal Component')
+plt.ylabel('Second Principal Component')
+plt.title('PCA: First Two Principal Components')
+plt.grid(True)
+plt.show()
+```
+
+
 
 ### 4.3 Principal Component Analysis (PCA)
 
