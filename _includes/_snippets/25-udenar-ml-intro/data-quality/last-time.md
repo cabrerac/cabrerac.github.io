@@ -39,7 +39,7 @@ $$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{predic
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/no-data.jpg" alt="No Data" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/no-data.jpg" alt="No Data" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Data Availability</b></p>
@@ -73,7 +73,7 @@ $$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{predic
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/data-usability.jpg" alt="Data Usability" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/data-usability.jpg" alt="Data Usability" style="height: 400px">
             </div>
         </div>
     </div>
@@ -96,7 +96,7 @@ $$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{predic
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/data-quality.jpg" alt="Data Quality" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/data-quality.jpg" alt="Data Quality" style="height: 400px">
             </div>
         </div>
     </div>
@@ -108,7 +108,7 @@ $$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{predic
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/data-theatre.png" alt="Data Theatre" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/data-theatre.png" alt="Data Theatre" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Data Bias and Fairness</b></p>
@@ -132,7 +132,7 @@ $$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{predic
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/complex-systems.png" alt="Complex Systems" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/complex-systems.png" alt="Complex Systems" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Data Complexity</b></p>

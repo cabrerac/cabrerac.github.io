@@ -9,7 +9,7 @@
                 <p>Data quality refers to <b>the state of data</b> in terms of its <b>fitness for a purpose</b></p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/data-quality.jpg" alt="Data Quality" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/data-quality.jpg" alt="Data Quality" style="height: 400px">
             </div>
         </div>
     </div>
@@ -280,7 +280,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-               <img class="external-svg" src="{{ site.url }}/assets/media/images/data-usability.jpg" alt="Data Usability" style="height: 400px">
+               <img src="{{ site.url }}/assets/media/images/data-usability.jpg" alt="Data Usability" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
             </div>
@@ -294,7 +294,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-               <img class="external-svg" src="{{ site.url }}/assets/media/images/data-usability.jpg" alt="Data Usability" style="height: 400px">
+               <img src="{{ site.url }}/assets/media/images/data-usability.jpg" alt="Data Usability" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                <p><b>Poor data quality can lead to:</b></p>

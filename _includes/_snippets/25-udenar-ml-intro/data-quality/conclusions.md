@@ -1,5 +1,19 @@
 <!-- SLIDES: -->
 
+<!-- SLIDES: -->
+
+## Data Assess
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 95%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
+            </div>
+        </div>
+    </div>
+</div>
+
 ## Conclusions
 
 <div class="rows" style="height: 100%">
@@ -18,7 +32,7 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 70%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
+                <img src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
             </div>
         </div>
     </div>
@@ -38,7 +52,7 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 70%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
+                <img src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
             </div>
         </div>
     </div>

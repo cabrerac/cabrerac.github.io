@@ -20,7 +20,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <p>Data augmentation helps us increase the size and diversity of our datasets.</p>
+                <p>Process of increasing the size and diversity of our datasets.</p>
             </div>
         </div>
     </div>
@@ -74,12 +74,12 @@
             <div class="column vertical-middle text-left" style="width: 50%">
 
 ```python
-def augment_image(image, angle_range=(-15, 15)):
+def augment_image(img, angle_range=(-15, 15)):
     angle = np.random.uniform(angle_range[0], angle_range[1])
-    rotated = rotate(image.reshape(20, 20), angle, mode='edge')
-    noise = np.random.normal(0, 0.05, rotated.shape)
-    augmented = rotated + (noise * (rotated > 0.1))
-    return augmented.flatten()
+    rot = rotate(img.reshape(20, 20), angle, mode='edge')
+    noise = np.random.normal(0, 0.05, rot.shape)
+    aug = rot + (noise * (rot > 0.1))
+    return aug.flatten()
 ```
 </div>
             <div class="column vertical-middle text-center" style="width: 50%">
@@ -98,12 +98,12 @@ def augment_image(image, angle_range=(-15, 15)):
             <div class="column vertical-middle text-left" style="width: 50%">
 
 ```python
-def augment_image(image, angle_range=(-15, 15)):
+def augment_image(img, angle_range=(-15, 15)):
     angle = np.random.uniform(angle_range[0], angle_range[1])
-    rotated = rotate(image.reshape(20, 20), angle, mode='edge')
-    noise = np.random.normal(0, 0.05, rotated.shape)
-    augmented = rotated + (noise * (rotated > 0.1))
-    return augmented.flatten()
+    rot = rotate(img.reshape(20, 20), angle, mode='edge')
+    noise = np.random.normal(0, 0.05, rot.shape)
+    aug = rot + (noise * (rot > 0.1))
+    return aug.flatten()
 ```
 </div>
             <div class="column vertical-middle text-center" style="width: 50%">
@@ -142,15 +142,15 @@ def augment_image(image, angle_range=(-15, 15)):
 
 ```python
 def numerical_smote(data, k=5):
-    augmented_data = []
+    aug_data = []
     for i in range(len(data)):
-        unique_values = np.unique(data[data != data[i]])
-        distances = np.abs(unique_values - data[i])
-        k_neighbors = unique_values[np.argsort(distances)[:k]]
-        for neighbor in k_neighbors:
-            new_sample = data[i] + np.random.random() * (neighbor - data[i])
-            augmented_data.append(new_sample)
-    return np.array(augmented_data)
+        uniq_values = np.unique(data[data != data[i]])
+        dists = np.abs(uniq_values - data[i])
+        k_neigs = unique_values[np.argsort(dists)[:k]]
+        for neig in k_neigs:
+            sample = data[i] + np.random.random() * (neig - data[i])
+            aug_data.append(sample)
+    return np.array(aug_data)
 ```
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">

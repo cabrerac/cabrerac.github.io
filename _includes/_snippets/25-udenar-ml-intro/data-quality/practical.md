@@ -572,7 +572,7 @@ print(f"Skewness: {stats.skew(smote_augmented):.3f}")
 
 ## Exercise 4: Feature Engineering
 
-Feature engineering is the process of creating new features from existing data to improve model performance. It requires domain knowledge and creativity. In this exercise, we'll explore different feature engineering techniques and their impact on model performance.
+Feature engineering is the process of creating new features from existing data, transforming features, and selecting features to improve models performance. It requires domain knowledge and creativity. In this exercise, we'll explore different feature engineering techniques.
 
 ### 4.1 Creating New Features
 
@@ -584,13 +584,9 @@ Creating new features can help capture important patterns and relationships in t
 4. Age groups: Bins age into meaningful categories
 
 ```python
-# 1. Family size
 titanic_data['FamilySize'] = titanic_data['SibSp'] + titanic_data['Parch'] + 1
-# 2. Title from Name
 titanic_data['Title'] = titanic_data['Name'].str.extract(' ([A-Za-z]+)\.', expand=False)
-# 3. Cabin information
 titanic_data['HasCabin'] = titanic_data['Cabin'].notna().astype(int)
-# 4. Age groups
 titanic_data['AgeGroup'] = pd.cut(titanic_data['Age'], 
                                  bins=[0, 12, 18, 35, 60, 100],
                                  labels=['Child', 'Teenager', 'Young Adult', 'Adult', 'Senior'])
@@ -612,45 +608,76 @@ Feature selection helps us identify the most important features for our model. T
 - It improves model interpretability
 - It can reduce training time
 
-We'll use two main approaches:
-1. Univariate feature selection: Selects features based on statistical tests
-2. Correlation analysis: Identifies relationships between features
-
-First, let's prepare our data:
+First, let's prepare our data applying previous techniques::
 
 ```python
-titanic_data_encoded = titanic_data_encoded.select_dtypes(include=[np.number]).dropna()
-X = titanic_data_encoded
-y = titanic_data.loc[X.index, 'Survived']
+url = "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
+data = pd.read_csv(url)
+#Data Cleaning and Data Drop Process
+drop_elements = ['Name','Cabin','Ticket']
+data = data.drop(drop_elements, axis=1)
+data['Fare'] = data['Fare'].fillna(data['Fare'].dropna().median())
+data['Age'] = data['Age'].fillna(data['Age'].dropna().median())
+# Change to categoric column to numeric
+data.loc[data['Sex']=='male','Sex']=0
+data.loc[data['Sex']=='female','Sex']=1
+# Replacing nan values for embarked
+data['Embarked']=data['Embarked'].fillna('S') 
+# Change to categoric column to numeric
+data.loc[data['Embarked']=='S','Embarked']=0
+data.loc[data['Embarked']=='C','Embarked']=1
+data.loc[data['Embarked']=='Q','Embarked']=2
 ```
 
-Let's apply univariate feature selection to identify the most important features:
+Let's see the correlation matrix for our processed data.
 
 ```python
-selector = SelectKBest(score_func=f_classif, k=5)
-X_selected = selector.fit_transform(X, y)
-```
-
-Let's examine the selected features:
-
-```python
-# Get selected feature names
-selected_features = X.columns[selector.get_support()].tolist()
-print("\nSelected features using univariate selection:")
-print(selected_features)
-```
-
-Let's analyze the correlation between features to understand their relationships:
-
-```python
-# Correlation analysis
-correlation_matrix = titanic_data_encoded.corr()
+corr_matrix = data.corr()
 plt.figure(figsize=(12, 8))
-sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', center=0)
+sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', center=0)
 plt.title('Feature Correlation Matrix')
 plt.show()
 ```
 
+Now, lets apply a Decision Tree Classifier method. 
+
+A decision tree classifier works by recursively splitting the dataset into subsets based on the feature that results in the largest information gain (or reduction in impurity, such as Gini impurity or entropy) at each step. The tree structure is built so that each internal node represents a decision based on a feature, and each leaf node represents a class label. For feature selection, decision trees are useful because they naturally rank features by how important they are for making accurate predictions: features that are used for splits closer to the root of the tree are generally more important. The feature importance scores provided by the tree reflect how much each feature contributed to reducing impurity across all splits in the tree.
+
+We need to start separating the feature and target variables
+
+```python
+X = data.drop('Survived', axis=1)
+y = data['Survived']
+```
+
+We can fit a decision tree classifier now.
+
+```python
+from sklearn.tree import DecisionTreeClassifier
+tree = DecisionTreeClassifier(random_state=42)
+tree.fit(X, y)
+```
+
+As a result, we can now print the feature importances.
+
+```python
+importances = tree.feature_importances_
+feature_names = X.columns
+# Print feature importances
+for name, importance in zip(feature_names, importances):
+    print(f"{name}: {importance:.3f}")
+```
+
+And visualise these importances too.
+
+```python
+plt.figure(figsize=(10, 6))
+sns.barplot(x=importances, y=feature_names)
+plt.title('Feature Importances from Decision Tree')
+plt.xlabel('Importance')
+plt.ylabel('Feature')
+plt.show()
+```
 ### 4.3 Principal Component Analysis (PCA)
 
 PCA (Principal Component Analysis) is a dimensionality reduction technique that is widely used in machine learning and data analysis. It works by transforming the data into a new coordinate system, where the axes are the principal components. These principal components are the directions of maximum variance in the data. The first principal component is the direction in which the data varies the most, the second principal component is the direction in which the data varies the second most, and so on. The number of principal components is equal to the number of original features.

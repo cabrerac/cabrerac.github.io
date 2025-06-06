@@ -76,8 +76,8 @@ $σ$: dataset standard deviation
 
 ```python
 scaler = StandardScaler()
-standardized_columns = [col + '_standardized' for col in numerical_features]
-titanic_data[standardized_columns] = scaler.fit_transform(titanic_data[numerical_features])
+cols = [col + '_st' for col in num_feat]
+data[cols] = scaler.fit_transform(data[num_feat])
 ```
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -121,9 +121,9 @@ $x_{max}$: the maximum value of the feature
             <div class="column vertical-middle text-left" style="width: 50%">
 
 ```python
-minmax_scaler = MinMaxScaler()
-minmax_columns = [col + '_minmax' for col in numerical_features]
-titanic_data[minmax_columns] = minmax_scaler.fit_transform(titanic_data[numerical_features])
+scaler = MinMaxScaler()
+cols = [col + '_minmax' for col in num_feat]
+data[cols] = scaler.fit_transform(data[num_feat])
 ```
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">

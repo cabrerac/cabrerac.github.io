@@ -6,7 +6,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 95%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
+                <img src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
             </div>
         </div>
     </div>
@@ -14,18 +14,11 @@
 
 ## Feature Engineering
 
-## Feature Engineering
-
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>What is Feature Engineering?</b></p>
-                <ul>
-                    <li>Process of creating new features from existing data</li>
-                    <li>Transforming raw data into meaningful features</li>
-                    <li>Improving model performance through better feature representation</li>
-                </ul>
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p>Process of creating, transforming, and selecting features in our data, combining domain knowledge and creativity.</p>
             </div>
         </div>
     </div>
@@ -37,42 +30,15 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Feature Creation</b></p>
+                <p>Creating new features in our data can help to capture important patterns or relations in the data</p>
                 <ul>
-                    <li>Numerical Features:
-                        <ul>
-                            <li>Basic arithmetic (sum, difference, ratio)</li>
-                            <li>Statistical measures (mean, std, quantiles)</li>
-                            <li>Aggregations (count, sum, average)</li>
-                        </ul>
-                    </li>
-                    <li>Categorical Features:
-                        <ul>
-                            <li>Cross-products</li>
-                            <li>Aggregations</li>
-                            <li>Binning</li>
-                        </ul>
-                    </li>
+                    <li>Extracting information from existing features</li>
+                    <li>Combining existing features</li>
+                    <li>Adding domain knowledge rules</li>
+                    <li>...</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Feature Creation (cont.)</b></p>
-                <ul>
-                    <li>Temporal Features:
-                        <ul>
-                            <li>Time-based features (hour, day, month)</li>
-                            <li>Lag features</li>
-                            <li>Rolling statistics</li>
-                        </ul>
-                    </li>
-                    <li>Text Features:
-                        <ul>
-                            <li>Bag of words</li>
-                            <li>TF-IDF</li>
-                            <li>Word embeddings</li>
-                        </ul>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
@@ -84,43 +50,25 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Feature Transformation</b></p>
+                <p>Creating new features in our data can help to capture important patterns or relations in the data</p>
                 <ul>
-                    <li>Numerical Transformations:
-                        <ul>
-                            <li>Log transformation</li>
-                            <li>Power transformation</li>
-                            <li>Box-Cox transformation</li>
-                        </ul>
-                    </li>
-                    <li>Categorical Transformations:
-                        <ul>
-                            <li>One-hot encoding</li>
-                            <li>Label encoding</li>
-                            <li>Target encoding</li>
-                        </ul>
-                    </li>
+                    <li>Extracting information from existing features</li>
+                    <li>Combining existing features</li>
+                    <li>Adding domain knowledge rules</li>
+                    <li>...</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Feature Selection</b></p>
-                <ul>
-                    <li>Filter Methods:
-                        <ul>
-                            <li>Statistical tests</li>
-                            <li>Information gain</li>
-                            <li>Correlation analysis</li>
-                        </ul>
-                    </li>
-                    <li>Wrapper Methods:
-                        <ul>
-                            <li>Forward selection</li>
-                            <li>Backward elimination</li>
-                            <li>Recursive feature elimination</li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+
+```python
+data['AgeGroup'] = pd.cut(data['Age'], 
+                    bins=[0, 12, 18, 35, 60],
+                    labels=['Child', 
+                            'Teenager', 
+                            'Young Adult', 
+                            'Adult'])
+```
+</div>
         </div>
     </div>
 </div>
@@ -130,17 +78,54 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Best Practices</b></p>
-                <ul>
-                    <li>Understand domain knowledge</li>
-                    <li>Start with simple features</li>
-                    <li>Validate feature importance</li>
-                    <li>Monitor feature stability</li>
-                    <li>Document feature creation process</li>
-                </ul>
+            <div class="column vertical-middle text-left" style="width: 50%">
             </div>
-        </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>Selecting the most important features in our data reduces dimensionality, prevents overfitting, improves interpretability, and reduces training time</p>
+                <ul>
+                    <li>Correlation Matrix with Heatmap</li>
+                    <li>Decisions Trees</li>
+                    <li>Principal Component Analysis (PCA)</li>
+                    <li>...</li>
+    </div>
+</div>
+
+## Feature Engineering
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/correlation-matrix.png" alt="Correlation Matrix" style="height: 500px">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>Selecting the most important features in our data reduces dimensionality, prevents overfitting, improves interpretability, and reduces training time</p>
+                <ul>
+                    <li>Correlation Matrix with Heatmap</li>
+                    <li>Decisions Trees</li>
+                    <li>Principal Component Analysis (PCA)</li>
+                    <li>...</li>
+    </div>
+</div>
+
+## Feature Engineering
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/correlation-matrix.png" alt="Correlation Matrix" style="height: 500px">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+
+```python
+corr_matrix = data.corr()
+plt.figure(figsize=(12, 8))
+sns.heatmap(corr_matrix, annot=True, center=0)
+plt.title('Feature Correlation Matrix')
+plt.show()
+```
+</div>
     </div>
 </div>
 
