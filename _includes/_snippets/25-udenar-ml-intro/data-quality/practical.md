@@ -615,7 +615,8 @@ We'll use two main approaches:
 First, let's prepare our data:
 
 ```python
-X = titanic_data_encoded.select_dtypes(include=[np.number]).dropna()
+titanic_data_encoded = titanic_data_encoded.select_dtypes(include=[np.number]).dropna()
+X = titanic_data_encoded
 y = titanic_data.loc[X.index, 'Survived']
 ```
 
@@ -913,7 +914,7 @@ And we can visualize the effects of preprocessing.
 
 ```python
 plt.figure(figsize=(15, 5))
-index = np.random.random_integers(0,1000)
+index = np.random.random_integers(0,999)
 for i in range(3):
     plt.subplot(1, 3, i+1)
     if i == 0:
@@ -972,25 +973,26 @@ def reduce_noise(image):
 Applying the preprocessing techniques
 
 ```python
-X_augmented = np.array([augment_image(img) for img in X_normalized[:5]])
-X_edges = np.array([detect_edges(img) for img in X_normalized[:5]])
-X_denoised = np.array([reduce_noise(img) for img in X_normalized[:5]])
+X_augmented = np.array([augment_image(img) for img in X_normalized[:100]])
+X_edges = np.array([detect_edges(img) for img in X_normalized[:100]])
+X_denoised = np.array([reduce_noise(img) for img in X_normalized[:100]])
 ```
 
 Visualising the effects of the preprocessing
 
 ```python
 plt.figure(figsize=(15, 5))
+index = np.random.random_integers(0, 99)
 for i in range(3):
     plt.subplot(1, 3, i+1)
     if i == 0:
-        plt.imshow(X_augmented[0].reshape(20, 20), cmap='gray')
+        plt.imshow(X_augmented[index].reshape(20, 20), cmap='gray')
         plt.title('Augmented')
     elif i == 1:
-        plt.imshow(X_edges[0].reshape(20, 20), cmap='gray')
+        plt.imshow(X_edges[index].reshape(20, 20), cmap='gray')
         plt.title('Edge Detection')
     else:
-        plt.imshow(X_denoised[0].reshape(20, 20), cmap='gray')
+        plt.imshow(X_denoised[index].reshape(20, 20), cmap='gray')
         plt.title('Noise Reduction')
     plt.axis('off')
 plt.tight_layout()
