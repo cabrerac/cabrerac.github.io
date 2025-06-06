@@ -217,7 +217,6 @@ tree.fit(X, y)
 from sklearn.decomposition import PCA
 pca = PCA()
 X_pca_transformed = pca.fit_transform(X_scaled)
-# Calculate explained variance ratio
 explained_variance = pca.explained_variance_ratio_
 cumulative_variance = np.cumsum(explained_variance_ratio)
 ```
@@ -239,7 +238,6 @@ cumulative_variance = np.cumsum(explained_variance_ratio)
 from sklearn.decomposition import PCA
 pca = PCA()
 X_pca_transformed = pca.fit_transform(X_scaled)
-# Calculate explained variance ratio
 explained_variance = pca.explained_variance_ratio_
 cumulative_variance = np.cumsum(explained_variance_ratio)
 ```
