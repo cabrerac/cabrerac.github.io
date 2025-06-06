@@ -700,10 +700,12 @@ Now, let's apply Principal Component Analysis (PCA) as another feature engineeri
 First, we need to select the numerical features and standardize them, since PCA is sensitive to the scale of the data.
 
 ```python
-from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
+url = "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
+data = pd.read_csv(url)
+data['FamilySize'] = data['SibSp'] + data['Parch'] + 1
 # Select numerical features and fill NaNs with mean
-numerical_features = ['Age', 'Fare', 'SibSp', 'Parch']
+numerical_features = ['Age', 'Fare', 'SibSp', 'Parch', 'FamilySize']
 X_pca = data[numerical_features].fillna(data[numerical_features].mean())
 # Standardize the features
 scaler = StandardScaler()
@@ -713,11 +715,12 @@ X_scaled = scaler.fit_transform(X_pca)
 Now, let's apply PCA and examine how much variance each principal component explains.
 
 ```python
+from sklearn.decomposition import PCA
 pca = PCA()
 X_pca_transformed = pca.fit_transform(X_scaled)
 # Calculate explained variance ratio
-explained_variance_ratio = pca.explained_variance_ratio_
-cumulative_variance_ratio = np.cumsum(explained_variance_ratio)
+explained_variance = pca.explained_variance_ratio_
+cumulative_variance = np.cumsum(explained_variance_ratio)
 ```
 
 Let's Plot explained variance ratio
@@ -737,131 +740,13 @@ plt.show()
 Let's also print the explained variance for each component.
 
 ```python
-print(\"\\nExplained variance ratio by component:\")
-for i, ratio in enumerate(explained_variance_ratio):
-    print(f\"Component {i+1}: {ratio:.4f}\")
-```
-
-Finally, we can visualize the data projected onto the first two principal components.
-
-```python
-import pandas as pd
-pca_df = pd.DataFrame(
-    data=X_pca_transformed,
-    columns=[f'PC{i+1}' for i in range(X_pca_transformed.shape[1])]
-)
-plt.figure(figsize=(10, 8))
-plt.scatter(pca_df['PC1'], pca_df['PC2'], alpha=0.5)
-plt.xlabel('First Principal Component')
-plt.ylabel('Second Principal Component')
-plt.title('PCA: First Two Principal Components')
-plt.grid(True)
-plt.show()
-```
-
-
-
-### 4.3 Principal Component Analysis (PCA)
-
-PCA (Principal Component Analysis) is a dimensionality reduction technique that is widely used in machine learning and data analysis. It works by transforming the data into a new coordinate system, where the axes are the principal components. These principal components are the directions of maximum variance in the data. The first principal component is the direction in which the data varies the most, the second principal component is the direction in which the data varies the second most, and so on. The number of principal components is equal to the number of original features.
-
-The main idea behind PCA is to reduce the dimensionality of the data while retaining as much of the original variance as possible. This can be useful in several ways. For example, it can make the data easier to visualize, it can make the data easier to work with in machine learning algorithms, and it can help to remove noise from the data.
-
-In practice, PCA is often used as a preprocessing step before applying a machine learning algorithm. The idea is to use PCA to reduce the dimensionality of the data, and then to apply the machine learning algorithm to the reduced data. This can make the machine learning algorithm faster and more accurate.
-
-PCA is a linear transformation, which means that it can only capture linear relationships in the data. If the data has non-linear relationships, PCA may not work well. In this case, other dimensionality reduction techniques, such as t-SNE or UMAP, may be more appropriate.
-
-PCA is a powerful dimensionality reduction technique that:
-- Reduces the number of features while preserving important information
-- Helps identify patterns in the data
-- Can improve model performance by removing noise
-- Makes visualization of high-dimensional data possible
-
-The PCA process involves:
-1. Standardizing the data
-2. Finding the principal components (directions of maximum variance)
-3. Projecting the data onto these components
-
-Let's implement PCA:
-
-```python
-from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
-```
-
-We start preparing the data for PCA.
-
-```python
-numerical_features = ['Age', 'Fare', 'SibSp', 'Parch', 'FamilySize']
-X_pca = titanic_data[numerical_features].fillna(titanic_data[numerical_features].mean())
-```
-
-We then standarise the features and apply PCA.
-
-```python
-scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X_pca)
-# Apply PCA
-pca = PCA()
-X_pca_transformed = pca.fit_transform(X_scaled)
-```
-
-We then analyse the results.
-
-```python
-# Calculate explained variance ratio
-explained_variance_ratio = pca.explained_variance_ratio_
-cumulative_variance_ratio = np.cumsum(explained_variance_ratio)
-# Plot explained variance ratio
-plt.figure(figsize=(10, 6))
-plt.plot(range(1, len(explained_variance_ratio) + 1), 
-         cumulative_variance_ratio, 'bo-')
-plt.axhline(y=0.95, color='r', linestyle='--')
-plt.xlabel('Number of Components')
-plt.ylabel('Cumulative Explained Variance Ratio')
-plt.title('PCA Explained Variance Ratio')
-plt.grid(True)
-plt.show()
-```
-
-We can analyse the variance for each component.
-
-```python
-# Print explained variance for each component
-print("\nExplained variance ratio by component:")
+print("\\nExplained variance ratio by component:")
 for i, ratio in enumerate(explained_variance_ratio):
     print(f"Component {i+1}: {ratio:.4f}")
 ```
 
-And continue our analysis of the principal components.
+We can now reduce the dimensions from 5 features to 4 principal components. This reduction is more significant when we have hundreds or thousands of dimensions in large datasets.
 
-```python
-# Create a DataFrame with PCA components
-pca_df = pd.DataFrame(
-    data=X_pca_transformed,
-    columns=[f'PC{i+1}' for i in range(X_pca_transformed.shape[1])]
-)
-# Visualize the first two principal components
-plt.figure(figsize=(10, 8))
-plt.scatter(pca_df['PC1'], pca_df['PC2'], alpha=0.5)
-plt.xlabel('First Principal Component')
-plt.ylabel('Second Principal Component')
-plt.title('PCA: First Two Principal Components')
-plt.grid(True)
-plt.show()
-```
-
-We can also examine the feature contributions to principal components.
-
-```python
-feature_contributions = pd.DataFrame(
-    pca.components_.T,
-    columns=[f'PC{i+1}' for i in range(pca.components_.shape[0])],
-    index=numerical_features
-)
-print("\nFeature contributions to principal components:")
-print(feature_contributions)
-```
 
 ## Exercise 5: Data Validation
 
