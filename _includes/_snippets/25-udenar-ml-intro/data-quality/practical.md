@@ -22,7 +22,24 @@ import seaborn as sns
 
 ### 1.1 Loading and Exploring Data
 
-The first step in any data cleaning process is to understand your data. We'll use the Titanic dataset, which is perfect for learning data cleaning as it contains various data quality issues like missing values, outliers, and categorical variables.
+The first step in any data cleaning process is to understand your data. We'll use the [Titanic dataset](https://www.kaggle.com/c/titanic/data), which is perfect for learning data cleaning as it contains various data quality issues like missing values, outliers, and categorical variables. 
+
+Titanic dataset field descriptions
+
+- **PassengerId**: Unique identifier for each passenger.
+- **Survived**: 1 if the passenger survived, 0 otherwise.
+- **Pclass**: Ticket class (1 = 1st, 2 = 2nd, 3 = 3rd).
+- **Name**: Full name of the passenger.
+- **Sex**: Gender (male/female).
+- **Age**: Age in years.
+- **SibSp**: Number of siblings or spouses aboard.
+- **Parch**: Number of parents or children aboard.
+- **Ticket**: Ticket number.
+- **Fare**: Ticket fare.
+- **Cabin**: Cabin number.
+- **Embarked**: Port of embarkation (C = Cherbourg, Q = Queenstown, S = Southampton).
+
+
 
 ```python
 # Load the Titanic dataset
@@ -198,15 +215,23 @@ plt.figure(figsize=(15, 5))
 plt.subplot(1, 4, 1)
 sns.histplot(data=titanic_data, x='Age_Mean', bins=30)
 plt.title('Mean Imputation')
+plt.grid()
+plt.ylim(0, 250)
 plt.subplot(1, 4, 2)
 sns.histplot(data=titanic_data, x='Age_Median', bins=30)
 plt.title('Median Imputation')
+plt.grid()
+plt.ylim(0, 250)
 plt.subplot(1, 4, 3)
 sns.histplot(data=titanic_data, x='Age_KNN', bins=30)
 plt.title('KNN Imputation')
+plt.grid()
+plt.ylim(0, 250)
 plt.subplot(1, 4, 4)
 sns.histplot(data=titanic_data, x='Age_Regression', bins=30)
 plt.title('Regression Imputation')
+plt.grid()
+plt.ylim(0, 250)
 plt.tight_layout()
 plt.show()
 ```
@@ -214,10 +239,10 @@ plt.show()
 Statistical analysis is also helpful to compare te imputation methods:
 
 ```python
-import stats
+from scipy import stats
 # Compare statistical properties of all imputation methods
 print("\nStatistical Properties Comparison:")
-print("\nOriginal Data (non-missing):")
+print("\nOriginal Data:")
 print(f"Mean: {titanic_data['Age'].mean():.3f}")
 print(f"Std: {titanic_data['Age'].std():.3f}")
 print(f"Skewness: {stats.skew(titanic_data['Age'].dropna()):.3f}")
@@ -263,7 +288,6 @@ def detect_outliers(df, column):
 Let's apply this to the Fare column to detect the outliers:
 
 ```python
-# Detect outliers in Fare
 outliers = detect_outliers(titanic_data, 'Fare')
 print(f"Number of outliers in Fare: {len(outliers)}")
 ```
@@ -271,10 +295,10 @@ print(f"Number of outliers in Fare: {len(outliers)}")
 Now we can visualise the outliers using a boxplot:
 
 ```python
-# Visualise outliers
 plt.figure(figsize=(10, 6))
 sns.boxplot(x=titanic_data['Fare'])
 plt.title('Fare Distribution with Outliers')
+plt.grid()
 plt.show()
 ```
 
@@ -315,12 +339,15 @@ Let's compare the different strategies to see their impact on the data distribut
 plt.figure(figsize=(15, 5))
 plt.subplot(1, 3, 1)
 sns.histplot(data=titanic_data, x='Fare', bins=30)
+plt.grid()
 plt.title('Original Fare')
 plt.subplot(1, 3, 2)
 sns.histplot(data=titanic_data, x='Fare_capped', bins=30)
+plt.grid()
 plt.title('Capped Fare')
 plt.subplot(1, 3, 3)
 sns.histplot(data=titanic_data, x='Fare_log', bins=30)
+plt.grid()
 plt.title('Log-transformed Fare')
 plt.tight_layout()
 plt.show()
@@ -343,48 +370,48 @@ from sklearn.feature_selection import SelectKBest, f_classif
 - It helps algorithms converge faster
 - It prevents features with larger scales from dominating the model
 
-We'll explore two common scaling techniques:
-1. Standardization (Z-score): Centers data around 0 with unit variance
-   - Best for: Algorithms that assume normal distribution
-   - Formula: z = (x - μ) / σ
-2. Min-Max scaling: Scales data to a fixed range (usually [0,1])
-   - Best for: Algorithms that require bounded input
-   - Formula: x_scaled = (x - x_min) / (x_max - x_min)
-
-Let's implement both techniques:
-
 We start by selecting the numerica features for scaling.
 
 ```python
 numerical_features = ['Age', 'Fare', 'SibSp', 'Parch']
 ```
 
-Then we can apply sandarisation (i.e., Z-score normalisation).
+We'll explore two common scaling techniques:
+1. Standardization (Z-score): Centers data around 0 with unit variance
+   - Best for: Algorithms that assume normal distribution
+   - Formula: z = (x - μ) / σ
 
 ```python
 scaler = StandardScaler()
-titanic_data[numerical_features + '_standardized'] = scaler.fit_transform(titanic_data[numerical_features])
+standardized_columns = [col + '_standardized' for col in numerical_features]
+titanic_data[standardized_columns] = scaler.fit_transform(titanic_data[numerical_features])
 ```
 
+2. Min-Max scaling: Scales data to a fixed range (usually [0,1])
+   - Best for: Algorithms that require bounded input
+   - Formula: x_scaled = (x - x_min) / (x_max - x_min)
+
 ```python
-# 2. Min-Max scaling
 minmax_scaler = MinMaxScaler()
-titanic_data[numerical_features + '_minmax'] = minmax_scaler.fit_transform(titanic_data[numerical_features])
+minmax_columns = [col + '_minmax' for col in numerical_features]
+titanic_data[minmax_columns] = minmax_scaler.fit_transform(titanic_data[numerical_features])
 ```
 
 Let's visualize the impact of different scaling techniques on the Age feature. This will help us understand how each technique affects the data distribution:
 
 ```python
-# Compare the different scaling techniques
 plt.figure(figsize=(15, 5))
 plt.subplot(1, 3, 1)
 sns.histplot(data=titanic_data, x='Age', bins=30)
+plt.grid()
 plt.title('Original Age')
 plt.subplot(1, 3, 2)
 sns.histplot(data=titanic_data, x='Age_standardized', bins=30)
+plt.grid()
 plt.title('Standardized Age')
 plt.subplot(1, 3, 3)
 sns.histplot(data=titanic_data, x='Age_minmax', bins=30)
+plt.grid()
 plt.title('Min-Max Scaled Age')
 plt.tight_layout()
 plt.show()
@@ -394,11 +421,21 @@ plt.show()
 
 Categorical features need to be converted to numerical format for machine learning algorithms. Different encoding techniques have different advantages and use cases:
 
+Select categorical features.
+
+```python
+categorical_features = ['Sex', 'Embarked', 'Pclass']
+```
+
 1. One-hot encoding:
    - Creates binary columns for each category
    - Pros: No ordinal relationship, works well with most algorithms
    - Cons: Can lead to high dimensionality (curse of dimensionality)
    - Best for: Nominal categorical variables
+
+```python
+titanic_data_encoded = pd.get_dummies(titanic_data, columns=categorical_features, prefix=categorical_features)
+```
 
 2. Label encoding:
    - Assigns a unique number to each category
@@ -406,20 +443,7 @@ Categorical features need to be converted to numerical format for machine learni
    - Cons: Can introduce artificial ordinal relationships
    - Best for: Ordinal categorical variables
 
-Let's implement both techniques:
-
 ```python
-# Select categorical features
-categorical_features = ['Sex', 'Embarked', 'Pclass']
-```
-
-```python
-# One-hot encoding
-titanic_data_encoded = pd.get_dummies(titanic_data, columns=categorical_features, prefix=categorical_features)
-```
-
-```python
-# Label encoding
 from sklearn.preprocessing import LabelEncoder
 label_encoder = LabelEncoder()
 titanic_data['Sex_encoded'] = label_encoder.fit_transform(titanic_data['Sex'])
@@ -445,13 +469,15 @@ We'll implement two main techniques:
 1. Gaussian Noise: Adds controlled random noise to the data, which helps the model become more robust to small variations in the input.
 2. SMOTE-like: Creates synthetic samples by interpolating between existing data points, which helps balance the dataset and prevent overfitting.
 
-First, let's prepare our data by selecting the numerical features we want to augment:
-
 ```python
 import numpy as np
 from scipy import stats
-# Select numerical features for augmentation
-numerical_features = ['Age', 'Fare', 'SibSp', 'Parch', 'FamilySize']
+```
+
+First, let's prepare our data by selecting the numerical features we want to augment:
+
+```python
+numerical_features = ['Age', 'Fare', 'SibSp', 'Parch']
 X_aug = titanic_data[numerical_features].fillna(titanic_data[numerical_features].mean())
 ```
 
@@ -480,26 +506,43 @@ def numerical_smote(data, k=5):
     return np.array(augmented_data)
 ```
 
-Let's apply these techniques to the Age feature and visualize the results. This will help us understand how each augmentation technique affects the data distribution:
+Let's apply these techniques to the Age feature.
 
 ```python
-# Apply augmentations to Age feature
 age_data = X_aug['Age'].values
 gaussian_augmented = add_gaussian_noise(age_data)
 smote_augmented = numerical_smote(age_data)
 ```
 
+Let's print a few values to see the differences.
+
 ```python
-# Visualize results
+print('Original Age Data: ')
+print(age_data[:10])
+print(f'The original age data has {len(age_data)} elements')
+print('\nGaussian Augmented Age Data: ')
+print(gaussian_augmented[:10])
+print(f'The Gaussian augmented age data has {len(gaussian_augmented)} elements')
+print('\nSMOTE Augmented Age Data: ')
+print(smote_augmented[:10])
+print(f'The SMOTE augmented age data has {len(smote_augmented)} elements')
+```
+
+Let's visualise the datasets to understand how each augmentation technique affects the data distribution.
+
+```python
 plt.figure(figsize=(15, 5))
 plt.subplot(1, 3, 1)
 plt.hist(age_data, bins=30)
+plt.grid()
 plt.title('Original Age')
 plt.subplot(1, 3, 2)
 plt.hist(gaussian_augmented, bins=30)
+plt.grid()
 plt.title('Gaussian Noise Augmented')
 plt.subplot(1, 3, 3)
 plt.hist(smote_augmented, bins=30)
+plt.grid()
 plt.title('SMOTE Augmented')
 plt.tight_layout()
 plt.show()
@@ -508,18 +551,15 @@ plt.show()
 Finally, let's analyze the statistical properties of the augmented data to understand how each technique affects the data distribution. This analysis helps us ensure that our augmentation techniques maintain the important characteristics of the original data while adding useful variations:
 
 ```python
-# Compare statistical properties
 print("\nStatistical Properties Comparison:")
 print("\nOriginal Data:")
 print(f"Mean: {np.mean(age_data):.3f}")
 print(f"Std: {np.std(age_data):.3f}")
 print(f"Skewness: {stats.skew(age_data):.3f}")
-
 print("\nGaussian Noise Augmented:")
 print(f"Mean: {np.mean(gaussian_augmented):.3f}")
 print(f"Std: {np.std(gaussian_augmented):.3f}")
 print(f"Skewness: {stats.skew(gaussian_augmented):.3f}")
-
 print("\nSMOTE Augmented:")
 print(f"Mean: {np.mean(smote_augmented):.3f}")
 print(f"Std: {np.std(smote_augmented):.3f}")
@@ -576,7 +616,7 @@ First, let's prepare our data:
 
 ```python
 X = titanic_data_encoded.select_dtypes(include=[np.number]).dropna()
-y = titanic_data['Survived']
+y = titanic_data.loc[X.index, 'Survived']
 ```
 
 Let's apply univariate feature selection to identify the most important features:
@@ -873,16 +913,17 @@ And we can visualize the effects of preprocessing.
 
 ```python
 plt.figure(figsize=(15, 5))
+index = np.random.random_integers(0,1000)
 for i in range(3):
     plt.subplot(1, 3, i+1)
     if i == 0:
-        plt.imshow(X[i].reshape(28, 28), cmap='gray')
+        plt.imshow(X[index].reshape(28, 28), cmap='gray')
         plt.title('Original')
     elif i == 1:
-        plt.imshow(X_resized[i].reshape(20, 20), cmap='gray')
+        plt.imshow(X_resized[index].reshape(20, 20), cmap='gray')
         plt.title('Resized')
     else:
-        plt.imshow(X_normalized[i].reshape(20, 20), cmap='gray')
+        plt.imshow(X_normalized[index].reshape(20, 20), cmap='gray')
         plt.title('Normalized')
     plt.axis('off')
 plt.tight_layout()
@@ -894,31 +935,33 @@ plt.show()
 Some more advanced preprocessing techniques:
 
 ```python
-from skimage import feature
+from skimage.filters import sobel
 from scipy.ndimage import gaussian_filter
 from skimage.transform import rotate
 ```
 
-Data augmentation: Adding random rotation and noise
+Data augmentation: 
+
+Adding random rotation and noise to make models robust to real-world variations in orientation or pixel values.
 
 ```python
 def augment_image(image, angle_range=(-15, 15)):
     angle = np.random.uniform(angle_range[0], angle_range[1])
-    rotated = rotate(image.reshape(20, 20), angle, reshape=False)
-    noise = np.random.normal(0, 0.1, rotated.shape)
-    augmented = rotated + noise
+    rotated = rotate(image.reshape(20, 20), angle, mode='edge')
+    noise = np.random.normal(0, 0.05, rotated.shape)
+    augmented = rotated + (noise * (rotated > 0.1))
     return augmented.flatten()
 ```
 
-Edge detection using Canny algorithm
+Edge detection using the sobel filter to identify the boundaries of an image. It extracts the most significant features (e.g., shapes, contours, and boundaries).
 
 ```python
 def detect_edges(image):
-    edges = feature.canny(image.reshape(20, 20), sigma=2)
+    edges = sobel(image.reshape(20, 20))
     return edges.flatten()
 ```
 
-Noise reduction using Gaussian blur
+Noise reduction using Gaussian blur to improve image quality by removing random variations or unwanted artifacts from the images.
 
 ```python
 def reduce_noise(image):
@@ -990,9 +1033,15 @@ X_processed = preprocessor.preprocess(X[:1000], augment=True)
 Visualising the final processed images
 
 ```python
-plt.figure(figsize=(10, 5))
+plt.figure(figsize=(12, 5))
 for i in range(5):
-    plt.subplot(1, 5, i+1)
+    # Original image
+    plt.subplot(2, 5, i+1)
+    plt.imshow(X[i].reshape(28, 28), cmap='gray')
+    plt.title(f'Original {i+1}')
+    plt.axis('off')
+    # Processed image
+    plt.subplot(2, 5, i+6)
     plt.imshow(X_processed[i].reshape(20, 20), cmap='gray')
     plt.title(f'Processed {i+1}')
     plt.axis('off')
