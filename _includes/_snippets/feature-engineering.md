@@ -135,7 +135,7 @@ plt.show()
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/feature-importance.png" alt="Feature Importance" style="height: 500px">
+                <img src="{{ site.url }}/assets/media/images/features-importance.png" alt="Feature Importance" style="height: 500px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
 
