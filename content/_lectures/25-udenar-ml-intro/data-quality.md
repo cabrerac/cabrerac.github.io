@@ -19,7 +19,7 @@ position: Senior Research Associate and Affiliated Lecturer
 session: 4
 start_time: 10:00 am
 title: Data Quality
-visible: false
+visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
@@ -53,3 +53,4 @@ visible: false
 - [TensorFlow Data Validation](https://www.tensorflow.org/tfx/guide/tfdv)
 - [Registry of Research Data Repositories](https://www.re3data.org/)
 - [Potato Disease Dataset](https://www.kaggle.com/datasets/faysalmiah1721758/potato-dataset)
+- [Chronic Disease Indicators](https://www.kaggle.com/datasets/cdc/chronic-disease)

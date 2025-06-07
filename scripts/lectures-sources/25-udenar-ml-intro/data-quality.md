@@ -15,7 +15,7 @@ layout: lecture
 lecture_code: data-quality
 lecture_date: 07/06/2025
 permalink: /teaching/25-udenar-ml-intro/data-quality/
-visible: false
+visible: true
 ---
 <!-- ALL: content that goes everywhere -->
 <!-- SLIDES: content that only goes to slides -->
