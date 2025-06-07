@@ -22,5 +22,7 @@
 - [UK Price Paid Dataset](https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads)
 - [Open Postcode Geo Dataset](https://www.getthedata.com/open-postcode-geo)
 - [Open Street Maps API](https://wiki.openstreetmap.org/wiki/API)
+- [Kaggle Datasets](https://www.kaggle.com/datasets)
+- [Registry of Research Data Repositories](https://www.re3data.org/)
 
 <!-- end RENDER: -->

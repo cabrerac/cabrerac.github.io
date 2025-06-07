@@ -720,7 +720,7 @@ pca = PCA()
 X_pca_transformed = pca.fit_transform(X_scaled)
 # Calculate explained variance ratio
 explained_variance = pca.explained_variance_ratio_
-cumulative_variance = np.cumsum(explained_variance_ratio)
+cumulative_variance = np.cumsum(explained_variance)
 ```
 
 Let's Plot explained variance ratio
@@ -728,7 +728,7 @@ Let's Plot explained variance ratio
 ```python
 import matplotlib.pyplot as plt
 plt.figure(figsize=(10, 6))
-plt.plot(range(1, len(explained_variance_ratio) + 1), cumulative_variance_ratio, 'bo-')
+plt.plot(range(1, len(explained_variance) + 1), cumulative_variance, 'bo-')
 plt.axhline(y=0.95, color='r', linestyle='--')
 plt.xlabel('Number of Components')
 plt.ylabel('Cumulative Explained Variance Ratio')
@@ -741,7 +741,7 @@ Let's also print the explained variance for each component.
 
 ```python
 print("\\nExplained variance ratio by component:")
-for i, ratio in enumerate(explained_variance_ratio):
+for i, ratio in enumerate(cumulative_variance):
     print(f"Component {i+1}: {ratio:.4f}")
 ```
 
@@ -1052,36 +1052,12 @@ plt.show()
 
 ## Homework - Data Quality
 
-The homework assignment will help you apply the data quality techniques we've learned to real-world datasets. You'll need to:
-1. Choose and analyze a dataset
-2. Apply various data quality techniques
-3. Compare different approaches
-4. Document your findings
-
-1. Choose a dataset from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets.php) or [Kaggle](https://www.kaggle.com/datasets) that interests you. Apply the data quality techniques we've learned to prepare it for machine learning.
+The homework assignment will help you apply the data quality techniques we've learned to the dataset your choosed in the previous session. You'll need to build an assess pipeline to clean, preprocess, augment, and feature engineer your dataset.
 
 <DESCRIBE YOUR DATASET HERE>
 
 ```python
-# Write the code to load and prepare your dataset here
-```
-
-2. For the health facilities dataset we used in the previous practical session, apply the data quality techniques we've learned. Consider the following aspects:
-   - Handle missing values appropriately
-   - Deal with outliers in numerical features
-   - Scale numerical features
-   - Encode categorical features
-   - Create new features that might be useful
-   - Validate the quality of the processed data
-
-```python
-# Write your code to improve the quality of the health facilities dataset
-```
-
-3. Compare different data quality techniques and their impact on model performance. Use a simple classification or regression model to evaluate how different preprocessing steps affect the results.
-
-```python
-# Write your code to compare different data quality techniques
+# Write your pipeline here
 ```
 
 ### Submission Guidelines
@@ -1094,15 +1070,13 @@ The homework assignment will help you apply the data quality techniques we've le
 
 ## Resources
 
+- [Titanic Dataset Description](https://paperswithcode.com/dataset/titanic)
+- [MNIST Database](https://en.wikipedia.org/wiki/MNIST_database)
+- [MNIST Dataset](https://www.openml.org/search?type=data&status=active&id=554)
 - [Dataset Transformations](https://scikit-learn.org/stable/data_transforms.html)
-
-
-- [Pandas Documentation](https://pandas.pydata.org/docs/)
-- [Scikit-learn Documentation](https://scikit-learn.org/stable/)
-- [Data Cleaning Best Practices](https://towardsdatascience.com/data-cleaning-in-python-the-ultimate-guide-2020-c63b88bf0a0d)
-- [Feature Engineering Guide](https://www.kaggle.com/code/ryanholbrook/feature-engineering)
-- [Data Validation Techniques](https://towardsdatascience.com/data-validation-techniques-every-data-scientist-should-know-95c5d2c1e4f4)
-- [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets.php)
-- [Kaggle Datasets](https://www.kaggle.com/datasets)
+- [Data Correlations](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.corr.html)
+- [Decision Trees](https://scikit-learn.org/stable/modules/tree.html)
+- [Dimensionality Reduction](https://scikit-learn.org/stable/api/sklearn.decomposition.html)
+- [TensorFlow Data Validation](https://www.tensorflow.org/tfx/guide/tfdv)
 
 <!-- end NOTEBOOK: --> 

@@ -4,28 +4,22 @@
 
 ## Resources  
 
+#### Books
+- Bishop, C. (2009). Pattern Recognition and Machine Learning. Springer
+- [Deisenroth M. P. et. al. (2020). Mathematics for Machine Learning - Chapter 10](https://mml-book.github.io/)  
+<br>
+<br>
 #### Papers and Reports  
 
-- [Redman T. C. (2016). Data Quality: The Field Guide](https://www.oreilly.com/library/view/data-quality/9781492044855/)
-- [Zheng A. and Casari A. (2018). Feature Engineering for Machine Learning](https://www.oreilly.com/library/view/feature-engineering-for/9781491953235/)
-- [Jafari R. (2022). Hands-On Data Preprocessing in Python](https://www.oreilly.com/library/view/hands-on-data-preprocessing/9781801072137/)
-- [Krishnan K. (2013). Data Quality: The Accuracy Dimension](https://www.oreilly.com/library/view/data-quality-the/9780123970336/)
-- [Olson J. E. (2003). Data Quality: The Accuracy Dimension](https://www.oreilly.com/library/view/data-quality-the/9780123970336/)
+- [Hoteling, H. (1933). Analysis of a Complex of Statistical Variables into Principal Components](https://www.cis.rit.edu/~rlepci/Erho/Derek/Useful_References/Principal%20Components%20Analysis/Hotelling_PCA_part1.pdf)
+- [Tipping, M. E., Bishop C. (1999). Probabilistic Principal Component Analysis](https://www.cs.columbia.edu/~blei/seminar/2020-representation/readings/TippingBishop1999.pdf)
  
 #### Web
 - [Meet the Data Quality Dimensions](https://www.gov.uk/government/news/meet-the-data-quality-dimensions)
-
-- [Data Cleaning and Preprocessing - Coursera](https://www.coursera.org/learn/data-cleaning)
-- [Data Preprocessing for Machine Learning - Udemy](https://www.udemy.com/course/data-preprocessing-for-machine-learning/)
-- [Data Cleaning with Python - DataCamp](https://www.datacamp.com/courses/data-cleaning-with-python)
-- [Pandas Documentation](https://pandas.pydata.org/)
+- [Advanced Data Science - Visualisation I](https://mlatcl.github.io/advds/lectures/05-02-visualisation-i.html)
+- [Advanced Data Science - Visualisation II](https://mlatcl.github.io/advds/lectures/05-03-visualisation-ii.html)
 - [Scikit-learn Documentation](https://scikit-learn.org/)
-- [Great Expectations](https://www.great-expectations.io/)
-- [TensorFlow Data Validation](https://www.tensorflow.org/data_validation)
-- [Deequ - Data Quality Validation](https://github.com/awslabs/deequ)
-- [Evidently - Data Quality Monitoring](https://github.com/evidentlyai/evidently)
-- [Towards Data Science - Data Quality](https://towardsdatascience.com/tagged/data-quality)
-- [KDnuggets - Data Quality](https://www.kdnuggets.com/tag/data-quality)
-- [Analytics Vidhya - Data Preprocessing](https://www.analyticsvidhya.com/blog/category/data-preprocessing/)
+- [TensorFlow Data Validation](https://www.tensorflow.org/tfx/guide/tfdv)
+- [Registry of Research Data Repositories](https://www.re3data.org/)
 
 <!-- end RENDER: --> 
