@@ -36,13 +36,27 @@ visible: false
 
 <!-- SLIDES: -->
 
-# Data Quality
+# Data Address
 
 <!-- end SLIDES: -->
+
+{% include _snippets/25-udenar-ml-intro/data-address.md %}
 
 <!-- SLIDES: -->
 
+# Regression Models
+
 <!-- end SLIDES: -->
+
+{% include _snippets/25-udenar-ml-intro/regression-models.md %}
+
+<!-- SLIDES: -->
+
+# Classification Models
+
+<!-- end SLIDES: -->
+
+{% include _snippets/25-udenar-ml-intro/classification-models.md %}
 
 {% include _snippets/25-udenar-ml-intro/regression-classification/conclusions.md %}
 
