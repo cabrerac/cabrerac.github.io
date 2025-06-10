@@ -18,7 +18,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <p>Process of creating, transforming, and selecting features in our data, combining domain knowledge and creativity.</p>
+                <p>Process of <b>creating, transforming, and selecting features in our data</b>, combining domain knowledge and creativity.</p>
             </div>
         </div>
     </div>

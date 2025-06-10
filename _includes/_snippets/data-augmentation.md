@@ -20,7 +20,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <p>Process of increasing the size and diversity of our datasets.</p>
+                <p>Process of <b>increasing the size and diversity</b> of our datasets.</p>
             </div>
         </div>
     </div>

@@ -20,7 +20,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <p>Process of transforming raw data into a format suitable for machine learning while ensuring data quality and consistency.</p>
+                <p>Process of <b>transforming raw data into a format suitable for machine learning</b> while ensuring data quality and consistency.</p>
             </div>
         </div>
     </div>
