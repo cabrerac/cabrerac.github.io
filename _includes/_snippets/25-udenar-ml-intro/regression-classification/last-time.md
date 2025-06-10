@@ -185,7 +185,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 50%">
-                <p>Process of detecting and correcting (or removing) corrupt or inaccurate records.</p>
+                <p>Process of <b>detecting and correcting (or removing)</b> corrupt or inaccurate records.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <p>Missing Datapoints:</p>
