@@ -187,7 +187,7 @@
             <div class="column vertical-middle text-center" style="width: 50%">
                 <p>Process of <b>detecting and correcting (or removing)</b> corrupt or inaccurate records.</p>
             </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p>Missing Datapoints:</p>
                 <ul>
                     <li>Removing rows or columns with missing values</li>
