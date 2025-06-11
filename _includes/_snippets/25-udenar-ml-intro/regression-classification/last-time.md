@@ -184,7 +184,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p>Process of <b>detecting and correcting (or removing)</b> corrupt or inaccurate records.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -213,7 +213,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p>Process of <b>transforming raw data into a format suitable for machine learning</b> while ensuring data quality and consistency.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -233,7 +233,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p>Process of <b>increasing the size and diversity</b> of our datasets.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -260,7 +260,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p>Process of <b>creating, transforming, and selecting features in our data</b>, combining domain knowledge and creativity.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
