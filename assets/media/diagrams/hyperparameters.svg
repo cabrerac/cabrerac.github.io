@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="275" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="800" height="275" fill="#f5f5f5"/>
+    
+    <!-- Title -->
+    <text x="400" y="40" font-family="Arial" font-size="24" text-anchor="middle" fill="#333">Hyperparameters</text>
+    
+    <!-- Model Architecture Box -->
+    <rect x="50" y="100" width="200" height="125" rx="10" fill="#4CAF50" stroke="#333" stroke-width="2"/>
+    <text x="150" y="130" font-family="Arial" font-size="16" text-anchor="middle" fill="white" style="font-weight: bold">Model Architecture</text>
+    
+    <!-- Architecture Parameters -->
+    <text x="150" y="160" font-family="Arial" font-size="14" text-anchor="middle" fill="white">Number of Layers</text>
+    <text x="150" y="180" font-family="Arial" font-size="14" text-anchor="middle" fill="white">Layer Sizes</text>
+    <text x="150" y="200" font-family="Arial" font-size="14" text-anchor="middle" fill="white">Activation Functions</text>
+    
+    <!-- Learning Process Box -->
+    <rect x="300" y="100" width="200" height="125" rx="10" fill="#2196F3" stroke="#333" stroke-width="2"/>
+    <text x="400" y="130" font-family="Arial" font-size="16" text-anchor="middle" fill="white" style="font-weight: bold">Learning Process</text>
+    
+    <!-- Learning Parameters -->
+    <text x="400" y="160" font-family="Arial" font-size="14" text-anchor="middle" fill="white">Learning Rate</text>
+    <text x="400" y="180" font-family="Arial" font-size="14" text-anchor="middle" fill="white">Batch Size</text>
+    <text x="400" y="200" font-family="Arial" font-size="14" text-anchor="middle" fill="white">Number of Epochs</text>
+    
+    <!-- Regularization Box -->
+    <rect x="550" y="100" width="200" height="125" rx="10" fill="#FF9800" stroke="#333" stroke-width="2"/>
+    <text x="650" y="130" font-family="Arial" font-size="16" text-anchor="middle" fill="white" style="font-weight: bold">Regularization</text>
+    
+    <!-- Regularization Parameters -->
+    <text x="650" y="160" font-family="Arial" font-size="14" text-anchor="middle" fill="white">Dropout Rate</text>
+    <text x="650" y="180" font-family="Arial" font-size="14" text-anchor="middle" fill="white">L1/L2 Regularization</text>
+    <text x="650" y="200" font-family="Arial" font-size="14" text-anchor="middle" fill="white">Early Stopping</text>
+
+</svg> 

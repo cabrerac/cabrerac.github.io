@@ -40,7 +40,7 @@ visible: false
 
 <!-- end SLIDES: -->
 
-{% include _snippets/25-udenar-ml-intro/data-address.md %}
+{% include _snippets/data-address.md %}
 
 <!-- SLIDES: -->
 
@@ -48,7 +48,7 @@ visible: false
 
 <!-- end SLIDES: -->
 
-{% include _snippets/25-udenar-ml-intro/regression-models.md %}
+{% include _snippets/regression-models.md %}
 
 <!-- SLIDES: -->
 
@@ -56,7 +56,7 @@ visible: false
 
 <!-- end SLIDES: -->
 
-{% include _snippets/25-udenar-ml-intro/classification-models.md %}
+{% include _snippets/classification-models.md %}
 
 {% include _snippets/25-udenar-ml-intro/regression-classification/conclusions.md %}
 
