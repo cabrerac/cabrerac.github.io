@@ -6,7 +6,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <p>After assessing the data (i.e., data assess), we need to <b>use the data to address the problem in question.</b>. This process includes implementing a machine learning algorithm that creates a machine learning model.</p>
+                <p>After assessing the data (i.e., data assess), we need to <b>use the data to address the problem in question.</b>. This process includes implementing a <b>Machine Learning algorithm</b> that creates a <b>Machine Learning model</b>.</p>
             </div>
         </div>
     </div>
