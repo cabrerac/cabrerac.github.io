@@ -12,21 +12,21 @@ end_time: 12:00 am
 hours: 4
 institution: University of Cambridge
 layout: lecture
-lecture_code: regression-classification
+lecture_code: learning-data
 lecture_date: 12/06/2025
-permalink: /teaching/25-udenar-ml-intro/regression-classification/
+permalink: /teaching/25-udenar-ml-intro/learning-data/
 position: Senior Research Associate and Affiliated Lecturer
 session: 5
 start_time: 10:00 am
-title: Regression and Classification Models
+title: Learning from Data
 visible: false
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
 <div class="lecture-resources">  
   <p>
-    <a href="/assets/slides/25-udenar-ml-intro/regression-classification.html" target="_blank">[HTML Slides]</a>    
-    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-udenar-ml-intro/regression-classification.ipynb" target="_blank">[Colab Notebook]</a>
+    <a href="/assets/slides/25-udenar-ml-intro/learning-data.html" target="_blank">[HTML Slides]</a>    
+    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-udenar-ml-intro/learning-data.ipynb" target="_blank">[Colab Notebook]</a>
     <a href="/teaching/25-udenar-ml-intro/">[Back to Course]</a>    
   </p>
 </div>

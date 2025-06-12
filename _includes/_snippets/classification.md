@@ -1,5 +1,5 @@
 <!-- SLIDES: -->
 
-## Regression Models
+## Classification
 
 <!-- end SLIDES: -->

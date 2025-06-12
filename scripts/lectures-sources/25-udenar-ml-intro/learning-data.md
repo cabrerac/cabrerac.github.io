@@ -1,6 +1,6 @@
 ---
 course_code: 25-udenar-ml-intro
-title: Regression and Classification Models
+title: Learning from Data
 description: This lecture explores the regression and classification learning models. These models are simple but powerful and applicable in several domains. We'll define some crucial concepts of the ML process and then show the type of tasks where these models work. We'll also study the mathematical framework and the learning algorithms to train these models.
 session: 5
 start_time: 10:00 am
@@ -12,9 +12,9 @@ position: Senior Research Associate and Affiliated Lecturer
 department: Department of Computer Science and Technology
 institution: University of Cambridge
 layout: lecture
-lecture_code: regression-classification
+lecture_code: learning-data
 lecture_date: 12/06/2025
-permalink: /teaching/25-udenar-ml-intro/regression-classification/
+permalink: /teaching/25-udenar-ml-intro/learning-data/
 visible: false
 ---
 
@@ -32,7 +32,7 @@ visible: false
 
 <!-- end SLIDES: -->
 
-{% include _snippets/25-udenar-ml-intro/regression-classification/last-time.md %}
+{% include _snippets/25-udenar-ml-intro/learning-data/last-time.md %}
 
 <!-- SLIDES: -->
 
@@ -44,22 +44,22 @@ visible: false
 
 <!-- SLIDES: -->
 
-# Regression Models
+# Regression
 
 <!-- end SLIDES: -->
 
-{% include _snippets/regression-models.md %}
+{% include _snippets/regression.md %}
 
 <!-- SLIDES: -->
 
-# Classification Models
+# Classification
 
 <!-- end SLIDES: -->
 
-{% include _snippets/classification-models.md %}
+{% include _snippets/classification.md %}
 
-{% include _snippets/25-udenar-ml-intro/regression-classification/conclusions.md %}
+{% include _snippets/25-udenar-ml-intro/learning-data/conclusions.md %}
 
-{% include _snippets/25-udenar-ml-intro/regression-classification/resources.md %}
+{% include _snippets/25-udenar-ml-intro/learning-data/resources.md %}
 
-{% include _snippets/25-udenar-ml-intro/regression-classification/practical.md %}
+{% include _snippets/25-udenar-ml-intro/learning-data/practical.md %}
