@@ -2,11 +2,11 @@
 author: Christian Cabrera Jojoa
 course_code: 25-udenar-ml-intro
 department: Department of Computer Science and Technology
-description: This lecture explores the regression and classification learning models.
-  These models are simple but powerful and applicable in several domains. We'll define
-  some crucial concepts of the ML process and then show the type of tasks where these
-  models work. We'll also study the mathematical framework and the learning algorithms
-  to train these models.
+description: This lecture explores the idea of learning from data. We explore the
+  induction process that agents follow to go from a specific set of observations to
+  general rules. This process enables the agents to make predictions about the future
+  based on past experiences. We introduce the main concepts around this idea and show
+  its application to regression and classification problems.
 email: chc79@cam.ac.uk
 end_time: 12:00 am
 hours: 4

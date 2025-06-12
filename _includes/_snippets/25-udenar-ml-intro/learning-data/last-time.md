@@ -283,4 +283,58 @@
     </div>
 </div>
 
+## Last Time
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>How can we ensure the validity of the data that results from the assess stage?</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/data-quality.jpg" alt="Data Quality" style="height: 400px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Last Time
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>How can we guarantee the validity of the data resulting from the assess stage?</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Last Time
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>This is again a data assess process where we should use:</p>
+                <ul>
+                    <li>Our understanding of the domain</li>
+                    <li>Quality checks (i.e., manual and autommated)</li>
+                    <li>Visualisation techniques (e.g., PCA)</li>
+                    <li>Metrics comparison (e.g., means, variance, etc.)</li>
+                    <li>...</li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>How can we guarantee the validity of the data resulting from the assess stage?</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- end SLIDES: -->
+
+{% include _snippets/25-udenar-ml-intro/statistical-tests.md %}
