@@ -81,4 +81,23 @@ $$
     </div>
 </div>
 
+## Regression
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
+<p>The simplest example is "fitting a straight line". The model learns the coefficients <em><b>W</b></em></p>
+$$
+y = w_{1}x + w_{0} \; ; \; W = \langle w_0, w_1 \rangle
+$$
+<p>Finding the <em><b>h</b></em> that best fits teh data is called linear regression</p>
+$$
+h_w = w_{1}x + w_{0}
+$$
+<p>Finding the values of the weights <em><b>w<sub>0</sub></b></em> and <em><b>w<sub>1</sub></b></em> that minimise the empirical loss.</p>
+</div>
+    </div>
+</div>
+
 <!-- end SLIDES: -->
