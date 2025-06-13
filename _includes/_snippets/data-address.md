@@ -90,22 +90,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>In classification problems, the prediction (i.e., model's output) is one of a finite set of values (e.g., sunny/cloudy/rainy or true/false). In regresssion problems, the model's output is a number.</p>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/diagrams/ml-model.svg" alt="ML Model" style="height: 500px">
-            </div>
-        </div>
-    </div>
-</div>
-
-## Data Address
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p>In classification problems, the prediction (i.e., model's output) is one of a finite set of values (e.g., sunny/cloudy/rainy or true/false). In regresssion problems, the model's output is a number.</p>
+                <p>In classification problems, the prediction (i.e., model's output) is one of a finite set of values (e.g., sunny/cloudy/rainy or true/false). In the regression problems, the model's output is a number.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/diagrams/ml-model.svg" alt="ML Model" style="height: 500px">

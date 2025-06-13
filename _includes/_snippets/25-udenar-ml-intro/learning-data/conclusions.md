@@ -2,8 +2,6 @@
 
 ## Conclusions
 
-## Conclusions
-
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">

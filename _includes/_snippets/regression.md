@@ -8,7 +8,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <p>The regression problem involves <b>predicting a continuous numerical value.</b> Regression models approximmate a function <em><b>f</b></em> that maps input features to a continuous output.</p>
+                <p>The regression problem involves <b>predicting a continuous numerical value.</b> Regression models approximate a function <em><b>f</b></em> that maps input features to a continuous output.</p>
             </div>
         </div>
     </div>
@@ -191,7 +191,7 @@ $$
 w^* = \underset{w}{\arg\min} \; \sum_{i=1}^n (y_i - h_w(x_i))^2
 $$
 <br>
-<p>We know that the the loss is minimised when its partial derivatives with resect to <em><b>w<sub>0</sub></b></em> and <em><b>w<sub>1</sub></b></em> are zero.</p>
+<p>We know that the the loss is minimised when its partial derivatives with respect to <em><b>w<sub>0</sub></b></em> and <em><b>w<sub>1</sub></b></em> are zero.</p>
 <br>
 $$
 \frac{\partial \text{Loss}(h_w)}{\partial w_0} = 0 \; ; \; \frac{\partial \text{Loss}(h_w)}{\partial w_1} = 0
@@ -207,7 +207,7 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<p>We know that the the loss is minimised when its partial derivatives with resect to <em><b>w<sub>0</sub></b></em> and <em><b>w<sub>1</sub></b></em> are zero.</p>
+<p>We know that the the loss is minimised when its partial derivatives with respect to <em><b>w<sub>0</sub></b></em> and <em><b>w<sub>1</sub></b></em> are zero.</p>
 <br>
 $$
 \frac{\partial \text{Loss}(h_w)}{\partial w_0} = 0 \; ; \; \frac{\partial \text{Loss}(h_w)}{\partial w_1} = 0
@@ -228,7 +228,7 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<p>We know that the the loss is minimised when its partial derivatives with resect to <em><b>w<sub>0</sub></b></em> and <em><b>w<sub>1</sub></b></em> are zero.</p>
+<p>We know that the the loss is minimised when its partial derivatives with respect to <em><b>w<sub>0</sub></b></em> and <em><b>w<sub>1</sub></b></em> are zero.</p>
 <br>
 $$
 \frac{\partial \text{Loss}(h_w)}{\partial w_0} = 0 \; ; \; \frac{\partial \text{Loss}(h_w)}{\partial w_1} = 0
@@ -310,7 +310,7 @@ $$
                 <div class="footnote">Gradient Descent Algorithm - Jacopo Bertolotti, CC0, via Wikimedia Commons.</div>
             </div>
             <div class="column vertical-top text-left" style="width: 60%">
-                <p>We choose any starting point and then compute <b>an estimate of the gradient and move a small amount in the stepeest downhill direction</b>, repeating until we converge on a point in the weight space with <em>(local)</em> minima loss.</p>
+                <p>We choose any starting point and then compute <b>an estimate of the gradient and move a small amount in the steepest downhill direction</b>, repeating until we converge on a point in the weight space with <em>(local)</em> minima loss.</p>
 <br>
 <pre><code>Gradient Descent Algorithm:
 Initialize w randomly
@@ -458,9 +458,9 @@ w_0 \leftarrow w_0 + \alpha \sum_{i=1}^N (y_i - h_w(x_i))
 \; ; \;
 w_1 \leftarrow w_1 + \alpha \sum_{i=1}^N (y_i - h_w(x_i)) x_i
 $$
-<p>These updates constitute <b>the batch gradient descent.</b>. For the straight line, this gradient descent is <em>deterministic.</em></p>
+<p>These updates constitute <b>the batch gradient descent</b>. For the straight line, this gradient descent is <em>deterministic</em></p>
 <br>
-<p>An <b>epoch</b> is defined as one complete pass through the entire dataset during the training process. Multiple epochs are needed for the model to converge to an optimal solution. Not enought epochs could generate underfitting. Too many epochs could generate overvitting. Another hyperparameter for the model.</p>
+<p>An <b>epoch</b> is defined as one complete pass through the entire dataset during the training process. Multiple epochs are needed for the model to converge to an optimal solution. Not enough epochs could generate underfitting. Too many epochs could generate overfitting. Another hyperparameter for the model.</p>
 </div>
         </div>
     </div>

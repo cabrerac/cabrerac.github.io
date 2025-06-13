@@ -326,7 +326,7 @@
                 <p>This is again a data assess process where we should use:</p>
                 <ul>
                     <li>Our understanding of the domain</li>
-                    <li>Quality checks (i.e., manual and autommated)</li>
+                    <li>Quality checks (i.e., manual and automated)</li>
                     <li>Visualisation techniques (e.g., PCA)</li>
                     <li>Metrics comparison (e.g., means, variance, etc.)</li>
                     <li>...</li>
