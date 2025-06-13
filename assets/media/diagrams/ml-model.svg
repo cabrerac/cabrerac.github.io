@@ -8,17 +8,17 @@
     
     <!-- Input Features Box -->
     <rect x="50" y="100" width="200" height="100" rx="10" fill="#4CAF50" stroke="#333" stroke-width="2"/>
-    <text x="150" y="130" font-family="Arial" font-size="16" text-anchor="middle" fill="white" style="font-weight: bold">Input Features</text>
+    <text x="150" y="130" font-family="Arial" font-size="18" text-anchor="middle" fill="white" style="font-weight: bold">Input Features</text>
     <text x="150" y="150" font-family="Arial" font-size="14" text-anchor="middle" fill="white">(Square footage,</text>
     <text x="150" y="170" font-family="Arial" font-size="14" text-anchor="middle" fill="white">bedrooms, location)</text>
     
     <!-- Model Box -->
     <rect x="300" y="100" width="200" height="100" rx="10" fill="#2196F3" stroke="#333" stroke-width="2"/>
-    <text x="400" y="150" font-family="Arial" font-size="16" text-anchor="middle" fill="white" style="font-weight: bold">Trained Model</text>
+    <text x="400" y="150" font-family="Arial" font-size="18" text-anchor="middle" fill="white" style="font-weight: bold">Trained Model</text>
     
     <!-- Predictions Box -->
     <rect x="550" y="100" width="200" height="100" rx="10" fill="#FF9800" stroke="#333" stroke-width="2"/>
-    <text x="650" y="130" font-family="Arial" font-size="16" text-anchor="middle" fill="white" style="font-weight: bold">Predictions</text>
+    <text x="650" y="130" font-family="Arial" font-size="18" text-anchor="middle" fill="white" style="font-weight: bold">Predictions</text>
     <text x="650" y="150" font-family="Arial" font-size="14" text-anchor="middle" fill="white">(House price,</text>
     <text x="650" y="170" font-family="Arial" font-size="14" text-anchor="middle" fill="white">image class)</text>
     

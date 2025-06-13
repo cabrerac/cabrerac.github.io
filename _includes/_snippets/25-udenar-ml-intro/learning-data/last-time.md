@@ -301,15 +301,19 @@
 ## Last Time
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 60%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-middle text-center" style="width: 95%">
                 <img src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
             </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p>How can we guarantee the validity of the data resulting from the assess stage?</p>
-            </div>
         </div>
+    </div>
+    <div class="row" style="height: 40%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-center" style="width: 100%">
+                <p>How can we guarantee the validity of the data resulting from the assess stage?</p>
+            </div>   
+        </div>   
     </div>
 </div>
 
@@ -337,4 +341,4 @@
 
 <!-- end SLIDES: -->
 
-{% include _snippets/25-udenar-ml-intro/statistical-tests.md %}
+{% include _snippets/statistical-tests.md %}

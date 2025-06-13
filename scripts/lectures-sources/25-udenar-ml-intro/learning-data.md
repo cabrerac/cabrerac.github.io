@@ -44,6 +44,14 @@ visible: false
 
 <!-- SLIDES: -->
 
+# Supervised Learning
+
+<!-- end SLIDES: -->
+
+{% include _snippets/supervised-learning.md %}
+
+<!-- SLIDES: -->
+
 # Regression
 
 <!-- end SLIDES: -->

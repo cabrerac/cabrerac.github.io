@@ -361,12 +361,12 @@ class ContentGenerator:
         # Replace all block math with placeholders
         content_with_placeholders = block_math_pattern.sub(math_replacer, content)
         
-        # Now handle inline math
-        inline_math_pattern = re.compile(r'(?<!\$)\$(?!\$)(.*?)(?<!\$)\$(?!\$)')
+        # Now handle inline math - look for \(...\) pattern
+        inline_math_pattern = re.compile(r'\\\((.*?)\\\)')
         def inline_math_replacer(match):
             math_expr = match.group(1)
             # Only wrap in p tags if not already inside a p tag
-            if not re.search(r'<p[^>]*>.*?\$' + re.escape(math_expr) + r'\$.*?</p>', content_with_placeholders):
+            if not re.search(r'<p[^>]*>.*?\\\(' + re.escape(math_expr) + r'\\\).*?</p>', content_with_placeholders):
                 return f'${math_expr}$'
             return f'${math_expr}$'
             
