@@ -20,7 +20,7 @@
     <div class="row" style="height: 40%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-                <p>The hypotheses space <em><b>H</b></em> includes linear functions of continuous-valued inputs</p>            
+                <p>The hypotheses space <em><b>H</b></em> includes linear functions of continuous-valued inputs and outputs</p>            
             </div>
         </div>
     </div>
@@ -38,7 +38,7 @@
     <div class="row" style="height: 40%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-                <p>The hypotheses space <em><b>H</b></em> includes linear functions of continuous-valued inputs</p>
+                <p>The hypotheses space <em><b>H</b></em> includes linear functions of continuous-valued inputs and outputs</p>
                 <br>
                 <p>The simplest example is "fitting a straight line". The model learns the coefficients <em><b>W</b></em></p>
                 <br>
@@ -354,10 +354,10 @@ $$
 $$
 w_i \leftarrow w_i - \alpha \frac{\partial \text{Loss}(w)}{\partial w_i}
 $$
-<p>The loss function is a composition of functions</p>
+<p>The loss function is represented as a composition of functions</p>
 <br>
 $$
-Loss(w) = (y - h_w(x))^2
+Loss(w) = (y - h_w(x))^2  \; ; \; f(w)= y - h_w(x) \; ; \; g(f)= ||f||^2
 $$
 </div>
         </div>
@@ -375,10 +375,10 @@ $$
 $$
 w_i \leftarrow w_i - \alpha \frac{\partial \text{Loss}(w)}{\partial w_i}
 $$
-<p>The loss function is a composition of functions</p>
+<p>The loss function is represented as a composition of functions</p>
 <br>
 $$
-Loss(w) = (y - h_w(x))^2
+Loss(w) = (y - h_w(x))^2  \; ; \; f(w)= y - h_w(x) \; ; \; g(f)= ||f||^2
 $$
 <p>We need to differentiate the loss function step by step using the <b>chain rule</b> to compute the gradients</p>
 <br>
@@ -466,7 +466,7 @@ $$
     </div>
 </div>
 
-## Regression
+## Regression Models
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -508,7 +508,7 @@ def batch_gradient_descent(X, y, alpha=0.01, epochs=1000):
     </div>
 </div>
 
-## Regression
+## Regression Models
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -546,14 +546,14 @@ def stochastic_gradient_descent(X, y, alpha=0.01, epochs=1000):
     </div>
 </div>
 
-## Regression
+## Regression Models
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 40%">
                 <p><b>Mini-batch Gradient Descent</b></p>
-                <p>The algorithm updates <b><em>W</em></b> after computing the gradient for a small batch of training examples (batch size <em>m</em>).</p>
+                <p>The algorithm updates <b><em>W</em></b> after computing the gradient for a small batch of training examples (batch size <em>m</em>). The batch size is another hyperparameter.</p>
             </div>
             <div class="column vertical-top text-left" style="width: 60%">
 
@@ -585,6 +585,72 @@ def mini_batch_gradient_descent(X, y, alpha=0.01, epochs=1000, batch_size=32):
             w -= alpha * grad
     return w
 ```
+</div>
+        </div>
+    </div>
+</div>
+
+## Regression Models
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 30%">
+                <img src="{{ site.url }}/assets/media/diagrams/regression-fit.svg" alt="Regression Fit" style="max-width: 90%; height: auto;">
+                <div class="footnote">Linear regression fit.</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Linear Regression</b></p>            
+                <p>Training Dataset</p>
+$$
+(x_1, y_1), (x_2, y_2), ..., (x_N, y_N)
+$$
+<p>Hypothesis Space: All possible linear functions of continuous-valued inputs and outputs</p>   
+$$
+y = w_{1}x + w_{0}
+$$
+<p>Hypothesis:</p>
+$$
+h_w = w_{1}x + w_{0} \; ; \; W = \langle w_0, w_1 \rangle
+$$
+<p>Loss Function:
+$$
+\text{Loss}(h_w) = \sum_{i=1}^n (y_i - (w_1 x_i + w_0))^2
+$$
+<p>Cost Function:
+$$
+\text{Cost}_{L,\lambda}(h_w) = \text{Loss}(h_w) + \lambda \cdot \text{Complexity}(h)
+$$
+</div>
+        </div>
+    </div>
+</div>
+
+## Regression Models
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 30%">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Gradient_descent.gif" alt="Gradient Descent Algorithm" style="max-width: 100%; height: auto;">
+                <div class="footnote">Gradient Descent Algorithm - Jacopo Bertolotti, CC0, via Wikimedia Commons.</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Linear Regression</b></p>            
+                <p>Analytical Solution:</p>
+$$
+\frac{\partial \text{Loss}(h_w)}{\partial w_0} = 0 \; ; \; \frac{\partial \text{Loss}(h_w)}{\partial w_1} = 0
+$$
+<p>Gradient Descent Algorithm:</p>   
+<pre><code>
+Initialize w randomly
+repeat
+    for each w[i] in w
+        Compute gradient: g = ∇Loss(w[i])
+        Update weight:   w[i] = w[i] - α * g
+until convergence
+</code></pre>
+<p>Hyperparmeters: Learnig rate, number of epochs, and batch size.</p>
 </div>
         </div>
     </div>
