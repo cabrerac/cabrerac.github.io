@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="650" height="420" viewBox="0 0 650 420" xmlns="http://www.w3.org/2000/svg">
+  <!-- White background -->
+  <rect x="0" y="0" width="650" height="420" fill="white"/>
+  <!-- Black border for plot area -->
+  <rect x="70" y="30" width="510" height="360" fill="none" stroke="black" stroke-width="2"/>
+
+  <!-- Fitted line (bold) -->
+  <line x1="100" y1="350" x2="550" y2="80" stroke="#d62728" stroke-width="3"/>
+
+  <g stroke="#1a237e" stroke-width="3">
+    <line x1="110" y1="320" x2="130" y2="340" />
+    <line x1="130" y1="320" x2="110" y2="340" />
+
+    <line x1="170" y1="250" x2="190" y2="270" />
+    <line x1="190" y1="250" x2="170" y2="270" />
+
+    <line x1="230" y1="210" x2="250" y2="230" />
+    <line x1="250" y1="210" x2="230" y2="230" />
+
+    <line x1="290" y1="180" x2="310" y2="200" />
+    <line x1="310" y1="180" x2="290" y2="200" />
+
+    <line x1="350" y1="160" x2="370" y2="180" />
+    <line x1="370" y1="160" x2="350" y2="180" />
+
+    <line x1="410" y1="120" x2="430" y2="140" />
+    <line x1="430" y1="120" x2="410" y2="140" />
+
+    <line x1="470" y1="170" x2="490" y2="190" />
+    <line x1="490" y1="170" x2="470" y2="190" />
+
+    <line x1="530" y1="100" x2="550" y2="120" />
+    <line x1="550" y1="100" x2="530" y2="120" />
+  </g>
+
+  <!-- Axes -->
+  <line x1="70" y1="230" x2="580" y2="230" stroke="black" stroke-width="2"/>
+  <line x1="325" y1="30" x2="325" y2="390" stroke="black" stroke-width="2"/>
+
+  <!-- Axis labels (LaTeX style) -->
+  <text x="600" y="240" font-size="36" font-family="Times New Roman, serif" font-style="italic">x</text>
+  <text x="300" y="60" font-size="36" font-family="Times New Roman, serif" font-style="italic">y</text>
+</svg> 
