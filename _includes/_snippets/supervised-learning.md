@@ -27,6 +27,7 @@ $$
 (x_1, y_1), (x_2, y_2), ..., (x_N, y_N)
 $$
 </div>
+        </div>
     </div>
 </div>
 
@@ -49,6 +50,7 @@ $$
 y = f(x)
 $$
 </div>
+        </div>
     </div>
 </div>
 
@@ -73,6 +75,7 @@ $$
 <br>
 <p>The goal is to discover a function <em><b>h</b></em> that approximates the true function <em><b>f</b></em>.</p>
 </div>
+        </div>
     </div>
 </div>
 
@@ -89,6 +92,7 @@ $$
 h \in H
 $$
 </div>
+        </div>
     </div>
 </div>
 
@@ -111,6 +115,7 @@ $$
 h(x_i) = y_i
 $$
 </div>
+        </div>
     </div>
 </div>
 
@@ -137,6 +142,7 @@ $$
 <br>
 <p>The hypothesis <em><b>h</b></em> accurately predicts the outputs of unseen inputs (i.e., test set).</p>
 </div>
+        </div>
     </div>
 </div>
 
@@ -149,6 +155,7 @@ $$
 <br>
 <p>Our goal is to select a hypothesis <em><b>h</b></em> that will optimally fit future examples. <b>Future examples</b> will be like past examples (i.e., stationary assumption)</p> 
 </div>
+        </div>
     </div>
 </div>
 
@@ -167,6 +174,7 @@ $$
 P(E_j) = P(E_{j-1}) = P(E_{j-2}) = ...
 $$
 </div>
+        </div>
     </div>
 </div>
 
@@ -193,6 +201,7 @@ $$
 <br>
 <p>Examples that satisfy these equations are independent and indenticall distributed (i.e., iid).</p>
 </div>
+        </div>
     </div>
 </div>
 
@@ -206,6 +215,7 @@ $$
 <p>Our goal is to select a hypothesis <em><b>h</b></em> that will optimally fit future examples. <em><b>h</b></em> is <b>optimally fit</b> if it minimises the error rate</p> 
 <br>
 </div>
+        </div>
     </div>
 </div>
 
@@ -225,6 +235,7 @@ h(x_i) \neq y_i
 $$
 <br>
 </div>
+        </div>
     </div>
 </div>
 
@@ -245,6 +256,7 @@ $$
 <br>
 <p>Finding a good hypothesis implies choosing a good hypothesis space <em><b>H</b></em> and optimising or finding the best hypothesis <em><b>h</b></em> at training.</p>
 </div>
+        </div>
     </div>
 </div>
 
@@ -257,6 +269,7 @@ $$
 <br>
 <p>Loss functions quantify the difference between predicted values and expected values (i.e., grounded truth)</p>
 </div>
+        </div>
     </div>
 </div>
 
@@ -274,6 +287,7 @@ $$
 L_{1}(\hat{y}, y) = |\hat{y} - y|
 $$
 </div>
+        </div>
     </div>
 </div>
 
@@ -296,6 +310,7 @@ $$
 L_{2}(\hat{y}, y) = (\hat{y} - y)^2
 $$
 </div>
+        </div>
     </div>
 </div>
 
@@ -326,6 +341,7 @@ L_{0/1}(\hat{y}, y) = \begin{cases}
 \end{cases}
 $$
 </div>
+        </div>
     </div>
 </div>
 
@@ -338,24 +354,7 @@ $$
 <br>
 <p>We can generalise the loss by defining the prior probability distribution <em><b>P(x,y)</b></em> over examples</p>
 </div>
-    </div>
-</div>
-
-## Supervised Learning
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-<br>
-<p>We can generalise the loss by defining the prior probability distribution <em><b>P(x,y)</b></em> over examples</p>
-<br>
-<p>Generalization loss for a hypothesis <em>h</em> using loss function <em>L</em>:</p>
-<br>
-$$
-\text{GenLoss}_{L}(h) = \sum_{(x,y) \in E} P(x,y) \cdot L(h(x), y)
-$$
-</div>
+        </div>
     </div>
 </div>
 
@@ -373,13 +372,32 @@ $$
 $$
 \text{GenLoss}_{L}(h) = \sum_{(x,y) \in E} P(x,y) \cdot L(h(x), y)
 $$
+</div>
+        </div>
+    </div>
+</div>
+
+## Supervised Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
 <br>
+<p>We can generalise the loss by defining the prior probability distribution <em><b>P(x,y)</b></em> over examples</p>
+<br>
+<p>Generalization loss for a hypothesis <em>h</em> using loss function <em>L</em>:</p>
+<br>
+$$
+\text{GenLoss}_{L}(h) = \sum_{(x,y) \in E} P(x,y) \cdot L(h(x), y)
+$$
 <p>The best hypothesis <em>h*</em> is the one with the minimum expected generalisation loss</p>
 <br>
 $$
 h^* = \underset{h \in H}{\operatorname{argmin}} \text{GenLoss}_{L}(h)
 $$
 </div>
+        </div>
     </div>
 </div>
 
@@ -397,15 +415,14 @@ $$
 $$
 \text{GenLoss}_{L}(h) = \sum_{(x,y) \in E} P(x,y) \cdot L(h(x), y)
 $$
-<br>
 <p>The best hypothesis <em>h*</em> is the one with the minimum expected generalisation loss</p>
 <br>
 $$
 h^* = \underset{h \in H}{\operatorname{argmin}} \text{GenLoss}_{L}(h)
 $$
-<br>
 <p>But, <em><b>P(x,y)</b></em> is unknown in most cases.</p>
 </div>
+        </div>
     </div>
 </div>
 
@@ -418,6 +435,7 @@ $$
 <br>
 <p>As <em><b>P(x,y)</b></em> is unknown, we can only estimate an empirical loss on as et of examples <em><b>E</b></em> of size <em><b>N</b></em></p>
 </div>
+        </div>
     </div>
 </div>
 
@@ -436,6 +454,7 @@ $$
 \text{EmpLoss}_{L}(h) = \frac{1}{N} \sum_{(x,y) \in E} L(h(x), y)
 $$
 </div>
+        </div>
     </div>
 </div>
 
@@ -460,30 +479,44 @@ $$
 h^* = \underset{h \in H}{\operatorname{argmin}} \text{EmpLoss}_{L,E}(h)
 $$
 </div>
+        </div>
     </div>
 </div>
 
 ## Supervised Learning
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 50%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/5/55/Underfitted_Model.png" alt="Underfitted Model" style="height: 300px">
-<div class="footnote">Underfitted Model - AAStein, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
-<p>Underfitting occurs when our hypothesis space <em><b>H</b></em> is too simple to capture the true function <em><b>f</b></em></p>
-</div>
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/5/55/Underfitted_Model.png" alt="Underfitted Model" style="height: 100%">
+                <div class="footnote">Underfitted Model - AAStein, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
+            </div>    
+        </div>
+    </div>
+    <div class="row" style="height: 50%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
+                <p>Underfitting occurs when our hypothesis space <em><b>H</b></em> is too simple to capture the true function <em><b>f</b></em></p>
+            </div>
+        </div>
     </div>
 </div>
 
 ## Supervised Learning
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 50%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/5/55/Underfitted_Model.png" alt="Underfitted Model" style="height: 300px">
-<div class="footnote">Underfitted Model - AAStein, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/5/55/Underfitted_Model.png" alt="Underfitted Model" style="height: 100%">
+                <div class="footnote">Underfitted Model - AAStein, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
+            </div>    
+        </div>
+    </div>
+    <div class="row" style="height: 50%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
 <p>Underfitting occurs when our hypothesis space <em><b>H</b></em> is too simple to capture the true function <em><b>f</b></em></p>
 <br>
 <p>Even the best hypothesis <em>h*</em> in <em><b>H</b></em> will have high error because:</p>
@@ -493,31 +526,45 @@ $$
 $$
 <br>
 <p>where epsilon is some small positive number.</p>
-</div>
+            </div>
+        </div>
     </div>
 </div>
 
 ## Supervised Learning
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 50%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/9/96/Pyplot_overfitting.png" alt="Overfitting" style="height: 300px">
-<div class="footnote">Overfitting - ThirdOrderLogic, CC BY 4.0 <https://creativecommons.org/licenses/by/4.0>, via Wikimedia Commons</div>
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/9/96/Pyplot_overfitting.png" alt="Overfitting" style="height: 300px">
+                <div class="footnote">Overfitting - ThirdOrderLogic, CC BY 4.0 <https://creativecommons.org/licenses/by/4.0>, via Wikimedia Commons</div>
+            </div>    
+        </div>
+    </div>
+    <div class="row" style="height: 50%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
 <p>Overfitting occurs when our hypothesis space <em><b>H</b></em> is too complex, leading to:</p>
-</div>
+            </div>
+        </div>
     </div>
 </div>
 
 ## Supervised Learning
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 50%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/9/96/Pyplot_overfitting.png" alt="Overfitting" style="height: 300px">
-<div class="footnote">Overfitting - ThirdOrderLogic, CC BY 4.0 <https://creativecommons.org/licenses/by/4.0>, via Wikimedia Commons</div>
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/9/96/Pyplot_overfitting.png" alt="Overfitting" style="height: 300px">
+                <div class="footnote">Overfitting - ThirdOrderLogic, CC BY 4.0 <https://creativecommons.org/licenses/by/4.0>, via Wikimedia Commons</div>
+            </div>    
+        </div>
+    </div>
+    <div class="row" style="height: 50%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
 <p>Overfitting occurs when our hypothesis space <em><b>H</b></em> is too complex, leading to:</p>
 <br>
 <p>Low empirical loss but high generalization loss:</p>
@@ -527,39 +574,54 @@ $$
 $$
 <br>
 <p>The hypothesis <em>h*</em> memorizes the training examples instead of learning the true function <em><b>f</b></em>.</p>
-</div>
+            </div>
+        </div>
     </div>
 </div>
 
 ## Supervised Learning
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 50%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/9/96/Pyplot_overfitting.png" alt="Overfitting" style="height: 300px">
-<div class="footnote">Overfitting - ThirdOrderLogic, CC BY 4.0 <https://creativecommons.org/licenses/by/4.0>, via Wikimedia Commons</div>
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/9/96/Pyplot_overfitting.png" alt="Overfitting" style="height: 300px">
+                <div class="footnote">Overfitting - ThirdOrderLogic, CC BY 4.0 <https://creativecommons.org/licenses/by/4.0>, via Wikimedia Commons</div>
+            </div>    
+        </div>
+    </div>
+    <div class="row" style="height: 50%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
 <p>Regularisation transforms the loss function into a cost function that penalizes complexity to avoid overfitting</p>
-</div>
+            </div>
+        </div>
     </div>
 </div>
 
 ## Supervised Learning
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 50%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/9/96/Pyplot_overfitting.png" alt="Overfitting" style="height: 300px">
-<div class="footnote">Overfitting - ThirdOrderLogic, CC BY 4.0 <https://creativecommons.org/licenses/by/4.0>, via Wikimedia Commons</div>
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/9/96/Pyplot_overfitting.png" alt="Overfitting" style="height: 300px">
+                <div class="footnote">Overfitting - ThirdOrderLogic, CC BY 4.0 <https://creativecommons.org/licenses/by/4.0>, via Wikimedia Commons</div>
+            </div>    
+        </div>
+    </div>
+    <div class="row" style="height: 50%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
 <p>Regularisation transforms the loss function into a cost function that penalizes complexity to avoid overfitting</p>
 <br>
 $$
 \text{Cost}_{L,\lambda}(h) = \text{EmpLoss}_{L,E}(h) + \lambda \cdot \text{Complexity}(h)
 $$
+<vr>
 <p>Choosing the complexity function depends on the hypotheses space <em><b>H</b></em>. A good example for polinomials will be a function that returns the sum of the squares of coefficients.</p>
-<br>
-</div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -575,6 +637,7 @@ $$
 \text{Cost}_{L,\lambda}(h) = \text{EmpLoss}_{L,E}(h) + \lambda \cdot \text{Complexity}(h)
 $$
 </div>
+        </div>
     </div>
 </div>
 
@@ -597,6 +660,7 @@ h^* = \underset{h \in H}{\operatorname{argmin}} \text{Cost}_{L,\lambda}(h)
 $$
 <p>where <em>λ</em> is a <b>hyperparameter</b> that controls the trade-off between fitting the data and model complexity and serves as a conversion rate.</p>
 </div>
+        </div>
     </div>
 </div>
 
@@ -621,37 +685,10 @@ $$
 <br>
 <p>Alternatives to mitigate overfitting are feature selection, hypeparameter tuning, splitting dataset in training, validation, and test data (e.g., cross validation algorithm).</p>
 </div>
+        </div>
     </div>
 </div>
 
 <!-- end SLIDES: -->
 
 ## Data Address
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Validation and test datasets</b> (i.e., unseen data) are used to evaluate the Machine Learning model. Validation datasets are used during training to tune hyperparameters. Test datasets are used at the end for final evaluation. We must split our data in training, validation, and test datasets. For instance, if you have 1000 house price records, you might use 700 for training, 150 for validation, and 150 for testing.</p>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/diagrams/training-process.svg" alt="Training Process" style="height: 500px">
-            </div>
-        </div>
-    </div>
-</div>
-
-## Data Address
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Hyperparameters</b> are parameters that are set before training a Machine Learning model. They control the learning process and model architecture, and are typically set by the data scientist or engineer. Examples include learning rate, number of layers in a neural network, and regularization strength.</p>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/diagrams/hyperparameters.svg" alt="Hyperparameters" style="height: 500px">
-            </div>
-        </div>
-    </div>
-</div>

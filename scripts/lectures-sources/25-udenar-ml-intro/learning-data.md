@@ -60,12 +60,6 @@ visible: false
 
 <!-- SLIDES: -->
 
-# Classification
-
-<!-- end SLIDES: -->
-
-{% include _snippets/classification.md %}
-
 {% include _snippets/25-udenar-ml-intro/learning-data/conclusions.md %}
 
 {% include _snippets/25-udenar-ml-intro/learning-data/resources.md %}
