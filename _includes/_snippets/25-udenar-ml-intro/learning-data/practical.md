@@ -150,18 +150,19 @@ print(f"Std: {np.std(smote_augmented):.3f}")
 print(f"Skewness: {stats.skew(smote_augmented):.3f}")
 ```
 
-We use the Anova test to compare the distributions of the original and augmented target variables. The one-way ANOVA tests the null hypothesis that two or more groups have the same population mean. The test is applied to samples from two or more groups, possibly with differing sizes.
+We use the ANOVA test to compare the distributions of the original and augmented target variables. The one-way ANOVA tests the null hypothesis that two or more groups have the same population mean. The test is applied to samples from two or more groups, possibly with differing sizes.
 
 H0 - The original and augmented target variables are not statistically significantly different.
+
 H1 - The original and augmented target variables are stastistically significantly different.
 
 ```python
 from scipy.stats import f_oneway
 stat, p_value = f_oneway(age_data, smote_augmented)
-print(f"KS test p-value: {p_value}")
+print(f"ANOVA test p-value: {p_value}")
 ```
 
-A high p-value in the KS test suggests that the augmented data is statistically similar to the original. This means our augmentation process has preserved the essential characteristics of the data, making it suitable for training more robust models.
+A high p-value in the ANOVA test suggests that the augmented data is statistically similar to the original. This means our augmentation process has preserved the essential characteristics of the data, making it suitable for training more robust models.
 
 We visualize the distributions and interpret the results.
 
