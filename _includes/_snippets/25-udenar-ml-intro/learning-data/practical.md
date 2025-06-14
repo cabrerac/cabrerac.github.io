@@ -60,6 +60,14 @@ numerical_features = ['Age', 'Fare', 'SibSp', 'Parch']
 X_aug = titanic_data[numerical_features].fillna(titanic_data[numerical_features].mean())
 ```
 
+Let's implement the Gaussian noise augmentation. This technique adds random noise from a normal distribution to our data, which helps the model learn to be invariant to small variations in the input:
+
+```python
+def add_gaussian_noise(data, noise_factor=0.05):
+    noise = np.random.normal(0, noise_factor, data.shape)
+    return data + noise
+```
+
 Now, let's implement a SMOTE-like augmentation. This technique creates synthetic samples by interpolating between existing data points and their nearest neighbors. This helps to:
 - Increase the size of the dataset
 - Create more balanced classes
@@ -353,107 +361,279 @@ plt.show()
 
 ## Exercise 3: Regression Models
 
-Regression models are used to predict continuous outcomes. In this exercise, we will use the Bike Sharing dataset to build and evaluate a regression model.
+### Exercise 3.1: Simple Linear Regression
 
-We start by loading the dataset, selecting the relevant features and target, and preprocessing the data (including one-hot encoding and scaling).
+In this exercise, we will implement a simple linear regression model using scikit-learn. We'll focus on understanding how to:
+1. Split data into training, validation, and test sets
+2. Build and train a linear regression model
+3. Evaluate the model's performance
+
+Let's start by importing the necessary libraries:
 
 ```python
-# Download from UCI: https://archive.ics.uci.edu/ml/datasets/Bike+Sharing+Dataset
-url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/00275/Bike-Sharing-Dataset/day.csv'
-bike_df = pd.read_csv(url)
+import pandas as pd
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+import matplotlib.pyplot as plt
+```
+
+We'll use the Boston Housing dataset, which is a classic dataset for regression problems. It contains various features about houses in Boston suburbs and their median values.
+
+```python
+# Load the Boston Housing dataset
+url = "https://raw.githubusercontent.com/selva86/datasets/master/BostonHousing.csv"
+boston_data = pd.read_csv(url)
+# Display basic information about the dataset
+print("Dataset Shape:", boston_data.shape)
+print("\nFirst few rows:")
+print(boston_data.head())
+```
+
+Let's prepare our data by selecting features and target, and then scale the features:
+
+```python
 # Select features and target
-y = bike_df['cnt'].values
-X = bike_df.drop(['instant', 'dteday', 'cnt', 'casual', 'registered'], axis=1)
-# One-hot encode categorical features
-cat_features = ['season', 'yr', 'mnth', 'holiday', 'weekday', 'workingday', 'weathersit']
-X = pd.get_dummies(X, columns=cat_features)
-# Scale features
+X = boston_data.drop('medv', axis=1)  # Features
+y = boston_data['medv']  # Target (median house value)
+# Scale the features
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
-```
-
-We split the data into training, validation, and test sets, then build a regression model using TensorFlow.
-
-```python
-X_train, X_temp, y_train, y_temp = train_test_split(X_scaled, y, test_size=0.3, random_state=42)
+# Split the data into training (60%), validation (20%), and test (20%) sets
+X_train, X_temp, y_train, y_temp = train_test_split(X_scaled, y, test_size=0.4, random_state=42)
 X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)
-model = tf.keras.Sequential([
-    tf.keras.layers.Dense(64, activation='relu', input_shape=(X_train.shape[1],)),
-    tf.keras.layers.Dense(32, activation='relu'),
-    tf.keras.layers.Dense(1)
-])
-model.compile(optimizer='adam', loss='mse', metrics=['mae'])
+print(f"Training set size: {X_train.shape[0]}")
+print(f"Validation set size: {X_val.shape[0]}")
+print(f"Test set size: {X_test.shape[0]}")
 ```
 
-We train the model and monitor its performance on the validation set.
+Now, let's build and train a linear regression model:
 
 ```python
-history = model.fit(X_train, y_train, epochs=50, validation_data=(X_val, y_val), verbose=0)
+# Create and train the model
+model = LinearRegression()
+model.fit(X_train, y_train)
+# Display model coefficients
+print("\nModel Coefficients:")
+for feature, coef in zip(boston_data.drop('medv', axis=1).columns, model.coef_):
+    print(f"{feature}: {coef:.4f}")
+print(f"\nIntercept: {model.intercept_:.4f}")
 ```
 
-We evaluate the model on the test set to assess its generalisation performance.
+Let's evaluate the model on both training and validation sets:
 
 ```python
-test_loss, test_mae = model.evaluate(X_test, y_test, verbose=0)
-print(f"Test MAE: {test_mae:.2f}")
+# Function to evaluate model performance
+def evaluate_model(X, y, model):
+    y_pred = model.predict(X)
+    mse = mean_squared_error(y, y_pred)
+    mae = mean_absolute_error(y, y_pred)
+    r2 = r2_score(y, y_pred)
+    return mse, mae, r2
+
+# Evaluate on training set
+train_mse, train_mae, train_r2 = evaluate_model(X_train, y_train, model)
+print("\nTraining Set Performance:")
+print(f"Mean Squared Error: {train_mse:.2f}")
+print(f"Mean Absolute Error: {train_mae:.2f}")
+print(f"R² Score: {train_r2:.2f}")
+
+# Evaluate on validation set
+val_mse, val_mae, val_r2 = evaluate_model(X_val, y_val, model)
+print("\nValidation Set Performance:")
+print(f"Mean Squared Error: {val_mse:.2f}")
+print(f"Mean Absolute Error: {val_mae:.2f}")
+print(f"R² Score: {val_r2:.2f}")
 ```
 
-A low MAE on the test set indicates good predictive performance. Always compare validation and test results to check for overfitting.
-
----
-
-## Exercise 4: Classification Models (Wine Quality Dataset, TensorFlow)
-
-Classification models are used to predict categorical outcomes. In this exercise, we will use the Wine Quality dataset to build and evaluate a classification model.
-
-We start by loading the dataset, converting the target to a binary classification problem, and scaling the features.
+Finally, let's evaluate the model on the test set and visualise the results:
 
 ```python
-# Download from UCI: https://archive.ics.uci.edu/ml/datasets/Wine+Quality
-url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv'
-wine_df = pd.read_csv(url, sep=';')
-# Convert quality to binary classification (high quality >= 7)
-wine_df['quality_label'] = (wine_df['quality'] >= 7).astype(int)
-y = wine_df['quality_label'].values
-X = wine_df.drop(['quality', 'quality_label'], axis=1)
-# Scale features
+# Evaluate on test set
+test_mse, test_mae, test_r2 = evaluate_model(X_test, y_test, model)
+print("\nTest Set Performance:")
+print(f"Mean Squared Error: {test_mse:.2f}")
+print(f"Mean Absolute Error: {test_mae:.2f}")
+print(f"R² Score: {test_r2:.2f}")
+
+# Make predictions on test set
+y_pred = model.predict(X_test)
+# Plot actual vs predicted values
+plt.figure(figsize=(8, 6))
+plt.scatter(y_test, y_pred, alpha=0.5)
+plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--', lw=2)
+plt.xlabel('Actual Values')
+plt.ylabel('Predicted Values')
+plt.title('Actual vs Predicted Values')
+plt.tight_layout()
+plt.show()
+# Plot residuals
+residuals = y_test - y_pred
+plt.figure(figsize=(8, 6))
+plt.scatter(y_pred, residuals, alpha=0.5)
+plt.axhline(y=0, color='r', linestyle='--')
+plt.xlabel('Predicted Values')
+plt.ylabel('Residuals')
+plt.title('Residual Plot')
+plt.tight_layout()
+plt.show()
+```
+
+The validation set helps us monitor the model's performance on unseen data during development, while the test set gives us a final assessment of the model's performance on completely unseen data.
+
+### Exercise 3.2: Comparing Gradient Descent Algorithms
+
+In this exercise, we will implement and compare three different gradient descent algorithms for linear regression:
+1. Batch Gradient Descent (BGD)
+2. Stochastic Gradient Descent (SGD)
+3. Mini-batch Gradient Descent (MBGD)
+
+We'll use a simplified version of the Boston Housing dataset, focusing on just one feature (e.g., 'rm' - average number of rooms) to fit a straight line.
+
+```python
+# Select only one feature for simplicity
+X = boston_data[['rm']].values  # Average number of rooms
+y = boston_data['medv'].values  # Target (median house value)
+
+# Scale the features
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
+
+# Split the data
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
 ```
 
-We split the data into training, validation, and test sets, then build a classification model using TensorFlow.
+Let's implement the three gradient descent algorithms:
 
 ```python
-X_train, X_temp, y_train, y_temp = train_test_split(X_scaled, y, test_size=0.3, random_state=42)
-X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)
-model = tf.keras.Sequential([
-    tf.keras.layers.Dense(32, activation='relu', input_shape=(X_train.shape[1],)),
-    tf.keras.layers.Dense(16, activation='relu'),
-    tf.keras.layers.Dense(1, activation='sigmoid')
-])
-model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+class LinearRegressionGD:
+    def __init__(self, learning_rate=0.01, n_iterations=1000):
+        self.learning_rate = learning_rate
+        self.n_iterations = n_iterations
+        self.weights = None
+        self.costs = []
+        
+    def initialize_parameters(self, n_features):
+        self.weights = np.zeros(n_features)
+        
+    def compute_cost(self, X, y):
+        predictions = np.dot(X, self.weights)
+        return np.mean((predictions - y) ** 2)
+    
+    def batch_gradient_descent(self, X, y):
+        n_samples = X.shape[0]
+        self.initialize_parameters(X.shape[1])
+        for _ in range(self.n_iterations):
+            # Compute predictions
+            predictions = np.dot(X, self.weights)
+            # Compute gradients
+            dw = (1/n_samples) * np.dot(X.T, (predictions - y))
+            db = (1/n_samples) * np.sum(predictions - y)
+            # Update parameters
+            self.weights -= self.learning_rate * dw
+            # Store cost
+            self.costs.append(self.compute_cost(X, y))
+            
+    def stochastic_gradient_descent(self, X, y):
+        n_samples = X.shape[0]
+        self.initialize_parameters(X.shape[1])
+        for _ in range(self.n_iterations):
+            for i in range(n_samples):
+                # Select one random sample
+                idx = np.random.randint(0, n_samples)
+                X_i = X[idx:idx+1]
+                y_i = y[idx:idx+1]
+                # Compute prediction
+                prediction = np.dot(X_i, self.weights)
+                # Compute gradients
+                dw = np.dot(X_i.T, (prediction - y_i))
+                db = np.sum(prediction - y_i)
+                # Update parameters
+                self.weights -= self.learning_rate * dw
+            # Store cost
+            self.costs.append(self.compute_cost(X, y))
+            
+    def mini_batch_gradient_descent(self, X, y, batch_size=32):
+        n_samples = X.shape[0]
+        self.initialize_parameters(X.shape[1])
+        for _ in range(self.n_iterations):
+            # Shuffle the data
+            indices = np.random.permutation(n_samples)
+            X_shuffled = X[indices]
+            y_shuffled = y[indices]
+            # Process mini-batches
+            for i in range(0, n_samples, batch_size):
+                X_batch = X_shuffled[i:i+batch_size]
+                y_batch = y_shuffled[i:i+batch_size]
+                # Compute predictions
+                predictions = np.dot(X_batch, self.weights)
+                # Compute gradients
+                dw = (1/batch_size) * np.dot(X_batch.T, (predictions - y_batch))
+                db = (1/batch_size) * np.sum(predictions - y_batch)
+                # Update parameters
+                self.weights -= self.learning_rate * dw
+            # Store cost
+            self.costs.append(self.compute_cost(X, y))
+
+    def predict(self, X):
+        return np.dot(X, self.weights)
 ```
 
-We train the model and monitor its performance on the validation set.
+Now, let's train and compare the three algorithms:
 
 ```python
-history = model.fit(X_train, y_train, epochs=50, validation_data=(X_val, y_val), verbose=0)
+# Initialize models
+bgd_model = LinearRegressionGD(learning_rate=0.01, n_iterations=100)
+sgd_model = LinearRegressionGD(learning_rate=0.01, n_iterations=100)
+mbgd_model = LinearRegressionGD(learning_rate=0.01, n_iterations=100)
+# Train models
+bgd_model.batch_gradient_descent(X_train, y_train)
+sgd_model.stochastic_gradient_descent(X_train, y_train)
+mbgd_model.mini_batch_gradient_descent(X_train, y_train)
 ```
 
-We evaluate the model on the test set to assess its classification performance.
+Let's plot the cost of each algorithm to compare them.
 
 ```python
-test_loss, test_acc = model.evaluate(X_test, y_test, verbose=0)
-print(f"Test Accuracy: {test_acc:.2f}")
+# Plot cost history
+plt.figure(figsize=(12, 4))
+plt.subplot(1, 2, 1)
+plt.plot(bgd_model.costs, label='Batch GD')
+plt.plot(sgd_model.costs, label='Stochastic GD')
+plt.plot(mbgd_model.costs, label='Mini-batch GD')
+plt.xlabel('Iteration')
+plt.ylabel('Cost')
+plt.title('Cost History')
+plt.legend()
+# Plot final results
+plt.subplot(1, 2, 2)
+plt.scatter(X_test, y_test, alpha=0.5, label='Actual')
+x_line = np.linspace(X_test.min(), X_test.max(), 100).reshape(-1, 1)
+plt.plot(x_line, bgd_model.predict(x_line), 'r-', label='Batch GD')
+plt.plot(x_line, sgd_model.predict(x_line), 'g-', label='Stochastic GD')
+plt.plot(x_line, mbgd_model.predict(x_line), 'b-', label='Mini-batch GD')
+plt.xlabel('Number of Rooms (scaled)')
+plt.ylabel('House Price')
+plt.title('Model Predictions')
+plt.legend()
+plt.tight_layout()
+plt.show()
+# Print final costs
+print("\nFinal Costs:")
+print(f"Batch GD: {bgd_model.costs[-1]:.2f}")
+print(f"Stochastic GD: {sgd_model.costs[-1]:.2f}")
+print(f"Mini-batch GD: {mbgd_model.costs[-1]:.2f}")
 ```
 
-A high accuracy on the test set indicates good classification performance. For imbalanced datasets, also consider precision, recall, and F1-score for a more complete evaluation.
+The visualisation shows how each algorithm's cost function decreases over time and how the final fitted lines compare to each other.
 
 ---
 
 ## Homework - Regression and Classification
 
-The homework assignment will help you apply the regression and classification techniques we've learned to a dataset of your choice. You may use a new dataset or continue with the one you defined in previous homeworks. Your task is to build a pipeline to apply a regression or a classification method, or both, depending on your dataset and interests.
+The homework assignment will help you applying linear regression algorithms we've learned to a dataset of your choice. You may use a new dataset or continue with the one you defined in previous homeworks. Your task is to use the implementation of the Gradient Descent algorithms in this practical to build a pipeline that applies linear regression in your data and evaluates the results with different hyperparameter values. You are free to explore as much as you wish!
 
 You should provide a clear analysis and narrative of the different steps you used in your implementation, explaining your reasoning and choices throughout the process.
 
