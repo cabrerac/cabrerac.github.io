@@ -193,9 +193,27 @@ Now, let's apply PCA to reduce the dimensionality of our data from 784 features 
 ```python
 pca = PCA(n_components=2)
 X_pca = pca.fit_transform(X_flat)
+explained_variance = pca.explained_variance_ratio_
+cumulative_variance = np.cumsum(explained_variance)
 ```
 
-We can now visualise the dataset in the new 2D PCA space. Each point represents an image, coloured by its class label. Notice how some classes form distinct clusters, while others overlap.
+Let's Plot explained variance ratio
+
+```python
+import matplotlib.pyplot as plt
+plt.figure(figsize=(10, 6))
+plt.plot(range(1, len(explained_variance) + 1), cumulative_variance, 'bo-')
+plt.axhline(y=0.95, color='r', linestyle='--')
+plt.xlabel('Number of Components')
+plt.ylabel('Cumulative Explained Variance Ratio')
+plt.title('PCA Explained Variance Ratio')
+plt.grid(True)
+plt.show()
+```
+
+The explained variance ratio tells us how much of the original data's information is retained in the principal components. With only two components, we capture a small fraction of the total variance, but enough to visualize the main structure of the data.
+
+However, we can still visualise the dataset in the new 2D PCA space. Each point represents an image, coloured by its class label. Notice how some classes form distinct clusters, while others overlap.
 
 ```python
 plt.figure(figsize=(8,6))
@@ -233,16 +251,103 @@ plt.suptitle('Original vs. PCA-Reconstructed Images')
 plt.show()
 ```
 
-The explained variance ratio tells us how much of the original data's information is retained in the principal components. With only two components, we capture a small fraction of the total variance, but enough to visualize the main structure of the data.
-
-```python
-print("Explained variance ratio:", pca.explained_variance_ratio_)
-```
-
 - The original Fashion-MNIST images are high-dimensional (784 features), making direct visualisation and modelling challenging.
 - PCA allows us to project this data into a lower-dimensional space, revealing structure and clusters that correspond to different classes.
 - The reconstructed images from only two principal components are blurry and lack detail, illustrating the trade-off between dimensionality reduction and information loss.
 - The explained variance ratio quantifies how much of the original information is preserved in the reduced space.
+
+
+Let's apply PCA with different number of components and see when most of the variance in the data is explained. Let's apply PCA with 10 principal components.
+
+```python
+pca = PCA(n_components=10)
+X_pca = pca.fit_transform(X_flat)
+explained_variance = pca.explained_variance_ratio_
+cumulative_variance = np.cumsum(explained_variance)
+```
+
+Let's Plot explained variance ratio
+
+```python
+import matplotlib.pyplot as plt
+plt.figure(figsize=(10, 6))
+plt.plot(range(1, len(explained_variance) + 1), cumulative_variance, 'bo-')
+plt.axhline(y=0.95, color='r', linestyle='--')
+plt.xlabel('Number of Components')
+plt.ylabel('Cumulative Explained Variance Ratio')
+plt.title('PCA Explained Variance Ratio')
+plt.grid(True)
+plt.show()
+```
+
+Let's apply PCA with 100 principal components.
+
+```python
+pca = PCA(n_components=100)
+X_pca = pca.fit_transform(X_flat)
+explained_variance = pca.explained_variance_ratio_
+cumulative_variance = np.cumsum(explained_variance)
+```
+
+Let's Plot explained variance ratio
+
+```python
+import matplotlib.pyplot as plt
+plt.figure(figsize=(10, 6))
+plt.plot(range(1, len(explained_variance) + 1), cumulative_variance, 'bo-')
+plt.axhline(y=0.95, color='r', linestyle='--')
+plt.xlabel('Number of Components')
+plt.ylabel('Cumulative Explained Variance Ratio')
+plt.title('PCA Explained Variance Ratio')
+plt.grid(True)
+plt.show()
+```
+
+Let's apply PCA with 200 principal components.
+
+```python
+pca = PCA(n_components=200)
+X_pca = pca.fit_transform(X_flat)
+explained_variance = pca.explained_variance_ratio_
+cumulative_variance = np.cumsum(explained_variance)
+```
+
+Let's Plot explained variance ratio
+
+```python
+import matplotlib.pyplot as plt
+plt.figure(figsize=(10, 6))
+plt.plot(range(1, len(explained_variance) + 1), cumulative_variance, 'bo-')
+plt.axhline(y=0.95, color='r', linestyle='--')
+plt.xlabel('Number of Components')
+plt.ylabel('Cumulative Explained Variance Ratio')
+plt.title('PCA Explained Variance Ratio')
+plt.grid(True)
+plt.show()
+```
+
+Let's reconstruct a few images with 200 principal components.
+
+```python
+# Project and reconstruct a few images
+X_pca_10 = pca.transform(X_flat[:10])
+X_reconstructed = pca.inverse_transform(X_pca_10)
+plt.figure(figsize=(10, 4))
+for i in range(10):
+    # Original
+    plt.subplot(2, 10, i+1)
+    plt.imshow(X_flat[i].reshape(28, 28), cmap='gray')
+    plt.axis('off')
+    if i == 0:
+        plt.ylabel('Original')
+    # Reconstructed
+    plt.subplot(2, 10, i+11)
+    plt.imshow(X_reconstructed[i].reshape(28, 28), cmap='gray')
+    plt.axis('off')
+    if i == 0:
+        plt.ylabel('PCA (2D)')
+plt.suptitle('Original vs. PCA-Reconstructed Images')
+plt.show()
 
 ---
 
