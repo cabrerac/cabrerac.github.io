@@ -13,13 +13,13 @@ hours: 4
 institution: University of Cambridge
 layout: lecture
 lecture_code: learning-data
-lecture_date: 12/06/2025
+lecture_date: 14/06/2025
 permalink: /teaching/25-udenar-ml-intro/learning-data/
 position: Senior Research Associate and Affiliated Lecturer
 session: 5
 start_time: 10:00 am
 title: Learning from Data
-visible: false
+visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">

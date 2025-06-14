@@ -13,9 +13,9 @@ department: Department of Computer Science and Technology
 institution: University of Cambridge
 layout: lecture
 lecture_code: learning-data
-lecture_date: 12/06/2025
+lecture_date: 14/06/2025
 permalink: /teaching/25-udenar-ml-intro/learning-data/
-visible: false
+visible: true
 ---
 
 <!-- ALL: content that goes everywhere -->
