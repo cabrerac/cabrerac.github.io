@@ -376,7 +376,7 @@ import pandas as pd
 import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 import matplotlib.pyplot as plt
 ```
@@ -484,8 +484,9 @@ We'll use a simplified version of the Boston Housing dataset, focusing on just o
 # Select only one feature for simplicity
 X = boston_data[['rm']].values  # Average number of rooms
 y = boston_data['medv'].values  # Target (median house value)
-# Scale the features
-scaler = StandardScaler()
+# Scale the features using MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler
+scaler = MinMaxScaler(feature_range=(1, X.max()))
 X_scaled = scaler.fit_transform(X)
 # Split the data
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
