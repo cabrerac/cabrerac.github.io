@@ -219,7 +219,7 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p>Feature Scaling:</p>
                 <ul>
-                    <li>Standarisation (Z-score)</li>
+                    <li>Standardisation (Z-score)</li>
                     <li>Min-Max Scaling</li>
                     <li>...</li>
                 </ul>

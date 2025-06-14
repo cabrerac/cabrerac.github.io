@@ -84,8 +84,8 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p>The idea is to use statistical tests <b>to compare the assessed dataset and the original dataset.</b></p>
                 <p>We can formulate the following hypotheses:</p>
-                <p><em>H0 (Null Hypothesis): The assessed dataset has no significant differences from the original.</em></b>
-                <p><em>H1: The augmented dataset has significant differences from the original.</em></b>
+                <p><em>H0 (Null Hypothesis): The assessed dataset has no significant differences from the original.</em></p>
+                <p><em>H1: The augmented dataset has significant differences from the original.</em></p>
                 <p><b>Ideally, we should demonstrate <em>H0</em></b></p>
             </div>
         </div>
@@ -101,9 +101,9 @@
                 <p>Given the hypotheses set, the following statistical tests can be applied:</p>
                 <ul>
                     <li><a href="https://en.wikipedia.org/wiki/Student%27s_t-test">T-test</a>: To compare the means of the assessed dataset and the original dataset.</li>
-                    <li><a href="https://en.wikipedia.org/wiki/Analysis_of_variance">ANOVA</a></b>: To compare the means of multiple groups within the datasets.</li>
-                    <li><a href="https://en.wikipedia.org/wiki/Chi-squared_test">Chi-Square Test</a></b>: To determine if there is a significant association between categorical variables.</li>
-                    <li><a href="https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test">Wilcoxon Rank-Sum Test</a></b>: To compare the distribution of two independent samples.</li>
+                    <li><a href="https://en.wikipedia.org/wiki/Analysis_of_variance">ANOVA</a>: To compare the means of multiple groups within the datasets.</li>
+                    <li><a href="https://en.wikipedia.org/wiki/Chi-squared_test">Chi-Square Test</a>: To determine if there is a significant association between categorical variables.</li>
+                    <li><a href="https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test">Wilcoxon Rank-Sum Test</a>: To compare the distribution of two independent samples.</li>
                     <li>...</li>
                 </ul>
                 <p>Selecting the test depends on our purpose, the nature of our data, and the assumptions of each test.</p>
@@ -111,8 +111,8 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p>The idea is to use statistical tests <b>to compare the assessed dataset and the original dataset.</b></p>
                 <p>We can formulate the following hypotheses:</p>
-                <p><em>H0 (Null Hypothesis): The assessed dataset has no significant differences from the original.</em></b>
-                <p><em>H1: The augmented dataset has significant differences from the original.</em></b>
+                <p><em>H0 (Null Hypothesis): The assessed dataset has no significant differences from the original.</em></p>
+                <p><em>H1: The augmented dataset has significant differences from the original.</em></p>
                 <p><b>Ideally, we should demonstrate <em>H0</em></b></p>
             </div>
         </div>
@@ -136,8 +136,8 @@ print(f"KS test p-value: {p_value}")
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p>The idea is to use statistical tests <b>to compare the assessed dataset and the original dataset.</b></p>
                 <p>We can formulate the following hypotheses:</p>
-                <p><em>H0 (Null Hypothesis): The assessed dataset has no significant differences from the original.</em></b>
-                <p><em>H1: The augmented dataset has significant differences from the original.</em></b>
+                <p><em>H0 (Null Hypothesis): The assessed dataset has no significant differences from the original.</em></p>
+                <p><em>H1: The augmented dataset has significant differences from the original.</em></p>
                 <p><b>Ideally, we should demonstrate <em>H0</em>.</b></p>
             </div>
         </div>

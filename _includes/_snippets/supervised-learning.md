@@ -199,7 +199,7 @@ $$
 P(E_j) = P(E_{j} | E_{j-1}, E_{j-2}, ...)
 $$
 <br>
-<p>Examples that satisfy these equations are independent and indenticall distributed (i.e., iid).</p>
+<p>Examples that satisfy these equations are independent and identically distributed (i.e., iid).</p>
 </div>
         </div>
     </div>
@@ -433,7 +433,7 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
 <br>
-<p>As <em><b>P(x,y)</b></em> is unknown, we can only estimate an empirical loss on as et of examples <em><b>E</b></em> of size <em><b>N</b></em></p>
+<p>As <em><b>P(x,y)</b></em> is unknown, we can only estimate an empirical loss on a set of examples <em><b>E</b></em> of size <em><b>N</b></em></p>
 </div>
         </div>
     </div>
@@ -446,7 +446,7 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
 <br>
-<p>As <em><b>P(x,y)</b></em> is unknown, we can only estimate an empirical loss on as et of examples <em><b>E</b></em> of size <em><b>N</b></em></p>
+<p>As <em><b>P(x,y)</b></em> is unknown, we can only estimate an empirical loss on a set of examples <em><b>E</b></em> of size <em><b>N</b></em></p>
 <br>
 <p>Empirical loss for a hypothesis <em>h</em> using loss function <em>L</em>:</p>
 <br>
@@ -465,7 +465,7 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
 <br>
-<p>As <em><b>P(x,y)</b></em> is unknown, we can only estimate an empirical loss on as et of examples <em><b>E</b></em> of size <em><b>N</b></em></p>
+<p>As <em><b>P(x,y)</b></em> is unknown, we can only estimate an empirical loss on a set of examples <em><b>E</b></em> of size <em><b>N</b></em></p>
 <br>
 <p>Empirical loss for a hypothesis <em>h</em> using loss function <em>L</em>:</p>
 <br>
@@ -647,7 +647,7 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<p>Givent the new cost function</p>
+<p>Given the new cost function</p>
 <br>
 $$
 \text{Cost}_{L,\lambda}(h) = \text{EmpLoss}_{L,E}(h) + \lambda \cdot \text{Complexity}(h)
@@ -670,7 +670,7 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<p>Givent the new cost function</p>
+<p>Given the new cost function</p>
 <br>
 $$
 \text{Cost}_{L,\lambda}(h) = \text{EmpLoss}_{L,E}(h) + \lambda \cdot \text{Complexity}(h)
@@ -683,7 +683,7 @@ h^* = \underset{h \in H}{\operatorname{argmin}} \text{Cost}_{L,\lambda}(h)
 $$
 <p>where <em>λ</em> is a <b>hyperparameter</b> that controls the trade-off between fitting the data and model complexity and serves as a conversion rate.</p>
 <br>
-<p>Alternatives to mitigate overfitting are feature selection, hypeparameter tuning, splitting dataset in training, validation, and test data (e.g., cross validation algorithm).</p>
+<p>Alternatives to mitigate overfitting are feature selection, hyperparameter tuning, splitting dataset in training, validation, and test data (e.g., cross validation algorithm).</p>
 </div>
         </div>
     </div>

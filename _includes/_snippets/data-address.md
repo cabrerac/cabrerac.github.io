@@ -6,7 +6,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <p>After assessing the data (i.e., data assess), we need to <b>use the data to address the problem in question.</b>. This process includes implementing a <b>Machine Learning algorithm</b> that creates a <b>Machine Learning model</b>.</p>
+                <p>After assessing the data (i.e., data assess), we need to <b>use the data to address the problem in question</b>. This process includes implementing a <b>Machine Learning algorithm</b> that creates a <b>Machine Learning model</b>.</p>
             </div>
         </div>
     </div>
@@ -60,7 +60,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>A Machine Learning algorithm uses the <b>training process</b> to that goes from a specific set of observations to a general rule (i.e., induction). This process adjusts the Machine Learning model internal parameters to minimise prediction errors. For example, in a linear regression model, the algorithm adjusts the slope and intercept to minimise the difference between predicted and actual values.</p>
+                <p>A Machine Learning algorithm uses the <b>training process</b> that goes from a specific set of observations to a general rule (i.e., induction). This process adjusts the Machine Learning model internal parameters to minimise prediction errors. For example, in a linear regression model, the algorithm adjusts the slope and intercept to minimise the difference between predicted and actual values.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/diagrams/training-process.svg" alt="Training Process" style="height: 500px">

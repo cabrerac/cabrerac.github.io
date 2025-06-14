@@ -62,7 +62,7 @@ $$
     <div class="row" style="height: 40%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-                <p>The hypotheses space <em><b>H</b></em> includes linear functions of continuous-valued inputs</p>
+                <p>The hypotheses space <em><b>H</b></em> includes linear functions of continuous-valued inputs and outputs</p>
                 <br>
                 <p>The simplest example is "fitting a straight line". The model learns the coefficients <em><b>W</b></em></p>
                 <br>
@@ -115,7 +115,7 @@ $$
 y = w_{1}x + w_{0} \; ; \; W = \langle w_0, w_1 \rangle
 $$
 <br>
-<p>Finding the <em><b>h</b></em> that best fits teh data is called linear regression</p>
+<p>Finding the <em><b>h</b></em> that best fits the data is called linear regression</p>
 <br>
 $$
 h_w = w_{1}x + w_{0}
@@ -137,7 +137,7 @@ $$
 y = w_{1}x + w_{0} \; ; \; W = \langle w_0, w_1 \rangle
 $$
 <br>
-<p>Finding the <em><b>h</b></em> that best fits teh data is called linear regression</p>
+<p>Finding the <em><b>h</b></em> that best fits the data is called linear regression</p>
 <br>
 $$
 h_w = w_{1}x + w_{0}
@@ -447,7 +447,23 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<p>The update rule for each weight in the straight line example is (folding 2 into α)</p>
+<p>The update rule for each weight in the "straight line" example is (folding 2 into α)</p>
+<br>
+$$
+w_0 \leftarrow w_ 0 + \alpha (y-h_w(x)) \; ; \; w_1 \leftarrow w_ 1 + \alpha (y-h_w(x))x
+$$
+</div>
+        </div>
+    </div>
+</div>
+
+## Regression Models
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
+<p>The update rule for each weight in the "straight line" example is (folding 2 into α)</p>
 <br>
 $$
 w_0 \leftarrow w_ 0 + \alpha (y-h_w(x)) \; ; \; w_1 \leftarrow w_ 1 + \alpha (y-h_w(x))x
@@ -458,7 +474,7 @@ w_0 \leftarrow w_0 + \alpha \sum_{i=1}^N (y_i - h_w(x_i))
 \; ; \;
 w_1 \leftarrow w_1 + \alpha \sum_{i=1}^N (y_i - h_w(x_i)) x_i
 $$
-<p>These updates constitute <b>the batch gradient descent</b>. For the straight line, this gradient descent is <em>deterministic</em></p>
+<p>These updates constitute <b>the batch gradient descent</b>. For the "straight line", this gradient descent is <em>deterministic</em></p>
 <br>
 <p>An <b>epoch</b> is defined as one complete pass through the entire dataset during the training process. Multiple epochs are needed for the model to converge to an optimal solution. Not enough epochs could generate underfitting. Too many epochs could generate overfitting. Another hyperparameter for the model.</p>
 </div>
@@ -650,8 +666,8 @@ repeat
         Update weight:   w[i] = w[i] - α * g
 until convergence
 </code></pre>
-<p>Hyperparmeters: Learnig rate, number of epochs, and batch size.</p>
-</div>
+<p>Hyperparameters: Learning rate, number of epochs, and batch size.</p>
+            </div>
         </div>
     </div>
 </div>
