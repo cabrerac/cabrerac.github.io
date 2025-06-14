@@ -15,6 +15,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from scipy import stats
 ```
 
 The first step to understand the data. We'll use the [Titanic dataset](https://www.kaggle.com/c/titanic/data), which is perfect for learning data cleaning as it contains various data quality issues like missing values, outliers, and categorical variables. 
@@ -466,16 +467,6 @@ plt.ylabel('Predicted Values')
 plt.title('Actual vs Predicted Values')
 plt.tight_layout()
 plt.show()
-# Plot residuals
-residuals = y_test - y_pred
-plt.figure(figsize=(8, 6))
-plt.scatter(y_pred, residuals, alpha=0.5)
-plt.axhline(y=0, color='r', linestyle='--')
-plt.xlabel('Predicted Values')
-plt.ylabel('Residuals')
-plt.title('Residual Plot')
-plt.tight_layout()
-plt.show()
 ```
 
 The validation set helps us monitor the model's performance on unseen data during development, while the test set gives us a final assessment of the model's performance on completely unseen data.
@@ -504,9 +495,9 @@ Let's implement the three gradient descent algorithms:
 
 ```python
 class LinearRegressionGD:
-    def __init__(self, learning_rate=0.01, n_iterations=1000):
+    def __init__(self, learning_rate=0.01, epochs=1000):
         self.learning_rate = learning_rate
-        self.n_iterations = n_iterations
+        self.epochs = epochs
         self.weights = None
         self.costs = []
         
@@ -520,7 +511,7 @@ class LinearRegressionGD:
     def batch_gradient_descent(self, X, y):
         n_samples = X.shape[0]
         self.initialize_parameters(X.shape[1])
-        for _ in range(self.n_iterations):
+        for _ in range(self.epochs):
             # Compute predictions
             predictions = np.dot(X, self.weights)
             # Compute gradients
@@ -534,7 +525,7 @@ class LinearRegressionGD:
     def stochastic_gradient_descent(self, X, y):
         n_samples = X.shape[0]
         self.initialize_parameters(X.shape[1])
-        for _ in range(self.n_iterations):
+        for _ in range(self.epochs):
             for i in range(n_samples):
                 # Select one random sample
                 idx = np.random.randint(0, n_samples)
@@ -553,7 +544,7 @@ class LinearRegressionGD:
     def mini_batch_gradient_descent(self, X, y, batch_size=32):
         n_samples = X.shape[0]
         self.initialize_parameters(X.shape[1])
-        for _ in range(self.n_iterations):
+        for _ in range(self.epochs):
             # Shuffle the data
             indices = np.random.permutation(n_samples)
             X_shuffled = X[indices]
@@ -579,9 +570,9 @@ Now, let's train and compare the three algorithms:
 
 ```python
 # Initialize models
-bgd_model = LinearRegressionGD(learning_rate=0.01, n_iterations=100)
-sgd_model = LinearRegressionGD(learning_rate=0.01, n_iterations=100)
-mbgd_model = LinearRegressionGD(learning_rate=0.01, n_iterations=100)
+bgd_model = LinearRegressionGD(learning_rate=0.01, epochs=100)
+sgd_model = LinearRegressionGD(learning_rate=0.01, epochs=100)
+mbgd_model = LinearRegressionGD(learning_rate=0.01, epochs=100)
 # Train models
 bgd_model.batch_gradient_descent(X_train, y_train)
 sgd_model.stochastic_gradient_descent(X_train, y_train)
@@ -597,7 +588,7 @@ plt.subplot(1, 2, 1)
 plt.plot(bgd_model.costs, label='Batch GD')
 plt.plot(sgd_model.costs, label='Stochastic GD')
 plt.plot(mbgd_model.costs, label='Mini-batch GD')
-plt.xlabel('Iteration')
+plt.xlabel('Epoch')
 plt.ylabel('Cost')
 plt.title('Cost History')
 plt.legend()
