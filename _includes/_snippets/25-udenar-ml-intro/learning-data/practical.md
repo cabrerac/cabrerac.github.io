@@ -432,14 +432,12 @@ def evaluate_model(X, y, model):
     mae = mean_absolute_error(y, y_pred)
     r2 = r2_score(y, y_pred)
     return mse, mae, r2
-
 # Evaluate on training set
 train_mse, train_mae, train_r2 = evaluate_model(X_train, y_train, model)
 print("\nTraining Set Performance:")
 print(f"Mean Squared Error: {train_mse:.2f}")
 print(f"Mean Absolute Error: {train_mae:.2f}")
 print(f"R² Score: {train_r2:.2f}")
-
 # Evaluate on validation set
 val_mse, val_mae, val_r2 = evaluate_model(X_val, y_val, model)
 print("\nValidation Set Performance:")
@@ -457,7 +455,6 @@ print("\nTest Set Performance:")
 print(f"Mean Squared Error: {test_mse:.2f}")
 print(f"Mean Absolute Error: {test_mae:.2f}")
 print(f"R² Score: {test_r2:.2f}")
-
 # Make predictions on test set
 y_pred = model.predict(X_test)
 # Plot actual vs predicted values
@@ -496,11 +493,9 @@ We'll use a simplified version of the Boston Housing dataset, focusing on just o
 # Select only one feature for simplicity
 X = boston_data[['rm']].values  # Average number of rooms
 y = boston_data['medv'].values  # Target (median house value)
-
 # Scale the features
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
-
 # Split the data
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
 ```
@@ -576,7 +571,6 @@ class LinearRegressionGD:
                 self.weights -= self.learning_rate * dw
             # Store cost
             self.costs.append(self.compute_cost(X, y))
-
     def predict(self, X):
         return np.dot(X, self.weights)
 ```
