@@ -58,8 +58,6 @@ visible: true
 
 {% include _snippets/regression.md %}
 
-<!-- SLIDES: -->
-
 {% include _snippets/25-udenar-ml-intro/learning-data/conclusions.md %}
 
 {% include _snippets/25-udenar-ml-intro/learning-data/resources.md %}
