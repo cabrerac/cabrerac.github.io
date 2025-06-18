@@ -1,27 +1,33 @@
-<svg width="320" height="120" viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg">
+<svg width="360" height="175" viewBox="0 0 360 175" xmlns="http://www.w3.org/2000/svg">
   <!-- Axes -->
-  <line x1="20" y1="100" x2="300" y2="100" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
-  <line x1="60" y1="110" x2="60" y2="20" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="30" y1="130" x2="330" y2="130" stroke="black" stroke-width="2" marker-end="url(#arrowx)" marker-start="url(#arrowxneg)"/>
+  <line x1="180" y1="140" x2="180" y2="25" stroke="black" stroke-width="2" marker-end="url(#arrowyup)"/>
   <!-- Step function -->
-  <polyline points="20,100 60,100 60,40 300,40" fill="none" stroke="red" stroke-width="3"/>
-  <!-- Dotted line at y=40 (y=1) -->
-  <line x1="60" y1="40" x2="80" y2="40" stroke="black" stroke-width="1" stroke-dasharray="2,2"/>
-  <!-- Vertical dashed line at x=60 (x=0) -->
-  <line x1="60" y1="100" x2="60" y2="40" stroke="black" stroke-width="1"/>
+  <polyline points="85,130 180,130 180,60 280,60" fill="none" stroke="red" stroke-width="3"/>
+  <!-- Dotted line at y=60 (y=1) -->
+  <line x1="180" y1="60" x2="280" y2="60" stroke="black" stroke-width="1" stroke-dasharray="2,2"/>
+  <!-- Vertical dashed line at x=180 (x=0) -->
+  <line x1="180" y1="130" x2="180" y2="60" stroke="black" stroke-width="1"/>
   <!-- x-ticks and labels -->
-  <text x="18" y="115" font-size="14" fill="black">-6</text>
-  <text x="55" y="115" font-size="14" fill="black">0</text>
-  <text x="295" y="115" font-size="14" fill="black">6</text>
+  <text x="175" y="155" font-size="16" fill="black">0</text>
   <!-- y-ticks and labels -->
-  <text x="45" y="105" font-size="14" fill="black">0</text>
-  <text x="45" y="45" font-size="14" fill="black">1</text>
+  <text x="165" y="125" font-size="16" fill="black">0</text>
+  <text x="165" y="65" font-size="16" fill="black">1</text>
   <!-- Axis labels -->
-  <text x="305" y="110" font-size="16" fill="black">x</text>
-  <text x="65" y="25" font-size="16" fill="black">h(x)</text>
-  <!-- Arrowhead marker definition -->
+  <text x="195" y="50" font-size="18" fill="black">h(x)</text>
+  <!-- Arrowhead marker definitions -->
   <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" markerUnits="strokeWidth">
+    <!-- Positive x-axis arrow -->
+    <marker id="arrowx" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" markerUnits="strokeWidth">
       <path d="M0,0 L10,5 L0,10 L3,5 Z" fill="black" />
+    </marker>
+    <!-- Negative x-axis arrow -->
+    <marker id="arrowxneg" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="360" markerUnits="strokeWidth">
+      <path d="M10,0 L0,5 L10,10 L7,5 Z" fill="black" />
+    </marker>
+    <!-- Upward y-axis arrow -->
+    <marker id="arrowyup" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="360" markerUnits="strokeWidth">
+      <path d="M0,10 L5,0 L10,10 L5,7 Z" fill="black" />
     </marker>
   </defs>
 </svg> 

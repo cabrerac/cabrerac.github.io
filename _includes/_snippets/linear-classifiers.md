@@ -17,18 +17,90 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/2/20/Svm_separating_hyperplanes.png" alt="SVM Separating Hyperplanes" style="max-width: 70%; height: auto;">
+                <div class="footnote">SVM Separating Hyperplanes - Cyc, Public domain, via Wikimedia Commons.</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p>A decision boundary is a line (or a surface in higher dimensions) that separate data in classes.</p>
+        </div>
+    </div>
+</div>
+
+## Linear Classifiers
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/2/20/Svm_separating_hyperplanes.png" alt="SVM Separating Hyperplanes" style="max-width: 70%; height: auto;">
+                <div class="footnote">SVM Separating Hyperplanes - Cyc, Public domain, via Wikimedia Commons.</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p>A decision boundary is a line (or a surface in higher dimensions) that separate data in classes.</p>
+                <br>
+                <p>The hypothesis is the result of passing a linear function through a threshold function:</p>
+<br>
+$$
+h_w(x) = \text{Threshold}(\mathbf{w} \cdot \mathbf{x})
+$$
+</div>
+        </div>
+    </div>
+</div>
+
+## Linear Classifiers
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/2/20/Svm_separating_hyperplanes.png" alt="SVM Separating Hyperplanes" style="max-width: 70%; height: auto;">
+                <div class="footnote">SVM Separating Hyperplanes - Cyc, Public domain, via Wikimedia Commons.</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p>A decision boundary is a line (or a surface in higher dimensions) that separate data in classes.</p>
+                <br>
+                <p>The hypothesis is the result of passing a linear function through a threshold function:</p>
+<br>
+$$
+h_w(x) = \text{Threshold}(\mathbf{w} \cdot \mathbf{x})
+$$
+<br>
+<img src="{{ site.url }}/assets/media/diagrams/threshold-step.svg" alt="Regression Fit" style="max-width: 100%; height: auto;">
+<div class="footnote">Threshold Function.</div>
+$$
+\text{Threshold}(z) = \begin{cases}
+1 & \text{if } z \geq 0 \\
+0 & \text{otherwise}
+\end{cases}
+$$
+</div>
+        </div>
+    </div>
+</div>
+
+## Linear Classifiers
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
                 <br>            
                 <p>A decision boundary is a line (or a surface in higher dimensions) that separate data in classes. The hypothesis is the result of passing a linear function through a threshold function:</p>
-                <br>
-                <img src="{{ site.url }}/assets/media/diagrams/threshold-step.svg" alt="Regression Fit" style="max-width: 90%; height: auto;">
-                <div class="footnote">Threshold Function.</div>
-                <br>
+<br>
 $$
-h_w(x) = Threshold(w . x)
+h_w(x) = \text{Threshold}(w \cdot x)
 $$
-<br>Where $\mathbf{x}$ is the feature vector, $\mathbf{w}$ is the weight vector, and $w_0$ is the bias term.
-            </div>
+<img src="{{ site.url }}/assets/media/diagrams/threshold-step.svg" alt="Regression Fit" style="max-width: 100%; height: auto;">
+<div class="footnote">Threshold Function.</div>
+$$
+\text{Threshold}(z) = \begin{cases}
+1 & \text{if } z \geq 0 \\
+0 & \text{otherwise}
+\end{cases}
+$$
+</div>
         </div>
     </div>
 </div>
