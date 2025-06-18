@@ -36,14 +36,6 @@ visible: false
 
 <!-- SLIDES: -->
 
-# Data Address
-
-<!-- end SLIDES: -->
-
-{% include _snippets/data-address.md %}
-
-<!-- SLIDES: -->
-
 # Multivariate Linear Regression
 
 <!-- end SLIDES: -->
