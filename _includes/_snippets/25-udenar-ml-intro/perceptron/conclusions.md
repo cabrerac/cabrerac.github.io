@@ -8,7 +8,9 @@
             <div class="column vertical-middle text-left" style="width: 50%">
             <h3>Overview</h3>
             <ul>
-                <li>...</li>
+                <li>Multivariate Linear Regression</li>
+                <li>Linear Classifiers</li>
+                <li>The Perceptron</li>
             </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -25,13 +27,16 @@
             <div class="column vertical-middle text-left" style="width: 50%">
             <h3>Overview</h3>
             <ul>
-                <li>...</li>
+                <li>Multivariate Linear Regression</li>
+                <li>Linear Classifiers</li>
+                <li>The Perceptron</li>
             </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
             <h3>Next Time</h3>
             <ul>
-                <li>...</li>
+                <li>Neural Networks</li>
+                <li>Deep Learning</li>
             </ul>
             </div>
         </div>

@@ -6,7 +6,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <p>Multivariate regression extends the simple linear model to handle <b>multiple input features.</b> The model learns a function that maps multiple input variables to a continuous output.</p>
+                <p>Multivariate regression extends the simple linear model to handle <b>multiple input features</b>. The model learns a function that maps multiple input variables to a continuous output.</p>
             </div>
         </div>
     </div>
@@ -19,7 +19,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
                 <br>
-                <p>In these problems, each example is a <b>n-element vector</b>. The hypotheses space <em><b>H</b></em> now includes linear functions of multiple continuous-valued inputs and a single continuous output</p>
+                <p>In these problems, each example is a <b>n-element vector</b>. The hypotheses space <em><b>H</b></em> now includes linear functions of multiple continuous-valued inputs and a single continuous output.</p>
                 <br>
 $$
 y = w_0 + w_1x_1 + w_2x_2 + ... + w_nx_n \; ; \; \mathbf{w} = \langle w_0, w_1, w_2, ..., w_n \rangle
@@ -36,12 +36,12 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
                 <br>
-                <p>In these problems, each example is a <b>n-element vector</b>. The hypotheses space <em><b>H</b></em> now includes linear functions of multiple continuous-valued inputs and a single continuous output</p>
+                <p>In these problems, each example is a <b>n-element vector</b>. The hypotheses space <em><b>H</b></em> now includes linear functions of multiple continuous-valued inputs and a single continuous output.</p>
                 <br>
 $$
 y = w_0 + w_1x_1 + w_2x_2 + ... + w_nx_n \; ; \; \mathbf{w} = \langle w_0, w_1, w_2, ..., w_n \rangle
 $$
-<br>We want to find the $h$ that best fits the data
+<br>We want to find the $h$ that best fits the data.
 <br>
 $$
 h_w = w_0 + w_1x_1 + w_2x_2 + ... + w_nx_n
@@ -58,12 +58,12 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
                 <br>
-                <p>In these problems, each example is a <b>n-element vector</b>. The hypotheses space <em><b>H</b></em> now includes linear functions of multiple continuous-valued inputs and a single continuous output</p>
+                <p>In these problems, each example is a <b>n-element vector</b>. The hypotheses space <em><b>H</b></em> now includes linear functions of multiple continuous-valued inputs and a single continuous output.</p>
                 <br>
 $$
 y = w_0 + w_1x_1 + w_2x_2 + ... + w_nx_n \; ; \; \mathbf{w} = \langle w_0, w_1, w_2, ..., w_n \rangle
 $$
-<br>We want to find the $h$ that best fits the data
+<br>We want to find the $h$ that best fits the data.
 <br>
 $$
 h_w = w_0 + w_1x_1 + w_2x_2 + ... + w_nx_n

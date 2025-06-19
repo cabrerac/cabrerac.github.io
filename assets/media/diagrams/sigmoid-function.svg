@@ -1,0 +1,97 @@
+<svg width="360" height="175" viewBox="0 0 360 175" xmlns="http://www.w3.org/2000/svg">
+  <!-- Axes -->
+  <line x1="30" y1="130" x2="330" y2="130" stroke="black" stroke-width="2" marker-end="url(#arrowx)" marker-start="url(#arrowxneg)"/>
+  <line x1="180" y1="140" x2="180" y2="25" stroke="black" stroke-width="2" marker-end="url(#arrowyup)"/>
+  
+  <!-- Sigmoid function curve (accurate, many points) -->
+  <polyline fill="none" stroke="blue" stroke-width="3" points="
+    30,130
+    36,128.8
+    42,127.3
+    48,125.5
+    54,123.2
+    60,120.5
+    66,117.2
+    72,113.3
+    78,108.7
+    84,103.5
+    90,97.7
+    96,91.4
+    102,84.7
+    108,77.7
+    114,70.7
+    120,63.8
+    126,57.3
+    132,51.3
+    138,46.0
+    144,41.6
+    150,38.2
+    156,35.8
+    162,34.4
+    168,34.0
+    174,34.6
+    180,36.0
+    186,38.2
+    192,41.2
+    198,44.8
+    204,49.0
+    210,53.7
+    216,58.7
+    222,64.0
+    228,69.3
+    234,74.6
+    240,79.7
+    246,84.6
+    252,89.1
+    258,93.2
+    264,96.8
+    270,99.8
+    276,102.3
+    282,104.2
+    288,105.6
+    294,106.5
+    300,107.0
+    306,107.2
+    312,107.1
+    318,106.8
+    324,106.3
+    330,105.7
+  "/>
+  
+  <!-- Horizontal asymptotes -->
+  <line x1="30" y1="34" x2="330" y2="34" stroke="gray" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="30" y1="130" x2="330" y2="130" stroke="gray" stroke-width="1" stroke-dasharray="3,3"/>
+  
+  <!-- Vertical dashed line at x=0 -->
+  <line x1="180" y1="130" x2="180" y2="34" stroke="black" stroke-width="1" stroke-dasharray="2,2"/>
+  
+  <!-- x-ticks and labels -->
+  <text x="175" y="155" font-size="16" fill="black">0</text>
+  
+  <!-- y-ticks and labels -->
+  <text x="165" y="125" font-size="16" fill="black">0</text>
+  <text x="165" y="40" font-size="16" fill="black">1</text>
+  
+  <!-- Axis labels -->
+  <text x="195" y="50" font-size="18" fill="black">σ(x)</text>
+  <text x="340" y="135" font-size="18" fill="black">x</text>
+  
+  <!-- Function label -->
+  <text x="220" y="60" font-size="14" fill="blue">σ(x) = 1/(1 + e<sup>-x</sup>)</text>
+  
+  <!-- Arrowhead marker definitions -->
+  <defs>
+    <!-- Positive x-axis arrow -->
+    <marker id="arrowx" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 L3,5 Z" fill="black" />
+    </marker>
+    <!-- Negative x-axis arrow -->
+    <marker id="arrowxneg" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="360" markerUnits="strokeWidth">
+      <path d="M10,0 L0,5 L10,10 L7,5 Z" fill="black" />
+    </marker>
+    <!-- Upward y-axis arrow -->
+    <marker id="arrowyup" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="360" markerUnits="strokeWidth">
+      <path d="M0,10 L5,0 L10,10 L5,7 Z" fill="black" />
+    </marker>
+  </defs>
+</svg> 

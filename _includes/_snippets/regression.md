@@ -8,7 +8,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <p>The regression problem involves <b>predicting a continuous numerical value.</b> Regression models approximate a function <em><b>f</b></em> that maps input features to a continuous output.</p>
+                <p>The regression problem involves <b>predicting a continuous numerical value</b>. Regression models approximate a function <em><b>f</b></em> that maps input features to a continuous output.</p>
             </div>
         </div>
     </div>
@@ -20,7 +20,7 @@
     <div class="row" style="height: 40%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-                <p>The hypotheses space <em><b>H</b></em> includes linear functions of continuous-valued inputs and outputs</p>            
+                <p>The hypotheses space <em><b>H</b></em> includes linear functions of continuous-valued inputs and outputs.</p>            
             </div>
         </div>
     </div>
@@ -38,7 +38,7 @@
     <div class="row" style="height: 40%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-                <p>The hypotheses space <em><b>H</b></em> includes linear functions of continuous-valued inputs and outputs</p>
+                <p>The hypotheses space <em><b>H</b></em> includes linear functions of continuous-valued inputs and outputs.</p>
                 <br>
                 <p>The simplest example is "fitting a straight line". The model learns the coefficients <em><b>W</b></em></p>
                 <br>
@@ -62,7 +62,7 @@ $$
     <div class="row" style="height: 40%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-                <p>The hypotheses space <em><b>H</b></em> includes linear functions of continuous-valued inputs and outputs</p>
+                <p>The hypotheses space <em><b>H</b></em> includes linear functions of continuous-valued inputs and outputs.</p>
                 <br>
                 <p>The simplest example is "fitting a straight line". The model learns the coefficients <em><b>W</b></em></p>
                 <br>
@@ -115,7 +115,7 @@ $$
 y = w_{1}x + w_{0} \; ; \; W = \langle w_0, w_1 \rangle
 $$
 <br>
-<p>Finding the <em><b>h</b></em> that best fits the data is called linear regression</p>
+<p>Finding the <em><b>h</b></em> that best fits the data is called linear regression.</p>
 <br>
 $$
 h_w = w_{1}x + w_{0}
@@ -137,7 +137,7 @@ $$
 y = w_{1}x + w_{0} \; ; \; W = \langle w_0, w_1 \rangle
 $$
 <br>
-<p>Finding the <em><b>h</b></em> that best fits the data is called linear regression</p>
+<p>Finding the <em><b>h</b></em> that best fits the data is called linear regression.</p>
 <br>
 $$
 h_w = w_{1}x + w_{0}
@@ -354,10 +354,10 @@ $$
 $$
 w_i \leftarrow w_i - \alpha \frac{\partial \text{Loss}(w)}{\partial w_i}
 $$
-<p>The loss function is represented as a composition of functions</p>
+<p>The loss function is represented as a composition of functions.</p>
 <br>
 $$
-Loss(w) = (y - h_w(x))^2  \; ; \; f(w)= y - h_w(x) \; ; \; g(f)= ||f||^2
+\text{Loss}(w) = (y - h_w(x))^2  \; ; \; f(w)= y - h_w(x) \; ; \; g(f)= ||f||^2
 $$
 </div>
         </div>
@@ -375,12 +375,12 @@ $$
 $$
 w_i \leftarrow w_i - \alpha \frac{\partial \text{Loss}(w)}{\partial w_i}
 $$
-<p>The loss function is represented as a composition of functions</p>
+<p>The loss function is represented as a composition of functions.</p>
 <br>
 $$
-Loss(w) = (y - h_w(x))^2  \; ; \; f(w)= y - h_w(x) \; ; \; g(f)= ||f||^2
+\text{Loss}(w) = (y - h_w(x))^2  \; ; \; f(w)= y - h_w(x) \; ; \; g(f)= ||f||^2
 $$
-<p>We need to differentiate the loss function step by step using the <b>chain rule</b> to compute the gradients</p>
+<p>We need to differentiate the loss function step by step using the <b>chain rule</b> to compute the gradients.</p>
 <br>
 $$
 \frac{\partial \text{g}(f(x))}{\partial x} = \text{g'}(f(x)) \frac{\partial f(x)}{\partial x}
@@ -474,10 +474,10 @@ w_0 \leftarrow w_0 + \alpha \sum_{i=1}^N (y_i - h_w(x_i))
 \; ; \;
 w_1 \leftarrow w_1 + \alpha \sum_{i=1}^N (y_i - h_w(x_i)) x_i
 $$
-<p>These updates constitute <b>the batch gradient descent</b>. For the "straight line", this gradient descent is <em>deterministic</em></p>
+<p>These updates constitute <b>the batch gradient descent</b>. For the "straight line", this gradient descent is <em>deterministic</em>.</p>
 <br>
 <p>An <b>epoch</b> is defined as one complete pass through the entire dataset during the training process. Multiple epochs are needed for the model to converge to an optimal solution. Not enough epochs could generate underfitting. Too many epochs could generate overfitting. Another hyperparameter for the model.</p>
-</div>
+            </div>
         </div>
     </div>
 </div>
@@ -621,7 +621,7 @@ def mini_batch_gradient_descent(X, y, alpha=0.01, epochs=1000, batch_size=32):
 $$
 (x_1, y_1), (x_2, y_2), ..., (x_N, y_N)
 $$
-<p>Hypothesis Space: All possible linear functions of continuous-valued inputs and outputs</p>   
+<p>Hypothesis Space: All possible linear functions of continuous-valued inputs and outputs.</p>   
 $$
 y = w_{1}x + w_{0}
 $$
@@ -629,11 +629,11 @@ $$
 $$
 h_w = w_{1}x + w_{0} \; ; \; W = \langle w_0, w_1 \rangle
 $$
-<p>Loss Function:
+<p>Loss Function:</p>
 $$
 \text{Loss}(h_w) = \sum_{i=1}^n (y_i - (w_1 x_i + w_0))^2
 $$
-<p>Cost Function:
+<p>Cost Function:</p>
 $$
 \text{Cost}_{L,\lambda}(h_w) = \text{Loss}(h_w) + \lambda \cdot \text{Complexity}(h)
 $$

@@ -1,0 +1,30 @@
+<svg width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+  <!-- Axes -->
+  <line x1="40" y1="280" x2="300" y2="280" stroke="black" stroke-width="2" marker-end="url(#arrowx)"/>
+  <line x1="60" y1="300" x2="60" y2="40" stroke="black" stroke-width="2" marker-end="url(#arrowy)"/>
+  <!-- Decision boundary -->
+  <line x1="80" y1="240" x2="260" y2="80" stroke="green" stroke-width="3"/>
+  <text x="200" y="120" font-size="14" fill="green" transform="rotate(-35 200,120)">Decision boundary</text>
+  <!-- Class 1 points (red circles) -->
+  <circle cx="90" cy="230" r="10" fill="red"/>
+  <circle cx="120" cy="210" r="10" fill="red"/>
+  <circle cx="110" cy="250" r="10" fill="red"/>
+  <circle cx="140" cy="220" r="10" fill="red"/>
+  <!-- Class 2 points (blue squares) -->
+  <rect x="200" y="120" width="16" height="16" fill="blue"/>
+  <rect x="220" y="100" width="16" height="16" fill="blue"/>
+  <rect x="240" y="140" width="16" height="16" fill="blue"/>
+  <rect x="180" y="160" width="16" height="16" fill="blue"/>
+  <!-- Axis labels -->
+  <text x="305" y="285" font-size="16" fill="black">x</text>
+  <text x="65" y="50" font-size="16" fill="black">y</text>
+  <!-- Arrowhead marker definitions -->
+  <defs>
+    <marker id="arrowx" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 L3,5 Z" fill="black" />
+    </marker>
+    <marker id="arrowy" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,10 L5,0 L10,10 L5,7 Z" fill="black" />
+    </marker>
+  </defs>
+</svg> 
