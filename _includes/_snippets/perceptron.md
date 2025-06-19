@@ -557,7 +557,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <img src="{{ site.url }}/assets/media/diagrams/mark-1.svg" alt="Mark I" style="max-width: 100%; height: auto;">
+                <img src="{{ site.url }}/assets/media/images/mark-1.png" alt="Mark I" style="max-width: 100%; height: auto;">
                 <div class="footnote">Mark I - (Bishop, 2006).</div>
             </div>
         </div>

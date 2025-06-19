@@ -5,7 +5,7 @@
 ## Resources  
 
 #### Books
-- Bishop, C. (2009). Pattern Recognition and Machine Learning. Springer
+- [Bishop, C. (2009). Pattern Recognition and Machine Learning. Springer - Chapter 4](https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf)
 - [Deisenroth M. P. et. al. (2020). Mathematics for Machine Learning - Chapter 10](https://mml-book.github.io/)  
 <br>
 #### Papers and Reports  
