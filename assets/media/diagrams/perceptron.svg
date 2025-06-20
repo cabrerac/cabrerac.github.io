@@ -38,7 +38,7 @@
     <line x1="225" y1="150" x2="335" y2="150" stroke="#224466" stroke-width="2"/>
     
     <!-- Learning rule -->
-    <text x="200" y="250" text-anchor="middle" fill="#224466" font-size="16
+    <text x="200" y="250" text-anchor="middle" fill="#224466" font-size="16">
         w(t+1) = w(t) + η(y - ŷ)x
     </text>
     
