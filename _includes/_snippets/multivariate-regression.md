@@ -288,7 +288,7 @@ $$
                 <p>Linear regression can be interpreted from a <b>probabilistic perspective</b>, where we model the uncertainty in our predictions using probability distributions.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/linear-probabilistic.png" alt="Mark I" style="max-width: 80%; height: auto;">
+                <img src="{{ site.url }}/assets/media/images/linear-probabilistic.png" alt="Probabilistic Interpretation" style="max-width: 80%; height: auto;">
                 <div class="footnote">Probabilistic Interpretation - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
             </div>
         </div>
@@ -541,7 +541,7 @@ $$
 $$
 \text{Loss}(w) = - \frac{1}{2\sigma^2} (\mathbf{y} - \mathbf{X}\mathbf{w})^T (\mathbf{y} - \mathbf{X}\mathbf{w}) = - \frac{1}{2\sigma^2} || \mathbf{y} - \mathbf{X}\mathbf{w} ||^2
 $$
-<br>Where $\mathbf{X}$ is the <em>design matrix</em> as the collection of training inputs and $\mathbf{y}$ is a vector of all training targets.
+<br>Where $\mathbf{X}$ is the <em>design matrix</em> as the collection of training inputs and $\mathbf{y}$ is a vector of all targets.
 </div>
         </div>
     </div>
@@ -554,7 +554,7 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
 <br>
-<p>Minimizing the Loss function is equivalent to minimizing the sum of squared errors (MSE).</p>
+<p>Minimising the Loss function is equivalent to minimizing the sum of squared errors (MSE).</p>
 <br>
 $$
 \text{Loss}(w) = - \frac{1}{2\sigma^2} (\mathbf{y} - \mathbf{X}\mathbf{w})^T (\mathbf{y} - \mathbf{X}\mathbf{w}) = - \frac{1}{2\sigma^2} || \mathbf{y} - \mathbf{X}\mathbf{w} ||^2
@@ -571,7 +571,7 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
 <br>
-<p>Minimizing the Loss function is equivalent to minimizing the sum of squared errors (MSE).</p>
+<p>Minimising the Loss function is equivalent to minimizing the sum of squared errors (MSE).</p>
 <br>
 $$
 \text{Loss}(w) = - \frac{1}{2\sigma^2} (\mathbf{y} - \mathbf{X}\mathbf{w})^T (\mathbf{y} - \mathbf{X}\mathbf{w}) = - \frac{1}{2\sigma^2} || \mathbf{y} - \mathbf{X}\mathbf{w} ||^2
@@ -593,7 +593,7 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
 <br>
-<p>Minimizing the Loss function is equivalent to minimizing the sum of squared errors (MSE).</p>
+<p>Minimising the Loss function is equivalent to minimizing the sum of squared errors (MSE).</p>
 <br>
 $$
 \text{Loss}(w) = - \frac{1}{2\sigma^2} (\mathbf{y} - \mathbf{X}\mathbf{w})^T (\mathbf{y} - \mathbf{X}\mathbf{w}) = - \frac{1}{2\sigma^2} || \mathbf{y} - \mathbf{X}\mathbf{w} ||^2
@@ -613,88 +613,33 @@ $$
     </div>
 </div>
 
-
-
-
 ## Probabilistic Interpretation of Linear Regression
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                <br>
-                <p>This leads to a probabilistic model where the target follows a normal distribution:</p>
-                <br>
-$$
-p(y|\mathbf{x}, \mathbf{w}, \sigma^2) = \mathcal{N}(y|\mathbf{w}^T\mathbf{x}, \sigma^2)
-$$
+            <div class="column vertical-middle text-left" style="width: 50%">
+<br>The regression problem is considered as:
 <br>
 $$
-p(y|\mathbf{x}, \mathbf{w}, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(y - \mathbf{w}^T\mathbf{x})^2}{2\sigma^2}\right)
-$$
-</div>
-        </div>
-    </div>
-</div>
-
-## Probabilistic Interpretation of Linear Regression
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                <br>
-                <p>For a dataset $\mathcal{D} = \{(\mathbf{x}_1, y_1), ..., (\mathbf{x}_N, y_N)\}$, the likelihood function is:</p>
-                <br>
-$$
-p(\mathcal{D}|\mathbf{w}, \sigma^2) = \prod_{i=1}^N p(y_i|\mathbf{x}_i, \mathbf{w}, \sigma^2)
-$$
+p(y \, | \, \mathbf{x}, \mathbf{w}) = \mathcal{N}(y \, | \, f(\mathbf{w}^T \mathbf{x}, \sigma^2)
+$$                
+<br>We want to maximise the likelihood function of the training data given the model parameters.
 <br>
 $$
-p(\mathcal{D}|\mathbf{w}, \sigma^2) = \prod_{i=1}^N \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(y_i - \mathbf{w}^T\mathbf{x}_i)^2}{2\sigma^2}\right)
+p(\mathcal{Y} \, | \, \mathcal{X}, \mathbf{w}) = p(y_1, y_2, ..., y_N \, | \, \mathbf{x}_1, \mathbf{x}_2, ..., \mathbf{x}_N, \mathbf{w})
 $$
-</div>
-        </div>
-    </div>
-</div>
-
-## Probabilistic Interpretation of Linear Regression
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                <br>
-                <p>Taking the negative log-likelihood (log-likelihood loss):</p>
-                <br>
-$$
--\log p(\mathcal{D}|\mathbf{w}, \sigma^2) = \frac{N}{2}\log(2\pi\sigma^2) + \frac{1}{2\sigma^2}\sum_{i=1}^N (y_i - \mathbf{w}^T\mathbf{x}_i)^2
-$$
+<br>Closed-form solution for linear regression:
 <br>
-<p>Minimizing this is equivalent to minimizing the sum of squared errors (MSE).</p>
+$$
+\mathbf{w}^* = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{y}
+$$
+<br>Where $\mathbf{X}$ is the <em>design matrix</em> as the collection of training inputs and $\mathbf{y}$ is a vector of all targets.
 </div>
-        </div>
-    </div>
-</div>
-
-## Probabilistic Interpretation of Linear Regression
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                <br>
-                <p>We can also use <b>Bayesian inference</b> by placing a prior on the weights:</p>
-                <br>
-$$
-p(\mathbf{w}) = \mathcal{N}(\mathbf{w}|\mathbf{0}, \alpha^{-1}\mathbf{I})
-$$
-<br>
-<p>The posterior distribution becomes:</p>
-$$
-p(\mathbf{w}|\mathcal{D}) \propto p(\mathcal{D}|\mathbf{w})p(\mathbf{w})
-$$
-</div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/linear-probabilistic.png" alt="Probabilistic Interpretation" style="max-width: 80%; height: auto;">
+                <div class="footnote">Probabilistic Interpretation - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
         </div>
     </div>
 </div>
@@ -714,7 +659,7 @@ $$
 ## Linear Basis Function Models
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 30%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
                 <br>
@@ -725,6 +670,14 @@ y = \mathbf{w}^T\boldsymbol{\phi}(\mathbf{x}) + \epsilon
 $$
 <br>Where $\boldsymbol{\phi}(\mathbf{x}) = [\phi_1(\mathbf{x}), \phi_2(\mathbf{x}), ..., \phi_M(\mathbf{x})]^T$ is a vector of basis functions.
 </div>
+        </div>
+    </div>
+    <div class="row" style="height: 70%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/images/basis-functions.png" alt="Basis Functions" style="max-width: 80%; height: auto;">
+                <div class="footnote">Probabilistic Interpretation - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
         </div>
     </div>
 </div>
