@@ -647,6 +647,31 @@ $$
 ## Linear Basis Function Models
 
 <div class="rows" style="height: 100%">
+    <div class="row" style="height: 45%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 33%">
+                <img src="{{ site.url }}/assets/media/diagrams/regression-hypothesis-space.svg" alt="Hypothesis Space for Regression" style="max-width: 75%; height: auto;">
+                <div class="footnote">Example functions described using a linear model.</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 33%">
+                <img src="{{ site.url }}/assets/media/diagrams/regression-data.svg" alt="Training Data Set" style="max-width: 75%; height: auto;">
+                <div class="footnote">Training dataset.</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 33%">
+                <img src="{{ site.url }}/assets/media/diagrams/regression-fit.svg" alt="Regression Fit" style="max-width: 75%; height: auto;">
+                <div class="footnote">Linear regression fit.</div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 55%">
+        <img src="{{ site.url }}/assets/media/images/basis-functions.png" alt="Basis Functions" style="max-width: 95%; height: auto;">
+        <div class="footnote">Basis Functions - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+    </div>
+</div>
+
+## Linear Basis Function Models
+
+<div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
@@ -659,54 +684,51 @@ $$
 ## Linear Basis Function Models
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 30%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                <br>
-                <p>The model becomes:</p>
-                <br>
+    <div class="row" style="height: 50%">
+        <br>
+        <p>The model becomes:</p>
 $$
 y = \mathbf{w}^T\boldsymbol{\phi}(\mathbf{x}) + \epsilon
 $$
 <br>Where $\boldsymbol{\phi}(\mathbf{x}) = [\phi_1(\mathbf{x}), \phi_2(\mathbf{x}), ..., \phi_M(\mathbf{x})]^T$ is a vector of basis functions.
 </div>
-        </div>
-    </div>
-    <div class="row" style="height: 70%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                <img src="{{ site.url }}/assets/media/images/basis-functions.png" alt="Basis Functions" style="max-width: 80%; height: auto;">
-                <div class="footnote">Probabilistic Interpretation - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
-            </div>
-        </div>
+    <div class="row" style="height: 50%">
+        <img src="{{ site.url }}/assets/media/images/basis-functions.png" alt="Basis Functions" style="max-width: 100%; height: auto;">
+        <div class="footnote">Basis Functions - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
     </div>
 </div>
 
 ## Linear Basis Function Models
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 40%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                <br>
-                <p>Common basis functions include:</p>
+            <div class="column vertical-top text-left" style="width: 33%">
                 <br>
 <p><b>Polynomial basis:</b></p>
 $$
 \phi_j(x) = x^j
 $$
-<br>
+</div>
+            <div class="column vertical-top text-left" style="width: 33%">
+                <br>
 <p><b>Gaussian basis:</b></p>
 $$
 \phi_j(x) = \exp\left(-\frac{(x - \mu_j)^2}{2\sigma_j^2}\right)
 $$
-<br>
+</div>
+            <div class="column vertical-top text-left" style="width: 33%">
+                <br>
 <p><b>Sigmoid basis:</b></p>
 $$
 \phi_j(x) = \sigma\left(\frac{x - \mu_j}{s_j}\right)
 $$
 </div>
         </div>
+</div>
+    <div class="row" style="height: 60%">
+        <img src="{{ site.url }}/assets/media/images/basis-functions.png" alt="Basis Functions" style="max-width: 100%; height: auto;">
+        <div class="footnote">Basis Functions - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
     </div>
 </div>
 
@@ -717,15 +739,10 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
                 <br>
-                <p>The design matrix $\boldsymbol{\Phi}$ is constructed as:</p>
+                <p>If we apply a probabilistic interpretation, we need to maximise the likelihood of:</p>
                 <br>
 $$
-\boldsymbol{\Phi} = \begin{bmatrix}
-\phi_1(\mathbf{x}_1) & \phi_2(\mathbf{x}_1) & \cdots & \phi_M(\mathbf{x}_1) \\
-\phi_1(\mathbf{x}_2) & \phi_2(\mathbf{x}_2) & \cdots & \phi_M(\mathbf{x}_2) \\
-\vdots & \vdots & \ddots & \vdots \\
-\phi_1(\mathbf{x}_N) & \phi_2(\mathbf{x}_N) & \cdots & \phi_M(\mathbf{x}_N)
-\end{bmatrix}
+p(\mathcal{Y} \, | \, \mathcal{X}, \mathbf{w}) = \prod_{i=1}^N \mathcal{N} (y_i \, | \, \mathbf{w}^T \boldsymbol{\Phi}(\mathbf{x}), \sigma^2 )
 $$
 </div>
         </div>
@@ -739,10 +756,39 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
                 <br>
-                <p>The loss function becomes:</p>
+                <p>If we apply a probabilistic interpretation, we need to maximise the likelihood of:</p>
                 <br>
 $$
-\text{Loss}(\mathbf{w}) = ||\mathbf{y} - \boldsymbol{\Phi}\mathbf{w}||^2
+p(\mathcal{Y} \, | \, \mathcal{X}, \mathbf{w}) = \prod_{i=1}^N \mathcal{N} (y_i \, | \, \mathbf{w}^T \boldsymbol{\Phi}(\mathbf{x}), \sigma^2 )
+$$
+<br>
+<p>After a similar process (See Chapter 3 in <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">Bishop, 2006</a>), the loss function becomes:</p>
+<br>
+$$
+\text{Loss}(\mathbf{w}) = ||\mathbf{y} - \mathbf{w}^T \boldsymbol{\Phi}||^2
+$$
+</div>
+        </div>
+    </div>
+</div>
+
+## Linear Basis Function Models
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
+                <br>
+                <p>If we apply a probabilistic interpretation, we need to maximise the likelihood of:</p>
+                <br>
+$$
+p(\mathcal{Y} \, | \, \mathcal{X}, \mathbf{w}) = \prod_{i=1}^N \mathcal{N} (y_i \, | \, \mathbf{w}^T \boldsymbol{\Phi}(\mathbf{x}), \sigma^2 )
+$$
+<br>
+<p>After a similar process (See Chapter 3 in <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">Bishop, 2006</a>), the loss function becomes:</p>
+<br>
+$$
+\text{Loss}(\mathbf{w}) = ||\mathbf{y} - \mathbf{w}^T \boldsymbol{\Phi}||^2
 $$
 <br>
 <p>And the normal equation solution:</p>
@@ -760,14 +806,36 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-                <br>
-                <p>The gradient descent update rule:</p>
-                <br>
+            <br>
 $$
-\mathbf{w} \leftarrow \mathbf{w} + \alpha\boldsymbol{\Phi}^T(\mathbf{y} - \boldsymbol{\Phi}\mathbf{w})
+\mathbf{w}^* = (\boldsymbol{\Phi}^T\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^T\mathbf{y}
 $$
+</div>
+        </div>
+    </div>
+</div>
+
+## Linear Basis Function Models
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
+            <br>
+$$
+\mathbf{w}^* = (\boldsymbol{\Phi}^T\boldsymbol{\Phi})^{-1}\boldsymbol{\Phi}^T\mathbf{y}
+$$
+<br>The design matrix $\boldsymbol{\Phi}$ is constructed as:
 <br>
-<p>This allows us to model <b>non-linear relationships</b> while maintaining the computational advantages of linear methods.</p>
+$$
+\boldsymbol{\Phi} = \begin{bmatrix}
+\phi_1(\mathbf{x}_1) & \phi_2(\mathbf{x}_1) & \cdots & \phi_M(\mathbf{x}_1) \\
+\phi_1(\mathbf{x}_2) & \phi_2(\mathbf{x}_2) & \cdots & \phi_M(\mathbf{x}_2) \\
+\vdots & \vdots & \ddots & \vdots \\
+\phi_1(\mathbf{x}_N) & \phi_2(\mathbf{x}_N) & \cdots & \phi_M(\mathbf{x}_N)
+\end{bmatrix}
+$$
+<br>By using basis functions $\phi_j(\mathbf{x})$, we can capture complex, non-linear relationships between the input features and the target variable. The design matrix essentially acts as a bridge, allowing us to apply linear techniques to problems that are inherently non-linear in nature. We can design the matrix and evaluate which design works better using cross-validation. This is essentially <b>feature engineering</b>.
 </div>
         </div>
     </div>
@@ -790,19 +858,75 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+            </div>                
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/4/4b/KfoldCV.gif" alt="K-Fold" style="height: 500px">
+                <div class="footnote">K-fold CV - MBanuelos22, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Cross Validation
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
                 <br>
                 <p><b>K-Fold Cross Validation</b> divides the dataset into K equal parts:</p>
                 <br>
-<p>For each fold $k = 1, 2, ..., K$:</p>
-<ol>
-<li>Train on all folds except fold $k$</li>
-<li>Evaluate on fold $k$</li>
-<li>Record the performance metric</li>
-</ol>
-<br>
-<p>Final performance = average across all K folds</p>
+
+```python
+for (int k = 1; k <= K; k++) {
+    trainOnAllFoldsExcept(k);
+    evaluateOnFold(k);
+    recordPerformanceMetric(k);
+}
+calculateAveragePerformance(K);
+```
 </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/4/4b/KfoldCV.gif" alt="K-Fold" style="height: auto">
+                <div class="footnote">K-fold CV - MBanuelos22, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Cross Validation
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p><b>K-Fold Cross Validation</b> divides the dataset into K equal parts:</p>
+                <br>
+
+```python
+for (int k = 1; k <= K; k++) {
+    trainOnAllFoldsExcept(k);
+    evaluateOnFold(k);
+    recordPerformanceMetric(k);
+}
+double finalPerformance = calculateAveragePerformance(K);
+```
+<br>
+<p>Mathematically, for K-fold CV:</p>
+<br>
+$$
+\text{CV}(\mathbf{w}) = \frac{1}{K}\sum_{k=1}^K \text{Loss}_k(\mathbf{w})
+$$
+<br>
+<p>Where $\text{Loss}_k(\mathbf{w})$ is the loss on fold $k$ when training on all other folds.</p>
+</div>
+</div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/4/4b/KfoldCV.gif" alt="K-Fold" style="height: 500px">
+                <div class="footnote">K-fold CV - MBanuelos22, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons.</div>
+            </div>
         </div>
     </div>
 </div>
