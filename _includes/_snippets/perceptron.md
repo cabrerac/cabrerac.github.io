@@ -1057,8 +1057,7 @@
                 <div class="footnote">Perceptron Architecture.</div>
             </div>
             <div class="column vertical-top text-left" style="width: 50%">
-                <p>The perceptron is a linear classifier model (i.e., linear discriminant), with hypothesis space defined by all the functions of the form:</p>
-                <br>
+                <p>The perceptron is a linear classifier model (i.e., linear discriminant), with hypotheses space defined by all the functions of the form:</p>
 $$
 y = f(\mathbf{w}^T\phi(\mathbf{x}))
 $$
@@ -1077,18 +1076,46 @@ $$
                 <div class="footnote">Perceptron Architecture.</div>
             </div>
             <div class="column vertical-top text-left" style="width: 50%">
-                <p>The perceptron is a linear classifier model (i.e., linear discriminant), with hypothesis space defined by all the functions of the form:</p>
-                <br>
+                <p>The perceptron is a linear classifier model (i.e., linear discriminant), with hypotheses space defined by all the functions of the form:</p>
 $$
 y = f(\mathbf{w}^T\phi(\mathbf{x}))
 $$
 <br>The function $f(\cdot)$ is similar to the $\text{Thershold}$ function previously defined. $f(\cdot)$ is given by a step function of the form:
-<br>
 $$
 f(z) = \begin{cases}
- 1 & \text{if } z \geq 0 \\
++1 & \text{if } z \geq 0 \\
 -1 & \text{otherwise}
 \end{cases}
+$$
+</div>
+        </div>
+    </div>
+</div>
+
+## The Perceptron
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/perceptron.svg" alt="Perceptron Architecture" style="max-width: 100%; height: auto;">
+                <div class="footnote">Perceptron Architecture.</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p>The perceptron is a linear classifier model (i.e., linear discriminant), with hypotheses space defined by all the functions of the form:</p>
+$$
+y = f(\mathbf{w}^T\phi(\mathbf{x}))
+$$
+<br>The function $f(\cdot)$ is similar to the $\text{Thershold}$ function previously defined. $f(\cdot)$ is given by a step function of the form:
+$$
+f(z) = \begin{cases}
++1 & \text{if } z \geq 0 \\
+-1 & \text{otherwise}
+\end{cases}
+$$
+<br>We want to find $\mathbf{w}^*$:
+$$
+\mathbf{w}^* = \underset{\mathbf{w}}{\arg\min}Loss(y - h_\mathbf{w}(\phi(\mathbf{x})))
 $$
 </div>
         </div>

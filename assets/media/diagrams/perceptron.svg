@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="400" height="250" xmlns="http://www.w3.org/2000/svg">
     <!-- Title -->
-    <text x="200" y="30" text-anchor="middle" fill="#224466" font-size="16" font-weight="bold">
+    <text x="200" y="30" text-anchor="middle" fill="#224466" font-size="26" font-weight="bold">
         Rosenblatt's Perceptron
     </text>
     
     <!-- Input layer -->
-    <circle cx="50" cy="100" r="15" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
-    <circle cx="50" cy="150" r="15" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
-    <circle cx="50" cy="200" r="15" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
+    <circle cx="50" cy="100" r="20" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
+    <circle cx="50" cy="150" r="20" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
+    <circle cx="50" cy="200" r="20" fill="#4a90e2" stroke="#224466" stroke-width="2"/>
     
     <!-- Input labels -->
-    <text x="50" y="105" text-anchor="middle" fill="#224466" font-size="16">x₁</text>
-    <text x="50" y="155" text-anchor="middle" fill="#224466" font-size="16">x₂</text>
-    <text x="50" y="205" text-anchor="middle" fill="#224466" font-size="16">x₃</text>
+    <text x="50" y="105" text-anchor="middle" fill="#224466" font-size="24" font-weight="bold">x₁</text>
+    <text x="50" y="155" text-anchor="middle" fill="#224466" font-size="24" font-weight="bold">x₂</text>
+    <text x="50" y="205" text-anchor="middle" fill="#224466" font-size="24" font-weight="bold">x₃</text>
     
     <!-- Weights -->
-    <text x="80" y="100" text-anchor="middle" fill="#224466" font-size="16">w₁</text>
-    <text x="80" y="145" text-anchor="middle" fill="#224466" font-size="16">w₂</text>
-    <text x="80" y="185" text-anchor="middle" fill="#224466" font-size="16">w₃</text>
+    <text x="100" y="110" text-anchor="middle" fill="#224466" font-size="20" font-weight="bold">w₁</text>
+    <text x="100" y="145" text-anchor="middle" fill="#224466" font-size="20" font-weight="bold">w₂</text>
+    <text x="100" y="180" text-anchor="middle" fill="#224466" font-size="20" font-weight="bold">w₃</text>
     
     <!-- Perceptron unit -->
-    <circle cx="200" cy="150" r="25" fill="#50c878" stroke="#224466" stroke-width="2"/>
-    <line x1="200" y1="125" x2="200" y2="175" stroke="#224466" stroke-width="2"/>
+    <circle cx="205" cy="150" r="30" fill="#50c878" stroke="#224466" stroke-width="2"/>
+    <line x1="205" y1="120" x2="205" y2="180" stroke="#224466" stroke-width="2"/>
     
     <!-- Summation and activation -->
-    <text x="190" y="155" text-anchor="middle" fill="#224466" font-size="16">Σ</text>
-    <text x="210" y="155" text-anchor="middle" fill="#224466" font-size="16">f</text>
+    <text x="195" y="160" text-anchor="middle" fill="#224466" font-size="24" font-weight="bold">Σ</text>
+    <text x="215" y="160" text-anchor="middle" fill="#224466" font-size="24" font-weight="bold">f</text>
     
     <!-- Output -->
     <circle cx="350" cy="150" r="15" fill="#ffa500" stroke="#224466" stroke-width="2"/>
-    <text x="350" y="190" text-anchor="middle" fill="#224466" font-size="16">y</text>
+    <text x="350" y="180" text-anchor="middle" fill="#224466" font-size="20" font-weight="bold">y</text>
     
     <!-- Connections -->
-    <line x1="65" y1="100" x2="175" y2="150" stroke="#224466" stroke-width="2"/>
-    <line x1="65" y1="150" x2="175" y2="150" stroke="#224466" stroke-width="2"/>
-    <line x1="65" y1="200" x2="175" y2="150" stroke="#224466" stroke-width="2"/>
-    <line x1="225" y1="150" x2="335" y2="150" stroke="#224466" stroke-width="2"/>
+    <line x1="70" y1="100" x2="175" y2="150" stroke="#224466" stroke-width="2"/>
+    <line x1="70" y1="150" x2="175" y2="150" stroke="#224466" stroke-width="2"/>
+    <line x1="70" y1="200" x2="175" y2="150" stroke="#224466" stroke-width="2"/>
+    <line x1="235" y1="150" x2="335" y2="150" stroke="#224466" stroke-width="2"/>
 </svg> 
