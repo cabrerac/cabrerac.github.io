@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+<svg width="400" height="250" xmlns="http://www.w3.org/2000/svg">
     <!-- Title -->
     <text x="200" y="30" text-anchor="middle" fill="#224466" font-size="16" font-weight="bold">
         Rosenblatt's Perceptron
@@ -22,10 +22,11 @@
     
     <!-- Perceptron unit -->
     <circle cx="200" cy="150" r="25" fill="#50c878" stroke="#224466" stroke-width="2"/>
+    <line x1="200" y1="125" x2="200" y2="175" stroke="#224466" stroke-width="2"/>
     
     <!-- Summation and activation -->
-    <text x="200" y="145" text-anchor="middle" fill="#224466" font-size="16">Σ</text>
-    <text x="200" y="165" text-anchor="middle" fill="#224466" font-size="16">f(w<sup>T</sup>x)</text>
+    <text x="190" y="155" text-anchor="middle" fill="#224466" font-size="16">Σ</text>
+    <text x="210" y="155" text-anchor="middle" fill="#224466" font-size="16">f</text>
     
     <!-- Output -->
     <circle cx="350" cy="150" r="15" fill="#ffa500" stroke="#224466" stroke-width="2"/>
@@ -36,14 +37,4 @@
     <line x1="65" y1="150" x2="175" y2="150" stroke="#224466" stroke-width="2"/>
     <line x1="65" y1="200" x2="175" y2="150" stroke="#224466" stroke-width="2"/>
     <line x1="225" y1="150" x2="335" y2="150" stroke="#224466" stroke-width="2"/>
-    
-    <!-- Learning rule -->
-    <text x="200" y="250" text-anchor="middle" fill="#224466" font-size="16">
-        w(t+1) = w(t) + η(y - ŷ)x
-    </text>
-    
-    <!-- Bias -->
-    <circle cx="50" cy="250" r="10" fill="#9b59b6" stroke="#224466" stroke-width="2"/>
-    <text x="50" y="250" text-anchor="middle" fill="#224466" font-size="10">b</text>
-    <line x1="50" y1="260" x2="175" y2="150" stroke="#224466" stroke-width="2" stroke-dasharray="5,5"/>
 </svg> 

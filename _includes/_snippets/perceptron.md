@@ -1082,10 +1082,9 @@ $$
 $$
 y = f(\mathbf{w}^T\phi(\mathbf{x}))
 $$
+<br>The function $f(\cdot)$ is similar to the $\text{Thershold}$ function previously defined. $f(\cdot)$ is given by a step function of the form:
 <br>
-The function $f(\cdot)$ is similar to our $\text{Thershold}$ function in the linear classifier. $f(\cdot)$ is given by a step function of the form:
 $$
-<br>
 f(z) = \begin{cases}
  1 & \text{if } z \geq 0 \\
 -1 & \text{otherwise}
