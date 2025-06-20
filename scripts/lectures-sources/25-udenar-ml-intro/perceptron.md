@@ -44,11 +44,27 @@ visible: false
 
 <!-- SLIDES: -->
 
-# Advanced Regression
+# Probabilistic Interpretation of Linear Regression
 
 <!-- end SLIDES: -->
 
-{% include _snippets/advanced-regression.md %}
+{% include _snippets/probabilistic-linear.md %}
+
+<!-- SLIDES: -->
+
+# Linear Basis Function Models
+
+<!-- end SLIDES: -->
+
+{% include _snippets/linear-basis.md %}
+
+<!-- SLIDES: -->
+
+# Cross Validation
+
+<!-- end SLIDES: -->
+
+{% include _snippets/cross-validation.md %}
 
 <!-- SLIDES: -->
 
