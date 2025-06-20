@@ -57,13 +57,13 @@ $$
 $$
 p(y \, | \, \mathbf{x}) = \mathcal{N}(y \, | \, f(\mathbf{x}), \sigma^2)
 $$                
-<br>The functional relationship between $x$ and $y$ is give as:
+<br>The functional relationship between $x$ and $y$ is given as:
 <br>
 $$
 y = f(\mathbf{x}) + \epsilon
 $$
 <br>Where $\epsilon \sim \mathcal{N}(0, \sigma^2)$ is Gaussian noise with zero mean and variance $\sigma^2$.
-<br>We want to find $h$ that approximates the unkown function $f$ and generalises well.
+<br>We want to find $h$ that approximates the unknown function $f$ and generalises well.
 </div>
         </div>
     </div>
@@ -80,7 +80,7 @@ $$
 $$
 p(y \, | \, \mathbf{x}, \mathbf{w}) = \mathcal{N}(y \, | \, \mathbf{w}^T\mathbf{x}, \sigma^2) \iff y = \mathbf{w}^T\mathbf{x} + \epsilon
 $$
-<br>Where $\epsilon \sim \mathcal{N}(0, \sigma^2)$ is Gaussian noise with zero mean and variance $\sigma^2$. We seek for the parameters $\mathbf{w}$.
+<br>Where $\epsilon \sim \mathcal{N}(0, \sigma^2)$ is Gaussian noise with zero mean and variance $\sigma^2$. We seek the parameters $\mathbf{w}$.
 </div>
         </div>
     </div>
@@ -97,7 +97,7 @@ $$
 $$
 p(y \, | \, \mathbf{x}, \mathbf{w}) = \mathcal{N}(y \, | \, \mathbf{w}^T\mathbf{x}, \sigma^2) \iff y = \mathbf{w}^T\mathbf{x} + \epsilon
 $$
-<br>Where $\epsilon \sim \mathcal{N}(0, \sigma^2)$ is Gaussian noise with zero mean and variance $\sigma^2$. We seek for the parameters $\mathbf{w}$.
+<br>Where $\epsilon \sim \mathcal{N}(0, \sigma^2)$ is Gaussian noise with zero mean and variance $\sigma^2$. We seek the parameters $\mathbf{w}$.
 <br>So, given a training set of $N$ i.i.d input-output pairs:
 <br>
 $$
@@ -119,13 +119,13 @@ $$
 $$
 p(y \, | \, \mathbf{x}, \mathbf{w}) = \mathcal{N}(y \, | \, \mathbf{w}^T\mathbf{x}, \sigma^2) \iff y = \mathbf{w}^T\mathbf{x} + \epsilon
 $$
-<br>Where $\epsilon \sim \mathcal{N}(0, \sigma^2)$ is Gaussian noise with zero mean and variance $\sigma^2$. We seek for the parameters $\mathbf{w}$.
+<br>Where $\epsilon \sim \mathcal{N}(0, \sigma^2)$ is Gaussian noise with zero mean and variance $\sigma^2$. We seek the parameters $\mathbf{w}$.
 <br>So, given a training set of $N$ i.i.d input-output pairs:
 <br>
 $$
 (x_1, y_1), (x_2, y_2), ..., (x_N, y_N)
 $$
-<br>The likelihood factorises according too:
+<br>The likelihood factorises according to:
 <br>
 $$
 p(\mathcal{Y} \, | \, \mathcal{X}, \mathbf{w}) = p(y_1, y_2, ..., y_N \, | \, \mathbf{x}_1, \mathbf{x}_2, ..., \mathbf{x}_N, \mathbf{w})
@@ -142,7 +142,7 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
 <br>
-<p>The likelihood function tells us how likely is the observed data given the specific parameters:</p>
+<p>The likelihood function tells us how likely the observed data is given the specific parameters:</p>
 <br>
 $$
 p(y_1, y_2, ..., y_N \, | \, \mathbf{x}_1, \mathbf{x}_2, ..., \mathbf{x}_N, \mathbf{w}) = \prod_{i=1}^N p(y_i \, | \, \mathbf{x}_i, \mathbf{w})
@@ -162,7 +162,7 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
 <br>
-<p>The likelihood function tells us how likely is the observed data given the specific parameters:</p>
+<p>The likelihood function tells us how likely the observed data is given the specific parameters:</p>
 <br>
 $$
 p(y_1, y_2, ..., y_N \, | \, \mathbf{x}_1, \mathbf{x}_2, ..., \mathbf{x}_N, \mathbf{w}) = \prod_{i=1}^N p(y_i \, | \, \mathbf{x}_i, \mathbf{w})
@@ -205,7 +205,7 @@ $$
 $$
 \mathbf{w}^* = \underset{\mathbf{w}}{\arg\max} \; p(\mathcal{Y} \, | \, \mathcal{X}, \mathbf{w})
 $$
-<br>As before, a closed-form solution exists, which makes gradient descent unnecessary. We apply the log transformation to the likelihood function and minimize the negative log-likelihood.
+<br>As before, a closed-form solution exists, which makes gradient descent unnecessary. We apply the log transformation to the likelihood function and minimise the negative log-likelihood.
 <br>
 $$
 -\text{log} \, p(\mathcal{Y} \, | \, \mathcal{X}, \mathbf{w}) = -\text{log} \prod_{i=1}^N p(y_i \, | \, \mathbf{x}_i, \mathbf{w}) = - \sum_{i=1}^N \text{log} \, p(y_i \, | \, \mathbf{x}_i, \mathbf{w})
@@ -225,7 +225,7 @@ $$
 $$
 \mathbf{w}^* = \underset{\mathbf{w}}{\arg\max} \; p(\mathcal{Y} \, | \, \mathcal{X}, \mathbf{w})
 $$
-<br>As before, a closed-form solution exists, which makes gradient descent unnecessary. We apply the log transformation to the likelihood function and minimize the negative log-likelihood.
+<br>As before, a closed-form solution exists, which makes gradient descent unnecessary. We apply the log transformation to the likelihood function and minimise the negative log-likelihood.
 <br>
 $$
 -\text{log} \, p(\mathcal{Y} \, | \, \mathcal{X}, \mathbf{w}) = -\text{log} \prod_{i=1}^N p(y_i \, | \, \mathbf{x}_i, \mathbf{w}) = - \sum_{i=1}^N \text{log} \, p(y_i \, | \, \mathbf{x}_i, \mathbf{w})
@@ -266,7 +266,7 @@ $$
 $$
 \text{log} \, p(\mathcal{Y} \, | \, \mathcal{X}, \mathbf{w}) = - \frac{1}{2\sigma^2} \sum_{i=1}^N (y_i - \mathbf{w}^T\mathbf{x}_i)^2
 $$
-<br>The loss functions is defined as:
+<br>The loss function is defined as:
 <br>
 $$
 \text{Loss}(w) = - \frac{1}{2\sigma^2} \sum_{i=1}^N (y_i - \mathbf{w}^T\mathbf{x}_i)^2
@@ -287,7 +287,7 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
 <br>
-<p>Minimising the Loss function is equivalent to minimizing the sum of squared errors (MSE).</p>
+<p>Minimising the Loss function is equivalent to minimising the sum of squared errors (MSE).</p>
 <br>
 $$
 \text{Loss}(w) = - \frac{1}{2\sigma^2} (\mathbf{y} - \mathbf{X}\mathbf{w})^T (\mathbf{y} - \mathbf{X}\mathbf{w}) = - \frac{1}{2\sigma^2} || \mathbf{y} - \mathbf{X}\mathbf{w} ||^2
@@ -304,12 +304,12 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
 <br>
-<p>Minimising the Loss function is equivalent to minimizing the sum of squared errors (MSE).</p>
+<p>Minimising the Loss function is equivalent to minimising the sum of squared errors (MSE).</p>
 <br>
 $$
 \text{Loss}(w) = - \frac{1}{2\sigma^2} (\mathbf{y} - \mathbf{X}\mathbf{w})^T (\mathbf{y} - \mathbf{X}\mathbf{w}) = - \frac{1}{2\sigma^2} || \mathbf{y} - \mathbf{X}\mathbf{w} ||^2
 $$
-<br>As we did before, we compute the gradient of the Loss and equal it to zero:
+<br>As we did before, we compute the gradient of the Loss and equate it to zero:
 <br>
 $$
 \frac{\partial \text{Loss}(\mathbf{w})}{\partial \mathbf{w}} = \mathbf{0}^T
@@ -326,12 +326,12 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
 <br>
-<p>Minimising the Loss function is equivalent to minimizing the sum of squared errors (MSE).</p>
+<p>Minimising the Loss function is equivalent to minimising the sum of squared errors (MSE).</p>
 <br>
 $$
 \text{Loss}(w) = - \frac{1}{2\sigma^2} (\mathbf{y} - \mathbf{X}\mathbf{w})^T (\mathbf{y} - \mathbf{X}\mathbf{w}) = - \frac{1}{2\sigma^2} || \mathbf{y} - \mathbf{X}\mathbf{w} ||^2
 $$
-<br>As we did before, we compute the gradient of the Loss and equal it to zero:
+<br>As we did before, we compute the gradient of the Loss and equate it to zero:
 <br>
 $$
 \frac{\partial \text{Loss}(\mathbf{w})}{\partial \mathbf{w}} = \mathbf{0}^T

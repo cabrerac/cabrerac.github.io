@@ -9,6 +9,9 @@
             <h3>Overview</h3>
             <ul>
                 <li>Multivariate Linear Regression</li>
+                <li>Probabilistic Interpretation of Linear Models</li>
+                <li>Linear Basis Function Models</li>
+                <li>Cross Validation</li>
                 <li>Linear Classifiers</li>
                 <li>The Perceptron</li>
             </ul>
@@ -28,6 +31,9 @@
             <h3>Overview</h3>
             <ul>
                 <li>Multivariate Linear Regression</li>
+                <li>Probabilistic Interpretation of Linear Models</li>
+                <li>Linear Basis Function Models</li>
+                <li>Cross Validation</li>
                 <li>Linear Classifiers</li>
                 <li>The Perceptron</li>
             </ul>
