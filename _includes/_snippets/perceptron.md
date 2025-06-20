@@ -558,7 +558,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <img src="{{ site.url }}/assets/media/images/mark-1.png" alt="Mark I" style="max-width: 100%; height: auto;">
-                <div class="footnote">Mark I - (Bishop, 2006).</div>
+                <div class="footnote">Mark I - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
             </div>
         </div>
     </div>
