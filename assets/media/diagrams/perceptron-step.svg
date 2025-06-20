@@ -28,8 +28,7 @@
     <marker id="arrowyup" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="360" markerUnits="strokeWidth">
       <path d="M0,10 L5,0 L10,10 L5,7 Z" fill="black" />
     </marker>
-  </defs>
-  <!-- Downward y-axis arrow -->
+    <!-- Downward y-axis arrow -->
     <marker id="arrowydown" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="180" markerUnits="strokeWidth">
       <path d="M0,10 L5,0 L10,10 L5,7 Z" fill="black" />
     </marker>

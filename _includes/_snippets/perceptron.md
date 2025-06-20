@@ -1127,6 +1127,36 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/perceptron-step.svg" alt="Perceptron Step Function" style="max-width: 100%; height: auto;">
+                <div class="footnote">Perceptron Step Function.</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+<br>The perceptron step function is not differentiable and the gradient is zero almost everywhere:
+$$
+f(z) = \begin{cases}
++1 & \text{if } z \geq 0 \\
+-1 & \text{otherwise}
+\end{cases}
+$$
+<br>We know we are seeking for parameters vector $\mathbf{w}$ such that features in $\mathbf{x_i}$ in class $C_1$:
+$$
+\mathbf{w}^T \phi(\mathbf{x_i}) > 0
+$$
+<br>And for features in $\mathbf{x_i}$ in class $C_2$:
+$$
+\mathbf{w}^T \phi(\mathbf{x_i}) < 0
+$$
+</div>
+        </div>
+    </div>
+</div>
+
+## The Perceptron
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
                 <br>
                 <p>The perceptron model for binary classification:</p>
