@@ -874,7 +874,7 @@ class Perceptron:
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/xor_problem.png" alt="XOR Problem" style="max-width: 100%; height: auto;">
+                <img src="{{ site.url }}/assets/media/images/xor_problem.png" alt="XOR Problem" style="max-width: 80%; height: auto;">
                 <div class="footnote">XOR Problem - Andreas Maier, CC BY 4.0 <https://creativecommons.org/licenses/by/4.0>, via Wikimedia Commons</div>
             </div>
             <div class="column vertical-top text-left" style="width: 50%">

@@ -43,8 +43,7 @@ visible: false
 
 - McCulloch, W., Pitts, W. (1943). [A Logical Calculus of the Ideas Immanent in Nervous Activity](https://www.cs.cmu.edu/~epxing/Class/10715/reading/McCulloch.and.Pitts.pdf)
 - Rosenblatt, F. (1962). [Principles of Neurodynamics: Perceptrons and the Theory of Brain Mechanisms](https://gwern.net/doc/ai/nn/1962-rosenblatt-principlesofneurodynamics.pdf)
-- Minsky, M., Papert, S. (1969). Perceptrons: An Introduction to Computational Geometry. MIT Press.
-- Bishop, C. M. (2006). Pattern Recognition and Machine Learning. Springer. (Chapter 4)
+- Minsky, M., Papert, S. (1969). [Perceptrons: An Introduction to Computational Geometry. MIT Press.](https://rodsmith.nz/wp-content/uploads/Minsky-and-Papert-Perceptrons.pdf)
 <br> 
 #### Web
 
