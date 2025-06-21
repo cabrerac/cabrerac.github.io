@@ -276,6 +276,7 @@ class BasisFunctionTransformer:
             phi = np.exp(-0.5 * ((X - center) / sigma) ** 2)
             features.append(phi)
         return np.hstack(features)
+```
 
 We can test the different basis functions now:
 
