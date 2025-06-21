@@ -3,7 +3,7 @@ course_code: 25-udenar-ml-intro
 title: The Perceptron
 description: We will continue exploring linear regression and classification models, building upon these foundations to introduce the perceptron as a fundamental building block for neural networks. We examine their mathematical formulation, learning process, and limitations, concluding with how these simple units form the basis for neural network architectures.
 session: 6
-start_time: 10:00 am
+start_time: 8:30 am
 end_time: 12:00 am
 hours: 4
 author: Christian Cabrera Jojoa
@@ -15,7 +15,7 @@ layout: lecture
 lecture_code: perceptron
 lecture_date: 21/06/2025
 permalink: /teaching/25-udenar-ml-intro/perceptron/
-visible: false
+visible: true
 ---
 
 <!-- ALL: content that goes everywhere -->
