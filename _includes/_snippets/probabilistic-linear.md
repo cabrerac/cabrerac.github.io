@@ -101,7 +101,7 @@ $$
 <br>So, given a training set of $N$ i.i.d input-output pairs:
 <br>
 $$
-(x_1, y_1), (x_2, y_2), ..., (x_N, y_N)
+(\mathbf{x}_1, y_1), (\mathbf{x}_2, y_2), ..., (\mathbf{x}_N, y_N)
 $$
 </div>
         </div>
@@ -123,7 +123,7 @@ $$
 <br>So, given a training set of $N$ i.i.d input-output pairs:
 <br>
 $$
-(x_1, y_1), (x_2, y_2), ..., (x_N, y_N)
+(\mathbf{x}_1, y_1), (\mathbf{x}_2, y_2), ..., (\mathbf{x}_N, y_N)
 $$
 <br>The likelihood factorises according to:
 <br>

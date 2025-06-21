@@ -10,7 +10,7 @@ In this practical session, we will continue exploring linear regression and clas
 
 In this exercise, we'll explore multivariate linear regression from both a deterministic and probabilistic perspective. We'll implement the model from scratch and compare it with scikit-learn's implementation, then examine the probabilistic interpretation.
 
-Let's start by importing the necessary libraries and creating a synthetic dataset for our analysis.
+Let's start by importing the necessary libraries.
 
 ```python
 import numpy as np
@@ -19,29 +19,32 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
 import seaborn as sns
+```
 
+We can now create a synthetic dataset for our analysis:
+
+```python
 # Set random seed for reproducibility
 np.random.seed(42)
-
 # Generate synthetic data for multivariate regression
 n_samples = 1000
 n_features = 3
-
 # True parameters
 true_weights = np.array([2.5, -1.8, 0.9])
 true_bias = 3.2
-
 # Generate features
 X = np.random.randn(n_samples, n_features)
-
 # Generate target with noise (probabilistic interpretation)
 noise_std = 0.5
 y_true = np.dot(X, true_weights) + true_bias
 y = y_true + np.random.normal(0, noise_std, n_samples)
+```
 
+As always we should explore our data first:
+
+```python
 # Split the data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
 print(f"Dataset shape: {X.shape}")
 print(f"True weights: {true_weights}")
 print(f"True bias: {true_bias}")
@@ -54,37 +57,34 @@ Now, let's implement multivariate linear regression from scratch using the norma
 class MultivariateLinearRegression:
     def __init__(self):
         self.weights = None
-        self.bias = None
-        
+        self.bias = None       
     def fit(self, X, y):
         # Add bias term to features
         X_b = np.c_[np.ones((X.shape[0], 1)), X]
-        
         # Normal equation: w = (X^T X)^(-1) X^T y
         self.weights = np.linalg.inv(X_b.T.dot(X_b)).dot(X_b.T).dot(y)
         self.bias = self.weights[0]
         self.weights = self.weights[1:]
-        
     def predict(self, X):
         return np.dot(X, self.weights) + self.bias
+```
 
+We can train our implementation and compare it with the linear regression model from scikit-learn:
+
+```python
 # Train our implementation
 our_model = MultivariateLinearRegression()
 our_model.fit(X_train, y_train)
-
 # Train scikit-learn's implementation
 sk_model = LinearRegression()
 sk_model.fit(X_train, y_train)
-
 # Compare results
 print("Our Implementation:")
 print(f"Weights: {our_model.weights}")
 print(f"Bias: {our_model.bias:.4f}")
-
 print("\nScikit-learn Implementation:")
 print(f"Weights: {sk_model.coef_}")
 print(f"Bias: {sk_model.intercept_:.4f}")
-
 print(f"\nTrue Weights: {true_weights}")
 print(f"True Bias: {true_bias}")
 ```
@@ -95,104 +95,98 @@ Let's evaluate the performance of both models and visualize the results.
 # Make predictions
 our_predictions = our_model.predict(X_test)
 sk_predictions = sk_model.predict(X_test)
-
 # Calculate metrics
 our_mse = mean_squared_error(y_test, our_predictions)
 sk_mse = mean_squared_error(y_test, sk_predictions)
 our_r2 = r2_score(y_test, our_predictions)
 sk_r2 = r2_score(y_test, sk_predictions)
-
 print("Performance Comparison:")
 print(f"Our Model - MSE: {our_mse:.4f}, R²: {our_r2:.4f}")
 print(f"Scikit-learn - MSE: {sk_mse:.4f}, R²: {sk_r2:.4f}")
-
 # Visualize predictions vs actual values
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
-
 ax1.scatter(y_test, our_predictions, alpha=0.6)
 ax1.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--', lw=2)
 ax1.set_xlabel('Actual Values')
 ax1.set_ylabel('Predicted Values')
 ax1.set_title('Our Implementation')
-
 ax2.scatter(y_test, sk_predictions, alpha=0.6)
 ax2.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--', lw=2)
 ax2.set_xlabel('Actual Values')
 ax2.set_ylabel('Predicted Values')
 ax2.set_title('Scikit-learn Implementation')
-
 plt.tight_layout()
 plt.show()
 ```
 
-Now, let's explore the probabilistic interpretation by examining the likelihood function and maximum likelihood estimation.
+Now, let's explore the probabilistic interpretation by examining the likelihood function and maximum likelihood estimation. For that, we will need to define some functions. First, let's define our log likelihood.
 
 ```python
 def log_likelihood(X, y, weights, bias, sigma):
     """Calculate the log-likelihood for given parameters"""
     predictions = np.dot(X, weights) + bias
     residuals = y - predictions
-    n = len(y)
-    
+    n = len(y)  
     # Log-likelihood for Gaussian noise
     log_likelihood = -n/2 * np.log(2 * np.pi * sigma**2) - np.sum(residuals**2) / (2 * sigma**2)
     return log_likelihood
+```
 
+And then our negative log likelihood function:
+
+```python
 def negative_log_likelihood(params, X, y):
     """Negative log-likelihood for optimization"""
     weights = params[:-2]
     bias = params[-2]
     sigma = params[-1]
-    
     return -log_likelihood(X, y, weights, bias, sigma)
+```
 
+Computing the likelihood for different parameter values and minimising using `scipy`:
+
+```python
 # Calculate likelihood for different parameter values
 from scipy.optimize import minimize
-
 # Initial guess
 initial_params = np.concatenate([our_model.weights, [our_model.bias, noise_std]])
-
-# Optimize using maximum likelihood
+# Optimise using maximum likelihood
 result = minimize(negative_log_likelihood, initial_params, args=(X_train, y_train))
-
 ml_weights = result.x[:-2]
 ml_bias = result.x[-2]
 ml_sigma = result.x[-1]
-
 print("Maximum Likelihood Estimation Results:")
 print(f"Estimated weights: {ml_weights}")
 print(f"Estimated bias: {ml_bias:.4f}")
 print(f"Estimated noise std: {ml_sigma:.4f}")
 print(f"True noise std: {noise_std}")
-
 # Compare likelihood values
 our_likelihood = log_likelihood(X_test, y_test, our_model.weights, our_model.bias, noise_std)
 ml_likelihood = log_likelihood(X_test, y_test, ml_weights, ml_bias, ml_sigma)
-
 print(f"\nLog-likelihood comparison:")
 print(f"Our model: {our_likelihood:.4f}")
 print(f"Maximum likelihood: {ml_likelihood:.4f}")
 ```
 
-Let's visualize the probabilistic nature of our predictions by showing the uncertainty in our model.
+Let's visualise the probabilistic nature of our predictions by showing the uncertainty in our model.
 
 ```python
 # Calculate prediction intervals
 def prediction_intervals(X, weights, bias, sigma, confidence=0.95):
     """Calculate prediction intervals"""
-    predictions = np.dot(X, weights) + bias
-    
+    predictions = np.dot(X, weights) + bias    
     # For 95% confidence interval, use 1.96 standard deviations
-    z_score = 1.96 if confidence == 0.95 else 2.58  # 99% confidence
-    
+    z_score = 1.96 if confidence == 0.95 else 2.58  # 99% confidence    
     lower_bound = predictions - z_score * sigma
-    upper_bound = predictions + z_score * sigma
-    
+    upper_bound = predictions + z_score * sigma    
     return predictions, lower_bound, upper_bound
+```
 
+Utilising our visualisation:
+
+```python
 # Calculate intervals for test set
 preds, lower, upper = prediction_intervals(X_test, ml_weights, ml_bias, ml_sigma)
-
 # Visualize predictions with uncertainty
 plt.figure(figsize=(10, 6))
 plt.scatter(range(len(y_test)), y_test, alpha=0.6, label='Actual Values')
@@ -203,7 +197,6 @@ plt.ylabel('Target Value')
 plt.title('Predictions with Uncertainty Bands')
 plt.legend()
 plt.show()
-
 # Check coverage of confidence interval
 coverage = np.mean((y_test >= lower) & (y_test <= upper))
 print(f"Coverage of 95% confidence interval: {coverage:.3f} (should be close to 0.95)")
