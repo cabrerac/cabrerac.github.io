@@ -17,9 +17,9 @@ lecture_date: 21/06/2025
 permalink: /teaching/25-udenar-ml-intro/perceptron/
 position: Senior Research Associate and Affiliated Lecturer
 session: 6
-start_time: 10:00 am
+start_time: 8:30 am
 title: The Perceptron
-visible: false
+visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
