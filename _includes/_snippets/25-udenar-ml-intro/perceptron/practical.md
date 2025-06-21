@@ -553,10 +553,8 @@ def plot_decision_boundary(X, y, model, title):
     x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
     y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
     xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
-    
     Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
     Z = Z.reshape(xx.shape)
-    
     plt.figure(figsize=(8, 6))
     plt.contourf(xx, yy, Z, alpha=0.4)
     plt.scatter(X[:, 0], X[:, 1], c=y, alpha=0.8)
@@ -590,27 +588,22 @@ class Perceptron:
         self.weights = None
         self.bias = None
         self.errors_ = []
-        
     def fit(self, X, y):
         n_samples, n_features = X.shape
         self.weights = np.zeros(n_features)
         self.bias = 0
-        
         for _ in range(self.epochs):
             errors = 0
             for idx, x_i in enumerate(X):
                 linear_output = np.dot(x_i, self.weights) + self.bias
                 y_predicted = np.where(linear_output >= 0, 1, -1)
-                
                 if y[idx] * y_predicted <= 0:
                     self.weights += self.learning_rate * y[idx] * x_i
                     self.bias += self.learning_rate * y[idx]
                     errors += 1
-                    
             self.errors_.append(errors)
             if errors == 0:
                 break
-                
     def predict(self, X):
         linear_output = np.dot(X, self.weights) + self.bias
         return np.where(linear_output >= 0, 1, -1)
@@ -647,10 +640,8 @@ def plot_decision_boundary_perceptron(X, y, model):
     x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
     y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
     xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
-    
     Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
     Z = Z.reshape(xx.shape)
-    
     plt.figure(figsize=(8, 6))
     plt.contourf(xx, yy, Z, alpha=0.4)
     plt.scatter(X[:, 0], X[:, 1], c=y, alpha=0.8)
@@ -658,7 +649,6 @@ def plot_decision_boundary_perceptron(X, y, model):
     plt.ylabel('Feature 2')
     plt.title('Perceptron Decision Boundary')
     plt.show()
-
 plot_decision_boundary_perceptron(X, y, perceptron)
 ```
 
@@ -678,13 +668,26 @@ print("Scikit-learn Perceptron Accuracy:", np.mean(sk_predictions == y))
 
 ---
 
-## Homework - The Perceptron
+## Homework - Linear Basis Functions and Cross-Validation
 
-The homework assignment will help you applying linear regression algorithms we've learned to a dataset of your choice. You may use a new dataset or continue with the one you defined in previous homeworks. Your task is to use the implementation of the Gradient Descent algorithms in this practical to build a pipeline that applies linear regression in your data and evaluates the results with different hyperparameter values. You are free to explore as much as you wish!
+The homework assignment is focused on exploring the power of Linear Basis Function Models. You will apply the concepts learned in this practical session to a dataset of your choice (you can use a new one or continue with a previous one), preferably one with non-linear relationships.
 
-You should provide a clear analysis and narrative of the different steps you used in your implementation, explaining your reasoning and choices throughout the process.
+Your task is to:
 
-<DESCRIBE YOUR DATASET HERE>
+1.  **Define a Decision Matrix**: Create a systematic plan to evaluate different linear basis functions. This involves selecting a range of hyperparameters to test. For example:
+    *   **Polynomial Basis**: Test various degrees (e.g., from 2 to 10).
+    *   **Gaussian Basis**: Test different numbers of centers (e.g., from 5 to 20).
+    You should document your choices in a table or matrix format, which will guide your evaluation.
+
+2.  **Evaluate using Cross-Validation**: Use the k-fold cross-validation techniques from this practical (`cross_val_score` or the manual implementation) to evaluate the performance of each configuration defined in your decision matrix. Your goal is to find the optimal hyperparameter for each basis function type based on the cross-validation scores (e.g., Mean Squared Error).
+
+3.  **Analyse and Select**: Visualise the cross-validation results (e.g., plotting MSE vs. hyperparameter value). Based on your analysis, select the best basis function type and its optimal hyperparameter.
+
+4.  **Final Model Evaluation**: Train a final `LinearRegression` model using the best basis function configuration on the entire training set and evaluate its performance on the test set.
+
+5.  **Discussion**: Discuss your findings. Compare the performance of the optimised basis function model with a simple linear regression model. Did the basis functions help capture the non-linearity in the data? Explain your results.
+
+<DESCRIBE YOUR SOLUTION HERE>
 
 ```python
 # Write your pipeline here
