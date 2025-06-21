@@ -249,8 +249,9 @@ class BasisFunctionTransformer:
         self.basis_type = basis_type
         self.degree = degree
         self.n_centers = n_centers
-        self.centers = None      
-    def fit(self, X):
+        self.centers = None
+        
+    def fit(self, X, y=None):
         if self.basis_type == 'gaussian':
             # Set Gaussian centers evenly across the feature range
             self.centers = np.linspace(X.min(), X.max(), self.n_centers)
@@ -458,6 +459,7 @@ print(f"Standard deviation: {cv_scores_manual.std():.4f}")
 Finally, let's demonstrate the importance of cross-validation by showing how different train-test splits can lead to different conclusions.
 
 ```python
+import pandas as pd
 # Compare different random seeds for train-test split
 seeds = [42, 123, 456, 789, 999]
 results = []
@@ -484,11 +486,6 @@ plt.bar(range(len(results)), [r['mse'] for r in results])
 plt.xlabel('Random Seed')
 plt.ylabel('Mean Squared Error')
 plt.title('MSE Variation Across Different Splits')
-plt.subplot(1, 2, 2)
-plt.bar(range(len(results)), [r['r2'] for r in results])
-plt.xlabel('Random Seed')
-plt.ylabel('R² Score')
-plt.title('R² Variation Across Different Splits')
 plt.tight_layout()
 plt.show()
 print("Results across different random seeds:")
