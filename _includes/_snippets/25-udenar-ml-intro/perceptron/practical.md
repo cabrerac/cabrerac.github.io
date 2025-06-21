@@ -187,17 +187,25 @@ Utilising our visualisation:
 ```python
 # Calculate intervals for test set
 preds, lower, upper = prediction_intervals(X_test, ml_weights, ml_bias, ml_sigma)
-# Visualize predictions with uncertainty
+# Randomly select 10 data points for better visualization
+np.random.seed(42)  # For reproducibility
+n_plot = min(10, len(y_test))  # Select 10 points or all if less than 10
+indices = np.random.choice(len(y_test), n_plot, replace=False)
+# Sort the random indices to plot correctly
+sorted_indices = np.sort(indices)
+# Visualize predictions with uncertainty (using only selected points)
 plt.figure(figsize=(10, 6))
-plt.scatter(range(len(y_test)), y_test, alpha=0.6, label='Actual Values')
-plt.plot(range(len(y_test)), preds, 'r-', label='Predictions')
-plt.fill_between(range(len(y_test)), lower, upper, alpha=0.3, label='95% Confidence Interval')
+# For scatter plot, order doesn't matter, but using sorted_indices for consistency
+plt.scatter(sorted_indices, y_test[sorted_indices], alpha=0.6, label='Actual Values')
+# For line plot and fill_between, sorted x-axis is crucial
+plt.plot(sorted_indices, preds[sorted_indices], 'r-', label='Predictions')
+plt.fill_between(sorted_indices, lower[sorted_indices], upper[sorted_indices], alpha=0.3, label='95% Confidence Interval')
 plt.xlabel('Sample Index')
 plt.ylabel('Target Value')
-plt.title('Predictions with Uncertainty Bands')
+plt.title('Predictions with Uncertainty Bands (10 Random Samples)')
 plt.legend()
 plt.show()
-# Check coverage of confidence interval
+# Check coverage of confidence interval (using all data)
 coverage = np.mean((y_test >= lower) & (y_test <= upper))
 print(f"Coverage of 95% confidence interval: {coverage:.3f} (should be close to 0.95)")
 ```
@@ -214,17 +222,13 @@ Let's start by creating a dataset that demonstrates the need for non-linear tran
 # Generate non-linear data
 np.random.seed(42)
 n_samples = 200
-
 # Generate features
 X = np.linspace(-3, 3, n_samples).reshape(-1, 1)
-
 # Generate non-linear target with noise
 y_true = 2 * np.sin(X.flatten()) + 0.5 * X.flatten()**2
 y = y_true + np.random.normal(0, 0.3, n_samples)
-
 # Split data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-
 # Visualize the data
 plt.figure(figsize=(10, 6))
 plt.scatter(X_train, y_train, alpha=0.6, label='Training Data')
@@ -246,13 +250,12 @@ class BasisFunctionTransformer:
         self.degree = degree
         self.n_centers = n_centers
         self.centers = None
-        
+       
     def fit(self, X):
         if self.basis_type == 'gaussian':
             # Set Gaussian centers evenly across the feature range
             self.centers = np.linspace(X.min(), X.max(), self.n_centers)
-        return self
-    
+        return self   
     def transform(self, X):
         if self.basis_type == 'polynomial':
             return self._polynomial_basis(X)
@@ -260,35 +263,31 @@ class BasisFunctionTransformer:
             return self._gaussian_basis(X)
         else:
             raise ValueError(f"Unknown basis type: {self.basis_type}")
-    
     def _polynomial_basis(self, X):
         """Create polynomial basis functions"""
         features = []
         for i in range(self.degree + 1):
             features.append(X ** i)
         return np.hstack(features)
-    
     def _gaussian_basis(self, X):
         """Create Gaussian basis functions"""
         features = []
         sigma = (self.centers[1] - self.centers[0]) / 2  # Set sigma based on center spacing
-        
         for center in self.centers:
             phi = np.exp(-0.5 * ((X - center) / sigma) ** 2)
             features.append(phi)
-        
         return np.hstack(features)
 
+We can test the different basis functions now:
+
+```python
 # Test different basis functions
 polynomial_transformer = BasisFunctionTransformer(basis_type='polynomial', degree=3)
 gaussian_transformer = BasisFunctionTransformer(basis_type='gaussian', n_centers=5)
-
 polynomial_transformer.fit(X_train)
 gaussian_transformer.fit(X_train)
-
 X_poly = polynomial_transformer.transform(X_train)
 X_gauss = gaussian_transformer.transform(X_train)
-
 print(f"Original features shape: {X_train.shape}")
 print(f"Polynomial basis shape: {X_poly.shape}")
 print(f"Gaussian basis shape: {X_gauss.shape}")
@@ -306,56 +305,48 @@ def evaluate_basis_functions(X, y, basis_type='polynomial', param_range=None):
         if basis_type == 'polynomial':
             param_range = range(1, 8)  # degrees 1-7
         else:
-            param_range = range(3, 12)  # centers 3-11
-    
+            param_range = range(3, 12)  # centers 3-11  
     cv_scores = []
-    
     for param in param_range:
         if basis_type == 'polynomial':
             transformer = BasisFunctionTransformer(basis_type='polynomial', degree=param)
         else:
             transformer = BasisFunctionTransformer(basis_type='gaussian', n_centers=param)
-        
         # Create pipeline
         pipeline = Pipeline([
             ('basis', transformer),
             ('regression', LinearRegression())
         ])
-        
         # Perform cross-validation
         scores = cross_val_score(pipeline, X, y, cv=5, scoring='neg_mean_squared_error')
         cv_scores.append(-scores.mean())  # Convert back to positive MSE
-    
     return param_range, cv_scores
+```
 
+And the evaluation of the basis functions using cross validation:
+
+```python
 # Evaluate polynomial basis functions
 poly_params, poly_scores = evaluate_basis_functions(X_train, y_train, 'polynomial')
-
 # Evaluate Gaussian basis functions
 gauss_params, gauss_scores = evaluate_basis_functions(X_train, y_train, 'gaussian')
-
 # Visualize cross-validation results
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
-
 ax1.plot(poly_params, poly_scores, 'bo-')
 ax1.set_xlabel('Polynomial Degree')
 ax1.set_ylabel('Mean Squared Error')
 ax1.set_title('Cross-validation: Polynomial Basis')
 ax1.grid(True)
-
 ax2.plot(gauss_params, gauss_scores, 'ro-')
 ax2.set_xlabel('Number of Gaussian Centers')
 ax2.set_ylabel('Mean Squared Error')
 ax2.set_title('Cross-validation: Gaussian Basis')
 ax2.grid(True)
-
 plt.tight_layout()
 plt.show()
-
 # Find optimal parameters
 best_poly_degree = poly_params[np.argmin(poly_scores)]
 best_gauss_centers = gauss_params[np.argmin(gauss_scores)]
-
 print(f"Optimal polynomial degree: {best_poly_degree}")
 print(f"Optimal number of Gaussian centers: {best_gauss_centers}")
 ```
@@ -366,47 +357,35 @@ Now, let's train models with the optimal parameters and compare their performanc
 # Train models with optimal parameters
 best_poly_transformer = BasisFunctionTransformer(basis_type='polynomial', degree=best_poly_degree)
 best_gauss_transformer = BasisFunctionTransformer(basis_type='gaussian', n_centers=best_gauss_centers)
-
 best_poly_transformer.fit(X_train)
 best_gauss_transformer.fit(X_train)
-
 X_poly_opt = best_poly_transformer.transform(X_train)
 X_gauss_opt = best_gauss_transformer.transform(X_train)
-
 # Train regression models
 poly_model = LinearRegression()
 gauss_model = LinearRegression()
-
 poly_model.fit(X_poly_opt, y_train)
 gauss_model.fit(X_gauss_opt, y_train)
-
 # Make predictions
 X_poly_test = best_poly_transformer.transform(X_test)
 X_gauss_test = best_gauss_transformer.transform(X_test)
-
 poly_pred = poly_model.predict(X_poly_test)
 gauss_pred = gauss_model.predict(X_gauss_test)
-
 # Evaluate performance
 poly_mse = mean_squared_error(y_test, poly_pred)
 gauss_mse = mean_squared_error(y_test, gauss_pred)
 poly_r2 = r2_score(y_test, poly_pred)
 gauss_r2 = r2_score(y_test, gauss_pred)
-
 print("Performance Comparison:")
 print(f"Polynomial Basis - MSE: {poly_mse:.4f}, R²: {poly_r2:.4f}")
 print(f"Gaussian Basis - MSE: {gauss_mse:.4f}, R²: {gauss_r2:.4f}")
-
 # Visualize the fitted models
 X_plot = np.linspace(-3, 3, 1000).reshape(-1, 1)
 X_poly_plot = best_poly_transformer.transform(X_plot)
 X_gauss_plot = best_gauss_transformer.transform(X_plot)
-
 poly_plot_pred = poly_model.predict(X_poly_plot)
 gauss_plot_pred = gauss_model.predict(X_gauss_plot)
-
 plt.figure(figsize=(12, 8))
-
 plt.subplot(2, 1, 1)
 plt.scatter(X_train, y_train, alpha=0.6, label='Training Data')
 plt.scatter(X_test, y_test, alpha=0.6, label='Test Data')
@@ -416,7 +395,6 @@ plt.xlabel('X')
 plt.ylabel('y')
 plt.title('Polynomial Basis Function Model')
 plt.legend()
-
 plt.subplot(2, 1, 2)
 plt.scatter(X_train, y_train, alpha=0.6, label='Training Data')
 plt.scatter(X_test, y_test, alpha=0.6, label='Test Data')
@@ -426,7 +404,6 @@ plt.xlabel('X')
 plt.ylabel('y')
 plt.title('Gaussian Basis Function Model')
 plt.legend()
-
 plt.tight_layout()
 plt.show()
 ```
@@ -438,42 +415,38 @@ def k_fold_cross_validation(X, y, k=5, model_type='linear'):
     """Implement k-fold cross-validation from scratch"""
     n_samples = len(X)
     fold_size = n_samples // k
-    indices = np.random.permutation(n_samples)
-    
+    indices = np.random.permutation(n_samples)   
     cv_scores = []
-    
     for i in range(k):
         # Define validation indices
         val_start = i * fold_size
         val_end = val_start + fold_size if i < k - 1 else n_samples
         val_indices = indices[val_start:val_end]
         train_indices = np.concatenate([indices[:val_start], indices[val_end:]])
-        
         # Split data
         X_train_fold = X[train_indices]
         y_train_fold = y[train_indices]
         X_val_fold = X[val_indices]
         y_val_fold = y[val_indices]
-        
         # Train model
         if model_type == 'linear':
             model = LinearRegression()
         else:
             model = LinearRegression()
-        
         model.fit(X_train_fold, y_train_fold)
-        
         # Evaluate
         y_pred_fold = model.predict(X_val_fold)
         mse = mean_squared_error(y_val_fold, y_pred_fold)
         cv_scores.append(mse)
-    
     return np.array(cv_scores)
+```
 
+Testing our cross-validation implementation:
+
+```python
 # Test our cross-validation implementation
 np.random.seed(42)
 cv_scores_manual = k_fold_cross_validation(X_train, y_train, k=5)
-
 print("Manual Cross-validation Results:")
 print(f"Individual fold MSEs: {cv_scores_manual}")
 print(f"Mean MSE: {cv_scores_manual.mean():.4f}")
@@ -486,48 +459,36 @@ Finally, let's demonstrate the importance of cross-validation by showing how dif
 # Compare different random seeds for train-test split
 seeds = [42, 123, 456, 789, 999]
 results = []
-
 for seed in seeds:
     X_train_temp, X_test_temp, y_train_temp, y_test_temp = train_test_split(
         X, y, test_size=0.3, random_state=seed
-    )
-    
+    )  
     # Use optimal polynomial model
     transformer = BasisFunctionTransformer(basis_type='polynomial', degree=best_poly_degree)
     transformer.fit(X_train_temp)
-    
     X_train_transformed = transformer.transform(X_train_temp)
     X_test_transformed = transformer.transform(X_test_temp)
-    
     model = LinearRegression()
     model.fit(X_train_transformed, y_train_temp)
-    
     y_pred_temp = model.predict(X_test_transformed)
     mse_temp = mean_squared_error(y_test_temp, y_pred_temp)
     r2_temp = r2_score(y_test_temp, y_pred_temp)
-    
     results.append({'seed': seed, 'mse': mse_temp, 'r2': r2_temp})
-
 # Visualize the variation
 results_df = pd.DataFrame(results)
-
 plt.figure(figsize=(12, 5))
-
 plt.subplot(1, 2, 1)
 plt.bar(range(len(results)), [r['mse'] for r in results])
 plt.xlabel('Random Seed')
 plt.ylabel('Mean Squared Error')
 plt.title('MSE Variation Across Different Splits')
-
 plt.subplot(1, 2, 2)
 plt.bar(range(len(results)), [r['r2'] for r in results])
 plt.xlabel('Random Seed')
 plt.ylabel('R² Score')
 plt.title('R² Variation Across Different Splits')
-
 plt.tight_layout()
 plt.show()
-
 print("Results across different random seeds:")
 for result in results:
     print(f"Seed {result['seed']}: MSE={result['mse']:.4f}, R²={result['r2']:.4f}")
