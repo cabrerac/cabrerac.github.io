@@ -249,8 +249,7 @@ class BasisFunctionTransformer:
         self.basis_type = basis_type
         self.degree = degree
         self.n_centers = n_centers
-        self.centers = None
-       
+        self.centers = None      
     def fit(self, X):
         if self.basis_type == 'gaussian':
             # Set Gaussian centers evenly across the feature range
@@ -293,12 +292,14 @@ print(f"Polynomial basis shape: {X_poly.shape}")
 print(f"Gaussian basis shape: {X_gauss.shape}")
 ```
 
-Let's implement cross-validation to find optimal hyperparameters for our basis function models.
+Let's implement cross-validation to find optimal hyperparameters for our basis function models. First, we import the required libraries.
 
 ```python
 from sklearn.model_selection import cross_val_score
 from sklearn.pipeline import Pipeline
+```
 
+```python
 def evaluate_basis_functions(X, y, basis_type='polynomial', param_range=None):
     """Evaluate different basis function configurations using cross-validation"""
     if param_range is None:
