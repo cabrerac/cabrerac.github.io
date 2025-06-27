@@ -18,23 +18,130 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/diagrams/ml-model.svg" alt="Neural Network Architecture" style="max-width: 100%; height: auto;">
-                <div class="footnote">Feedforward Neural Network Architecture.</div>
+                <img src="{{ site.url }}/assets/media/diagrams/perceptron.svg" alt="Perceptron Architecture" style="max-width: 100%; height: auto;">
+                <div class="footnote">Perceptron Architecture.</div>
             </div>
-            <div class="column vertical-top text-left" style="width: 50%">
-                <br>
-                <p><b>Key Components:</b></p>
-                <br>
-                <p>• <b>Input Layer:</b> Receives the input features</p>
-                <p>• <b>Hidden Layers:</b> Process information through weighted connections</p>
-                <p>• <b>Output Layer:</b> Produces the final prediction</p>
-                <p>• <b>Activation Functions:</b> Introduce non-linearity</p>
-                <br>
-                <p><b>Universal Approximation:</b> A neural network with one hidden layer can approximate any continuous function.</p>
+            <div class="column vertical-middle text-left" style="width: 50%">
             </div>
         </div>
     </div>
 </div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/perceptron.svg" alt="Perceptron Architecture" style="max-width: 100%; height: auto;">
+                <div class="footnote">Perceptron Architecture.</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Previous models:</b></p>
+                <br>
+                <ul>
+                    <li>Useful analytical and computational properties</li>
+                    <li>Limited application because of <em>the course of dimensionality</em></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/perceptron.svg" alt="Perceptron Architecture" style="max-width: 100%; height: auto;">
+                <div class="footnote">Perceptron Architecture.</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Large scale problems require we adapt the basis functions to the data.</b></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/4/46/Colored_neural_network.svg" alt="Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Neural Network Architecture.</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Large scale problems require we adapt the basis functions to the data.</b></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/4/46/Colored_neural_network.svg" alt="Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Neural Network Architecture.</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Neural Networks:</b></p>
+                <br>
+                <ul>
+                    <li>Fix the number of basis functions in advance</li>
+                    <li>Basis functions are adaptive and their parameters can be updated during training</li>
+                </ul>
+                <br>
+                <p><b>Training is costly but inference is cheap.</b></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/4/46/Colored_neural_network.svg" alt="Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Neural Network Architecture.</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Key Components:</b></p>
+                <ul>
+                    <li><b>Input Layer:</b> Receives the input features</li>
+                    <li><b>Hidden Layers:</b> Process information through weighted connections</li>
+                    <li><b>Output Layer:</b> Produces the final prediction</li>
+                    <li><b>Activation Functions:</b> Introduce non-linearity</li>
+                </ul>
+                <p><b>The Universal Approximation Theorem</b> states that a neural network with one hidden layer can approximate any continuous function on a compact subset of ℝⁿ, given sufficient neurons in the hidden layer because neural networks form complex decision boundaries through the combination of linear transformations and non-linear activation functions.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Feedforward Neural Network:</b></p>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 ## Neural Networks
 
