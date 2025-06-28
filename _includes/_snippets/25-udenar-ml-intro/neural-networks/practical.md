@@ -113,13 +113,14 @@ Now, let's implement our neural network class from scratch:
 
 ```python
 class NeuralNetwork:
-    def __init__(self, layers, activation='sigmoid', learning_rate=0.1):
+    def __init__(self, task, layers, activation='sigmoid', learning_rate=0.1):
         """
         Initialize neural network
         layers: list of integers representing the number of neurons in each layer
         activation: activation function ('sigmoid', 'relu', 'tanh')
         learning_rate: learning rate for gradient descent
         """
+        self.task = task
         self.layers = layers
         self.learning_rate = learning_rate
         self.activation = activation
@@ -156,8 +157,11 @@ class NeuralNetwork:
             z = np.dot(self.weights[i], self.activations[-1]) + self.biases[i]
             self.z_values.append(z)
             if i == len(self.weights) - 1:
-                # Output layer - use sigmoid for classification, linear for regression
-                a = sigmoid(z)
+                # Output layer
+                if self.task == 'classification':
+                    a = sigmoid(z)
+                else:  # regression
+                    a = z  # linear activation
             else:
                 a = self.activation_func(z)
             self.activations.append(a)
@@ -236,7 +240,7 @@ X_class_test_nn = X_class_test.T
 y_class_train_nn = y_class_train.reshape(1, -1)
 y_class_test_nn = y_class_test.reshape(1, -1)
 # Create and train neural network
-nn_classifier = NeuralNetwork(layers=[2, 4, 1], activation='sigmoid', learning_rate=0.1)
+nn_classifier = NeuralNetwork('classification', layers=[2, 4, 1], activation='sigmoid', learning_rate=0.1)
 nn_classifier.fit(X_class_train_nn, y_class_train_nn, epochs=1000, batch_size=32)
 # Plot training loss
 plt.figure(figsize=(10, 6))
@@ -276,6 +280,8 @@ def plot_decision_boundary(X, y, model, title):
 plot_decision_boundary(X_class_test, y_class_test, nn_classifier, 'Neural Network Decision Boundary')
 ```
 
+The shape of the boundary (curved, not straight) shows that the neural network has learned a non-linear separation between the classes, which is something simple linear models (like logistic regression) cannot do. The fit: If most points of each color are on the correct side of the boundary, your model is performing well. Misclassifications: Any points on the wrong side of the boundary are errors.
+
 Now let's test on the regression problem:
 
 ```python
@@ -285,7 +291,7 @@ X_reg_test_nn = X_reg_test.T
 y_reg_train_nn = y_reg_train.reshape(1, -1)
 y_reg_test_nn = y_reg_test.reshape(1, -1)
 # Create and train neural network for regression
-nn_regressor = NeuralNetwork(layers=[3, 5, 1], activation='relu', learning_rate=0.01)
+nn_regressor = NeuralNetwork('regression', layers=[3, 5, 1], activation='relu', learning_rate=0.01)
 nn_regressor.fit(X_reg_train_nn, y_reg_train_nn, epochs=1000, batch_size=32)
 # Plot training loss
 plt.figure(figsize=(10, 6))
