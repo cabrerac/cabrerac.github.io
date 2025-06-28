@@ -485,6 +485,8 @@ plt.grid(True)
 plt.show()
 ```
 
+We can see that the neural network overfits the data. The linear dataset is quite simple and the neural network learns it straight away.
+
 Let's test with our non-linear regression problem.
 
 ```python
@@ -535,11 +537,20 @@ plt.grid(True)
 plt.show()
 ```
 
+We can see that the neural network manages to learn and generalise the non-linear relations in our dataset.
+
 ---
 
 ## Exercise 3: Modern Deep Learning with TensorFlow/Keras
 
-In this exercise, we'll explore modern deep learning techniques using TensorFlow/Keras, including batch normalization, dropout, and modern optimizers.
+In this exercise, we'll explore modern deep learning techniques using TensorFlow/Keras. We'll use the classification dataset created earlier, which consists of two features and a binary target. This dataset is suitable for demonstrating the power of deep neural networks and modern training techniques.
+
+We'll experiment with different network architectures and training techniques, including:
+- **Batch Normalization:** Helps stabilize and accelerate training by normalizing layer inputs.
+- **Dropout:** A regularization technique that randomly drops units during training to prevent overfitting.
+- **Optimisers:** We'll compare Stochastic Gradient Descent (SGD) and Adam optimisers, as well as different learning rates.
+
+Let's start by importing TensorFlow and Keras, and setting random seeds for reproducibility.
 
 ```python
 import tensorflow as tf
@@ -553,7 +564,25 @@ np.random.seed(42)
 print(f"TensorFlow version: {tf.__version__}")
 ```
 
-Let's create a modern deep neural network with advanced techniques:
+### Defining Modern Neural Network Architectures
+
+The neural network architecture we are defining is a modern design that incorporates several advanced techniques to enhance performance and generalization. It is structured as follows:
+
+1. **Input Layer**: The network starts with an input layer that takes data of a defined shape. This layer is fully connected, meaning each neuron in this layer is connected to every neuron in the subsequent layer. It consists of 64 neurons and employs the ReLU activation function to introduce non-linearity.
+
+2. **Batch Normalization (Optional)**: Following the input layer, batch normalization can be applied. This technique normalizes the inputs of each layer to improve training speed and stability.
+
+3. **Dropout (Optional)**: After batch normalization, dropout can be applied. This regularization method randomly sets a fraction of input units to zero during training, which helps prevent overfitting.
+
+4. **First Hidden Layer**: The first hidden layer is a fully connected layer with 128 neurons, utilizing the ReLU activation function. By applying non-linear transformations, this layer captures intricate patterns and interactions within the input data, enabling the network to learn more complex features.
+
+5. **Batch Normalization and Dropout (Optional)**: Similar to the input layer, batch normalization and dropout can be applied after the first hidden layer to maintain training efficiency and reduce overfitting.
+
+6. **Second Hidden Layer**: The second hidden layer is another fully connected layer with 64 neurons, continuing to use the ReLU activation function. This layer refines the features extracted by the previous layers.
+
+7. **Batch Normalization and Dropout (Optional)**: Again, batch normalization and dropout can be applied after the second hidden layer for the same benefits as before.
+
+8. **Output Layer**: The network concludes with an output layer. For binary classification tasks, this layer has a single neuron with a sigmoid activation function, which outputs a probability score indicating the class. For multi-class classification, the output layer would have as many neurons as there are classes, using a softmax activation function to output class probabilities.
 
 ```python
 def create_modern_nn(input_shape, num_classes=1, use_batch_norm=True, use_dropout=True):
@@ -584,7 +613,15 @@ def create_modern_nn(input_shape, num_classes=1, use_batch_norm=True, use_dropou
     return model
 ```
 
-Now we can create models with different configurations
+### Comparing Different Network Configurations
+
+We'll create several models with different configurations to compare the effects of batch normalization and dropout:
+- **Basic:** No batch normalization or dropout.
+- **With BatchNorm:** Batch normalization only.
+- **With Dropout:** Dropout only.
+- **Modern:** Both batch normalization and dropout.
+
+We'll train each model using the Adam optimiser and early stopping to prevent overfitting. We'll also plot the training and validation accuracy and loss for each configuration.
 
 ```python
 models_configs = {
@@ -658,23 +695,39 @@ plt.tight_layout()
 plt.show()
 ```
 
-Let's also explore different optimizers:
+The figure above compares the training and validation performance of four different neural network configurations on the classification dataset:
+
+- **Basic:** No batch normalization or dropout.
+- **With BatchNorm:** Batch normalization only.
+- **With Dropout:** Dropout only.
+- **Modern:** Both batch normalization and dropout.
+
+The Training Accuracy plot shows how accurately each model classifies the training data over epochs. All models improve over time, but the model with batch normalization alone achieves the highest training accuracy, indicating it fits the training data very well.
+The Training Loss displays the loss (error) on the training data. Lower loss means better fit. The batch normalization model achieves the lowest training loss, but this does not necessarily translate to better generalization.
+The Validation Accuracy plot shows the accuracy on the validation set, which is a proxy for generalization to new data. All models reach similar high validation accuracy, but the model with batch normalization alone shows more fluctuation, suggesting it may be less stable or overfitting.
+The Validation loss shows the loss on the validation set. Lower validation loss indicates better generalization. The basic, dropout, and modern models achieve similar low validation loss, while the batch normalization-only model has higher and more unstable validation loss, indicating possible overfitting or instability.
+
+We found that batch normalisation speeds up training and improve if, but can cause instability or overfitting if not combined with other techniques. Dropout helps prevent overfitting, leading to more stable validation performance. The modern model (batch normalization + dropout) balances both techniques, achieving good generalization and stable training. Validation curves are crucial for diagnosing overfitting and selecting the best model configuration.
+
+### Exploring Different Optimisers
+
+Next, we'll compare the performance of different optimisers and learning rates. We'll use SGD and Adam, and also try a higher learning rate for Adam. This helps illustrate how optimiser choice and learning rate can impact training dynamics and final performance.
 
 ```python
-# Compare different optimizers
-optimizers = {
+# Compare different optimisers
+optimisers = {
     'SGD': SGD(learning_rate=0.01),
     'Adam': Adam(learning_rate=0.001),
     'Adam (high lr)': Adam(learning_rate=0.01)
 }
-optimizer_results = {}
-for opt_name, optimizer in optimizers.items():
-    print(f"\nTraining with {opt_name} optimizer...")
+optimiser_results = {}
+for opt_name, optimiser in optimisers.items():
+    print(f"\nTraining with {opt_name} optimiser...")
     # Create model
     model = create_modern_nn((2,), use_batch_norm=True, use_dropout=True)
     # Compile model
     model.compile(
-        optimizer=optimizer,
+        optimizer=optimiser,
         loss='binary_crossentropy',
         metrics=['accuracy']
     )
@@ -686,28 +739,28 @@ for opt_name, optimizer in optimizers.items():
         batch_size=32,
         verbose=0
     )
-    optimizer_results[opt_name] = history.history
+    optimiser_results[opt_name] = history.history
     # Evaluate model
     test_loss, test_accuracy = model.evaluate(X_class_test, y_class_test, verbose=0)
     print(f"{opt_name} - Test Accuracy: {test_accuracy:.4f}")
-# Plot optimizer comparison
+# Plot optimiser comparison
 plt.figure(figsize=(15, 5))
 plt.subplot(1, 3, 1)
-for opt_name, history in optimizer_results.items():
+for opt_name, history in optimiser_results.items():
     plt.plot(history['accuracy'], label=opt_name)
 plt.title('Training Accuracy')
 plt.ylabel('Accuracy')
 plt.legend()
 plt.grid(True)
 plt.subplot(1, 3, 2)
-for opt_name, history in optimizer_results.items():
+for opt_name, history in optimiser_results.items():
     plt.plot(history['val_accuracy'], label=opt_name)
 plt.title('Validation Accuracy')
 plt.ylabel('Accuracy')
 plt.legend()
 plt.grid(True)
 plt.subplot(1, 3, 3)
-for opt_name, history in optimizer_results.items():
+for opt_name, history in optimiser_results.items():
     plt.plot(history['loss'], label=opt_name)
 plt.title('Training Loss')
 plt.ylabel('Loss')
@@ -718,6 +771,20 @@ plt.tight_layout()
 plt.show()
 ```
 
+The figures above present the training dynamics and performance of a modern neural network trained with three different optimisers:
+
+- **SGD:** Stochastic Gradient Descent with a learning rate of 0.01.
+- **Adam:** The Adam optimiser with a standard learning rate of 0.001.
+- **Adam (high lr):** The Adam optimiser with a higher learning rate of 0.01.
+
+The Training Accuracy plot shows how the training accuracy evolves over epochs for each optimiser. Adam and Adam (high lr) both achieve higher training accuracy more quickly than SGD, demonstrating their faster convergence. The Adam (high lr) optimiser reaches the highest training accuracy, but may be more prone to instability or overfitting if the learning rate is too high.
+
+The Validation Accuracy figure displays the accuracy on the validation set, which is a good indicator of how well the model generalises to unseen data. All optimisers reach similar peak validation accuracy, but Adam and Adam (high lr) tend to converge faster. However, Adam (high lr) shows more fluctuation, suggesting that a high learning rate can make training less stable and potentially harm generalisation.
+
+The Training Loss plot shows the training loss (error) over epochs. Both Adam optimisers reduce the loss more quickly than SGD, confirming their efficiency in optimising the network. Adam (high lr) achieves the lowest training loss, but as seen in the validation accuracy, this does not always translate to better generalisation.
+
+We can see that Adam is generally faster and more effective than SGD for this problem, reaching high accuracy and low loss quickly. Adam (high lr) can speed up training even more, but may introduce instability or overfitting if the learning rate is too high. SGD is slower to converge, but can be more stable in some cases. This comparison highlights the importance of optimiser choice and learning rate tuning in deep learning. While advanced optimisers like Adam can accelerate training, careful selection of hyperparameters is crucial for achieving the best generalisation performance.
+ 
 ---
 
 ## Homework - Neural Network Architecture Design
