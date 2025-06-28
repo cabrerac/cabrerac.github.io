@@ -16,7 +16,7 @@ Let's start by importing the necessary libraries and creating a synthetic time s
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.model_selection import TimeSeriesSplit
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression, Ridge
 from sklearn.metrics import mean_squared_error
 ```
 
@@ -148,13 +148,24 @@ X_class, y_class = make_classification(
     n_redundant=0, 
     random_state=42
 )
-# Create regression dataset
+# Create linear regression dataset
 X_reg, y_reg = make_regression(
     n_samples=1000, 
     n_features=3, 
     n_targets=1, 
     noise=0.1, 
     random_state=42
+)
+# Create non-linear regression dataset
+np.random.seed(42)
+n_samples = 1000
+X_reg_non = np.random.uniform(-3, 3, (n_samples, 3))
+# Non-linear target: combination of sin, cos, and polynomial terms
+y_reg_non = (
+    10 * np.sin(X_reg_non[:, 0])
+    + 5 * np.cos(X_reg_non[:, 1])
+    + 0.5 * (X_reg_non[:, 2] ** 3)
+    + np.random.normal(scale=2, size=n_samples)
 )
 # Split the data
 X_class_train, X_class_test, y_class_train, y_class_test = train_test_split(
@@ -163,8 +174,36 @@ X_class_train, X_class_test, y_class_train, y_class_test = train_test_split(
 X_reg_train, X_reg_test, y_reg_train, y_reg_test = train_test_split(
     X_reg, y_reg, test_size=0.2, random_state=42
 )
+X_reg_non_train, X_reg_non_test, y_reg_non_train, y_reg_non_test = train_test_split(
+    X_reg_non, y_reg_non, test_size=0.2, random_state=42
+)
 print(f"Classification dataset shape: {X_class.shape}")
-print(f"Regression dataset shape: {X_reg.shape}")
+print(f"Linear Regression dataset shape: {X_reg.shape}")
+print(f"Non-linear Regression dataset shape: {X_reg_non.shape}")
+```
+
+Let's plot the generated datasets to identify how they behave.
+
+```python
+# Plot the three datasets
+fig, axes = plt.subplots(1, 3, figsize=(18, 5))
+# Classification dataset (first two features, colored by class)
+axes[0].scatter(X_class[:, 0], X_class[:, 1], c=y_class, cmap='viridis', alpha=0.7)
+axes[0].set_title('Classification Dataset')
+axes[0].set_xlabel('Feature 1')
+axes[0].set_ylabel('Feature 2')
+# Linear regression dataset (first feature vs target)
+axes[1].scatter(X_reg[:, 0], y_reg, alpha=0.7)
+axes[1].set_title('Linear Regression Dataset')
+axes[1].set_xlabel('Feature 1')
+axes[1].set_ylabel('Target')
+# Non-linear regression dataset (first feature vs target)
+axes[2].scatter(X_reg_non[:, 0], y_reg_non, alpha=0.7)
+axes[2].set_title('Non-linear Regression Dataset')
+axes[2].set_xlabel('Feature 1')
+axes[2].set_ylabel('Target')
+plt.tight_layout()
+plt.show()
 ```
 
 Now, let's implement activation functions and their derivatives:
@@ -314,6 +353,7 @@ class NeuralNetwork:
     def fit(self, X, y, epochs=1000, batch_size=32, verbose=True):
         """Train the neural network"""
         n_samples = X.shape[1]
+        loss_type = 'mse' if self.task == 'regression' else 'binary_crossentropy'
         for epoch in range(epochs):
             # Shuffle data
             indices = np.random.permutation(n_samples)
@@ -328,7 +368,7 @@ class NeuralNetwork:
                 # Forward pass
                 y_pred = self.forward_propagation(X_batch)
                 # Compute loss
-                batch_loss = self.compute_loss(y_batch, y_pred)
+                batch_loss = self.compute_loss(y_batch, y_pred, loss_type)
                 epoch_loss += batch_loss
                 # Backward pass
                 dW, db = self.backward_propagation(X_batch, y_batch)
@@ -426,6 +466,71 @@ plt.plot([y_reg_test.min(), y_reg_test.max()], [y_reg_test.min(), y_reg_test.max
 plt.xlabel('Actual Values')
 plt.ylabel('Predicted Values')
 plt.title('Neural Network Regression: Predictions vs Actual')
+plt.grid(True)
+plt.show()
+```
+
+Let's plot how the original dataset compares to the model predictions.
+
+```python
+# Plot: Feature 1 vs Actual and Predicted (Linear Regression)
+plt.figure(figsize=(10, 6))
+plt.scatter(X_reg_test[:, 0], y_reg_test, label='Actual', alpha=0.6)
+plt.scatter(X_reg_test[:, 0], y_pred_reg.flatten(), label='Predicted', alpha=0.6)
+plt.xlabel('Feature 1')
+plt.ylabel('Target')
+plt.title('Linear Regression: Actual vs Predicted (Feature 1)')
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
+Let's test with our non-linear regression problem.
+
+```python
+# Prepare non regression data
+X_reg_train_nn = X_reg_non_train.T
+X_reg_test_nn = X_reg_non_test.T
+y_reg_train_nn = y_reg_non_train.reshape(1, -1)
+y_reg_test_nn = y_reg_non_test.reshape(1, -1)
+# Create and train neural network for regression
+nn_regressor = NeuralNetwork('regression', layers=[3, 5, 1], activation='relu', learning_rate=0.01)
+nn_regressor.fit(X_reg_train_nn, y_reg_train_nn, epochs=1000, batch_size=32)
+# Plot training loss
+plt.figure(figsize=(10, 6))
+plt.plot(nn_regressor.loss_history)
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.title('Training Loss Over Time (Regression)')
+plt.grid(True)
+plt.show()
+# Make predictions
+y_pred_reg = nn_regressor.predict(X_reg_test_nn)
+# Evaluate performance
+mse = mean_squared_error(y_reg_non_test, y_pred_reg.flatten())
+print(f"Regression MSE: {mse:.4f}")
+# Plot predictions vs actual
+plt.figure(figsize=(10, 6))
+plt.scatter(y_reg_non_test, y_pred_reg.flatten(), alpha=0.6)
+plt.plot([y_reg_non_test.min(), y_reg_non_test.max()], [y_reg_non_test.min(), y_reg_non_test.max()], 'r--', lw=2)
+plt.xlabel('Actual Values')
+plt.ylabel('Predicted Values')
+plt.title('Neural Network Regression: Predictions vs Actual')
+plt.grid(True)
+plt.show()
+```
+
+Let's plot how the original dataset compares to the model predictions.
+
+```python
+# Plot: Feature 1 vs Actual and Predicted (Non-linear Regression)
+plt.figure(figsize=(10, 6))
+plt.scatter(X_reg_non_test[:, 0], y_reg_non_test, label='Actual', alpha=0.6)
+plt.scatter(X_reg_non_test[:, 0], y_pred_reg.flatten(), label='Predicted', alpha=0.6)
+plt.xlabel('Feature 1')
+plt.ylabel('Target')
+plt.title('Non-linear Regression: Actual vs Predicted (Feature 1)')
+plt.legend()
 plt.grid(True)
 plt.show()
 ```
@@ -612,8 +717,6 @@ plt.grid(True)
 plt.tight_layout()
 plt.show()
 ```
-
----
 
 ---
 
