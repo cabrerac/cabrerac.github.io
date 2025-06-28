@@ -15,7 +15,7 @@ layout: lecture
 lecture_code: perceptron
 lecture_date: 28/06/2025
 permalink: /teaching/25-udenar-ml-intro/neural-networks/
-visible: false
+visible: true
 ---
 
 <!-- ALL: content that goes everywhere -->
