@@ -477,8 +477,11 @@ def create_modern_nn(input_shape, num_classes=1, use_batch_norm=True, use_dropou
     else:
         model.add(layers.Dense(num_classes, activation='softmax'))
     return model
+```
 
-# Create models with different configurations
+Now we can create models with different configurations
+
+```python
 models_configs = {
     'Basic': create_modern_nn((2,), use_batch_norm=False, use_dropout=False),
     'With BatchNorm': create_modern_nn((2,), use_batch_norm=True, use_dropout=False),
@@ -612,146 +615,11 @@ plt.show()
 
 ---
 
-## Exercise 4: Transfer Learning and Pre-trained Models
-
-In this exercise, we'll explore transfer learning using pre-trained models. We'll use a pre-trained model and fine-tune it for our classification task.
-
-```python
-# For this exercise, we'll simulate transfer learning by creating a "pre-trained" model
-# In practice, you would use models like VGG16, ResNet, etc. from keras.applications
-def create_pretrained_model(input_shape):
-    """Create a model that simulates a pre-trained feature extractor"""
-    base_model = keras.Sequential([
-        layers.Dense(128, input_shape=input_shape, activation='relu'),
-        layers.BatchNormalization(),
-        layers.Dropout(0.3),
-        layers.Dense(64, activation='relu'),
-        layers.BatchNormalization(),
-        layers.Dropout(0.3),
-    ])
-    return base_model
-# Create pre-trained model
-pretrained_model = create_pretrained_model((2,))
-# Freeze the pre-trained layers
-pretrained_model.trainable = False
-# Create new model with pre-trained features
-transfer_model = keras.Sequential([
-    pretrained_model,
-    layers.Dense(32, activation='relu'),
-    layers.Dropout(0.2),
-    layers.Dense(1, activation='sigmoid')
-])
-# Compile the transfer model
-transfer_model.compile(
-    optimizer=Adam(learning_rate=0.001),
-    loss='binary_crossentropy',
-    metrics=['accuracy']
-)
-print("Transfer model summary:")
-transfer_model.summary()
-# Train the transfer model
-print("\nTraining transfer model...")
-transfer_history = transfer_model.fit(
-    X_class_train, y_class_train,
-    validation_split=0.2,
-    epochs=100,
-    batch_size=32,
-    verbose=0
-)
-# Fine-tuning: Unfreeze some layers and train with lower learning rate
-print("\nFine-tuning the model...")
-pretrained_model.trainable = True
-# Freeze early layers, keep later layers trainable
-for layer in pretrained_model.layers[:-2]:  # Freeze first layers
-    layer.trainable = False
-# Recompile with lower learning rate
-transfer_model.compile(
-    optimizer=Adam(learning_rate=0.0001),  # Lower learning rate for fine-tuning
-    loss='binary_crossentropy',
-    metrics=['accuracy']
-)
-# Continue training
-fine_tune_history = transfer_model.fit(
-    X_class_train, y_class_train,
-    validation_split=0.2,
-    epochs=50,
-    batch_size=32,
-    verbose=0
-)
-# Evaluate final model
-test_loss, test_accuracy = transfer_model.evaluate(X_class_test, y_class_test, verbose=0)
-print(f"Final Transfer Learning Accuracy: {test_accuracy:.4f}")
-# Plot transfer learning results
-plt.figure(figsize=(15, 5))
-plt.subplot(1, 3, 1)
-plt.plot(transfer_history.history['accuracy'], label='Transfer Learning')
-plt.plot(range(len(transfer_history.history['accuracy']), 
-               len(transfer_history.history['accuracy']) + len(fine_tune_history.history['accuracy'])), 
-         fine_tune_history.history['accuracy'], label='Fine-tuning')
-plt.title('Training Accuracy')
-plt.ylabel('Accuracy')
-plt.legend()
-plt.grid(True)
-plt.subplot(1, 3, 2)
-plt.plot(transfer_history.history['val_accuracy'], label='Transfer Learning')
-plt.plot(range(len(transfer_history.history['val_accuracy']), 
-               len(transfer_history.history['val_accuracy']) + len(fine_tune_history.history['val_accuracy'])), 
-         fine_tune_history.history['val_accuracy'], label='Fine-tuning')
-plt.title('Validation Accuracy')
-plt.ylabel('Accuracy')
-plt.legend()
-plt.grid(True)
-plt.subplot(1, 3, 3)
-plt.plot(transfer_history.history['loss'], label='Transfer Learning')
-plt.plot(range(len(transfer_history.history['loss']), 
-               len(transfer_history.history['loss']) + len(fine_tune_history.history['loss'])), 
-         fine_tune_history.history['loss'], label='Fine-tuning')
-plt.title('Training Loss')
-plt.ylabel('Loss')
-plt.xlabel('Epoch')
-plt.legend()
-plt.grid(True)
-plt.tight_layout()
-plt.show()
-```
-
 ---
 
 ## Homework - Neural Network Architecture Design
 
-The homework assignment focuses on designing and implementing neural network architectures for different types of problems. You will apply the concepts learned in this practical session to create effective neural network solutions.
-
-Your task is to:
-
-1. **Dataset Selection**: Choose a dataset that interests you (classification or regression). You can use:
-   - UCI Machine Learning Repository datasets
-   - Kaggle datasets
-   - Scikit-learn built-in datasets
-   - Or create your own synthetic dataset
-
-2. **Architecture Design**: Design and implement multiple neural network architectures:
-   - A shallow network (1-2 hidden layers)
-   - A deep network (3+ hidden layers)
-   - A network with different activation functions
-   - A network with modern techniques (batch normalization, dropout)
-
-3. **Hyperparameter Optimization**: Use techniques like:
-   - Grid search or random search for hyperparameters
-   - Cross-validation for model selection
-   - Learning rate scheduling
-   - Early stopping
-
-4. **Performance Analysis**: Compare your models using:
-   - Training and validation curves
-   - Confusion matrices (for classification)
-   - Regression metrics (for regression)
-   - Model complexity analysis
-
-5. **Discussion**: Analyze your results and discuss:
-   - Which architecture performed best and why
-   - The impact of different activation functions
-   - The effectiveness of regularization techniques
-   - Potential improvements and next steps
+The homework assignment focuses on designing and implementing neural network architectures for different types of problems. You will apply the concepts learned in this practical session to create effective neural network solutions. You are free to select the dataset of your preference and develop a full pipeline that will end with a trained neural network model at the end. You can use the implementation of this notebook or the libraries we also show. Your pipeline should include data exploration, preprocessing, and feature engineering. Neural network architecture design, hyperparameter optimisation, and model selection, and a final performance analysis. Please provide a description of each step in your pipeline.
 
 <DESCRIBE YOUR SOLUTION HERE>
 
