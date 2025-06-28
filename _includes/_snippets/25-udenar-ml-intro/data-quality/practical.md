@@ -491,7 +491,7 @@ def add_gaussian_noise(data, noise_factor=0.05):
 Now, let's implement a SMOTE-like augmentation. This technique creates synthetic samples by interpolating between existing data points and their nearest neighbors. This helps to:
 - Increase the size of the dataset
 - Create more balanced classes
-- Improve model generalization
+- Improve model generalisation
 
 ```python
 def numerical_smote(data, k=5):
@@ -740,7 +740,7 @@ plt.show()
 Let's also print the explained variance for each component.
 
 ```python
-print("\\nExplained variance ratio by component:")
+print("\nExplained variance ratio by component:")
 for i, ratio in enumerate(cumulative_variance):
     print(f"Component {i+1}: {ratio:.4f}")
 ```

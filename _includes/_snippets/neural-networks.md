@@ -41,7 +41,7 @@
                 <br>
                 <ul>
                     <li>Useful analytical and computational properties</li>
-                    <li>Limited application because of <em>the course of dimensionality</em></li>
+                    <li>Limited application because of <em>the curse of dimensionality</em></li>
                 </ul>
             </div>
         </div>
@@ -112,7 +112,7 @@
                 <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/4/46/Colored_neural_network.svg" alt="Neural Network" style="max-width: 100%; height: auto;">
                 <div class="footnote">Neural Network Architecture.</div>
             </div>
-            <div class="column vertical-top text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Key Components:</b></p>
                 <ul>
                     <li><b>Input Layer:</b> Receives the input features</li>
@@ -120,7 +120,6 @@
                     <li><b>Output Layer:</b> Produces the final prediction</li>
                     <li><b>Activation Functions:</b> Introduce non-linearity</li>
                 </ul>
-                <p><b>The Universal Approximation Theorem</b> states that a neural network with one hidden layer can approximate any continuous function on a compact subset of ℝⁿ, given sufficient neurons in the hidden layer because neural networks form complex decision boundaries through the combination of linear transformations and non-linear activation functions.</p>
             </div>
         </div>
     </div>
@@ -132,8 +131,53 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Feedforward Neural Network:</b></p>
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/4/46/Colored_neural_network.svg" alt="Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Neural Network Architecture.</div>
             </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>The Universal Approximation Theorem</b> states that a neural network with one hidden layer can approximate any continuous function on a compact subset of ℝⁿ, given sufficient neurons in the hidden layer because neural networks form complex decision boundaries through the combination of linear transformations and non-linear activation functions.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p><b>Feedforward Neural Network:</b></p>
+                <p>First, recall the general form of a linear model with nonlinear basis functions:</p>
+$$
+y(\mathbf{x}, \mathbf{w}) = f\left( \sum_{j=1}^M w_j \phi_j(\mathbf{x}) \right)
+$$
+<br>where $f(\cdot)$ is a nonlinear activation function (e.g., identity for regression, sigmoid for classification), $\phi_j(\mathbf{x})$ are basis functions, and $w_j$ are weights.
+</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/perceptron.svg" alt="Perceptron Architecture" style="max-width: 100%; height: auto;">
+                <div class="footnote">Perceptron Architecture.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p><b>Feedforward Neural Network:</b></p>
+                <p>First, recall the general form of a linear model with nonlinear basis functions:</p>
+$$
+y(\mathbf{x}, \mathbf{w}) = f\left( \sum_{j=1}^M w_j \phi_j(\mathbf{x}) \right)
+$$
+<br>where $f(\cdot)$ is a nonlinear activation function (e.g., identity for regression, sigmoid for classification), $\phi_j(\mathbf{x})$ are basis functions, and $w_j$ are weights.
+<br>In neural networks, the basis functions themselves are parameterized and learned. The network is constructed as a sequence of transformations.
+</div>
             <div class="column vertical-top text-left" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
                 <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
@@ -142,28 +186,24 @@
     </div>
 </div>
 
-
 ## Neural Networks
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                <br>
+            <div class="column vertical-top text-left" style="width: 50%">
                 <p><b>Feedforward Neural Network:</b></p>
-                <br>
-                <p>For a neural network with multiple layers, the output of one layer is:</p>
-                <br>
+<p>1. Linear combination of inputs (first layer):</p>
 $$
-\mathbf{a}^{(l)} = f^{(l)}(\mathbf{z}^{(l)})
+a_j = \sum_{i=1}^D w_{ji}^{(1)} x_i + w_{j0}^{(1)}
 $$
-<br>Where the pre-activation $\mathbf{z}^{(l)}$ is:
+where $j = 1, \ldots, M$ and $w_{ji}^{(1)}$ are the weights from input $i$ to hidden unit $j$, $w_{j0}^{(1)}$ is the bias for hidden unit $j$.
 <br>
-$$
-\mathbf{z}^{(l)} = \mathbf{W}^{(l)}\mathbf{a}^{(l-1)} + \mathbf{b}^{(l)}
-$$
-<br>Here, $\mathbf{W}^{(l)}$ is the weight matrix, $\mathbf{b}^{(l)}$ is the bias vector, and $f^{(l)}$ is the activation function for layer $l$.
 </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/perceptron.svg" alt="Perceptron Architecture" style="max-width: 100%; height: auto;">
+                <div class="footnote">Perceptron Architecture.</div>
+            </div>
         </div>
     </div>
 </div>
@@ -173,27 +213,163 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                <br>
-                <p><b>Forward Propagation:</b></p>
-                <br>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Feedforward Neural Network:</b></p>
+<p>1. Linear combination of inputs (first layer):</p>
 $$
-\mathbf{a}^{(0)} = \mathbf{x}
+a_j = \sum_{i=1}^D w_{ji}^{(1)} x_i + w_{j0}^{(1)}
 $$
+where $j = 1, \ldots, M$ and $w_{ji}^{(1)}$ are the weights from input $i$ to hidden unit $j$, $w_{j0}^{(1)}$ is the bias for hidden unit $j$.
 <br>
+<p>2. Nonlinear activation (hidden layer):</p>
 $$
-\mathbf{z}^{(l)} = \mathbf{W}^{(l)}\mathbf{a}^{(l-1)} + \mathbf{b}^{(l)} \quad \text{for } l = 1, 2, ..., L
+z_j = h(a_j)
 $$
-<br>
-$$
-\mathbf{a}^{(l)} = f^{(l)}(\mathbf{z}^{(l)}) \quad \text{for } l = 1, 2, ..., L-1
-$$
-<br>
-$$
-\mathbf{y} = \mathbf{a}^{(L)} = f^{(L)}(\mathbf{z}^{(L)})
-$$
-<br>Where $x$ is the network input and $y$ is the network output.
+<br>where $h(\cdot)$ is a nonlinear activation function (e.g., sigmoid, tanh, ReLU).
 </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/perceptron.svg" alt="Perceptron Architecture" style="max-width: 100%; height: auto;">
+                <div class="footnote">Perceptron Architecture.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Feedforward Neural Network:</b></p>
+<p>1. Linear combination of inputs (first layer):</p>
+$$
+a_j = \sum_{i=1}^D w_{ji}^{(1)} x_i + w_{j0}^{(1)}
+$$
+where $j = 1, \ldots, M$ and $w_{ji}^{(1)}$ are the weights from input $i$ to hidden unit $j$, $w_{j0}^{(1)}$ is the bias for hidden unit $j$.
+<br>
+<p>2. Nonlinear activation (hidden layer):</p>
+$$
+z_j = h(a_j)
+$$
+<br>where $h(\cdot)$ is a nonlinear activation function (e.g., sigmoid, tanh, ReLU).
+</div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Feedforward Neural Network:</b></p>
+<p>3. Linear combination of hidden activations (output layer): </p>
+$$
+a_k = \sum_{j=1}^M w_{kj}^{(2)} z_j + w_{k0}^{(2)}
+$$
+where $k = 1, \ldots, K$ and $w_{kj}^{(2)}$ are the weights from hidden unit $j$ to output unit $k$, $w_{k0}^{(2)}$ is the bias for output unit $k$.
+</div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Feedforward Neural Network:</b></p>
+<p>3. Linear combination of hidden activations (output layer): </p>
+$$
+a_k = \sum_{j=1}^M w_{kj}^{(2)} z_j + w_{k0}^{(2)}
+$$
+where $k = 1, \ldots, K$ and $w_{kj}^{(2)}$ are the weights from hidden unit $j$ to output unit $k$, $w_{k0}^{(2)}$ is the bias for output unit $k$.
+<br>Optionally, the output activations $a_k$ can be further transformed using an appropriate activation function to produce the final network outputs $y_k$. For example, $y_k = a_k$ for regression problems or $y_k = \sigma(a_k)$ for binary classification problems.
+</div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Feedforward Neural Network:</b></p>
+                <p>The overall network function combines these stages. For sigmoidal output unit activation functions, takes the form:</p>
+$$
+y_k(\mathbf{x}, \mathbf{w}) = \sigma\left( \sum_{j=1}^M w_{kj}^{(2)} \, h\left( \sum_{i=1}^D w_{ji}^{(1)} x_i + w_{j0}^{(1)} \right) + w_{k0}^{(2)} \right)
+$$
+</div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Feedforward Neural Network:</b></p>
+                <p>The overall network function combines these stages. For sigmoidal output unit activation functions, takes the form:</p>
+$$
+y_k(\mathbf{x}, \mathbf{w}) = \sigma\left( \sum_{j=1}^M w_{kj}^{(2)} \, h\left( \sum_{i=1}^D w_{ji}^{(1)} x_i + w_{j0}^{(1)} \right) + w_{k0}^{(2)} \right)
+$$
+<br>The bias parameters can be absorbed:
+$$
+y_k(\mathbf{x}, \mathbf{w}) = \sigma\left( \sum_{j=1}^M w_{kj}^{(2)} \, h\left( \sum_{i=1}^D w_{ji}^{(1)} x_i \right) \right)
+$$
+</div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Feedforward Neural Network:</b></p>
+                <p>The overall network function combines these stages. For sigmoidal output unit activation functions, takes the form:</p>
+$$
+y_k(\mathbf{x}, \mathbf{w}) = \sigma\left( \sum_{j=1}^M w_{kj}^{(2)} \, h\left( \sum_{i=1}^D w_{ji}^{(1)} x_i + w_{j0}^{(1)} \right) + w_{k0}^{(2)} \right)
+$$
+<br>The bias parameters can be absorbed:
+$$
+y_k(\mathbf{x}, \mathbf{w}) = \sigma\left( \sum_{j=1}^M w_{kj}^{(2)} \, h\left( \sum_{i=1}^D w_{ji}^{(1)} x_i \right) \right)
+$$
+<br>$h(\cdot)$ are continuous functions. The neural network is differentiable with respect to the parameters $\mathbf{w}$.
+</div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
         </div>
     </div>
 </div>
@@ -205,6 +381,78 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
                 <p><b>Activation functions</b> introduce non-linearity into the network, enabling it to learn complex patterns and relationships.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 33%">
+            </div>
+            <div class="column vertical-top text-left" style="width: 33%">
+            </div>
+            <div class="column vertical-top text-left" style="width: 33%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 33%">
+                <p><b>Sigmoid Function:</b></p>
+$$
+\sigma(z) = \frac{1}{1 + e^{-z}}
+$$
+<br>Range: $(0, 1)$
+<br>Derivative: $\sigma'(z) = \sigma(z)(1 - \sigma(z))$
+<br>
+<img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/8/88/Logistic-curve.svg" alt="Logistic Curve" style="max-width: 65%; height: auto;">
+<div class="footnote">Logistic Curve - Qef, Public domain, via Wikimedia Commons.</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 33%">
+            </div>
+            <div class="column vertical-top text-left" style="width: 33%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 33%">
+                <p><b>Sigmoid Function:</b></p>
+$$
+\sigma(z) = \frac{1}{1 + e^{-z}}
+$$
+<br>Range: $(0, 1)$
+<br>Derivative: $\sigma'(z) = \sigma(z)(1 - \sigma(z))$
+<br>
+<img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/8/88/Logistic-curve.svg" alt="Logistic Curve" style="max-width: 65%; height: auto;">
+<div class="footnote">Logistic Curve - Qef, Public domain, via Wikimedia Commons.</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 33%">
+                <p><b>Hyperbolic Tangent:</b></p>
+$$
+\tanh(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}
+$$
+<br>Range: $(-1, 1)$
+<br>Derivative: $\tanh'(z) = 1 - \tanh^2(z)$
+<br>
+<img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/8/87/Hyperbolic_Tangent.svg" alt="Hyperbolic Tangent" style="max-width: 75%; height: auto;">
+<div class="footnote">Hyperbolic Tangent - Geek3, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons.</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 33%">
             </div>
         </div>
     </div>
@@ -257,27 +505,288 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                <br>
-                <p><b>Loss functions</b></p>
-                <p>Mean Squared Error (Regression):</p>
-                <br>
-$$
-L(\mathbf{y}, \hat{\mathbf{y}}) = \frac{1}{N} \sum_{i=1}^{N} (y_i - \hat{y}_i)^2
-$$
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Training Process:</b></p>
 <br>
-<p>Cross-Entropy Loss (Classification):</p>
+<p>Given a training set of <em><b>N</b></em> example input-output pairs</p>
 <br>
 $$
-L(\mathbf{y}, \hat{\mathbf{y}}) = -\sum_{i=1}^{N} y_i \log(\hat{y}_i)
-$$
-<br>
-<p>Binary Cross-Entropy:</p>
-<br>
-$$
-L(y, \hat{y}) = -[y \log(\hat{y}) + (1 - y) \log(1 - \hat{y})]
+(\mathbf{x_1}, \mathbf{y_1}), (\mathbf{x_2}, \mathbf{y_2}), ..., (\mathbf{x_n}, \mathbf{y_n})
 $$
 </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Training Process:</b></p>
+<br>
+<p>Given a training set of <em><b>N</b></em> example input-output pairs</p>
+<br>
+$$
+(\mathbf{x_1}, \mathbf{y_1}), (\mathbf{x_2}, \mathbf{y_2}), ..., (\mathbf{x_n}, \mathbf{y_n})
+$$
+<br>Each pair was generated by an unknown function $f$:
+<br>
+$$
+\mathbf{y} = f(\mathbf{x}) + \epsilon
+$$
+</div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Training Process:</b></p>
+<br>
+<p>Given a training set of <em><b>N</b></em> example input-output pairs</p>
+<br>
+$$
+(\mathbf{x_1}, \mathbf{y_1}), (\mathbf{x_2}, \mathbf{y_2}), ..., (\mathbf{x_n}, \mathbf{y_n})
+$$
+<br>Each pair was generated by an unknown function $f$:
+<br>
+$$
+\mathbf{y} = f(\mathbf{x}) + \epsilon
+$$
+<br>We want to find a hypothesis $f'$ that minimises the error function:
+$$
+E(\mathbf{w}) = \frac{1}{2} \sum_{n=1}^N \|\mathbf{y}_n - \mathbf{f'}(\mathbf{x}_n, \mathbf{w})\|^2
+$$
+</div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Training Process (regression problem):</b></p>
+<br>
+<p>Giving a probabilistic interpretation to the network outputs:</p>
+<br>
+$$
+p(y \, | \, \mathbf{x}, \mathbf{w}) = \mathcal{N}(y \, | \, f'(\mathbf{x}, \mathbf{w}), \beta^{-1})
+$$                
+<br>where $\beta$ is the precision (i.e. inverse variance $\sigma^2$).
+</div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Training Process (regression problem):</b></p>
+<br>
+<p>Giving a probabilistic interpretation to the network outputs:</p>
+<br>
+$$
+p(y \, | \, \mathbf{x}, \mathbf{w}) = \mathcal{N}(y \, | \, f'(\mathbf{x}, \mathbf{w}), \beta^{-1})
+$$                
+<br>where $\beta$ is the precision (i.e. inverse variance $\sigma^2$).
+<br>For a i.i.d. training set, the likelihood function corresponds to:
+$$
+p(\mathcal{Y} \, | \, \mathcal{X}, \mathbf{w}, \beta) = \prod_{n=1}^N \mathcal{N}(y_n \, | \, f'(\mathbf{x}_n, \mathbf{w}), \beta^{-1})
+$$
+</div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Training Process (regression problem):</b></p>
+<br>For a i.i.d. training set, the likelihood function corresponds to:
+$$
+p(\mathcal{Y} \, | \, \mathcal{X}, \mathbf{w}, \beta) = \prod_{n=1}^N \mathcal{N}(y_n \, | \, f'(\mathbf{x}_n, \mathbf{w}), \beta^{-1})
+$$
+</div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Training Process (regression problem):</b></p>
+<br>For a i.i.d. training set, the likelihood function corresponds to:
+$$
+p(\mathcal{Y} \, | \, \mathcal{X}, \mathbf{w}, \beta) = \prod_{n=1}^N \mathcal{N}(y_n \, | \, f'(\mathbf{x}_n, \mathbf{w}), \beta^{-1})
+$$
+<br>As we saw in previous sessions, maximising the likelihood function is equivalent to minimising the sum-of-squares error function given by:
+$$
+E(\mathbf{w}) = \frac{1}{2} \sum_{n=1}^N \left( y_n - f'(\mathbf{x}_n, \mathbf{w}) \right)^2
+$$
+</div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Training Process (binary classification):</b></p>
+                <p>The network output is:</p>
+$$
+f' = \sigma(a) \equiv \frac{1}{1 + \exp(-a)}
+$$
+We use a single target variable $f'$ such that $f'=1$ denotes class 1 and $f'=0$ denotes class 2.
+</div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Training Process (binary classification):</b></p>
+                <p>The network output is:</p>
+$$
+f' = \sigma(a) \equiv \frac{1}{1 + \exp(-a)}
+$$
+We use a single target variable $f'$ such that $f'=1$ denotes class 1 and $f'=0$ denotes class 2. We interpret $f'(\mathbf{x}, \mathbf{w})$ as the conditional probability distribution of targets given inputs:
+<br>
+$$
+p(t|\mathbf{x}, \mathbf{w}) = f'(\mathbf{x}, \mathbf{w})^t \{1 - f'(\mathbf{x}, \mathbf{w})\}^{1-t}
+$$
+</div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Training Process (binary classification):</b></p>
+                <p>The network output is:</p>
+$$
+f' = \sigma(a) \equiv \frac{1}{1 + \exp(-a)}
+$$
+We use a single target variable $f'$ such that $f'=1$ denotes class 1 and $f'=0$ denotes class 2. We interpret $f'(\mathbf{x}, \mathbf{w})$ as the conditional probability distribution of targets given inputs:
+<br>
+$$
+p(t|\mathbf{x}, \mathbf{w}) = f'(\mathbf{x}, \mathbf{w})^t \{1 - f'(\mathbf{x}, \mathbf{w})\}^{1-t}
+$$
+For a i.i.d. training, the error function is the cross-entropy error:
+$$
+E(\mathbf{w}) = - \sum_{n=1}^N \{ y_n \ln f'_n + (1-y_n) \ln (1-f'_n) \}
+$$
+</div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 40%">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Gradient_descent.gif" alt="Gradient Descent Algorithm" style="max-width: 100%; height: auto;">
+                <div class="footnote">Gradient Descent Algorithm - Jacopo Bertolotti, CC0, via Wikimedia Commons.</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 60%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 40%">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Gradient_descent.gif" alt="Gradient Descent Algorithm" style="max-width: 100%; height: auto;">
+                <div class="footnote">Gradient Descent Algorithm - Jacopo Bertolotti, CC0, via Wikimedia Commons.</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 60%">
+                <p>We choose any starting point and then compute <b>an estimate of the gradient and move a small amount in the steepest downhill direction</b>, repeating until we converge on a point in the weight space with <em>(local)</em> minima loss.</p>
+<br>
+<pre><code>Gradient Descent Algorithm:
+Initialize w
+repeat
+    for each w[i] in w
+        Compute gradient: g = ∇Loss(w[i])
+        Update weight:   w[i] = w[i] - α * g
+until convergence
+</code></pre>
+<br>
+<p>The size of the step is given by the parameter α, which regulates the behaviour of the gradient descent algorithm. This is a hyperparameter of the regression model we are training, usually called <em>learning rate.</em></p>
+            </div>
         </div>
     </div>
 </div>
@@ -288,7 +797,7 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <p>Backpropagation is an efficient algorithm for computing gradients in neural networks using the <b>chain rule of calculus</b>.</p>
+                <p>Error backpropagation is an efficient algorithm for computing gradients in neural networks using the <b>chain rule of calculus</b>.</p>
             </div>
         </div>
     </div>
@@ -299,99 +808,65 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                <br>
-                <p><b>Backpropagation Algorithm:</b></p>
-                <br>
-                <p><b>1. Forward Pass:</b> Compute all activations and outputs</p>
-                <br>
-                <p><b>2. Backward Pass:</b> Compute gradients using chain rule</p>
-                <br>
-                <p>The gradient of the loss with respect to weights in layer $l$:</p>
-                <br>
-$$
-\frac{\partial L}{\partial \mathbf{W}^{(l)}} = \frac{\partial L}{\partial \mathbf{z}^{(l)}} \frac{\partial \mathbf{z}^{(l)}}{\partial \mathbf{W}^{(l)}} = \boldsymbol{\delta}^{(l)} (\mathbf{a}^{(l-1)})^T
-$$
-<br>Where $\boldsymbol{\delta}^{(l)} = \frac{\partial L}{\partial \mathbf{z}^{(l)}}$ is the error term for layer $l$.
-</div>
-        </div>
-    </div>
-</div>
-
-## Neural Networks
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                <br>
-                <p><b>Error Propagation:</b></p>
-                <br>
-                <p>For the output layer:</p>
-                <br>
-$$
-\boldsymbol{\delta}^{(L)} = \frac{\partial L}{\partial \mathbf{z}^{(L)}} = \frac{\partial L}{\partial \mathbf{a}^{(L)}} \odot f'(\mathbf{z}^{(L)})
-$$
-<br>For hidden layers $l = L-1, L-2, ..., 1$:
-<br>
-$$
-\boldsymbol{\delta}^{(l)} = \frac{\partial L}{\partial \mathbf{z}^{(l)}} = (\mathbf{W}^{(l+1)})^T \boldsymbol{\delta}^{(l+1)} \odot f'(\mathbf{z}^{(l)})
-$$
-<br>Where $\odot$ denotes element-wise multiplication.
-</div>
-        </div>
-    </div>
-</div>
-
-## Neural Networks
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <br>
-                <p><b>Backpropagation Algorithm</b></p>
-                <br>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
             </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-top text-left" style="width: 50%">
+            </div>
+        </div>
+    </div>
+</div>
 
-```python
-def backpropagation(X, y, W, b, learning_rate=0.1):
-    """
-    Backpropagation algorithm for neural network training
-    Inputs:
-    - X: Input data (n_features, n_samples)
-    - y: Target labels (n_outputs, n_samples) 
-    - W: List of weight matrices for each layer
-    - b: List of bias vectors for each layer
-    - learning_rate: Step size for gradient descent
-    Outputs:
-    - Updated W and b after one training step
-    """
-    m = X.shape[1]
-    a = [X]
-    z = []
-    for l in range(len(W)):
-        z_l = np.dot(W[l], a[l]) + b[l]
-        z.append(z_l)
-        if l == len(W) - 1:
-            a_l_plus_1 = softmax(z_l)
-        else:
-            a_l_plus_1 = sigmoid(z_l)
-        a.append(a_l_plus_1)
-    delta = []
-    delta_L = (a[-1] - y) * sigmoid_derivative(z[-1])
-    delta.append(delta_L)
-    for l in range(len(W) - 2, -1, -1):
-        delta_l = np.dot(W[l + 1].T, delta[0]) * sigmoid_derivative(z[l])
-        delta.insert(0, delta_l)
-    for l in range(len(W)):
-        dW = np.dot(delta[l], a[l].T) / m
-        db = np.sum(delta[l], axis=1, keepdims=True) / m
-        W[l] -= learning_rate * dW
-        b[l] -= learning_rate * db
-    return W, b
-```
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Error Backpropagation Algorithm:</b></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Error Backpropagation Algorithm:</b></p>
+<p><b>1. Forward Pass:</b> Compute all activations and outputs for an input vector.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Error Backpropagation Algorithm:</b></p>
+<p><b>1. Forward Pass:</b> Compute all activations and outputs for an input vector.</p>
+<p><b>2. Error Evaluation:</b> Evaluate the error for all the outputs using:</p>
+$$
+\delta_k = y_k - t_k
+$$
 </div>
         </div>
     </div>
@@ -402,146 +877,140 @@ def backpropagation(X, y, W, b, learning_rate=0.1):
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Error Backpropagation Algorithm:</b></p>
+<p><b>1. Forward Pass:</b> Compute all activations and outputs for an input vector.</p>
+<p><b>2. Error Evaluation:</b> Evaluate the error for all the outputs using:</p>
+$$
+\delta_k = y_k - t_k
+$$
+<b>3. Backward Pass:</b> Backpropagate errors for each hidden unit in the network using:
+$$
+\delta_j = h'(a_j) \sum_k w_{kj} \delta_k
+$$
+</div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Error Backpropagation Algorithm:</b></p>
+<p><b>1. Forward Pass:</b> Compute all activations and outputs for an input vector.</p>
+<p><b>2. Error Evaluation:</b> Evaluate the error for all the outputs using:</p>
+$$
+\delta_k = y_k - t_k
+$$
+<b>3. Backward Pass:</b> Backpropagate errors for each hidden unit in the network using:
+$$
+\delta_j = h'(a_j) \sum_k w_{kj} \delta_k
+$$
+<b>4. Derivatives Evaluation:</b> Evaluate the derivatives for each parameter using:
+$$
+\frac{\partial E_n}{\partial w_{ji}} = \delta_j z_i
+$$
+</div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p><b>Gradient Descent Update Rule:</b></p>
+</div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
                 <br>
                 <p><b>Gradient Descent Update Rule:</b></p>
 $$
-\mathbf{W}^{(l)} \leftarrow \mathbf{W}^{(l)} - \alpha \frac{\partial L}{\partial \mathbf{W}^{(l)}}
+\mathbf{W}^{(l)} \leftarrow \mathbf{W}^{(l)} - \alpha \frac{\partial E_n}{\partial \mathbf{W}^{(l)}}
+$$
+</div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p><b>Gradient Descent Update Rule:</b></p>
+$$
+\mathbf{W}^{(l)} \leftarrow \mathbf{W}^{(l)} - \alpha \frac{\partial E_n}{\partial \mathbf{W}^{(l)}}
 $$
 <br>
 $$
-\mathbf{b}^{(l)} \leftarrow \mathbf{b}^{(l)} - \alpha \frac{\partial L}{\partial \mathbf{b}^{(l)}}
+\mathbf{w_{ji}}^{(l)} \leftarrow \mathbf{w_{ji}}^{(l)} - \alpha \frac{\partial E_n}{\partial w_{ji}^l} 
+$$
+</div>
+        </div>
+    </div>
+</div>
+
+## Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p><b>Gradient Descent Update Rule:</b></p>
+$$
+\mathbf{W}^{(l)} \leftarrow \mathbf{W}^{(l)} - \alpha \frac{\partial E_n}{\partial \mathbf{W}^{(l)}}
+$$
+<br>
+$$
+\mathbf{w_{ji}}^{(l)} \leftarrow \mathbf{w_{ji}}^{(l)} - \alpha \frac{\partial E_n}{\partial w_{ji}^l} 
+$$
+<br>
+$$
+\mathbf{w_{ji}}^{(l)} \leftarrow \mathbf{w_{ji}}^{(l)} - \alpha \delta_j z_i
 $$
 <br>Where $\alpha$ is the learning rate.
-</div>
-<div class="column vertical-middle text-left" style="width: 50%">
-
-```python
-def train_neural_network(X_train, y_train, model, num_epochs, batch_size, learning_rate):
-    """
-    Complete training algorithm for neural network
-    Inputs:
-    - X_train: Training data (n_features, n_samples)
-    - y_train: Training labels (n_outputs, n_samples)
-    - model: NeuralNetwork instance with initialized weights and biases
-    - num_epochs: Number of training iterations
-    - batch_size: Size of mini-batches for SGD
-    - learning_rate: Step size for gradient descent
-    Outputs:
-    - Trained model with optimized weights and biases
-    - Training history (loss values per epoch)
-    """
-    n_samples = X_train.shape[1]
-    training_history = []
-    for epoch in range(num_epochs):
-        indices = np.random.permutation(n_samples)
-        X_shuffled = X_train[:, indices]
-        y_shuffled = y_train[:, indices]
-        epoch_loss = 0
-        for i in range(0, n_samples, batch_size):
-            batch_end = min(i + batch_size, n_samples)
-            X_batch = X_shuffled[:, i:batch_end]
-            y_batch = y_shuffled[:, i:batch_end]
-            y_pred = model.forward(X_batch)
-            batch_loss = compute_loss(y_batch, y_pred)
-            epoch_loss += batch_loss
-            model.backward(X_batch, y_batch, learning_rate)
-        avg_epoch_loss = epoch_loss / (n_samples // batch_size)
-        training_history.append(avg_epoch_loss)
-        if epoch % 100 == 0:
-            print(f"Epoch {epoch}, Loss: {avg_epoch_loss:.4f}")
-    return model, training_history
-```
-</div>
-        </div>
-    </div>
-</div>
-
-## Neural Networks
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                
-```python
-import numpy as np
-
-class NeuralNetwork:
-    def __init__(self, layers):
-        self.layers = layers
-        self.weights = []
-        self.biases = []
-        for i in range(len(layers) - 1):
-            w = np.random.randn(layers[i+1], layers[i]) * 0.01
-            b = np.zeros((layers[i+1], 1))
-            self.weights.append(w)
-            self.biases.append(b)
-    def sigmoid(self, z):
-        return 1 / (1 + np.exp(-z))
-    def sigmoid_derivative(self, z):
-        s = self.sigmoid(z)
-        return s * (1 - s)
-    def forward(self, X):
-        a = X
-        for i in range(len(self.weights)):
-            z = np.dot(self.weights[i], a) + self.biases[i]
-            a = self.sigmoid(z)
-        return a
-```
-</div>
-        </div>
-    </div>
-</div>
-
-## Neural Networks
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-
-```python
-    def backward(self, X, Y, learning_rate=0.1):
-        m = X.shape[1]
-        activations = [X]
-        z_values = []
-        for i in range(len(self.weights)):
-            z = np.dot(self.weights[i], activations[-1]) + self.biases[i]
-            z_values.append(z)
-            a = self.sigmoid(z)
-            activations.append(a)
-        delta = activations[-1] - Y
-        for i in range(len(self.weights) - 1, -1, -1):
-            dW = np.dot(delta, activations[i].T) / m
-            db = np.sum(delta, axis=1, keepdims=True) / m
-            if i > 0:
-                delta = np.dot(self.weights[i].T, delta) * self.sigmoid_derivative(z_values[i-1])
-            self.weights[i] -= learning_rate * dW
-            self.biases[i] -= learning_rate * db
-```
-</div>
-        </div>
-    </div>
-</div>
-
-## Neural Networks
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                <br>
-                <p><b>Universal Approximation Theorem:</b></p>
-                <br>
-$$
-F(\mathbf{x}) = \sum_{i=1}^{N} v_i \phi(\mathbf{w}_i^T \mathbf{x} + b_i)
-$$
-<br>Let $\phi$ be a non-constant, bounded, and monotonically-increasing continuous function. Let $I_m$ denote the $m$-dimensional unit hypercube $[0,1]^m$. The space of continuous functions on $I_m$ is denoted by $C(I_m)$. Then, given any $\epsilon > 0$ and any function $f \in C(I_m)$, there exist vectors $\mathbf{w}_1, \mathbf{w}_2, ..., \mathbf{w}_N$, $\mathbf{b}$, and $\mathbf{v}$.
-<br>
-$$
-|F(\mathbf{x}) - f(\mathbf{x})| < \epsilon \quad \text{for all } \mathbf{x} \in I_m
-$$
 </div>
         </div>
     </div>

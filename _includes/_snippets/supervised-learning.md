@@ -367,7 +367,7 @@ $$
 <br>
 <p>We can generalise the loss by defining the prior probability distribution <em><b>P(x,y)</b></em> over examples</p>
 <br>
-<p>Generalization loss for a hypothesis <em>h</em> using loss function <em>L</em>:</p>
+<p>Generalisation loss for a hypothesis <em>h</em> using loss function <em>L</em>:</p>
 <br>
 $$
 \text{GenLoss}_{L}(h) = \sum_{(x,y) \in E} P(x,y) \cdot L(h(x), y)
@@ -386,7 +386,7 @@ $$
 <br>
 <p>We can generalise the loss by defining the prior probability distribution <em><b>P(x,y)</b></em> over examples</p>
 <br>
-<p>Generalization loss for a hypothesis <em>h</em> using loss function <em>L</em>:</p>
+<p>Generalisation loss for a hypothesis <em>h</em> using loss function <em>L</em>:</p>
 <br>
 $$
 \text{GenLoss}_{L}(h) = \sum_{(x,y) \in E} P(x,y) \cdot L(h(x), y)
@@ -410,7 +410,7 @@ $$
 <br>
 <p>We can generalise the loss by defining the prior probability distribution <em><b>P(x,y)</b></em> over examples</p>
 <br>
-<p>Generalization loss for a hypothesis <em>h</em> using loss function <em>L</em>:</p>
+<p>Generalisation loss for a hypothesis <em>h</em> using loss function <em>L</em>:</p>
 <br>
 $$
 \text{GenLoss}_{L}(h) = \sum_{(x,y) \in E} P(x,y) \cdot L(h(x), y)
@@ -567,7 +567,7 @@ $$
             <div class="column vertical-top text-left" style="width: 100%">
 <p>Overfitting occurs when our hypothesis space <em><b>H</b></em> is too complex, leading to:</p>
 <br>
-<p>Low empirical loss but high generalization loss:</p>
+<p>Low empirical loss but high generalisation loss:</p>
 <br>
 $$
 \text{EmpLoss}_{L,E}(h^*) \ll \text{GenLoss}_{L}(h^*)

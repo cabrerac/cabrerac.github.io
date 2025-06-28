@@ -173,7 +173,7 @@ $$
             <div class="column vertical-top text-left" style="width: 100%">
 <p>Overfitting occurs when our hypothesis space <em><b>H</b></em> is too complex, leading to:</p>
 <br>
-<p>Low empirical loss but high generalization loss:</p>
+<p>Low empirical loss but high generalisation loss:</p>
 <br>
 $$
 \text{EmpLoss}_{L,E}(h^*) \ll \text{GenLoss}_{L}(h^*)
