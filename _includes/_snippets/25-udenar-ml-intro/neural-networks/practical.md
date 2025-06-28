@@ -6,7 +6,120 @@ In this practical session, we will implement neural networks from scratch and ex
 
 ---
 
-## Exercise 1: Implementing Neural Networks from Scratch
+## Exercise 1: Cross Validation for Time Series Data
+
+In this exercise, we'll learn how to properly perform cross-validation for time series data. Unlike standard cross-validation, time series data has a temporal order that must be respected to avoid data leakage from the future into the past. We'll use **TimeSeriesSplit** from scikit-learn to demonstrate this approach.
+
+Let's start by importing the necessary libraries and creating a synthetic time series dataset:
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import TimeSeriesSplit
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+```
+
+We'll generate a simple time series dataset:
+
+```python
+# Generate a synthetic time series
+time = np.arange(100)
+# Create a signal with trend and noise
+y = 0.5 * time + 10 * np.sin(0.2 * time) + np.random.normal(scale=5, size=len(time))
+plt.figure(figsize=(10, 4))
+plt.plot(time, y, label='Time Series')
+plt.xlabel('Time')
+plt.ylabel('Value')
+plt.title('Synthetic Time Series Data')
+plt.legend()
+plt.show()
+```
+
+Now, let's prepare the data for supervised learning. We'll use previous values to predict the next value (a simple lagged regression function):
+
+```python
+def create_lagged_features(y, lag=3):
+    X, y_out = [], []
+    for i in range(lag, len(y)):
+        X.append(y[i-lag:i])
+        y_out.append(y[i])
+    return np.array(X), np.array(y_out)
+```
+
+Create lagged features (e.g., use previous 3 values to predict the next)
+
+```python
+lag = 3
+X, y_supervised = create_lagged_features(y, lag=lag)
+print(f"Feature shape: {X.shape}, Target shape: {y_supervised.shape}")
+```
+
+### Time Series Cross-Validation
+
+**TimeSeriesSplit** is a cross-validation technique specifically designed for time series data. It works by splitting the data into a specified number of consecutive training and test sets, ensuring that the training data always precedes the test data in time. Unlike traditional cross-validation, which randomly shuffles data, **TimeSeriesSplit** maintains the temporal order, preventing data leakage from future to past. Each split uses a growing window of training data and a contiguous block of test data, allowing the model to be trained on past observations and tested on future observations. This method is crucial for evaluating models on time series data, where the chronological order of data points is significant.
+
+We split the data in train, validation, and test sets. We use **TimeSeriesSplit** on the train and validation set:
+
+```python
+# 1. Hold out the last 20% as test set
+test_size = int(0.2 * len(X))
+X_trainval, X_test = X[:-test_size], X[-test_size:]
+y_trainval, y_test = y_supervised[:-test_size], y_supervised[-test_size:]
+# 2. Use TimeSeriesSplit on the training+validation set
+n_splits = 5
+tscv = TimeSeriesSplit(n_splits=n_splits)
+```
+
+Now, we perform our cross validation using the splitted data.
+
+```python
+# Try different values of alpha (the hyperparameter)
+alphas = [0.01, 0.1, 1, 10, 100]
+best_alpha = None
+best_score = float('inf')
+for alpha in alphas:
+    mse_scores = []
+    for train_idx, val_idx in tscv.split(X_trainval):
+        X_train, X_val = X_trainval[train_idx], X_trainval[val_idx]
+        y_train, y_val = y_trainval[train_idx], y_trainval[val_idx]
+        model = Ridge(alpha=alpha)
+        model.fit(X_train, y_train)
+        y_pred = model.predict(X_val)
+        mse = mean_squared_error(y_val, y_pred)
+        mse_scores.append(mse)
+    avg_mse = np.mean(mse_scores)
+    print(f"Alpha: {alpha}, Avg Validation MSE: {avg_mse:.4f}")
+    if avg_mse < best_score:
+        best_score = avg_mse
+        best_alpha = alpha
+print(f"Best alpha: {best_alpha}")
+```
+
+We can now retrain on all training and validation dataset and evaluate on the test set, using the best hyperparameter value.
+
+```python
+print(f"Best alpha: {best_alpha}")
+# Retrain final model with best alpha
+final_model = Ridge(alpha=best_alpha)
+final_model.fit(X_trainval, y_trainval)
+y_test_pred = final_model.predict(X_test)
+test_mse = mean_squared_error(y_test, y_test_pred)
+print(f"Test MSE: {test_mse:.4f}")
+# Plot test predictions
+plt.figure(figsize=(10, 4))
+plt.plot(range(len(y)), y, label='True Time Series')
+plt.plot(range(len(y)-test_size, len(y)), y_test_pred, '--', label='Test Prediction')
+plt.xlabel('Time')
+plt.ylabel('Value')
+plt.title('Final Model Test Set Prediction')
+plt.legend()
+plt.show()
+```
+
+---
+
+## Exercise 2: Implementing Neural Networks from Scratch
 
 In this exercise, we'll implement a multi-layer neural network from scratch, including forward propagation, backpropagation, and training. This will help us understand the fundamental concepts behind neural networks.
 
@@ -315,183 +428,6 @@ plt.ylabel('Predicted Values')
 plt.title('Neural Network Regression: Predictions vs Actual')
 plt.grid(True)
 plt.show()
-```
-
----
-
-## Exercise 2: Vanishing Gradients and Modern Activation Functions
-
-In this exercise, we'll explore the vanishing gradient problem and how modern activation functions help address it. We'll compare different activation functions and their impact on training deep networks.
-
-Let's create a deeper network to demonstrate the vanishing gradient problem:
-
-```python
-class DeepNeuralNetwork:
-    def __init__(self, layers, activation='sigmoid', learning_rate=0.1):
-        self.layers = layers
-        self.learning_rate = learning_rate
-        self.activation = activation
-        # Set activation function
-        if activation == 'sigmoid':
-            self.activation_func = sigmoid
-            self.activation_derivative = sigmoid_derivative
-        elif activation == 'relu':
-            self.activation_func = relu
-            self.activation_derivative = relu_derivative
-        elif activation == 'tanh':
-            self.activation_func = tanh
-            self.activation_derivative = tanh_derivative
-        # Initialize weights and biases
-        self.weights = []
-        self.biases = []
-        self.initialize_parameters()
-        # Training history
-        self.loss_history = []
-        self.gradient_norms = []
-    def initialize_parameters(self):
-        """Initialize weights and biases"""
-        for i in range(len(self.layers) - 1):
-            if self.activation == 'relu':
-                # He initialization for ReLU
-                std = np.sqrt(2.0 / self.layers[i])
-            else:
-                # Xavier/Glorot initialization for sigmoid/tanh
-                std = np.sqrt(2.0 / (self.layers[i] + self.layers[i + 1]))
-            w = np.random.normal(0, std, (self.layers[i + 1], self.layers[i]))
-            b = np.zeros((self.layers[i + 1], 1))
-            self.weights.append(w)
-            self.biases.append(b)
-    def forward_propagation(self, X):
-        """Forward propagation through the network"""
-        self.activations = [X]
-        self.z_values = []
-        for i in range(len(self.weights)):
-            z = np.dot(self.weights[i], self.activations[-1]) + self.biases[i]
-            self.z_values.append(z)
-            if i == len(self.weights) - 1:
-                a = sigmoid(z)  # Output layer
-            else:
-                a = self.activation_func(z)
-            self.activations.append(a)
-        return self.activations[-1]
-    def backward_propagation(self, X, y):
-        """Backward propagation with gradient tracking"""
-        m = X.shape[1]
-        dW = [np.zeros_like(w) for w in self.weights]
-        db = [np.zeros_like(b) for b in self.biases]
-        # Compute error at output layer
-        delta = self.activations[-1] - y
-        # Track gradient norms
-        gradient_norms = []
-        # Backpropagate through layers
-        for i in range(len(self.weights) - 1, -1, -1):
-            # Compute gradients for current layer
-            dW[i] = np.dot(delta, self.activations[i].T) / m
-            db[i] = np.sum(delta, axis=1, keepdims=True) / m
-            # Track gradient norm
-            layer_grad_norm = np.linalg.norm(dW[i])
-            gradient_norms.append(layer_grad_norm)
-            # Compute error for previous layer (if not input layer)
-            if i > 0:
-                delta = np.dot(self.weights[i].T, delta) * self.activation_derivative(self.z_values[i - 1])
-        self.gradient_norms.append(gradient_norms[::-1])  # Reverse to match layer order
-        return dW, db
-    def update_parameters(self, dW, db):
-        """Update weights and biases"""
-        for i in range(len(self.weights)):
-            self.weights[i] -= self.learning_rate * dW[i]
-            self.biases[i] -= self.learning_rate * db[i]
-    def compute_loss(self, y_true, y_pred):
-        """Compute binary cross-entropy loss"""
-        epsilon = 1e-15
-        y_pred = np.clip(y_pred, epsilon, 1 - epsilon)
-        loss = -np.mean(y_true * np.log(y_pred) + (1 - y_true) * np.log(1 - y_pred))
-        return loss
-    def fit(self, X, y, epochs=1000, batch_size=32):
-        """Train the deep neural network"""
-        n_samples = X.shape[1]
-        for epoch in range(epochs):
-            # Shuffle data
-            indices = np.random.permutation(n_samples)
-            X_shuffled = X[:, indices]
-            y_shuffled = y[:, indices]
-            epoch_loss = 0
-            # Mini-batch training
-            for i in range(0, n_samples, batch_size):
-                batch_end = min(i + batch_size, n_samples)
-                X_batch = X_shuffled[:, i:batch_end]
-                y_batch = y_shuffled[:, i:batch_end]
-                # Forward pass
-                y_pred = self.forward_propagation(X_batch)
-                # Compute loss
-                batch_loss = self.compute_loss(y_batch, y_pred)
-                epoch_loss += batch_loss
-                # Backward pass
-                dW, db = self.backward_propagation(X_batch, y_batch)
-                # Update parameters
-                self.update_parameters(dW, db)
-            # Record average loss for the epoch
-            avg_loss = epoch_loss / (n_samples // batch_size + 1)
-            self.loss_history.append(avg_loss)
-            if epoch % 100 == 0:
-                print(f"Epoch {epoch}, Loss: {avg_loss:.4f}")
-    def predict(self, X):
-        """Make predictions"""
-        return self.forward_propagation(X)
-```
-
-Now let's compare different activation functions on a deep network:
-
-```python
-# Create a deeper network architecture
-deep_layers = [2, 10, 10, 10, 1]
-# Test different activation functions
-activations = ['sigmoid', 'tanh', 'relu']
-models = {}
-for activation in activations:
-    print(f"\nTraining network with {activation} activation...")
-    model = DeepNeuralNetwork(deep_layers, activation=activation, learning_rate=0.1)
-    model.fit(X_class_train_nn, y_class_train_nn, epochs=500, batch_size=32)
-    models[activation] = model
-# Plot training loss comparison
-plt.figure(figsize=(15, 5))
-plt.subplot(1, 3, 1)
-for activation in activations:
-    plt.plot(models[activation].loss_history, label=activation)
-plt.xlabel('Epoch')
-plt.ylabel('Loss')
-plt.title('Training Loss Comparison')
-plt.legend()
-plt.grid(True)
-# Plot gradient norms for the first layer
-plt.subplot(1, 3, 2)
-for activation in activations:
-    first_layer_grads = [grads[0] for grads in models[activation].gradient_norms]
-    plt.plot(first_layer_grads, label=activation)
-plt.xlabel('Epoch')
-plt.ylabel('Gradient Norm (Layer 1)')
-plt.title('Gradient Norms Comparison')
-plt.legend()
-plt.grid(True)
-# Plot gradient norms for the last layer
-plt.subplot(1, 3, 3)
-for activation in activations:
-    last_layer_grads = [grads[-1] for grads in models[activation].gradient_norms]
-    plt.plot(last_layer_grads, label=activation)
-plt.xlabel('Epoch')
-plt.ylabel('Gradient Norm (Last Layer)')
-plt.title('Gradient Norms Comparison')
-plt.legend()
-plt.grid(True)
-plt.tight_layout()
-plt.show()
-# Compare final performance
-print("\nFinal Performance Comparison:")
-for activation in activations:
-    y_pred = models[activation].predict(X_class_test_nn)
-    y_pred_class = (y_pred > 0.5).astype(int)
-    accuracy = accuracy_score(y_class_test, y_pred_class.flatten())
-    print(f"{activation.capitalize()}: Accuracy = {accuracy:.4f}")
 ```
 
 ---
