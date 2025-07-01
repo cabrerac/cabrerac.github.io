@@ -1,0 +1,5 @@
+<!-- SLIDES: -->
+
+## Resources
+
+<!-- end SLIDES: --> 

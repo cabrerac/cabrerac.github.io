@@ -12,7 +12,7 @@ position: Senior Research Associate and Affiliated Lecturer
 department: Department of Computer Science and Technology
 institution: University of Cambridge
 layout: lecture
-lecture_code: perceptron
+lecture_code: neural-networks
 lecture_date: 28/06/2025
 permalink: /teaching/25-udenar-ml-intro/neural-networks/
 visible: true
