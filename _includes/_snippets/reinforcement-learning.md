@@ -754,10 +754,11 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
                 <br>
-                <p>At each step, the agent updates its estimate of the <em>Q-function</em> using the observed reward and the maximum estimated value of the next state:</p>
+                <br>
+                <p>At each step, the agent <b>updates its estimate of the <em>Q-function</em></b> for a state and action using the observed reward and the maximum estimated value of the next state. The update rule is defined as follows:</p>
 <br>
 $$
-Q(s,a) \leftarrow (1 - \alpha) Q(s,a) + \alpha [R(s,a,s') + \gamma \max_{a'} Q(s',a') - Q(s,a)]
+Q(s,a) \leftarrow (1 - \alpha) Q(s,a) + \alpha [R(s,a,s') + \gamma \max_{a'} Q(s',a')]
 $$
 where:
 $\alpha$ is the learning rate
@@ -774,18 +775,136 @@ $s'$ is the next state after taking action $a$ in $s$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/q-table-initial.png" alt="Q-Matrix" style="max-width: 100%; height: auto;">
+                <div class="footnote">Transition Matrix (Q).</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
 <pre><code>Q-Learning Algorithm:
 Initialize Q(s, a) arbitrarily for all s, a
 Repeat (for each episode):
     Initialize state s
     Repeat (for each step of episode):
-        Choose action a from s using policy derived from Q (e.g., ε-greedy)
-        Take action a, observe reward r and next state s'
-        Q(s, a) ← Q(s, a) + α [r + γ maxₐ' Q(s', a') - Q(s, a)]
+        a ← π(s)
+        // Act according to a
+        r ← = R(s, a, s')
+        Q(s, a) ← update(Q, s, a, s', r)
         s ← s'
     until s is terminal
 </code></pre>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/q-table-initial.png" alt="Q-Matrix" style="max-width: 100%; height: auto;">
+                <div class="footnote">Transition Matrix (Q).</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+<pre><code>Q-Learning Algorithm:
+Initialize Q(s, a) arbitrarily for all s, a
+Repeat (for each episode):
+    Initialize state s
+    Repeat (for each step of episode):
+        a ← π(s)
+        // Act according to a
+        r ← = R(s, a, s')
+        Q(s, a) ← update(Q, s, a, s', r)
+        s ← s'
+    until s is terminal
+</code></pre>
+<p>The agent must balance <b>exploring</b> new actions to discover their value and <b>exploiting known actions</b> to maximize reward.</p>
+</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/q-table-initial.png" alt="Q-Matrix" style="max-width: 100%; height: auto;">
+                <div class="footnote">Transition Matrix (Q).</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+<pre><code>Q-Learning Algorithm:
+Initialize Q(s, a) arbitrarily for all s, a
+Repeat (for each episode):
+    Initialize state s
+    Repeat (for each step of episode):
+        a ← π(s)
+        // Act according to a
+        r ← = R(s, a, s')
+        Q(s, a) ← update(Q, s, a, s', r)
+        s ← s'
+    until s is terminal
+</code></pre>
+<p>The agent must balance <b>exploring</b> new actions to discover their value and <b>exploiting known actions</b> to maximize reward.</p>
+<p><b>ε-Greedy Policy:</b></p>
+$$
+\pi(s) = \begin{cases}
+\text{random action} & \text{with probability } \epsilon \\
+\arg\max_a Q(s,a) & \text{with probability } 1-\epsilon
+\end{cases}
+$$
+</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/q-table-initial.png" alt="Q-Matrix" style="max-width: 100%; height: auto;">
+                <div class="footnote">Transition Matrix (Q).</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+<pre><code>Q-Learning Algorithm:
+Initialize Q(s, a) arbitrarily for all s, a
+Repeat (for each episode):
+    Initialize state s
+    Repeat (for each step of episode):
+        a ← π(s)
+        // Act according to a
+        r ← = R(s, a, s')
+        Q(s, a) ← update(Q, s, a, s', r)
+        s ← s'
+    until s is terminal
+</code></pre>
+<p>The agent must balance <b>exploring</b> new actions to discover their value and <b>exploiting known actions</b> to maximize reward.</p>
+<p><b>ε-Greedy Policy:</b></p>
+$$
+\pi(s) = \begin{cases}
+\text{random action} & \text{with probability } \epsilon \\
+\arg\max_a Q(s,a) & \text{with probability } 1-\epsilon
+\end{cases}
+$$
+</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/q-table-final.png" alt="Q-Matrix" style="max-width: 100%; height: auto;">
+                <div class="footnote">Transition Matrix (Q).</div>
             </div>
         </div>
     </div>
