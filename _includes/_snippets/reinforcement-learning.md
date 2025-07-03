@@ -721,6 +721,25 @@ $$
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Q-learning</b> is a model-free reinforcement learning algorithm that learns the optimal action-value function <em>directly from experience</em> by interacting with the environment.</p>
+                <p>Finds the optimal policy by learning the Q-function:</p>
+                <ul>
+                    <li>Does not require a model of the environment (transition or reward function)</li>
+                    <li>Can be used in stochastic and unknown environments</li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/images/q-table-initial.png" alt="Q-Matrix" style="max-width: 100%; height: auto;">
                 <div class="footnote">Transition Matrix (Q).</div>
             </div>
@@ -734,17 +753,17 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-                <p>At each step, the agent updates its estimate of $Q(s,a)$ using the observed reward and the maximum estimated value of the next state:</p>
+                <br>
+                <p>At each step, the agent updates its estimate of the <em>Q-function</em> using the observed reward and the maximum estimated value of the next state:</p>
+<br>
 $$
-Q(s,a) \leftarrow Q(s,a) + \alpha [R(s,a,s') + \gamma \max_{a'} Q(s',a') - Q(s,a)]
+Q(s,a) \leftarrow (1 - \alpha) Q(s,a) + \alpha [R(s,a,s') + \gamma \max_{a'} Q(s',a') - Q(s,a)]
 $$
 where:
-<ul>
-  <li>$\alpha$ is the learning rate</li>
-  <li>$\gamma$ is the discount factor</li>
-  <li>$R(s,a,s')$ is the observed reward</li>
-  <li>$s'$ is the next state after taking action $a$ in $s$</li>
-</ul>
+$\alpha$ is the learning rate
+$\gamma$ is the discount factor
+$R(s,a,s')$ is the observed reward
+$s'$ is the next state after taking action $a$ in $s$
 </div>
         </div>
     </div>
