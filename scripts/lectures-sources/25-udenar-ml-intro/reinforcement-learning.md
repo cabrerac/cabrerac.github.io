@@ -50,38 +50,6 @@ visible: false
 
 {% include _snippets/reinforcement-learning.md %}
 
-# Value Based RL
-
-<!-- end SLIDES: -->
-
-{% include _snippets/value-based-rl.md %}
-
-<!-- SLIDES: -->
-
-# Policy Based RL
-
-<!-- end SLIDES: -->
-
-{% include _snippets/policy-based-rl.md %}
-
-<!-- SLIDES: -->
-
-# Bio-Inspired Approaches
-
-<!-- end SLIDES: -->
-
-{% include _snippets/bio-inspired.md %}
-
-<!-- SLIDES: -->
-
-# Multi-Armed Bandit Approaches
-
-<!-- end SLIDES: -->
-
-{% include _snippets/multi-armed-bandit.md %}
-
-<!-- SLIDES: -->
-
 {% include _snippets/25-udenar-ml-intro/reinforcement-learning/conclusions.md %}
 
 {% include _snippets/25-udenar-ml-intro/reinforcement-learning/resources.md %}

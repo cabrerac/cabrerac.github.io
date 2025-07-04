@@ -700,8 +700,263 @@ $$
                 <ul>
                     <li>Unknow transition model and reward function</li>
                     <li>Cannot simulate outcomes</li>
-                    <li>Q-Learning, REINFORCE</li>
+                    <li>Q-Learning, DQN</li>
                 </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <br>
+                <p><b>Policy Iteration</b> is a model-based reinforcement learning algorithm that alternates between <em>policy evaluation</em> and <em>policy improvement</em> to find the optimal policy.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
+                <div class="footnote">Markov Decision Process - waldoalvarez, CC BY-SA 4.0, via Wikimedia Commons.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <br>
+                <p><b>Policy Iteration</b> is a model-based reinforcement learning algorithm that alternates between <em>policy evaluation</em> and <em>policy improvement</em> to find the optimal policy.</p>
+                <p>Finds the optimal policy through iterative refinement:</p>
+                <ul>
+                    <li>Requires a model of the environment (transition and reward functions)</li>
+                    <li>Guaranteed to converge to the optimal policy</li>
+                    <li>Works with finite state and action spaces</li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="https://wikimedia.org/api/rest_v1/media/math/render/svg/c6200446103959c8994075edaddeddf91abb8166" alt="Stochastic Matrix" style="max-width: 100%; height: auto;">
+                <div class="footnote">Stochastic Matrix.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
+                <br>
+                <br>
+                <p><b>Policy Iteration</b> consists of two main phases that alternate until convergence:</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
+                <br>
+                <br>
+                <p><b>Policy Iteration</b> consists of two main phases that alternate until convergence:</p>
+<br>
+<p><b>1. Policy Evaluation:</b> Compute the value function for the current policy:</p>
+<br>
+$$
+V^\pi(s) = \sum_{s'} P(s'|s,\pi(s)) [R(s,\pi(s),s') + \gamma V^\pi(s')]
+$$
+</div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
+                <br>
+                <br>
+                <p><b>Policy Iteration</b> consists of two main phases that alternate until convergence:</p>
+<br>
+<p><b>1. Policy Evaluation:</b> Compute the value function for the current policy:</p>
+<br>
+$$
+V^\pi(s) = \sum_{s'} P(s'|s,\pi(s)) [R(s,\pi(s),s') + \gamma V^\pi(s')]
+$$
+<br>
+<p><b>2. Policy Improvement:</b> Update the policy to be greedy with respect to the current value function:</p>
+<br>
+$$
+\pi'(s) = \arg\max_a \sum_{s'} P(s'|s,a) [R(s,a,s') + \gamma V^\pi(s')]
+$$
+</div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Policy Iteration Algorithm:</b></p>
+                <p>The algorithm iteratively improves the policy by alternating between evaluation and improvement steps until convergence to the optimal policy.</p>
+<br>
+$$
+\pi^*(s) = \arg\max_a Q^*(s,a)
+$$
+</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
+                <div class="footnote">Markov Decision Process - waldoalvarez, CC BY-SA 4.0, via Wikimedia Commons.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Policy Iteration Algorithm:</b></p>
+                <p>The algorithm iteratively improves the policy by alternating between evaluation and improvement steps until convergence to the optimal policy.</p>
+<br>
+$$
+\pi^*(s) = \arg\max_a Q^*(s,a)
+$$
+<br>The optimal policy maximizes the expected cumulative reward by selecting actions that lead to the highest Q-values.
+<br>Policy iteration guarantees convergence to the optimal policy through the principle of policy improvement.
+</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
+                <div class="footnote">Markov Decision Process - waldoalvarez, CC BY-SA 4.0, via Wikimedia Commons.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 60%">
+<pre><code>Policy Iteration Algorithm:
+Initialise policy π randomly
+Repeat until convergence:
+    // Policy Evaluation
+    Repeat until convergence:
+        For each state s:
+            V(s) = Σ P(s'|s,π(s)) [R(s,π(s),s') + γV(s')]
+    // Policy Improvement
+    policy_stable = true
+    For each state s:
+        old_action = π(s)
+        π(s) = argmaxₐ Σ P(s'|s,a) [R(s,a,s') + γV(s')]
+        If old_action ≠ π(s):
+            policy_stable = false
+    If policy_stable:
+        break
+</code></pre>
+</div>
+            <div class="column vertical-middle text-left" style="width: 40%">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
+                <div class="footnote">Markov Decision Process - waldoalvarez, CC BY-SA 4.0, via Wikimedia Commons.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 60%">
+<pre><code>Policy Iteration Algorithm:
+Initialise policy π randomly
+Repeat until convergence:
+    // Policy Evaluation
+    Repeat until convergence:
+        For each state s:
+            V(s) = Σ P(s'|s,π(s)) [R(s,π(s),s') + γV(s')]
+    // Policy Improvement
+    policy_stable = true
+    For each state s:
+        old_action = π(s)
+        π(s) = argmaxₐ Σ P(s'|s,a) [R(s,a,s') + γV(s')]
+        If old_action ≠ π(s):
+            policy_stable = false
+    If policy_stable:
+        break
+</code></pre>
+</div>
+            <div class="column vertical-middle text-left" style="width: 40%">
+                <p><b>Convergence Properties:</b></p>
+                <ul>
+                    <li><b>Monotonic Improvement:</b> Each iteration improves the policy</li>
+                    <li><b>Finite Convergence:</b> Guaranteed to converge in finite steps</li>
+                    <li><b>Optimal Policy:</b> Converges to the optimal policy π*</li>
+                    <li><b>Bellman Optimality:</b> Final policy satisfies Bellman optimality equations</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p><b>Policy Iteration Limitations:</b></p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="https://wikimedia.org/api/rest_v1/media/math/render/svg/c6200446103959c8994075edaddeddf91abb8166" alt="Stochastic Matrix" style="max-width: 100%; height: auto;">
+                <div class="footnote">Stochastic Matrix.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p><b>Policy Iteration Limitations:</b></p>
+                <ul>
+                    <li><b>Model Dependency:</b> Requires complete knowledge of the environment's transition and reward functions.</li>
+                    <li><b>Computational Cost:</b> Policy evaluation can be expensive for large state spaces, requiring iterative computation.</li>
+                    <li><b>Discrete Spaces:</b> Designed for finite state and action spaces, not suitable for continuous environments.</li>
+                    <li><b>Memory Requirements:</b> Needs to store value functions and policies for all states.</li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="https://wikimedia.org/api/rest_v1/media/math/render/svg/c6200446103959c8994075edaddeddf91abb8166" alt="Stochastic Matrix" style="max-width: 100%; height: auto;">
+                <div class="footnote">Stochastic Matrix.</div>
             </div>
         </div>
     </div>
@@ -758,7 +1013,7 @@ $$
                 <p>At each step, the agent <b>updates its estimate of the <em>Q-function</em></b> for a state and action using the observed reward and the maximum estimated value of the next state. The update rule is defined as follows:</p>
 <br>
 $$
-Q(s,a) \leftarrow (1 - \alpha) Q(s,a) + \alpha [R(s,a,s') + \gamma \max_{a'} Q(s',a')]
+Q(s,a) \leftarrow (1 - \alpha) Q(s,a) + \alpha [R(s,a,s') + \gamma \max_{a'} Q(s',a') - Q(s_t, a_t)]
 $$
 where:
 $\alpha$ is the learning rate
@@ -915,16 +1170,14 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <p><b>Exploration vs Exploitation:</b> The agent must balance exploring new actions to discover their value and exploiting known actions to maximize reward.</p>
-                <p><b>ε-Greedy Policy:</b></p>
-$$
-\pi(s) = \begin{cases}
-\text{random action} & \text{with probability } \epsilon \\
-\arg\max_a Q(s,a) & \text{with probability } 1-\epsilon
-\end{cases}
-$$
-</div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p><b>Q-Learning Limitations:</b></p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/q-table-final.png" alt="Q-Matrix" style="max-width: 100%; height: auto;">
+                <div class="footnote">Transition Matrix (Q).</div>
+            </div>
         </div>
     </div>
 </div>
@@ -934,16 +1187,19 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 60%">
-                <p><b>Deep Q-Networks (DQN)</b> extend Q-learning to environments with large or continuous state spaces by using a neural network to approximate the Q-function:</p>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p><b>Q-Learning Limitations:</b></p>
                 <ul>
-                    <li>Q-table is replaced by a neural network $Q(s,a;\theta)$ with parameters $\theta$</li>
-                    <li>Can handle high-dimensional inputs (e.g., images)</li>
+                    <li><b>Scalability:</b> Q-learning struggles with large state spaces as it requires a Q-value for every state-action pair, leading to high memory usage.</li>
+                    <li><b>Generalization:</b> Q-learning does not generalize well to unseen states since it relies on a discrete Q-table.</li>
+                    <li><b>Continuous State Spaces:</b> Q-learning is not suitable for environments with continuous state spaces as it requires discretization, which can lead to loss of information.</li>
+                    <li><b>Sample Inefficiency:</b> Q-learning can be sample inefficient, requiring many interactions with the environment to learn an optimal policy.</li>
                 </ul>
             </div>
-            <div class="column vertical-middle text-left" style="width: 40%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/DQN-diagram.png" alt="DQN Architecture" style="max-width: 100%; height: auto;">
-                <div class="footnote">DQN Architecture (source: Wikimedia Commons).</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/q-table-final.png" alt="Q-Matrix" style="max-width: 100%; height: auto;">
+                <div class="footnote">Transition Matrix (Q).</div>
             </div>
         </div>
     </div>
@@ -954,11 +1210,14 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                <ul>
-                    <li><b>Experience Replay:</b> Store agent's experiences $(s, a, r, s')$ in a replay buffer and sample random mini-batches for training. This breaks correlation between samples and improves stability.</li>
-                    <li><b>Target Network:</b> Use a separate target network $Q_{\text{target}}$ to compute target values, updated less frequently than the main network. This reduces oscillations and divergence.</li>
-                </ul>
+            <div class="column vertical-top text-left" style="width: 50%">
+            <p><b>Deep Q-Networks (DQN)</b> extend Q-learning to environments with large or continuous state spaces. It replaces the Q-table using <b>neural networks</b> to approximate the <em>Q-function</em>:</p>
+<br>
+$$
+Q(s,a;\mathbf{w})
+$$
+</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
             </div>
         </div>
     </div>
@@ -969,26 +1228,92 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Deep Q-Networks (DQN)</b> extend Q-learning to environments with large or continuous state spaces. It replaces the Q-table using <b>neural networks</b> to approximate the <em>Q-function</em>:</p>
+<br>
+$$
+Q(s,a;\mathbf{w})
+$$
+</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Neural_Network.svg" alt="Deep Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Deep Neural Network with multiple hidden layers - QuantuMechaniX8, CC0, via Wikimedia Commons</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Deep Q-Networks (DQN)</b> extend Q-learning to environments with large or continuous state spaces. It replaces the Q-table using <b>neural networks</b> to approximate the <em>Q-function</em>:</p>
+<br>
+$$
+Q(s,a;\mathbf{w})
+$$
+<br>A main network approximates $Q(s,a)$ and $\mathbf{w}$ are its trainable parameters. The input of the network is the state and the output is a <em>Q-value</em> per possible action.
+</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Neural_Network.svg" alt="Deep Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Deep Neural Network with multiple hidden layers - QuantuMechaniX8, CC0, via Wikimedia Commons</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Deep Q-Networks (DQN)</b> extend Q-learning to environments with large or continuous state spaces. It replaces the Q-table using <b>neural networks</b> to approximate the <em>Q-function</em>:</p>
+<br>
+$$
+Q(s,a;\mathbf{w})
+$$
+<br>A main network approximates $Q(s,a)$ and $\mathbf{w}$ are its trainable parameters. The input of the network is the state and the output is a <em>Q-value</em> per possible action.
+<br>DQNs store past experiences $(s,a,r,s')$ in a replay buffer. During training a minibatch of experiences are selected. A target network is used to compute the target <em>Q-values</em> during updates.
+</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Neural_Network.svg" alt="Deep Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Deep Neural Network with multiple hidden layers - QuantuMechaniX8, CC0, via Wikimedia Commons</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
 <pre><code>DQN Algorithm:
-Initialize replay buffer D
-Initialize Q-network with random weights θ
-Initialize target Q-network with weights θ⁻ = θ
+Initialise replay buffer D
+Initialise Q-network with random weights w
+Initialise target Q-network with weights w⁻ = w
 Repeat (for each episode):
-    Initialize state s
+    Initialise state s
     Repeat (for each step of episode):
-        With probability ε select a random action a
-        otherwise select a = argmaxₐ Q(s, a; θ)
-        Execute action a, observe reward r and next state s'
+        a ← π(s)
+        // Act according to a
+        r ← = R(s, a, s')
         Store (s, a, r, s') in D
-        Sample random mini-batch from D
-        For each (s, a, r, s') in batch:
-            y = r + γ maxₐ' Q(s', a'; θ⁻)
-        Perform gradient descent step on (y - Q(s, a; θ))²
-        Every C steps, update θ⁻ ← θ
+        For each (s, a, r, s') in mini_batch(D):
+            y = r + γ maxₐ' Q(s', a'; w⁻)
+        w ← gradient_descent((y - Q(s, a; w))²)
+        Every C steps, update w⁻ ← w
         s ← s'
     until s is terminal
 </code></pre>
+</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Neural_Network.svg" alt="Deep Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Deep Neural Network with multiple hidden layers - QuantuMechaniX8, CC0, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
@@ -999,62 +1324,103 @@ Repeat (for each episode):
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                <table>
-                    <thead>
-                        <tr><th>Algorithm</th><th>Q Representation</th><th>State Space</th><th>Key Features</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Q-Learning</td><td>Table</td><td>Small/Discrete</td><td>Simple, Model-Free</td></tr>
-                        <tr><td>DQN</td><td>Neural Network</td><td>Large/Continuous</td><td>Experience Replay, Target Network</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+<pre><code>DQN Algorithm:
+Initialise replay buffer D
+Initialise Q-network with random weights w
+Initialise target Q-network with weights w⁻ = w
+Repeat (for each episode):
+    Initialise state s
+    Repeat (for each step of episode):
+        a ← π(s)
+        // Act according to a
+        r ← = R(s, a, s')
+        Store (s, a, r, s') in D
+        For each (s, a, r, s') in mini_batch(D):
+            y = r + γ maxₐ' Q(s', a'; w⁻)
+        w ← gradient_descent((y - Q(s, a; w))²)
+        Every C steps, update w⁻ ← w
+        s ← s'
+    until s is terminal
+</code></pre>
 </div>
-
-<!-- end SLIDES: --> 
-
-## Reinforcement Learning
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 50%">
-                <p><b>Q-Learning:</b></p>
-                <p>A model-free reinforcement learning algorithm that learns the optimal action-value function directly from experience.</p>
-                <p><b>Q-Learning Update Rule:</b></p>
-$$
-Q(s,a) \leftarrow Q(s,a) + \alpha [R(s,a,s') + \gamma \max_{a'} Q(s',a') - Q(s,a)]
-$$
-where $\alpha$ is the learning rate and the term in brackets is the temporal difference error.
-</div>
-            <div class="column vertical-top text-left" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/diagrams/q-learning.svg" alt="Q-Learning" style="max-width: 100%; height: auto;">
-                <div class="footnote">Q-Learning Algorithm.</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Reinforcement Learning
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <p><b>Exploration vs Exploitation:</b></p>
-                <p>The fundamental trade-off in reinforcement learning between exploring new actions to discover better strategies and exploiting current knowledge to maximize immediate rewards.</p>
-                <br>
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>ε-Greedy Policy:</b></p>
 $$
 \pi(s) = \begin{cases}
 \text{random action} & \text{with probability } \epsilon \\
-\arg\max_a Q(s,a) & \text{with probability } 1-\epsilon
+\arg\max_a Q(s,a; \mathbf{w}) & \text{with probability } 1-\epsilon
 \end{cases}
 $$
 </div>
         </div>
     </div>
 </div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 10%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-center" style="width: 33%">
+                <p><b>Policy Iteration</b></p>
+            </div>
+            <div class="column vertical-top text-center" style="width: 33%">
+                <p><b>Q-Value</b></p>
+            </div>
+            <div class="column vertical-top text-center" style="width: 33%">
+                <p><b>DQN</b></p>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 90%">
+        <div class="columns" style="width: 100%">
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 10%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-center" style="width: 33%">
+                <p><b>Policy Iteration</b></p>
+            </div>
+            <div class="column vertical-top text-center" style="width: 33%">
+                <p><b>Q-Value</b></p>
+            </div>
+            <div class="column vertical-top text-center" style="width: 33%">
+                <p><b>DQN</b></p>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 90%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 33%">
+                <p><b>Value-function</b></p>
+                <p>Model-based with guaranteed convergence for finite and discrete problems.</p>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
+                <div class="footnote">Markov Decision Process - waldoalvarez, CC BY-SA 4.0, via Wikimedia Commons.</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 33%">
+                <p><b>Q-function</b></p>
+                <p>Model-free and simple for small and discrete problems.</p>
+                <img src="{{ site.url }}/assets/media/images/q-table-final.png" alt="Q-Matrix" style="max-width: 100%; height: auto;">
+                <div class="footnote">Transition Matrix (Q).</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 33%">
+                <p><b>Neural Network</b></p>
+                <p>Model-free and complex for large and continuous problems.</p>
+                <br>
+                <br>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Neural_Network.svg" alt="Deep Neural Network" style="max-width: 100%; height: auto;">
+                <div class="footnote">Deep Neural Network with multiple hidden layers - QuantuMechaniX8, CC0, via Wikimedia Commons</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<!-- end SLIDES: -->

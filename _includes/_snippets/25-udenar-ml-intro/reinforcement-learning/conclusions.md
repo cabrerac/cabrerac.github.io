@@ -13,8 +13,8 @@
                 <li>Hyperparameters Tuning</li>
                 <li>Reinforcement Learning</li>
                 <li>Markov Decision Process</li>
-                <li>Value Iteration</li>
-                <li>Policy Iteration</li>
+                <li>Model-based RL</li>
+                <li>Model-free RL</li>
             </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -34,8 +34,8 @@
                 <li>Hyperparameters Tuning</li>
                 <li>Reinforcement Learning</li>
                 <li>Markov Decision Process</li>
-                <li>Value Iteration</li>
-                <li>Policy Iteration</li>
+                <li>Model-based RL</li>
+                <li>Model-free RL</li>
             </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -53,3 +53,5 @@
 </div>
 
 <!-- end SLIDES: --> 
+
+{% include _snippets/timelines/ai-history-0.md %}
