@@ -53,5 +53,3 @@
 </div>
 
 <!-- end SLIDES: --> 
-
-{% include _snippets/timelines/ai-history-0.md %}

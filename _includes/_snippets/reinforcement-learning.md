@@ -1423,4 +1423,45 @@ $$
 
 ## Reinforcement Learning
 
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img class="external-svg" src="https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fnature24270/MediaObjects/41586_2017_Article_BFnature24270_Fig1_HTML.jpg?as=webp" alt="AlphaGo Zero" style="max-width: 100%; height: auto;">
+                <div class="footnote">Self-play reinforcement learning in AlphaGo Zero - <a href="https://www.nature.com/articles/nature24270">Silver et al., 2017</a>.</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img class="external-svg" src="https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fnature24270/MediaObjects/41586_2017_Article_BFnature24270_Fig1_HTML.jpg?as=webp" alt="AlphaGo Zero" style="max-width: 100%; height: auto;">
+                <div class="footnote">Self-play reinforcement learning in AlphaGo Zero - <a href="https://www.nature.com/articles/nature24270">Silver et al., 2017</a>.</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p><b>AlphaGo Zero combines key RL concepts:</b></p>
+                <ul>
+                    <li><b>Self-play environment:</b> Agent plays against itself (no human data needed)</li>
+                    <li><b>Policy network:</b> Learns π(s) → probability distribution over actions</li>
+                    <li><b>Value network:</b> Learns V(s) → probability of winning from state s</li>
+                    <li><b>Monte Carlo Tree Search:</b> Uses policy/value to guide search</li>
+                    <li><b>Temporal difference learning:</b> Updates based on game outcomes</li>
+                    <li><b>Experience replay:</b> Stores and learns from self-play games</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- end SLIDES: -->
+
+{% include _snippets/timelines/ai-history-2001-today.md %}

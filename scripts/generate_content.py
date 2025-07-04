@@ -260,8 +260,21 @@ class ContentGenerator:
             print("4. Verify installation by running 'node --version' and 'npm --version'")
             return False
 
-    def process_includes(self, content):
-        """Process include statements in the content."""
+    def process_includes(self, content, processed_includes=None, depth=0):
+        """Process include statements in the content with recursion protection."""
+        # Initialize processed_includes set if not provided
+        if processed_includes is None:
+            processed_includes = set()
+        
+        # Maximum recursion depth to prevent infinite loops
+        MAX_DEPTH = 10
+        if depth > MAX_DEPTH:
+            print(f"Warning: Maximum include depth ({MAX_DEPTH}) exceeded. Stopping recursion.")
+            return content
+        
+        # Maximum number of times the same include can be processed
+        MAX_INCLUDE_COUNT = 5
+        
         # Pattern to match include statements
         include_pattern = r'{%\s*include\s+([^%}]+)\s*%}'
         
@@ -269,6 +282,20 @@ class ContentGenerator:
             include_path = match.group(1).strip()
             # Remove quotes if present
             include_path = include_path.strip('"\'')
+            
+            # Count total times this include has been processed
+            total_include_count = sum(1 for x in processed_includes if x.startswith(f"{include_path}:"))
+            
+            # Check if this include has been processed too many times globally (prevent infinite loops)
+            if total_include_count >= MAX_INCLUDE_COUNT:
+                print(f"Warning: Include {include_path} has been processed {total_include_count} times. Stopping to prevent infinite loops.")
+                return match.group(0)  # Return the original include statement
+            
+            # Create a unique identifier for this specific include instance
+            include_id = f"{include_path}:{depth}:{total_include_count}"
+            
+            # Add to processed set
+            processed_includes.add(include_id)
             
             # Look for the include file in _includes
             include_file = self.base_dir / "_includes" / include_path
@@ -285,8 +312,8 @@ class ContentGenerator:
             site_url = "https://cabrerac.github.io"  # Replace with your actual site URL
             include_content = include_content.replace('{{ site.url }}', site_url)
             
-            # Process nested includes
-            include_content = self.process_includes(include_content)
+            # Process nested includes with increased depth
+            include_content = self.process_includes(include_content, processed_includes, depth + 1)
             
             # Handle SVG content
             if '<svg' in include_content:
