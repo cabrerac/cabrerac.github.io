@@ -221,7 +221,7 @@ $$
                 <p>We choose any starting point and then compute <b>an estimate of the gradient and move a small amount in the steepest downhill direction</b>, repeating until we converge on a point in the weight space with <em>(local)</em> minima loss.</p>
 <br>
 <pre><code>Gradient Descent Algorithm:
-Initialize w
+Initialise w
 repeat
     for each w[i] in w
         Compute gradient: g = ∇Loss(w[i])

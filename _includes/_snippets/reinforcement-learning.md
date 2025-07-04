@@ -55,7 +55,7 @@
             </div>
             <div class="column vertical-top text-left" style="width: 50%">
                 <p>The agent aims to <b>maximise the rewards</b> from its actions. Rewards can be <b>immediate or sparse</b>.</p>
-                <p>Providing a reward signal is easier than providing labeled examples (i.e., supervised learning).</p>
+                <p>Providing a reward signal is easier than providing labelled examples (i.e., supervised learning).</p>
             </div>
         </div>
     </div>
@@ -72,8 +72,8 @@
             </div>
             <div class="column vertical-top text-left" style="width: 50%">
                 <p>The agent aims to <b>maximise the rewards</b> from its actions. Rewards can be <b>immediate or sparse</b>.</p>
-                <p>Providing a reward signal is easier than providing labeled examples (i.e., supervised learning).</p>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Reinforcement_learning_diagram.svg" alt="RL Framework" style="max-width: 100%; height: auto;">
+                <p>Providing a reward signal is easier than providing labelled examples (i.e., supervised learning).</p>
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Reinforcement_learning_diagram.svg" alt="RL Framework" style="max-width: 100%; height: auto;">
                 <div class="footnote">Reinforcement Learning Framework - Megajuice, CC0, via Wikimedia Commons.</div>
             </div>
         </div>
@@ -86,7 +86,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Reinforcement_learning_diagram.svg" alt="RL Framework" style="max-width: 100%; height: auto;">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Reinforcement_learning_diagram.svg" alt="RL Framework" style="max-width: 100%; height: auto;">
                 <div class="footnote">Reinforcement Learning Framework - Megajuice, CC0, via Wikimedia Commons.</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -102,7 +102,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Reinforcement_learning_diagram.svg" alt="RL Framework" style="max-width: 100%; height: auto;">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Reinforcement_learning_diagram.svg" alt="RL Framework" style="max-width: 100%; height: auto;">
                 <div class="footnote">Reinforcement Learning Framework - Megajuice, CC0, via Wikimedia Commons.</div>
             </div>
             <div class="column vertical-top text-left" style="width: 50%">
@@ -127,7 +127,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Reinforcement_learning_diagram.svg" alt="RL Framework" style="max-width: 100%; height: auto;">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Reinforcement_learning_diagram.svg" alt="RL Framework" style="max-width: 100%; height: auto;">
                 <div class="footnote">Reinforcement Learning Framework - Megajuice, CC0, via Wikimedia Commons.</div>
             </div>
             <div class="column vertical-top text-left" style="width: 50%">
@@ -153,7 +153,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Reinforcement_learning_diagram.svg" alt="RL Framework" style="max-width: 100%; height: auto;">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Reinforcement_learning_diagram.svg" alt="RL Framework" style="max-width: 100%; height: auto;">
                 <div class="footnote">Reinforcement Learning Framework - Megajuice, CC0, via Wikimedia Commons.</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -170,7 +170,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
                 <div class="footnote">Markov Decision Process - waldoalvarez, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons.</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -187,7 +187,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Reinforcement_learning_diagram.svg" alt="RL Framework" style="max-width: 100%; height: auto;">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Reinforcement_learning_diagram.svg" alt="RL Framework" style="max-width: 100%; height: auto;">
                 <div class="footnote">Reinforcement Learning Framework - Megajuice, CC0, via Wikimedia Commons.</div>
             </div>
             <div class="column vertical-top text-left" style="width: 50%">
@@ -208,7 +208,7 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Reinforcement_learning_diagram.svg" alt="RL Framework" style="max-width: 100%; height: auto;">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Reinforcement_learning_diagram.svg" alt="RL Framework" style="max-width: 100%; height: auto;">
                 <div class="footnote">Reinforcement Learning Framework - Megajuice, CC0, via Wikimedia Commons.</div>
             </div>
             <div class="column vertical-top text-left" style="width: 50%">
@@ -243,7 +243,7 @@ P(s'|s,a)
 $$
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
                 <div class="footnote">Markov Decision Process - waldoalvarez, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons.</div>
             </div>  
         </div>
@@ -266,7 +266,7 @@ $$
 <br><b>Uncertainty</b> once again brings MDPs closer to reality when compared against deterministic approaches.    
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
                 <div class="footnote">Markov Decision Process - waldoalvarez, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons.</div>
             </div>  
         </div>
@@ -287,7 +287,7 @@ R(s,a,s')
 $$
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
                 <div class="footnote">Markov Decision Process - waldoalvarez, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons.</div>
             </div>  
         </div>
@@ -314,7 +314,7 @@ $$
 <br>The utility function $U_h$ depends on a sequence of states and actions named the <b>environment history</b>.
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
                 <div class="footnote">Markov Decision Process - waldoalvarez, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons.</div>
             </div>  
         </div>
@@ -337,7 +337,7 @@ $$
 $$
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
                 <div class="footnote">Markov Decision Process - waldoalvarez, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons.</div>
             </div>  
         </div>
@@ -365,7 +365,7 @@ $$
 where $\pi(s,a)$ is the probability of taking action $a$ in state $s$.
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
                 <div class="footnote">Markov Decision Process - waldoalvarez, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons.</div>
             </div>  
         </div>
@@ -466,7 +466,7 @@ $$
             <div class="column vertical-top text-left" style="width: 100%">
                 <br>
                 <p>The utility function allows the agent to <b>select actions by using the principle of maximum expected utility</b>. The agent chooses the action that maximises the reward for
-                the next step plus the expected discounted utility of the subsequente step:</p>
+                the next step plus the expected discounted utility of the subsequent step:</p>
 <br>
 $$
 \pi^*(s) = \arg\max_{a \in A(s)} \sum_{s'} P(s'|s,a) [R(s,a,s') + \gamma U(s')]
@@ -484,12 +484,12 @@ $$
             <div class="column vertical-top text-left" style="width: 100%">
                 <br>
                 <p>The utility function allows the agent to <b>select actions by using the principle of maximum expected utility</b>. The agent chooses the action that maximises the reward for
-                the next step plus the expected discounted utility of the subsequente step:</p>
+                the next step plus the expected discounted utility of the subsequent step:</p>
 <br>
 $$
 \pi^*(s) = \arg\max_{a \in A(s)} \sum_{s'} P(s'|s,a) [R(s,a,s') + \gamma U(s')]
 $$
-<br>The utility of a state is the expected reward for the next transition plus the discounted utility of the next state, assumming that the agent chooses the optimal action. The utility of a state
+<br>The utility of a state is the expected reward for the next transition plus the discounted utility of the next state, assuming that the agent chooses the optimal action. The utility of a state
 is given by:
 $$
 U(s) = \max_{a \in A(s)} \sum_{s'} P(s'|s,a) [R(s,a,s') + \gamma U(s')]
@@ -612,7 +612,7 @@ $$
     <div class="row" style="height: 60%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Reinforcement_learning_diagram.svg" alt="RL Framework" style="max-width: 100%; height: auto;">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Reinforcement_learning_diagram.svg" alt="RL Framework" style="max-width: 100%; height: auto;">
                 <div class="footnote">Reinforcement Learning Framework - Megajuice, CC0, via Wikimedia Commons.</div>
             </div>
         </div>
@@ -641,7 +641,7 @@ $$
     <div class="row" style="height: 60%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Reinforcement_learning_diagram.svg" alt="RL Framework" style="max-width: 100%; height: auto;">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Reinforcement_learning_diagram.svg" alt="RL Framework" style="max-width: 100%; height: auto;">
                 <div class="footnote">Reinforcement Learning Framework - Megajuice, CC0, via Wikimedia Commons.</div>
             </div>
         </div>
@@ -672,7 +672,7 @@ $$
     <div class="row" style="height: 60%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Reinforcement_learning_diagram.svg" alt="RL Framework" style="max-width: 100%; height: auto;">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Reinforcement_learning_diagram.svg" alt="RL Framework" style="max-width: 100%; height: auto;">
                 <div class="footnote">Reinforcement Learning Framework - Megajuice, CC0, via Wikimedia Commons.</div>
             </div>
         </div>
@@ -698,7 +698,7 @@ $$
             </div>
             <div class="column vertical-top text-left" style="width: 50%">
                 <ul>
-                    <li>Unknow transition model and reward function</li>
+                    <li>Unknown transition model and reward function</li>
                     <li>Cannot simulate outcomes</li>
                     <li>Q-Learning, DQN</li>
                 </ul>
@@ -718,7 +718,7 @@ $$
                 <p><b>Policy Iteration</b> is a model-based reinforcement learning algorithm that alternates between <em>policy evaluation</em> and <em>policy improvement</em> to find the optimal policy.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
                 <div class="footnote">Markov Decision Process - waldoalvarez, CC BY-SA 4.0, via Wikimedia Commons.</div>
             </div>
         </div>
@@ -823,7 +823,7 @@ $$
 $$
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
                 <div class="footnote">Markov Decision Process - waldoalvarez, CC BY-SA 4.0, via Wikimedia Commons.</div>
             </div>
         </div>
@@ -846,7 +846,7 @@ $$
 <br>Policy iteration guarantees convergence to the optimal policy through the principle of policy improvement.
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
                 <div class="footnote">Markov Decision Process - waldoalvarez, CC BY-SA 4.0, via Wikimedia Commons.</div>
             </div>
         </div>
@@ -878,7 +878,7 @@ Repeat until convergence:
 </code></pre>
 </div>
             <div class="column vertical-middle text-left" style="width: 40%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
                 <div class="footnote">Markov Decision Process - waldoalvarez, CC BY-SA 4.0, via Wikimedia Commons.</div>
             </div>
         </div>
@@ -1192,9 +1192,9 @@ $$
                 <p><b>Q-Learning Limitations:</b></p>
                 <ul>
                     <li><b>Scalability:</b> Q-learning struggles with large state spaces as it requires a Q-value for every state-action pair, leading to high memory usage.</li>
-                    <li><b>Generalization:</b> Q-learning does not generalize well to unseen states since it relies on a discrete Q-table.</li>
-                    <li><b>Continuous State Spaces:</b> Q-learning is not suitable for environments with continuous state spaces as it requires discretization, which can lead to loss of information.</li>
-                    <li><b>Sample Inefficiency:</b> Q-learning can be sample inefficient, requiring many interactions with the environment to learn an optimal policy.</li>
+                    <li><b>Generalisation:</b> Q-learning does not generalise well to unseen states since it relies on a discrete Q-table.</li>
+                    <li><b>Continuous State Spaces:</b> Q-learning is not suitable for environments with continuous state spaces as it requires discretisation, which can lead to loss of information.</li>
+                    <li><b>Sample Inefficiency:</b> Q-learning can be sample-inefficient, requiring many interactions with the environment to learn an optimal policy.</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -1400,7 +1400,7 @@ $$
             <div class="column vertical-top text-left" style="width: 33%">
                 <p><b>Value-function</b></p>
                 <p>Model-based with guaranteed convergence for finite and discrete problems.</p>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
                 <div class="footnote">Markov Decision Process - waldoalvarez, CC BY-SA 4.0, via Wikimedia Commons.</div>
             </div>
             <div class="column vertical-top text-left" style="width: 33%">
@@ -1414,7 +1414,7 @@ $$
                 <p>Model-free and complex for large and continuous problems.</p>
                 <br>
                 <br>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Neural_Network.svg" alt="Deep Neural Network" style="max-width: 100%; height: auto;">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/1/15/Neural_Network.svg" alt="Deep Neural Network" style="max-width: 100%; height: auto;">
                 <div class="footnote">Deep Neural Network with multiple hidden layers - QuantuMechaniX8, CC0, via Wikimedia Commons</div>
             </div>
         </div>
