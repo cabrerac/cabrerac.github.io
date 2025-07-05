@@ -15,7 +15,7 @@ layout: lecture
 lecture_code: reinforcement-learning
 lecture_date: 05/07/2025
 permalink: /teaching/25-udenar-ml-intro/reinforcement-learning/
-visible: false
+visible: true
 ---
 
 <!-- ALL: content that goes everywhere -->
