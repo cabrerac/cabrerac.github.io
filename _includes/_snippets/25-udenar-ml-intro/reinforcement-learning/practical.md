@@ -41,7 +41,6 @@ def generate_image_data(n_samples=1000, img_size=32):
         else:
             # Add vertical lines for class 1
             X[i, img_size//2-2:img_size//2+2, :, 0] += 2
-    
     # Create labels
     y = (np.arange(n_samples) % 2).astype(int)   
     return X, y
@@ -50,7 +49,6 @@ def generate_image_data(n_samples=1000, img_size=32):
 Generate the data:
 
 ```python
-# Generate data
 X_img, y_img = generate_image_data()
 # Split the data
 X_img_train, X_img_test, y_img_train, y_img_test = train_test_split(
@@ -65,7 +63,6 @@ print(f"Image test data shape: {X_img_test.shape}")
 Let's visualise some of the generated images:
 
 ```python
-# Visualise some examples
 fig, axes = plt.subplots(2, 4, figsize=(12, 6))
 for i in range(8):
     row = i // 4
