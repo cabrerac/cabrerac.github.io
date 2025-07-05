@@ -46,7 +46,7 @@ def generate_image_data(n_samples=1000, img_size=32):
     y = (np.arange(n_samples) % 2).astype(int)   
     return X, y
 ```
-     
+
 Generate the data:
 
 ```python
@@ -199,71 +199,6 @@ d_losses, g_losses = train_gan(generator, discriminator, gan, X_gan, epochs=100)
 ```
 
 The GAN training process involves alternating between training the discriminator and the generator. The discriminator is trained on both real and fake data to improve its classification ability, whilst the generator is trained to fool the discriminator.
-
-Let's visualise the training progress and generated samples:
-
-```python
-# Plot training losses
-plt.figure(figsize=(12, 4))
-plt.subplot(1, 2, 1)
-plt.plot(d_losses, label='Discriminator Loss', linewidth=2)
-plt.plot(g_losses, label='Generator Loss', linewidth=2)
-plt.title('GAN Training Losses')
-plt.xlabel('Epoch')
-plt.ylabel('Loss')
-plt.legend()
-plt.grid(True, alpha=0.3)
-# Add analysis of the loss patterns
-print("\n=== GAN Training Analysis ===")
-print("Discriminator Loss Trend:")
-if d_losses[-1] < d_losses[0]:
-    print("✓ Discriminator is improving (loss decreasing)")
-else:
-    print("✗ Discriminator loss increased - may indicate issues")
-
-print("\nGenerator Loss Trend:")
-if g_losses[-1] > g_losses[0]:
-    print("⚠ Generator loss increased - this can be normal in GANs")
-    print("   - May indicate discriminator is getting too strong")
-    print("   - Could suggest mode collapse or training imbalance")
-else:
-    print("✓ Generator loss decreased - good sign")
-# Calculate loss ratio to monitor balance
-loss_ratio = [d/g if g > 0 else float('inf') for d, g in zip(d_losses, g_losses)]
-print(f"\nFinal D/G Loss Ratio: {loss_ratio[-1]:.2f}")
-if loss_ratio[-1] < 0.5:
-    print("⚠ Discriminator may be too weak")
-elif loss_ratio[-1] > 2.0:
-    print("⚠ Discriminator may be too strong")
-else:
-    print("✓ Loss ratio looks balanced")
-# Plot loss ratio
-plt.subplot(1, 2, 2)
-plt.plot(loss_ratio, label='D/G Loss Ratio', color='green', linewidth=2)
-plt.axhline(y=1.0, color='red', linestyle='--', alpha=0.7, label='Balanced (1.0)')
-plt.title('Discriminator/Generator Loss Ratio')
-plt.xlabel('Epoch')
-plt.ylabel('D/G Ratio')
-plt.legend()
-plt.grid(True, alpha=0.3)
-# Additional monitoring: Check for mode collapse
-print("\n=== Quality Assessment ===")
-# Check if generated samples are diverse
-noise_samples = np.random.normal(0, 1, (100, latent_dim))
-generated_samples = generator.predict(noise_samples)
-sample_variance = np.var(generated_samples)
-print(f"Generated Sample Variance: {sample_variance:.4f}")
-if sample_variance < 0.1:
-    print("⚠ Low variance - possible mode collapse detected")
-else:
-    print("✓ Good sample diversity")
-# Check discriminator accuracy on recent samples
-recent_fake = generator.predict(np.random.normal(0, 1, (32, latent_dim)))
-fake_predictions = discriminator.predict(recent_fake)
-real_predictions = discriminator.predict(X_gan[:32])
-print(f"Discriminator on Fake (should be ~0): {np.mean(fake_predictions):.3f}")
-print(f"Discriminator on Real (should be ~1): {np.mean(real_predictions):.3f}")
-```
 
 Generate and visualise synthetic samples:
 
