@@ -2,14 +2,6 @@
 
 # Practical Introduction
 
-In this practical session, we will build upon our previous work with neural networks and explore advanced architectures. Then, we will focus on the reinforcement learning algorithms we explored in our lecture.
-
----
-
-<!-- NOTEBOOK: -->
-
-# Practical Introduction
-
 In this practical session, we will build upon our previous work with neural networks and explore GANs architectures. Then, we will focus on the reinforcement learning algorithms we explored in our last lecture.
 
 ---
