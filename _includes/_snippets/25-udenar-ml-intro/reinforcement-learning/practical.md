@@ -1026,10 +1026,7 @@ def test_policy(env, policy, num_episodes=5):
     
     print(f"Average reward: {np.mean(total_rewards):.2f}")
     return total_rewards
-```
-
 # Test the learned policy
-```python
 rewards = test_policy(env, policy)
 ```
 
@@ -1283,7 +1280,7 @@ where $\theta$ are the main network parameters and $\theta^-$ are the target net
 
 **Implementation:**
 
-Let's implement DQN using TensorFlow/Keras:
+Let's import the required libraries.
 
 ```python
 import tensorflow as tf
@@ -1291,7 +1288,11 @@ from tensorflow import keras
 from tensorflow.keras import layers
 import collections
 import random
+```
 
+Let's implement DQN using TensorFlow/Keras:
+
+```python
 class DQNAgent:
     """
     Implementation of Deep Q-Network (DQN) agent.
@@ -1468,7 +1469,6 @@ dqn_agent = DQNAgent(state_size, action_size, learning_rate=0.001, gamma=0.95,
                      memory_size=10000, batch_size=32)
 # Set environment reference for feature conversion
 dqn_agent.env = env_dqn
-
 # Train the DQN agent
 print("Training DQN agent...")
 dqn_agent.train(env_dqn, num_episodes=500, max_steps_per_episode=100)
@@ -1506,7 +1506,6 @@ if dqn_agent.losses:
     ax3.set_xlabel('Training Step')
     ax3.set_ylabel('Loss')
     ax3.grid(True, alpha=0.3)
-
 plt.tight_layout()
 plt.show()
 ```
