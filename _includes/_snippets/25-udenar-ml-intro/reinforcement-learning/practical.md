@@ -1,6 +1,6 @@
 <!-- NOTEBOOK: -->
 
-# Practical: Reinforcement Learning
+# Practical Introduction
 
 In this practical session, we will build upon our previous work with neural networks and explore advanced architectures. Then, we will focus on the reinforcement learning algorithms we explored in our lecture.
 
@@ -931,7 +931,6 @@ class PolicyIteration:
             if policy_stable:
                 print(f"Policy converged after {iteration + 1} iterations")
                 break
-        
         return self.V, self.policy
 ```
 
@@ -941,7 +940,6 @@ Let's create and solve a grid world problem:
 # Create environment and solver
 env = GridWorld(size=4)
 solver = PolicyIteration(env)
-
 # Solve the MDP
 V, policy = solver.solve()
 ```
@@ -997,7 +995,6 @@ def plot_results(env, V, policy):
     
     plt.tight_layout()
     plt.show()
-
 # Plot the results
 plot_results(env, V, policy)
 ```
@@ -1029,8 +1026,10 @@ def test_policy(env, policy, num_episodes=5):
     
     print(f"Average reward: {np.mean(total_rewards):.2f}")
     return total_rewards
+```
 
 # Test the learned policy
+```python
 rewards = test_policy(env, policy)
 ```
 
@@ -1188,7 +1187,6 @@ class QLearning:
                 else:
                     # Maximum Q-value for the state
                     V[i, j] = max(self.Q[state].values())
-        
         return V
 ```
 
@@ -1197,7 +1195,6 @@ Now let's train the Q-Learning agent:
 ```python
 # Create Q-Learning agent
 q_agent = QLearning(env, alpha=0.1, gamma=0.9, epsilon=0.1)
-
 # Train the agent
 print("Training Q-Learning agent...")
 q_agent.train(num_episodes=1000, max_steps_per_episode=100)
@@ -1208,14 +1205,12 @@ Let's visualize the training progress:
 ```python
 # Plot training progress
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 5))
-
 # Plot episode rewards
 ax1.plot(q_agent.episode_rewards)
 ax1.set_title('Episode Rewards')
 ax1.set_xlabel('Episode')
 ax1.set_ylabel('Total Reward')
 ax1.grid(True, alpha=0.3)
-
 # Plot moving average of rewards
 window_size = 50
 if len(q_agent.episode_rewards) >= window_size:
@@ -1224,14 +1219,12 @@ if len(q_agent.episode_rewards) >= window_size:
     ax1.plot(range(window_size-1, len(q_agent.episode_rewards)), moving_avg, 
              'r-', linewidth=2, label=f'Moving Average (window={window_size})')
     ax1.legend()
-
 # Plot episode lengths
 ax2.plot(q_agent.episode_lengths)
 ax2.set_title('Episode Lengths')
 ax2.set_xlabel('Episode')
 ax2.set_ylabel('Steps')
 ax2.grid(True, alpha=0.3)
-
 plt.tight_layout()
 plt.show()
 ```
@@ -1242,7 +1235,6 @@ Now let's extract and visualize the learned policy and value function:
 # Extract learned policy and value function
 q_policy = q_agent.get_policy()
 q_value = q_agent.get_value_function()
-
 # Plot results
 plot_results(env, q_value, q_policy)
 ```
@@ -1262,7 +1254,6 @@ Let's also compare the Q-Learning results with Policy Iteration:
 print("\nComparison of Policy Iteration vs Q-Learning:")
 print(f"Policy Iteration - Average reward: {np.mean(rewards):.2f}")
 print(f"Q-Learning - Average reward: {np.mean(q_rewards):.2f}")
-
 # Compare value functions
 print(f"\nValue function difference (max): {np.max(np.abs(V - q_value)):.4f}")
 print(f"Policy agreement: {np.sum(policy == q_policy)}/{policy.size} states")
@@ -1462,7 +1453,6 @@ class DQNAgent:
                     state_features = self._state_to_features(state)
                     q_values = self.q_network.predict(np.array([state_features]), verbose=0)
                     policy[i, j] = np.argmax(q_values[0])
-        
         return policy
 ```
 
@@ -1473,11 +1463,9 @@ Let's create a modified environment for DQN and train the agent:
 env_dqn = GridWorld(size=4)
 state_size = env_dqn.size * env_dqn.size  # One-hot encoding of position
 action_size = len(env_dqn.actions)
-
 dqn_agent = DQNAgent(state_size, action_size, learning_rate=0.001, gamma=0.95,
                      epsilon=1.0, epsilon_decay=0.995, epsilon_min=0.01,
                      memory_size=10000, batch_size=32)
-
 # Set environment reference for feature conversion
 dqn_agent.env = env_dqn
 
@@ -1491,14 +1479,12 @@ Let's visualize the training progress:
 ```python
 # Plot DQN training progress
 fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(18, 5))
-
 # Plot episode rewards
 ax1.plot(dqn_agent.episode_rewards)
 ax1.set_title('DQN Episode Rewards')
 ax1.set_xlabel('Episode')
 ax1.set_ylabel('Total Reward')
 ax1.grid(True, alpha=0.3)
-
 # Plot moving average of rewards
 window_size = 25
 if len(dqn_agent.episode_rewards) >= window_size:
@@ -1507,14 +1493,12 @@ if len(dqn_agent.episode_rewards) >= window_size:
     ax1.plot(range(window_size-1, len(dqn_agent.episode_rewards)), moving_avg, 
              'r-', linewidth=2, label=f'Moving Average (window={window_size})')
     ax1.legend()
-
 # Plot episode lengths
 ax2.plot(dqn_agent.episode_lengths)
 ax2.set_title('DQN Episode Lengths')
 ax2.set_xlabel('Episode')
 ax2.set_ylabel('Steps')
 ax2.grid(True, alpha=0.3)
-
 # Plot training losses
 if dqn_agent.losses:
     ax3.plot(dqn_agent.losses)
@@ -1532,7 +1516,6 @@ Now let's extract and test the learned policy:
 ```python
 # Extract learned policy
 dqn_policy = dqn_agent.get_policy()
-
 # Test the learned policy
 print("Testing DQN policy:")
 dqn_rewards = test_policy(env_dqn, dqn_policy)
@@ -1546,7 +1529,6 @@ print("\nComparison of all algorithms:")
 print(f"Policy Iteration - Average reward: {np.mean(rewards):.2f}")
 print(f"Q-Learning - Average reward: {np.mean(q_rewards):.2f}")
 print(f"DQN - Average reward: {np.mean(dqn_rewards):.2f}")
-
 # Compare policies
 print(f"\nPolicy agreement (PI vs QL): {np.sum(policy == q_policy)}/{policy.size} states")
 print(f"Policy agreement (PI vs DQN): {np.sum(policy == dqn_policy)}/{policy.size} states")
