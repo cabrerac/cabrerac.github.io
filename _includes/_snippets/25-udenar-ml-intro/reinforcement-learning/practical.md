@@ -198,6 +198,21 @@ print("Training GAN...")
 d_losses, g_losses = train_gan(generator, discriminator, gan, X_gan, epochs=100)
 ```
 
+Let's compare the models behaviour:
+
+```python
+# Plot training losses
+plt.figure(figsize=(12, 4))
+plt.subplot(1, 2, 1)
+plt.plot(d_losses, label='Discriminator Loss', linewidth=2)
+plt.plot(g_losses, label='Generator Loss', linewidth=2)
+plt.title('GAN Training Losses')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.legend()
+plt.grid(True, alpha=0.3)
+```
+
 The GAN training process involves alternating between training the discriminator and the generator. The discriminator is trained on both real and fake data to improve its classification ability, whilst the generator is trained to fool the discriminator.
 
 Generate and visualise synthetic samples:
@@ -1043,21 +1058,12 @@ DQN successfully learns to solve the grid world problem using neural network app
 
 ## Homework - Reinforcement Learning Algorithm Implementation
 
-The homework assignment focuses on implementing and comparing different reinforcement learning algorithms for a specific problem. You will apply the concepts learned in this practical session to create effective RL solutions for the **Taxi Environment** from the OpenAI Gym library.
-
-### Problem Description
-
-The Taxi environment is a grid world where a taxi must pick up a passenger at one location and drop them off at another. The environment has the following characteristics:
-
-- **State Space:** The taxi's location (5x5 grid), passenger location, and destination location
-- **Action Space:** 6 actions: move south, north, east, west, pickup, dropoff
-- **Rewards:** -1 for each move, +20 for successful dropoff, -10 for illegal pickup/dropoff
-- **Goal:** Minimize the number of steps to complete the task
+The homework assignment focuses on implementing and comparing different reinforcement learning algorithms for a specific problem. You will apply the concepts learned in this practical session to create effective RL solutions for an environment of your preference. Explore the environments in the Gymnasium platform: https://gymnasium.farama.org/
 
 ### Assignment Tasks
 
 1. **Environment Setup and Analysis**
-   - Set up the Taxi environment from OpenAI Gym
+   - Set up the environment
    - Analyze the state and action spaces
    - Visualize the environment dynamics
 
