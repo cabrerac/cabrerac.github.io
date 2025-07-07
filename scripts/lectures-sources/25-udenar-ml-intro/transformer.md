@@ -34,6 +34,30 @@ visible: false
 
 {% include _snippets/25-udenar-ml-intro/transformer/last-time.md %}
 
+<!-- SLIDES: -->
+
+# The Transformer 
+
+<!-- end SLIDES: -->
+
+{% include _snippets/transformer.md %}
+
+<!-- SLIDES: -->
+
+# Large Language Models (LLMs) 
+
+<!-- end SLIDES: -->
+
+{% include _snippets/llms.md %}
+
+<!-- SLIDES: -->
+
+# Agentic AI
+
+<!-- end SLIDES: -->
+
+{% include _snippets/agentic-ai.md %}
+
 {% include _snippets/25-udenar-ml-intro/transformer/conclusions.md %}
 
 {% include _snippets/25-udenar-ml-intro/transformer/resources.md %}

@@ -8,13 +8,10 @@
             <div class="column vertical-middle text-left" style="width: 50%">
             <h3>Overview</h3>
             <ul>
-                <li>ML Deployment Challenges</li>
-                <li>Production System Design</li>
-                <li>Model Serving Architectures</li>
-                <li>Monitoring and Maintenance</li>
-                <li>MLOps Practices</li>
-                <li>Scalability and Performance</li>
-                <li>Real-world Applications</li>
+                <li>ML Deployment</li>
+                <li>MLOps</li>
+                <li>AI as a Service</li>
+                <li>AI-based Systems</li>
             </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -31,13 +28,10 @@
             <div class="column vertical-middle text-left" style="width: 50%">
             <h3>Overview</h3>
             <ul>
-                <li>ML Deployment Challenges</li>
-                <li>Production System Design</li>
-                <li>Model Serving Architectures</li>
-                <li>Monitoring and Maintenance</li>
-                <li>MLOps Practices</li>
-                <li>Scalability and Performance</li>
-                <li>Real-world Applications</li>
+                <li>ML Deployment</li>
+                <li>MLOps</li>
+                <li>AI as a Service</li>
+                <li>AI-based Systems</li>
             </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">

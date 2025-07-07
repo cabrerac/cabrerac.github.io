@@ -34,6 +34,38 @@ visible: false
 
 {% include _snippets/25-udenar-ml-intro/ml-deployment/last-time.md %}
 
+<!-- SLIDES: -->
+
+# ML Deployment
+
+<!-- end SLIDES: -->
+
+{% include _snippets/ml-deployment.md %}
+
+<!-- SLIDES: -->
+
+# MLOps
+
+<!-- end SLIDES: -->
+
+{% include _snippets/mlops.md %}
+
+<!-- SLIDES: -->
+
+# AI as a Service
+
+<!-- end SLIDES: -->
+
+{% include _snippets/ai-service.md %}
+
+<!-- SLIDES: -->
+
+# AI-based Systems
+
+<!-- end SLIDES: -->
+
+{% include _snippets/ai-systems.md %}
+
 {% include _snippets/25-udenar-ml-intro/ml-deployment/conclusions.md %}
 
 {% include _snippets/25-udenar-ml-intro/ml-deployment/resources.md %}

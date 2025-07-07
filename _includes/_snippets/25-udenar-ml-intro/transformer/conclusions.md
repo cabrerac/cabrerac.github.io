@@ -46,12 +46,9 @@
             <h3>Next Time</h3>
             <ul>
                 <li>ML Model Deployment</li>
-                <li>Infrastructure</li>
-                <li>AI as a Service</li>
-                <li>Monitoring and Maintenance</li>
                 <li>MLOps</li>
-                <li>Real-world challenges</li>
-                <li>AI-based Systems</li>
+                <li>AI as a Service</li>
+                <li>AI-based Systems</li>                
             </ul>
             </div>
         </div>
