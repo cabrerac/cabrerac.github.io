@@ -1,8 +1,8 @@
 ---
 course_code: 25-udenar-ml-intro
-title: ML Deployment
-description: In our last lecture, we will explore the deployment process of ML models. Once models are trained, we need to deploy them as part of larger systems to be used. We will show the challenges that motivate our focus on this stage and present different alternatives for efficient ML-based systems deployment.
-session: 10
+title: The Transformer
+description: This lecture introduces the transformer neural network architecture, which is the architecture of novel Large Language Models (LLMs). We will start formalising the architecture and its training. We will then introduce how to use and tailor LLMs into our ML projects and daily activities for different purposes.
+session: 9
 start_time: 10:00 am
 end_time: 12:00 am
 hours: 4
@@ -12,9 +12,9 @@ position: Senior Research Associate and Affiliated Lecturer
 department: Department of Computer Science and Technology
 institution: University of Cambridge
 layout: lecture
-lecture_code: ml-deployment
-lecture_date: 19/07/2025
-permalink: /teaching/25-udenar-ml-intro/ml-deployment/
+lecture_code: transformer
+lecture_date: 12/07/2025
+permalink: /teaching/25-udenar-ml-intro/transformer/
 visible: false
 ---
 
@@ -32,10 +32,10 @@ visible: false
 
 <!-- end SLIDES: -->
 
-{% include _snippets/25-udenar-ml-intro/ml-deployment/last-time.md %}
+{% include _snippets/25-udenar-ml-intro/transformer/last-time.md %}
 
-{% include _snippets/25-udenar-ml-intro/ml-deployment/conclusions.md %}
+{% include _snippets/25-udenar-ml-intro/transformer/conclusions.md %}
 
-{% include _snippets/25-udenar-ml-intro/ml-deployment/resources.md %}
+{% include _snippets/25-udenar-ml-intro/transformer/resources.md %}
 
-{% include _snippets/25-udenar-ml-intro/ml-deployment/practical.md %}
+{% include _snippets/25-udenar-ml-intro/transformer/practical.md %}
