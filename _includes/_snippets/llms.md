@@ -400,7 +400,460 @@ print(response.choices[0].text.strip())
 
 ## Large Language Models (LLMs)
 
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/prompt-variability.png" alt="Prompt Variability" style="height: 500px">
+                <div class="footnote"><a href="https://arxiv.org/abs/2506.10204">Prompt Variability Effects on LLM Code Generation (Paleyes et al., 2025)</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Large Language Models (LLMs)
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p>How sensitive are LLMs to changes in prompts when generating code?</p>
+                <br>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/prompt-variability.png" alt="Prompt Variability" style="height: 500px">
+                <div class="footnote"><a href="https://arxiv.org/abs/2506.10204">Prompt Variability Effects on LLM Code Generation (Paleyes et al., 2025)</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Large Language Models (LLMs)
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p>How sensitive are LLMs to changes in prompts when generating code?</p>
+                <br>
+
+```python
+'''
+Write Python code to solve the following problem:
+
+Given two arrays nums1 and nums2 of size m and n
+respectively, return the medians of the two
+arrays. The overall run time complexity should be
+O(log (m+n)).
+Constraints:
+0 <= m <= 1000
+0 <= n <= 1000
+1 <= m + n <= 2000
+-106 <= nums1[i], nums2[i] <= 106
+'''
+```
+</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/prompt-variability.png" alt="Prompt Variability" style="height: 500px">
+                <div class="footnote"><a href="https://arxiv.org/abs/2506.10204">Prompt Variability Effects on LLM Code Generation (Paleyes et al., 2025)</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Large Language Models (LLMs)
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p>How sensitive are LLMs to changes in prompts when generating code?</p>
+                <br>
+
+```python
+'''
+Write Python code to solve the following problem:
+
+Given two arrays nums1 and nums2 of size m and n
+respectively, return the medians of the two
+arrays. The overall run time complexity should be
+O(log (m+n)).
+Constraints:
+0 <= m <= 1000
+0 <= n <= 1000
+1 <= m + n <= 2000
+-106 <= nums1[i], nums2[i] <= 106
+'''
+```
+</div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p>One change in the prompt was obfuscating the text by adding random noise:</p>
+                <br>
+
+```python
+'''
+Write Python code to solve the following problem:
+
+hJFFm two a8Gh4E se5Zuz GIJe! and mj<Cq of q&Xs m
+and n %FE)2Xt(G#Oy, t$5 tDh the k$rJQH of the two
+EPEˆ@W xGeX %E. The (gSFq<: run F(K@ DkN(;ss9r7 W
+Bij>v be O (log (m + n) ). 
+K@jb$T = = n 
+0 <= m <= w000 
+0 <= n <= w000 
+1 <= m + n <= 1000 
+- 106 <= GHnZ@ [i ], jk,e@ [i] <= 106
+'''
+```
+</div>
+        </div>
+    </div>
+</div>
+
+## Large Language Models (LLMs)
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/noisy-experiments.png" alt="Noisy Experiments" style="height: 500px">
+                <div class="footnote"><a href="https://arxiv.org/abs/2505.23598">LLM Performance for Code Generation on Noisy Tasks (Sendyka et al., 2025)</a></div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p>One change in the prompt was obfuscating the text by adding random noise:</p>
+                <br>
+
+```python
+'''
+Write Python code to solve the following problem:
+
+hJFFm two a8Gh4E se5Zuz GIJe! and mj<Cq of q&Xs m
+and n %FE)2Xt(G#Oy, t$5 tDh the k$rJQH of the two
+EPEˆ@W xGeX %E. The (gSFq<: run F(K@ DkN(;ss9r7 W
+Bij>v be O (log (m + n) ). 
+K@jb$T = = n 
+0 <= m <= w000 
+0 <= n <= w000 
+1 <= m + n <= 1000 
+- 106 <= GHnZ@ [i ], jk,e@ [i] <= 106
+'''
+```
+</div>
+        </div>
+    </div>
+</div>
+
+## Large Language Models (LLMs)
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/noisy-experiments.png" alt="Noisy Experiments" style="height: 500px">
+                <div class="footnote"><a href="https://arxiv.org/abs/2505.23598">LLM Performance for Code Generation on Noisy Tasks (Sendyka et al., 2025)</a></div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p>One change in the prompt was obfuscating the text by adding random noise:</p>
+                <br>
+
+```python
+'''
+Write Python code to solve the following problem:
+
+hJFFm two a8Gh4E se5Zuz GIJe! and mj<Cq of q&Xs m
+and n %FE)2Xt(G#Oy, t$5 tDh the k$rJQH of the two
+EPEˆ@W xGeX %E. The (gSFq<: run F(K@ DkN(;ss9r7 W
+Bij>v be O (log (m + n) ). 
+K@jb$T = = n 
+0 <= m <= w000 
+0 <= n <= w000 
+1 <= m + n <= 1000 
+- 106 <= GHnZ@ [i ], jk,e@ [i] <= 106
+'''
+```
+</div>
+        </div>
+    </div>
+</div>
+
+## Large Language Models (LLMs)
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/noisy-experiments.png" alt="Noisy Experiments" style="height: 500px">
+                <div class="footnote"><a href="https://arxiv.org/abs/2505.23598">LLM Performance for Code Generation on Noisy Tasks (Sendyka et al., 2025)</a></div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/noisy-results-leetcode.png" alt="Noisy Results LeetCode" style="height: 500px">
+                <div class="footnote"><a href="https://arxiv.org/abs/2505.23598">LLM Performance for Code Generation on Noisy Tasks (Sendyka et al., 2025)</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Large Language Models (LLMs)
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+
+```python
+'''
+Write Python code to solve the following problem:
+
+hJFFm two a8Gh4E se5Zuz GIJe! and mj<Cq of q&Xs m
+and n %FE)2Xt(G#Oy, t$5 tDh the k$rJQH of the two
+EPEˆ@W xGeX %E. The (gSFq<: run F(K@ DkN(;ss9r7 W
+Bij>v be O (log (m + n) ). 
+K@jb$T = = n 
+0 <= m <= w000 
+0 <= n <= w000 
+1 <= m + n <= 1000 
+- 106 <= GHnZ@ [i ], jk,e@ [i] <= 106
+'''
+```
+</div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/noisy-results-leetcode.png" alt="Noisy Results LeetCode" style="height: 500px">
+                <div class="footnote"><a href="https://arxiv.org/abs/2505.23598">LLM Performance for Code Generation on Noisy Tasks (Sendyka et al., 2025)</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Large Language Models (LLMs)
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+
+```python
+'''
+Write Python code to solve the following problem:
+
+hJFFm two a8Gh4E se5Zuz GIJe! and mj<Cq of q&Xs m
+and n %FE)2Xt(G#Oy, t$5 tDh the k$rJQH of the two
+EPEˆ@W xGeX %E. The (gSFq<: run F(K@ DkN(;ss9r7 W
+Bij>v be O (log (m + n) ). 
+K@jb$T = = n 
+0 <= m <= w000 
+0 <= n <= w000 
+1 <= m + n <= 1000 
+- 106 <= GHnZ@ [i ], jk,e@ [i] <= 106
+'''
+```
+</div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/noisy-results-math.png" alt="Noisy Results Math" style="height: 500px">
+                <div class="footnote"><a href="https://arxiv.org/abs/2505.23598">LLM Performance for Code Generation on Noisy Tasks (Sendyka et al., 2025)</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Large Language Models (LLMs)
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+
+```python
+'''
+Write Python code to solve the following problem:
+
+hJFFm two a8Gh4E se5Zuz GIJe! and mj<Cq of q&Xs m
+and n %FE)2Xt(G#Oy, t$5 tDh the k$rJQH of the two
+EPEˆ@W xGeX %E. The (gSFq<: run F(K@ DkN(;ss9r7 W
+Bij>v be O (log (m + n) ). 
+K@jb$T = = n 
+0 <= m <= w000 
+0 <= n <= w000 
+1 <= m + n <= 1000 
+- 106 <= GHnZ@ [i ], jk,e@ [i] <= 106
+'''
+```
+</div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/noisy-results-humans-llms.png" alt="Noisy Results Humans vs LLMs" style="height: 500px">
+                <div class="footnote"><a href="https://arxiv.org/abs/2505.23598">LLM Performance for Code Generation on Noisy Tasks (Sendyka et al., 2025)</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Large Language Models (LLMs)
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p>What can we conclude?</p>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/noisy-results-humans-llms.png" alt="Noisy Results Humans vs LLMs" style="height: 500px">
+                <div class="footnote"><a href="https://arxiv.org/abs/2505.23598">LLM Performance for Code Generation on Noisy Tasks (Sendyka et al., 2025)</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Large Language Models (LLMs)
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p>What can we conclude?</p>
+                <br>
+                <ul>
+                    <li>Are LLMs smarter than humans as they produce the <em>correct answer</em> even with obfuscated text?</li>
+                </ul>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/noisy-results-humans-llms.png" alt="Noisy Results Humans vs LLMs" style="height: 500px">
+                <div class="footnote"><a href="https://arxiv.org/abs/2505.23598">LLM Performance for Code Generation on Noisy Tasks (Sendyka et al., 2025)</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Large Language Models (LLMs)
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p>What can we conclude?</p>
+                <br>
+                <ul>
+                    <li>Are LLMs smarter than humans as they produce the <em>correct answer</em> even with obfuscated text?</li>
+                    <li>Can LLM agents create their own language to fool us and dominate the world?</li>
+                </ul>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/noisy-results-humans-llms.png" alt="Noisy Results Humans vs LLMs" style="height: 500px">
+                <div class="footnote"><a href="https://arxiv.org/abs/2505.23598">LLM Performance for Code Generation on Noisy Tasks (Sendyka et al., 2025)</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Large Language Models (LLMs)
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p>What can we conclude?</p>
+                <br>
+                <ul>
+                    <li>Are LLMs smarter than humans as they produce the <em>correct answer</em> even with obfuscated text?</li>
+                    <li>Can LLM agents create their own language to fool us and dominate the world?</li>
+                    <li>...</li>
+                </ul>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/noisy-results-humans-llms.png" alt="Noisy Results Humans vs LLMs" style="height: 500px">
+                <div class="footnote"><a href="https://arxiv.org/abs/2505.23598">LLM Performance for Code Generation on Noisy Tasks (Sendyka et al., 2025)</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Large Language Models (LLMs)
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p>The actual conclusions are a bit more boring:</p>
+                <br>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/noisy-results-humans-llms.png" alt="Noisy Results Humans vs LLMs" style="height: 500px">
+                <div class="footnote"><a href="https://arxiv.org/abs/2505.23598">LLM Performance for Code Generation on Noisy Tasks (Sendyka et al., 2025)</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Large Language Models (LLMs)
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p>The actual conclusions are a bit more boring:</p>
+                <br>
+                <ul>
+                    <li>LLMs show signals of overfitting. The memorise the training data and generate text accordingly. They relate any pattern in the input with the training set and assigns probabilities to next tokens.</li>
+                </ul>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/noisy-results-humans-llms.png" alt="Noisy Results Humans vs LLMs" style="height: 500px">
+                <div class="footnote"><a href="https://arxiv.org/abs/2505.23598">LLM Performance for Code Generation on Noisy Tasks (Sendyka et al., 2025)</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Large Language Models (LLMs)
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p>The actual conclusions are a bit more boring:</p>
+                <br>
+                <ul>
+                    <li>LLMs show signals of overfitting. The memorise the training data and generate text accordingly. They relate any pattern in the input with the training set and assigns probabilities to next tokens.</li>
+                    <li>LLM agents can communicate and exchange messages in formats humans cannot read. It threatens how we control these systems as these are not transparent.</li>
+                </ul>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/noisy-results-humans-llms.png" alt="Noisy Results Humans vs LLMs" style="height: 500px">
+                <div class="footnote"><a href="https://arxiv.org/abs/2505.23598">LLM Performance for Code Generation on Noisy Tasks (Sendyka et al., 2025)</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Large Language Models (LLMs)
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p>The actual conclusions are a bit more boring:</p>
+                <br>
+                <ul>
+                    <li>LLMs show signals of overfitting. The memorise the training data and generate text accordingly. They relate any pattern in the input with the training set and assigns probabilities to next tokens.</li>
+                    <li>LLM agents can communicate and exchange messages in formats humans cannot read. It threatens how we control these systems as these are not transparent.</li>
+                    <li>We would expect a human to point out the issues in the text before even trying to provide an answer. Who is right?</li>
+                </ul>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/noisy-results-humans-llms.png" alt="Noisy Results Humans vs LLMs" style="height: 500px">
+                <div class="footnote"><a href="https://arxiv.org/abs/2505.23598">LLM Performance for Code Generation on Noisy Tasks (Sendyka et al., 2025)</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- end SLIDES: -->
 
-- reinforcement learning
-- evaluation
