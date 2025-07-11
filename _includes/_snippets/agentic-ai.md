@@ -47,34 +47,11 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/agent.png" alt="Agent" style="height: 500px">
-                <div class="footnote">AI Agent</div>
-            </div>
-            <div class="column vertical-top text-left" style="width: 50%">
-                <p>AI Agents have existed for decades, with active research communities:</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Agentic AI
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/agent.png" alt="Agent" style="height: 500px">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Reinforcement_learning_diagram.svg" alt="Agent" style="height: 500px">
                 <div class="footnote">AI Agent</div>
             </div>
             <div class="column vertical-top text-left" style="width: 50%">
                 <p>AI Agents have existed for decades, with active research communities and open challenges:</p>
-            <ul>
-                <li><b>Reactive Agents:</b> These agents perceive their environment and respond to changes.</li>
-                <li><b>Deliberative Agents:</b> These agents use symbolic reasoning and planning to make decisions.</li>
-                <li><b>Hybrid Agents:</b> Combining reactive and deliberative approaches.</li>
-                <li><b>Multi-agent Systems:</b> Systems where multiple agents interact or work together.</li>
-                <li><b>Self-adaptive Systems:</b> These systems can modify their behavior in response to changes in their environment or internal state.</li>
-            </ul>
             </div>
         </div>
     </div>
@@ -86,7 +63,31 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/agent.png" alt="Agent" style="height: 500px">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Reinforcement_learning_diagram.svg" alt="Agent" style="height: 500px">
+                <div class="footnote">AI Agent</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p>AI Agents have existed for decades, with active research communities and open challenges:</p>
+                <ul>
+                    <li><b>Reactive Agents:</b> These agents perceive their environment and respond to changes.</li>
+                    <li><b>Deliberative Agents:</b> These agents use symbolic reasoning and planning to make decisions.</li>
+                    <li><b>Hybrid Agents:</b> Combining reactive and deliberative approaches.</li>
+                    <li><b>Multi-agent Systems:</b> Systems where multiple agents interact or work together.</li>
+                    <li><b>Self-adaptive Systems:</b> These systems can modify their behaviour in response to changes in their environment or internal state.</li>
+                </ul>
+                <p>The difference is that LLM-based agents make the decision in Agentic AI frameworks.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Agentic AI
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Reinforcement_learning_diagram.svg" alt="Agent" style="height: 500px">
                 <div class="footnote">AI Agent</div>
             </div>
             <div class="column vertical-top text-left" style="width: 50%">
@@ -101,13 +102,23 @@
                 <li>Social-impact</li>
                 <li>...</li>
             </ul>
+            <p>The inclusion of LLM-based agents exacerbates some of these challenges.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Agentic AI
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/chat-dev.png" alt="Chat Dev" style="height: 500px">
+                <div class="footnote"><a href="https://arxiv.org/pdf/2307.07924">ChatDev: Communicative Agents for Software Development - (Qian et al, 2024)</a></div>
             </div>
         </div>
     </div>
 </div>
 
 <!-- end SLIDES: -->
-
-- Definition
-- Architectures
-- Multi-agent and self-adaptive systems

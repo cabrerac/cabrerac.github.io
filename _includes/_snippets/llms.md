@@ -7,8 +7,8 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-            <p>Large Language Models (LLMs) are AI models designed to <em>understand, generate, and manipulate human language</em>. They are built using deep learning techniques and are usually based on the Transfomer architecture and are trained on <b>vast amounts of data</b> to capture human language complexity. LLMs can perform a wide range of language tasks (e.g., text generation, classification, etc.).</p>
+            <div class="column vertical-middle text-center" style="width: 100%">
+            <p>Large Language Models (LLMs) are AI models designed to <em>understand, generate, and manipulate human language</em>. They are built using deep learning techniques and are usually based on the Transformer architecture and are trained on <b>vast amounts of data</b> to capture human language complexity. LLMs can perform a wide range of language tasks (e.g., text generation, classification, etc.).</p>
             </div>
         </div>
     </div>
@@ -214,7 +214,7 @@
                 <p>The process combines approaches from symbolic AI and databases:</p>
                 <ol>
                     <li><b>Data Collection:</b> Gather a knowledge base that the RAG system can query.</li>
-                    <li><b>Preprocessing:</b> Organize the knowledge base to ensure efficient retrieval and LLM integration.</li>
+                    <li><b>Preprocessing:</b> Organise the knowledge base to ensure efficient retrieval and LLM integration.</li>
                     <li><b>Model Selection:</b> Choose a pre-trained LLM that can integrate with the retrieval system.</li>
                     <li><b>Retrieval Integration:</b> Using the knowledge base and the LLM in response to queries.</li>
                     <li><b>Evaluation:</b> Assessing the performance of the RAG system by using appropriate metrics.</li>
@@ -238,7 +238,7 @@
                 <p>The process combines approaches from symbolic AI and databases:</p>
                 <ol>
                     <li><b>Data Collection:</b> Gather a knowledge base that the RAG system can query.</li>
-                    <li><b>Preprocessing:</b> Organize the knowledge base to ensure efficient retrieval and LLM integration.</li>
+                    <li><b>Preprocessing:</b> Organise the knowledge base to ensure efficient retrieval and LLM integration.</li>
                     <li><b>Model Selection:</b> Choose a pre-trained LLM that can integrate with the retrieval system.</li>
                     <li><b>Retrieval Integration:</b> Using the knowledge base and the LLM in response to queries.</li>
                     <li><b>Evaluation:</b> Assessing the performance of the RAG system by using appropriate metrics.</li>

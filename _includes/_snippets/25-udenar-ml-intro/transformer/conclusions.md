@@ -2,6 +2,24 @@
 
 ## Conclusions
 
+## Conclusions
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <div style="font-size: 2em; margin: 40px 0;">
+$$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{prediction}$$
+</div>
+                <div style="margin-top: 30px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Conclusions
+
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
@@ -11,10 +29,8 @@
                 <li>Transformer Architecture</li>
                 <li>Self-Attention Mechanism</li>
                 <li>Multi-Head Attention</li>
-                <li>Positional Encoding</li>
-                <li>Foundation Models</li>
                 <li>Large Language Models</li>
-                <li>Fine-tuning and Prompting</li>
+                <li>Fine-tuning, RAG, and Prompting</li>
                 <li>Agentic AI</li>
             </ul>
             </div>
@@ -35,10 +51,8 @@
                 <li>Transformer Architecture</li>
                 <li>Self-Attention Mechanism</li>
                 <li>Multi-Head Attention</li>
-                <li>Positional Encoding</li>
-                <li>Foundation Models</li>
                 <li>Large Language Models</li>
-                <li>Fine-tuning and Prompting</li>
+                <li>Fine-tuning, RAG, and Prompting</li>
                 <li>Agentic AI</li>
             </ul>
             </div>
