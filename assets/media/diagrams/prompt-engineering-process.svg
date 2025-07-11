@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Prompt Engineering process diagram (vertical layout) -->
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="480" viewBox="0 0 800 480">
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0 10 3.5 0 7" fill="#333" />
+    </marker>
+    <style type="text/css"><![CDATA[
+      .box {
+        stroke:#333;
+        stroke-width:2;
+        rx:8;
+        ry:8;
+      }
+      .label {
+        font-family:Helvetica, Arial, sans-serif;
+        font-size:16px;
+        fill:#000;
+        text-anchor:middle;
+        dominant-baseline:middle;
+      }
+      .arrow {
+        stroke:#333;
+        stroke-width:2;
+        fill:none;
+        marker-end:url(#arrow);
+      }
+    ]]></style>
+  </defs>
+
+  <!-- Input Prompt -->
+  <rect x="300" y="40" width="200" height="60" class="box" fill="#cfe2ff" />
+  <text x="400" y="70" class="label">Input Prompt</text>
+
+  <!-- Context / Examples -->
+  <rect x="40" y="200" width="200" height="60" class="box" fill="#d1e7dd" />
+  <text x="140" y="230" class="label">Context / Examples</text>
+
+  <!-- LLM -->
+  <rect x="280" y="180" width="240" height="80" class="box" fill="#fff3cd" />
+  <text x="400" y="220" class="label">Pre-trained LLM</text>
+
+  <!-- Output -->
+  <rect x="300" y="360" width="200" height="60" class="box" fill="#e2e3f3" />
+  <text x="400" y="390" class="label">Task Output</text>
+
+  <!-- Arrows -->
+  <!-- Prompt → LLM -->
+  <line x1="400" y1="100" x2="400" y2="180" class="arrow" />
+
+  <!-- Context → LLM -->
+  <line x1="240" y1="230" x2="280" y2="230" class="arrow" />
+
+  <!-- LLM → Output -->
+  <line x1="400" y1="260" x2="400" y2="360" class="arrow" />
+</svg>
