@@ -415,9 +415,25 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/dqn-results.png" alt="DQN Results" style="max-width: 100%; height: auto;">
-                <div class="footnote">Deep Q-Network (DQN) Results.</div>
+                <div class="footnote">Deep Q-Network (DQN) Results - ε-decay = 0.9999</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/dqn-log.png" alt="DQN Results" style="max-width: 100%; height: auto;">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/dqn-epsilon-decay.png" alt="DQN Results" style="max-width: 100%; height: auto;">
+                <div class="footnote">Deep Q-Network (DQN) Results - ε-decay = 0.9999</div>
             </div>
         </div>
     </div>
