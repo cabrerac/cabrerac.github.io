@@ -50,14 +50,6 @@ visible: false
 
 {% include _snippets/llms.md %}
 
-<!-- SLIDES: -->
-
-# Agentic AI
-
-<!-- end SLIDES: -->
-
-{% include _snippets/agentic-ai.md %}
-
 {% include _snippets/25-udenar-ml-intro/transformer/conclusions.md %}
 
 {% include _snippets/25-udenar-ml-intro/transformer/resources.md %}

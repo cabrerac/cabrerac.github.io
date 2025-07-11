@@ -324,8 +324,83 @@
     </div>
 </div>
 
-<!-- Prompt Engineering slides end -->
+## Large Language Models (LLMs)
 
-- Prompt-engineering
-- API calls
-- Evaluation
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+
+```python
+expected_format = """
+Return your answer in JSON with the following keys:
+{
+  "title": string,          # concise headline (≤ 12 words)
+  "summary": [string, ...]  # 3–5 bullet points
+}
+"""
+
+article = """<ARTICLE TEXT HERE>"""
+
+prompt = f"""
+You are a helpful assistant.
+
+TASK: Summarise the article below.
+
+OUTPUT FORMAT (baseline)
+{expected_format}
+
+ARTICLE
+""" + article
+```
+</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/prompt-engineering-process.svg" alt="Prompt Engineering Process" style="height: 500px">
+                <div class="footnote">Prompt Engineering Process</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Large Language Models (LLMs)
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+
+```python
+import gemini
+
+gemini.api_key = "YOUR_API_KEY"
+
+response = gemini.Completion.create(
+    engine="gemini-001",
+    prompt=prompt,
+    max_tokens=150,
+    temperature=0.7
+)
+print(response.choices[0].text.strip())
+```
+</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/prompt-engineering-process.svg" alt="Prompt Engineering Process" style="height: 500px">
+                <div class="footnote">Prompt Engineering Process</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- end SLIDES: -->
+
+{% include _snippets/agentic-ai.md %}
+
+
+<!-- SLIDES: -->
+
+## Large Language Models (LLMs)
+
+<!-- end SLIDES: -->
+
+- reinforcement learning
+- evaluation
