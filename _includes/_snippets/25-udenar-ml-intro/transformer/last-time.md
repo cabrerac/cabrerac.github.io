@@ -1,45 +1,5 @@
 <!-- SLIDES: -->
 
-## ML Definition
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <div style="font-size: 2em; margin: 40px 0;">
-$$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{prediction}$$
-</div>
-                <div style="margin-top: 30px;">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-## The Data Science Process
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/data-science-process.png" alt="Data Science Process" style="height: 500px">
-            </div>
-        </div>
-    </div>
-</div>
-
-## Machine Learning Pipeline
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 95%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <img src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
-            </div>
-        </div>
-    </div>
-</div>
-
 ## Hyperparameters Tuning
 
 <div class="rows" style="height: 100%">
@@ -238,8 +198,8 @@ $$
 where $\pi(s,a)$ is the probability of taking action $a$ in state $s$.
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
-                <div class="footnote">Markov Decision Process - waldoalvarez, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons.</div>
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/rl-policy.png" alt="RL Policy" style="max-width: 100%; height: auto;">
+                <div class="footnote">Reinforcement Learning Policy.</div>
             </div>  
         </div>
     </div>
@@ -324,6 +284,19 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/rl-value-function.png" alt="Value Function" style="max-width: 100%; height: auto;">
+                <div class="footnote">Value Function.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <br>
                 <p>Another important quantity is <b>the action-utility function</b> or <em>Q-function</em>, which is the expected utility of taking a giving action in a given state:</p>
 <br>
@@ -337,6 +310,19 @@ $$
 \pi^*(s) = \arg\max_{a} Q(s,a)
 $$
 </div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/q-table-final.png" alt="Q-Matrix" style="max-width: 100%; height: auto;">
+                <div class="footnote">Q-Matrix</div>
+            </div>
         </div>
     </div>
 </div>
@@ -377,143 +363,6 @@ $$
                     <li>Cannot simulate outcomes</li>
                     <li>Q-Learning, DQN</li>
                 </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Reinforcement Learning
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 50%">
-                <br>
-                <br>
-                <p><b>Policy Iteration</b> is a model-based reinforcement learning algorithm that alternates between <em>policy evaluation</em> and <em>policy improvement</em> to find the optimal policy.</p>
-                <p>Finds the optimal policy through iterative refinement:</p>
-                <ul>
-                    <li>Requires a model of the environment (transition and reward functions)</li>
-                    <li>Guaranteed to converge to the optimal policy</li>
-                    <li>Works with finite state and action spaces</li>
-                </ul>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="https://wikimedia.org/api/rest_v1/media/math/render/svg/c6200446103959c8994075edaddeddf91abb8166" alt="Stochastic Matrix" style="max-width: 100%; height: auto;">
-                <div class="footnote">Stochastic Matrix.</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Reinforcement Learning
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                <br>
-                <br>
-                <p><b>Policy Iteration</b> consists of two main phases that alternate until convergence:</p>
-<br>
-<p><b>1. Policy Evaluation:</b> Compute the value function for the current policy:</p>
-<br>
-$$
-V^\pi(s) = \sum_{s'} P(s'|s,\pi(s)) [R(s,\pi(s),s') + \gamma V^\pi(s')]
-$$
-<br>
-<p><b>2. Policy Improvement:</b> Update the policy to be greedy with respect to the current value function:</p>
-<br>
-$$
-\pi'(s) = \arg\max_a \sum_{s'} P(s'|s,a) [R(s,a,s') + \gamma V^\pi(s')]
-$$
-</div>
-        </div>
-    </div>
-</div>
-
-## Reinforcement Learning
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 50%">
-                <p><b>Policy Iteration Algorithm:</b></p>
-                <p>The algorithm iteratively improves the policy by alternating between evaluation and improvement steps until convergence to the optimal policy.</p>
-<br>
-$$
-\pi^*(s) = \arg\max_a Q^*(s,a)
-$$
-<br>The optimal policy maximizes the expected cumulative reward by selecting actions that lead to the highest Q-values.
-<br>Policy iteration guarantees convergence to the optimal policy through the principle of policy improvement.
-</div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Markov_Decision_Process.svg" alt="MDP Process" style="max-width: 100%; height: auto;">
-                <div class="footnote">Markov Decision Process - waldoalvarez, CC BY-SA 4.0, via Wikimedia Commons.</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Reinforcement Learning
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Q-learning</b> is a model-free reinforcement learning algorithm that learns the optimal action-value function <em>directly from experience</em> by interacting with the environment.</p>
-                <p>Finds the optimal policy by learning the Q-function:</p>
-                <ul>
-                    <li>Does not require a model of the environment (transition or reward function)</li>
-                    <li>Can be used in stochastic and unknown environments</li>
-                </ul>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/q-table-initial.png" alt="Q-Matrix" style="max-width: 100%; height: auto;">
-                <div class="footnote">Transition Matrix (Q).</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Reinforcement Learning
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Q-learning</b> is a model-free reinforcement learning algorithm that learns the optimal action-value function <em>directly from experience</em> by interacting with the environment.</p>
-                <p>Finds the optimal policy by learning the Q-function:</p>
-                <ul>
-                    <li>Does not require a model of the environment (transition or reward function)</li>
-                    <li>Can be used in stochastic and unknown environments</li>
-                </ul>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/q-table-final.png" alt="Q-Matrix" style="max-width: 100%; height: auto;">
-                <div class="footnote">Transition Matrix (Q).</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Reinforcement Learning
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 50%">
-                <p><b>Deep Q-Networks (DQN)</b> extend Q-learning to environments with large or continuous state spaces. It replaces the Q-table using <b>neural networks</b> to approximate the <em>Q-function</em>:</p>
-<br>
-$$
-Q(s,a;\mathbf{w})
-$$
-<br>A main network approximates $Q(s,a)$ and $\mathbf{w}$ are its trainable parameters. The input of the network is the state and the output is a <em>Q-value</em> per possible action.
-<br>DQNs store past experiences $(s,a,r,s')$ in a replay buffer. During training a minibatch of experiences are selected. A target network is used to compute the target <em>Q-values</em> during updates.
-</div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Neural_Network.svg" alt="Deep Neural Network" style="max-width: 100%; height: auto;">
-                <div class="footnote">Deep Neural Network with multiple hidden layers - QuantuMechaniX8, CC0, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
@@ -566,21 +415,9 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 50%">
-                <img class="external-svg" src="https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fnature24270/MediaObjects/41586_2017_Article_BFnature24270_Fig1_HTML.jpg?as=webp" alt="AlphaGo Zero" style="max-width: 100%; height: auto;">
-                <div class="footnote">Self-play reinforcement learning in AlphaGo Zero - <a href="https://www.nature.com/articles/nature24270">Silver et al., 2017</a>.</div>
-            </div>
-            <div class="column vertical-top text-left" style="width: 50%">
-                <br>
-                <p><b>AlphaGo Zero combines key RL concepts:</b></p>
-                <ul>
-                    <li><b>Self-play environment:</b> Agent plays against itself (no human data needed)</li>
-                    <li><b>Policy network:</b> Learns π(s) → probability distribution over actions</li>
-                    <li><b>Value network:</b> Learns V(s) → probability of winning from state s</li>
-                    <li><b>Monte Carlo Tree Search:</b> Uses policy/value to guide search</li>
-                    <li><b>Temporal difference learning:</b> Updates based on game outcomes</li>
-                    <li><b>Experience replay:</b> Stores and learns from self-play games</li>
-                </ul>
+            <div class="column vertical-top text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/dqn-results.png" alt="DQN Results" style="max-width: 100%; height: auto;">
+                <div class="footnote">Deep Q-Network (DQN) Results.</div>
             </div>
         </div>
     </div>
