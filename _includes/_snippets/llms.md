@@ -855,5 +855,28 @@ K@jb$T = = n
     </div>
 </div>
 
+## Large Language Models (LLMs)
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p>The actual conclusions are a bit more boring:</p>
+                <br>
+                <ul>
+                    <li>LLMs show signals of overfitting. The memorise the training data and generate text accordingly. They relate any pattern in the input with the training set and assigns probabilities to next tokens.</li>
+                    <li>LLM agents can communicate and exchange messages in formats humans cannot read. It threatens how we control autonomous systems as these are not transparent.</li>
+                    <li>We would expect a human to point out the issues in the text before even trying to provide an answer. Who is right?</li>
+                </ul>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/noisy-results-humans-llms.png" alt="Noisy Results Humans vs LLMs" style="height: 500px">
+                <div class="footnote"><a href="https://arxiv.org/abs/2505.23598">LLM Performance for Code Generation on Noisy Tasks (Sendyka et al., 2025)</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- end SLIDES: -->
 
