@@ -17,7 +17,7 @@ permalink: /teaching/25-udenar-ml-intro/transformer/
 position: Senior Research Associate and Affiliated Lecturer
 session: 9
 start_time: 10:00 am
-title: The Transformer
+title: The Transformer Architecture
 visible: false
 ---
 

@@ -1,6 +1,6 @@
 ---
 course_code: 25-udenar-ml-intro
-title: The Transformer
+title: The Transformer Architecture
 description: This lecture introduces the transformer neural network architecture, which is the architecture of novel Large Language Models (LLMs). We will start formalising the architecture and its training. We will then introduce how to use and tailor LLMs into our ML projects and daily activities for different purposes.
 session: 9
 start_time: 10:00 am
@@ -36,7 +36,7 @@ visible: false
 
 <!-- SLIDES: -->
 
-# The Transformer 
+# The Transformer Architecture
 
 <!-- end SLIDES: -->
 

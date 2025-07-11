@@ -10,7 +10,7 @@
                 <div class="footnote">Deep Neural Network with multiple hidden layers - QuantuMechaniX8, CC0, via Wikimedia Commons</div>
             </div>
             <div class="column vertical-top text-left" style="width: 50%">
-                <p>There is not a straight single answer to determine the "right" hyperparameter values. But, experts follow similar steps:</p>
+                <p>There is not a straightforward single answer to determine the "right" hyperparameter values. However, experts follow similar steps:</p>
             <ol>
                 <li>Become one with the data</li>
                 <li>Set up the end-to-end training/evaluation skeleton</li> 
@@ -94,7 +94,7 @@
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Markov Decision Process (MDP):</b></p>
-                <p>A mathematical framework for modeling sequential decisions problems for fully observable, stochastic environments. The outcomes are partly random and partly under the control of a decision maker.</p>
+                <p>A mathematical framework for modelling sequential decision problems for fully observable, stochastic environments. The outcomes are partly random and partly under the control of a decision maker.</p>
             </div>
         </div>
     </div>
@@ -298,7 +298,7 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
                 <br>
-                <p>Another important quantity is <b>the action-utility function</b> or <em>Q-function</em>, which is the expected utility of taking a giving action in a given state:</p>
+                <p>Another important quantity is <b>the action-utility function</b> or <em>Q-function</em>, which is the expected utility of taking a given action in a given state:</p>
 <br>
 $$
 Q(s,a) = \sum_{s'} P(s'|s,a) [R(s,a,s') + \gamma U(s')]
@@ -405,6 +405,19 @@ $$
                 <br>
                 <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/1/15/Neural_Network.svg" alt="Deep Neural Network" style="max-width: 100%; height: auto;">
                 <div class="footnote">Deep Neural Network with multiple hidden layers - QuantuMechaniX8, CC0, via Wikimedia Commons</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Reinforcement Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <p>DQN Exercise Scenario</p>
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/rl-policy.png" alt="RL Policy" style="max-width: 100%; height: auto;">
             </div>
         </div>
     </div>

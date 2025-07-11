@@ -980,13 +980,13 @@ env_dqn = GridWorld(size=4)
 state_size = env_dqn.size * env_dqn.size  # One-hot encoding of position
 action_size = len(env_dqn.actions)
 dqn_agent = DQNAgent(state_size, action_size, learning_rate=0.001, gamma=0.95,
-                     epsilon=1.0, epsilon_decay=0.995, epsilon_min=0.01,
+                     epsilon=1.0, epsilon_decay=0.9999, epsilon_min=0.01,
                      memory_size=10000, batch_size=32)
 # Set environment reference for feature conversion
 dqn_agent.env = env_dqn
 # Train the DQN agent
 print("Training DQN agent...")
-dqn_agent.train(env_dqn, num_episodes=500, max_steps_per_episode=100)
+dqn_agent.train(env_dqn, num_episodes=1000, max_steps_per_episode=100)
 ```
 
 Let's visualize the training progress:

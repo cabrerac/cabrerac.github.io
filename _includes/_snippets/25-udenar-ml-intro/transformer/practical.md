@@ -349,8 +349,8 @@ def create_prompt(task, context, examples=None):
 
 # Example prompts for different tasks
 tasks = {
-    "sentiment_analysis": "Analyze the sentiment of the following text. Respond with 'positive', 'negative', or 'neutral'.",
-    "summarization": "Summarize the following text in 2-3 sentences.",
+    "sentiment_analysis": "Analyse the sentiment of the following text. Respond with 'positive', 'negative', or 'neutral'.",
+    "summarisation": "Summarise the following text in 2-3 sentences.",
     "translation": "Translate the following text from English to Spanish.",
     "question_answering": "Answer the following question based on the given context."
 }
