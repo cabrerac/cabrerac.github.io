@@ -52,7 +52,6 @@ def scaled_dot_product_attention(Q: torch.Tensor, K: torch.Tensor, V: torch.Tens
     
     # Apply attention weights to values
     output = torch.matmul(attention_weights, V)
-    
     return output, attention_weights
 ```
 
@@ -63,19 +62,15 @@ Now let's create a simple example to demonstrate self-attention:
 seq_len = 5
 d_k = 8
 batch_size = 1
-
 # Create random Q, K, V matrices
 Q = torch.randn(batch_size, seq_len, d_k)
 K = torch.randn(batch_size, seq_len, d_k)
 V = torch.randn(batch_size, seq_len, d_k)
-
 print(f"Q shape: {Q.shape}")
 print(f"K shape: {K.shape}")
 print(f"V shape: {V.shape}")
-
 # Compute attention
 output, attention_weights = scaled_dot_product_attention(Q, K, V)
-
 print(f"Output shape: {output.shape}")
 print(f"Attention weights shape: {attention_weights.shape}")
 ```
@@ -94,7 +89,6 @@ plt.ylabel('Query Position')
 plt.xticks(range(seq_len))
 plt.yticks(range(seq_len))
 plt.show()
-
 print("Attention weights matrix:")
 print(attention_matrix.round(3))
 ```
@@ -151,8 +145,7 @@ class MultiHeadAttention(nn.Module):
         concat_attention = torch.stack(attention_outputs, dim=1)
         
         # Combine heads and apply final linear layer
-        output = self.W_o(self.combine_heads(concat_attention))
-        
+        output = self.W_o(self.combine_heads(concat_attention))      
         return output
 ```
 
@@ -163,16 +156,12 @@ Let's test our multi-head attention implementation:
 d_model = 16
 num_heads = 4
 seq_len = 6
-
 # Create random input
 x = torch.randn(1, seq_len, d_model)
-
 # Create multi-head attention layer
 mha = MultiHeadAttention(d_model, num_heads)
-
 # Apply multi-head attention
 output = mha(x, x, x)
-
 print(f"Input shape: {x.shape}")
 print(f"Output shape: {output.shape}")
 print(f"Number of parameters: {sum(p.numel() for p in mha.parameters())}")
@@ -196,7 +185,6 @@ Let's load a pre-trained model and tokenizer:
 model_name = "distilbert-base-uncased"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModel.from_pretrained(model_name)
-
 print(f"Model: {model_name}")
 print(f"Vocabulary size: {tokenizer.vocab_size}")
 ```
@@ -206,11 +194,9 @@ Let's explore tokenization:
 ```python
 # Example text
 text = "Transformers are amazing for natural language processing!"
-
 # Tokenize the text
 tokens = tokenizer.tokenize(text)
 token_ids = tokenizer.encode(text)
-
 print(f"Original text: {text}")
 print(f"Tokens: {tokens}")
 print(f"Token IDs: {token_ids}")
@@ -225,7 +211,6 @@ inputs = tokenizer(text, return_tensors="pt", padding=True, truncation=True)
 with torch.no_grad():
     outputs = model(**inputs)
     embeddings = outputs.last_hidden_state
-
 print(f"Input shape: {inputs['input_ids'].shape}")
 print(f"Embedding shape: {embeddings.shape}")
 print(f"Embedding for first token: {embeddings[0, 0, :10]}")  # First 10 dimensions
@@ -260,15 +245,12 @@ texts = [
     "This movie exceeded all my expectations!",
     "A complete waste of time and money."
 ]
-
 labels = [1, 0, 1, 0, 1, 0, 1, 0, 1, 0]  # 1 for positive, 0 for negative
-
 # Create dataset
 dataset = datasets.Dataset.from_dict({
     'text': texts,
     'label': labels
 })
-
 print(f"Dataset size: {len(dataset)}")
 print(f"Sample: {dataset[0]}")
 ```
@@ -279,23 +261,21 @@ Let's load a model for sequence classification:
 # Load model for sequence classification
 model_name = "distilbert-base-uncased"
 num_labels = 2
-
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=num_labels)
+```
 
+```python
 # Tokenize the dataset
 def tokenize_function(examples):
     return tokenizer(examples["text"], padding="max_length", truncation=True, max_length=128)
-
 tokenized_dataset = dataset.map(tokenize_function, batched=True)
 ```
 
-Let's create a simple training setup:
+Let's create a simple training setup, we start by splitting our dataset and configure our training parameters:
 
 ```python
-# Split dataset
 train_dataset, eval_dataset = train_test_split(tokenized_dataset, test_size=0.3, random_state=42)
-
 # Training arguments
 training_args = TrainingArguments(
     output_dir="./results",
@@ -308,15 +288,17 @@ training_args = TrainingArguments(
     save_strategy="epoch",
     load_best_model_at_end=True,
 )
+```
 
-# Create trainer
+We can now create our trainer and train the model with the defined parameters:
+
+```python
 trainer = Trainer(
     model=model,
     args=training_args,
     train_dataset=train_dataset,
     eval_dataset=eval_dataset,
 )
-
 # Train the model
 trainer.train()
 ```
@@ -325,12 +307,9 @@ trainer.train()
 
 ## Exercise 5: Prompt Engineering
 
-In this exercise, we'll explore prompt engineering techniques for working with Large Language Models.
+In this exercise, we'll explore prompt engineering techniques for working with Large Language Models. We can define a function to create prompts as follows:
 
 ```python
-# For this exercise, we'll simulate prompt engineering
-# In practice, you would use OpenAI API, Anthropic API, or local models
-
 def create_prompt(task, context, examples=None):
     """Create a structured prompt for a given task."""
     prompt = f"Task: {task}\n\n"
@@ -346,27 +325,32 @@ def create_prompt(task, context, examples=None):
     
     prompt += "Your response:"
     return prompt
+```
 
-# Example prompts for different tasks
+We can use the function to define different tasks:
+
+```python
 tasks = {
     "sentiment_analysis": "Analyse the sentiment of the following text. Respond with 'positive', 'negative', or 'neutral'.",
     "summarisation": "Summarise the following text in 2-3 sentences.",
     "translation": "Translate the following text from English to Spanish.",
     "question_answering": "Answer the following question based on the given context."
 }
+```
 
-# Example usage
+And use the prompt creator to ask for a particular task:
+
+```python
 text = "The new AI model shows remarkable improvements in accuracy and efficiency."
 sentiment_prompt = create_prompt(
     task=tasks["sentiment_analysis"],
     context=text
 )
-
 print("Sentiment Analysis Prompt:")
 print(sentiment_prompt)
 ```
 
-Let's create a more sophisticated prompt template:
+Let's create a more sophisticated prompt template that includes examples to show the LLM what we expect from it:
 
 ```python
 def create_few_shot_prompt(task_description, examples, query):
@@ -381,7 +365,11 @@ def create_few_shot_prompt(task_description, examples, query):
     prompt += "Output:"
     
     return prompt
+```
 
+As an example we show how to clasiffy the sentifment of movies' reviews.
+
+```python
 # Example few-shot prompt
 task_desc = "Classify the sentiment of movie reviews as positive or negative."
 examples = [
@@ -390,7 +378,6 @@ examples = [
     {"input": "The acting was superb and the plot was engaging.", "output": "positive"}
 ]
 query = "The special effects were amazing but the story was confusing."
-
 few_shot_prompt = create_few_shot_prompt(task_desc, examples, query)
 print("Few-Shot Learning Prompt:")
 print(few_shot_prompt)
