@@ -296,7 +296,7 @@ Then we define a class that will operate as an interface between our program and
 class LLMInterface:
     """Generic class for interacting with Large Language Models."""
     
-    def __init__(self, api_key: str, model_name: str = "gemini-pro"):
+    def __init__(self, api_key: str, model_name: str = "gemini-2.0-flash"):
         """
         Initialize the LLM interface.
         
@@ -460,10 +460,6 @@ for text in test_texts:
     print(f"Gemini prediction: {result.get('sentiment', 'unknown')} (confidence: {result.get('confidence', 0.0):.3f})")
     print(f"Raw response: {result.get('raw_response', '')}")
     print()
-print("Note: If you get an error, make sure:")
-print("1. You have a valid Gemini API key")
-print("2. You have an internet connection")
-print("3. The API key is correctly copied (no extra spaces)")
 ```
 
 Let's compare all three approaches:
