@@ -2,7 +2,7 @@
 
 # Practical Introduction
 
-In this practical session, we will explore transformer architectures and work with Large Language Models (LLMs). We'll use pre-trained models, and learn about fine-tuning, RAG, and prompting techniques.
+In this practical session, we will explore transformer architectures and work with Large Language Models (LLMs). We'll use pre-trained models, and learn about fine-tuning, prompting, and RAG.
 
 ---
 
@@ -14,6 +14,8 @@ In this exercise, we'll use the [Hugging Face Transformers library](https://pypi
 from transformers import AutoTokenizer, AutoModel, pipeline
 import pandas as pd
 import torch
+import matplotlib.pyplot as plt
+import numpy as np
 ```
 
 Let's load a pre-trained model and tokenizer. We will use a small model called ["distilbert-base-uncased"](https://huggingface.co/distilbert/distilbert-base-uncased). This model has 64M of parameters and is a distilled version of BERT. [Hugging Face](https://huggingface.co/) offers a complete documentation of the models for developers to explore and use:
@@ -229,8 +231,6 @@ for i, result in enumerate(results):
 # Store results for future comparison
 fine_tuned_results = results.copy()
 ```
-
----
 
 Now let's try zero-shot classification using a pre-trained model without fine-tuning. In this case, we are using the [`facebook/bart-large-mnli`](https://huggingface.co/facebook/bart-large-mnli) model, which has 407M parameters:
 
@@ -466,8 +466,6 @@ print("2. You have an internet connection")
 print("3. The API key is correctly copied (no extra spaces)")
 ```
 
----
-
 Let's compare all three approaches:
 
 ```python
@@ -511,84 +509,437 @@ compare_all_approaches(fine_tuned_results, zero_shot_results, gemini_results)
 
 ---
 
-## Exercise 5: Prompt Engineering
+## Exercise 4: Retrieval-Augmented Generation (RAG)
 
-In this exercise, we'll explore prompt engineering techniques for working with Large Language Models. We can define a function to create prompts as follows:
+In this exercise, we'll implement a simple RAG system that combines document retrieval with LLM generation. RAG enhances LLM responses by providing relevant context from a knowledge base.
 
 ```python
-def create_prompt(task, context, examples=None):
-    """Create a structured prompt for a given task."""
-    prompt = f"Task: {task}\n\n"
-    
-    if context:
-        prompt += f"Context: {context}\n\n"
-    
-    if examples:
-        prompt += "Examples:\n"
-        for i, example in enumerate(examples, 1):
-            prompt += f"{i}. {example}\n"
-        prompt += "\n"
-    
-    prompt += "Your response:"
-    return prompt
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 ```
 
-We can use the function to define different tasks:
+We started by importing the required libraries and now we can implement our RAG pipeline.
 
 ```python
-tasks = {
-    "sentiment_analysis": "Analyse the sentiment of the following text. Respond with 'positive', 'negative', or 'neutral'.",
-    "summarisation": "Summarise the following text in 2-3 sentences.",
-    "translation": "Translate the following text from English to Spanish.",
-    "question_answering": "Answer the following question based on the given context."
-}
+class SimpleRAGSystem:
+    """A simple RAG system using TF-IDF for retrieval and Gemini for generation."""
+    
+    def __init__(self, llm_interface: LLMInterface, documents: List[str]):
+        """
+        Initialize the RAG system.
+        
+        Args:
+            llm_interface: Initialized LLM interface
+            documents: List of documents to use as knowledge base
+        """
+        self.llm_interface = llm_interface
+        self.documents = documents
+        self.vectorizer = TfidfVectorizer(stop_words='english', max_features=1000)
+        self.document_vectors = None
+        self._build_index()
+    
+    def _build_index(self):
+        """Build the document index using TF-IDF."""
+        self.document_vectors = self.vectorizer.fit_transform(self.documents)
+        print(f"Built index for {len(self.documents)} documents")
+    
+    def retrieve_relevant_documents(self, query: str, top_k: int = 3) -> List[str]:
+        """
+        Retrieve the most relevant documents for a given query.
+        
+        Args:
+            query: The search query
+            top_k: Number of top documents to retrieve
+            
+        Returns:
+            List of relevant document texts
+        """
+        # Vectorize the query
+        query_vector = self.vectorizer.transform([query])
+        
+        # Calculate similarities
+        similarities = cosine_similarity(query_vector, self.document_vectors).flatten()
+        
+        # Get top-k document indices
+        top_indices = similarities.argsort()[-top_k:][::-1]
+        
+        # Return relevant documents
+        relevant_docs = [self.documents[i] for i in top_indices]
+        return relevant_docs
+    
+    def generate_response(self, query: str, top_k: int = 3) -> Dict[str, Any]:
+        """
+        Generate a response using RAG.
+        
+        Args:
+            query: The user's question
+            top_k: Number of documents to retrieve
+            
+        Returns:
+            Generated response with context
+        """
+        # Retrieve relevant documents
+        relevant_docs = self.retrieve_relevant_documents(query, top_k)
+        
+        # Create context from retrieved documents
+        context = "\n\n".join(relevant_docs)
+        
+        # Create RAG prompt
+        task = "Answer the following question based on the provided context. If the context doesn't contain enough information to answer the question, say so."
+        examples = [
+            {
+                "input": "What is machine learning?",
+                "output": "Machine learning is a subset of artificial intelligence that enables computers to learn and make decisions from data without being explicitly programmed."
+            }
+        ]
+        
+        prompt = self.llm_interface.create_prompt(
+            task=task,
+            context=f"Context:\n{context}\n\nQuestion: {query}",
+            examples=examples
+        )
+        
+        # Generate response
+        result = self.llm_interface.query(prompt)
+        
+        if result.get("error"):
+            return {"error": result["error"]}
+        
+        return {
+            "response": result["response"],
+            "context": context,
+            "relevant_docs": relevant_docs
+        }
 ```
 
-And use the prompt creator to ask for a particular task:
+We need to create a knowledge base that drives the LLM responses.
 
 ```python
-text = "The new AI model shows remarkable improvements in accuracy and efficiency."
-sentiment_prompt = create_prompt(
-    task=tasks["sentiment_analysis"],
-    context=text
-)
-print("Sentiment Analysis Prompt:")
-print(sentiment_prompt)
-```
-
-Let's create a more sophisticated prompt template that includes examples to show the LLM what we expect from it:
-
-```python
-def create_few_shot_prompt(task_description, examples, query):
-    """Create a few-shot learning prompt."""
-    prompt = f"{task_description}\n\n"
+# Create a sample knowledge base about AI and machine learning
+knowledge_base = [
+    "Machine learning is a subset of artificial intelligence that enables computers to learn and make decisions from data without being explicitly programmed. It uses algorithms to identify patterns in data and make predictions or decisions.",
     
-    for example in examples:
-        prompt += f"Input: {example['input']}\n"
-        prompt += f"Output: {example['output']}\n\n"
+    "Deep learning is a subset of machine learning that uses neural networks with multiple layers to model and understand complex patterns. It has been particularly successful in image recognition, natural language processing, and speech recognition.",
     
-    prompt += f"Input: {query}\n"
-    prompt += "Output:"
+    "Natural Language Processing (NLP) is a field of AI that focuses on the interaction between computers and human language. It includes tasks like text classification, sentiment analysis, machine translation, and question answering.",
     
-    return prompt
-```
-
-As an example we show how to clasiffy the sentifment of movies' reviews.
-
-```python
-# Example few-shot prompt
-task_desc = "Classify the sentiment of movie reviews as positive or negative."
-examples = [
-    {"input": "This movie was absolutely terrible.", "output": "negative"},
-    {"input": "I loved every minute of this film!", "output": "positive"},
-    {"input": "The acting was superb and the plot was engaging.", "output": "positive"}
+    "Transformers are a type of neural network architecture that revolutionized NLP. They use attention mechanisms to process sequences of data and have become the foundation for models like BERT, GPT, and T5.",
+    
+    "Retrieval-Augmented Generation (RAG) is a technique that combines information retrieval with text generation. It retrieves relevant documents from a knowledge base and uses them as context for generating more accurate and informative responses.",
+    
+    "Fine-tuning is a process where a pre-trained model is further trained on a specific dataset for a particular task. This allows the model to adapt its knowledge to specific domains or applications.",
+    
+    "Zero-shot learning refers to the ability of a model to perform a task without having been specifically trained on examples of that task. Modern language models can often perform new tasks based on their pre-trained knowledge.",
+    
+    "Attention mechanisms allow neural networks to focus on different parts of the input when processing information. This is particularly useful in tasks like machine translation where different words in the source sentence are relevant to different words in the target sentence."
 ]
-query = "The special effects were amazing but the story was confusing."
-few_shot_prompt = create_few_shot_prompt(task_desc, examples, query)
-print("Few-Shot Learning Prompt:")
-print(few_shot_prompt)
 ```
 
-This practical session covers the fundamental concepts of transformers, from implementing attention mechanisms from scratch to working with pre-trained models and prompt engineering techniques.
+With all in place, we can now instantiate and use our RAG system.
+
+```python
+# Initialize the RAG system
+rag_system = SimpleRAGSystem(llm_interface, knowledge_base)
+# Test the RAG system with different questions
+test_questions = [
+    "What is machine learning?",
+    "How do transformers work?",
+    "What is the difference between deep learning and machine learning?",
+    "How does RAG improve language model responses?",
+    "What are attention mechanisms used for?"
+]
+print("=== RAG SYSTEM TESTING ===")
+for question in test_questions:
+    print(f"\nQuestion: {question}")
+    result = rag_system.generate_response(question)   
+    if result.get("error"):
+        print(f"Error: {result['error']}")
+    else:
+        print(f"Answer: {result['response']}")
+        print(f"Retrieved {len(result['relevant_docs'])} relevant documents")
+        print("-" * 50)
+# Demonstrate the retrieval process
+print("\n=== DOCUMENT RETRIEVAL DEMONSTRATION ===")
+query = "What is deep learning?"
+relevant_docs = rag_system.retrieve_relevant_documents(query, top_k=2)
+print(f"Query: {query}")
+print(f"Retrieved {len(relevant_docs)} documents:")
+for i, doc in enumerate(relevant_docs, 1):
+    print(f"{i}. {doc[:100]}...")
+```
+
+---
+
+---
+
+## Exercise 5: LLM-based Agent for CartPole
+
+In this exercise, we'll create an LLM-based agent to solve the [CartPole environment](https://gymnasium.farama.org/environments/classic_control/cart_pole/) from Gymnasium. CartPole is a classic control problem where we need to balance a pole on a moving cart by applying left or right forces.
+
+```python
+import gymnasium as gym
+import numpy as np
+from typing import Dict, Any, List
+```
+
+We implement a class that interacts with the CartPole environment:
+
+```python
+class LLMCartPoleAgent:
+    """An LLM-based agent for solving the CartPole environment."""
+    
+    def __init__(self, llm_interface: LLMInterface):
+        """
+        Initialize the LLM agent.
+        
+        Args:
+            llm_interface: Initialized LLM interface
+        """
+        self.llm_interface = llm_interface
+        self.env = None
+        self.episode_history = []
+        
+    def _create_observation_description(self, observation: np.ndarray) -> str:
+        """
+        Convert numerical observation to natural language description.
+        
+        Args:
+            observation: Environment observation [cart_position, cart_velocity, pole_angle, pole_angular_velocity]
+            
+        Returns:
+            Natural language description of the current state
+        """
+        cart_pos, cart_vel, pole_angle, pole_ang_vel = observation
+        
+        # Convert to degrees for easier understanding
+        pole_angle_deg = np.degrees(pole_angle)
+        
+        description = f"""
+Current CartPole State:
+- Cart position: {cart_pos:.3f} (negative = left, positive = right)
+- Cart velocity: {cart_vel:.3f} (negative = moving left, positive = moving right)
+- Pole angle: {pole_angle_deg:.1f} degrees (negative = leaning left, positive = leaning right)
+- Pole angular velocity: {pole_ang_vel:.3f} (negative = rotating left, positive = rotating right)
+"""
+        return description
+    
+    def _create_action_prompt(self, observation: np.ndarray, step_count: int) -> str:
+        """
+        Create a prompt for the LLM to decide the next action.
+        
+        Args:
+            observation: Current environment observation
+            step_count: Current step number in the episode
+            
+        Returns:
+            Formatted prompt for action decision
+        """
+        state_description = self._create_observation_description(observation)
+        
+        task = f"""You are controlling a CartPole system. Your goal is to keep the pole balanced upright for as long as possible.
+
+You can take one of two actions:
+- Action 0: Push the cart LEFT
+- Action 1: Push the cart RIGHT
+
+Current step: {step_count}
+
+{state_description}
+
+Based on the current state, what action should you take to keep the pole balanced? Consider:
+1. If the pole is leaning left, you might want to move the cart left to bring it back to center
+2. If the pole is leaning right, you might want to move the cart right
+3. Also consider the cart's current velocity and the pole's angular velocity
+
+Respond with only the action number (0 or 1)."""
+
+        return task
+    
+    def get_action(self, observation: np.ndarray, step_count: int = 0) -> int:
+        """
+        Get the next action from the LLM agent.
+        
+        Args:
+            observation: Current environment observation
+            step_count: Current step number
+            
+        Returns:
+            Action to take (0 or 1)
+        """
+        prompt = self._create_action_prompt(observation, step_count)
+        result = self.llm_interface.query(prompt)
+        
+        if result.get("error"):
+            print(f"LLM Error: {result['error']}, using random action")
+            return np.random.randint(0, 2)
+        
+        # Parse the response to extract the action
+        response = result["response"].strip().lower()
+        
+        # Try to extract action from response
+        if "0" in response or "left" in response or "push left" in response:
+            return 0
+        elif "1" in response or "right" in response or "push right" in response:
+            return 1
+        else:
+            # Fallback to random action if response is unclear
+            print(f"Unclear response: '{response}', using random action")
+            return np.random.randint(0, 2)
+    
+    def run_episode(self, max_steps: int = 500, render: bool = False) -> Dict[str, Any]:
+        """
+        Run a single episode with the LLM agent.
+        
+        Args:
+            max_steps: Maximum number of steps per episode
+            render: Whether to render the environment
+            
+        Returns:
+            Episode results
+        """
+        # Create environment
+        render_mode = "human" if render else None
+        self.env = gym.make("CartPole-v1", render_mode=render_mode)
+        
+        observation, info = self.env.reset(seed=42)
+        total_reward = 0
+        step_count = 0
+        episode_history = []
+        
+        print(f"Starting CartPole episode (max {max_steps} steps)...")
+        
+        for step in range(max_steps):
+            # Get action from LLM
+            action = self.get_action(observation, step_count)
+            
+            # Take action in environment
+            next_observation, reward, terminated, truncated, info = self.env.step(action)
+            
+            # Record step
+            episode_history.append({
+                'step': step_count,
+                'observation': observation.copy(),
+                'action': action,
+                'reward': reward,
+                'terminated': terminated,
+                'truncated': truncated
+            })
+            
+            total_reward += reward
+            observation = next_observation
+            step_count += 1
+            
+            # Check if episode ended
+            if terminated or truncated:
+                break
+        
+        self.env.close()
+        
+        result = {
+            'total_reward': total_reward,
+            'steps': step_count,
+            'episode_history': episode_history,
+            'success': step_count >= 195  # CartPole is considered solved at 195 steps
+        }
+        
+        print(f"Episode finished: {step_count} steps, total reward: {total_reward}")
+        print(f"Success: {result['success']}")
+        
+        return result
+    
+    def run_multiple_episodes(self, num_episodes: int = 5) -> List[Dict[str, Any]]:
+        """
+        Run multiple episodes and collect statistics.
+        
+        Args:
+            num_episodes: Number of episodes to run
+            
+        Returns:
+            List of episode results
+        """
+        results = []
+        
+        for episode in range(num_episodes):
+            print(f"\n=== Episode {episode + 1}/{num_episodes} ===")
+            result = self.run_episode(max_steps=500, render=False)
+            results.append(result)
+        
+        # Calculate statistics
+        total_rewards = [r['total_reward'] for r in results]
+        steps = [r['steps'] for r in results]
+        successes = [r['success'] for r in results]
+        
+        print(f"\n=== SUMMARY STATISTICS ===")
+        print(f"Average reward: {np.mean(total_rewards):.2f} ± {np.std(total_rewards):.2f}")
+        print(f"Average steps: {np.mean(steps):.2f} ± {np.std(steps):.2f}")
+        print(f"Success rate: {np.mean(successes):.2%} ({sum(successes)}/{len(successes)})")
+        print(f"Best episode: {max(total_rewards)} steps")
+        print(f"Worst episode: {min(total_rewards)} steps")
+        
+        return results
+```
+
+We can test our LLM agent now:
+
+```python
+# Test the LLM agent on CartPole
+print("=== LLM AGENT FOR CARTPOLE ===")
+# Create the agent
+llm_agent = LLMCartPoleAgent(llm_interface)
+# Run multiple episodes
+episode_results = llm_agent.run_multiple_episodes(num_episodes=3)
+# Visualize results
+import matplotlib.pyplot as plt
+# Plot reward progression
+plt.figure(figsize=(12, 4))
+plt.subplot(1, 2, 1)
+rewards = [r['total_reward'] for r in episode_results]
+plt.bar(range(1, len(rewards) + 1), rewards)
+plt.xlabel('Episode')
+plt.ylabel('Total Reward')
+plt.title('LLM Agent Performance')
+plt.axhline(y=195, color='r', linestyle='--', label='Success Threshold')
+plt.legend()
+plt.subplot(1, 2, 2)
+steps = [r['steps'] for r in episode_results]
+plt.bar(range(1, len(steps) + 1), steps)
+plt.xlabel('Episode')
+plt.ylabel('Steps')
+plt.title('Steps per Episode')
+plt.axhline(y=195, color='r', linestyle='--', label='Success Threshold')
+plt.legend()
+plt.tight_layout()
+plt.show()
+# Analyze action patterns
+print("\n=== ACTION ANALYSIS ===")
+all_actions = []
+for episode in episode_results:
+    actions = [step['action'] for step in episode['episode_history']]
+    all_actions.extend(actions)
+action_counts = np.bincount(all_actions)
+print(f"Action 0 (LEFT): {action_counts[0]} times ({action_counts[0]/len(all_actions):.1%})")
+print(f"Action 1 (RIGHT): {action_counts[1]} times ({action_counts[1]/len(all_actions):.1%})")
+```
+
+---
+
+## Homework - Reinforcement Learning Algorithm Implementation
+
+The assignment focuses on extending the previous homework for session 8 on Reinforcement Learning to implement an LLM-based agent to solve the same problem. Your previous task was exploring the environments in the [Gymnasium platform](https://gymnasium.farama.org/) and solving a particular one with Reinforcement Learning. This time you will solve the same problem with a LLM-agent. Ideally, you can report a comparison of both approaches.
+
+### Submission Guidelines
+
+- Submit your solution as a Jupyter notebook with the following name format: `transformers_session_9_<email_username>.ipynb`
+- Include clear comments explaining your code and design decisions
+- Provide comprehensive analysis of your results
+- Document any challenges faced and how you overcame them
+- Include visualisations and comparisons of your results and model performance
+- Due date: 17/07/2025
+
+<DESCRIBE YOUR SOLUTION HERE>
+
+```python
+# Write your implementation here
+```
 
 <!-- end NOTEBOOK: --> 
