@@ -13,6 +13,7 @@ In this exercise, we'll use the [Hugging Face Transformers library](https://pypi
 ```python
 from transformers import AutoTokenizer, AutoModel, pipeline
 import pandas as pd
+import torch
 ```
 
 Let's load a pre-trained model and tokenizer. We will use a small model called ["distilbert-base-uncased"](https://huggingface.co/distilbert/distilbert-base-uncased). This model has 64M of parameters and is a distilled version of BERT. [Hugging Face](https://huggingface.co/) offers a complete documentation of the models for developers to explore and use:
