@@ -911,7 +911,7 @@ print(f"Action 1 (RIGHT): {action_counts[1]} times ({action_counts[1]/len(all_ac
 
 ---
 
-## Homework - Agentic AI Implementation
+## Homework - Single LLM Agent Implementation
 
 The assignment focuses on extending the previous homework for session 8 on Reinforcement Learning to implement an LLM-based agent to solve the same problem. Your previous task was exploring the environments in the [Gymnasium platform](https://gymnasium.farama.org/) and solving a particular one with Reinforcement Learning. This time you will solve the same problem with a LLM-agent. Ideally, you can report a comparison of both approaches.
 
