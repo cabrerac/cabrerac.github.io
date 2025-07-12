@@ -18,7 +18,7 @@ position: Senior Research Associate and Affiliated Lecturer
 session: 9
 start_time: 10:00 am
 title: The Transformer Architecture
-visible: false
+visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
