@@ -2,7 +2,7 @@
 
 # Practical Introduction
 
-In this practical session, we will explore transformer architectures and work with Large Language Models (LLMs). We'll use pre-trained models, and learn about fine-tuning, prompting, and RAG.
+In this practical session, we will explore transformer architectures and work with Large Language Models (LLMs). We'll use pre-trained models, and learn about fine-tuning, prompting, RAG and Agentic AI.
 
 ---
 
@@ -290,7 +290,7 @@ from typing import List, Dict, Any, Optional
 import json
 ```
 
-Then we define a class that will operate as an interface between our program and the LLM. The class will have methods to setup the connection with the LLM, create the prompt, parse the output, and send queries to the LLM.
+Then we define a class that will operate as an interface between our program and the LLM. The class will have methods to setup the connection with the LLM, create the prompt, parse the output, and send queries to the LLM. We are using the [`gemini-2.0-flash`](https://deepmind.google/models/gemini/flash/) model in this example.
 
 ```python
 class LLMInterface:
@@ -383,7 +383,7 @@ def parse_sentiment_response(response: str) -> Dict[str, Any]:
         response_lower = response.lower().strip()
         if "positive" in response_lower:
             sentiment = "positive"
-            confidence = 0.8  # Default confidence for LLM responses
+            confidence = 0.8
         elif "negative" in response_lower:
             sentiment = "negative"
             confidence = 0.8
@@ -733,22 +733,16 @@ Current CartPole State:
         state_description = self._create_observation_description(observation)
         
         task = f"""You are controlling a CartPole system. Your goal is to keep the pole balanced upright for as long as possible.
-
 You can take one of two actions:
 - Action 0: Push the cart LEFT
 - Action 1: Push the cart RIGHT
-
 Current step: {step_count}
-
 {state_description}
-
 Based on the current state, what action should you take to keep the pole balanced? Consider:
 1. If the pole is leaning left, you might want to move the cart left to bring it back to center
 2. If the pole is leaning right, you might want to move the cart right
 3. Also consider the cart's current velocity and the pole's angular velocity
-
 Respond with only the action number (0 or 1)."""
-
         return task
     
     def get_action(self, observation: np.ndarray, step_count: int = 0) -> int:
