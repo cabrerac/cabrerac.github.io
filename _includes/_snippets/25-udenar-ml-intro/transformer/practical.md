@@ -176,7 +176,7 @@ test_texts = [
 print("\n--- Model Predictions ---")
 results = []
 for text in test_texts:
-    sentiment, confidence = predict_sentiment(text, model, tokenizer)
+    sentiment, confidence, probs = predict_sentiment(text, model, tokenizer)
     print(f"Text: '{text}'")
     print(f"Predicted sentiment: {sentiment} (confidence: {confidence:.3f})")
     print()
