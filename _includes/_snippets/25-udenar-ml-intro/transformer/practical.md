@@ -2,183 +2,20 @@
 
 # Practical Introduction
 
-In this practical session, we will explore transformer architectures and work with Large Language Models (LLMs). We'll implement attention mechanisms, use pre-trained models, and learn about fine-tuning and prompting techniques.
+In this practical session, we will explore transformer architectures and work with Large Language Models (LLMs). We'll use pre-trained models, and learn about fine-tuning, RAG, and prompting techniques.
 
 ---
 
-## Exercise 1: Understanding Self-Attention
+## Exercise 1: Working with Pre-trained Language Models
 
-In this exercise, we'll implement the self-attention mechanism from scratch to understand how transformers process sequential data. Self-attention allows the model to weigh the importance of different words in a sequence when encoding a particular word.
-
-Let's start by importing the necessary libraries:
-
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-from typing import Tuple
-```
-
-We'll create a simple implementation of self-attention:
-
-```python
-def scaled_dot_product_attention(Q: torch.Tensor, K: torch.Tensor, V: torch.Tensor, mask: torch.Tensor = None) -> Tuple[torch.Tensor, torch.Tensor]:
-    """
-    Compute scaled dot-product attention.
-    
-    Args:
-        Q: Query tensor of shape (batch_size, seq_len, d_k)
-        K: Key tensor of shape (batch_size, seq_len, d_k)
-        V: Value tensor of shape (batch_size, seq_len, d_v)
-        mask: Optional mask tensor of shape (batch_size, seq_len, seq_len)
-    
-    Returns:
-        output: Attention output tensor
-        attention_weights: Attention weights tensor
-    """
-    d_k = Q.size(-1)
-    
-    # Compute attention scores
-    scores = torch.matmul(Q, K.transpose(-2, -1)) / np.sqrt(d_k)
-    
-    # Apply mask if provided
-    if mask is not None:
-        scores = scores.masked_fill(mask == 0, -1e9)
-    
-    # Apply softmax to get attention weights
-    attention_weights = F.softmax(scores, dim=-1)
-    
-    # Apply attention weights to values
-    output = torch.matmul(attention_weights, V)
-    return output, attention_weights
-```
-
-Now let's create a simple example to demonstrate self-attention:
-
-```python
-# Create a simple sequence
-seq_len = 5
-d_k = 8
-batch_size = 1
-# Create random Q, K, V matrices
-Q = torch.randn(batch_size, seq_len, d_k)
-K = torch.randn(batch_size, seq_len, d_k)
-V = torch.randn(batch_size, seq_len, d_k)
-print(f"Q shape: {Q.shape}")
-print(f"K shape: {K.shape}")
-print(f"V shape: {V.shape}")
-# Compute attention
-output, attention_weights = scaled_dot_product_attention(Q, K, V)
-print(f"Output shape: {output.shape}")
-print(f"Attention weights shape: {attention_weights.shape}")
-```
-
-Let's visualize the attention weights:
-
-```python
-# Plot attention weights
-plt.figure(figsize=(8, 6))
-attention_matrix = attention_weights[0].detach().numpy()
-plt.imshow(attention_matrix, cmap='Blues', aspect='auto')
-plt.colorbar()
-plt.title('Self-Attention Weights')
-plt.xlabel('Key Position')
-plt.ylabel('Query Position')
-plt.xticks(range(seq_len))
-plt.yticks(range(seq_len))
-plt.show()
-print("Attention weights matrix:")
-print(attention_matrix.round(3))
-```
-
----
-
-## Exercise 2: Multi-Head Attention
-
-In this exercise, we'll implement multi-head attention, which allows the model to attend to information from different representation subspaces at different positions.
-
-```python
-class MultiHeadAttention(nn.Module):
-    def __init__(self, d_model: int, num_heads: int):
-        super().__init__()
-        assert d_model % num_heads == 0
-        
-        self.d_model = d_model
-        self.num_heads = num_heads
-        self.d_k = d_model // num_heads
-        
-        # Linear layers for Q, K, V projections
-        self.W_q = nn.Linear(d_model, d_model)
-        self.W_k = nn.Linear(d_model, d_model)
-        self.W_v = nn.Linear(d_model, d_model)
-        self.W_o = nn.Linear(d_model, d_model)
-        
-    def split_heads(self, x: torch.Tensor) -> torch.Tensor:
-        """Split the last dimension into (num_heads, d_k)."""
-        batch_size, seq_len, d_model = x.size()
-        return x.view(batch_size, seq_len, self.num_heads, self.d_k).transpose(1, 2)
-    
-    def combine_heads(self, x: torch.Tensor) -> torch.Tensor:
-        """Combine the heads back into a single dimension."""
-        batch_size, num_heads, seq_len, d_k = x.size()
-        return x.transpose(1, 2).contiguous().view(batch_size, seq_len, self.d_model)
-    
-    def forward(self, Q: torch.Tensor, K: torch.Tensor, V: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:
-        batch_size = Q.size(0)
-        
-        # Linear transformations and split into multiple heads
-        Q = self.split_heads(self.W_q(Q))  # (batch_size, num_heads, seq_len, d_k)
-        K = self.split_heads(self.W_k(K))  # (batch_size, num_heads, seq_len, d_k)
-        V = self.split_heads(self.W_v(V))  # (batch_size, num_heads, seq_len, d_k)
-        
-        # Apply attention to each head
-        attention_outputs = []
-        for h in range(self.num_heads):
-            head_output, _ = scaled_dot_product_attention(
-                Q[:, h], K[:, h], V[:, h], mask
-            )
-            attention_outputs.append(head_output)
-        
-        # Concatenate all heads
-        concat_attention = torch.stack(attention_outputs, dim=1)
-        
-        # Combine heads and apply final linear layer
-        output = self.W_o(self.combine_heads(concat_attention))      
-        return output
-```
-
-Let's test our multi-head attention implementation:
-
-```python
-# Test multi-head attention
-d_model = 16
-num_heads = 4
-seq_len = 6
-# Create random input
-x = torch.randn(1, seq_len, d_model)
-# Create multi-head attention layer
-mha = MultiHeadAttention(d_model, num_heads)
-# Apply multi-head attention
-output = mha(x, x, x)
-print(f"Input shape: {x.shape}")
-print(f"Output shape: {output.shape}")
-print(f"Number of parameters: {sum(p.numel() for p in mha.parameters())}")
-```
-
----
-
-## Exercise 3: Working with Pre-trained Language Models
-
-In this exercise, we'll use the Hugging Face Transformers library to work with pre-trained language models.
+In this exercise, we'll use the [Hugging Face Transformers library](https://pypi.org/project/transformers/) to work with pre-trained language models. Hugging Face is a company that provides open-source tools and models for natural language processing tasks. This library offers a complete set of functions that we can use to download and manipulate pre-trained language models. You can explore [its documentation](https://huggingface.co/docs/transformers/en/index) to know it better and implement your ideas. 
 
 ```python
 from transformers import AutoTokenizer, AutoModel, pipeline
 import pandas as pd
 ```
 
-Let's load a pre-trained model and tokenizer:
+Let's load a pre-trained model and tokenizer. We will use a small model called ["distilbert-base-uncased"](https://huggingface.co/distilbert/distilbert-base-uncased). This model has 64M of parameters and is a distilled version of BERT. [Hugging Face](https://huggingface.co/) offers a complete documentation of the models for developers to explore and use:
 
 ```python
 # Load a smaller model for demonstration
@@ -218,7 +55,7 @@ print(f"Embedding for first token: {embeddings[0, 0, :10]}")  # First 10 dimensi
 
 ---
 
-## Exercise 4: Text Classification with Transformers
+## Exercise 2: Text Classification with Transformers
 
 In this exercise, we'll use a pre-trained transformer model for text classification.
 
@@ -275,7 +112,10 @@ tokenized_dataset = dataset.map(tokenize_function, batched=True)
 Let's create a simple training setup, we start by splitting our dataset and configure our training parameters:
 
 ```python
-train_dataset, eval_dataset = train_test_split(tokenized_dataset, test_size=0.3, random_state=42)
+# Split the dataset properly for HuggingFace datasets
+train_testvalid = tokenized_dataset.train_test_split(test_size=0.3, seed=42)
+train_dataset = train_testvalid['train']
+eval_dataset = train_testvalid['test']
 # Training arguments
 training_args = TrainingArguments(
     output_dir="./results",
@@ -284,9 +124,10 @@ training_args = TrainingArguments(
     per_device_eval_batch_size=8,
     num_train_epochs=3,
     weight_decay=0.01,
-    evaluation_strategy="epoch",
+    eval_strategy="epoch",
     save_strategy="epoch",
     load_best_model_at_end=True,
+    report_to=[],
 )
 ```
 
@@ -303,9 +144,86 @@ trainer = Trainer(
 trainer.train()
 ```
 
+Once the model is trained, we can evaluate its performance. We create a wrapper function that calls the model with our inputs, and process the output of the model. In this case, we apply a softmax function to get the probability distribution of the output `logits`, then we get the predicted_class by selecting the one with higher probability value, and also get the confidence of the prediction:
+
+```python
+# Evaluate the model
+eval_results = trainer.evaluate()
+print(f"Evaluation results: {eval_results}")
+# Use the trained model for predictions
+def predict_sentiment(text, model, tokenizer):
+    """Predict sentiment for a given text."""
+    inputs = tokenizer(text, return_tensors="pt", padding=True, truncation=True, max_length=128)
+    
+    with torch.no_grad():
+        outputs = model(**inputs)
+        predictions = torch.nn.functional.softmax(outputs.logits, dim=-1)
+        predicted_class = torch.argmax(predictions, dim=1).item()
+        confidence = predictions[0][predicted_class].item()  
+    sentiment = "positive" if predicted_class == 1 else "negative"
+    return sentiment, confidence
+# Test the model with new examples
+test_texts = [
+    "This movie was absolutely fantastic!",
+    "I really didn't enjoy this film at all.",
+    "The acting was mediocre but the story was interesting.",
+    "Outstanding performance by all the actors!"
+]
+print("\n--- Model Predictions ---")
+for text in test_texts:
+    sentiment, confidence = predict_sentiment(text, model, tokenizer)
+    print(f"Text: '{text}'")
+    print(f"Predicted sentiment: {sentiment} (confidence: {confidence:.3f})")
+    print()
+```
+
+We can also visualise the results for analysis:
+
+```python
+# Create visualizations
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
+# Plot 1: Confidence scores
+confidences = [r['confidence'] for r in results]
+sentiments = [r['sentiment'] for r in results]
+colors = ['green' if s == 'positive' else 'red' for s in sentiments]
+ax1.bar(range(len(confidences)), confidences, color=colors, alpha=0.7)
+ax1.set_xlabel('Test Examples')
+ax1.set_ylabel('Confidence Score')
+ax1.set_title('Model Confidence for Each Prediction')
+ax1.set_xticks(range(len(confidences)))
+ax1.set_xticklabels([f'Ex {i+1}' for i in range(len(confidences))], rotation=45)
+ax1.grid(True, alpha=0.3)
+# Plot 2: Probability distributions
+x = np.arange(len(results))
+width = 0.35
+negative_probs = [r['probabilities'][0] for r in results]
+positive_probs = [r['probabilities'][1] for r in results]
+ax2.bar(x - width/2, negative_probs, width, label='Negative', color='red', alpha=0.7)
+ax2.bar(x + width/2, positive_probs, width, label='Positive', color='green', alpha=0.7)
+ax2.set_xlabel('Test Examples')
+ax2.set_ylabel('Probability')
+ax2.set_title('Probability Distribution for Each Prediction')
+ax2.set_xticks(x)
+ax2.set_xticklabels([f'Ex {i+1}' for i in range(len(results))], rotation=45)
+ax2.legend()
+ax2.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.show()
+# Print detailed probability breakdown
+print("\n--- Detailed Probability Analysis ---")
+for i, result in enumerate(results):
+    print(f"Example {i+1}: '{result['text'][:50]}...'")
+    print(f"  Negative probability: {result['probabilities'][0]:.3f}")
+    print(f"  Positive probability: {result['probabilities'][1]:.3f}")
+    print(f"  Predicted: {result['sentiment']} (confidence: {result['confidence']:.3f})")
+    print()
+```
+
 ---
 
-## Exercise 5: Prompt Engineering
+## Exercise 3: Retrieved Augmented Generation (RAG)
+
+## Exercise 4: Prompt Engineering
 
 In this exercise, we'll explore prompt engineering techniques for working with Large Language Models. We can define a function to create prompts as follows:
 
