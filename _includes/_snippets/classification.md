@@ -1,5 +1,0 @@
-<!-- SLIDES: -->
-
-## Classification
-
-<!-- end SLIDES: -->
