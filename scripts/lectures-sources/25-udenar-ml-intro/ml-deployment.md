@@ -44,14 +44,6 @@ visible: false
 
 <!-- SLIDES: -->
 
-# MLOps
-
-<!-- end SLIDES: -->
-
-{% include _snippets/mlops.md %}
-
-<!-- SLIDES: -->
-
 # AI as a Service
 
 <!-- end SLIDES: -->
@@ -65,6 +57,14 @@ visible: false
 <!-- end SLIDES: -->
 
 {% include _snippets/ai-systems.md %}
+
+<!-- SLIDES: -->
+
+# MLOps
+
+<!-- end SLIDES: -->
+
+{% include _snippets/mlops.md %}
 
 {% include _snippets/25-udenar-ml-intro/ml-deployment/conclusions.md %}
 
