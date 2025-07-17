@@ -183,7 +183,7 @@
       <circle cx="268" cy="83%" r="1" fill="var(--secondary-color)"/>
       <text x="300" y="86%" text-anchor="middle" style="font-size: 12px; fill: var(--symbolic-color);">
         <tspan x="300" dy="0">Advice Taker</tspan>
-        <tspan x="300" dy="15">(McCharty, 1958)</tspan>
+        <tspan x="300" dy="15">(McCarthy, 1958)</tspan>
       </text>
       <!-- 1960 Event - Connectionist -->
       <line x1="295" y1="50%" x2="295" y2="30%" stroke="var(--secondary-color)" stroke-width="1"/>
@@ -197,7 +197,7 @@
       <circle cx="322" cy="73%" r="1" fill="var(--secondary-color)"/>
       <text x="330" y="76%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
         <tspan x="330" dy="0">Perceptrons</tspan>
-        <tspan x="330" dy="15">(Rosenblant, 1962)</tspan>
+        <tspan x="330" dy="15">(Rosenblatt, 1962)</tspan>
       </text>
       <!-- 1966 Event - Symbolic -->
       <line x1="376" y1="50%" x2="376" y2="57%" stroke="var(--secondary-color)" stroke-width="1"/>

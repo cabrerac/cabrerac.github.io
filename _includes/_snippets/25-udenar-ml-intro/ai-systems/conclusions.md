@@ -50,6 +50,14 @@
     </div>
 </div>
 
+## AI History
+
+<!-- end SLIDES: -->
+
+{% include _snippets/timelines/ai-history-2001-today.md %}
+
+<!-- SLIDES: -->
+
 ## ML Definition
 
 <div class="rows" style="height: 100%">
@@ -64,6 +72,18 @@ $$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{predic
                 <p>Our ML projects must have a <b>purpose...</b></p>
                 <br>
                 <img src="{{ site.url }}/assets/media/images/people.jpg" alt="Risks" style="height: 460px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## The ML Adoption Process
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/s4-general-diagram-adoption.svg" alt="AI Adoption" style="height: 400px">
             </div>
         </div>
     </div>
