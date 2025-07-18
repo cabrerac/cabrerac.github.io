@@ -549,7 +549,7 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <img src="{{ site.url }}/assets/media/images/maaco-results-1.png" alt="MAACO results" style="height: 600px">
+                <img src="{{ site.url }}/assets/media/images/maaco-results.png" alt="MAACO results" style="height: 600px">
             </div>
         </div>
     </div>
