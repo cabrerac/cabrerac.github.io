@@ -100,7 +100,7 @@ $$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{predic
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/decentralised-deployment.png" alt="Service Placement Problem" style="height: 400px">
             </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-top text-left" style="width: 50%">
                 <p><b>Dynamic Service Placement in Edge Computing</b></p>
                 <br>
                 <p>Objective Functions:</p>
