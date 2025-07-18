@@ -185,16 +185,151 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                <p><b>Dynamic Service Placement in Edge Computing</b></p>
-                <br>
-                <p>Objective Functions:</p>
-$$\min_j wt_j + lat(D_j) \quad (1)$$
-$$\min_i \sqrt{w_p \sigma(RR^{CPU})^2 + w_m \sigma(RR^{RAM})^2} \quad (2)$$
-Subject to:
-$$\sum_{k=1}^n rr_{ik}^{CPU} \leq r_i^{CPU} \quad (3)$$
-$$\sum_{k=1}^n rr_{ik}^{RAM} \leq r_i^{RAM} \quad (4)$$
-<small>Where: $wt_j$ = waiting time, $lat(D_j)$ = latency, $RR^{CPU}$ and $RR^{RAM}$ = resource requirements, $r_i^{CPU}$ and $r_i^{RAM}$ = available resources</small>
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-1.png" alt="Ant-Colony Optimisation" style="height: 400px">
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-2.png" alt="Ant-Colony Optimisation" style="height: 400px">
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-3.png" alt="Ant-Colony Optimisation" style="height: 400px">
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-4.png" alt="Ant-Colony Optimisation" style="height: 400px">
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-5.png" alt="Ant-Colony Optimisation" style="height: 400px">
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-6.png" alt="Ant-Colony Optimisation" style="height: 400px">
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-7.png" alt="Ant-Colony Optimisation" style="height: 400px">
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-8.png" alt="Ant-Colony Optimisation" style="height: 400px">
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-9.png" alt="Ant-Colony Optimisation" style="height: 400px">
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-10.png" alt="Ant-Colony Optimisation" style="height: 400px">
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-11.png" alt="Ant-Colony Optimisation" style="height: 400px">
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-12.png" alt="Ant-Colony Optimisation" style="height: 400px">
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-13.png" alt="Ant-Colony Optimisation" style="height: 400px">
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-14.png" alt="Ant-Colony Optimisation" style="height: 400px">
         </div>
     </div>
 </div>
