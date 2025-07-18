@@ -527,8 +527,9 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 30%">
+            <div class="column vertical-middle text-left" style="width: 30%">
                 <p>Selecting edge servers close to current and future user's location</p>
+                <p>We used to approaches that cluster historical trips and use these clusters to predict the next link in the user's path:</p>
                 <ul>
                     <li>Bayesian classifier</li>
                     <li>Hidden Markov model</li>
@@ -536,6 +537,19 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
             </div>
             <div class="column vertical-middle text-left" style="width: 70%">
                 <img src="{{ site.url }}/assets/media/images/maaco-algorithm.png" alt="ACO Smart City" style="height: 600px">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/images/maaco-reults-1.png" alt="MAACO results" style="height: 600px">
             </div>
         </div>
     </div>
