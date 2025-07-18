@@ -528,11 +528,10 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 30%">
-                <p>Selecting edge servers close to current and future user's location</p>
-                <p>We used to approaches that cluster historical trips and use these clusters to predict the next link in the user's path:</p>
+                <p>Selecting edge servers close to current and future user's location. We used two approaches that cluster historical trips and use these clusters to predict the next link in the user's path:</p>
                 <ul>
-                    <li>Bayesian classifier</li>
-                    <li>Hidden Markov model</li>
+                    <li>Bayesian Classifier</li>
+                    <li>Hidden Markov Model</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 70%">
@@ -555,8 +554,219 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
     </div>
 </div>
 
-<!-- end SLIDES: -->
+## AI Systems
 
-- why is this important (maaco paper)
-- infrastructure (hardware decisions)
-- software decisions (oop, monolithic, soa, doa)
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 70%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p><b>Bayesian Classifier</b></p>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p><b>Hidden Markov Model</b></p>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 30%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-center" style="width: 100%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 70%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p><b>Bayesian Classifier</b></p>
+                <ul>
+                    <li>Transition matrix depends on the number of streets in a city.</li>
+                </ul>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p><b>Hidden Markov Model</b></p>
+                <ul>
+                    <li>Frequency matrix depends on the number of streets in a city.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 30%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-center" style="width: 100%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 70%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p><b>Bayesian Classifier</b></p>
+                <ul>
+                    <li>Transition matrix depends on the number of streets in a city.</li>
+                    <li>A lot of data (i.e., trips) are needed to train the model.</li>
+                    <li>Training time is now an issue!</li>
+                    <li>We <b>assumed</b> a limited number of streets in our work.</li>
+                </ul>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p><b>Hidden Markov Model</b></p>
+                <ul>
+                    <li>Frequency matrix depends on the number of streets in a city.</li>
+                    <li>A lot of data (i.e., trips) are needed to train the model.</li>
+                    <li>Training time is now an issue!</li>
+                    <li>We <b>assumed</b> a limited number of streets in our work.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 30%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-center" style="width: 100%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 70%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p><b>Bayesian Classifier</b></p>
+                <ul>
+                    <li>Transition matrix depends on the number of streets in a city.</li>
+                    <li>A lot of data (i.e., trips) are needed to train the model.</li>
+                    <li>Training time is now an issue!</li>
+                    <li>We <b>assumed</b> a limited number of streets in our work.</li>
+                </ul>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p><b>Hidden Markov Model</b></p>
+                <ul>
+                    <li>Frequency matrix depends on the number of streets in a city.</li>
+                    <li>A lot of data (i.e., trips) are needed to train the model.</li>
+                    <li>Training time is now an issue!</li>
+                    <li>We <b>assumed</b> a limited number of streets in our work.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 30%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-center" style="width: 100%">
+                <p><b>Again, new design decisions are needed to deploy these algorithms in the real-world.</b></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/decentralised-deployment.png" alt="Decentralised Deployment" style="height: 400px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p><b>Hardware considerations:</b></p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/decentralised-deployment.png" alt="Decentralised Deployment" style="height: 400px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p><b>Hardware considerations:</b></p>
+                <ul>
+                    <li><b>Data Collection:</b> Ensure sufficient storage capacity for large datasets and high-speed data transfer capabilities.</li>
+                    <li><b>Model Training:</b> Invest in powerful GPUs or TPUs to handle intensive computations and reduce training time.</li>
+                    <li><b>Model Deployment:</b> Consider edge devices for real-time processing and scalability of the deployment infrastructure.</li>
+                    <li><b>Maintenance and Updates:</b> Plan for hardware upgrades and maintenance to accommodate evolving model requirements.</li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/decentralised-deployment.png" alt="Decentralised Deployment" style="height: 400px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p><b>Software considerations:</b></p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/decentralised-deployment.png" alt="Decentralised Deployment" style="height: 400px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p><b>Software considerations:</b></p>
+                <ul>
+                    <li><b>Data Management:</b> Implement efficient data preprocessing and cleaning pipelines to ensure high-quality input for models.</li>
+                    <li><b>Model Development:</b> Utilize frameworks like TensorFlow or PyTorch for building and experimenting with different model architectures.</li>
+                    <li><b>Version Control:</b> Use tools like Git to manage code versions and collaborate effectively with team members.</li>
+                    <li><b>Continuous Integration/Continuous Deployment (CI/CD):</b> Set up automated testing and deployment pipelines to streamline updates and ensure reliability.</li>
+                    <li><b>Scalability:</b> Design software architecture to support scaling, such as using microservices or serverless computing for flexible resource management.</li>
+                    <li><b>Security:</b> Implement robust security measures to protect data privacy and model integrity.</li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/decentralised-deployment.png" alt="Decentralised Deployment" style="height: 400px">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- end SLIDES: -->
