@@ -186,7 +186,8 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-1.png" alt="Ant-Colony Optimisation" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/aco-1.png" alt="Ant-Colony Optimisation" style="height: 600px">
+            </div>
         </div>
     </div>
 </div>
@@ -197,7 +198,8 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-2.png" alt="Ant-Colony Optimisation" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/aco-2.png" alt="Ant-Colony Optimisation" style="height: 600px">
+            </div>
         </div>
     </div>
 </div>
@@ -208,7 +210,8 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-3.png" alt="Ant-Colony Optimisation" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/aco-3.png" alt="Ant-Colony Optimisation" style="height: 600px">
+            </div>
         </div>
     </div>
 </div>
@@ -219,7 +222,8 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-4.png" alt="Ant-Colony Optimisation" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/aco-4.png" alt="Ant-Colony Optimisation" style="height: 600px">
+            </div>
         </div>
     </div>
 </div>
@@ -230,7 +234,8 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-5.png" alt="Ant-Colony Optimisation" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/aco-5.png" alt="Ant-Colony Optimisation" style="height: 600px">
+            </div>
         </div>
     </div>
 </div>
@@ -241,7 +246,8 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-6.png" alt="Ant-Colony Optimisation" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/aco-6.png" alt="Ant-Colony Optimisation" style="height: 600px">
+            </div>
         </div>
     </div>
 </div>
@@ -252,7 +258,8 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-7.png" alt="Ant-Colony Optimisation" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/aco-7.png" alt="Ant-Colony Optimisation" style="height: 600px">
+            </div>
         </div>
     </div>
 </div>
@@ -263,7 +270,8 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-8.png" alt="Ant-Colony Optimisation" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/aco-8.png" alt="Ant-Colony Optimisation" style="height: 600px">
+            </div>
         </div>
     </div>
 </div>
@@ -274,7 +282,8 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-9.png" alt="Ant-Colony Optimisation" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/aco-9.png" alt="Ant-Colony Optimisation" style="height: 600px">
+            </div>
         </div>
     </div>
 </div>
@@ -285,7 +294,8 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-10.png" alt="Ant-Colony Optimisation" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/aco-10.png" alt="Ant-Colony Optimisation" style="height: 600px">
+            </div>
         </div>
     </div>
 </div>
@@ -296,7 +306,8 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-11.png" alt="Ant-Colony Optimisation" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/aco-11.png" alt="Ant-Colony Optimisation" style="height: 600px">
+            </div>
         </div>
     </div>
 </div>
@@ -307,7 +318,8 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-12.png" alt="Ant-Colony Optimisation" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/aco-12.png" alt="Ant-Colony Optimisation" style="height: 600px">
+            </div>
         </div>
     </div>
 </div>
@@ -318,7 +330,8 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-13.png" alt="Ant-Colony Optimisation" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/aco-13.png" alt="Ant-Colony Optimisation" style="height: 600px">
+            </div>
         </div>
     </div>
 </div>
@@ -329,7 +342,201 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/aco-14.png" alt="Ant-Colony Optimisation" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/aco-14.png" alt="Ant-Colony Optimisation" style="height: 600px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 90%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/images/aco-reults-1.png" alt="Ant-Colony Optimisation" style="height: 600px">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 10%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 90%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/images/aco-reults-1.png" alt="Ant-Colony Optimisation" style="height: 600px">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 10%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <p><b>This execution time does not suit low-latency requirements, but that is how ACO is designed.</b></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 90%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/images/aco-reults-2.png" alt="Ant-Colony Optimisation" style="height: 600px">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 10%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <p><b>This execution time does not suit low-latency requirements, but that is how ACO is designed.</b></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p>We should analyse <b>the problem first</b>:
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p>We should analyse <b>the problem first</b>:
+                <br>
+                <p><b>Variables we cannot reduce</b></p>
+                <ul>
+                    <li>Number of services</li>
+                    <li>Number of iterations</li>
+                    <li>Number of ants</li>
+                </ul>
+                <br>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p>We should analyse <b>the problem first</b>:
+                <br>
+                <p><b>Variables we cannot reduce</b></p>
+                <ul>
+                    <li>Number of services</li>
+                    <li>Number of iterations</li>
+                    <li>Number of ants</li>
+                </ul>
+                <br>
+                <p><b>We can reduce the number of servers, how?</b></p>
+                <p>We can pre-select edge servers by <b>predicting</b> user locations.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <br>
+                <p>We should analyse <b>the problem first</b>:
+                <br>
+                <p><b>Variables we cannot reduce</b></p>
+                <ul>
+                    <li>Number of services</li>
+                    <li>Number of iterations</li>
+                    <li>Number of ants</li>
+                </ul>
+                <br>
+                <p><b>We can reduce the number of servers, how?</b></p>
+                <p>We can pre-select edge servers by <b>predicting</b> user locations.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/smart-city-maaco.png" alt="ACO Smart City" style="height: 600px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/aco-solution.png" alt="ACO Smart City" style="height: 600px">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/smart-city-maaco.png" alt="ACO Smart City" style="height: 600px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 30%">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 70%">
+                <img src="{{ site.url }}/assets/media/images/maaco-algorithm.png" alt="ACO Smart City" style="height: 600px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## AI Systems
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 30%">
+                <p>Selecting edge servers close to current and future user's location</p>
+                <ul>
+                    <li>Bayesian classifier</li>
+                    <li>Hidden Markov model</li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 70%">
+                <img src="{{ site.url }}/assets/media/images/maaco-algorithm.png" alt="ACO Smart City" style="height: 600px">
+            </div>
         </div>
     </div>
 </div>
