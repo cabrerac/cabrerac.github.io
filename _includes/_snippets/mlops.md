@@ -197,7 +197,7 @@ class ModelMonitor:
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 95%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <img src="{{ site.url }}/assets/media/images/doa-log-ml.png" alt="DOA Debugger" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/doa-log-ml.png" alt="DOA Debugger" style="height: 800px">
             </div>
         </div>
     </div>

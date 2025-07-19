@@ -2,16 +2,29 @@
 
 ## Conclusions
 
+## Conclusions
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 95%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Conclusions
+
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
             <h3>Overview</h3>
             <ul>
-                <li>ML Deployment</li>
-                <li>MLOps</li>
+                <li>AI Systems</li>
                 <li>AI as a Service</li>
-                <li>AI-based Systems</li>
+                <li>MLOps</li>
             </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -28,10 +41,9 @@
             <div class="column vertical-middle text-left" style="width: 50%">
             <h3>Overview</h3>
             <ul>
-                <li>ML Deployment</li>
-                <li>MLOps</li>
+                <li>AI Systems</li>
                 <li>AI as a Service</li>
-                <li>AI-based Systems</li>
+                <li>MLOps</li>
             </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -43,14 +55,13 @@
                 <li>Data Orientation</li>
                 <li>Data Quality</li>
                 <li>Supervised and Reinforcement Learning</li>
-                <li>Machine Learning Deployment</li>
+                <li>Large Language Models</li>
+                <li>AI Systems</li>
             </ul>
             </div>
         </div>
     </div>
 </div>
-
-## AI History
 
 <!-- end SLIDES: -->
 
