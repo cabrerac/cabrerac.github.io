@@ -33,7 +33,7 @@ visible: false
 ---
 
 ## Resources  
-
+<br>
 #### Books
 
 - [Kleppmann, M. (2017). Designing Data-Intensive Applications. O'Reilly Media](https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/)
