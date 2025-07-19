@@ -337,15 +337,18 @@ def test_regression(features):
 
 And now we can run the tests:
 
-``` python
+```python
+# Test classification
 print("Testing Neural Network Classification:")
 sample_class_features = X_class_test[0].tolist()
 result_class = test_classification(sample_class_features)
 print(json.dumps(result_class, indent=2))
+# Test regression
 print("\nTesting Neural Network Regression:")
 sample_reg_features = X_reg_test[0].tolist()
 result_reg = test_jc_regression(sample_reg_features)
 print(json.dumps(result_reg, indent=2))
+# Test model listing
 print("\nAvailable Models:")
 response = requests.get("http://localhost:5000/models")
 models_info = response.json()
