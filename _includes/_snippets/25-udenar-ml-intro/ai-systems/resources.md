@@ -9,6 +9,7 @@
 - [Kleppmann, M. (2017). Designing Data-Intensive Applications. O'Reilly Media](https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/)
 - [Huyen, C. (2022). Designing Machine Learning Systems. O'Reilly Media](https://www.oreilly.com/library/view/designing-machine-learning/9781098107956/)
 <br>
+<br>
 #### Papers and Reports
 
 - [Sculley, D., et al. (2015). Hidden technical debt in machine learning systems](https://papers.nips.cc/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html)
