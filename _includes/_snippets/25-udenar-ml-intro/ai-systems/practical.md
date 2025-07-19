@@ -857,8 +857,8 @@ print(f"Computer Vision Model Performance:")
 print(f"Test Accuracy: {evaluation['accuracy']:.4f}")
 print(f"Test Loss: {evaluation['loss']:.4f}")
 # Save the model
-cv_model.model.save('computer_vision_model.h5')
-print("Computer vision model saved to computer_vision_model.h5")
+cv_model.model.save('computer_vision_model.keras')
+print("Computer vision model saved to computer_vision_model.keras")
 ```
 
 Now let's create a Flask application to serve the computer vision model:
@@ -866,13 +866,9 @@ Now let's create a Flask application to serve the computer vision model:
 ```python
 app3 = Flask(__name__)
 # Global variable to store the computer vision model
-cv_model = None
-@app3.before_first_request
-def load_cv_model():
-    global cv_model
-    cv_model = ComputerVisionModel()
-    cv_model.model = tf.keras.models.load_model('computer_vision_model.h5')
-    print("Computer vision model loaded successfully!")
+cv_model = ComputerVisionModel()
+cv_model.model = tf.keras.models.load_model('computer_vision_model.keras')
+print("Computer vision model loaded successfully!")
 @app3.route('/predict/image', methods=['POST'])
 def predict_image():
     """Endpoint for computer vision model"""
