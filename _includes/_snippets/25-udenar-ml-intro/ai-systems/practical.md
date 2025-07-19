@@ -242,12 +242,7 @@ Now let's create a Flask application to serve the models:
 ```python
 app = Flask(__name__)
 # Global variables to store models
-models = None
-@app.before_first_request
-def load_models():
-    global jc_models
-    jc_models = joblib.load('models.pkl')
-    print("Models loaded successfully!")
+models = joblib.load('models.pkl')
 @app.route('/predict/classification', methods=['POST'])
 def predict_classification():
     """Endpoint for the neural network classification model"""
@@ -311,9 +306,22 @@ def list_models():
     return jsonify(model_info)
 @app.route('/health', methods=['GET'])
 def health_check():
-    return jsonify({'status': 'healthy', 'models_loaded': jc_models is not None})
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    return jsonify({'status': 'healthy', 'models_loaded': models is not None})
+```
+
+Run Flask server in background
+
+```python
+import threading
+import time
+def run_flask_server():
+    app.run(debug=False, host='0.0.0.0', port=5000, use_reloader=False)
+# Start Flask server in background
+server_thread = threading.Thread(target=run_flask_server, daemon=True)
+server_thread.start()
+# Wait for server to start
+time.sleep(3)
+print("Flask server is running in background on port 5000")
 ```
 
 Let's create functions to test the model server:
@@ -346,7 +354,7 @@ print(json.dumps(result_class, indent=2))
 # Test regression
 print("\nTesting Neural Network Regression:")
 sample_reg_features = X_reg_test[0].tolist()
-result_reg = test_jc_regression(sample_reg_features)
+result_reg = test_regression(sample_reg_features)
 print(json.dumps(result_reg, indent=2))
 # Test model listing
 print("\nAvailable Models:")
@@ -523,14 +531,6 @@ regressor_complex = MultiArchitectureNeuralNetwork(
     learning_rate=0.01
 )
 regressor_complex.fit(X_reg_train.T, y_reg_train.reshape(1, -1), epochs=300, verbose=True)
-# Simple regression model
-regressor_simple = MultiArchitectureNeuralNetwork(
-    'regression', 
-    layers=[1, 5, 1], 
-    activation='relu', 
-    learning_rate=0.01
-)
-regressor_simple.fit(X_reg_train.T, y_reg_train.reshape(1, -1), epochs=300, verbose=True)
 ```
 
 We can evaluate the models now:
@@ -545,13 +545,10 @@ y_pred_class_simple_binary = (y_pred_class_simple > 0.5).astype(int)
 class_simple_accuracy = accuracy_score(y_class_test, y_pred_class_simple_binary.flatten())
 y_pred_reg_complex = regressor_complex.predict(X_reg_test.T)
 reg_complex_mse = mean_squared_error(y_reg_test, y_pred_reg_complex.flatten())
-y_pred_reg_simple = regressor_simple.predict(X_reg_test.T)
-reg_simple_mse = mean_squared_error(y_reg_test, y_pred_reg_simple.flatten())
 print(f"\nMulti-Architecture Model Performance:")
 print(f"Complex Classifier Accuracy: {class_complex_accuracy:.4f}")
 print(f"Simple Classifier Accuracy: {class_simple_accuracy:.4f}")
 print(f"Complex Regressor MSE: {reg_complex_mse:.4f}")
-print(f"Simple Regressor MSE: {reg_simple_mse:.4f}")
 ```
 
 Once we are done, we can save the models
@@ -561,8 +558,7 @@ Once we are done, we can save the models
 multi_arch_models = {
     'classifier_complex': classifier_complex,
     'classifier_simple': classifier_simple,
-    'regressor_complex': regressor_complex,
-    'regressor_simple': regressor_simple
+    'regressor_complex': regressor_complex
 }
 joblib.dump(multi_arch_models, 'multi_architecture_models.pkl')
 print("Multi-architecture models saved to multi_architecture_models.pkl")
@@ -573,12 +569,8 @@ Now let's create a Flask application to serve the multi-architecture models with
 ```python
 app2 = Flask(__name__)
 # Global variables to store multi-architecture models
-multi_arch_models = None
-@app2.before_first_request
-def load_multi_arch_models():
-    global multi_arch_models
-    multi_arch_models = joblib.load('multi_architecture_models.pkl')
-    print("Multi-architecture models loaded successfully!")
+multi_arch_models = joblib.load('multi_architecture_models.pkl')
+print("Multi-architecture models loaded successfully!")
 @app2.route('/predict/classification', methods=['POST'])
 def predict_multi_arch_classification():
     """Endpoint for multi-architecture neural network classification with architecture selection"""
@@ -680,8 +672,21 @@ def list_multi_arch_models():
 @app2.route('/health', methods=['GET'])
 def health_check_multi_arch():
     return jsonify({'status': 'healthy', 'models_loaded': multi_arch_models is not None})
-if __name__ == '__main__':
-    app2.run(debug=True, host='0.0.0.0', port=5001)
+```
+
+Run Flask server in background
+
+```python
+import threading
+import time
+def run_flask_server():
+    app2.run(debug=False, host='0.0.0.0', port=5001, use_reloader=False)
+# Start Flask server in background
+server_thread = threading.Thread(target=run_flask_server, daemon=True)
+server_thread.start()
+# Wait for server to start
+time.sleep(3)
+print("Multi-architecture Flask server is running in background on port 5001")
 ```
 
 Let's test the multi-architecture model server creating a couple of functions for that:
@@ -716,10 +721,6 @@ print(json.dumps(result_class_simple, indent=2))
 print("\nTesting Complex Neural Network Regression:")
 result_reg_complex = test_multi_arch_regression(sample_reg_features, 'complex')
 print(json.dumps(result_reg_complex, indent=2))
-# Test simple regression
-print("\nTesting Simple Neural Network Regression:")
-result_reg_simple = test_multi_arch_regression(sample_reg_features, 'simple')
-print(json.dumps(result_reg_simple, indent=2))
 # Test model listing
 print("\nAvailable Multi-Architecture Models:")
 response = requests.get("http://localhost:5001/models")
@@ -962,8 +963,21 @@ def get_model_info():
 @app3.route('/health', methods=['GET'])
 def health_check_cv():
     return jsonify({'status': 'healthy', 'model_loaded': cv_model is not None})
-if __name__ == '__main__':
-    app3.run(debug=True, host='0.0.0.0', port=5002)
+```
+
+Run Flask server in background
+
+```python
+import threading
+import time
+def run_flask_server():
+    app3.run(debug=False, host='0.0.0.0', port=5002, use_reloader=False)
+# Start Flask server in background
+server_thread = threading.Thread(target=run_flask_server, daemon=True)
+server_thread.start()
+# Wait for server to start
+time.sleep(3)
+print("Computer vision Flask server is running in background on port 5002")
 ```
 
 Let's test the computer vision model server, creating the following functions:
