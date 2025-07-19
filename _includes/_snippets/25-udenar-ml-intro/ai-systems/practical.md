@@ -856,6 +856,11 @@ evaluation = cv_model.evaluate(X_test, y_test)
 print(f"Computer Vision Model Performance:")
 print(f"Test Accuracy: {evaluation['accuracy']:.4f}")
 print(f"Test Loss: {evaluation['loss']:.4f}")
+```
+
+We can now save the model as a keras file:
+
+```python
 # Save the model
 cv_model.model.save('computer_vision_model.keras')
 print("Computer vision model saved to computer_vision_model.keras")
