@@ -15,7 +15,7 @@ layout: lecture
 lecture_code: ai-systems
 lecture_date: 19/07/2025
 permalink: /teaching/25-udenar-ml-intro/ai-systems/
-visible: false
+visible: true
 ---
 
 <!-- ALL: content that goes everywhere -->
