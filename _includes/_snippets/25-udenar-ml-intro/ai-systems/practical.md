@@ -233,7 +233,6 @@ models = {
     'classifier': classifier,
     'regressor': regressor
 }
-
 joblib.dump(models, 'models.pkl')
 print("Models saved to models.pkl")
 ```
@@ -249,7 +248,6 @@ def load_models():
     global jc_models
     jc_models = joblib.load('models.pkl')
     print("Models loaded successfully!")
-
 @app.route('/predict/classification', methods=['POST'])
 def predict_classification():
     """Endpoint for the neural network classification model"""
@@ -271,7 +269,6 @@ def predict_classification():
         })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
 @app.route('/predict/regression', methods=['POST'])
 def predict_regression():
     """Endpoint for neural network regression model"""
@@ -292,7 +289,6 @@ def predict_regression():
         
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
 @app.route('/models', methods=['GET'])
 def list_models():
     """List models and their information"""
@@ -313,11 +309,9 @@ def list_models():
         }
     }
     return jsonify(model_info)
-
 @app.route('/health', methods=['GET'])
 def health_check():
     return jsonify({'status': 'healthy', 'models_loaded': jc_models is not None})
-
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
 ```
@@ -580,13 +574,11 @@ Now let's create a Flask application to serve the multi-architecture models with
 app2 = Flask(__name__)
 # Global variables to store multi-architecture models
 multi_arch_models = None
-
 @app2.before_first_request
 def load_multi_arch_models():
     global multi_arch_models
     multi_arch_models = joblib.load('multi_architecture_models.pkl')
     print("Multi-architecture models loaded successfully!")
-
 @app2.route('/predict/classification', methods=['POST'])
 def predict_multi_arch_classification():
     """Endpoint for multi-architecture neural network classification with architecture selection"""
@@ -620,7 +612,6 @@ def predict_multi_arch_classification():
         })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
 @app2.route('/predict/regression', methods=['POST'])
 def predict_multi_arch_regression():
     """Endpoint for multi-architecture neural network regression with architecture selection"""
@@ -652,7 +643,6 @@ def predict_multi_arch_regression():
         })       
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
 @app2.route('/models', methods=['GET'])
 def list_multi_arch_models():
     """List multi-architecture models and their information"""
@@ -687,7 +677,6 @@ def list_multi_arch_models():
         }
     }
     return jsonify(model_info)
-
 @app2.route('/health', methods=['GET'])
 def health_check_multi_arch():
     return jsonify({'status': 'healthy', 'models_loaded': multi_arch_models is not None})
@@ -877,14 +866,12 @@ Now let's create a Flask application to serve the computer vision model:
 app3 = Flask(__name__)
 # Global variable to store the computer vision model
 cv_model = None
-
 @app3.before_first_request
 def load_cv_model():
     global cv_model
     cv_model = ComputerVisionModel()
     cv_model.model = tf.keras.models.load_model('computer_vision_model.h5')
     print("Computer vision model loaded successfully!")
-
 @app3.route('/predict/image', methods=['POST'])
 def predict_image():
     """Endpoint for computer vision model"""
@@ -915,7 +902,6 @@ def predict_image():
         
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
 @app3.route('/predict/batch', methods=['POST'])
 def predict_batch():
     """Endpoint for batch prediction with computer vision model"""
@@ -954,7 +940,6 @@ def predict_batch():
         
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
 @app3.route('/model/info', methods=['GET'])
 def get_model_info():
     """Get information about the computer vision model"""
@@ -974,7 +959,6 @@ def get_model_info():
         ]
     }
     return jsonify(model_info)
-
 @app3.route('/health', methods=['GET'])
 def health_check_cv():
     return jsonify({'status': 'healthy', 'model_loaded': cv_model is not None})

@@ -4,8 +4,8 @@ course_code: 25-udenar-ml-intro
 department: Department of Computer Science and Technology
 description: In our last lecture, we will explore the deployment process of ML models.
   Once models are trained, we need to deploy them as part of larger systems to be
-  used (i.e., AI Systems. We will show the challenges that motivate our focus on this
-  stage and present different alternatives for efficient AI systems deployment.
+  used (i.e., AI Systems). We will show the challenges that motivate our focus on
+  this stage and present different alternatives for efficient AI systems deployment.
 email: chc79@cam.ac.uk
 end_time: 12:00 am
 hours: 4

@@ -1,7 +1,7 @@
 ---
 course_code: 25-udenar-ml-intro
 title: AI Systems
-description: In our last lecture, we will explore the deployment process of ML models. Once models are trained, we need to deploy them as part of larger systems to be used (i.e., AI Systems. We will show the challenges that motivate our focus on this stage and present different alternatives for efficient AI systems deployment.
+description: In our last lecture, we will explore the deployment process of ML models. Once models are trained, we need to deploy them as part of larger systems to be used (i.e., AI Systems). We will show the challenges that motivate our focus on this stage and present different alternatives for efficient AI systems deployment.
 session: 10
 start_time: 10:00 am
 end_time: 12:00 am
