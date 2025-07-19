@@ -309,7 +309,7 @@ def health_check():
     return jsonify({'status': 'healthy', 'models_loaded': models is not None})
 ```
 
-Run Flask server in background
+Run Flask server in background:
 
 ```python
 import threading
