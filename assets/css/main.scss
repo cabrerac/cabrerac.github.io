@@ -6,6 +6,26 @@
   --link-color: #0366d6;
 }
 
+.teaching-intro {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.teaching-intro h1 {
+  color: var(--heading-color);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.teaching-intro p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-color);
+  margin: 0;
+}
+
 .courses-list {
   list-style: none;
   padding: 0;
