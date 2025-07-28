@@ -1,9 +1,9 @@
 {% if site.courses %}
-    <ul>
-        {% for course in site.courses %}
-            <li>
-                <a href="{{ course.url }}">{{ course.title }}</a>
-            </li>
-        {% endfor %}
-    </ul>
+<ul>
+  {% for course in site.courses %}
+    <li>
+      <a href="{{ course.url }}">{{ course.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
 {% endif %}

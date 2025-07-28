@@ -5,7 +5,7 @@ permalink: /teaching/
 ---
 
 <p>
-   This repository contains past and ongoing courses and academic activities.
+   This repository contains material of past and ongoing courses and academic activities.
 </p>
 
 {% include courses_list.html %}
