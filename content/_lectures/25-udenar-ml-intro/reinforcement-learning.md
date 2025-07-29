@@ -45,7 +45,6 @@ visible: true
 - [Cabrera C. et al. (2019). A Self-Adaptive Service Discovery Model for Smart Cities](https://ieeexplore.ieee.org/abstract/document/8851303)
 - [Cabrera C. et al. (2021). A Reinforcement Learning-Based Service Model for the Internet of Things](https://link.springer.com/chapter/10.1007/978-3-030-91431-8_56)
 <br>
-<br>
 
 #### Web
 - [A Recipe for Training Neural Networks](https://karpathy.github.io/2019/04/25/recipe/)

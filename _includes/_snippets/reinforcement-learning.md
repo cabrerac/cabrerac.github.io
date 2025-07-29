@@ -507,7 +507,7 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
                 <br>
-                <p>Another important quantity is <b>the action-utility function</b> or <em>Q-function</em>, which is the expected utility of taking a giving action in a given state:</p>
+                <p>Another important quantity is <b>the action-utility function</b> or <em>Q-function</em>, which is the expected utility of taking a given action in a given state:</p>
 <br>
 $$
 Q(s,a) = \sum_{s'} P(s'|s,a) [R(s,a,s') + \gamma U(s')]
@@ -524,7 +524,7 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
                 <br>
-                <p>Another important quantity is <b>the action-utility function</b> or <em>Q-function</em>, which is the expected utility of taking a giving action in a given state:</p>
+                <p>Another important quantity is <b>the action-utility function</b> or <em>Q-function</em>, which is the expected utility of taking a given action in a given state:</p>
 <br>
 $$
 Q(s,a) = \sum_{s'} P(s'|s,a) [R(s,a,s') + \gamma U(s')]
@@ -546,7 +546,7 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
                 <br>
-                <p>Another important quantity is <b>the action-utility function</b> or <em>Q-function</em>, which is the expected utility of taking a giving action in a given state:</p>
+                <p>Another important quantity is <b>the action-utility function</b> or <em>Q-function</em>, which is the expected utility of taking a given action in a given state:</p>
 <br>
 $$
 Q(s,a) = \sum_{s'} P(s'|s,a) [R(s,a,s') + \gamma U(s')]
@@ -572,7 +572,7 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
                 <br>
-                <p>Another important quantity is <b>the action-utility function</b> or <em>Q-function</em>, which is the expected utility of taking a giving action in a given state:</p>
+                <p>Another important quantity is <b>the action-utility function</b> or <em>Q-function</em>, which is the expected utility of taking a given action in a given state:</p>
 <br>
 $$
 Q(s,a) = \sum_{s'} P(s'|s,a) [R(s,a,s') + \gamma U(s')]
@@ -590,7 +590,7 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
                 <br>
-                <p>Another important quantity is <b>the action-utility function</b> or <em>Q-function</em>, which is the expected utility of taking a giving action in a given state:</p>
+                <p>Another important quantity is <b>the action-utility function</b> or <em>Q-function</em>, which is the expected utility of taking a given action in a given state:</p>
 <br>
 $$
 Q(s,a) = \sum_{s'} P(s'|s,a) [R(s,a,s') + \gamma U(s')]

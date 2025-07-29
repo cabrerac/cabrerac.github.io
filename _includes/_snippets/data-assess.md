@@ -55,7 +55,7 @@
     <div class="row" style="height: 40%">
         <div class="columns" style="width: 95%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <img class="external-svg"  src="{{ site.url }}/assets/media/images/context-3.png" alt="ML-Based System" style="height: 500px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/context-3.png" alt="ML-based System" style="height: 500px">
             </div>
         </div>
     </div>

@@ -15,7 +15,7 @@ import numpy as np
 
 ### 1.2 Loading from CSV/Excel Files
 
-We can access local dataset files, which are normally stored as CSV (Comma Separeted Values) files. Let's define a function we can use and reuse.
+We can access local dataset files, which are normally stored as CSV (Comma Separated Values) files. Let's define a function we can use and reuse.
 
 ```python
 # Example of loading data from a CSV file

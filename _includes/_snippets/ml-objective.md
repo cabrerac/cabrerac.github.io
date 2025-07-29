@@ -40,9 +40,9 @@ $$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{predic
 </div>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <p>Our definition before...</b></p>
+                <p>Our definition before...</p>
                 <br>
-                <img src="{{ site.url }}/assets/media/images/words-ml.png" alt="Risks" style="height: 460px">
+                <img src="{{ site.url }}/assets/media/images/words-ml.png" alt="Machine Learning Definition" style="height: 460px">
             </div>
         </div>
     </div>
@@ -78,7 +78,7 @@ $$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{predic
             <div class="column vertical-middle text-center" style="width: 50%">
                 <p>Our ML projects must have a <b>purpose...</b></p>
                 <br>
-                <img src="{{ site.url }}/assets/media/images/people.jpg" alt="Risks" style="height: 460px">
+                <img src="{{ site.url }}/assets/media/images/people.jpg" alt="People" style="height: 460px">
             </div>
         </div>
     </div>

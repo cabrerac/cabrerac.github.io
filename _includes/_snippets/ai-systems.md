@@ -516,7 +516,7 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
             <div class="column vertical-top text-left" style="width: 30%">
             </div>
             <div class="column vertical-middle text-left" style="width: 70%">
-                <img src="{{ site.url }}/assets/media/images/maaco-algorithm.png" alt="ACO Smart City" style="height: 600px">
+                <img src="{{ site.url }}/assets/media/images/maaco-algorithm.png" alt="MAACO Algorithm" style="height: 600px">
             </div>
         </div>
     </div>
@@ -528,14 +528,14 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 30%">
-                <p>Selecting edge servers close to current and future user's location. We used two approaches that cluster historical trips and use these clusters to predict the next link in the user's path:</p>
+                <p>Selecting edge servers close to current and future users' location. We used two approaches that cluster historical trips and use these clusters to predict the next link in the user's path:</p>
                 <ul>
                     <li>Bayesian Classifier</li>
                     <li>Hidden Markov Model</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 70%">
-                <img src="{{ site.url }}/assets/media/images/maaco-algorithm.png" alt="ACO Smart City" style="height: 600px">
+                <img src="{{ site.url }}/assets/media/images/maaco-algorithm.png" alt="MAACO Algorithm" style="height: 600px">
             </div>
         </div>
     </div>

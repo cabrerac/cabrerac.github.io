@@ -48,7 +48,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 33%">
                 <p>
-                    Agents are limited because of the problems complexity. They should leverage <b>human knowledge</b> and emulate <b>human reasoning</b>.
+                    Agents are limited because of the problem's complexity. They should leverage <b>human knowledge</b> and emulate <b>human reasoning</b>.
                 </p>
                 <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/2/2d/LiewDIKrepresentation.png" alt="Data, Information, and Knowledge" style="width: 90%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
                 <div class="footnote">Data, Information, and Knowledge (Per Liew, 2007)</div>
@@ -81,7 +81,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 33%">
                 <p>
-                    Agents are limited because of the problems complexity. They should leverage <b>human knowledge</b> and emulate <b>human reasoning</b>.
+                    Agents are limited because of the problem's complexity. They should leverage <b>human knowledge</b> and emulate <b>human reasoning</b>.
                 </p>
                 <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/2/2d/LiewDIKrepresentation.png" alt="Data, Information, and Knowledge" style="width: 90%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
                 <div class="footnote">Data, Information, and Knowledge (Per Liew, 2007)</div>
@@ -123,7 +123,7 @@ $UI$: User Interface
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 33%">
                 <p>
-                    Agents are limited because of the problems complexity. They should leverage <b>human knowledge</b> and emulate <b>human reasoning</b>.
+                    Agents are limited because of the problem's complexity. They should leverage <b>human knowledge</b> and emulate <b>human reasoning</b>.
                 </p>
                 <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/2/2d/LiewDIKrepresentation.png" alt="Data, Information, and Knowledge" style="width: 90%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
                 <div class="footnote">Data, Information, and Knowledge (Per Liew, 2007)</div>
@@ -146,7 +146,7 @@ $UI$: User Interface
                 <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/8/88/Basic_RDF_Graph.svg" alt="Semantic Triple Model" style="width: 90%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
                 <div class="footnote">Basic Semantic Triple</div>
                 <p>
-                    <b>Rules</b> are if statements.</b>
+                    <b>Rules</b> are if statements.
                 </p>
             </div>
         </div>
@@ -221,9 +221,9 @@ $UI$: User Interface
     <div class="row" style="height: 20%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-bottom text-left" style="width: 50%">
-                <p><strong>Konwledge Base</strong></p>
+                <p><strong>Knowledge Base</strong></p>
                 <p><strong>Example:</strong> Medical diagnosis</p>
-                <p>The expert systems embodies medical knowledge</p>
+                <p>The expert system embodies medical knowledge</p>
             </div>
             <div class="column vertical-bottom text-left" style="width: 50%">
                 <p><strong>Forward Chaining (Data-Driven)</strong></p>
@@ -261,9 +261,9 @@ Facts: [muscle_pain, influenza]
     <div class="row" style="height: 35%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-bottom text-left" style="width: 50%">
-                <p><strong>Konwledge Base</strong></p>
+                <p><strong>Knowledge Base</strong></p>
                 <p><strong>Example:</strong> Medical diagnosis</p>
-                <p>The expert systems embodies medical knowledge</p>
+                <p>The expert system embodies medical knowledge</p>
             </div>
             <div class="column vertical-bottom text-left" style="width: 50%">
                 <p><strong>Backward Chaining (Goal-Driven)</strong></p>
@@ -308,7 +308,7 @@ Process:
                 <p><strong>DENDRAL (1960s)</strong></p>
                 <p>Identified unknown organic molecules using knowledge of chemistry</p>
                 <br>
-                <p><strong>MYCIN (Earlys 1970s)</strong></p>
+                <p><strong>MYCIN (Early 1970s)</strong></p>
                 <p>Supported bacterial infections diagnosis and treatment</p>
                 <br>
                 <p><strong>XCON/R1 (1982)</strong></p>
@@ -329,7 +329,7 @@ Process:
                 <p><strong>DENDRAL (1960s)</strong></p>
                 <p>Identified unknown organic molecules using knowledge of chemistry</p>
                 <br>
-                <p><strong>MYCIN (Earlys 1970s)</strong></p>
+                <p><strong>MYCIN (Early 1970s)</strong></p>
                 <p>Supported bacterial infections diagnosis and treatment</p>
                 <br>
                 <p><strong>XCON/R1 (1982)</strong></p>
@@ -402,7 +402,7 @@ Process:
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
             <img src="{{ site.url }}/assets/media/images/more-than-expert-the-sydney-morning-herald-1985.jpg" alt="Intelligence is more than experts (1985)" style="height: 520px">
-            <div class="footnote">Intelligence is More than Experts (The Sidney Morning Herald, 1985)</div>
+            <div class="footnote">Intelligence is More than Experts (The Sydney Morning Herald, 1985)</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
             <p><em>"In medicine, management, and the military — indeed in most of the world's work — the daily tasks are those requiring symbolic reasoning with detailed professional knowledge." (Feigenbaum, 1982)</em></p>
@@ -447,8 +447,8 @@ Process:
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-            <img src="{{ site.url }}/assets/media/images/kasparov-lost-angeles-times-1997.jpg" alt="Deep Blue defeats Kasparaov (1997)" style="height: 460px">
-            <div class="footnote">Deep Blue defeats Kasparaov (Los Angeles Times, 1997)</div>
+            <img src="{{ site.url }}/assets/media/images/kasparov-lost-angeles-times-1997.jpg" alt="Deep Blue defeats Kasparov (1997)" style="height: 460px">
+            <div class="footnote">Deep Blue defeats Kasparov (Los Angeles Times, 1997)</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
             <p><em>"In medicine, management, and the military — indeed in most of the world's work — the daily tasks are those requiring symbolic reasoning with detailed professional knowledge." (Feigenbaum, 1982)</em></p>

@@ -436,7 +436,7 @@ if response.status_code == 200:
                 <ul>
                     <li>The UK Price Paid data for housing in dates back to 1995 and contains millions of transactions</li>
                     <li>This database is available at <a href="https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads">gov.uk</a></li>
-                    <li>The total data is over 4 gigabytes in size and it is available in a single file or in multiple files splitted by years and semester</li>
+                    <li>The total data is over 4 gigabytes in size and it is available in a single file or in multiple files split by years and semester</li>
                     <li>The example downloads the data for the first semester of 2020</li>
                 </ul>
             </div>
@@ -465,7 +465,7 @@ if response.status_code == 200:
                 <ul>
                     <li>The UK Price Paid data for housing in dates back to 1995 and contains millions of transactions</li>
                     <li>This database is available at <a href="https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads">gov.uk</a></li>
-                    <li>The total data is over 4 gigabytes in size and it is available in a single file or in multiple files splitted by years and semester</li>
+                    <li>The total data is over 4 gigabytes in size and it is available in a single file or in multiple files split by years and semester</li>
                     <li>The example downloads the data for the first semester of 2020</li>
                 </ul>
             </div>
@@ -534,7 +534,7 @@ print(dataset.head())
                 <ul>
                     <li>OpenStreetMaps (OSM) is a collaborative project to create a free editable map of the world. <a href="https://www.openstreetmap.org/#map=14/1.21711/-77.26727">Explore OSM</a>.</li>
                     <li>OSM enables the creation of custom maps, geospatial analysis, and location-based services</li>
-                    <li>It is open sources and anyone can access it</li>
+                    <li>It is open source and anyone can access it</li>
                     <li>The data lacks the structure we are used to</li>
                     <li>We need to install the Python module first</li>
                 </ul>
@@ -676,10 +676,10 @@ merged_data.to_csv('price_paid_with_coordinates.csv', index=False)
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 30%">
-                <p><b>Web scrapping datasets</b></p>
+                <p><b>Web scraping datasets</b></p>
                 <ul>
                     <li>Get the text from web pages</li>
-                    <li>Operate as a web explorer programatically</li>
+                    <li>Operate as a web explorer programmatically</li>
                     <li>Parse the content, which can be unstructured</li>
                 </ul>
             </div>
@@ -695,10 +695,10 @@ merged_data.to_csv('price_paid_with_coordinates.csv', index=False)
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 30%">
-                <p><b>Web scrapping datasets</b></p>
+                <p><b>Web scraping datasets</b></p>
                 <ul>
                     <li>Get the text from web pages</li>
-                    <li>Operate as a web explorer programatically</li>
+                    <li>Operate as a web explorer programmatically</li>
                     <li>Parse the content, which can be unstructured</li>
                 </ul>
             </div>
@@ -738,7 +738,7 @@ except Exception as e:
                     <li>Mimics real-world variables and their relations</li>
                     <li>Randomised generation of features</li>
                     <li>Generation of target variables, representing feature relationships</li>
-                    <li>Relationships depend on experts domain knowledge</li>
+                    <li>Relationships depend on expert's domain knowledge</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 70%">
@@ -758,7 +758,7 @@ except Exception as e:
                     <li>Mimics real-world variables and their relations</li>
                     <li>Randomised generation of features</li>
                     <li>Generation of target variables, representing feature relationships</li>
-                    <li>Relationships depend on experts domain knowledge</li>
+                    <li>Relationships depend on expert's domain knowledge</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 70%">

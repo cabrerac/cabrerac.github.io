@@ -58,7 +58,7 @@
                 <div class="footnote">Perceptron Architecture.</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Large scale problems require we adapt the basis functions to the data.</b></p>
+                <p><b>Large scale problems require that we adapt the basis functions to the data.</b></p>
             </div>
         </div>
     </div>
@@ -74,7 +74,7 @@
                 <div class="footnote">Neural Network Architecture.</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Large scale problems require we adapt the basis functions to the data.</b></p>
+                <p><b>Large scale problems require that we adapt the basis functions to the data.</b></p>
             </div>
         </div>
     </div>
@@ -617,7 +617,7 @@ $$
 p(y \, | \, \mathbf{x}, \mathbf{w}) = \mathcal{N}(y \, | \, f'(\mathbf{x}, \mathbf{w}), \beta^{-1})
 $$                
 <br>where $\beta$ is the precision (i.e. inverse variance $\sigma^2$).
-<br>For a i.i.d. training set, the likelihood function corresponds to:
+<br>For an i.i.d. training set, the likelihood function corresponds to:
 $$
 p(\mathcal{Y} \, | \, \mathcal{X}, \mathbf{w}, \beta) = \prod_{n=1}^N \mathcal{N}(y_n \, | \, f'(\mathbf{x}_n, \mathbf{w}), \beta^{-1})
 $$
@@ -637,7 +637,7 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 50%">
                 <p><b>Training Process (regression problem):</b></p>
-<br>For a i.i.d. training set, the likelihood function corresponds to:
+<br>For an i.i.d. training set, the likelihood function corresponds to:
 $$
 p(\mathcal{Y} \, | \, \mathcal{X}, \mathbf{w}, \beta) = \prod_{n=1}^N \mathcal{N}(y_n \, | \, f'(\mathbf{x}_n, \mathbf{w}), \beta^{-1})
 $$
@@ -657,7 +657,7 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 50%">
                 <p><b>Training Process (regression problem):</b></p>
-<br>For a i.i.d. training set, the likelihood function corresponds to:
+<br>For an i.i.d. training set, the likelihood function corresponds to:
 $$
 p(\mathcal{Y} \, | \, \mathcal{X}, \mathbf{w}, \beta) = \prod_{n=1}^N \mathcal{N}(y_n \, | \, f'(\mathbf{x}_n, \mathbf{w}), \beta^{-1})
 $$
@@ -736,7 +736,7 @@ We use a single target variable $f'$ such that $f'=1$ denotes class 1 and $f'=0$
 $$
 p(t|\mathbf{x}, \mathbf{w}) = f'(\mathbf{x}, \mathbf{w})^t \{1 - f'(\mathbf{x}, \mathbf{w})\}^{1-t}
 $$
-For a i.i.d. training, the error function is the cross-entropy error:
+For an i.i.d. training, the error function is the cross-entropy error:
 $$
 E(\mathbf{w}) = - \sum_{n=1}^N \{ y_n \ln f'_n + (1-y_n) \ln (1-f'_n) \}
 $$
@@ -774,7 +774,7 @@ $$
                 <div class="footnote">Gradient Descent Algorithm - Jacopo Bertolotti, CC0, via Wikimedia Commons.</div>
             </div>
             <div class="column vertical-top text-left" style="width: 60%">
-                <p>We choose any starting point and then compute <b>an estimate of the gradient and move a small amount in the steepest downhill direction</b>, repeating until we converge on a point in the weight space with <em>(local)</em> minima loss.</p>
+                <p>We choose any starting point and then compute <b>an estimate of the gradient</b>. We then move a small amount in the steepest downhill direction, repeating until we converge on a point in the weight space with <em>(local)</em> minima loss.</p>
 <br>
 <pre><code>Gradient Descent Algorithm:
 Initialize w

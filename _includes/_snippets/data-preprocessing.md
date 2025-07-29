@@ -32,7 +32,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Featuring Scaling</b></p>
+                <p><b>Feature Scaling</b></p>
                 <p>Transforming numerical features to a common scale</p>
                 <ul>
                     <li>All features contribute equally to the model</li>
@@ -52,8 +52,8 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Featuring Scaling</b></p>
-                <p>Standarisation (Z-score): Centers data around 0 with unit variance</p>
+                <p><b>Feature Scaling</b></p>
+                <p>Standardisation (Z-score): Centers data around 0 with unit variance</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
 $$
@@ -98,7 +98,7 @@ $σ$: dataset standard deviation
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Featuring Scaling</b></p>
+                <p><b>Feature Scaling</b></p>
                 <p>Min-Max scaling: Scales data to a fixed range [0,1]</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">

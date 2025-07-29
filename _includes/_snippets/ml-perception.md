@@ -120,7 +120,7 @@
             <div class="column vertical-middle text-left" style="width: 50%">    
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Geoffrey_E._Hinton%2C_2024_Nobel_Prize_Laureate_in_Physics_%28cropped1%29.jpg" alt="Musk" style="height: 460px">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Geoffrey_E._Hinton%2C_2024_Nobel_Prize_Laureate_in_Physics_%28cropped1%29.jpg" alt="Geoffrey Hinton" style="height: 460px">
                 <div class="footnote">NOBEL Prizes Ceremony 2024: Arthur Petron, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
         </div>
@@ -136,7 +136,7 @@
                 <p><em>"We should stop training radiologists now. It’s just completely obvious that within five years, deep learning is going to do better than radiologists."</em> <b>(Hinton, 2016)</b></p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Geoffrey_E._Hinton%2C_2024_Nobel_Prize_Laureate_in_Physics_%28cropped1%29.jpg" alt="Musk" style="height: 460px">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Geoffrey_E._Hinton%2C_2024_Nobel_Prize_Laureate_in_Physics_%28cropped1%29.jpg" alt="Geoffrey Hinton" style="height: 460px">
                 <div class="footnote">NOBEL Prizes Ceremony 2024: Arthur Petron, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
         </div>
@@ -181,7 +181,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">    
-                <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Demis_Hassabis%2C_2024_Nobel_Prize_Laureate_in_Chemistry_%28cropped%29.jpg" alt="Musk" style="height: 460px">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Demis_Hassabis%2C_2024_Nobel_Prize_Laureate_in_Chemistry_%28cropped%29.jpg" alt="Demis Hassabis" style="height: 460px">
                 <div class="footnote">NOBEL Prizes Ceremony 2024: Arthur Petron, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -198,13 +198,13 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">    
-                <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Demis_Hassabis%2C_2024_Nobel_Prize_Laureate_in_Chemistry_%28cropped%29.jpg" alt="Musk" style="height: 460px">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Demis_Hassabis%2C_2024_Nobel_Prize_Laureate_in_Chemistry_%28cropped%29.jpg" alt="Demis Hassabis" style="height: 460px">
                 <div class="footnote">NOBEL Prizes Ceremony 2024: Arthur Petron, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><em>"... step 1: solving intelligence, step 2: use it to solve everything else..."</em> <b>(Hassabis, 2025)</b></p>
                 <br>
-                <p><em>"Artificial General Intelligence (AGI) will emerge in the next fiver or 10 years."</em> <b>(Hassabis, 2025)</b></p>
+                <p><em>"Artificial General Intelligence (AGI) will emerge in the next five or 10 years."</em> <b>(Hassabis, 2025)</b></p>
             </div>
         </div>
     </div>
@@ -223,7 +223,7 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><em>"... step 1: solving intelligence, step 2: use it to solve everything else..."</em> <b>(Hassabis, 2025)</b></p>
                 <br>
-                <p><em>"Artificial General Intelligence (AGI) will emerge in the next fiver or 10 years."</em> <b>(Hassabis, 2025)</b></p>
+                <p><em>"Artificial General Intelligence (AGI) will emerge in the next five or 10 years."</em> <b>(Hassabis, 2025)</b></p>
             </div>
         </div>
     </div>
@@ -235,7 +235,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">    
-                <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Demis_Hassabis%2C_2024_Nobel_Prize_Laureate_in_Chemistry_%28cropped%29.jpg" alt="Musk" style="height: 460px">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Demis_Hassabis%2C_2024_Nobel_Prize_Laureate_in_Chemistry_%28cropped%29.jpg" alt="Demis Hassabis" style="height: 460px">
                 <div class="footnote">NOBEL Prizes Ceremony 2024: Arthur Petron, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -250,7 +250,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">    
-                <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Demis_Hassabis%2C_2024_Nobel_Prize_Laureate_in_Chemistry_%28cropped%29.jpg" alt="Musk" style="height: 460px">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Demis_Hassabis%2C_2024_Nobel_Prize_Laureate_in_Chemistry_%28cropped%29.jpg" alt="Demis Hassabis" style="height: 460px">
                 <div class="footnote">NOBEL Prizes Ceremony 2024: Arthur Petron, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">

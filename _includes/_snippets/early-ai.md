@@ -158,7 +158,7 @@ $G$: set of goal states
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/search-problem-instance-uninf.svg" alt="Maze navigation search problem" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/search-problem-instance-uninf.svg" alt="Search problem instance for uninformed algorithms" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
             </div>
@@ -172,7 +172,7 @@ $G$: set of goal states
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/search-problem-instance-uninf.svg" alt="Maze navigation search problem" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/search-problem-instance-uninf.svg" alt="Search problem instance for uninformed algorithms" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/non-informed-search.svg" alt="Non-informed search algorithms comparison" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
@@ -187,7 +187,7 @@ $G$: set of goal states
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/search-problem-instance-inf.svg" alt="Maze navigation search problem" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/search-problem-instance-inf.svg" alt="Search problem instance for informed algorithms" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
             </div>
@@ -345,7 +345,7 @@ $G$: set of goal states
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-            <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/combinatorial-explosion.svg" alt="Maze navigation search problem" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+            <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/combinatorial-explosion.svg" alt="Combinatorial explosion diagram" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
             <p>Computing power, algorithms, and data were insufficient to solve real-world problems.</p>
@@ -364,7 +364,7 @@ $G$: set of goal states
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-            <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/growth-comparison.svg" alt="Maze navigation search problem" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+            <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/growth-comparison.svg" alt="Growth comparison diagram" style="width: 100%; margin-top: 1.0em; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
             <p>Computing power, algorithms, and data were insufficient to solve real-world problems.</p>

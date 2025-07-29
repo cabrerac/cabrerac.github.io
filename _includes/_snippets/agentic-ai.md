@@ -33,7 +33,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/chat-dev.png" alt="Chat Dev" style="height: 500px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/chat-dev.png" alt="ChatDev Software Development" style="height: 500px">
                 <div class="footnote"><a href="https://arxiv.org/pdf/2307.07924">ChatDev: Communicative Agents for Software Development - (Qian et al, 2024)</a></div>
             </div>
         </div>
@@ -95,11 +95,11 @@
             <ul>
                 <li>Complex decision making processes</li>
                 <li>Uncertainty management</li>
-                <li>Agents coordination and scalability</li>
+                <li>Agent coordination and scalability</li>
                 <li>Algorithms robustness in dynamic environments</li>
                 <li>Decision-making guarantees</li>
                 <li>Control theory</li>
-                <li>Social-impact</li>
+                <li>Social impact</li>
                 <li>...</li>
             </ul>
             <p>The inclusion of LLM-based agents exacerbates some of these challenges.</p>
@@ -114,7 +114,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/chat-dev.png" alt="Chat Dev" style="height: 500px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/chat-dev.png" alt="ChatDev Software Development" style="height: 500px">
                 <div class="footnote"><a href="https://arxiv.org/pdf/2307.07924">ChatDev: Communicative Agents for Software Development - (Qian et al, 2024)</a></div>
             </div>
         </div>

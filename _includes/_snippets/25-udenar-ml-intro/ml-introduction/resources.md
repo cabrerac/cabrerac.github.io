@@ -7,7 +7,8 @@
 #### Books  
 
 - Russell, S. and Norvig, P. (2010). Artificial Intelligence: A Modern Approach 3rd ed. Prentice Hall
-- [Deisenroth M. P. et. al. (2020). Mathematics for Machine Learning](https://mml-book.github.io/)  
+- [Deisenroth M. P. et al. (2020). Mathematics for Machine Learning](https://mml-book.github.io/)  
+<br>
 <br>
 #### Papers and Reports  
 
@@ -17,12 +18,12 @@
 - [Feigenbaum E. A. (1980). Expert Systems in the 1980s](https://stacks.stanford.edu/file/druid:vf069sz9374/vf069sz9374.pdf)
 - [Vol. 117, No. 1, Winter, 1988, Artificial Intelligence](https://www.jstor.org/stable/i20025133)
 - [Hart P. (2021). An Artificial Intelligence Odyssey: From the Research Lab to the Real World](https://ieeexplore.ieee.org/abstract/document/9423541)
-- [Shumailov I. et. al. (2024). AI Models Collapse when Trained on Recursively Generated Data](https://www.nature.com/articles/s41586-024-07566-y)  
+- [Shumailov I. et al. (2024). AI Models Collapse when Trained on Recursively Generated Data](https://www.nature.com/articles/s41586-024-07566-y)  
 - [Murugesh V. (2025). A Novel Hybrid Framework for Efficient Higher Order ODE Solvers Using Neural Networks and Block Methods ](https://www.nature.com/articles/s41598-025-90556-5)
 <br>
 #### Talks  
 
 - [Geoffrey Hinton Lecture at Cambridge (2023)](https://www.youtube.com/watch?v=rGgGOccMEiY)
-- [Demmis Hassabis Lecture at Cambridge (2025)](https://www.youtube.com/watch?v=hHooQmmzG4k)
+- [Demis Hassabis Lecture at Cambridge (2023)](https://www.youtube.com/watch?v=hHooQmmzG4k)
 
 <!-- end RENDER: -->

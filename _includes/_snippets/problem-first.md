@@ -41,7 +41,7 @@
                 <ul>
                     <li><b>What are the people's needs?</b></li>
                     <li><b>Why is the problem important?</b></li>
-                    <li>Why are the problem constraints?</li>
+                    <li>What are the problem constraints?</li>
                     <li>What are the important variables to consider?</li>
                     <li>What are the relevant metrics?</li>
                     <li>What is the data we need?</li>

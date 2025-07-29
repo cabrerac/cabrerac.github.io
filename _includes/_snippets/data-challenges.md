@@ -97,7 +97,7 @@ $$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{predic
             <p><b>Data Usability</b></p>
                 <p>ML Models require data in a specific format</p>
                 <ul>
-                    <li>Structured vs Non structured data</li>
+                    <li>Structured vs Non-structured data</li>
                     <li>Sparse data</li>
                     <li>Legal regulations and privacy</li>
                     <li>Storage technologies</li>

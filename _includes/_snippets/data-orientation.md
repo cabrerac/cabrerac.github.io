@@ -23,7 +23,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/soa-system.png" alt="SOA ARchitecture" style="height: 400px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/soa-system.png" alt="SOA Architecture" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Focus on Operations</b></p>

@@ -191,7 +191,7 @@ $$
 w^* = \underset{w}{\arg\min} \; \sum_{i=1}^n (y_i - h_w(x_i))^2
 $$
 <br>
-<p>We know that the the loss is minimised when its partial derivatives with respect to <em><b>w<sub>0</sub></b></em> and <em><b>w<sub>1</sub></b></em> are zero.</p>
+<p>We know that the loss is minimised when its partial derivatives with respect to <em><b>w<sub>0</sub></b></em> and <em><b>w<sub>1</sub></b></em> are zero.</p>
 <br>
 $$
 \frac{\partial \text{Loss}(h_w)}{\partial w_0} = 0 \; ; \; \frac{\partial \text{Loss}(h_w)}{\partial w_1} = 0
@@ -207,7 +207,7 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<p>We know that the the loss is minimised when its partial derivatives with respect to <em><b>w<sub>0</sub></b></em> and <em><b>w<sub>1</sub></b></em> are zero.</p>
+<p>We know that the loss is minimised when its partial derivatives with respect to <em><b>w<sub>0</sub></b></em> and <em><b>w<sub>1</sub></b></em> are zero.</p>
 <br>
 $$
 \frac{\partial \text{Loss}(h_w)}{\partial w_0} = 0 \; ; \; \frac{\partial \text{Loss}(h_w)}{\partial w_1} = 0
@@ -228,7 +228,7 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<p>We know that the the loss is minimised when its partial derivatives with respect to <em><b>w<sub>0</sub></b></em> and <em><b>w<sub>1</sub></b></em> are zero.</p>
+<p>We know that the loss is minimised when its partial derivatives with respect to <em><b>w<sub>0</sub></b></em> and <em><b>w<sub>1</sub></b></em> are zero.</p>
 <br>
 $$
 \frac{\partial \text{Loss}(h_w)}{\partial w_0} = 0 \; ; \; \frac{\partial \text{Loss}(h_w)}{\partial w_1} = 0

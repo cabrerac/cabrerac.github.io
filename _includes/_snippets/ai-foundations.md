@@ -20,7 +20,7 @@
   <span style="font-size: 1.2em; color: #0e73b8;">Ethics</span>
   <span style="font-size: 1.4em; color: #224466;">Probability</span>
   <span style="font-size: 1.2em; color: #0e73b8;">Statistics</span>
-  <span style="font-size: 1.4em; color: #224466;">Optimization</span>
+  <span style="font-size: 1.4em; color: #224466;">Optimisation</span>
   <span style="font-size: 1.2em; color: #0e73b8;">Graph theory</span>
   <span style="font-size: 1.4em; color: #224466;">Decision theory</span>
   <span style="font-size: 1.2em; color: #0e73b8;">Game theory</span>
@@ -973,7 +973,7 @@ img[src=""], img[src="#"] {
       <source src="{{ site.url }}/assets/media/videos/bombe.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-    <div class="footnote">The Bombe, Bletchley Park (Alan Turing, 1939)</div>
+    <div class="footnote">The Bombe (Turing & Welchman, 1939)</div>
   </div>
 </div>
 
@@ -987,7 +987,7 @@ img[src=""], img[src="#"] {
             <div class="footnote">Bletchley Park: https://en.wikipedia.org/wiki/Bletchley_Park</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-            <p>Almost ten thousand personnel worked at Bletchley park by 1945.</p>
+            <p>Almost ten thousand personnel worked at Bletchley Park by 1945.</p>
             </div>
         </div>
     </div>
@@ -1003,7 +1003,7 @@ img[src=""], img[src="#"] {
             <div class="footnote">Bletchley Park - Codebreakers: https://en.wikipedia.org/wiki/Bletchley_Park</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-            <p>Almost ten thousand personnel worked at Bletchley park by 1945.</p>
+            <p>Almost ten thousand personnel worked at Bletchley Park by 1945.</p>
             </div>
         </div>
     </div>
@@ -1016,10 +1016,10 @@ img[src=""], img[src="#"] {
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
             <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Colossus.jpg" alt="The Colossus" style="height: auto; max-width: 95%;">
-            <div class="footnote">Bletchley Park - The Colossus: https://en.wikipedia.org/wiki/Bletchley_Park</div>
+            <div class="footnote">The Colossus Computer (Tommy Flowers, 1943-1944): https://en.wikipedia.org/wiki/Colossus_computer</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-            <p>Almost ten thousand personnel worked at Bletchley park by 1945.</p>
+            <p>Almost ten thousand personnel worked at Bletchley Park by 1945.</p>
             </div>
         </div>
     </div>

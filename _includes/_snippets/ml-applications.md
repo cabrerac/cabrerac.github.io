@@ -16,7 +16,7 @@
                     <li>Facial Recognition</li>
                     <li>Language Translation</li>
                     <li>Fraud Detection</li>
-                    <li>Personalized Marketing</li>
+                    <li>Personalised Marketing</li>
                     <li>Gaming</li>
                     <li>...</li>
                 </ul>
@@ -41,7 +41,7 @@
                     <li>Early diagnosis and personalised medicine</li>
                     <li>Drug discovery</li>
                     <li>Climate change solutions</li>
-                    <li>Personalized learning</li>
+                    <li>Personalised learning</li>
                     <li>Accelerating science</li>
                     <li>Productivity boost, automation</li>
                     <li>Smart homes, cities, etc.</li>

@@ -1,18 +1,18 @@
 <!-- SLIDES: -->
 
-## Cross Validation
+## Cross-validation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <p>Cross validation is a technique for <b>assessing model performance</b> and preventing overfitting by evaluating the model on unseen data.</p>
+                <p>Cross-validation is a technique for <b>assessing model performance</b> and preventing overfitting by evaluating the model on unseen data.</p>
             </div>
         </div>
     </div>
 </div>
 
-## Cross Validation
+## Cross-validation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -27,14 +27,14 @@
     </div>
 </div>
 
-## Cross Validation
+## Cross-validation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 50%">
                 <br>
-                <p><b>K-Fold Cross Validation</b> divides the dataset into K equal parts:</p>
+                <p><b>K-Fold Cross-validation</b> divides the dataset into K equal parts:</p>
 
 ```python
 for (int k = 1; k <= K; k++) {
@@ -53,14 +53,14 @@ calculateAveragePerformance(K);
     </div>
 </div>
 
-## Cross Validation
+## Cross-validation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 50%">
                 <br>
-                <p><b>K-Fold Cross Validation</b> divides the dataset into K equal parts:</p>
+                <p><b>K-Fold Cross-validation</b> divides the dataset into K equal parts:</p>
 
 ```python
 for (int k = 1; k <= K; k++) {
@@ -84,14 +84,14 @@ Where $\text{Loss}_k(\mathbf{w})$ is the loss on fold $k$ when training on all o
     </div>
 </div>
 
-## Cross Validation
+## Cross-validation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 50%">
                 <br>
-                <p><b>Leave-One-Out Cross Validation (LOOCV)</b> is a special case where K = N:</p>
+                <p><b>Leave-One-Out Cross-validation (LOOCV)</b> is a special case where K = N:</p>
 $$
 \text{LOOCV}(\mathbf{w}) = \frac{1}{N}\sum_{i=1}^N (y_i - \mathbf{w}_{-i}^T\mathbf{x}_i)^2
 $$

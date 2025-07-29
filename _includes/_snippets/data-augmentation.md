@@ -123,7 +123,7 @@ def augment_image(img, angle_range=(-15, 15)):
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p>Increasing the size of our dataset to improve model generalisation</p>
                 <ul>
-                    <li>Interpolating between existing datapoints</li>
+                    <li>Interpolating between existing data points</li>
                     <li>Applying domain-specific transformations</li>
                     <li>Generating synthetic data using GANs</li>
                     <li>...</li>
@@ -146,7 +146,7 @@ def numerical_smote(data, k=5):
     for i in range(len(data)):
         uniq_values = np.unique(data[data != data[i]])
         dists = np.abs(uniq_values - data[i])
-        k_neigs = unique_values[np.argsort(dists)[:k]]
+        k_neigs = uniq_values[np.argsort(dists)[:k]]
         for neig in k_neigs:
             sample = data[i] + np.random.random() * (neig - data[i])
             aug_data.append(sample)
@@ -154,7 +154,7 @@ def numerical_smote(data, k=5):
 ```
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>SMOTE (Synthtetic Minority Over-sampling Technique)</p>
+                <p>SMOTE (Synthetic Minority Over-sampling Technique)</p>
                 <ul>
                     <li>Using the k-nearest neighbours</li>
                     <li>Interpolation between the original data point and the neighbour</li>

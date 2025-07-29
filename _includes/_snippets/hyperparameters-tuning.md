@@ -1,8 +1,8 @@
 <!-- SLIDES: -->
 
-## Hyperparameters Tuning
+## Hyperparameter Tuning
 
-## Hyperparameters Tuning
+## Hyperparameter Tuning
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -14,7 +14,7 @@
     </div>
 </div>
 
-## Hyperparameters Tuning
+## Hyperparameter Tuning
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -30,7 +30,7 @@
     </div>
 </div>
 
-## Hyperparameters Tuning
+## Hyperparameter Tuning
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -54,7 +54,7 @@
     </div>
 </div>
 
-## Hyperparameters Tuning
+## Hyperparameter Tuning
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -79,7 +79,7 @@
     </div>
 </div>
 
-## Hyperparameters Tuning
+## Hyperparameter Tuning
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 20%">
@@ -97,7 +97,7 @@
     </div>
 </div>
 
-## Hyperparameters Tuning
+## Hyperparameter Tuning
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 20%">

@@ -33,7 +33,7 @@ visible: true
 ---
 
 ## Resources  
-<br>
+
 #### Books
 
 - [Kleppmann, M. (2017). Designing Data-Intensive Applications. O'Reilly Media](https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/)
@@ -48,7 +48,6 @@ visible: true
 - [Cabrera, C., et al. (2022). MAACO: A Dynamic Service Placement Model for Smart Cities](https://ieeexplore.ieee.org/abstract/document/9681330)
 - [Cabrera, C., et al. (2023). Machine Learning Systems: A survey from a Data-Oriented Perspective](https://arxiv.org/abs/2302.04810)
 - [Cabrera, C., et al. (2025). The Systems Engineering approach in times of Large Language Models](https://scholarspace.manoa.hawaii.edu/items/ccd98c8b-bb61-4a86-9cd4-4719078d028f)
-<br>
 <br>
 #### Web
 

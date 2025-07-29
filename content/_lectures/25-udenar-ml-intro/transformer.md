@@ -47,7 +47,6 @@ visible: true
 - [Paleyes. (2025). LLM Performance for Code Generation on Noisy Tasks](https://arxiv.org/abs/2505.23598)
 - [Sendyka. (2025). Prompt Variability Effects On LLM Code Generation](https://arxiv.org/abs/2506.10204)
 <br>
-<br>
 
 #### Web
 - [But what is a GPT? Visual intro to Transformers](https://www.3blue1brown.com/lessons/gpt)

@@ -23,7 +23,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Large and complex datasets</b> that improve model's statistical power
+                <p><b>Large and complex datasets</b> that improve models' statistical power
                 <ul>
                     <li>Social Networks</li>
                     <li>Mobile Computing</li>

@@ -11,7 +11,8 @@
 - [Lawrence N. D. (2017) Data Readiness Levels](https://arxiv.org/abs/1705.02245)
 - [Taherdoost H. (2021) Data Collection Methods and Tools for Research; A Step-by-Step Guide to Choose Data Collection Technique for Academic and Business Research Projects](https://hal.science/Hal-03741847/)
 - [Boda Bodas and Road Traffic Injuries in Uganda: An Overview of Traffic Safety Trends from 2009 to 2017](https://pmc.ncbi.nlm.nih.gov/articles/PMC7143574/)
- 
+<br>
+<br>
 #### Web
 
 - [The Data Dichotomy: Rethinking the way we Treat Data and Services](https://www.confluent.io/blog/data-dichotomy-rethinking-the-way-we-treat-data-and-services/)

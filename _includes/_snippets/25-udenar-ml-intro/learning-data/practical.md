@@ -154,7 +154,7 @@ We use the ANOVA test to compare the distributions of the original and augmented
 
 H0 - The original and augmented target variables are not statistically significantly different.
 
-H1 - The original and augmented target variables are stastistically significantly different.
+H1 - The original and augmented target variables are statistically significantly different.
 
 ```python
 from scipy.stats import f_oneway

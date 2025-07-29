@@ -13,7 +13,7 @@
                 <li>You can ask questions at any moment</li>
                 <li>Participation is key</li>
                 <li>You will have (small) homework after each session</li>
-                <li>Contact by email: <a href="chc79@cam.ac.uk" style="color: var(--accent-color);">chc79@cam.ac.uk</a></li>
+                <li>Contact by email: <a href="mailto:chc79@cam.ac.uk" style="color: var(--accent-color);">chc79@cam.ac.uk</a></li>
             </ul>
             </div>
         </div>

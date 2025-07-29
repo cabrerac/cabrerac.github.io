@@ -87,7 +87,7 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 50%">
                 <br>
-                <p>The optimal hypothesis is the one that minimizes the loss function:</p>
+                <p>The optimal hypothesis is the one that minimises the loss function:</p>
                 <br>
 $$
 h^* = \underset{h \in H}{\arg\min} \; \text{Loss}(h)
@@ -122,7 +122,7 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 50%">
                 <br>
-                <p>The optimal hypothesis is the one that minimizes the loss function:</p>
+                <p>The optimal hypothesis is the one that minimises the loss function:</p>
                 <br>
 $$
 h^* = \underset{h \in H}{\arg\min} \; \text{Loss}(h)
@@ -277,7 +277,7 @@ $$
 <br>Where $H$ is the hypothesis space.
 <br>
 $$
-\mathbf{w}^* = \underset{\mathbf{w}}{\arg\min} \; (y -  \sigma(\mathbf{w} \cdot \mathbf{x}))^2
+\mathbf{w}^* = \underset{\mathbf{w}}{\arg\min} \; (y - \sigma(\mathbf{w} \cdot \mathbf{x}))^2
 $$
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">

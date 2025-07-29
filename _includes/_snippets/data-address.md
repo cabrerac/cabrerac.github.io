@@ -75,7 +75,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>The parameters of Machine Learning models are adjusted according to the <b>training data</b> (i.e., seen data). For example, when training a model to predict house prices, the training data would include features like square footage, number of bedrooms, and location, along with their actual sale prices. <b>The training data is a vector of attribute values.</b></p>
+                <p>The parameters of Machine Learning models are adjusted according to the <b>training data</b> (i.e., seen data). For example, when training a model to predict house prices, the training data would include features like square footage, number of bedrooms, and location, along with their actual sale prices. <b>The training data consists of vectors of attribute values.</b></p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/diagrams/training-process.svg" alt="Training Process" style="height: 500px">
@@ -105,7 +105,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>Predictions can deviate from the expected values. Prediction errors are quantified by a <b>loss function</b> that indicates the algorithm how far is the prediction from the target value. This difference is used to update the machine learning model's internal parameters to minimise the prediction errors. Common examples include Mean Squared Error for regression problems and Cross-Entropy for classification problems.</p>
+                <p>Predictions can deviate from the expected values. Prediction errors are quantified by a <b>loss function</b> that indicates to the algorithm how far the prediction is from the target value. This difference is used to update the machine learning model's internal parameters to minimise the prediction errors. Common examples include Mean Squared Error for regression problems and Cross-Entropy for classification problems.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/diagrams/training-process.svg" alt="Training Process" style="height: 500px">

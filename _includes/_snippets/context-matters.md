@@ -203,7 +203,7 @@
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/context-3.png" alt="AI Puzzle" style="height: 300px">
             </div>
             <div class="column vertical-middle text-left" style="width: 20%">
-                <p>Resources Limitation</p>
+                <p>Resource Limitations</p>
                 <p><b>(Low budget)</b></p>
             </div>
         </div>
@@ -253,7 +253,7 @@
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/context-3.png" alt="AI Puzzle" style="height: 300px">
             </div>
             <div class="column vertical-middle text-left" style="width: 20%">
-                <p>Resources Limitation</p>
+                <p>Resource Limitations</p>
                 <p><b>(Low budget)</b></p>
             </div>
         </div>
@@ -307,7 +307,7 @@
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/context-3.png" alt="AI Puzzle" style="height: 300px">
             </div>
             <div class="column vertical-middle text-left" style="width: 20%">
-                <p>Resources Limitation</p>
+                <p>Resource Limitations</p>
                 <p><b>(Low budget)</b></p>
             </div>
         </div>

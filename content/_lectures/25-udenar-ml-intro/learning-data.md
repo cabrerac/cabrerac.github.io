@@ -40,7 +40,7 @@ visible: true
 - Bishop, C. (2009). Pattern Recognition and Machine Learning - Chapter 3. Springer
 - [Deisenroth M. P. et. al. (2020). Mathematics for Machine Learning - Chapter 9](https://mml-book.github.io/)  
 <br>
-
+<br>
 #### Web
 
 - [SciPy Statistical Significance Tests](https://www.w3schools.com/python/scipy/scipy_statistical_significance_tests.php)

@@ -154,7 +154,7 @@ mean_imputer = SimpleImputer(strategy='mean')
 titanic_data['Age_Mean'] = mean_imputer.fit_transform(titanic_data[['Age']])
 ```
 
-Median imputation: Replaces missing values with the meadian of the respective feature:
+Median imputation: Replaces missing values with the median of the respective feature:
    - Pros: More robust to outliers than mean
    - Cons: Still reduces variance
 
@@ -1079,4 +1079,4 @@ The homework assignment will help you apply the data quality techniques we've le
 - [Dimensionality Reduction](https://scikit-learn.org/stable/api/sklearn.decomposition.html)
 - [TensorFlow Data Validation](https://www.tensorflow.org/tfx/guide/tfdv)
 
-<!-- end NOTEBOOK: --> 
+<!-- end NOTEBOOK: -->

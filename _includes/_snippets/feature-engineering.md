@@ -84,7 +84,7 @@ data['AgeGroup'] = pd.cut(data['Age'],
                 <p>Selecting the most important features in our data reduces dimensionality, prevents overfitting, improves interpretability, and reduces training time</p>
                 <ul>
                     <li>Correlation Matrix with Heatmap</li>
-                    <li>Decisions Trees</li>
+                    <li>Decision Trees</li>
                     <li>Principal Component Analysis (PCA)</li>
                     <li>...</li>
     </div>
@@ -102,7 +102,7 @@ data['AgeGroup'] = pd.cut(data['Age'],
                 <p>Selecting the most important features in our data reduces dimensionality, prevents overfitting, improves interpretability, and reduces training time</p>
                 <ul>
                     <li>Correlation Matrix with Heatmap</li>
-                    <li>Decisions Trees</li>
+                    <li>Decision Trees</li>
                     <li>Principal Component Analysis (PCA)</li>
                     <li>...</li>
     </div>
@@ -218,7 +218,7 @@ from sklearn.decomposition import PCA
 pca = PCA()
 X_pca_transformed = pca.fit_transform(X_scaled)
 explained_variance = pca.explained_variance_ratio_
-cumulative_variance = np.cumsum(explained_variance_ratio)
+cumulative_variance = np.cumsum(explained_variance)
 ```
 </div>
     </div>
@@ -239,7 +239,7 @@ from sklearn.decomposition import PCA
 pca = PCA()
 X_pca_transformed = pca.fit_transform(X_scaled)
 explained_variance = pca.explained_variance_ratio_
-cumulative_variance = np.cumsum(explained_variance_ratio)
+cumulative_variance = np.cumsum(explained_variance)
 ```
 </div>
     </div>

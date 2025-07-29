@@ -33,7 +33,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Missing Values</b></p>
-                <p>Missing datapoints in the dataset</p>
+                <p>Missing data points in the dataset</p>
                 <ul>
                     <li>Data collection errors</li>
                     <li>System failures</li>
@@ -54,7 +54,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Missing Values</b></p>
-                <p>Missing datapoints in the dataset</p>
+                <p>Missing data points in the dataset</p>
                 <ul>
                     <li>Data collection errors</li>
                     <li>System failures</li>
@@ -76,7 +76,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Missing Values</b></p>
-                <p>Missing datapoints in the dataset</p>
+                <p>Missing data points in the dataset</p>
                 <ul>
                     <li>Deletion: Remove rows or columns with missing values</li>
                     <li>Imputation: Fill missing values with estimated values</li>
