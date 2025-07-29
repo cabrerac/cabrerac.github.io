@@ -7,6 +7,30 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/context-people.png" alt="Context People" style="height: 500px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Conclusions
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/context-3.png" alt="AI Puzzle" style="height: 400px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Conclusions
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
             <h3>Overview</h3>
             <ul>
@@ -16,7 +40,7 @@
                 <li>ML Objective Definition</li>
                 <li>Context Matters</li>
                 <li>DSA Example</li>
-                <li>ML Adoption Process</li>
+                <li>Sercice Placement Example</li>
             </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -39,12 +63,13 @@
                 <li>ML Objective Definition</li>
                 <li>Context Matters</li>
                 <li>DSA Example</li>
-                <li>ML Adoption Process</li>
+                <li>Sercice Placement Example</li>
             </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
             <h3>Next Time</h3>
             <ul>
+                <li>ML Adoption Process</li>
                 <li>Problem First</li>
                 <li>The Data Science Process</li>
                 <li>Data Orientation</li>

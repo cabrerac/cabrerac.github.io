@@ -78,17 +78,19 @@ visible: false
 
 <!-- SLIDES: -->
 
-# Data Science Africa (DSA)
+# Example 1
 
 <!-- end SLIDES: -->
 
 {% include _snippets/dsa-example.md %}
 
-# The ML Adoption Process
+<!-- SLIDES: -->
+
+# Example 2
 
 <!-- end SLIDES: -->
 
-{% include _snippets/adoption_process.md %}
+{% include _snippets/service-placement-problem.md %}
 
 <!-- SLIDES: -->
 

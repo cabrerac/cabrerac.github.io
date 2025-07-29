@@ -10,7 +10,7 @@
             <div class="column vertical-middle text-left" style="width: 50%">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/ai-puzzle.png" alt="AI Puzzle" style="height: 200px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/adoption-1.svg" alt="AI Puzzle" style="height: 200px">
             </div>
         </div>
     </div>
@@ -25,7 +25,7 @@
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/single-model.png" alt="Single Model" style="height: 200px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/ai-puzzle.png" alt="AI Puzzle" style="height: 200px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/adoption-1.svg" alt="AI Puzzle" style="height: 200px">
             </div>
         </div>
     </div>
@@ -40,7 +40,7 @@
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/single-model.png" alt="Single Model" style="height: 200px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="https://imgs.xkcd.com/comics/machine_learning.png" alt="AI Puzzle" style="height: 500px">
+                <img class="external-svg" src="https://imgs.xkcd.com/comics/machine_learning.png" alt="ML System?" style="height: 500px">
                 <div class="footnote">https://xkcd.com/1838/, CC BY-NC 2.5 <https://creativecommons.org/licenses/by-nc/2.5/>, via XKCD</div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 ---
 course_code: 25-symposium-ml-deploy
-title: Data-Orientation
-description: This lecture will start looking into the data dimension of the ML concept and will emphasise on the importance of data-orientation. We first define the concept of data, the associated challenges, and provide examples of data collection processes. We then define a data science methodology to iteratively build the datasets that will feed our machine learning models. This lecture explores the first step of this methodology, "data access".
+title: ML Adoption
+description: This lecture will start looking into the adoption process of ML technologies. The goal is to design ML-based systems that align with our socio-technical systems and their stakeholders, while ensuring its careful development and safe deployment. To this end, we introduce simple but powerful methodologies for designing and developing ML-based systems.
 session: 2
 start_time: 8:00 am
 end_time: 09:30 am
@@ -12,9 +12,9 @@ position: Senior Research Associate and Affiliated Lecturer
 department: Department of Computer Science and Technology
 institution: University of Cambridge
 layout: lecture
-lecture_code: data-orientation
-lecture_date: 30/07/2025
-permalink: /teaching/25-symposium-ml-deploy/data-orientation/
+lecture_code: ml-adoption
+lecture_date: 31/07/2025
+permalink: /teaching/25-symposium-ml-deploy/ml-adoption/
 visible: false
 ---
 
@@ -28,29 +28,29 @@ visible: false
 
 <!-- SLIDES: -->
 
-# The ML Context
+# Last Time
 
 <!-- end SLIDES: -->
 
-{% include _snippets/ai-history.md %}
+{% include _snippets/25-symposium-ml-deploy/ml-adoption/last-time.md %}
 
 <!-- SLIDES: -->
 
-# ML Today
+# The ML Adoption Process
 
 <!-- end SLIDES: -->
 
-{% include _snippets/ml-applications.md %}
-
-{% include _snippets/ml-perception.md %}
+{% include _snippets/adoption_process.md %}
 
 <!-- SLIDES: -->
 
-# ML Definition
+# The Problem First
 
 <!-- end SLIDES: -->
 
-{% include _snippets/ml-objective.md %}
+{% include _snippets/problem-first.md %}
+
+{% include _snippets/sys-eng-approach.md %}
 
 <!-- SLIDES: -->
 
