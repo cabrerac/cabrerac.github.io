@@ -54,6 +54,40 @@ visible: false
 
 <!-- SLIDES: -->
 
+# The Data Science Process
+
+<!-- end SLIDES: -->
+
+{% include _snippets/data-science-process.md %}
+
+{% include _snippets/ml-pipeline.md %}
+
+<!-- SLIDES: -->
+
+# Data Access
+
+<!-- end SLIDES: -->
+
+{% include _snippets/25-symposium-ml-deploy/ml-adoption/data-access.md %}
+
+<!-- SLIDES: -->
+
+# Data Assess
+
+<!-- end SLIDES: -->
+
+{% include _snippets/25-symposium-ml-deploy/ml-adoption/data-assess.md %}
+
+<!-- SLIDES: -->
+
+# Data Address
+
+<!-- end SLIDES: -->
+
+{% include _snippets/25-symposium-ml-deploy/ml-adoption/data-address.md %}
+
+<!-- SLIDES: -->
+
 # Conclusions
 
 <!-- end SLIDES: -->
