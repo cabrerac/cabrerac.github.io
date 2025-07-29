@@ -1,6 +1,6 @@
 ---
 author: Christian Cabrera Jojoa
-course_code: ''
+course_code: 25-symposium-ml-deploy
 department: Department of Computer Science and Technology
 description: This lecture presents the Machine Learning context, its current narrative,
   and the motivation and definition of the ML-based Systems concept. We develop and
@@ -13,7 +13,7 @@ institution: University of Cambridge
 layout: lecture
 lecture_code: ml-systems
 lecture_date: 30/07/2025
-permalink: /teaching//ml-systems/
+permalink: /teaching/25-symposium-ml-deploy/ml-systems/
 position: Senior Research Associate and Affiliated Lecturer
 session: 1
 start_time: 8:00 am
@@ -24,9 +24,9 @@ visible: false
 <link rel="stylesheet" href="/assets/css/slides.css">
 <div class="lecture-resources">  
   <p>
-    <a href="/assets/slides//ml-systems.html" target="_blank">[HTML Slides]</a>    
-    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks//ml-systems.ipynb" target="_blank">[Colab Notebook]</a>
-    <a href="/teaching//">[Back to Course]</a>    
+    <a href="/assets/slides/25-symposium-ml-deploy/ml-systems.html" target="_blank">[HTML Slides]</a>    
+    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-symposium-ml-deploy/ml-systems.ipynb" target="_blank">[Colab Notebook]</a>
+    <a href="/teaching/25-symposium-ml-deploy/">[Back to Course]</a>    
   </p>
 </div>
   

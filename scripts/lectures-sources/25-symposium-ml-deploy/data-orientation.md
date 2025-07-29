@@ -62,5 +62,5 @@ visible: false
 
 {% include _snippets/25-symposium-ml-deploy/data-orientation/resources.md %}
 
-{% include _snippets/25-symposium-ml-deploy/data-orientation/notebook.md %}
+{% include _snippets/25-symposium-ml-deploy/data-orientation/practical.md %}
 

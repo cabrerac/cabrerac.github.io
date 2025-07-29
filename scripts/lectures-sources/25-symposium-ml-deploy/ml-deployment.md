@@ -62,5 +62,5 @@ visible: false
 
 {% include _snippets/25-symposium-ml-deploy/ml-deployment/resources.md %}
 
-{% include _snippets/25-symposium-ml-deploy/ml-deployment/notebook.md %}
+{% include _snippets/25-symposium-ml-deploy/ml-deployment/practical.md %}
 
