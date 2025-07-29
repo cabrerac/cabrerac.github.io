@@ -11,13 +11,12 @@
             <h3>Overview</h3>
             <ul>
                 <li>ML Context</li>
-                <li>AI History</li>
-                <li>AI Perception</li>
-                <li>AI Winters</li>
                 <li>ML Today</li>
-                <li>ML Applications, Promises, and Risks</li>
                 <li>ML Perception</li>
-                <li>ML Definition</li>
+                <li>ML Objective Definition</li>
+                <li>Context Matters</li>
+                <li>DSA Example</li>
+                <li>ML Adoption Process</li>
             </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -35,23 +34,22 @@
             <h3>Overview</h3>
             <ul>
                 <li>ML Context</li>
-                <li>AI History</li>
-                <li>AI Perception</li>
-                <li>AI Winters</li>
                 <li>ML Today</li>
-                <li>ML Applications, Promises, and Risks</li>
                 <li>ML Perception</li>
-                <li>ML Definition</li>
+                <li>ML Objective Definition</li>
+                <li>Context Matters</li>
+                <li>DSA Example</li>
+                <li>ML Adoption Process</li>
             </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
             <h3>Next Time</h3>
             <ul>
-                <li>ML Adoption Process</li>
-                <li>ML with Purpose</li>
-                <li>ML and Socio-technical Systems</li>
+                <li>Problem First</li>
+                <li>The Data Science Process</li>
                 <li>Data Orientation</li>
-                <li>Data Access</li>
+                <li>Data Quality</li>
+                <li>A Machine Learning Pipeline</li>
             </ul>
             </div>
         </div>

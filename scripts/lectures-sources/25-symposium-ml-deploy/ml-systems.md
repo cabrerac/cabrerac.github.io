@@ -62,6 +62,36 @@ visible: false
 
 <!-- SLIDES: -->
 
+# The "Technocentric" View
+
+<!-- end SLIDES: -->
+
+{% include _snippets/technocentrism.md %}
+
+<!-- SLIDES: -->
+
+# Context Matters
+
+<!-- end SLIDES: -->
+
+{% include _snippets/context-matters.md %}
+
+<!-- SLIDES: -->
+
+# Data Science Africa (DSA)
+
+<!-- end SLIDES: -->
+
+{% include _snippets/dsa-example.md %}
+
+# The ML Adoption Process
+
+<!-- end SLIDES: -->
+
+{% include _snippets/adoption_process.md %}
+
+<!-- SLIDES: -->
+
 # Conclusions
 
 <!-- end SLIDES: -->
