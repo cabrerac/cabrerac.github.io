@@ -474,7 +474,11 @@ class ContentGenerator:
         # Generate content with course-specific paths
         self.generate_rendered_lecture(lecture_file, course_lectures_dir, course_metadata)
         self.generate_slides(lecture_file, course_slides_dir)
-        self.generate_notebook(lecture_file, course_notebooks_dir, course_metadata)
+        notebook_generated = self.generate_notebook(lecture_file, course_notebooks_dir, course_metadata)
+        
+        # Update the rendered lecture to include notebook link only if notebook was generated
+        if notebook_generated:
+            self.generate_rendered_lecture(lecture_file, course_lectures_dir, course_metadata, include_notebook=True)
 
     def clean_code_blocks(self, content):
         """Clean code blocks to remove markdown/HTML artifacts."""
@@ -678,7 +682,7 @@ html[data-theme='dark'] code::before {
         
         return processed_content
 
-    def generate_rendered_lecture(self, lecture_file, output_dir, course_metadata):
+    def generate_rendered_lecture(self, lecture_file, output_dir, course_metadata, include_notebook=False):
         """Generate the rendered lecture file with proper metadata and content."""
         # Read source content
         with open(lecture_file, 'r', encoding='utf-8') as f:
@@ -709,6 +713,17 @@ html[data-theme='dark'] code::before {
         filtered_content = self.preprocess_math_blocks(filtered_content)
         
         index_url = "{ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/'}"
+        
+        # Build the resources section conditionally
+        resources_links = [
+            f'<a href="/assets/slides/{course_metadata.get("course_code", "")}/{lecture_file.stem}.html" target="_blank">[HTML Slides]</a>'
+        ]
+        
+        if include_notebook:
+            resources_links.append(f'<a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/{course_metadata.get("course_code", "")}/{lecture_file.stem}.ipynb" target="_blank">[Colab Notebook]</a>')
+        
+        resources_links.append(f'<a href="/teaching/{course_metadata.get("course_code", "")}/">[Back to Course]</a>')
+        
         # Create rendered content with metadata and resources
         rendered_content = f"""---
 {yaml.dump(metadata, default_flow_style=False)}---
@@ -716,9 +731,7 @@ html[data-theme='dark'] code::before {
 <link rel=\"stylesheet\" href=\"/assets/css/slides.css\">
 <div class=\"lecture-resources\">  
   <p>
-    <a href=\"/assets/slides/{course_metadata.get('course_code', '')}/{lecture_file.stem}.html\" target=\"_blank\">[HTML Slides]</a>    
-    <a href=\"https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/{course_metadata.get('course_code', '')}/{lecture_file.stem}.ipynb\" target=\"_blank\">[Colab Notebook]</a>
-    <a href=\"/teaching/{course_metadata.get('course_code', '')}/">[Back to Course]</a>    
+    {'    '.join(resources_links)}
   </p>
 </div>
   
@@ -1732,6 +1745,18 @@ style: |
         # Filter content for notebook
         filtered_content = self.filter_content(processed_content, 'NOTEBOOK')
         
+        # Check if there's actual practical content
+        if not filtered_content.strip():
+            print(f"⚠ No practical content found for {lecture_file.stem}. Skipping notebook generation.")
+            return False
+        
+        # Check if practical.md file exists in the corresponding directory
+        course_code = lecture_file.parent.name
+        practical_file = self.base_dir / "_includes" / "_snippets" / course_code / lecture_file.stem / "practical.md"
+        if not practical_file.exists():
+            print(f"⚠ No practical.md file found for {lecture_file.stem}. Skipping notebook generation.")
+            return False
+        
         # Preprocess math blocks for correct rendering
         filtered_content = self.preprocess_math_blocks(filtered_content)
         
@@ -1760,35 +1785,24 @@ style: |
         nb.cells.append(title_cell)
         
         # Process content and create cells
-        if filtered_content.strip():  # Only process if there's content
-            sections = filtered_content.split('\n\n')
-            for section in sections:
-                if section.strip():
-                    if section.startswith('```python'):
-                        # Code cell
-                        code = section.split('\n', 1)[1].rsplit('\n', 1)[0]
-                        nb.cells.append(nbf.v4.new_code_cell(code))
-                    else:
-                        # Markdown cell
-                        nb.cells.append(nbf.v4.new_markdown_cell(section))
+        sections = filtered_content.split('\n\n')
+        for section in sections:
+            if section.strip():
+                if section.startswith('```python'):
+                    # Code cell
+                    code = section.split('\n', 1)[1].rsplit('\n', 1)[0]
+                    nb.cells.append(nbf.v4.new_code_cell(code))
+                else:
+                    # Markdown cell
+                    nb.cells.append(nbf.v4.new_markdown_cell(section))
         
         # Save notebook
         output_file = output_dir / f"{lecture_file.stem}.ipynb"
         with open(output_file, 'w', encoding='utf-8') as f:
             nbf.write(nb, f)
         
-        # Create Colab link using the current repository and gh-pages branch
-        colab_link = f"https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/{course_metadata.get('course_code', '')}/{lecture_file.stem}.ipynb"
-        
-        # Verify the link
-        if self.verify_colab_link(colab_link):
-            print(f"✓ Colab notebook link is accessible: {colab_link}")
-        else:
-            print(f"⚠ Colab notebook link may not be accessible: {colab_link}")
-            print("  Please ensure:")
-            print("  1. The notebook is committed to the repository")
-            print("  2. The changes are pushed to the gh-pages branch")
-            print("  3. The GitHub Pages site is up to date")
+        print(f"✓ Successfully generated notebook for {lecture_file.stem}")
+        return True
 
 def main():
     # Set up argument parser
