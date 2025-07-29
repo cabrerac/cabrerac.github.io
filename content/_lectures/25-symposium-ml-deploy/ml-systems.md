@@ -25,7 +25,7 @@ visible: false
 <div class="lecture-resources">  
   <p>
     <a href="/assets/slides//ml-systems.html" target="_blank">[HTML Slides]</a>    
-
+    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks//ml-systems.ipynb" target="_blank">[Colab Notebook]</a>
     <a href="/teaching//">[Back to Course]</a>    
   </p>
 </div>

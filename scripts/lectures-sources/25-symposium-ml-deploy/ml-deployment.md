@@ -1,8 +1,8 @@
 ---
 course_code: 25-symposium-ml-deploy
-title: ML-based Systems
-description: This lecture presents the Machine Learning context, its current narrative, and the motivation and definition of the ML-based Systems concept. We develop and elaborate on the need for a systems perspective when designing, developing, and deployment systems based on ML.
-session: 1
+title: ML Deployment
+description: This lecture will start looking into the data dimension of the ML concept and will emphasise on the importance of data-orientation. We first define the concept of data, the associated challenges, and provide examples of data collection processes. We then define a data science methodology to iteratively build the datasets that will feed our machine learning models. This lecture explores the first step of this methodology, "data access".
+session: 3
 start_time: 8:00 am
 end_time: 09:30 am
 hours: 1.5
@@ -12,9 +12,9 @@ position: Senior Research Associate and Affiliated Lecturer
 department: Department of Computer Science and Technology
 institution: University of Cambridge
 layout: lecture
-lecture_code: ml-systems
+lecture_code: ml-deployment
 lecture_date: 30/07/2025
-permalink: /teaching/25-symposium-ml-deploy/ml-systems/
+permalink: /teaching/25-symposium-ml-deploy/ml-deployment/
 visible: false
 ---
 
@@ -25,14 +25,6 @@ visible: false
 <!-- SLIDES+RENDER: content that goes to both rendered markdown and slides -->
 <!-- SLIDES+NOTEBOOK: content that goes to both slides and notebook -->
 <!-- RENDER+NOTEBOOK: content that goes to both rendered markdown and notebook -->
-
-<!-- SLIDES: -->
-
-# Course Structure
-
-<!-- end SLIDES -->
-
-{% include _snippets/25-symposium-ml-deploy/ml-systems/course-structure.md %}
 
 <!-- SLIDES: -->
 
@@ -66,7 +58,9 @@ visible: false
 
 <!-- end SLIDES: -->
 
-{% include _snippets/25-symposium-ml-deploy/ml-systems/conclusions.md %}
+{% include _snippets/25-symposium-ml-deploy/ml-deployment/conclusions.md %}
 
-{% include _snippets/25-symposium-ml-deploy/ml-systems/resources.md %}
+{% include _snippets/25-symposium-ml-deploy/ml-deployment/resources.md %}
+
+{% include _snippets/25-symposium-ml-deploy/ml-deployment/notebook.md %}
 

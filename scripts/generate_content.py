@@ -427,24 +427,6 @@ class ContentGenerator:
             
         return content_with_placeholders
 
-    def has_practical_section(self, lecture_file):
-        """Check if the lecture has a practical section by looking for practical.md includes."""
-        with open(lecture_file, 'r', encoding='utf-8') as f:
-            content = f.read()
-        
-        # Look for practical.md includes in the content
-        practical_patterns = [
-            r'{%\s*include\s+.*?practical\.md\s*%}',
-            r'{%\s*include\s+.*?/practical\s*%}',
-            r'practical\.md'
-        ]
-        
-        for pattern in practical_patterns:
-            if re.search(pattern, content, re.IGNORECASE):
-                return True
-        
-        return False
-
     def process_lecture(self, lecture_file):
         """Process a lecture file to generate all formats."""
         print(f"Processing {lecture_file}...")
@@ -462,9 +444,6 @@ class ContentGenerator:
         
         for dir_path in [course_lectures_dir, course_slides_dir, course_notebooks_dir]:
             dir_path.mkdir(parents=True, exist_ok=True)
-        
-        # Check if lecture has practical section
-        has_practical = self.has_practical_section(lecture_file)
         
         # Read and clean the content first
         with open(lecture_file, 'r', encoding='utf-8') as f:
@@ -493,12 +472,9 @@ class ContentGenerator:
         content = self.clean_code_blocks(content)
         
         # Generate content with course-specific paths
-        self.generate_rendered_lecture(lecture_file, course_lectures_dir, course_metadata, has_practical)
+        self.generate_rendered_lecture(lecture_file, course_lectures_dir, course_metadata)
         self.generate_slides(lecture_file, course_slides_dir)
-        if has_practical:
-            self.generate_notebook(lecture_file, course_notebooks_dir, course_metadata)
-        else:
-            print(f"⚠ No practical section found in {lecture_file.stem}, skipping notebook generation")
+        self.generate_notebook(lecture_file, course_notebooks_dir, course_metadata)
 
     def clean_code_blocks(self, content):
         """Clean code blocks to remove markdown/HTML artifacts."""
@@ -702,7 +678,7 @@ html[data-theme='dark'] code::before {
         
         return processed_content
 
-    def generate_rendered_lecture(self, lecture_file, output_dir, course_metadata, has_practical=False):
+    def generate_rendered_lecture(self, lecture_file, output_dir, course_metadata):
         """Generate the rendered lecture file with proper metadata and content."""
         # Read source content
         with open(lecture_file, 'r', encoding='utf-8') as f:
@@ -733,12 +709,6 @@ html[data-theme='dark'] code::before {
         filtered_content = self.preprocess_math_blocks(filtered_content)
         
         index_url = "{ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/'}"
-        
-        # Create notebook link only if practical section exists
-        notebook_link = ""
-        if has_practical:
-            notebook_link = f'    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/{course_metadata.get("course_code", "")}/{lecture_file.stem}.ipynb" target="_blank">[Colab Notebook]</a>'
-        
         # Create rendered content with metadata and resources
         rendered_content = f"""---
 {yaml.dump(metadata, default_flow_style=False)}---
@@ -747,7 +717,7 @@ html[data-theme='dark'] code::before {
 <div class=\"lecture-resources\">  
   <p>
     <a href=\"/assets/slides/{course_metadata.get('course_code', '')}/{lecture_file.stem}.html\" target=\"_blank\">[HTML Slides]</a>    
-{notebook_link}
+    <a href=\"https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/{course_metadata.get('course_code', '')}/{lecture_file.stem}.ipynb\" target=\"_blank\">[Colab Notebook]</a>
     <a href=\"/teaching/{course_metadata.get('course_code', '')}/">[Back to Course]</a>    
   </p>
 </div>
