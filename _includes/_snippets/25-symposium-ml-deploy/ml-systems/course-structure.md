@@ -7,8 +7,8 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
             <ul>
-                <li>Remote lectures combining theory and practice</li>
-                <li>Content will be before each lecture</li>
+                <li>Three remote lectures combining theory and practice</li>
+                <li>Content will be released before each lecture</li>
                 <li>You can ask questions at any moment</li>
                 <li>Participation is key</li>
                 <li>Contact by email: <a href="mailto:chc79@cam.ac.uk" style="color: var(--accent-color);">chc79@cam.ac.uk</a></li>

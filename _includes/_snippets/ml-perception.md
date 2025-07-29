@@ -165,11 +165,102 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><em>"We should stop training radiologists now. It’s just completely obvious that within five years, deep learning is going to do better than radiologists."</em> <b>(Hinton, 2016)</b></p>
+                <img src="{{ site.url }}/assets/media/images/economist.jpg" alt="The Economist" style="height: 460px">
+                <div class="footnote">The economics of superintelligence - The Economist (26th July - 8th August 2025)</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/radiology-crisis.png" alt="Radiology Crisis" style="height: 460px">
-                <div class="footnote">Radiology Crisis - Independent: https://www.independent.co.uk/news/health/cancer-delays-nhs-staff-shortages-b2561385.html</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## ML Perception
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/economist.jpg" alt="The Economist" style="height: 460px">
+                <div class="footnote">The economics of superintelligence - The Economist (26th July - 8th August 2025)</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><em>"AI will be capable of generating novel insights next year."</em> <b>(Altman, 2025)</b></p>
+                <br>
+                <p><em>"Self-improving AI will create a super intelligence."</em> <b>(Musk, 2025)</b></p>
+                <br>
+                <p><em>"When I look at the data, I see many trend lines up to 2027."</em> <b>(Clark, 2025)</b></p>
+                <br>
+                <p><em>"There is a 10-20% chance that the technology will end in human extinction."</em> <b>(Hinton, 2025)</b></p>
+                <br>
+                <p><em>"Our relationship with future AI systems is that we are going to be their boss."</em> <b>(LeCun, 2025)</b></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## ML Perception
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><em>"Machines will be capable, within twenty years, of doing any work a man can do."  <b>(Simon, 1965)</b></em></p>
+                <br>
+                <p><em>"In from three to eight years we will have a machine with the general intelligence of an average human being." <b>(Minsky, 1970)</b></em></p>
+                <br>
+                <p><em>"In medicine, management, and the military — indeed in most of the world's work — the daily tasks are those requiring symbolic reasoning with detailed professional knowledge." <b>(Feigenbaum, 1982)</b></em></p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><em>"AI will be capable of generating novel insights next year."</em> <b>(Altman, 2025)</b></p>
+                <br>
+                <p><em>"Self-improving AI will create a super intelligence."</em> <b>(Musk, 2025)</b></p>
+                <br>
+                <p><em>"When I look at the data, I see many trend lines up to 2027."</em> <b>(Clark, 2025)</b></p>
+                <br>
+                <p><em>"There is a 10-20% chance that the technology will end in human extinction."</em> <b>(Hinton, 2025)</b></p>
+                <br>
+                <p><em>"Our relationship with future AI systems is that we are going to be their boss."</em> <b>(LeCun, 2025)</b></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## ML Perception
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*u6BCtE6TOY-0kkZ0fwIZUg.jpeg" alt="You'll own slaves by 1965 (1957)" style="height: 400px">
+                <div class="footnote">You'll own "slaves" by 1965 (1957) - https://medium.com/@theo/do-we-need-robot-rights-in-the-age-of-artificial-intelligence-690b9951bae0</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><em>"AI will be capable of generating novel insights next year."</em> <b>(Altman, 2025)</b></p>
+                <br>
+                <p><em>"Self-improving AI will create a super intelligence."</em> <b>(Musk, 2025)</b></p>
+                <br>
+                <p><em>"When I look at the data, I see many trend lines up to 2027."</em> <b>(Clark, 2025)</b></p>
+                <br>
+                <p><em>"There is a 10-20% chance that the technology will end in human extinction."</em> <b>(Hinton, 2025)</b></p>
+                <br>
+                <p><em>"Our relationship with future AI systems is that we are going to be their boss."</em> <b>(LeCun, 2025)</b></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## ML Perception
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/ai-stocks-1987.png" alt="AI just could be a smart buy (1987)" style="height: 400px">
+                <div class="footnote">AI just could be a smart buy (1987)</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/economist.jpg" alt="The Economist" style="height: 460px">
+                <div class="footnote">The economics of superintelligence - The Economist (26th July - 8th August 2025)</div>
             </div>
         </div>
     </div>
@@ -215,40 +306,6 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><em>"In from three to eight years we will have a machine with the general intelligence of an average human being." <b>(Minsky, 1970)</b></em></p>
-                <br>
-                <p><em>"In medicine, management, and the military — indeed in most of the world's work — the daily tasks are those requiring symbolic reasoning with detailed professional knowledge." <b>(Feigenbaum, 1982)</b></em></p>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><em>"... step 1: solving intelligence, step 2: use it to solve everything else..."</em> <b>(Hassabis, 2025)</b></p>
-                <br>
-                <p><em>"Artificial General Intelligence (AGI) will emerge in the next five or 10 years."</em> <b>(Hassabis, 2025)</b></p>
-            </div>
-        </div>
-    </div>
-</div>
-
-## ML Perception
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">    
-                <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Demis_Hassabis%2C_2024_Nobel_Prize_Laureate_in_Chemistry_%28cropped%29.jpg" alt="Demis Hassabis" style="height: 460px">
-                <div class="footnote">NOBEL Prizes Ceremony 2024: Arthur Petron, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-            </div>
-        </div>
-    </div>
-</div>
-
-## ML Perception
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">    
                 <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Demis_Hassabis%2C_2024_Nobel_Prize_Laureate_in_Chemistry_%28cropped%29.jpg" alt="Demis Hassabis" style="height: 460px">
                 <div class="footnote">NOBEL Prizes Ceremony 2024: Arthur Petron, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
@@ -271,8 +328,8 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">    
-                <img src="{{ site.url }}/assets/media/images/complexity.jpg" alt="Complexity" style="height: 460px">
-                <div class="footnote">Complexity (Designed by freepik.com)</div>
+                <img src="{{ site.url }}/assets/media/images/economist.jpg" alt="The Economist" style="height: 460px">
+                <div class="footnote">The economics of superintelligence - The Economist (26th July - 8th August 2025)</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Machine Learning Problem Requirements</b></p>

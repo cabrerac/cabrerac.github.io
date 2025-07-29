@@ -40,7 +40,7 @@ visible: false
 
 <!-- end SLIDES: -->
 
-{% include _snippets/ai-history.md %}
+{% include _snippets/25-symposium-ml-deploy/ml-systems/ai-history.md %}
 
 <!-- SLIDES: -->
 

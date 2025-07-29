@@ -97,7 +97,7 @@ $D$: dataset of examples $\{x_i\}$ or pairs $\{(x_i, y_i)\}$
 $\mathcal{H}$: hypothesis space of possible functions
 $L$: loss/reward function measuring success
 $A$: algorithm to search through $\mathcal{H}$
-            </div>
+</div>
             <div class="column vertical-middle text-left" style="width: 33%">
             </div>
         </div>
@@ -140,7 +140,7 @@ $D$: dataset of examples $\{x_i\}$ or pairs $\{(x_i, y_i)\}$
 $\mathcal{H}$: hypothesis space of possible functions
 $L$: loss/reward function measuring success
 $A$: algorithm to search through $\mathcal{H}$
-            </div>
+</div>
             <div class="column vertical-middle text-left" style="width: 33%">
                 <p>
                     <b>Learning algorithms</b> use different computational representations during the <em>learning and inference</em>: dataframes, tuples, trees, graphs, matrices, etc. 
