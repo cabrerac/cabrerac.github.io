@@ -58,9 +58,9 @@ visible: false
 
 <!-- end SLIDES: -->
 
-{% include _snippets/25-symposium-ml-deploy/data-orientation/conclusions.md %}
+{% include _snippets/25-symposium-ml-deploy/ml-adoption/conclusions.md %}
 
-{% include _snippets/25-symposium-ml-deploy/data-orientation/resources.md %}
+{% include _snippets/25-symposium-ml-deploy/ml-adoption/resources.md %}
 
-{% include _snippets/25-symposium-ml-deploy/data-orientation/practical.md %}
+{% include _snippets/25-symposium-ml-deploy/ml-adoption/practical.md %}
 
