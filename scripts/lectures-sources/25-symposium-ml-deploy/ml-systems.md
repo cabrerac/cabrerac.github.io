@@ -1,10 +1,10 @@
 ---
-course_code: 25-stats-symposium
-title: Artificial Intelligence and Machine Learning
-description: This lecture presents the Artificial Intelligence and Machine Learning concepts. Their definition, history, implications, and applications.
+course_code: 25-symposium-ml-deploy
+title: ML-based Systems
+description: This lecture presents the Machine Learning context, its current narrative, and the motivation and definition of the ML-based Systems concept. We develop and elaborate on the need for a systems perspective when designing, developing, and deployment systems based on ML.
 session: 1
-start_time: 9:00 am
-end_time: 10:30 am
+start_time: 8:00 am
+end_time: 09:30 am
 hours: 1.5
 author: Christian Cabrera Jojoa
 email: chc79@cam.ac.uk
@@ -12,9 +12,9 @@ position: Senior Research Associate and Affiliated Lecturer
 department: Department of Computer Science and Technology
 institution: University of Cambridge
 layout: lecture
-lecture_code: ml-introduction
-lecture_date: 17/05/2025
-permalink: /teaching/25-stats-symposium/ml-introduction/
+lecture_code: ml-systems
+lecture_date: 30/07/2025
+permalink: /teaching/25-stats-symposium/ml-systems/
 visible: false
 ---
 
@@ -32,17 +32,13 @@ visible: false
 
 <!-- end SLIDES -->
 
-{% include _snippets/25-udenar-ml-intro/ml-introduction/course-structure.md %}
+{% include _snippets/25-symposium-ml-deploy/ml-systems/course-structure.md %}
 
 <!-- SLIDES: -->
 
 # The ML Context
 
 <!-- end SLIDES: -->
-
-{% include _snippets/ai-concept.md %}
-
-{% include _snippets/ai-foundations.md %}
 
 {% include _snippets/ai-history.md %}
 
@@ -70,9 +66,7 @@ visible: false
 
 <!-- end SLIDES: -->
 
-{% include _snippets/25-udenar-ml-intro/ml-introduction/conclusions.md %}
+{% include _snippets/25-symposium-ml-deploy/ml-systems/conclusions.md %}
 
-{% include _snippets/25-udenar-ml-intro/ml-introduction/resources.md %}
-
-{% include _snippets/25-udenar-ml-intro/ml-introduction/practical.md %}
+{% include _snippets/25-symposium-ml-deploy/ml-systems/resources.md %}
 
