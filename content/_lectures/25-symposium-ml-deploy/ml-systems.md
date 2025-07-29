@@ -24,7 +24,9 @@ visible: false
 <link rel="stylesheet" href="/assets/css/slides.css">
 <div class="lecture-resources">  
   <p>
-    <a href="/assets/slides//ml-systems.html" target="_blank">[HTML Slides]</a>    <a href="/teaching//">[Back to Course]</a>
+    <a href="/assets/slides//ml-systems.html" target="_blank">[HTML Slides]</a>    
+
+    <a href="/teaching//">[Back to Course]</a>    
   </p>
 </div>
   
