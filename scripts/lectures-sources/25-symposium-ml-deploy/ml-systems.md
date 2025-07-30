@@ -100,5 +100,7 @@ visible: false
 
 {% include _snippets/25-symposium-ml-deploy/ml-systems/conclusions.md %}
 
+{% include _snippets/25-symposium-ml-deploy/ml-systems/practical.md %}
+
 {% include _snippets/25-symposium-ml-deploy/ml-systems/resources.md %}
 
