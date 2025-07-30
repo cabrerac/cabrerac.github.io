@@ -18,7 +18,7 @@ position: Senior Research Associate and Affiliated Lecturer
 session: 1
 start_time: 8:00 am
 title: ML-based Systems
-visible: false
+visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
