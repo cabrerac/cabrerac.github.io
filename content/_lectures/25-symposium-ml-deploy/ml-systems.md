@@ -3,9 +3,9 @@ author: Christian Cabrera Jojoa
 course_code: 25-symposium-ml-deploy
 department: Department of Computer Science and Technology
 description: This lecture presents the Machine Learning context, its current narrative,
-  and the motivation and definition of the ML-based Systems concept. We develop and
-  elaborate on the need for a systems perspective when designing, developing, and
-  deployment systems based on ML.
+  and the motivation and definition of the ML-based Systems concept. We start this
+  short course by developing a couple of examples to motivate a systems perspective
+  when designing, developing, and deploying systems based on ML.
 email: chc79@cam.ac.uk
 end_time: 09:30 am
 hours: 1.5

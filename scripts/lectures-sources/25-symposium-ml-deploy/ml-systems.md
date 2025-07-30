@@ -1,7 +1,7 @@
 ---
 course_code: 25-symposium-ml-deploy
 title: ML-based Systems
-description: This lecture presents the Machine Learning context, its current narrative, and the motivation and definition of the ML-based Systems concept. We develop and elaborate on the need for a systems perspective when designing, developing, and deployment systems based on ML.
+description: This lecture presents the Machine Learning context, its current narrative, and the motivation and definition of the ML-based Systems concept. We start this short course by developing a couple of examples to motivate a systems perspective when designing, developing, and deploying systems based on ML.
 session: 1
 start_time: 8:00 am
 end_time: 09:30 am
