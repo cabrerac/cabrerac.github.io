@@ -4,9 +4,6 @@
 
 In this practical session, we will first explore different methods to <em>access</em> datasets for machine learning projects. We'll cover various scenarios where data might not be readily available. We will then explore different techniques for ensuring data quality in machine learning projects (i.e., <em>data assess</em>). We'll cover data cleaning, preprocessing, augmentation, feature engineering, and validation methods.
 
-
-
-
 ## Exercise 1: Structured Data Access Methods
 
 Let's explore different ways to access data for ML projects, but first let's import the basic libraries.
