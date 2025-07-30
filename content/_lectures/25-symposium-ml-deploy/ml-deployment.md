@@ -1,6 +1,6 @@
 ---
 author: Christian Cabrera Jojoa
-course_code: ''
+course_code: 25-symposium-ml-deploy
 department: Department of Computer Science and Technology
 description: This lecture will start looking into the data dimension of the ML concept
   and will emphasise on the importance of data-orientation. We first define the concept
@@ -15,7 +15,7 @@ institution: University of Cambridge
 layout: lecture
 lecture_code: ml-deployment
 lecture_date: 30/07/2025
-permalink: /teaching//ml-deployment/
+permalink: /teaching/25-symposium-ml-deploy/ml-deployment/
 position: Senior Research Associate and Affiliated Lecturer
 session: 3
 start_time: 8:00 am
@@ -26,9 +26,9 @@ visible: false
 <link rel="stylesheet" href="/assets/css/slides.css">
 <div class="lecture-resources">  
   <p>
-    <a href="/assets/slides//ml-deployment.html" target="_blank">[HTML Slides]</a>    
-    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks//ml-deployment.ipynb" target="_blank">[Colab Notebook]</a>
-    <a href="/teaching//">[Back to Course]</a>    
+    <a href="/assets/slides/25-symposium-ml-deploy/ml-deployment.html" target="_blank">[HTML Slides]</a>    
+    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-symposium-ml-deploy/ml-deployment.ipynb" target="_blank">[Colab Notebook]</a>
+    <a href="/teaching/25-symposium-ml-deploy/">[Back to Course]</a>    
   </p>
 </div>
   
