@@ -28,29 +28,31 @@ visible: false
 
 <!-- SLIDES: -->
 
-# The ML Context
+# Last Time
 
 <!-- end SLIDES: -->
 
-{% include _snippets/ai-history.md %}
+{% include _snippets/25-symposium-ml-deploy/ml-deployment/last-time.md %}
 
 <!-- SLIDES: -->
 
-# ML Today
-
-<!-- end SLIDES: -->
-
-{% include _snippets/ml-applications.md %}
-
-{% include _snippets/ml-perception.md %}
+<!-- SLIDES: -->
 
 <!-- SLIDES: -->
 
-# ML Definition
+# AI as a Service
 
 <!-- end SLIDES: -->
 
-{% include _snippets/ml-objective.md %}
+{% include _snippets/ai-service.md %}
+
+<!-- SLIDES: -->
+
+# MLOps
+
+<!-- end SLIDES: -->
+
+{% include _snippets/mlops.md %}
 
 <!-- SLIDES: -->
 
