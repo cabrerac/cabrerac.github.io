@@ -577,7 +577,6 @@ print("Original data:", processor.data)                    # Access the data att
 print("Normalized data:", processor.normalize())           # Call the normalize method
 print("Statistics:", processor.get_statistics())           # Call the statistics method
 print("Outliers:", processor.add_outlier_detection())     # Call the outlier detection method
-
 # Notice how we can call different methods on the same object
 # This is the power of OOP - related functionality is grouped together
 ```
