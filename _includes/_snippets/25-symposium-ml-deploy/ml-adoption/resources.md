@@ -6,8 +6,11 @@
 
 #### Papers and Reports  
 
-- [Zittrain J. (2022). Intellectual Debt: With Great Power Comes Great Ignorance](https://www.cambridge.org/core/books/cambridge-handbook-of-responsible-artificial-intelligence/intellectual-debt/F5D4CF05857D072ABED383AE7A3222E4)
-- [Cabrera C. et al. (2023) Real-world Machine Learning Systems: A survey from a Data-Oriented Architecture Perspective](https://arxiv.org/abs/2302.04810)
+- [Cabrera C. et al. (2025). The Systems Engineering Approach in Times of Large Language Models](https://scholarspace.manoa.hawaii.edu/items/ccd98c8b-bb61-4a86-9cd4-4719078d028f)
+- [Bastidas V., Schooling J. (2025). Socio-Technical AI Design For Public Value](https://aisel.aisnet.org/treos_ecis2024/78/)
+- [Lavin A. et al. (2022).  Technology Readiness Levels for Machine Learning Systems](https://www.nature.com/articles/s41467-022-33128-9)
+- [Hasterok C., Stompe J. (2022).  PAISE® – Process Model for AI Systems Engineering](https://www.degruyterbrill.com/document/doi/10.1515/auto-2022-0020/html)
+- [Hershey P. (2021). System of Systems Engineering Approach for Complex Deterministic and Nondeterministic Systems (ACDANS)](https://ieeexplore.ieee.org/abstract/document/9497496)
 - [Lawrence N. D. (2017) Data Readiness Levels](https://arxiv.org/abs/1705.02245)
 - [Taherdoost H. (2021) Data Collection Methods and Tools for Research; A Step-by-Step Guide to Choose Data Collection Technique for Academic and Business Research Projects](https://hal.science/Hal-03741847/)
 - [Boda Bodas and Road Traffic Injuries in Uganda: An Overview of Traffic Safety Trends from 2009 to 2017](https://pmc.ncbi.nlm.nih.gov/articles/PMC7143574/)
@@ -15,8 +18,10 @@
 <br>
 #### Web
 
-- [The Data Dichotomy: Rethinking the way we Treat Data and Services](https://www.confluent.io/blog/data-dichotomy-rethinking-the-way-we-treat-data-and-services/)
 - [The Data Science Landscape - Advanced Data Science Lecture at Cambridge](https://mlatcl.github.io/advds/lectures/04-01-the-data-science-landscape.html)
+- [Meet the Data Quality Dimensions](https://www.gov.uk/government/news/meet-the-data-quality-dimensions)
+- [Advanced Data Science - Visualisation I](https://mlatcl.github.io/advds/lectures/05-02-visualisation-i.html)
+- [Advanced Data Science - Visualisation II](https://mlatcl.github.io/advds/lectures/05-03-visualisation-ii.html)
 - [OpenML Datasets](https://www.openml.org/)
 - [Tensorflow Datasets](https://www.tensorflow.org/datasets)
 - [Iris Dataset](https://www.geeksforgeeks.org/iris-dataset/)
