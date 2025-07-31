@@ -15,7 +15,7 @@ layout: lecture
 lecture_code: ml-adoption
 lecture_date: 31/07/2025
 permalink: /teaching/25-symposium-ml-deploy/ml-adoption/
-visible: false
+visible: true
 ---
 
 <!-- ALL: content that goes everywhere -->
