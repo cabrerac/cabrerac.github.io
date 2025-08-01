@@ -28,6 +28,14 @@ visible: false
 
 <!-- SLIDES: -->
 
+# Course Material
+
+<!-- end SLIDES -->
+
+{% include _snippets/25-symposium-ml-deploy/ml-deployment/course-material.md %}
+
+<!-- SLIDES: -->
+
 # Last Time
 
 <!-- end SLIDES: -->
@@ -36,7 +44,11 @@ visible: false
 
 <!-- SLIDES: -->
 
-<!-- SLIDES: -->
+# ML Deployment
+
+<!-- end SLIDES: -->
+
+{% include _snippets/ml-deployment.md %}
 
 <!-- SLIDES: -->
 
@@ -53,6 +65,14 @@ visible: false
 <!-- end SLIDES: -->
 
 {% include _snippets/mlops.md %}
+
+<!-- SLIDES: -->
+
+# Data Orientation
+
+<!-- end SLIDES: -->
+
+{% include _snippets/data-orientation.md %}
 
 <!-- SLIDES: -->
 

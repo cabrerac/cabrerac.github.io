@@ -159,6 +159,8 @@ class ModelMonitor:
     </div>
 </div>
 
+<!-- end SLIDES: -->
+
 ## MLOps
 
 <div class="rows" style="height: 100%">
@@ -202,7 +204,5 @@ class ModelMonitor:
         </div>
     </div>
 </div>
-
-<!-- end SLIDES: -->
 
 

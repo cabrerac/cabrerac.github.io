@@ -28,6 +28,14 @@ visible: true
 
 <!-- SLIDES: -->
 
+# Course Material
+
+<!-- end SLIDES -->
+
+{% include _snippets/25-symposium-ml-deploy/ml-adoption/course-material.md %}
+
+<!-- SLIDES: -->
+
 # Last Time
 
 <!-- end SLIDES: -->

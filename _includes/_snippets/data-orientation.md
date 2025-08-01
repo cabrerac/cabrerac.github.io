@@ -83,8 +83,7 @@
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/soa-system.png" alt="SOA Architecture" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>The Data Dichotomy</b></p>
-                <p>“While data-driven systems are about exposing data, service-oriented architectures are about hiding data.” <a               
+                <p><b>The Data Dichotomy</b>: “While data-driven systems are about exposing data, service-oriented architectures are about hiding data.” <a               
                 href="https://www.confluent.io/blog/data-dichotomy-rethinking-the-way-we-treat-data-and-services/" target="_blank">(Stopford, 2016)</a></p>
             </div>
         </div>
@@ -97,11 +96,29 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <p><b>The Data Dichotomy</b></p>
-                <p>“While data-driven systems are about exposing data, service-oriented architectures are about hiding data.” <a               
+                <p><b>The Data Dichotomy</b>: “While data-driven systems are about exposing data, service-oriented architectures are about hiding data.” <a               
                 href="https://www.confluent.io/blog/data-dichotomy-rethinking-the-way-we-treat-data-and-services/" target="_blank">(Stopford, 2016)</a></p>
                 <br>
                 <p><b>We need to design systems prioritising data!</b></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data-Orientation
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 60%">
+        <div class="columns" style="width: 95%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 40%">
+        <div class="columns" style="width: 95%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/context-3.png" alt="ML-based System" style="height: 500px">
             </div>
         </div>
     </div>
