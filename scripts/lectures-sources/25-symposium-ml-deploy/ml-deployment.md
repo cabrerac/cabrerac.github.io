@@ -15,7 +15,7 @@ layout: lecture
 lecture_code: ml-deployment
 lecture_date: 30/07/2025
 permalink: /teaching/25-symposium-ml-deploy/ml-deployment/
-visible: false
+visible: true
 ---
 
 <!-- ALL: content that goes everywhere -->

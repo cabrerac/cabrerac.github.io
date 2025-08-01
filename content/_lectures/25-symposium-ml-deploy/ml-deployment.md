@@ -20,7 +20,7 @@ position: Senior Research Associate and Affiliated Lecturer
 session: 3
 start_time: 8:00 am
 title: ML Deployment
-visible: false
+visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
