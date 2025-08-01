@@ -2,629 +2,1056 @@
 
 # Practical Introduction
 
-In this practical session, we will explore different methods to access datasets for machine learning projects. We'll cover various scenarios where data might not be readily available.
+In this practical session, we will explore ML model deployment concepts and tools using the actual neural network implementations. We'll deploy three different approaches: from-scratch implementations, comprehensive multi-architecture networks, and modern deep learning frameworks.
 
-## Exercise 1: Structured Data Access Methods
+---
 
-Let's explore different ways to access data for ML projects, but first let's import the basic libraries.
+## Exercise 1: Deploying From-Scratch Neural Network
+
+In this exercise, we'll deploy a neural network implementation from scratch using Flask. This demonstrates how to deploy custom neural network implementations in production.
+
+Let's start by importing the necessary libraries:
 
 ```python
-import pandas as pd
+import pickle
 import numpy as np
-```
-
-### 1.2 Loading from CSV/Excel Files
-
-We can access local dataset files, which are normally stored as CSV (Comma Separated Values) files. Let's define a function we can use and reuse.
-
-```python
-# Example of loading data from a CSV file
-# Note: Replace 'path_to_file.csv' with your actual file path
-def load_csv_data(file_path):
-    try:
-        data = pd.read_csv(file_path)
-        print(f"Successfully loaded data with shape: {data.shape}")
-        return data
-    except FileNotFoundError:
-        print("File not found. Please check the file path.")
-        return None
-    except Exception as e:
-        print(f"An error occurred: {str(e)}")
-        return None
-```
-
-### 1.2 Using Built-in Datasets
-
-We can use platforms like [OpenML](https://www.openml.org/) to access the datasets they offer. In this example, we are accessing [the ***iris*** dataset](https://api.openml.org/d/43839). This dataset contains 150 samples of iris flowers, each with 5 features defining the sepal length, sepal width, petal length, petal width, and specie (target variable).
-
-```python
-from sklearn.datasets import fetch_openml
-# Load a built-in dataset from scikit-learn
-iris = fetch_openml(name='iris', version=1, as_frame=True)
-print("Iris dataset shape:", iris.data.shape)
-print("\nFirst few rows:")
-print(iris.data.head())
-```
-
-Another alternative is [Tensorflow Datasets](https://www.tensorflow.org/datasets). In this example, we are accessing [the ***cifar10*** dataset](https://www.tensorflow.org/datasets/catalog/cifar10). This dataset contains 60000 32x32 colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images.
-
-```python
-import tensorflow as tf
-# Load a built-in dataset from Tensorflow datasets
-(x_train, y_train), (x_test, y_test) = tf.keras.datasets.cifar10.load_data()
-print("Training data shape:", x_train.shape)
-print("Test data shape:", x_test.shape)
-```
-
-We can plot some images of the dataset:
-
-```python
+import pandas as pd
+from flask import Flask, request, jsonify
+from sklearn.datasets import make_classification, make_regression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, mean_squared_error
+import joblib
+import os
 import matplotlib.pyplot as plt
-# Plot some images of the dataset
-fig, axes = plt.subplots(3, 3, figsize=(10, 10))
-for i, ax in enumerate(axes.flat):
-    ax.imshow(x_train[i])
-    ax.set_title(f"Image {i+1}")
-plt.show()
 ```
 
-### 1.3 Accessing Data via APIs
+And now, we should continue with the activation functions of the neural network:
 
-We can access datasets that are exposed online. We will access the data programatically using the ***requests*** Python module. As this is a repetitive task when handling data, we will create a function we can use and reuse. 
+```python
+def sigmoid(x):
+    """Sigmoid activation function"""
+    return 1 / (1 + np.exp(-np.clip(x, -500, 500)))
+def sigmoid_derivative(x):
+    """Derivative of sigmoid function"""
+    s = sigmoid(x)
+    return s * (1 - s)
+def relu(x):
+    """ReLU activation function"""
+    return np.maximum(0, x)
+def relu_derivative(x):
+    """Derivative of ReLU function"""
+    return np.where(x > 0, 1, 0)
+```
+
+And the Neural Network implementation:
+
+```python
+class NeuralNetwork:
+    def __init__(self, task, layers, activation='sigmoid', learning_rate=0.1):
+        """
+        Initialize neural network
+        layers: list of integers representing the number of neurons in each layer
+        activation: activation function ('sigmoid', 'relu', 'tanh')
+        learning_rate: learning rate for gradient descent
+        """
+        self.task = task
+        self.layers = layers
+        self.learning_rate = learning_rate
+        self.activation = activation
+        
+        # Set activation function
+        if activation == 'sigmoid':
+            self.activation_func = sigmoid
+            self.activation_derivative = sigmoid_derivative
+        elif activation == 'relu':
+            self.activation_func = relu
+            self.activation_derivative = relu_derivative
+        
+        # Initialize weights and biases
+        self.weights = []
+        self.biases = []
+        self.initialize_parameters()
+        self.loss_history = []
+    
+    def initialize_parameters(self):
+        """Initialize weights and biases using Xavier/Glorot initialization"""
+        for i in range(len(self.layers) - 1):
+            std = np.sqrt(2.0 / (self.layers[i] + self.layers[i + 1]))
+            w = np.random.normal(0, std, (self.layers[i + 1], self.layers[i]))
+            b = np.zeros((self.layers[i + 1], 1))
+            self.weights.append(w)
+            self.biases.append(b)
+    
+    def forward_propagation(self, X):
+        """Forward propagation through the network"""
+        self.activations = [X]
+        self.z_values = []
+        for i in range(len(self.weights)):
+            z = np.dot(self.weights[i], self.activations[-1]) + self.biases[i]
+            self.z_values.append(z)
+            if i == len(self.weights) - 1:
+                # Output layer
+                if self.task == 'classification':
+                    a = sigmoid(z)
+                else:  # regression
+                    a = z  # linear activation
+            else:
+                a = self.activation_func(z)
+            self.activations.append(a)
+        return self.activations[-1]
+    
+    def backward_propagation(self, X, y):
+        """Backward propagation to compute gradients"""
+        m = X.shape[1]
+        # Initialize gradients
+        dW = [np.zeros_like(w) for w in self.weights]
+        db = [np.zeros_like(b) for b in self.biases]
+        # Compute error at output layer
+        delta = self.activations[-1] - y
+        # Backpropagate through layers
+        for i in range(len(self.weights) - 1, -1, -1):
+            # Compute gradients for current layer
+            dW[i] = np.dot(delta, self.activations[i].T) / m
+            db[i] = np.sum(delta, axis=1, keepdims=True) / m
+            # Compute error for previous layer (if not input layer)
+            if i > 0:
+                delta = np.dot(self.weights[i].T, delta) * self.activation_derivative(self.z_values[i - 1])
+        return dW, db
+    
+    def update_parameters(self, dW, db):
+        """Update weights and biases using gradient descent"""
+        for i in range(len(self.weights)):
+            self.weights[i] -= self.learning_rate * dW[i]
+            self.biases[i] -= self.learning_rate * db[i]
+    
+    def compute_loss(self, y_true, y_pred, loss_type='binary_crossentropy'):
+        """Compute loss function"""
+        if loss_type == 'binary_crossentropy':
+            epsilon = 1e-15
+            y_pred = np.clip(y_pred, epsilon, 1 - epsilon)
+            loss = -np.mean(y_true * np.log(y_pred) + (1 - y_true) * np.log(1 - y_pred))
+        elif loss_type == 'mse':
+            loss = np.mean((y_true - y_pred) ** 2)
+        return loss
+    
+    def fit(self, X, y, epochs=1000, batch_size=32, verbose=True):
+        """Train the neural network"""
+        n_samples = X.shape[1]
+        loss_type = 'mse' if self.task == 'regression' else 'binary_crossentropy'
+        
+        for epoch in range(epochs):
+            # Shuffle data
+            indices = np.random.permutation(n_samples)
+            X_shuffled = X[:, indices]
+            y_shuffled = y[:, indices]
+            epoch_loss = 0
+            
+            # Mini-batch training
+            for i in range(0, n_samples, batch_size):
+                batch_end = min(i + batch_size, n_samples)
+                X_batch = X_shuffled[:, i:batch_end]
+                y_batch = y_shuffled[:, i:batch_end]
+                
+                # Forward pass
+                y_pred = self.forward_propagation(X_batch)
+                batch_loss = self.compute_loss(y_batch, y_pred, loss_type)
+                epoch_loss += batch_loss
+                
+                # Backward pass
+                dW, db = self.backward_propagation(X_batch, y_batch)
+                # Update parameters
+                self.update_parameters(dW, db)
+            
+            # Record average loss for the epoch
+            avg_loss = epoch_loss / (n_samples // batch_size + 1)
+            self.loss_history.append(avg_loss)
+            
+            if verbose and epoch % 100 == 0:
+                print(f"Epoch {epoch}, Loss: {avg_loss:.4f}")
+    
+    def predict(self, X):
+        """Make predictions"""
+        return self.forward_propagation(X)
+```
+
+Now let's create datasets and train the models:
+
+```python
+# Set random seed for reproducibility
+np.random.seed(42)
+# Create classification dataset
+X_class, y_class = make_classification(
+    n_samples=1000, 
+    n_features=2, 
+    n_classes=2, 
+    n_clusters_per_class=1, 
+    n_redundant=0, 
+    random_state=42
+)
+# Create regression dataset
+X_reg, y_reg = make_regression(
+    n_samples=1000, 
+    n_features=3, 
+    n_targets=1, 
+    noise=0.1, 
+    random_state=42
+)
+# Split the data
+X_class_train, X_class_test, y_class_train, y_class_test = train_test_split(
+    X_class, y_class, test_size=0.2, random_state=42
+)
+X_reg_train, X_reg_test, y_reg_train, y_reg_test = train_test_split(
+    X_reg, y_reg, test_size=0.2, random_state=42
+)
+# Train the neural network for classification
+print("Training the Neural Network for Classification...")
+X_class_train_nn = X_class_train.T
+X_class_test_nn = X_class_test.T
+y_class_train_nn = y_class_train.reshape(1, -1)
+y_class_test_nn = y_class_test.reshape(1, -1)
+classifier = NeuralNetwork('classification', layers=[2, 4, 1], activation='sigmoid', learning_rate=0.1)
+classifier.fit(X_class_train_nn, y_class_train_nn, epochs=500, batch_size=32, verbose=True)
+# Train the neural network for regression
+print("\nTraining the Neural Network for Regression...")
+X_reg_train_nn = X_reg_train.T
+X_reg_test_nn = X_reg_test.T
+y_reg_train_nn = y_reg_train.reshape(1, -1)
+y_reg_test_nn = y_reg_test.reshape(1, -1)
+regressor = NeuralNetwork('regression', layers=[3, 5, 1], activation='relu', learning_rate=0.01)
+regressor.fit(X_reg_train_nn, y_reg_train_nn, epochs=500, batch_size=32, verbose=True)
+# Evaluate the models
+y_pred_class = classifier.predict(X_class_test_nn)
+y_pred_class_binary = (y_pred_class > 0.5).astype(int)
+class_accuracy = accuracy_score(y_class_test, y_pred_class_binary.flatten())
+y_pred_reg = regressor.predict(X_reg_test_nn)
+reg_mse = mean_squared_error(y_reg_test, y_pred_reg.flatten())
+print(f"\nModels Performance:")
+print(f"Classification Accuracy: {class_accuracy:.4f}")
+print(f"Regression MSE: {reg_mse:.4f}")
+# Saving the models
+models = {
+    'classifier': classifier,
+    'regressor': regressor
+}
+joblib.dump(models, 'models.pkl')
+print("Models saved to models.pkl")
+```
+
+Now let's create a Flask application to serve the models:
+
+```python
+app = Flask(__name__)
+# Global variables to store models
+models = joblib.load('models.pkl')
+@app.route('/predict/classification', methods=['POST'])
+def predict_classification():
+    """Endpoint for the neural network classification model"""
+    try:
+        data = request.get_json()
+        if not data or 'features' not in data:
+            return jsonify({'error': 'No features provided'}), 400
+        features = np.array(data['features']).reshape(1, -1)
+        features_nn = features.T
+        prediction_proba = models['classifier'].predict(features_nn)[0, 0]
+        prediction = 1 if prediction_proba > 0.5 else 0
+        return jsonify({
+            'prediction': int(prediction),
+            'probability': float(prediction_proba),
+            'model_type': 'neural_network',
+            'architecture': '2-4-1',
+            'activation': 'sigmoid',
+            'status': 'success'
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+@app.route('/predict/regression', methods=['POST'])
+def predict_regression():
+    """Endpoint for neural network regression model"""
+    try:
+        data = request.get_json()
+        if not data or 'features' not in data:
+            return jsonify({'error': 'No features provided'}), 400
+        features = np.array(data['features']).reshape(1, -1)
+        features_nn = features.T
+        prediction = models['regressor'].predict(features_nn)[0, 0]
+        return jsonify({
+            'prediction': float(prediction),
+            'model_type': 'neural_network',
+            'architecture': '3-5-1',
+            'activation': 'relu',
+            'status': 'success'
+        })
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+@app.route('/models', methods=['GET'])
+def list_models():
+    """List models and their information"""
+    model_info = {
+        'classifier': {
+            'type': 'classification',
+            'architecture': '2-4-1',
+            'activation': 'sigmoid',
+            'task': 'binary classification',
+            'implementation': 'from_scratch'
+        },
+        'regressor': {
+            'type': 'regression',
+            'architecture': '3-5-1',
+            'activation': 'relu',
+            'task': 'regression',
+            'implementation': 'from_scratch'
+        }
+    }
+    return jsonify(model_info)
+@app.route('/health', methods=['GET'])
+def health_check():
+    return jsonify({'status': 'healthy', 'models_loaded': models is not None})
+```
+
+Run Flask server in background:
+
+```python
+import threading
+import time
+def run_flask_server():
+    app.run(debug=False, host='0.0.0.0', port=5000, use_reloader=False)
+# Start Flask server in background
+server_thread = threading.Thread(target=run_flask_server, daemon=True)
+server_thread.start()
+# Wait for server to start
+time.sleep(3)
+print("Flask server is running in background on port 5000")
+```
+
+Let's create functions to test the model server:
 
 ```python
 import requests
-def fetch_data_from_api(url, params=None):
-    try:
-        response = requests.get(url, params=params)
-        response.raise_for_status()  # Raise an exception for bad status codes
-        return response
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching data: {str(e)}")
-        return None
+import json
+def test_classification(features):
+    """Test classification endpoint"""
+    url = "http://localhost:5000/predict/classification"
+    data = {"features": features}
+    response = requests.post(url, json=data)
+    return response.json()
+def test_regression(features):
+    """Test egression endpoint"""
+    url = "http://localhost:5000/predict/regression"
+    data = {"features": features}
+    response = requests.post(url, json=data)
+    return response.json()
 ```
 
-Now we can use the function to access different datasets. In the following example we are accessing [the UK Price Paid data](https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads) for houses for the first semester of 2020. The data is then written as a CSV file.
+And now we can run the tests:
 
 ```python
-url = 'http://prod.publicdata.landregistry.gov.uk.s3-website-eu-west-1.amazonaws.com/pp-2020-part1.csv'
-file_name_part_1='pp-2020-part1.csv'
-# Using our function to fetch data from an API
-response = fetch_data_from_api(url)
-if response.status_code == 200:
-  with open("./" + file_name_part_1, "wb") as file:
-    file.write(response.content)
+# Test classification
+print("Testing Neural Network Classification:")
+sample_class_features = X_class_test[0].tolist()
+result_class = test_classification(sample_class_features)
+print(json.dumps(result_class, indent=2))
+# Test regression
+print("\nTesting Neural Network Regression:")
+sample_reg_features = X_reg_test[0].tolist()
+result_reg = test_regression(sample_reg_features)
+print(json.dumps(result_reg, indent=2))
+# Test model listing
+print("\nAvailable Models:")
+response = requests.get("http://localhost:5000/models")
+models_info = response.json()
+print(json.dumps(models_info, indent=2))
 ```
 
-We can now open the CSV file using the function we defined before.
+---
+
+## Exercise 2: Deploying Multi-Architecture Neural Networks
+
+In this exercise, we'll deploy a comprehensive neural network implementation that supports multiple architectures. This demonstrates how to deploy complex neural network systems with different configurations.
+
+Let's implement the multi-architecture neural network with various architectures:
 
 ```python
-file_path = './pp-2020-part1.csv'
-# Using our function to load data from a CSV file
-dataset = load_csv_data(file_path)
-print("Dataset shape:", dataset.shape)
-print("\nFirst few rows:")
-print(dataset.head())
+# Multi-Architecture Neural Network Implementation
+class MultiArchitectureNeuralNetwork:
+    def __init__(self, task, layers, activation='sigmoid', learning_rate=0.1):
+        """
+        Initialize multi-architecture neural network
+        layers: list of integers representing the number of neurons in each layer
+        activation: activation function ('sigmoid', 'relu')
+        learning_rate: learning rate for gradient descent
+        """
+        self.task = task
+        self.layers = layers
+        self.learning_rate = learning_rate
+        self.activation = activation
+        
+        # Set activation function
+        if activation == 'sigmoid':
+            self.activation_func = sigmoid
+            self.activation_derivative = sigmoid_derivative
+        elif activation == 'relu':
+            self.activation_func = relu
+            self.activation_derivative = relu_derivative
+        
+        # Initialize weights and biases
+        self.weights = []
+        self.biases = []
+        self.initialize_parameters()
+        self.loss_history = []
+    
+    def initialize_parameters(self):
+        """Initialize weights and biases using Xavier/Glorot initialization"""
+        for i in range(len(self.layers) - 1):
+            std = np.sqrt(2.0 / (self.layers[i] + self.layers[i + 1]))
+            w = np.random.normal(0, std, (self.layers[i + 1], self.layers[i]))
+            b = np.zeros((self.layers[i + 1], 1))
+            self.weights.append(w)
+            self.biases.append(b)
+    
+    def forward_propagation(self, X):
+        """Forward propagation through the network"""
+        self.activations = [X]
+        self.z_values = []
+        for i in range(len(self.weights)):
+            z = np.dot(self.weights[i], self.activations[-1]) + self.biases[i]
+            self.z_values.append(z)
+            if i == len(self.weights) - 1:
+                # Output layer
+                if self.task == 'classification':
+                    a = sigmoid(z)
+                else:  # regression
+                    a = z  # linear activation
+            else:
+                a = self.activation_func(z)
+            self.activations.append(a)
+        return self.activations[-1]
+    
+    def backward_propagation(self, X, y):
+        """Backward propagation to compute gradients"""
+        m = X.shape[1]
+        # Initialize gradients
+        dW = [np.zeros_like(w) for w in self.weights]
+        db = [np.zeros_like(b) for b in self.biases]
+        # Compute error at output layer
+        delta = self.activations[-1] - y
+        # Backpropagate through layers
+        for i in range(len(self.weights) - 1, -1, -1):
+            # Compute gradients for current layer
+            dW[i] = np.dot(delta, self.activations[i].T) / m
+            db[i] = np.sum(delta, axis=1, keepdims=True) / m
+            # Compute error for previous layer (if not input layer)
+            if i > 0:
+                delta = np.dot(self.weights[i].T, delta) * self.activation_derivative(self.z_values[i - 1])
+        return dW, db
+    
+    def update_parameters(self, dW, db):
+        """Update weights and biases using gradient descent"""
+        for i in range(len(self.weights)):
+            self.weights[i] -= self.learning_rate * dW[i]
+            self.biases[i] -= self.learning_rate * db[i]
+    
+    def compute_loss(self, y_true, y_pred, loss_type='binary_crossentropy'):
+        """Compute loss function"""
+        if loss_type == 'binary_crossentropy':
+            epsilon = 1e-15
+            y_pred = np.clip(y_pred, epsilon, 1 - epsilon)
+            loss = -np.mean(y_true * np.log(y_pred) + (1 - y_true) * np.log(1 - y_pred))
+        elif loss_type == 'mse':
+            loss = np.mean((y_true - y_pred) ** 2)
+        return loss
+    
+    def fit(self, X, y, epochs=1000, batch_size=32, verbose=True):
+        """Train the neural network"""
+        n_samples = X.shape[1]
+        loss_type = 'mse' if self.task == 'regression' else 'binary_crossentropy'
+        
+        for epoch in range(epochs):
+            # Shuffle data
+            indices = np.random.permutation(n_samples)
+            X_shuffled = X[:, indices]
+            y_shuffled = y[:, indices]
+            epoch_loss = 0
+            
+            # Mini-batch training
+            for i in range(0, n_samples, batch_size):
+                batch_end = min(i + batch_size, n_samples)
+                X_batch = X_shuffled[:, i:batch_end]
+                y_batch = y_shuffled[:, i:batch_end]
+                
+                # Forward pass
+                y_pred = self.forward_propagation(X_batch)
+                batch_loss = self.compute_loss(y_batch, y_pred, loss_type)
+                epoch_loss += batch_loss
+                
+                # Backward pass
+                dW, db = self.backward_propagation(X_batch, y_batch)
+                # Update parameters
+                self.update_parameters(dW, db)
+            
+            # Record average loss for the epoch
+            avg_loss = epoch_loss / (n_samples // batch_size + 1)
+            self.loss_history.append(avg_loss)
+            
+            if verbose and epoch % 100 == 0:
+                print(f"Epoch {epoch}, Loss: {avg_loss:.4f}")
+    
+    def predict(self, X):
+        """Make predictions"""
+        return self.forward_propagation(X)
 ```
 
-As we defined a function to access data via APIs, we can reuse it for different datasets. In this example, we are accessing [the OpenPostcode Geo dataset](https://www.getthedata.com/open-postcode-geo). This time the downloaded file is a zipped file. We need to unzip and the save and open as a CSV file.
+Now let's train the models with different architectures:
 
 ```python
-import io
-import zipfile
-url = 'https://www.getthedata.com/downloads/open_postcode_geo.csv.zip'
-response = fetch_data_from_api(url)
-if response.status_code == 200:
-  # Reading and unzipping the downloaded file
-  with zipfile.ZipFile(io.BytesIO(response.content)) as zip_ref:
-    zip_ref.extractall('open_postcode_geo')
-# Using our function to load data from a CSV file
-dataset = load_csv_data('open_postcode_geo/open_postcode_geo.csv')
-print("Dataset shape:", dataset.shape)
-print("\nFirst few rows:")
-print(dataset.head())
-```
-
-1.4 Joining datasets to create a new one with more information. We first load and explore the price paid data.
-
-```python
-price_paid = load_csv_data('pp-2020-part1.csv')
-print("Original Price Paid dataset shape:", price_paid.shape)
-print("\nFirst few rows:")
-print(price_paid.head())
-```
-
-Before joining we need to add names to the columns of our dataset.
-
-```python
-price_paid_columns = [
-    'transaction_unique_identifier',
-    'price',
-    'date_of_transfer',
-    'postcode',
-    'property_type',
-    'new_build_flag',
-    'tenure_type',
-    'primary_addressable_object_name',
-    'secondary_addressable_object_name',
-    'street',
-    'locality',
-    'town_city',
-    'district',
-    'county',
-    'ppd_category_type',
-    'record_status'
-]
-price_paid.columns = price_paid_columns
-print(price_paid.head())
-```
-
-We should now load and explore the postcodes data.
-
-```python
-postcodes = load_csv_data('open_postcode_geo/open_postcode_geo.csv')
-print("Original Postcodes dataset shape:", postcodes.shape)
-print("\nFirst few rows:")
-print(postcodes.head())
-```
-
-Again, we should name the columns of our dataset:
-
-```python
-postcodes_columns = [
-    'postcode',
-    'status',
-    'usertype',
-    'easting',
-    'northing',
-    'positional_quality_indicator',
-    'country',
-    'latitude',
-    'longitude',
-    'postcode_no_space',
-    'postcode_fixed_width_seven',
-    'postcode_fixed_width_eight',
-    'postcode_area',
-    'postcode_district',
-    'postcode_sector',
-    'outcode',
-    'incode'
-]
-postcodes.columns = postcodes_columns
-print(postcodes.head())
-```
-
-For joining two datasets, they must share one or more attributes that allow them to match. In this case, both datasets share the `postcode` attribute or column. We use this attribute to merge both datasest.
-
-```python
-merged_data = pd.merge(
-    price_paid,
-    postcodes,
-    on='postcode',
-    how='inner'
+# Train models with different architectures
+print("Training Neural Networks with Multiple Architectures...")
+# Classification model with complex architecture
+input_size = X_class_train.shape[1]
+classifier_complex = MultiArchitectureNeuralNetwork(
+    'classification', 
+    layers=[input_size, 10, 8, 6, 1], 
+    activation='sigmoid', 
+    learning_rate=0.1
 )
+classifier_complex.fit(X_class_train.T, y_class_train.reshape(1, -1), epochs=300, verbose=True)
+# Simple classification model
+classifier_simple = MultiArchitectureNeuralNetwork(
+    'classification', 
+    layers=[2, 6, 1], 
+    activation='sigmoid', 
+    learning_rate=0.1
+)
+classifier_simple.fit(X_class_train.T, y_class_train.reshape(1, -1), epochs=300, verbose=True)
+# Regression model with complex architecture
+regressor_complex = MultiArchitectureNeuralNetwork(
+    'regression', 
+    layers=[X_reg_train.shape[1], 16, 8, 1], 
+    activation='relu', 
+    learning_rate=0.01
+)
+regressor_complex.fit(X_reg_train.T, y_reg_train.reshape(1, -1), epochs=300, verbose=True)
 ```
 
-We can now manipulate and save the enriched dataset.
+We can evaluate the models now:
 
 ```python
-print("Merged dataset shape:", merged_data.shape)
-print("\nSample of merged data:")
-print(merged_data.head())
-merged_data.to_csv('price_paid_with_coordinates.csv', index=False)
+# Evaluate models
+y_pred_class_complex = classifier_complex.predict(X_class_test.T)
+y_pred_class_complex_binary = (y_pred_class_complex > 0.5).astype(int)
+class_complex_accuracy = accuracy_score(y_class_test, y_pred_class_complex_binary.flatten())
+y_pred_class_simple = classifier_simple.predict(X_class_test.T)
+y_pred_class_simple_binary = (y_pred_class_simple > 0.5).astype(int)
+class_simple_accuracy = accuracy_score(y_class_test, y_pred_class_simple_binary.flatten())
+y_pred_reg_complex = regressor_complex.predict(X_reg_test.T)
+reg_complex_mse = mean_squared_error(y_reg_test, y_pred_reg_complex.flatten())
+print(f"\nMulti-Architecture Model Performance:")
+print(f"Complex Classifier Accuracy: {class_complex_accuracy:.4f}")
+print(f"Simple Classifier Accuracy: {class_simple_accuracy:.4f}")
+print(f"Complex Regressor MSE: {reg_complex_mse:.4f}")
 ```
 
-## Exercise 2: Unstructured Data Access for Open Street Maps
-
-OpenStreetMap (OSM) provides a rich source of geospatial data that can be accessed through various methods. Let's explore how to work with OSM data:
-
-### 2.1 Using OSMnx for Network Data
-
-OSMnx is a powerful Python package for working with street networks and other spatial data from OpenStreetMap. We need to install the osmnx library first.
+Once we are done, we can save the models
 
 ```python
-%pip install osmnx
+# Save models
+multi_arch_models = {
+    'classifier_complex': classifier_complex,
+    'classifier_simple': classifier_simple,
+    'regressor_complex': regressor_complex
+}
+joblib.dump(multi_arch_models, 'multi_architecture_models.pkl')
+print("Multi-architecture models saved to multi_architecture_models.pkl")
 ```
 
-And the common imports as usual.
+Now let's create a Flask application to serve the multi-architecture models with architecture selection:
 
 ```python
-import osmnx as ox
-import networkx as nx
-import matplotlib.pyplot as plt
-```
-
-```python
-def get_network_data(place_name, network_type='drive'):
-    """
-    Retrieve street network data for a specific place
-    
-    Parameters:
-    -----------
-    place_name : str
-        Name of the place (e.g., 'London, UK')
-    network_type : str
-        Type of network ('drive', 'walk', 'bike', 'all')
-        
-    Returns:
-    --------
-    G : networkx.MultiDiGraph
-        Street network graph
-    """
+app2 = Flask(__name__)
+# Global variables to store multi-architecture models
+multi_arch_models = joblib.load('multi_architecture_models.pkl')
+print("Multi-architecture models loaded successfully!")
+@app2.route('/predict/classification', methods=['POST'])
+def predict_multi_arch_classification():
+    """Endpoint for multi-architecture neural network classification with architecture selection"""
     try:
-        # Download the street network
-        G = ox.graph_from_place(place_name, network_type=network_type)
-        print(f"Successfully downloaded network with {len(G.nodes)} nodes and {len(G.edges)} edges")
-        return G
-    except Exception as e:
-        print(f"Error downloading network: {str(e)}")
-        return None
-```
-
-We can use our function to get the streets data for Pasto.
-
-```python
-# Example usage
-place = "Pasto, Nariño, Colombia"
-G = get_network_data(place)
-```
-
-And now we can visualise the data
-
-```python
-# Visualize the network
-if G is not None:
-    fig, ax = ox.plot_graph(G, node_size=0, edge_linewidth=0.5)
-    plt.show()
-```
-
-### 2.3 Using OSMnx for Points of Interest
-
-We can also extract points of interest (POIs) of a city using OSMnx:
-
-```python
-def get_pois(place_name, tags):
-    """
-    Retrieve points of interest for a specific place and tags
-    
-    Parameters:
-    -----------
-    place_name : str
-        Name of the place
-    tags : dict
-        Dictionary of OSM tags to search for
+        data = request.get_json()
+        if not data or 'features' not in data:
+            return jsonify({'error': 'No features provided'}), 400
         
-    Returns:
-    --------
-    pois : geopandas.GeoDataFrame
-        Points of interest
-    """
-    try:
-        pois = ox.features_from_place(place_name, tags=tags)
-        print(f"Found {len(pois)} points of interest")
-        return pois
-    except Exception as e:
-        print(f"Error retrieving POIs: {str(e)}")
-        return None
-```
-
-We can use our function to find all buildings and schools in Pasto.
-
-```python
-# Example: Find all buildings and schools in Pasto
-place = "Pasto, Nariño, Colombia"
-buildings = get_pois(place, {"building": True})
-schools = get_pois(place, {"amenity": "school"})
-if schools is not None:
-    # Plot the schools
-    fig, ax = plt.subplots(figsize=(10, 10))
-    schools.plot(ax=ax, markersize=10, color='red')
-    if buildings is not None:
-        buildings.plot(ax=ax)
-    plt.title("Buildings and Schools in Pasto")
-    plt.show()
-```
-
-### 2.3 Using Overpass API for Custom Queries
-
-The Overpass API allows for more specific queries to extract particular features from OSM. We first must install the overpy module.
-
-```python
-%pip install overpy
-```
-
-And add the imports as usual.
-
-```python
-import overpy
-import geopandas as gpd
-from shapely.geometry import Point
-```
-
-```python
-def query_osm_features(query):
-    """
-    Query specific features from OSM using Overpass API
-    
-    Parameters:
-    -----------
-    query : str
-        Overpass QL query string
+        architecture = data.get('architecture', 'complex')  # 'complex' or 'simple'
+        features = np.array(data['features']).reshape(1, -1)
+        features_nn = features.T
         
-    Returns:
-    --------
-    result : overpy.Result
-        Query results
-    """
-    try:
-        api = overpy.Overpass()
-        result = api.query(query)
-        print(f"Query successful. Found {len(result.nodes)} nodes, {len(result.ways)} ways, and {len(result.relations)} relations")
-        return result
-    except Exception as e:
-        print(f"Error querying OSM: {str(e)}")
-        return None
-```
-
-We must define a query in the `overpy` language. In our example we want to find all restaurants in Pasto. The query we use has the following parts:
-
-1. `[out:json][timeout:25];`
-
-- out:json specifies that we want the output in JSON format
-- timeout:25 sets a timeout of 25 seconds for the query
-
-2. `area[name="Pasto"]->.searchArea;`
-
-- This creates a named area filter called "searchArea"
-- It looks for an area with the name "Pasto, Nariño, Colombia"
-- The ->.searchArea stores this area for later use in the query
-
-3. The main search block.
-
-- This searches for three types of OSM elements:
--- `node`: Individual points (like a restaurant location)
--- `way`: Lines or areas (like a restaurant building)
--- `relation`: Complex objects made up of multiple elements
-- `["amenity"="restaurant"]` is a tag filter that looks for elements tagged as restaurants
-- `(area.searchArea)` restricts the search to within the Pasto area we defined
-
-3. The output statements.
-
-- `out body;` outputs the full data for the found elements
-- `>;` recursively gets all nodes that are part of the ways and relations
-- `out skel qt;` out skel qt outputs the remaining elements in a compact format
-
-Let's execute the function to find all restaurants in Pasto.
-
-```python
-# Example: Find all restaurants in a specific area
-query = """
-[out:json][timeout:25];
-area[name="Pasto"]->.searchArea;
-(
-  node["amenity"="restaurant"](area.searchArea);
-  way["amenity"="restaurant"](area.searchArea);
-  relation["amenity"="restaurant"](area.searchArea);
-);
-out body;
->;
-out skel qt;
-"""
-restaurants = query_osm_features(query)
-```
-
-We can then manipulate the restaurants data. We convert it to a GeoDataFrame in our example. For that, we create an array of points with the restaurant nodes information.
-
-```python
-# Convert results to GeoDataFrame for easier analysis
-if restaurants is not None:
-    # Create a list to store restaurant points
-    points = []
-    for node in restaurants.nodes:
-        points.append({
-            'geometry': Point(float(node.lon), float(node.lat)),
-            'name': node.tags.get('name', 'Unknown'),
-            'cuisine': node.tags.get('cuisine', 'Unknown')
+        if architecture == 'complex':
+            model = multi_arch_models['classifier_complex']
+            arch_info = 'input_size-10-8-6-1'
+        else:
+            model = multi_arch_models['classifier_simple']
+            arch_info = '2-6-1'
+        
+        prediction_proba = model.predict(features_nn)[0, 0]
+        prediction = 1 if prediction_proba > 0.5 else 0
+        
+        return jsonify({
+            'prediction': int(prediction),
+            'probability': float(prediction_proba),
+            'model_type': 'multi_architecture_neural_network',
+            'architecture': arch_info,
+            'activation': 'sigmoid',
+            'complexity': architecture,
+            'status': 'success'
         })
-    # Create GeoDataFrame
-    gdf = gpd.GeoDataFrame(points, crs="EPSG:4326")
-    print("\nRestaurant data sample:")
-    print(gdf.head())
-```
-
-We can print more detailed data about restaurants in Pasto.
-
-```python    
-# Print more detailed information about the restaurants
-print("\nDetailed Restaurant Information:")
-print("Total number of restaurants:", len(gdf))
-print("\nRestaurant names:")
-print(gdf['name'].value_counts().head())
-print("\nCuisine types:")
-print(gdf['cuisine'].value_counts().head())
-```
-
-These methods provide different ways to access and work with OpenStreetMap data, from street networks to points of interest.
-
-## Exercise 3: Web Scraping for Data Collection
-
-When data is available on websites but not through APIs, we can use web scraping.
-
-```python
-from bs4 import BeautifulSoup
-def scrape_web_data(url):
-    """
-    Scrape data from a webpage
-    
-    Parameters:
-    -----------
-    url : str
-        URL of the webpage to scrape
-        
-    Returns:
-    --------
-    data : list
-        List of scraped data
-    """
-    try:
-        # Add headers to mimic a browser
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-        }
-        
-        # Make the request
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()
-        
-        # Parse the HTML
-        soup = BeautifulSoup(response.text, 'html.parser')
-        
-        # Example: Extract all paragraph text
-        # Modify this based on the actual webpage structure
-        data = [p.text for p in soup.find_all('p')]
-        
-        return data
-    
     except Exception as e:
-        print(f"Error scraping data: {str(e)}")
-        return None
-# Example usage:
-# data = scrape_web_data('https://example.com')
-```
-
-Let's use our function to scrape data from the course website. We will extract the course information and lecture details.
-
-```python
-# URL of the course website
-url = "https://cabrerac.github.io/teaching/25-udenar-ml-intro/"
-# Scrape the data
-course_data = scrape_web_data(url)
-```
-
-We can manipulate the scrapped data now. We should consider the structure of the website when doing so.
-
-```python
-if course_data is not None:
-    print("Course Information:")
-    for item in course_data:
-        print(f"- {item}")
-    # Extract lecture information
-    soup = BeautifulSoup(requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}).text, 'html.parser')
-    lectures = soup.find_all('li')
-    print("\nLecture Schedule:")
-    for lecture in lectures:
-        if lecture.text:
-            print(f"- {lecture.text}")
-```
-
-## Exercise 4: Creating Synthetic Data
-
-When real data is not available, we can create synthetic data that mimics real-world patterns:
-
-```python
-def generate_synthetic_data(n_samples=1000, n_features=5, n_classes=3):
-    """
-    Generate synthetic data for classification problems
-    
-    Parameters:
-    -----------
-    n_samples : int
-        Number of samples to generate
-    n_features : int
-        Number of features
-    n_classes : int
-        Number of classes
+        return jsonify({'error': str(e)}), 500
+@app2.route('/predict/regression', methods=['POST'])
+def predict_multi_arch_regression():
+    """Endpoint for multi-architecture neural network regression with architecture selection"""
+    try:
+        data = request.get_json()
+        if not data or 'features' not in data:
+            return jsonify({'error': 'No features provided'}), 400
         
-    Returns:
-    --------
-    X : array-like
-        Feature matrix
-    y : array-like
-        Target vector
-    """
-    # Generate random features
-    X = np.random.randn(n_samples, n_features)
+        architecture = data.get('architecture', 'complex')  # 'complex' or 'simple'
+        features = np.array(data['features']).reshape(1, -1)
+        features_nn = features.T
+        
+        if architecture == 'complex':
+            model = multi_arch_models['regressor_complex']
+            arch_info = 'input_size-16-8-1'
+        else:
+            model = multi_arch_models['regressor_simple']
+            arch_info = '1-5-1'
+        
+        prediction = model.predict(features_nn)[0, 0]
+        
+        return jsonify({
+            'prediction': float(prediction),
+            'model_type': 'multi_architecture_neural_network',
+            'architecture': arch_info,
+            'activation': 'relu',
+            'complexity': architecture,
+            'status': 'success'
+        })       
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+@app2.route('/models', methods=['GET'])
+def list_multi_arch_models():
+    """List multi-architecture models and their information"""
+    model_info = {
+        'classifier_complex': {
+            'type': 'classification',
+            'architecture': 'input_size-10-8-6-1',
+            'activation': 'sigmoid',
+            'task': 'binary classification',
+            'complexity': 'complex'
+        },
+        'classifier_simple': {
+            'type': 'classification',
+            'architecture': '2-6-1',
+            'activation': 'sigmoid',
+            'task': 'binary classification',
+            'complexity': 'simple'
+        },
+        'regressor_complex': {
+            'type': 'regression',
+            'architecture': 'input_size-16-8-1',
+            'activation': 'relu',
+            'task': 'regression',
+            'complexity': 'complex'
+        },
+        'regressor_simple': {
+            'type': 'regression',
+            'architecture': '1-5-1',
+            'activation': 'relu',
+            'task': 'regression',
+            'complexity': 'simple'
+        }
+    }
+    return jsonify(model_info)
+@app2.route('/health', methods=['GET'])
+def health_check_multi_arch():
+    return jsonify({'status': 'healthy', 'models_loaded': multi_arch_models is not None})
+```
+
+Run Flask server in background
+
+```python
+import threading
+import time
+def run_flask_server():
+    app2.run(debug=False, host='0.0.0.0', port=5001, use_reloader=False)
+# Start Flask server in background
+server_thread = threading.Thread(target=run_flask_server, daemon=True)
+server_thread.start()
+# Wait for server to start
+time.sleep(3)
+print("Multi-architecture Flask server is running in background on port 5001")
+```
+
+Let's test the multi-architecture model server creating a couple of functions for that:
+
+```python
+def test_multi_arch_classification(features, architecture='complex'):
+    """Test multi-architecture classification endpoint"""
+    url = "http://localhost:5001/predict/classification"
+    data = {"features": features, "architecture": architecture}
+    response = requests.post(url, json=data)
+    return response.json()
+def test_multi_arch_regression(features, architecture='complex'):
+    """Test multi-architecture regression endpoint"""
+    url = "http://localhost:5001/predict/regression"
+    data = {"features": features, "architecture": architecture}
+    response = requests.post(url, json=data)
+    return response.json()
+```
+
+And now we can test the implementation:
+
+```python
+# Test complex classification
+print("Testing Complex Neural Network Classification:")
+result_class_complex = test_multi_arch_classification(sample_class_features, 'complex')
+print(json.dumps(result_class_complex, indent=2))
+# Test simple classification
+print("\nTesting Simple Neural Network Classification:")
+result_class_simple = test_multi_arch_classification(sample_class_features, 'simple')
+print(json.dumps(result_class_simple, indent=2))
+# Test complex regression
+print("\nTesting Complex Neural Network Regression:")
+result_reg_complex = test_multi_arch_regression(sample_reg_features, 'complex')
+print(json.dumps(result_reg_complex, indent=2))
+# Test model listing
+print("\nAvailable Multi-Architecture Models:")
+response = requests.get("http://localhost:5001/models")
+models_info = response.json()
+print(json.dumps(models_info, indent=2))
+```
+
+---
+
+## Exercise 3: Deploying TensorFlow/Keras Computer Vision Model
+
+In this exercise, we'll deploy a TensorFlow/Keras implementation for computer vision. This demonstrates how to deploy modern deep learning frameworks in production.
+
+```python
+import tensorflow as tf
+from tensorflow.keras import models, layers
+import matplotlib.pyplot as plt
+import numpy as np
+from PIL import Image
+import io
+import base64
+```
+
+Let's implement the computer vision pipeline:
+
+```python
+# Computer Vision Model Implementation
+class ComputerVisionModel:
+    def __init__(self, image_size=256, num_classes=3):
+        self.image_size = image_size
+        self.num_classes = num_classes
+        self.model = None
+        self.class_names = ['Potato_Early_blight', 'Potato_healthy', 'Potato_Late_blight']
+        self.build_model()
     
-    # Generate target variable based on feature relationships
-    y = np.zeros(n_samples)
-    for i in range(n_samples):
-        # Create some pattern in the data
-        if X[i, 0] + X[i, 1] > 0: # y is 0 when the sum of first two features is positive 
-            y[i] = 0
-        elif X[i, 2] * X[i, 3] > 0: # y is 1 when the product of third and fourht features is positive 
-            y[i] = 1
-        else: # y is 2 when the above conditions are not satisfied
-            y[i] = 2
+    def build_model(self):
+        """Build CNN model for plant disease classification"""
+        self.model = tf.keras.Sequential([
+            # Data preprocessing
+            layers.Resizing(self.image_size, self.image_size),
+            layers.Rescaling(1.0/255),
+            
+            # Data augmentation
+            layers.RandomFlip("horizontal_and_vertical"),
+            layers.RandomRotation(0.2),
+            
+            # Convolutional layers
+            layers.Conv2D(32, 3, padding='same', activation='relu'),
+            layers.MaxPooling2D(),
+            layers.Conv2D(64, 3, padding='same', activation='relu'),
+            layers.MaxPooling2D(),
+            layers.Conv2D(64, 3, padding='same', activation='relu'),
+            layers.MaxPooling2D(),
+            
+            # Dense layers
+            layers.Flatten(),
+            layers.Dense(64, activation='relu'),
+            layers.Dropout(0.5),
+            layers.Dense(self.num_classes, activation='softmax')
+        ])
+        
+        self.model.compile(
+            optimizer='adam',
+            loss='sparse_categorical_crossentropy',
+            metrics=['accuracy']
+        )
     
-    return X, y
+    def create_synthetic_dataset(self, num_samples=1000):
+        """Create synthetic dataset for demonstration"""
+        # Generate synthetic images (simulating plant disease images)
+        X = np.random.rand(num_samples, self.image_size, self.image_size, 3)
+        y = np.random.randint(0, self.num_classes, num_samples)
+        
+        # Split the data
+        split_idx = int(0.8 * num_samples)
+        X_train, X_test = X[:split_idx], X[split_idx:]
+        y_train, y_test = y[:split_idx], y[split_idx:]
+        
+        return X_train, X_test, y_train, y_test
+    
+    def train(self, X_train, y_train, epochs=10, validation_split=0.2):
+        """Train the model"""
+        history = self.model.fit(
+            X_train, y_train,
+            epochs=epochs,
+            validation_split=validation_split,
+            verbose=1
+        )
+        return history
+    
+    def predict(self, image):
+        """Make prediction on a single image"""
+        if isinstance(image, str):
+            # Decode base64 image
+            image_data = base64.b64decode(image.split(',')[1])
+            image = Image.open(io.BytesIO(image_data))
+        
+        # Preprocess image
+        image = image.resize((self.image_size, self.image_size))
+        image_array = np.array(image) / 255.0
+        image_array = np.expand_dims(image_array, axis=0)
+        
+        # Make prediction
+        predictions = self.model.predict(image_array)
+        predicted_class = np.argmax(predictions[0])
+        confidence = float(np.max(predictions[0]))
+        
+        return {
+            'class': self.class_names[predicted_class],
+            'class_id': int(predicted_class),
+            'confidence': confidence,
+            'probabilities': predictions[0].tolist()
+        }
+    
+    def evaluate(self, X_test, y_test):
+        """Evaluate the model"""
+        test_loss, test_accuracy = self.model.evaluate(X_test, y_test, verbose=0)
+        return {'loss': test_loss, 'accuracy': test_accuracy}
 ```
 
-Let's create and save our synthetic dataset:
+Now we can train our model using the above implementation:
 
 ```python
-# Generate synthetic data
-X, y = generate_synthetic_data(n_samples=1000, n_features=5, n_classes=3)
-# Convert to DataFrame for better visualization
-import pandas as pd
-df = pd.DataFrame(X, columns=[f'feature_{i+1}' for i in range(X.shape[1])])
-df['target'] = y
-# Print dataset information
-print("Dataset Shape:", df.shape)
-print("\nFirst 5 rows:")
-print(df.head())
-# Save the dataset to a CSV file
-df.to_csv('synthetic_dataset.csv', index=False)
-print("\nDataset saved to 'synthetic_dataset.csv'")
+# Create and train the computer vision model
+print("Training Computer Vision Model...")
+cv_model = ComputerVisionModel()
+# Create synthetic dataset
+X_train, X_test, y_train, y_test = cv_model.create_synthetic_dataset()
+# Train the model
+history = cv_model.train(X_train, y_train, epochs=5)
+# Evaluate the model
+evaluation = cv_model.evaluate(X_test, y_test)
+print(f"Computer Vision Model Performance:")
+print(f"Test Accuracy: {evaluation['accuracy']:.4f}")
+print(f"Test Loss: {evaluation['loss']:.4f}")
 ```
 
-## Homework - Data Access
-
-1. Define a dataset for the problem you want to address using machine learning. The ML Project Canvas from last time can help you to start defining your data needs. If you do not find an available dataset, you are free to create a synthetic one or to change your project according to the data that is available.
-
-<DESCRIBE YOUR DATASET HERE - REFER TO YOUR CANVAS WHERE NEEDED>
+We can now save the model as a keras file:
 
 ```python
-# Write the code you need to access/create your dataset here
+# Save the model
+cv_model.model.save('computer_vision_model.keras')
+print("Computer vision model saved to computer_vision_model.keras")
 ```
 
-2. [The Humanitarian Data Exchange](https://data.humdata.org/) is a repository where you can find, share, and use humanitarian data. This platform has [datasets related to Colombia](https://data.humdata.org/group/col). For example, this is a [dataset of the health facilities in Colombia](https://data.humdata.org/dataset/colombia-health-facilities-2021). We can access this dataset programatically using the function we created in above.
-
-**IMPORTANT**: Designers and service providers define the particular format and structure of the datasets. In this particular example, the delimiters of the CSV file are semicolons `;` and the file is written using the `latin1` encoding. You must consider these two aspects when downloading and opening the dataset file. You can modify the code in the function `load_csv_data` or create your solution. Before implementing, have a look at the downloaded CSV file and analyse its format and structure.
+Now let's create a Flask application to serve the computer vision model:
 
 ```python
-# URL of the dataset
-url = "https://data.humdata.org/dataset/9df9c9a5-cbd1-4d52-a292-8ac392f155a4/resource/7cce7e88-19b3-4e22-890e-884cd8328e70/download/registro_especial_de_prestadores_y_sedes_de_servicios_de_salud_20241120.csv"
-# Write your code to access and manipulate the health facilities in Colombia
+app3 = Flask(__name__)
+# Global variable to store the computer vision model
+cv_model = ComputerVisionModel()
+cv_model.model = tf.keras.models.load_model('computer_vision_model.keras')
+print("Computer vision model loaded successfully!")
+@app3.route('/predict/image', methods=['POST'])
+def predict_image():
+    """Endpoint for computer vision model"""
+    try:
+        # Check if image is provided as base64 or file
+        if 'image' in request.files:
+            # File upload
+            file = request.files['image']
+            image = Image.open(file.stream)
+        elif 'image_base64' in request.json:
+            # Base64 encoded image
+            image_data = request.json['image_base64']
+            image = Image.open(io.BytesIO(base64.b64decode(image_data.split(',')[1])))
+        else:
+            return jsonify({'error': 'No image provided'}), 400
+        
+        # Make prediction
+        result = cv_model.predict(image)
+        
+        return jsonify({
+            'prediction': result,
+            'model_type': 'computer_vision',
+            'framework': 'tensorflow_keras',
+            'task': 'plant_disease_classification',
+            'classes': cv_model.class_names,
+            'status': 'success'
+        })
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+@app3.route('/predict/batch', methods=['POST'])
+def predict_batch():
+    """Endpoint for batch prediction with computer vision model"""
+    try:
+        data = request.get_json()
+        if not data or 'images' not in data:
+            return jsonify({'error': 'No images provided'}), 400
+        
+        images_data = data['images']
+        results = []
+        
+        for i, image_data in enumerate(images_data):
+            try:
+                # Decode base64 image
+                image_data_decoded = base64.b64decode(image_data.split(',')[1])
+                image = Image.open(io.BytesIO(image_data_decoded))
+                
+                # Make prediction
+                result = cv_model.predict(image)
+                result['image_index'] = i
+                results.append(result)
+                
+            except Exception as e:
+                results.append({
+                    'image_index': i,
+                    'error': str(e)
+                })
+        
+        return jsonify({
+            'predictions': results,
+            'model_type': 'computer_vision',
+            'framework': 'tensorflow_keras',
+            'task': 'plant_disease_classification',
+            'status': 'success'
+        })
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+@app3.route('/model/info', methods=['GET'])
+def get_model_info():
+    """Get information about the computer vision model"""
+    model_info = {
+        'model_type': 'computer_vision',
+        'framework': 'tensorflow_keras',
+        'task': 'plant_disease_classification',
+        'classes': cv_model.class_names if cv_model else [],
+        'image_size': 256,
+        'architecture': 'CNN with data augmentation',
+        'layers': [
+            'Conv2D(32) + MaxPooling2D',
+            'Conv2D(64) + MaxPooling2D', 
+            'Conv2D(64) + MaxPooling2D',
+            'Dense(64) + Dropout(0.5)',
+            'Dense(3, softmax)'
+        ]
+    }
+    return jsonify(model_info)
+@app3.route('/health', methods=['GET'])
+def health_check_cv():
+    return jsonify({'status': 'healthy', 'model_loaded': cv_model is not None})
 ```
 
-Can you combine the health facilities data with OpenStreetMaps to create a new dataset?
+Run Flask server in background
 
 ```python
-# Write your code to combine the datasets
+import threading
+import time
+def run_flask_server():
+    app3.run(debug=False, host='0.0.0.0', port=5002, use_reloader=False)
+# Start Flask server in background
+server_thread = threading.Thread(target=run_flask_server, daemon=True)
+server_thread.start()
+# Wait for server to start
+time.sleep(3)
+print("Computer vision Flask server is running in background on port 5002")
 ```
 
-The repository has more datasets for the Colombian context. Explore it and think about the first task of this homework. You can get inspiration for your ML projects based on the available data.
+Let's test the computer vision model server, creating the following functions:
 
+```python
+def create_test_image():
+    """Create a test image for demonstration"""
+    # Create a simple test image
+    image = Image.new('RGB', (256, 256), color='green')
+    # Convert to base64
+    buffer = io.BytesIO()
+    image.save(buffer, format='PNG')
+    image_base64 = base64.b64encode(buffer.getvalue()).decode()
+    return f"data:image/png;base64,{image_base64}"
+def test_cv_image_prediction():
+    """Test computer vision image prediction endpoint"""
+    url = "http://localhost:5002/predict/image"   
+    # Create test image
+    test_image = create_test_image()
+    data = {"image_base64": test_image}
+    response = requests.post(url, json=data)
+    return response.json()
+def test_cv_batch_prediction():
+    """Test computer vision batch prediction endpoint"""
+    url = "http://localhost:5002/predict/batch"
+    # Create multiple test images
+    test_images = [create_test_image() for _ in range(3)]
+    data = {"images": test_images}
+    response = requests.post(url, json=data)
+    return response.json()
+```
 
-### Submission Guidelines
+Now let's test the endpoints:
 
-- Submit your solution as a Jupyter notebook with the following name format: `cease_ml_intro_session_3_<email_username>.ipynb`
-- Include clear comments explaining your code
-- Provide a written analysis of your results
-- Document any challenges faced and how you overcame them
-- Due date: [05/06/2025]
+```python
+# Test computer vision image prediction
+print("Testing Computer Vision Model:")
+result_cv_image = test_cv_image_prediction()
+print(json.dumps(result_cv_image, indent=2))
+# Test computer vision batch prediction
+print("\nTesting Batch Prediction:")
+result_cv_batch = test_cv_batch_prediction()
+print(json.dumps(result_cv_batch, indent=2))
+# Test model info
+print("\nComputer Vision Model Information:")
+response = requests.get("http://localhost:5002/model/info")
+model_info = response.json()
+print(json.dumps(model_info, indent=2))
+```
 
-## Resources
+---
 
-- [Pandas Documentation](https://pandas.pydata.org/docs/)
-- [OpenML Datasets](https://www.openml.org/)
-- [Tensorflow Datasets](https://www.tensorflow.org/datasets)
-- [Iris Dataset](https://www.geeksforgeeks.org/iris-dataset/)
-- [UK Price Paid Dataset](https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads)
-- [Open Postcode Geo Dataset](https://www.getthedata.com/open-postcode-geo)
-- [Open Street Maps API](https://wiki.openstreetmap.org/wiki/API)
-- [Beautiful Soup Documentation](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
-- [Web Scraping Best Practices](https://www.scrapehero.com/how-to-prevent-getting-blacklisted-while-scraping/)
+## Summary
 
-<!-- end NOTEBOOK: -->
+This practical session demonstrates three different approaches to deploying neural network models in production:
 
+1. **From-Scratch Neural Network Implementation** (Port 5000):
+   - Complete neural network implementation from scratch
+   - Flask deployment with simple API endpoints
+   - Demonstrates how to deploy custom implementations
+
+2. **Multi-Architecture Neural Network Implementation** (Port 5001):
+   - Comprehensive neural network with multiple architectures
+   - Architecture selection via API parameters
+   - Shows how to deploy complex model systems
+
+3. **TensorFlow/Keras Computer Vision Implementation** (Port 5002):
+   - Modern deep learning framework deployment
+   - Computer vision model with image processing
+   - Demonstrates production deployment of modern frameworks
+
+Each exercise showcases different deployment strategies and production considerations for machine learning models that you built during the course.
+
+Many thanks!
+
+<!-- end NOTEBOOK: --> 

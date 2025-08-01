@@ -36,24 +36,32 @@ visible: false
 
 ## Resources  
 
+#### Books
+
+- [Kleppmann, M. (2017). Designing Data-Intensive Applications. O'Reilly Media](https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/)
+- [Huyen, C. (2022). Designing Machine Learning Systems. O'Reilly Media](https://www.oreilly.com/library/view/designing-machine-learning/9781098107956/)
+<br>
+<br>
 #### Papers and Reports  
 
+- [Sculley, D., et al. (2015). Hidden technical debt in machine learning systems](https://papers.nips.cc/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html)
+- [Breck, E., et al. (2016). The ML test score: A rubric for ML production readiness and technical debt reduction](https://research.google/pubs/pub46555/)
+- [Kabi J., Maina C. (2021). Leveraging IoT and Machine Learning for Improved Monitoring of Water Resources - A Case Study of the Upper Ewaso Nyiro River](https://ieeexplore.ieee.org/abstract/document/9576970)
 - [Zittrain J. (2022). Intellectual Debt: With Great Power Comes Great Ignorance](https://www.cambridge.org/core/books/cambridge-handbook-of-responsible-artificial-intelligence/intellectual-debt/F5D4CF05857D072ABED383AE7A3222E4)
-- [Cabrera C. et al. (2023) Real-world Machine Learning Systems: A survey from a Data-Oriented Architecture Perspective](https://arxiv.org/abs/2302.04810)
-- [Lawrence N. D. (2017) Data Readiness Levels](https://arxiv.org/abs/1705.02245)
-- [Taherdoost H. (2021) Data Collection Methods and Tools for Research; A Step-by-Step Guide to Choose Data Collection Technique for Academic and Business Research Projects](https://hal.science/Hal-03741847/)
-- [Boda Bodas and Road Traffic Injuries in Uganda: An Overview of Traffic Safety Trends from 2009 to 2017](https://pmc.ncbi.nlm.nih.gov/articles/PMC7143574/)
+- [Paleyes, A., et al. (2020). Challenges in deploying machine learning: a survey of case studies](https://arxiv.org/abs/2011.09926)
+- [Cabrera, C., et al. (2022). MAACO: A Dynamic Service Placement Model for Smart Cities](https://ieeexplore.ieee.org/abstract/document/9681330)
+- [Cabrera, C., et al. (2023). Machine Learning Systems: A survey from a Data-Oriented Perspective](https://arxiv.org/abs/2302.04810)
 <br>
 <br>
 #### Web
 
 - [The Data Dichotomy: Rethinking the way we Treat Data and Services](https://www.confluent.io/blog/data-dichotomy-rethinking-the-way-we-treat-data-and-services/)
-- [The Data Science Landscape - Advanced Data Science Lecture at Cambridge](https://mlatcl.github.io/advds/lectures/04-01-the-data-science-landscape.html)
-- [OpenML Datasets](https://www.openml.org/)
-- [Tensorflow Datasets](https://www.tensorflow.org/datasets)
-- [Iris Dataset](https://www.geeksforgeeks.org/iris-dataset/)
-- [UK Price Paid Dataset](https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads)
-- [Open Postcode Geo Dataset](https://www.getthedata.com/open-postcode-geo)
-- [Open Street Maps API](https://wiki.openstreetmap.org/wiki/API)
-- [Kaggle Datasets](https://www.kaggle.com/datasets)
-- [Registry of Research Data Repositories](https://www.re3data.org/)
+- [Deploying Machine Learning using Flask](https://www.geeksforgeeks.org/machine-learning/deploy-machine-learning-model-using-flask/)
+- [MLOps: Continuous delivery and automation pipelines in machine learning](https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning)
+- [Kubeflow: Machine Learning Toolkit for Kubernetes](https://www.kubeflow.org/)
+- [MLflow: An open source platform for the machine learning lifecycle](https://mlflow.org/)
+- [TensorFlow Serving](https://www.tensorflow.org/tfx/guide/serving)
+- [TorchServe: Model serving for PyTorch](https://pytorch.org/serve/)
+- [Seldon Core: Cloud native machine learning deployment](https://www.seldon.io/tech/products/core/)
+- [Weights & Biases: MLOps platform](https://wandb.ai/)
+- [Neptune.ai: Experiment tracking and model registry](https://neptune.ai/)
