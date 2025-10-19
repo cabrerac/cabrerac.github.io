@@ -5,8 +5,6 @@ description: "Get in touch with me"
 permalink: /contact/
 ---
 
-## Contact Information
-
 **Dr. Christian Cabrera-Jojoa**  
 Assistant Research Professor and Affiliated Lecturer  
 Department of Computer Science and Technology  

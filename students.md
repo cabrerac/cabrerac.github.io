@@ -5,8 +5,8 @@ description: "Current and past students under my supervision"
 permalink: /students/
 ---
 
-## Student Supervision
-
+<p>
 This page showcases the students I have supervised and am currently supervising.
+</p>
 
 {% include students_list.html %}
