@@ -1,4 +1,9 @@
+<h2>Test Include Working</h2>
+<p>If you can see this, the include is working!</p>
+
 {% if site.data.students %}
+  <p>Data is loaded: {{ site.data.students.current.size }} current, {{ site.data.students.past.size }} past</p>
+  
   {% assign current_students = site.data.students.current %}
   {% assign past_students = site.data.students.past %}
 
@@ -54,4 +59,6 @@
       {% endfor %}
     </div>
   {% endif %}
+{% else %}
+  <p>No student data found. Check if _data/students.yml exists and is valid.</p>
 {% endif %}
