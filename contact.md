@@ -8,13 +8,11 @@ permalink: /contact/
 ## Contact Information
 
 **Dr. Christian Cabrera-Jojoa**  
-Senior Research Associate and Affiliated Lecturer  
+Assistant Research Professor and Affiliated Lecturer  
 Department of Computer Science and Technology  
 University of Cambridge  
 
 **Email**: chc79[at]cam[dot]ac[dot]uk
-
-**Office**: [To be filled with actual office location]
 
 **Research Interests**: Data-Oriented Architectures, Machine Learning Systems, Self-Adaptive AI Systems, Edge Computing
 

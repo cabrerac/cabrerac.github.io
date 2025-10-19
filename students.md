@@ -7,6 +7,6 @@ permalink: /students/
 
 ## Student Supervision
 
-This page showcases the students I have supervised and am currently supervising, demonstrating my commitment to research mentorship and academic development.
+This page showcases the students I have supervised and am currently supervising.
 
 {% include students_list.html %}
