@@ -1,0 +1,55 @@
+# Current Students
+current:
+  - name: "Harry Allen"
+    degree: "PhD Student"
+    program: "UKRI AI Centre for Doctoral Training in Decision Making for Complex Systems"
+    program_url: "https://www.ai-decisions-cdt.ac.uk/"
+    institution: "University of Cambridge"
+    project: "Interpretable Self-Sustaining Systems"
+    role: "PhD Supervisor (Together with Neil Lawrence)"
+    start_year: 2024
+    status: "current"
+    
+  - name: "Ilai Shraga"
+    degree: "Master's Student"
+    program: "MPhil in Advanced Computer Science"
+    program_url: "https://www.cst.cam.ac.uk/admissions/acs"
+    institution: "University of Cambridge"
+    project: "Interpretable Self-Sustaining Systems"
+    role: "Master's Supervisor (Together with Neil Lawrence)"
+    start_year: 2024
+    status: "current"
+
+# Past Students
+past:
+  - name: "Elizabeth Rojas Noguera"
+    degree: "Undergraduate Student"
+    institution: "Universidad de Nariño"
+    project: "Cities-Board: A Framework to Automate the Development of Smart Cities Dashboards"
+    role: "Undergrad Project Supervisor"
+    graduation_year: 2020
+    publications:
+      - title: "Cities-Board: A Framework to Automate the Development of Smart Cities Dashboards"
+        url: "https://ieeexplore.ieee.org/abstract/document/9119074"
+    artefacts:
+      - name: "cities-board-dev"
+        url: "https://github.com/cabrerac/cities-board-dev"
+      - name: "cities-board-plugin"
+        url: "https://github.com/cabrerac/cities-board-plugin"
+    status: "graduated"
+    
+  - name: "Joseph Poon"
+    degree: "Undergraduate Student"
+    institution: "University of Cambridge"
+    project: "Adapting Service Placement Algorithms for Edge Computing: Implementing a Decentralized Approach in iFogSim"
+    role: "Undergrad Project Supervisor (Together with Neil Lawrence)"
+    graduation_year: 2025
+    status: "graduated"
+    
+  - name: "Arvind Raghu"
+    degree: "Undergraduate Student"
+    institution: "University of Cambridge"
+    project: "Adapting CDN Simulator for Benchmarking Self-Adaptive System Approaches"
+    role: "Undergrad Project Supervisor (Together with Neil Lawrence)"
+    graduation_year: 2025
+    status: "graduated"
