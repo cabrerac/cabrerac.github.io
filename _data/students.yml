@@ -19,7 +19,6 @@ current:
     start_year: 2024
     status: "current"
 
-# Past Students
 past:
   - name: "Elizabeth Rojas Noguera"
     degree: "Undergraduate Student"
