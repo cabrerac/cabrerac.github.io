@@ -5,7 +5,7 @@
 {% assign undergrad_students = all_students | where: "degree", "Undergraduate Student" | sort: 'graduation_year' | reverse %}
 
 {% if phd_students.size > 0 %}
-<h3>PhD Students</h3>
+<h3>PhD Students</h3><br>
 {% for student in phd_students %}
 <div class="student-item">
 <b>{{ student.name }}</b> - {{ student.institution }}<br>
@@ -17,7 +17,7 @@ Project: {{ student.project }}<br>
 {% endif %}
 
 {% if masters_students.size > 0 %}
-<h3>Master's Students</h3>
+<h3>Master's Students</h3><br>
 {% for student in masters_students %}
 <div class="student-item">
 <b>{{ student.name }}</b> - {{ student.institution }}<br>
@@ -29,7 +29,7 @@ Project: {{ student.project }}<br>
 {% endif %}
 
 {% if undergrad_students.size > 0 %}
-<h3>Undergraduate Students</h3>
+<h3>Undergraduate Students</h3><br>
 {% for student in undergrad_students %}
 <div class="student-item">
 <b>{{ student.name }}</b> - {{ student.institution }}<br>
