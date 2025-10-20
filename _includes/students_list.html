@@ -3,7 +3,7 @@
 {% assign past_students = site.data.students.past | sort: 'graduation_year' | reverse %}
 
 {% if current_students.size > 0 %}
-<h2>Current Students</h2>
+<h2>Current Students</h2><br>
 {% for student in current_students %}
 <div class="student-item">
 <h3>{{ student.name }}</h3>
@@ -19,7 +19,7 @@
 {% endif %}
 
 {% if past_students.size > 0 %}
-<h2>Past Students</h2>
+<br><h2>Past Students</h2><br>
 {% for student in past_students %}
 <div class="student-item">
 <h3>{{ student.name }}</h3>
