@@ -7,39 +7,36 @@
 {% if phd_students.size > 0 %}
 <h3>PhD Students</h3>
 {% for student in phd_students %}
-<p>
-<b>{{ student.name }}</b><br>
-{{ student.institution }}<br>
+<div class="student-item">
+<b>{{ student.name }}</b> - {{ student.institution }}<br>
 Project: {{ student.project }}<br>
 {% if student.status == "current" %}Started: {{ student.start_year }}{% else %}Graduated: {{ student.graduation_year }}{% endif %}<br>
 {% if student.description %}{{ student.description }}<br>{% endif %}
-</p>
+</div>
 {% endfor %}
 {% endif %}
 
 {% if masters_students.size > 0 %}
 <h3>Master's Students</h3>
 {% for student in masters_students %}
-<p>
-<b>{{ student.name }}</b><br>
-{{ student.institution }}<br>
+<div class="student-item">
+<b>{{ student.name }}</b> - {{ student.institution }}<br>
 Project: {{ student.project }}<br>
 {% if student.status == "current" %}Started: {{ student.start_year }}{% else %}Graduated: {{ student.graduation_year }}{% endif %}<br>
 {% if student.description %}{{ student.description }}<br>{% endif %}
-</p>
+</div>
 {% endfor %}
 {% endif %}
 
 {% if undergrad_students.size > 0 %}
 <h3>Undergraduate Students</h3>
 {% for student in undergrad_students %}
-<p>
-<b>{{ student.name }}</b><br>
-{{ student.institution }}<br>
+<div class="student-item">
+<b>{{ student.name }}</b> - {{ student.institution }}<br>
 Project: {{ student.project }}<br>
 {% if student.status == "current" %}Started: {{ student.start_year }}{% else %}Graduated: {{ student.graduation_year }}{% endif %}<br>
 {% if student.description %}{{ student.description }}<br>{% endif %}
-</p>
+</div>
 {% endfor %}
 {% endif %}
 {% endif %}
