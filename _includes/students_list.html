@@ -1,61 +1,38 @@
 {% if site.data.students %}
-<p>Data is loaded: {{ site.data.students.current.size }} current, {{ site.data.students.past.size }} past</p>
+  {% assign current_students = site.data.students.current %}
+  {% assign past_students = site.data.students.past %}
 
-{% assign current_students = site.data.students.current %}
-{% assign past_students = site.data.students.past %}
-
-{% if current_students.size > 0 %}
-<h2>Current Students</h2>
-<div class="students-list">
-{% for student in current_students %}
-<div class="student-item">
-<h3>{{ student.name }}</h3>
-<div class="student-meta">
-<p><strong>{{ student.degree }}</strong> - {{ student.role }}</p>
-<p><a href="{{ student.program_url }}" target="_blank">{{ student.program }}</a></p>
-<p>{{ student.institution }}</p>
-<p><strong>Project:</strong> {{ student.project }}</p>
-<p><strong>Started:</strong> {{ student.start_year }}</p>
-</div>
-</div>
-{% endfor %}
-</div>
-{% endif %}
-
-{% if past_students.size > 0 %}
-<h2>Past Students</h2>
-<div class="students-list">
-{% for student in past_students %}
-<div class="student-item">
-<h3>{{ student.name }}</h3>
-<div class="student-meta">
-<p><strong>{{ student.degree }}</strong> - {{ student.role }}</p>
-<p>{{ student.institution }}</p>
-<p><strong>Project:</strong> {{ student.project }}</p>
-<p><strong>Graduated:</strong> {{ student.graduation_year }}</p>
-
-{% if student.publications %}
-<p><strong>Publications:</strong></p>
-<ul>
-{% for pub in student.publications %}
-<li><a href="{{ pub.url }}" target="_blank">{{ pub.title }}</a></li>
-{% endfor %}
-</ul>
-{% endif %}
-
-{% if student.artefacts %}
-<p><strong>Artefacts:</strong></p>
-<ul>
-{% for artefact in student.artefacts %}
-<li><a href="{{ artefact.url }}" target="_blank">{{ artefact.name }}</a></li>
-{% endfor %}
-</ul>
-{% endif %}
-</div>
-</div>
-{% endfor %}
-</div>
-{% endif %}
-{% else %}
-<p>No student data found. Check if _data/students.yml exists and is valid.</p>
+  {% if current_students.size > 0 %}
+    <h2>Current Students</h2>
+    <div class="students-list">
+      {% for student in current_students %}
+        <div class="student-item">
+          <h3>{{ student.name }}</h3>
+          <div class="student-meta">
+            <p><strong>{{ student.degree }}</strong> - {{ student.role }}</p>
+            <p><a href="{{ student.program_url }}" target="_blank">{{ student.program }}</a></p>
+            <p>{{ student.institution }}</p>
+            <p><strong>Project:</strong> {{ student.project }}</p>
+            <p><strong>Started:</strong> {{ student.start_year }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+  {% if past_students.size > 0 %}
+    <h2>Past Students</h2>
+    <div class="students-list">
+      {% for student in past_students %}
+        <div class="student-item">
+          <h3>{{ student.name }}</h3>
+          <div class="student-meta">
+            <p><strong>{{ student.degree }}</strong> - {{ student.role }}</p>
+            <p>{{ student.institution }}</p>
+            <p></p><strong>Project:</strong> {{ student.project }}</p>
+            <p><strong>Graduated:</strong> {{ student.graduation_year }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
 {% endif %}
