@@ -2,11 +2,11 @@
 {% for pub in publications %}
   <div class="publication">
     <b>{{ pub.title }}</b> <a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.bibkey }}" class="bibtex-link" target="_blank">[bibtex]</a>
-	<br>
+  <br>
     {{ pub.authors }}
-	<br>
+  <br>
     {{ pub.journal }}
-	<br>
+  <br>
     {{ pub.year }}
   </div>
 {% endfor %}
