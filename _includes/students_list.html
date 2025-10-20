@@ -1,14 +1,25 @@
 <h2>Test Include Working</h2>
 <p>If you can see this, the include is working!</p>
-{% assign publications = site.data.publications | sort: 'year' | reverse %}
-{% for pub in publications %}
-  <div class="publication">
-    <b>{{ pub.title }}</b> <a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.bibkey }}" class="bibtex-link" target="_blank">[bibtex]</a>
-	<br>
-    {{ pub.authors }}
-	<br>
-    {{ pub.journal }}
-	<br>
-    {{ pub.year }}
-  </div>
-{% endfor %}
+{% if site.data.students %}
+  <p>Data is loaded: {{ site.data.students.current.size }} current, {{ site.data.students.past.size }} past</p>
+  {% assign current_students = site.data.students.current %}
+  {% if current_students.size > 0 %}
+    <h2>Current Students</h2>
+    <div class="students-list">
+      {% for student in current_students %}
+        <div class="student-item">
+          <h3>{{ student.name }}</h3>
+          <div class="student-meta">
+            <p><strong>{{ student.degree }}</strong> - {{ student.role }}</p>
+            <p><a href="{{ student.program_url }}" target="_blank">{{ student.program }}</a></p>
+            <p>{{ student.institution }}</p>
+            <p><strong>Project:</strong> {{ student.project }}</p>
+            <p><strong>Started:</strong> {{ student.start_year }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% else %}
+  <p>No student data found. Check if _data/students.yml exists and is valid.</p>
+{% endif %}
