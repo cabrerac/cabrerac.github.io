@@ -1,26 +1,39 @@
 {% if site.data.students %}
-{% assign current_students = site.data.students.current | sort: 'start_year' | reverse %}
-{% assign past_students = site.data.students.past | sort: 'graduation_year' | reverse %}
+{% assign all_students = site.data.students.current | concat: site.data.students.past %}
+{% assign phd_students = all_students | where: "degree", "PhD Student" | sort: 'start_year' | reverse %}
+{% assign masters_students = all_students | where: "degree", "Master's Student" | sort: 'start_year' | reverse %}
+{% assign undergrad_students = all_students | where: "degree", "Undergraduate Student" | sort: 'graduation_year' | reverse %}
 
-{% if current_students.size > 0 %}
-<h2>Current Students</h2><br>
-{% for student in current_students %}
+{% if phd_students.size > 0 %}
+<h2>PhD Students</h2><br>
+{% for student in phd_students %}
 <b>{{ student.name }}</b><br>
-{{ student.degree }}<br>
 {{ student.institution }}<br>
 Project: {{ student.project }}<br>
-Started: {{ student.start_year }}<br>
+{% if student.status == "current" %}Started: {{ student.start_year }}{% else %}Graduated: {{ student.graduation_year }}{% endif %}<br>
+{% if student.description %}{{ student.description }}<br>{% endif %}
 {% endfor %}
 {% endif %}
 
-{% if past_students.size > 0 %}
-<h2>Past Students</h2><br>
-{% for student in past_students %}
+{% if masters_students.size > 0 %}
+<h2>Master's Students</h2><br>
+{% for student in masters_students %}
 <b>{{ student.name }}</b><br>
-{{ student.degree }}<br>
 {{ student.institution }}<br>
 Project: {{ student.project }}<br>
-Graduated: {{ student.graduation_year }}<br>
+{% if student.status == "current" %}Started: {{ student.start_year }}{% else %}Graduated: {{ student.graduation_year }}{% endif %}<br>
+{% if student.description %}{{ student.description }}<br>{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if undergrad_students.size > 0 %}
+<h2>Undergraduate Students</h2><br>
+{% for student in undergrad_students %}
+<b>{{ student.name }}</b><br>
+{{ student.institution }}<br>
+Project: {{ student.project }}<br>
+{% if student.status == "current" %}Started: {{ student.start_year }}{% else %}Graduated: {{ student.graduation_year }}{% endif %}<br>
+{% if student.description %}{{ student.description }}<br>{% endif %}
 {% endfor %}
 {% endif %}
 {% endif %}
