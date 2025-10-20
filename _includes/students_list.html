@@ -6,6 +6,7 @@
 
 {% if phd_students.size > 0 %}
 <h3>PhD Students</h3>
+<div class="students-list">
 {% for student in phd_students %}
 <div class="student-item">
 <b>{{ student.name }}</b> - {{ student.institution }} - {% if student.status == "current" %}Started: {{ student.start_year }}{% else %}Graduated: {{ student.graduation_year }}{% endif %}<br>
@@ -13,10 +14,12 @@ Project: {{ student.project }}<br>
 {% if student.description %}{{ student.description }}{% endif %}
 </div>
 {% endfor %}
+</div>
 {% endif %}
 
 {% if masters_students.size > 0 %}
 <h3>Master's Students</h3>
+<div class="students-list">
 {% for student in masters_students %}
 <div class="student-item">
 <b>{{ student.name }}</b> - {{ student.institution }} - {% if student.status == "current" %}Started: {{ student.start_year }}{% else %}Graduated: {{ student.graduation_year }}{% endif %}<br>
@@ -24,10 +27,12 @@ Project: {{ student.project }}<br>
 {% if student.description %}{{ student.description }}{% endif %}
 </div>
 {% endfor %}
+</div>
 {% endif %}
 
 {% if undergrad_students.size > 0 %}
 <h3>Undergraduate Students</h3>
+<div class="students-list">
 {% for student in undergrad_students %}
 <div class="student-item">
 <b>{{ student.name }}</b> - {{ student.institution }} - {% if student.status == "current" %}Started: {{ student.start_year }}{% else %}Graduated: {{ student.graduation_year }}{% endif %}<br>
@@ -35,5 +40,6 @@ Project: {{ student.project }}<br>
 {% if student.description %}{{ student.description }}{% endif %}
 </div>
 {% endfor %}
+</div>
 {% endif %}
-{% endif %}
+

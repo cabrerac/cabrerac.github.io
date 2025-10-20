@@ -36,7 +36,7 @@
   margin-bottom: 2rem;
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 1.5rem;
-  
+
   &:last-child {
     border-bottom: none;
   }
@@ -48,7 +48,7 @@
   margin-bottom: 0.5rem;
   color: var(--heading-color);
   text-decoration: none;
-  
+
   &:hover {
     color: var(--link-color);
     text-decoration: underline;
@@ -88,7 +88,7 @@
   margin-bottom: 1.5rem;
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 1rem;
-  
+
   &:last-child {
     border-bottom: none;
   }
@@ -101,7 +101,7 @@
   margin-bottom: 0.5rem;
   color: var(--heading-color);
   text-decoration: none;
-  
+
   &:hover {
     color: var(--link-color);
     text-decoration: underline;
@@ -128,13 +128,14 @@
   list-style: none;
   padding: 0;
   margin: 2rem 0;
+  padding-bottom: 2.5rem;
 }
 
 .student-item {
   margin-bottom: 2rem;
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 1.5rem;
-  
+
   &:last-child {
     border-bottom: none;
   }
@@ -166,7 +167,7 @@
 .student-meta a {
   color: var(--link-color);
   text-decoration: none;
-  
+
   &:hover {
     text-decoration: underline;
   }
@@ -179,4 +180,4 @@
 
 .student-meta li {
   margin-bottom: 0.25rem;
-} 
+}
