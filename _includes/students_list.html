@@ -1,13 +1,13 @@
 {% if site.data.students %}
-{% assign current_students = site.data.students.current | sort: 'start_year' | reverse %}
-{% assign past_students = site.data.students.past | sort: 'graduation_year' | reverse %}
+  {% assign current_students = site.data.students.current | sort: 'start_year' | reverse %}
+  {% assign past_students = site.data.students.past | sort: 'graduation_year' | reverse %}
 
-{% if current_students.size > 0 %}
-<h2>Current Students</h2><br>
-{% for student in current_students %}
-<div class="student-item">
-<h3>{{ student.name }}</h3>
-<div class="student-meta">
+  {% if current_students.size > 0 %}
+    <h2>Current Students</h2><br>
+    {% for student in current_students %}
+      <div class="student-item">
+        <h3>{{ student.name }}</h3>
+        <div class="student-meta">
 <strong>{{ student.degree }}</strong> - {{ student.role }}<br>
 <a href="{{ student.program_url }}" target="_blank">{{ student.program }}</a><br>
 {{ student.institution }}<br>
