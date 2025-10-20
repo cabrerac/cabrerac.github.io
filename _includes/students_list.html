@@ -7,14 +7,14 @@
 <ul class="students-list">
 {% for student in current_students %}
 <div class="student-item">
-  <h3>{{ student.name }}</h3>
-  <div class="student-meta">
-    <p><strong>{{ student.degree }}</strong> - {{ student.role }}</p>
-    <p><a href="{{ student.program_url }}" target="_blank">{{ student.program }}</a></p>
-    <p>{{ student.institution }}</p>
-    <p><strong>Project:</strong> {{ student.project }}</p>
-    <p><strong>Started:</strong> {{ student.start_year }}</p>
-  </div>
+<h3>{{ student.name }}</h3>
+<div class="student-meta">
+<p><strong>{{ student.degree }}</strong> - {{ student.role }}</p>
+<p><a href="{{ student.program_url }}" target="_blank">{{ student.program }}</a></p>
+<p>{{ student.institution }}</p>
+<p><strong>Project:</strong> {{ student.project }}</p>
+<p><strong>Started:</strong> {{ student.start_year }}</p>
+</div>
 </div>
 {% endfor %}
 </ul>
@@ -24,13 +24,13 @@
 <div class="students-list">
 {% for student in past_students %}
 <div class="student-item">
-  <h3>{{ student.name }}</h3>
-  <div class="student-meta">
-    <p><strong>{{ student.degree }}</strong> - {{ student.role }}</p>
-    <p>{{ student.institution }}</p>
-    <p></p><strong>Project:</strong> {{ student.project }}</p>
-    <p><strong>Graduated:</strong> {{ student.graduation_year }}</p>
-  </div>
+<h3>{{ student.name }}</h3>
+<div class="student-meta">
+<p><strong>{{ student.degree }}</strong> - {{ student.role }}</p>
+<p>{{ student.institution }}</p>
+<p></p><strong>Project:</strong> {{ student.project }}</p>
+<p><strong>Graduated:</strong> {{ student.graduation_year }}</p>
+</div>
 </div>
 {% endfor %}
 </div>
