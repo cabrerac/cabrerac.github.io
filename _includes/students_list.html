@@ -1,12 +1,9 @@
 <h2>Test Include Working</h2>
 <p>If you can see this, the include is working!</p>
-
 {% if site.data.students %}
   <p>Data is loaded: {{ site.data.students.current.size }} current, {{ site.data.students.past.size }} past</p>
-  
   {% assign current_students = site.data.students.current %}
   {% assign past_students = site.data.students.past %}
-
   {% if current_students.size > 0 %}
     <h2>Current Students</h2>
     <div class="students-list">
@@ -24,7 +21,6 @@
       {% endfor %}
     </div>
   {% endif %}
-
   {% if past_students.size > 0 %}
     <h2>Past Students</h2>
     <div class="students-list">
@@ -36,7 +32,6 @@
             <p>{{ student.institution }}</p>
             <p><strong>Project:</strong> {{ student.project }}</p>
             <p><strong>Graduated:</strong> {{ student.graduation_year }}</p>
-            
             {% if student.publications %}
               <p><strong>Publications:</strong></p>
               <ul>
@@ -45,7 +40,6 @@
                 {% endfor %}
               </ul>
             {% endif %}
-            
             {% if student.artefacts %}
               <p><strong>Artefacts:</strong></p>
               <ul>
