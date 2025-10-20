@@ -7,7 +7,6 @@
 {% for student in current_students %}
 <b>{{ student.name }}</b><br>
 {{ student.degree }}<br>
-{{ student.role }}<br>
 {{ student.institution }}<br>
 Project: {{ student.project }}<br>
 Started: {{ student.start_year }}<br>
@@ -15,7 +14,7 @@ Started: {{ student.start_year }}<br>
 {% endif %}
 
 {% if past_students.size > 0 %}
-<br><h2>Past Students</h2><br>
+<h2>Past Students</h2><br>
 {% for student in past_students %}
 <b>{{ student.name }}</b><br>
 {{ student.degree }}<br>
