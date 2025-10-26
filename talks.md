@@ -7,4 +7,4 @@ permalink: /talks/
 
 This page lists my invited talks and conference presentations, organised by year.
 
-{% include talks_list_new.html %}
+{% include talks_list.html %}
