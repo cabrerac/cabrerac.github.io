@@ -1,44 +1,44 @@
 {% if site.data.talks %}
-  {% assign upcoming_talks = site.data.talks | where: "status", "upcoming" %}
-  {% assign past_talks = site.data.talks | where: "status", "past" | sort: "date" | reverse %}
+{% assign upcoming_talks = site.data.talks | where: "status", "upcoming" %}
+{% assign past_talks = site.data.talks | where: "status", "past" | sort: "date" | reverse %}
 
-  {% if upcoming_talks.size > 0 %}
-    <h2>Upcoming Talks</h2>
-    <div class="talks-list">
-      {% for talk in upcoming_talks %}
-        <div class="talk-item">
-          <div class="talk-header">
-            <h3>{{ talk.title }} <span class="upcoming-badge">Upcoming</span></h3>
-          </div>
-          <div class="talk-meta">
-            <p><strong>Venue:</strong> {{ talk.venue }}{% if talk.location %}, {{ talk.location }}{% endif %}</p>
-            <p><strong>Date:</strong> {{ talk.month }} {{ talk.year }}</p>
-            {% if talk.slides %}
-              <p><a href="{{ talk.slides }}" target="_blank">[View Slides]</a></p>
-            {% endif %}
-          </div>
-        </div>
-      {% endfor %}
-    </div>
-  {% endif %}
+{% if upcoming_talks.size > 0 %}
+<h2>Upcoming Talks</h2>
+<div class="talks-list">
+{% for talk in upcoming_talks %}
+<div class="talk-item">
+<div class="talk-header">
+<h3>{{ talk.title }} <span class="upcoming-badge">Upcoming</span></h3>
+</div>
+<div class="talk-meta">
+<p><strong>Venue:</strong> {{ talk.venue }}{% if talk.location %}, {{ talk.location }}{% endif %}</p>
+<p><strong>Date:</strong> {{ talk.month }} {{ talk.year }}</p>
+{% if talk.slides %}
+<p><a href="{{ talk.slides }}" target="_blank">[View Slides]</a></p>
+{% endif %}
+</div>
+</div>
+{% endfor %}
+</div>
+{% endif %}
 
-  {% if past_talks.size > 0 %}
-    <h2>Past Talks</h2>
-    <div class="talks-list">
-      {% for talk in past_talks %}
-        <div class="talk-item">
-          <div class="talk-header">
-            <h3>{{ talk.title }}</h3>
-          </div>
-          <div class="talk-meta">
-            <p><strong>Venue:</strong> {{ talk.venue }}{% if talk.location %}, {{ talk.location }}{% endif %}</p>
-            <p><strong>Date:</strong> {{ talk.month }} {{ talk.year }}</p>
-            {% if talk.slides %}
-              <p><a href="{{ talk.slides }}" target="_blank">[View Slides]</a></p>
-            {% endif %}
-          </div>
-        </div>
-      {% endfor %}
-    </div>
-  {% endif %}
+{% if past_talks.size > 0 %}
+<h2>Past Talks</h2>
+<div class="talks-list">
+{% for talk in past_talks %}
+<div class="talk-item">
+<div class="talk-header">
+<h3>{{ talk.title }}</h3>
+</div>
+<div class="talk-meta">
+<p><strong>Venue:</strong> {{ talk.venue }}{% if talk.location %}, {{ talk.location }}{% endif %}</p>
+<p><strong>Date:</strong> {{ talk.month }} {{ talk.year }}</p>
+{% if talk.slides %}
+<p><a href="{{ talk.slides }}" target="_blank">[View Slides]</a></p>
+{% endif %}
+</div>
+</div>
+{% endfor %}
+</div>
+{% endif %}
 {% endif %}
