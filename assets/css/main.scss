@@ -132,9 +132,9 @@
 }
 
 .student-item {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   border-bottom: 1px solid var(--border-color);
-  padding-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
 
   &:last-child {
     border-bottom: none;
@@ -149,14 +149,14 @@
 }
 
 .student-meta {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.25rem;
   font-size: 0.95rem;
   color: var(--text-color);
   line-height: 1.5;
 }
 
 .student-meta p {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .student-meta strong {
@@ -190,9 +190,9 @@
 }
 
 .talk-item {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   border-bottom: 1px solid var(--border-color);
-  padding-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
 
   &:last-child {
     border-bottom: none;
@@ -227,14 +227,14 @@
 }
 
 .talk-meta {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.25rem;
   font-size: 0.95rem;
   color: var(--text-color);
   line-height: 1.5;
 }
 
 .talk-meta p {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .talk-meta strong {
@@ -259,9 +259,9 @@
 }
 
 .activity-item {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   border-bottom: 1px solid var(--border-color);
-  padding-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
 
   &:last-child {
     border-bottom: none;
@@ -296,14 +296,14 @@
 }
 
 .activity-meta {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.25rem;
   font-size: 0.95rem;
   color: var(--text-color);
   line-height: 1.5;
 }
 
 .activity-meta p {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .activity-meta strong {
@@ -327,16 +327,16 @@
 
 /* Publication Styles */
 .publication {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   border-bottom: 1px solid var(--border-color);
-  padding-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
 
   &:last-child {
     border-bottom: none;
   }
 
   p {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
   }
 
   p:first-child {

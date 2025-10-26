@@ -14,11 +14,11 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: Christian Cabrera Jojoa's Homepage
-email: 
+email:
 description: "" #>- #this means to ignore newlines until "baseurl:"
 baseurl: "/" # the subpath of your site, e.g. /blog
 url: "https://cabrerac.github.io" # the base hostname & protocol for your site
-twitter_username: 
+twitter_username:
 github_username:  cabrerac
 
 # Build settings
@@ -32,7 +32,7 @@ google_analytics: G-5Y6B2VTTH1
 
 # BibTex file
 bibtex:
-  bibfiles: [./_bibliography/bibfile.bib]
+  bibfiles: [./bibliography/bibfile.bib]
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
@@ -53,4 +53,3 @@ collections:
     output: true
   lectures:
     output: true
-  
