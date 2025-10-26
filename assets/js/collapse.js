@@ -44,6 +44,17 @@ document.addEventListener("DOMContentLoaded", () => {
       const content = header.nextElementSibling;
       const isActive = header.classList.contains('active');
 
+      // If clicking to open, close all other collapsible sections on the page
+      if (!isActive) {
+        document.querySelectorAll('.collapsible-header').forEach(otherHeader => {
+          if (otherHeader !== header) {
+            const otherContent = otherHeader.nextElementSibling;
+            otherHeader.classList.remove('active');
+            otherContent.classList.remove('expanded');
+          }
+        });
+      }
+
       header.classList.toggle('active');
       content.classList.toggle('expanded');
     });

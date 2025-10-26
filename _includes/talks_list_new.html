@@ -1,0 +1,17 @@
+{% if site.data.talks %}
+{% assign all_talks = site.data.talks | sort: "date" | reverse %}
+{% assign talks_by_year = all_talks | group_by: "year" %}
+
+{% for year_group in talks_by_year %}
+<div class="collapsible-header"><h2 style="display:inline; margin:0">{{ year_group.name }}</h2></div>
+<div class="collapsible-content">
+{% for talk in year_group.items %}
+<div class="talk-item">
+<p><strong>{{ talk.title }}</strong>{% if talk.status == "upcoming" %} <span class="upcoming-badge">Upcoming</span>{% endif %}</p>
+<p>{{ talk.venue }}{% if talk.location %}, {{ talk.location }}{% endif %} — {{ talk.month }} {{ talk.year }}{% if talk.slides %} | <a href="{{ talk.slides }}" target="_blank">[View Slides]</a>{% endif %}</p>
+</div>
+{% endfor %}
+</div>
+{% endfor %}
+{% endif %}
+

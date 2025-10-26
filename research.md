@@ -21,7 +21,3 @@ permalink: /research/
 ## Conference Organisation & Editorial Work
 
 {% include activities_list.html %}
-
-## Invited Talks
-
-{% include talks_list.html %}
