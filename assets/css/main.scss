@@ -181,3 +181,142 @@
 .student-meta li {
   margin-bottom: 0.25rem;
 }
+
+/* Talks List Styles */
+.talks-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+}
+
+.talk-item {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1.5rem;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.talk-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.talk-header h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--heading-color);
+}
+
+.upcoming-badge {
+  background-color: var(--link-color);
+  color: #fff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 3px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  margin-left: 1rem;
+}
+
+.talk-meta {
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+.talk-meta p {
+  margin-bottom: 0.5rem;
+}
+
+.talk-meta strong {
+  color: var(--heading-color);
+  font-weight: 600;
+}
+
+.talk-meta a {
+  color: var(--link-color);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/* Activities List Styles */
+.activities-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+}
+
+.activity-item {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1.5rem;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.activity-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.activity-header h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--heading-color);
+}
+
+.activity-year {
+  background-color: var(--border-color);
+  color: var(--text-color);
+  padding: 0.25rem 0.75rem;
+  border-radius: 3px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+  margin-left: 1rem;
+}
+
+.activity-meta {
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+.activity-meta p {
+  margin-bottom: 0.5rem;
+}
+
+.activity-meta strong {
+  color: var(--heading-color);
+  font-weight: 600;
+}
+
+.activity-meta a {
+  color: var(--link-color);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.activity-note {
+  font-style: italic;
+  color: var(--text-muted);
+}
