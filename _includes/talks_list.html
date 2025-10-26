@@ -3,7 +3,8 @@
 {% assign past_talks = site.data.talks | where: "status", "past" | sort: "date" | reverse %}
 
 {% if upcoming_talks.size > 0 %}
-<h2>Upcoming Talks</h2>
+<div class="collapsible-header"><h2 style="display:inline; margin:0">Upcoming Talks</h2></div>
+<div class="collapsible-content">
 <div class="talks-list">
 {% for talk in upcoming_talks %}
 <div class="talk-item">
@@ -20,10 +21,12 @@
 </div>
 {% endfor %}
 </div>
+</div>
 {% endif %}
 
 {% if past_talks.size > 0 %}
-<h2>Past Talks</h2>
+<div class="collapsible-header"><h2 style="display:inline; margin:0">Past Talks</h2></div>
+<div class="collapsible-content">
 <div class="talks-list">
 {% for talk in past_talks %}
 <div class="talk-item">
@@ -39,6 +42,7 @@
 </div>
 </div>
 {% endfor %}
+</div>
 </div>
 {% endif %}
 {% endif %}

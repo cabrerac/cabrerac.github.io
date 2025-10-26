@@ -4,7 +4,8 @@
 {% assign reviewing = site.data.activities | where: "type", "reviewing" %}
 
 {% if conference_org.size > 0 %}
-<h2>Conference Organisation & Leadership</h2>
+<div class="collapsible-header"><h2 style="display:inline; margin:0">Conference Organisation & Leadership</h2></div>
+<div class="collapsible-content">
 <div class="activities-list">
 {% for activity in conference_org reversed %}
 <div class="activity-item">
@@ -25,10 +26,12 @@
 </div>
 {% endfor %}
 </div>
+</div>
 {% endif %}
 
 {% if editorial.size > 0 %}
-<h2>Editorial Work</h2>
+<div class="collapsible-header"><h2 style="display:inline; margin:0">Editorial Work</h2></div>
+<div class="collapsible-content">
 <div class="activities-list">
 {% for activity in editorial %}
 <div class="activity-item">
@@ -43,10 +46,12 @@
 </div>
 {% endfor %}
 </div>
+</div>
 {% endif %}
 
 {% if reviewing.size > 0 %}
-<h2>Peer Review</h2>
+<div class="collapsible-header"><h2 style="display:inline; margin:0">Peer Review</h2></div>
+<div class="collapsible-content">
 <div class="activities-list">
 {% for activity in reviewing %}
 <div class="activity-item">
@@ -70,6 +75,7 @@
 {% endif %}
 </div>
 {% endfor %}
+</div>
 </div>
 {% endif %}
 {% endif %}

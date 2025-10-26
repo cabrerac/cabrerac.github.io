@@ -1,12 +1,46 @@
 {% assign publications = site.data.publications | sort: 'year' | reverse %}
-{% for pub in publications %}
-  <div class="publication">
-    <b>{{ pub.title }}</b> <a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.bibkey }}" class="bibtex-link" target="_blank">[bibtex]</a>
-  <br>
-    {{ pub.authors }}
-  <br>
-    {{ pub.journal }}
-  <br>
-    {{ pub.year }}
-  </div>
+{% assign journals = publications | where: "type", "journal" %}
+{% assign conferences = publications | where: "type", "conf" %}
+{% assign preprints = publications | where: "type", "preprint" %}
+
+{% if journals.size > 0 %}
+<div class="collapsible-header"><h3 style="display:inline; margin:0">Journal Articles</h3></div>
+<div class="collapsible-content">
+{% for pub in journals %}
+<div class="publication">
+<p><strong>{{ pub.title }}</strong></p>
+<p>{{ pub.authors }}</p>
+<p><em>{{ pub.journal }}</em>, {{ pub.year }}</p>
+<p><a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.bibkey }}" class="bibtex-link" target="_blank">[bibtex]</a></p>
+</div>
 {% endfor %}
+</div>
+{% endif %}
+
+{% if conferences.size > 0 %}
+<div class="collapsible-header"><h3 style="display:inline; margin:0">Conference Papers</h3></div>
+<div class="collapsible-content">
+{% for pub in conferences %}
+<div class="publication">
+<p><strong>{{ pub.title }}</strong></p>
+<p>{{ pub.authors }}</p>
+<p><em>{{ pub.journal }}</em>, {{ pub.year }}</p>
+<p><a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.bibkey }}" class="bibtex-link" target="_blank">[bibtex]</a></p>
+</div>
+{% endfor %}
+</div>
+{% endif %}
+
+{% if preprints.size > 0 %}
+<div class="collapsible-header"><h3 style="display:inline; margin:0">Preprints</h3></div>
+<div class="collapsible-content">
+{% for pub in preprints %}
+<div class="publication">
+<p><strong>{{ pub.title }}</strong></p>
+<p>{{ pub.authors }}</p>
+<p><em>{{ pub.journal }}</em>, {{ pub.year }}</p>
+<p><a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.bibkey }}" class="bibtex-link" target="_blank">[bibtex]</a></p>
+</div>
+{% endfor %}
+</div>
+{% endif %}
