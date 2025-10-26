@@ -1,16 +1,14 @@
 {% if site.data.talks %}
-  {% assign invited_talks = site.data.talks.invited_talks %}
-  {% assign upcoming_talks = invited_talks | where: "status", "upcoming" %}
-  {% assign past_talks = invited_talks | where: "status", "past" | sort: "date" | reverse %}
+  {% assign upcoming_talks = site.data.talks | where: "status", "upcoming" %}
+  {% assign past_talks = site.data.talks | where: "status", "past" | sort: "date" | reverse %}
 
   {% if upcoming_talks.size > 0 %}
     <h2>Upcoming Talks</h2>
     <div class="talks-list">
       {% for talk in upcoming_talks %}
-        <div class="talk-item upcoming">
+        <div class="talk-item">
           <div class="talk-header">
-            <h3>{{ talk.title }}</h3>
-            <span class="upcoming-badge">Upcoming</span>
+            <h3>{{ talk.title }} <span class="upcoming-badge">Upcoming</span></h3>
           </div>
           <div class="talk-meta">
             <p><strong>Venue:</strong> {{ talk.venue }}{% if talk.location %}, {{ talk.location }}{% endif %}</p>

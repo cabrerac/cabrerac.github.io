@@ -221,7 +221,9 @@
   font-size: 0.85rem;
   font-weight: 600;
   white-space: nowrap;
-  margin-left: 1rem;
+  margin-left: 0.5rem;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .talk-meta {
@@ -289,6 +291,8 @@
   font-weight: 600;
   white-space: nowrap;
   margin-left: 1rem;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .activity-meta {

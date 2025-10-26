@@ -1,77 +1,88 @@
-editorial:
-  - title: "Editor of Volume 295 at PMLR"
-    journal: "Proceedings of Machine Learning Research"
-    year: 2025
-    status: "current"
-    url: "https://proceedings.mlr.press/v295/"
+# Conference Organisation
+- title: "The Third UK AI Conference 2025"
+  role: "Co-organiser"
+  organisation: "UK-AI community"
+  year: 2025
+  type: "conference_organisation"
+  note: "Leader and creator of the UK-AI community"
+  url: "https://uk-ai.org/ukai2025/"
 
-reviewing:
-  - journal: "IEEE Transactions on Services Computing"
-    status: "current"
-    type: "journal"
+- title: "The 7th Workshop on Data, Learning and Inference 2025"
+  role: "Co-organiser"
+  organisation: "DALI Sorrento 2025"
+  year: 2025
+  type: "conference_organisation"
+  url: "https://dalimeeting.org/sorrento2025/"
 
-  - journal: "IEEE Internet of Things Journal"
-    status: "current"
-    type: "journal"
+- title: "20th International Conference on Software Engineering for Adaptive and Self-Managing Systems"
+  role: "Web Chair"
+  organisation: "SEAMS 2025"
+  year: 2025
+  type: "conference_organisation"
+  url: "https://conf.researchr.org/home/seams-2025"
 
-  - conference: "25th International Conference on Autonomous Agents and Multiagent Systems"
-    year: 2026
-    role: "Reviewer"
-    url: "https://cyprusconferences.org/aamas2026/"
+- title: "The Second UK AI Conference 2024"
+  role: "Co-organiser"
+  organisation: "UK-AI community"
+  year: 2024
+  type: "conference_organisation"
+  url: "https://uk-ai.org/ukai2024/"
 
-conference_organization:
-  - title: "The Third UK AI Conference 2025"
-    role: "Co-organiser"
-    organization: "UK-AI community"
-    year: 2025
-    note: "Leader and creator of the UK-AI community"
-    url: "https://uk-ai.org/ukai2025/"
+- title: "The First UK AI Conference 2023"
+  role: "Co-organiser"
+  organisation: "UK-AI community (Turing AI Fellowship Event)"
+  year: 2023
+  type: "conference_organisation"
+  url: "https://uk-ai.org/ukai2023/"
 
-  - title: "The 7th Workshop on Data, Learning and Inference 2025"
-    role: "Co-organiser"
-    organization: "DALI Sorrento 2025"
-    year: 2025
-    url: "https://dalimeeting.org/sorrento2025/"
+- title: "Turing AI Fellows and Teams Hackathon"
+  role: "Co-organiser"
+  organisation: "UK-AI community"
+  year: 2023
+  type: "conference_organisation"
+  url: "https://uk-ai.org/e-hackathon-march-2023/"
 
-  - title: "20th International Conference on Software Engineering for Adaptive and Self-Managing Systems"
-    role: "Web Chair"
-    year: 2025
-    abbreviation: "SEAMS 2025"
-    url: "https://conf.researchr.org/home/seams-2025"
+- title: "NeurIPS at Cambridge Meetup"
+  role: "Co-organiser"
+  organisation: "NeurIPS Satellite Event"
+  year: "2022-2024"
+  type: "conference_organisation"
+  note: "Yearly event, co-organiser in 2022, 2023, and 2024 editions"
+  url: "https://www.neuripsmeetupatcambridge.info/"
 
-  - title: "The Second UK AI Conference 2024"
-    role: "Co-organiser"
-    organization: "UK-AI community"
-    year: 2024
-    url: "https://uk-ai.org/ukai2024/"
+- title: "Challenges in Deploying and Monitoring ML Systems"
+  role: "Co-organiser"
+  organisation: "NeurIPS Virtual Workshop"
+  year: 2022
+  type: "conference_organisation"
+  url: "https://neurips.cc/virtual/2022/workshop/49982"
 
-  - title: "The First UK AI Conference 2023"
-    role: "Co-organiser"
-    organization: "UK-AI community (Turing AI Fellowship Event)"
-    year: 2023
-    url: "https://uk-ai.org/ukai2023/"
+- title: "ATI AI Fellows day at Cambridge"
+  role: "Co-organiser"
+  organisation: "UK-AI community"
+  year: 2022
+  type: "conference_organisation"
+  url: "https://uk-ai.org/e-fellows-day-cambridge-2022/"
 
-  - title: "Turing AI Fellows and Teams Hackathon"
-    role: "Co-organiser"
-    organization: "UK-AI community"
-    year: 2023
-    url: "https://uk-ai.org/e-hackathon-march-2023/"
+# Editorial Work
+- title: "Editor of Volume 295 at PMLR"
+  journal: "Proceedings of Machine Learning Research"
+  year: 2025
+  type: "editorial"
+  status: "current"
+  url: "https://proceedings.mlr.press/v295/"
 
-  - title: "NeurIPS at Cambridge Meetup"
-    role: "Co-organiser"
-    organization: "NeurIPS Satellite Event"
-    year: "2022-2024"
-    note: "Yearly event, co-organiser in 2022, 2023, and 2024 editions"
-    url: "https://www.neuripsmeetupatcambridge.info/"
+# Peer Review
+- journal: "IEEE Transactions on Services Computing"
+  type: "reviewing"
+  status: "current"
 
-  - title: "Challenges in Deploying and Monitoring ML Systems"
-    role: "Co-organiser"
-    organization: "NeurIPS Virtual Workshop"
-    year: 2022
-    url: "https://neurips.cc/virtual/2022/workshop/49982"
+- journal: "IEEE Internet of Things Journal"
+  type: "reviewing"
+  status: "current"
 
-  - title: "ATI AI Fellows day at Cambridge"
-    role: "Co-organiser"
-    organization: "UK-AI community"
-    year: 2022
-    url: "https://uk-ai.org/e-fellows-day-cambridge-2022/"
+- title: "Reviewer"
+  conference: "25th International Conference on Autonomous Agents and Multiagent Systems"
+  year: 2026
+  type: "reviewing"
+  url: "https://cyprusconferences.org/aamas2026/"

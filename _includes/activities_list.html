@@ -1,10 +1,10 @@
 {% if site.data.activities %}
-  {% assign conference_org = site.data.activities.conference_organization %}
-  {% assign editorial = site.data.activities.editorial %}
-  {% assign reviewing = site.data.activities.reviewing %}
+  {% assign conference_org = site.data.activities | where: "type", "conference_organisation" %}
+  {% assign editorial = site.data.activities | where: "type", "editorial" %}
+  {% assign reviewing = site.data.activities | where: "type", "reviewing" %}
 
-  <h2>Conference Organization & Leadership</h2>
   {% if conference_org.size > 0 %}
+    <h2>Conference Organisation & Leadership</h2>
     <div class="activities-list">
       {% for activity in conference_org reversed %}
         <div class="activity-item">
@@ -14,7 +14,7 @@
           </div>
           <div class="activity-meta">
             <p><strong>Role:</strong> {{ activity.role }}</p>
-            <p><strong>Organization:</strong> {{ activity.organization }}{% if activity.abbreviation %} ({{ activity.abbreviation }}){% endif %}</p>
+            <p><strong>Organisation:</strong> {{ activity.organisation }}{% if activity.abbreviation %} ({{ activity.abbreviation }}){% endif %}</p>
             {% if activity.note %}
               <p class="activity-note">{{ activity.note }}</p>
             {% endif %}
@@ -27,8 +27,8 @@
     </div>
   {% endif %}
 
-  <h2>Editorial Work</h2>
   {% if editorial.size > 0 %}
+    <h2>Editorial Work</h2>
     <div class="activities-list">
       {% for activity in editorial %}
         <div class="activity-item">
@@ -45,20 +45,23 @@
     </div>
   {% endif %}
 
-  <h2>Peer Review</h2>
   {% if reviewing.size > 0 %}
+    <h2>Peer Review</h2>
     <div class="activities-list">
       {% for activity in reviewing %}
         <div class="activity-item">
-          {% if activity.type == "journal" %}
+          {% if activity.journal %}
             <h3>{{ activity.journal }}</h3>
             <div class="activity-meta">
               <p><strong>Type:</strong> Journal Reviewer</p>
+              {% if activity.url %}
+                <p><a href="{{ activity.url }}" target="_blank">[Website]</a></p>
+              {% endif %}
             </div>
-          {% else %}
+          {% elsif activity.conference %}
             <h3>{{ activity.conference }}</h3>
             <div class="activity-meta">
-              <p><strong>Role:</strong> {{ activity.role }}</p>
+              <p><strong>Role:</strong> {{ activity.title }}</p>
               <p><strong>Year:</strong> {{ activity.year }}</p>
               {% if activity.url %}
                 <p><a href="{{ activity.url }}" target="_blank">[Conference Website]</a></p>
