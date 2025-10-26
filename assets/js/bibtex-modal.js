@@ -95,11 +95,43 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function extractBibtexEntry(bibtexContent, bibkey) {
-    const regex = new RegExp(`@[^{]*{${bibkey},([^@]*)`, 's');
+    // Escape special regex characters in bibkey (like dots in DOIs)
+    const escapedKey = bibkey.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+    // Match the full BibTeX entry including the type (article, inproceedings, etc.)
+    // This handles keys that appear after @type{
+    const regex = new RegExp(`(@[a-zA-Z]+\\{[^}]*${escapedKey}[^}]*\\{[^}]*\\}.*?)\\n\\n(?=@|$)`, 's');
     const match = bibtexContent.match(regex);
+
     if (match) {
-      return `@article{${bibkey},\n${match[1].trim()}`;
+      let entry = match[1].trim();
+      // Clean up the entry to ensure proper formatting
+      entry = entry.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+      return entry;
     }
+
+    // Fallback: try to find the entry more flexibly
+    const lines = bibtexContent.split('\n');
+    let entryLines = [];
+    let inEntry = false;
+
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].includes('{' + bibkey + ',')) {
+        inEntry = true;
+      }
+      if (inEntry) {
+        entryLines.push(lines[i]);
+        // Entry ends when we hit a line with just } or empty line followed by @
+        if (lines[i].trim() === '}') {
+          break;
+        }
+      }
+    }
+
+    if (entryLines.length > 0) {
+      return entryLines.join('\n');
+    }
+
     return 'Entry not found';
   }
 
