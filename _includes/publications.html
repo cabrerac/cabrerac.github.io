@@ -8,7 +8,7 @@
 <div class="collapsible-content">
 {% for pub in journals %}
 <div class="publication">
-<p><strong>{{ pub.title }}</strong> <a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.bibkey }}" class="bibtex-link" data-bibkey="{{ pub.bibkey }}">[bibtex]</a>{% if pub.paper_url %} <a href="{{ pub.paper_url }}" target="_blank">[paper]</a>{% endif %}</p>
+<p><strong>{{ pub.title }}</strong> <a href="{{ site.data.bibtex.bibfiles[0] }}#{{ pub.bibkey }}" class="bibtex-link" data-bibkey="{{ pub.bibkey }}">[bibtex]</a>{% if pub.paper_url %} <a href="{{ pub.paper_url }}" target="_blank">[paper]</a>{% endif %}</p>
 <p>{{ pub.authors }}</p>
 <p><em>{{ pub.journal }}</em>, {{ pub.year }}</p>
 </div>
@@ -21,7 +21,7 @@
 <div class="collapsible-content">
 {% for pub in conferences %}
 <div class="publication">
-<p><strong>{{ pub.title }}</strong> <a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.bibkey }}" class="bibtex-link" data-bibkey="{{ pub.bibkey }}">[bibtex]</a>{% if pub.paper_url %} <a href="{{ pub.paper_url }}" target="_blank">[paper]</a>{% endif %}</p>
+<p><strong>{{ pub.title }}</strong> <a href="{{ site.data.bibtex.bibfiles[0] }}#{{ pub.bibkey }}" class="bibtex-link" data-bibkey="{{ pub.bibkey }}">[bibtex]</a>{% if pub.paper_url %} <a href="{{ pub.paper_url }}" target="_blank">[paper]</a>{% endif %}</p>
 <p>{{ pub.authors }}</p>
 <p><em>{{ pub.journal }}</em>, {{ pub.year }}</p>
 </div>
@@ -34,7 +34,7 @@
 <div class="collapsible-content">
 {% for pub in preprints %}
 <div class="publication">
-<p><strong>{{ pub.title }}</strong> <a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.bibkey }}" class="bibtex-link" data-bibkey="{{ pub.bibkey }}">[bibtex]</a>{% if pub.paper_url %} <a href="{{ pub.paper_url }}" target="_blank">[paper]</a>{% endif %}</p>
+<p><strong>{{ pub.title }}</strong> <a href="{{ site.data.bibtex.bibfiles[0] }}#{{ pub.bibkey }}" class="bibtex-link" data-bibkey="{{ pub.bibkey }}">[bibtex]</a>{% if pub.paper_url %} <a href="{{ pub.paper_url }}" target="_blank">[paper]</a>{% endif %}</p>
 <p>{{ pub.authors }}</p>
 <p><em>{{ pub.journal }}</em>, {{ pub.year }}</p>
 </div>
