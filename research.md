@@ -5,8 +5,6 @@ description: "My research interests and publications"
 permalink: /research/
 ---
 
-## Research Overview
-
 <p>
    This page presents the outputs of my research and its impact in the scientific community worldwide.
    My past  research focused on developing resilient systems architectures to cope with requirements from
