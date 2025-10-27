@@ -56,15 +56,21 @@ document.addEventListener("DOMContentLoaded", () => {
     .bibtex-modal-copy {
       margin-top: 10px;
       padding: 8px 15px;
-      background-color: var(--link-color);
+      background-color: #0366d6;
       color: white;
       border: none;
       border-radius: 3px;
       cursor: pointer;
+      display: block;
+      width: 100%;
     }
 
     .bibtex-modal-copy:hover {
       background-color: #0056b3;
+    }
+
+    .bibtex-modal-copy:active {
+      background-color: #004085;
     }
   `;
   document.head.appendChild(style);
