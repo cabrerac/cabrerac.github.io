@@ -32,7 +32,7 @@ google_analytics: G-5Y6B2VTTH1
 
 # BibTex file
 bibtex:
-  bibfiles: [./assets/bibliography/bibfile.bib]
+  bibfiles: [https://cabrerac.github.io/assets/bibs/bibfile.bib]
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
