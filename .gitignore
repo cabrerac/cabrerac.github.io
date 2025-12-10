@@ -28,6 +28,7 @@ wvenv/
 ENV/
 env.bak/
 venv.bak/
+supervisions/
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -103,4 +104,4 @@ yarn-error.log*
 .Spotlight-V100
 .Trashes
 ehthumbs.db
-Thumbs.db 
+Thumbs.db
