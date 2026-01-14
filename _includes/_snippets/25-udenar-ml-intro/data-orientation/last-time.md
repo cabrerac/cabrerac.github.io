@@ -169,8 +169,8 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>Inserting ML components in our software systems lowers the bar for these systems to be qualified as critical systems. Learn more at <a               
-                href="https://scholarspace.manoa.hawaii.edu/items/ccd98c8b-bb61-4a86-9cd4-4719078d028f" target="_blank">(Cabrera et al., 2025)</a></p>
+                <p>Inserting ML components in our software systems lowers the bar for these systems to be qualified as critical systems. Learn more at <a
+                href="https://scholarspace.manoa.hawaii.edu/items/ccd98c8b-bb61-4a86-9cd4-4719078d028f" target="_blank" rel="noopener noreferrer">(Cabrera et al., 2025)</a></p>
                 <p>We need to be careful when designing, developing, deploying, and decommissioning ML-based systems.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">

@@ -46,7 +46,7 @@
                     <li>Separation of concerns</li>
                     <li>High availability</li>
                     <li>Scalability</li>
-                    <li>Low latency</li>                    
+                    <li>Low latency</li>
                 </ul>
             </div>
         </div>
@@ -67,7 +67,7 @@
                     <li>Separation of concerns</li>
                     <li>High availability</li>
                     <li>Scalability</li>
-                    <li>Low latency</li>                    
+                    <li>Low latency</li>
                 </ul>
             </div>
         </div>
@@ -83,8 +83,8 @@
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/soa-system.png" alt="SOA Architecture" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>The Data Dichotomy</b>: “While data-driven systems are about exposing data, service-oriented architectures are about hiding data.” <a               
-                href="https://www.confluent.io/blog/data-dichotomy-rethinking-the-way-we-treat-data-and-services/" target="_blank">(Stopford, 2016)</a></p>
+                <p><b>The Data Dichotomy</b>: “While data-driven systems are about exposing data, service-oriented architectures are about hiding data.” <a
+                href="https://www.confluent.io/blog/data-dichotomy-rethinking-the-way-we-treat-data-and-services/" target="_blank" rel="noopener noreferrer">(Stopford, 2016)</a></p>
             </div>
         </div>
     </div>
@@ -96,8 +96,8 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <p><b>The Data Dichotomy</b>: “While data-driven systems are about exposing data, service-oriented architectures are about hiding data.” <a               
-                href="https://www.confluent.io/blog/data-dichotomy-rethinking-the-way-we-treat-data-and-services/" target="_blank">(Stopford, 2016)</a></p>
+                <p><b>The Data Dichotomy</b>: “While data-driven systems are about exposing data, service-oriented architectures are about hiding data.” <a
+                href="https://www.confluent.io/blog/data-dichotomy-rethinking-the-way-we-treat-data-and-services/" target="_blank" rel="noopener noreferrer">(Stopford, 2016)</a></p>
                 <br>
                 <p><b>We need to design systems prioritising data!</b></p>
             </div>

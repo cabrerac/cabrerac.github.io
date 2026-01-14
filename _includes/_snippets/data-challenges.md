@@ -56,8 +56,8 @@ $$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{predic
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <p>"<b>Information</b>, especially facts or numbers, collected to be examined and considered and used to help <b>decision-making</b>, or information in an electronic form that can be <b>stored and used by a computer.</b>" <a               
-                href="https://dictionary.cambridge.org/dictionary/english/data" target="_blank">(Cambridge Dictionary, 2025)</a></p>
+                <p>"<b>Information</b>, especially facts or numbers, collected to be examined and considered and used to help <b>decision-making</b>, or information in an electronic form that can be <b>stored and used by a computer.</b>" <a
+                href="https://dictionary.cambridge.org/dictionary/english/data" target="_blank" rel="noopener noreferrer">(Cambridge Dictionary, 2025)</a></p>
             </div>
         </div>
     </div>
@@ -150,7 +150,7 @@ $$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{predic
                     <li>Historical bias</li>
                     <li>Measurement bias</li>
                     <li>Algorithmic bias</li>
-                    <li>Implicit bias</li>                    
+                    <li>Implicit bias</li>
                     <li>...</li>
                 </ul>
             </div>
@@ -173,7 +173,7 @@ $$\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{predic
                     <li>Large systems</li>
                     <li>Data generation speed</li>
                     <li>Current systems architectures</li>
-                    <li>Interpretability issues</li>                    
+                    <li>Interpretability issues</li>
                     <li>Intellectual debt</li>
                     <li>...</li>
                 </ul>

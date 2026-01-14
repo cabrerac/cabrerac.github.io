@@ -8,7 +8,7 @@
 {% for talk in year_group.items %}
 <div class="talk-item">
 <p><strong>{{ talk.title }}</strong>{% if talk.status == "upcoming" %} <span class="upcoming-badge">Upcoming</span>{% endif %}</p>
-<p>{{ talk.venue }}{% if talk.location %}, {{ talk.location }}{% endif %} — {{ talk.month }} {{ talk.year }}{% if talk.slides %} | <a href="{{ talk.slides }}" target="_blank">[View Slides]</a>{% endif %}</p>
+<p>{{ talk.venue }}{% if talk.location %}, {{ talk.location }}{% endif %} — {{ talk.month }} {{ talk.year }}{% if talk.slides %} | <a href="{{ talk.slides }}" target="_blank" rel="noopener noreferrer">[View Slides]</a>{% endif %}</p>
 </div>
 {% endfor %}
 </div>

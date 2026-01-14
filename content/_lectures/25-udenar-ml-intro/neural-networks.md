@@ -22,29 +22,29 @@ visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
-<div class="lecture-resources">  
+<div class="lecture-resources">
   <p>
-    <a href="/assets/slides/25-udenar-ml-intro/neural-networks.html" target="_blank">[HTML Slides]</a>    
-    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-udenar-ml-intro/neural-networks.ipynb" target="_blank">[Colab Notebook]</a>
-    <a href="/teaching/25-udenar-ml-intro/">[Back to Course]</a>    
+    <a href="/assets/slides/25-udenar-ml-intro/neural-networks.html" target="_blank" rel="noopener noreferrer">[HTML Slides]</a>
+    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-udenar-ml-intro/neural-networks.ipynb" target="_blank" rel="noopener noreferrer">[Colab Notebook]</a>
+    <a href="/teaching/25-udenar-ml-intro/">[Back to Course]</a>
   </p>
 </div>
-  
+
 ---
 
-## Resources  
+## Resources
 
 #### Books
 - Russell, S. and Norvig, P. (2010). Artificial Intelligence: A Modern Approach 3rd ed - Chapter 19 . Prentice Hall
 - [Bishop, C. (2006). Pattern Recognition and Machine Learning. Springer - Chapter 5](https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf)
-- [Deisenroth M. P. et. al. (2020). Mathematics for Machine Learning - Chapter 10](https://mml-book.github.io/)  
+- [Deisenroth M. P. et. al. (2020). Mathematics for Machine Learning - Chapter 10](https://mml-book.github.io/)
 - [Goodfellow, I., Bengio, Y., Courville, A. (2016). Deep Learning. MIT Press - Chapters 6-9](https://www.deeplearningbook.org/)
 - [LeCun, Y., Bengio, Y., Hinton, G. (2015). Deep learning. Nature, 521(7553), 436-444](https://www.nature.com/articles/nature14539)
 - [Nielsen, M. (2019). Neural Networks and Deep Learning](http://neuralnetworksanddeeplearning.com/)
 <br>
 <br>
 
-#### Papers and Reports  
+#### Papers and Reports
 - [Rumelhart, D. E., Hinton, G. E., Williams, R. J. (1986). Learning representations by back-propagating errors](https://www.nature.com/articles/323533a0)
 - [Cybenko, G. (1989). Approximation by superpositions of a sigmoidal function](https://link.springer.com/article/10.1007/BF02551274)
 - [Hornik, K., Stinchcombe, M., White, H. (1989). Multilayer feedforward networks are universal approximators](https://www.sciencedirect.com/science/article/abs/pii/0893608089900208)

@@ -23,22 +23,22 @@ visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
-<div class="lecture-resources">  
+<div class="lecture-resources">
   <p>
-    <a href="/assets/slides/25-udenar-ml-intro/learning-data.html" target="_blank">[HTML Slides]</a>    
-    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-udenar-ml-intro/learning-data.ipynb" target="_blank">[Colab Notebook]</a>
-    <a href="/teaching/25-udenar-ml-intro/">[Back to Course]</a>    
+    <a href="/assets/slides/25-udenar-ml-intro/learning-data.html" target="_blank" rel="noopener noreferrer">[HTML Slides]</a>
+    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-udenar-ml-intro/learning-data.ipynb" target="_blank" rel="noopener noreferrer">[Colab Notebook]</a>
+    <a href="/teaching/25-udenar-ml-intro/">[Back to Course]</a>
   </p>
 </div>
-  
+
 ---
 
-## Resources  
+## Resources
 
 #### Books
 - Russell, S. and Norvig, P. (2010). Artificial Intelligence: A Modern Approach 3rd ed - Chapter 19 . Prentice Hall
 - Bishop, C. (2009). Pattern Recognition and Machine Learning - Chapter 3. Springer
-- [Deisenroth M. P. et. al. (2020). Mathematics for Machine Learning - Chapter 9](https://mml-book.github.io/)  
+- [Deisenroth M. P. et. al. (2020). Mathematics for Machine Learning - Chapter 9](https://mml-book.github.io/)
 <br>
 <br>
 #### Web

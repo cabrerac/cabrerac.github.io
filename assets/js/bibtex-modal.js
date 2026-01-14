@@ -151,22 +151,43 @@ document.addEventListener("DOMContentLoaded", () => {
     const modal = document.createElement('div');
     modal.id = 'bibtex-modal';
     modal.className = 'bibtex-modal';
-    modal.innerHTML = `
-      <div class="bibtex-modal-content">
-        <div class="bibtex-modal-header">
-          <h3>BibTeX Entry: ${bibkey}</h3>
-          <span class="bibtex-modal-close">&times;</span>
-        </div>
-        <div class="bibtex-modal-body" id="bibtex-content">${content}</div>
-        <button class="bibtex-modal-copy" onclick="copyBibtexToClipboard()">Copy to Clipboard</button>
-      </div>
-    `;
+
+    const modalContent = document.createElement('div');
+    modalContent.className = 'bibtex-modal-content';
+
+    const modalHeader = document.createElement('div');
+    modalHeader.className = 'bibtex-modal-header';
+
+    const title = document.createElement('h3');
+    title.textContent = `BibTeX Entry: ${bibkey}`;
+
+    const closeBtn = document.createElement('span');
+    closeBtn.className = 'bibtex-modal-close';
+    closeBtn.textContent = '\u00d7';
+
+    modalHeader.appendChild(title);
+    modalHeader.appendChild(closeBtn);
+
+    const modalBody = document.createElement('div');
+    modalBody.className = 'bibtex-modal-body';
+    modalBody.id = 'bibtex-content';
+    modalBody.textContent = content;
+
+    const copyButton = document.createElement('button');
+    copyButton.className = 'bibtex-modal-copy';
+    copyButton.textContent = 'Copy to Clipboard';
+    copyButton.addEventListener('click', copyBibtexToClipboard);
+
+    modalContent.appendChild(modalHeader);
+    modalContent.appendChild(modalBody);
+    modalContent.appendChild(copyButton);
+
+    modal.appendChild(modalContent);
 
     document.body.appendChild(modal);
     modal.style.display = 'block';
 
     // Close modal handlers
-    const closeBtn = modal.querySelector('.bibtex-modal-close');
     closeBtn.onclick = () => modal.style.display = 'none';
 
     window.onclick = (event) => {

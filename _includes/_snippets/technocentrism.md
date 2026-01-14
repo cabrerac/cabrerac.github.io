@@ -246,7 +246,7 @@
                 <p><em>"ChatGPT suggested a <b> dangerous route</b> to tourists hiking in the mountains in Poland and resulted in the hikers having to be rescued."</em> (January, 2025)</p>
                 <br>
                 <p><em>"Steve Talley, a financial adviser in Denver, Colorado, was <b>wrongfully arrested twice</b> for bank robberies he did not commit, based on flawed facial recognition technology and questionable identification procedures."</em> (September, 2014)</p>
-                <p>Learn more at <a href="https://www.aiaaic.org/home" target="_blank">the AIAAIC Repository</a></p>
+                <p>Learn more at <a href="https://www.aiaaic.org/home" target="_blank" rel="noopener noreferrer">the AIAAIC Repository</a></p>
             </div>
         </div>
     </div>

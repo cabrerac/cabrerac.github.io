@@ -22,17 +22,17 @@ visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
-<div class="lecture-resources">  
+<div class="lecture-resources">
   <p>
-    <a href="/assets/slides/25-udenar-ml-intro/ai-systems.html" target="_blank">[HTML Slides]</a>    
-    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-udenar-ml-intro/ai-systems.ipynb" target="_blank">[Colab Notebook]</a>
-    <a href="/teaching/25-udenar-ml-intro/">[Back to Course]</a>    
+    <a href="/assets/slides/25-udenar-ml-intro/ai-systems.html" target="_blank" rel="noopener noreferrer">[HTML Slides]</a>
+    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-udenar-ml-intro/ai-systems.ipynb" target="_blank" rel="noopener noreferrer">[Colab Notebook]</a>
+    <a href="/teaching/25-udenar-ml-intro/">[Back to Course]</a>
   </p>
 </div>
-  
+
 ---
 
-## Resources  
+## Resources
 
 #### Books
 

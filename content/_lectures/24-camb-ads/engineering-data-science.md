@@ -15,9 +15,9 @@ visible: true
 ---
 <p>
 {% if page.slides %}
-  <a href="{{ page.slides }}" target="_blank">[slides]</a>
+  <a href="{{ page.slides }}" target="_blank" rel="noopener noreferrer">[slides]</a>
 {% endif %}
 </p>
 <p>
-The details and materials of this lecture are available in <a href="https://mlatcl.github.io/advds/lectures/04-03-engineering-data-science.html" target="_blank">the course website</a>.
+The details and materials of this lecture are available in <a href="https://mlatcl.github.io/advds/lectures/04-03-engineering-data-science.html" target="_blank" rel="noopener noreferrer">the course website</a>.
 </p>

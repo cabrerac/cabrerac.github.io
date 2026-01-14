@@ -22,24 +22,24 @@ visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
-<div class="lecture-resources">  
+<div class="lecture-resources">
   <p>
-    <a href="/assets/slides/25-udenar-ml-intro/transformer.html" target="_blank">[HTML Slides]</a>    
-    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-udenar-ml-intro/transformer.ipynb" target="_blank">[Colab Notebook]</a>
-    <a href="/teaching/25-udenar-ml-intro/">[Back to Course]</a>    
+    <a href="/assets/slides/25-udenar-ml-intro/transformer.html" target="_blank" rel="noopener noreferrer">[HTML Slides]</a>
+    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-udenar-ml-intro/transformer.ipynb" target="_blank" rel="noopener noreferrer">[Colab Notebook]</a>
+    <a href="/teaching/25-udenar-ml-intro/">[Back to Course]</a>
   </p>
 </div>
-  
+
 ---
 
-## Resources  
+## Resources
 
 #### Books
 - [Jurafsky, D., and Martin J.H. (2025). Speech and Language Processing - Chapter 9](https://web.stanford.edu/~jurafsky/slp3/)
 <br>
 <br>
 
-#### Papers and Reports  
+#### Papers and Reports
 - [Vaswani, A., et al. (2017). Attention is all you need. Advances in neural information processing systems](https://papers.nips.cc/paper_files/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html)
 - [Devlin, J., et al. (2018). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding](https://arxiv.org/abs/1810.04805)
 - [Radford, A., et al. (2019). Language models are unsupervised multitask learners. OpenAI blog](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)

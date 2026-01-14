@@ -23,27 +23,27 @@ visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
-<div class="lecture-resources">  
+<div class="lecture-resources">
   <p>
-    <a href="/assets/slides/25-udenar-ml-intro/data-quality.html" target="_blank">[HTML Slides]</a>    
-    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-udenar-ml-intro/data-quality.ipynb" target="_blank">[Colab Notebook]</a>
-    <a href="/teaching/25-udenar-ml-intro/">[Back to Course]</a>    
+    <a href="/assets/slides/25-udenar-ml-intro/data-quality.html" target="_blank" rel="noopener noreferrer">[HTML Slides]</a>
+    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-udenar-ml-intro/data-quality.ipynb" target="_blank" rel="noopener noreferrer">[Colab Notebook]</a>
+    <a href="/teaching/25-udenar-ml-intro/">[Back to Course]</a>
   </p>
 </div>
-  
+
 ---
 
-## Resources  
+## Resources
 
 #### Books
 - Bishop, C. (2009). Pattern Recognition and Machine Learning. Springer
-- [Deisenroth M. P. et. al. (2020). Mathematics for Machine Learning - Chapter 10](https://mml-book.github.io/)  
+- [Deisenroth M. P. et. al. (2020). Mathematics for Machine Learning - Chapter 10](https://mml-book.github.io/)
 <br>
-#### Papers and Reports  
+#### Papers and Reports
 
 - [Hoteling, H. (1933). Analysis of a Complex of Statistical Variables into Principal Components](https://www.cis.rit.edu/~rlepci/Erho/Derek/Useful_References/Principal%20Components%20Analysis/Hotelling_PCA_part1.pdf)
 - [Tipping, M. E., Bishop C. (1999). Probabilistic Principal Component Analysis](https://www.cs.columbia.edu/~blei/seminar/2020-representation/readings/TippingBishop1999.pdf)
-<br> 
+<br>
 <br>
 #### Web
 

@@ -185,7 +185,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="https://mlatcl.github.io/advds/slides/diagrams//data-science/crash-map-kampala-location.png" alt="Crash Map Location" style="height: 400px">
-                <div class="footnote">Crash Map Kampala was an initiative by <a href="https://www.sheffield.ac.uk/cs/people/academic/michael-smith" target="_blank">Michael T. Smith</a> and Bagonza Jimmy Owa Kinyonyi to map the location, date and severity of vehicle accidents across the city of Kampala. Original storage location for the data was in police logbooks.</div>
+                <div class="footnote">Crash Map Kampala was an initiative by <a href="https://www.sheffield.ac.uk/cs/people/academic/michael-smith" target="_blank" rel="noopener noreferrer">Michael T. Smith</a> and Bagonza Jimmy Owa Kinyonyi to map the location, date and severity of vehicle accidents across the city of Kampala. Original storage location for the data was in police logbooks.</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Crash Map Kampala</b></p>
@@ -205,7 +205,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="https://mlatcl.github.io/advds/slides/diagrams//data-science/crash-map-kampala-date-time.png" alt="Crash Map Date Time" style="height: 400px">
-                <div class="footnote">Crash Map Kampala was an initiative by <a href="https://www.sheffield.ac.uk/cs/people/academic/michael-smith" target="_blank">Michael T. Smith</a> and Bagonza Jimmy Owa Kinyonyi to map the location, date and severity of vehicle accidents across the city of Kampala. Original storage location for the data was in police logbooks.</div>
+                <div class="footnote">Crash Map Kampala was an initiative by <a href="https://www.sheffield.ac.uk/cs/people/academic/michael-smith" target="_blank" rel="noopener noreferrer">Michael T. Smith</a> and Bagonza Jimmy Owa Kinyonyi to map the location, date and severity of vehicle accidents across the city of Kampala. Original storage location for the data was in police logbooks.</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Crash Map Kampala</b></p>
@@ -225,7 +225,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="https://mlatcl.github.io/advds/slides/diagrams//data-science/crash-map-kampala-severity.png" alt="Crash Map Severity" style="height: 400px">
-                <div class="footnote">Crash Map Kampala was an initiative by <a href="https://www.sheffield.ac.uk/cs/people/academic/michael-smith" target="_blank">Michael T. Smith</a> and Bagonza Jimmy Owa Kinyonyi to map the location, date and severity of vehicle accidents across the city of Kampala. Original storage location for the data was in police logbooks.</div>
+                <div class="footnote">Crash Map Kampala was an initiative by <a href="https://www.sheffield.ac.uk/cs/people/academic/michael-smith" target="_blank" rel="noopener noreferrer">Michael T. Smith</a> and Bagonza Jimmy Owa Kinyonyi to map the location, date and severity of vehicle accidents across the city of Kampala. Original storage location for the data was in police logbooks.</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Crash Map Kampala</b></p>
@@ -245,7 +245,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="https://mlatcl.github.io/advds/slides/diagrams//data-science/crash-map-kampala-vehicles-2.png" alt="Crash Map Vehicles 2" style="height: 400px">
-                <div class="footnote">Crash Map Kampala was an initiative by <a href="https://www.sheffield.ac.uk/cs/people/academic/michael-smith" target="_blank">Michael T. Smith</a> and Bagonza Jimmy Owa Kinyonyi to map the location, date and severity of vehicle accidents across the city of Kampala. Original storage location for the data was in police logbooks.</div>
+                <div class="footnote">Crash Map Kampala was an initiative by <a href="https://www.sheffield.ac.uk/cs/people/academic/michael-smith" target="_blank" rel="noopener noreferrer">Michael T. Smith</a> and Bagonza Jimmy Owa Kinyonyi to map the location, date and severity of vehicle accidents across the city of Kampala. Original storage location for the data was in police logbooks.</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Crash Map Kampala</b></p>
@@ -269,7 +269,7 @@
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="https://mlatcl.github.io/advds/slides/diagrams//data-science/crash-map-kampala.png" alt="Crash Map Vehicles 2" style="height: 400px">
-                <div class="footnote">Crash Map Kampala was an initiative by <a href="https://www.sheffield.ac.uk/cs/people/academic/michael-smith" target="_blank">Michael T. Smith</a> and Bagonza Jimmy Owa Kinyonyi to map the location, date and severity of vehicle accidents across the city of Kampala. Original storage location for the data was in police logbooks.</div>
+                <div class="footnote">Crash Map Kampala was an initiative by <a href="https://www.sheffield.ac.uk/cs/people/academic/michael-smith" target="_blank" rel="noopener noreferrer">Michael T. Smith</a> and Bagonza Jimmy Owa Kinyonyi to map the location, date and severity of vehicle accidents across the city of Kampala. Original storage location for the data was in police logbooks.</div>
             </div>
         </div>
     </div>
@@ -322,7 +322,7 @@ print(dataset.head())
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 30%">
                 <p><b>Using built-in datasets</b></p>
-                <p>Different repositories are available online. For example, <a href="https://www.openml.org/" target="_blank">OpenML</a> or <a href="https://www.tensorflow.org/datasets" target="_blank">Tensorflow datasets</a></p>
+                <p>Different repositories are available online. For example, <a href="https://www.openml.org/" target="_blank" rel="noopener noreferrer">OpenML</a> or <a href="https://www.tensorflow.org/datasets" target="_blank" rel="noopener noreferrer">Tensorflow datasets</a></p>
             </div>
             <div class="column vertical-middle text-left" style="width: 70%">
             </div>
@@ -337,7 +337,7 @@ print(dataset.head())
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 30%">
                 <p><b>Using built-in datasets</b></p>
-                <p>Different datasets repositories are available online. For example, <a href="https://www.openml.org/" target="_blank">OpenML</a>, an open source platform for sharing datasets and experiments.</p>
+                <p>Different datasets repositories are available online. For example, <a href="https://www.openml.org/" target="_blank" rel="noopener noreferrer">OpenML</a>, an open source platform for sharing datasets and experiments.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 70%">
 
@@ -365,7 +365,7 @@ print(iris.data.head())
                     <li>It contains 150 samples of iris flowers, each with 4 features</li>
                     <li>The target variable is the species of the iris flower</li>
                     <li>It is commonly used for classification tasks</li>
-                    <li>Look at the dataset documentation, such as the <a href="https://www.geeksforgeeks.org/iris-dataset/" target="_blank">Iris dataset</a> documentation</li>
+                    <li>Look at the dataset documentation, such as the <a href="https://www.geeksforgeeks.org/iris-dataset/" target="_blank" rel="noopener noreferrer">Iris dataset</a> documentation</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 70%">
@@ -390,7 +390,7 @@ print(iris.data.head())
             <div class="column vertical-middle text-left" style="width: 30%">
                 <p><b>Using built-in datasets</b></p>
                 <ul>
-                    <li>Another popular dataset: CIFAR-10 from <a href="https://www.tensorflow.org/datasets" target="_blank">Tensorflow datasets</a></li>
+                    <li>Another popular dataset: CIFAR-10 from <a href="https://www.tensorflow.org/datasets" target="_blank" rel="noopener noreferrer">Tensorflow datasets</a></li>
                     <li>Contains 60,000 32x32 color images</li>
                     <li>10 different classes</li>
                     <li>Commonly used for image classification</li>
@@ -729,7 +729,7 @@ try:
     soup = BeautifulSoup(response.text, 'html.parser')
     data = [p.text for p in soup.find_all('p')]
     return data
-    
+
 except Exception as e:
     print(f"Error scraping data: {str(e)}")
     return None

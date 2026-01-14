@@ -20,7 +20,7 @@
 <p class="activity-note">{{ activity.note }}</p>
 {% endif %}
 {% if activity.url %}
-<p><a href="{{ activity.url }}" target="_blank">[Website]</a></p>
+<p><a href="{{ activity.url }}" target="_blank" rel="noopener noreferrer">[Website]</a></p>
 {% endif %}
 </div>
 </div>
@@ -40,7 +40,7 @@
 <p><strong>Publication:</strong> {{ activity.journal }}</p>
 <p><strong>Year:</strong> {{ activity.year }}</p>
 {% if activity.url %}
-<p><a href="{{ activity.url }}" target="_blank">[Volume Link]</a></p>
+<p><a href="{{ activity.url }}" target="_blank" rel="noopener noreferrer">[Volume Link]</a></p>
 {% endif %}
 </div>
 </div>
@@ -60,7 +60,7 @@
 <div class="activity-meta">
 <p><strong>Type:</strong> Journal Reviewer</p>
 {% if activity.url %}
-<p><a href="{{ activity.url }}" target="_blank">[Website]</a></p>
+<p><a href="{{ activity.url }}" target="_blank" rel="noopener noreferrer">[Website]</a></p>
 {% endif %}
 </div>
 {% elsif activity.conference %}
@@ -69,7 +69,7 @@
 <p><strong>Role:</strong> {{ activity.title }}</p>
 <p><strong>Year:</strong> {{ activity.year }}</p>
 {% if activity.url %}
-<p><a href="{{ activity.url }}" target="_blank">[Conference Website]</a></p>
+<p><a href="{{ activity.url }}" target="_blank" rel="noopener noreferrer">[Conference Website]</a></p>
 {% endif %}
 </div>
 {% endif %}

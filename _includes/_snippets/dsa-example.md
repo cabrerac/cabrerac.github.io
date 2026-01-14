@@ -10,7 +10,7 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/dsa-logo.png" alt="Context People" style="height: 250px">
             <div class="column vertical-bottom text-center" style="width: 100%">
-                <p>Learn more at <a href="https://www.datascienceafrica.org/" target="_blank">https://www.datascienceafrica.org/</a></p>
+                <p>Learn more at <a href="https://www.datascienceafrica.org/" target="_blank" rel="noopener noreferrer">https://www.datascienceafrica.org/</a></p>
             </div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -28,7 +28,7 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/dsa-logo.png" alt="Context People" style="height: 250px">
             <div class="column vertical-bottom text-center" style="width: 100%">
-                <p>Learn more at <a href="https://www.datascienceafrica.org/" target="_blank">https://www.datascienceafrica.org/</a></p>
+                <p>Learn more at <a href="https://www.datascienceafrica.org/" target="_blank" rel="noopener noreferrer">https://www.datascienceafrica.org/</a></p>
             </div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -52,7 +52,7 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/dsa-logo.png" alt="Context People" style="height: 250px">
             <div class="column vertical-bottom text-center" style="width: 100%">
-                <p>Learn more at <a href="https://www.datascienceafrica.org/" target="_blank">https://www.datascienceafrica.org/</a></p>
+                <p>Learn more at <a href="https://www.datascienceafrica.org/" target="_blank" rel="noopener noreferrer">https://www.datascienceafrica.org/</a></p>
             </div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">

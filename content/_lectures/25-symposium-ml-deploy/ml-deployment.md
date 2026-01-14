@@ -24,17 +24,17 @@ visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
-<div class="lecture-resources">  
+<div class="lecture-resources">
   <p>
-    <a href="/assets/slides/25-symposium-ml-deploy/ml-deployment.html" target="_blank">[HTML Slides]</a>    
-    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-symposium-ml-deploy/ml-deployment.ipynb" target="_blank">[Colab Notebook]</a>
-    <a href="/teaching/25-symposium-ml-deploy/">[Back to Course]</a>    
+    <a href="/assets/slides/25-symposium-ml-deploy/ml-deployment.html" target="_blank" rel="noopener noreferrer">[HTML Slides]</a>
+    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-symposium-ml-deploy/ml-deployment.ipynb" target="_blank" rel="noopener noreferrer">[Colab Notebook]</a>
+    <a href="/teaching/25-symposium-ml-deploy/">[Back to Course]</a>
   </p>
 </div>
-  
+
 ---
 
-## Resources  
+## Resources
 
 #### Books
 
@@ -42,7 +42,7 @@ visible: true
 - [Huyen, C. (2022). Designing Machine Learning Systems. O'Reilly Media](https://www.oreilly.com/library/view/designing-machine-learning/9781098107956/)
 <br>
 <br>
-#### Papers and Reports  
+#### Papers and Reports
 
 - [Sculley, D., et al. (2015). Hidden technical debt in machine learning systems](https://papers.nips.cc/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html)
 - [Breck, E., et al. (2016). The ML test score: A rubric for ML production readiness and technical debt reduction](https://research.google/pubs/pub46555/)
