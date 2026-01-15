@@ -29,7 +29,7 @@ X, y = make_blobs(n_samples=100, centers=2, random_state=42)
 plt.scatter(X[:, 0], X[:, 1], c=y)
 plt.title("Sample ML Dataset")
 plt.show()
-``` 
+```
 
 ### Example: Creating a Simple Dataset
 
@@ -37,31 +37,10 @@ You can run the following code in your browser using Pyodide:
 
 <div>
     <h3>Interactive Example</h3>
-    <button onclick="runExample()">Run Example</button>
-    <pre id="output"></pre>
+    <button type="button" class="pyodide-example-button">Run Example</button>
+    <pre class="pyodide-example-output"></pre>
 </div>
 
-<script>
-    async function runExample() {
-        let pyodide = await loadPyodide();
-        await pyodide.loadPackage("numpy");
-        await pyodide.loadPackage("matplotlib");
-        let code = `
-import numpy as np
-import matplotlib.pyplot as plt
-
-# Generate sample data
-X = np.random.rand(100, 2)
-y = np.array([1 if x[0] + x[1] > 1 else 0 for x in X])
-
-# Plot the data
-plt.scatter(X[:, 0], X[:, 1], c=y, cmap='viridis')
-plt.title("Sample ML Dataset")
-plt.xlabel("Feature 1")
-plt.ylabel("Feature 2")
-plt.show()
-        `;
-        await pyodide.runPythonAsync(code);
-    }
-</script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js" integrity="sha384-+R8PTzDXzivdjpxOqwVwRhPS9dlske7tKAjwj0O0Kr361gKY5d2Xe6Osl+faRLT7" crossorigin="anonymous"></script>
+<script src="{{ site.baseurl }}/assets/js/pyodide-example.js"></script>
 
