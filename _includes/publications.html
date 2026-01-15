@@ -4,7 +4,7 @@
 {% assign preprints = publications | where: "type", "preprint" %}
 
 {% if journals.size > 0 %}
-<div class="collapsible-header"><h3 style="display:inline; margin:0">Journal Articles</h3></div>
+<div class="collapsible-header"><h3 class="collapsible-title">Journal Articles</h3></div>
 <div class="collapsible-content">
 {% for pub in journals %}
 <div class="publication">
@@ -17,7 +17,7 @@
 {% endif %}
 
 {% if conferences.size > 0 %}
-<div class="collapsible-header"><h3 style="display:inline; margin:0">Conference Papers</h3></div>
+<div class="collapsible-header"><h3 class="collapsible-title">Conference Papers</h3></div>
 <div class="collapsible-content">
 {% for pub in conferences %}
 <div class="publication">
@@ -30,7 +30,7 @@
 {% endif %}
 
 {% if preprints.size > 0 %}
-<div class="collapsible-header"><h3 style="display:inline; margin:0">Preprints</h3></div>
+<div class="collapsible-header"><h3 class="collapsible-title">Preprints</h3></div>
 <div class="collapsible-content">
 {% for pub in preprints %}
 <div class="publication">

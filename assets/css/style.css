@@ -173,3 +173,15 @@ p {
   background-color: #444;
 }
 
+.collapsible-title {
+  display: inline;
+  margin: 0;
+}
+
+.profile-photo {
+  float: left;
+  margin-right: 10px;
+  width: 15%;
+  height: auto;
+}
+

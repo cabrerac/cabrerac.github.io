@@ -5,7 +5,7 @@
 {% assign undergrad_students = all_students | where: "degree", "Undergraduate Student" | sort: 'graduation_year' | reverse %}
 
 {% if phd_students.size > 0 %}
-<div class="collapsible-header"><h3 style="display:inline; margin:0">PhD Students</h3></div>
+<div class="collapsible-header"><h3 class="collapsible-title">PhD Students</h3></div>
 <div class="collapsible-content">
 <div class="students-list">
 {% for student in phd_students %}
@@ -20,7 +20,7 @@ Project: {{ student.project }}<br>
 {% endif %}
 
 {% if masters_students.size > 0 %}
-<div class="collapsible-header"><h3 style="display:inline; margin:0">Master's Students</h3></div>
+<div class="collapsible-header"><h3 class="collapsible-title">Master's Students</h3></div>
 <div class="collapsible-content">
 <div class="students-list">
 {% for student in masters_students %}
@@ -35,7 +35,7 @@ Project: {{ student.project }}<br>
 {% endif %}
 
 {% if undergrad_students.size > 0 %}
-<div class="collapsible-header"><h3 style="display:inline; margin:0">Undergraduate Students</h3></div>
+<div class="collapsible-header"><h3 class="collapsible-title">Undergraduate Students</h3></div>
 <div class="collapsible-content">
 <div class="students-list">
 {% for student in undergrad_students %}
