@@ -529,12 +529,13 @@ class ContentGenerator:
         self.generate_slides(talk_file, course_slides_dir)
 
         # Build slides URL: always a single-line absolute URL for talks.yml
+        # Match only the "url:" key (not "baseurl:") by requiring start of line
         config_file = self.base_dir / "_config.yml"
         base_url = "https://cabrerac.github.io"
         if config_file.exists():
             with open(config_file, 'r', encoding='utf-8') as cf:
                 config_content = cf.read()
-                url_match = re.search(r'url:\s*["\']([^"\']+)["\']', config_content)
+                url_match = re.search(r'^\s*url:\s*["\']([^"\']+)["\']', config_content, re.MULTILINE)
                 if url_match:
                     base_url = url_match.group(1).strip().rstrip('/')
         slides_url = f"{base_url}/assets/slides/{year}/{talk_id}.html".strip()
