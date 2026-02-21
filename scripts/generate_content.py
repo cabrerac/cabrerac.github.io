@@ -95,6 +95,12 @@ class ContentGenerator:
             data = yaml.safe_load(f)
         return data if isinstance(data, list) else []
 
+    # Keys allowed in talks.yml (talk-only metadata; do not mix in lecture-only fields)
+    TALK_YML_KEYS = (
+        'talk_id', 'title', 'conference', 'venue', 'institution', 'location',
+        'year', 'month', 'date', 'type', 'status', 'slides', 'page'
+    )
+
     def update_talks_yml(self, talks_list):
         """Write updated talks list back to _data/talks.yml."""
         talks_file = self.data_dir / "talks.yml"
@@ -533,22 +539,30 @@ class ContentGenerator:
                     base_url = url_match.group(1).rstrip('/')
         slides_url = f"{base_url}/assets/slides/{year}/{talk_id}.html"
 
-        # Update or create talks.yml entry
-        talk_entry = existing.copy() if existing else {}
+        # Update or create talks.yml entry (only talk-specific keys)
+        talk_entry = {}
+        if existing:
+            for k in self.TALK_YML_KEYS:
+                if k in existing and existing[k] is not None:
+                    talk_entry[k] = existing[k]
         talk_entry['talk_id'] = talk_id
         talk_entry['slides'] = slides_url
         if metadata.get('output_page'):
             talk_entry['page'] = f"{base_url}/talks/{year}/{talk_id}/"
         elif existing and existing.get('page'):
             talk_entry['page'] = existing['page']
-        for key in ('title', 'venue', 'institution', 'location', 'year', 'month', 'date', 'type', 'status'):
+        for key in self.TALK_YML_KEYS:
+            if key in ('slides', 'talk_id'):
+                continue
             if metadata.get(key) is not None:
                 talk_entry[key] = metadata[key]
+        # Ensure order and only allowed keys for consistent YAML
+        ordered = {k: talk_entry[k] for k in self.TALK_YML_KEYS if k in talk_entry and talk_entry[k] is not None}
         if not existing:
-            talks_list.append(talk_entry)
+            talks_list.append(ordered)
         else:
             idx = next(i for i, t in enumerate(talks_list) if t.get('talk_id') == talk_id)
-            talks_list[idx] = talk_entry
+            talks_list[idx] = ordered
         self.update_talks_yml(talks_list)
         print(f"✓ Updated _data/talks.yml for {talk_id}")
 
@@ -559,18 +573,20 @@ class ContentGenerator:
             permalink = f"/talks/{year}/{talk_id}/"
             page_metadata = {
                 'layout': 'talk',
-                'title': talk_entry.get('title', talk_id),
+                'title': ordered.get('title', talk_id),
                 'permalink': permalink,
                 'talk_id': talk_id,
-                'venue': talk_entry.get('venue', ''),
-                'institution': talk_entry.get('institution', ''),
-                'location': talk_entry.get('location', ''),
+                'conference': ordered.get('conference', ''),
+                'venue': ordered.get('venue', ''),
+                'institution': ordered.get('institution', ''),
+                'location': ordered.get('location', ''),
                 'year': year,
-                'month': talk_entry.get('month', ''),
-                'date': talk_entry.get('date', ''),
-                'type': talk_entry.get('type', ''),
-                'status': talk_entry.get('status', ''),
+                'month': ordered.get('month', ''),
+                'date': ordered.get('date', ''),
+                'type': ordered.get('type', ''),
+                'status': ordered.get('status', ''),
                 'slides': slides_url,
+                'description': metadata.get('description', ''),
             }
             body_raw = content[front_matter.end():].lstrip() if front_matter else content
             processed = self.process_includes(body_raw)
