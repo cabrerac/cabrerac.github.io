@@ -1,3 +1,14 @@
+- title: "Mitigating Intellectual Debt in ML Systems"
+  venue: "AI × Mathematics"
+  institution: "ICMS, Bayes Centre"
+  location: "Edinburgh"
+  year: 2026
+  month: "February"
+  date: "2026-02"
+  type: "conference_talk"
+  status: "upcoming"
+  slides: "https://cabrerac.github.io/assets/slides/2026/icms-intellectual-debt.html"
+
 - title: "Data-Oriented Architectures for Healthcare"
   venue: "Karolinska Institute"
   institution: "Karolinska Institute"
@@ -6,8 +17,8 @@
   month: "November"
   date: "2025-11"
   type: "invited_talk"
-  status: "upcoming"
-  slides: ""
+  status: "past"
+  slides: "https://cabrerac.github.io/assets/slides/2025/ki-aicu-systems.pdf"
 
 - title: "Data-oriented Architecture and Real-World ML Systems"
   venue: "Data Science Africa Summer School"
@@ -18,7 +29,7 @@
   date: "2023-05"
   type: "invited_talk"
   status: "past"
-  slides: "https://cabrerac.github.io/assets/slides/dsa-23-doa-ml-sys.pdf"
+  slides: "https://cabrerac.github.io/assets/slides/2023/dsa-doa-ml-sys.pdf"
 
 - title: "AI-based systems"
   venue: "Universidad de Nariño"
@@ -29,7 +40,7 @@
   date: "2022-10"
   type: "invited_talk"
   status: "past"
-  slides: "https://cabrerac.github.io/assets/slides/ai-based-systems-oct-22.pdf"
+  slides: "https://cabrerac.github.io/assets/slides/2022/ee-ai-based-systems.pdf"
 
 - title: "AI-based systems"
   venue: "Universidad de Nariño"
@@ -40,4 +51,4 @@
   date: "2022-03"
   type: "invited_talk"
   status: "past"
-  slides: "https://cabrerac.github.io/assets/slides/ai-based-systems-mar-22.pdf"
+  slides: "https://cabrerac.github.io/assets/slides/2022/se-ai-based-systems.pdf"
