@@ -59,13 +59,13 @@ class ContentGenerator:
         self.data_dir = self.base_dir / "_data"
         self.assets_dir = self.base_dir / "assets"
         self.media_dir = self.base_dir / "assets" / "media"
-        
+
         # Create output directories
         self.lectures_dir.mkdir(parents=True, exist_ok=True)
         (self.assets_dir / "slides").mkdir(parents=True, exist_ok=True)
         (self.assets_dir / "notebooks").mkdir(parents=True, exist_ok=True)
         (self.media_dir).mkdir(parents=True, exist_ok=True)
-        
+
         # Initialize mime type detector
         self.mime = magic.Magic(mime=True)
 
@@ -75,15 +75,15 @@ class ContentGenerator:
         if not course_file.exists():
             print(f"Warning: Course file {course_file} not found")
             return {}
-            
+
         with open(course_file, 'r', encoding='utf-8') as f:
             content = f.read()
-            
+
         # Extract front matter
         front_matter = re.match(r'^---\n(.*?)\n---', content, re.DOTALL)
         if not front_matter:
             return {}
-            
+
         return yaml.safe_load(front_matter.group(1))
 
     def load_talks_data(self):
@@ -120,7 +120,7 @@ class ContentGenerator:
             r'<video.*?src="(.*?)".*?>',  # Videos
             r'<audio.*?src="(.*?)".*?>',  # Audio
         ]
-        
+
         processed_content = content
         for pattern in media_patterns:
             for match in re.finditer(pattern, content):
@@ -128,11 +128,11 @@ class ContentGenerator:
                 # Check if the path is already in assets/media
                 if media_path.startswith('/assets/media/'):
                     continue
-                
+
                 # Look for the media file in assets/media
                 media_name = Path(media_path).name
                 media_type = None
-                
+
                 # Try to find the file in assets/media
                 for media_type_dir in self.media_dir.iterdir():
                     if media_type_dir.is_dir():
@@ -140,14 +140,14 @@ class ContentGenerator:
                         if media_file.exists():
                             media_type = media_type_dir.name
                             break
-                
+
                 if media_type:
                     # Update content with the correct path
                     relative_path = f"/assets/media/{media_type}/{media_name}"
                     processed_content = processed_content.replace(media_path, relative_path)
                 else:
                     print(f"Warning: Media file {media_name} not found in assets/media")
-        
+
         return processed_content
 
     def verify_colab_link(self, colab_link):
@@ -160,10 +160,10 @@ class ContentGenerator:
                 owner = path_parts[2]
                 repo = path_parts[3]
                 file_path = '/'.join(path_parts[6:])
-                
+
                 # Use gh-pages branch
                 raw_url = f"https://raw.githubusercontent.com/{owner}/{repo}/gh-pages/{file_path}"
-                
+
                 # Make HEAD request to check if file exists
                 response = requests.head(raw_url, allow_redirects=True)
                 return response.status_code == 200
@@ -175,7 +175,7 @@ class ContentGenerator:
     def check_marp_installation(self):
         """Check Marp CLI installation and PATH configuration."""
         print("\nChecking Marp CLI installation...")
-        
+
         # First check if npm is available
         try:
             # Try to find npm in common Windows locations
@@ -186,13 +186,13 @@ class ContentGenerator:
                 os.path.join(os.environ.get('ProgramFiles(x86)', ''), 'nodejs', 'npm.cmd'),
                 os.path.join(os.environ.get('APPDATA', ''), 'npm', 'npm.cmd'),
             ]
-            
+
             npm_cmd = None
             for path in npm_paths:
                 if shutil.which(path):
                     npm_cmd = path
                     break
-            
+
             if not npm_cmd:
                 print("⚠ npm not found in PATH")
                 print("\nPlease install Node.js and npm:")
@@ -201,14 +201,14 @@ class ContentGenerator:
                 print("3. Check 'Add to PATH' during installation")
                 print("4. Restart your terminal after installation")
                 return False
-            
+
             print(f"✓ Found npm at: {npm_cmd}")
-            
+
             # Check npm global installation
             try:
                 npm_prefix = subprocess.check_output([npm_cmd, 'config', 'get', 'prefix'], text=True).strip()
                 print(f"✓ npm global prefix: {npm_prefix}")
-                
+
                 # Check if Marp is installed globally
                 try:
                     marp_version = subprocess.check_output([npm_cmd, 'list', '-g', '@marp-team/marp-cli'], text=True)
@@ -220,7 +220,7 @@ class ContentGenerator:
                     print(f"1. Run: {npm_cmd} install -g @marp-team/marp-cli")
                     print("2. Restart your terminal after installation")
                     return False
-                
+
                 # Check common Marp locations
                 marp_locations = [
                     os.path.join(npm_prefix, 'bin', 'marp'),
@@ -229,7 +229,7 @@ class ContentGenerator:
                     os.path.join(os.path.expanduser('~'), '.npm-global', 'bin', 'marp'),
                     os.path.join(os.path.expanduser('~'), '.npm-global', 'bin', 'marp.cmd'),
                 ]
-                
+
                 print("\nChecking Marp executable locations:")
                 found = False
                 for location in marp_locations:
@@ -238,12 +238,12 @@ class ContentGenerator:
                         found = True
                     else:
                         print(f"✗ Not found: {location}")
-                
+
                 if not found:
                     print("\n⚠ Marp executable not found in common locations")
                     print(f"  Try running: {npm_cmd} install -g @marp-team/marp-cli")
                     return False
-                
+
                 # Check PATH
                 print("\nChecking PATH environment variable:")
                 path_dirs = os.environ['PATH'].split(os.pathsep)
@@ -252,14 +252,14 @@ class ContentGenerator:
                     os.path.join(os.environ.get('APPDATA', ''), 'npm'),
                     os.path.join(os.path.expanduser('~'), '.npm-global', 'bin'),
                 ]
-                
+
                 for dir_path in npm_bin_dirs:
                     if dir_path in path_dirs:
                         print(f"✓ npm bin directory in PATH: {dir_path}")
                     else:
                         print(f"✗ npm bin directory not in PATH: {dir_path}")
                         print("  You may need to add this to your PATH")
-                
+
                 # Try running marp directly
                 try:
                     marp_version = subprocess.check_output(['marp', '--version'], text=True)
@@ -269,12 +269,12 @@ class ContentGenerator:
                     print("\n⚠ Marp CLI is not accessible from PATH")
                     print("  Try restarting your terminal or adding the npm bin directory to PATH")
                     return False
-                    
+
             except subprocess.CalledProcessError as e:
                 print(f"Error checking npm configuration: {e}")
                 print("Make sure npm is installed and in your PATH")
                 return False
-                
+
         except Exception as e:
             print(f"Error: {e}")
             print("\nPlease ensure Node.js and npm are properly installed:")
@@ -289,56 +289,56 @@ class ContentGenerator:
         # Initialize processed_includes set if not provided
         if processed_includes is None:
             processed_includes = set()
-        
+
         # Maximum recursion depth to prevent infinite loops
         MAX_DEPTH = 10
         if depth > MAX_DEPTH:
             print(f"Warning: Maximum include depth ({MAX_DEPTH}) exceeded. Stopping recursion.")
             return content
-        
+
         # Maximum number of times the same include can be processed
         MAX_INCLUDE_COUNT = 5
-        
+
         # Pattern to match include statements
         include_pattern = r'{%\s*include\s+([^%}]+)\s*%}'
-        
+
         def replace_include(match):
             include_path = match.group(1).strip()
             # Remove quotes if present
             include_path = include_path.strip('"\'')
-            
+
             # Count total times this include has been processed
             total_include_count = sum(1 for x in processed_includes if x.startswith(f"{include_path}:"))
-            
+
             # Check if this include has been processed too many times globally (prevent infinite loops)
             if total_include_count >= MAX_INCLUDE_COUNT:
                 print(f"Warning: Include {include_path} has been processed {total_include_count} times. Stopping to prevent infinite loops.")
                 return match.group(0)  # Return the original include statement
-            
+
             # Create a unique identifier for this specific include instance
             include_id = f"{include_path}:{depth}:{total_include_count}"
-            
+
             # Add to processed set
             processed_includes.add(include_id)
-            
+
             # Look for the include file in _includes
             include_file = self.base_dir / "_includes" / include_path
             if not include_file.exists():
                 print(f"Warning: Include file {include_file} not found")
                 return match.group(0)
-                
+
             # Read and process the include file
             with open(include_file, 'r', encoding='utf-8') as f:
                 include_content = f.read()
-                
+
             # Process Liquid template variables
             # Replace {{ site.url }} with the actual site URL for local images
             site_url = "https://cabrerac.github.io"  # Replace with your actual site URL
             include_content = include_content.replace('{{ site.url }}', site_url)
-            
+
             # Process nested includes with increased depth
             include_content = self.process_includes(include_content, processed_includes, depth + 1)
-            
+
             # Handle SVG content
             if '<svg' in include_content:
                 # Find SVG content
@@ -347,14 +347,14 @@ class ContentGenerator:
                     svg_content = match.group(1)
                     # Use Marp's HTML directive
                     return f'<div class="timeline-container">\n{svg_content}\n</div>'
-                
+
                 include_content = re.sub(svg_pattern, format_svg, include_content, flags=re.DOTALL)
-            
+
             return include_content
-            
+
         # Replace all include statements
         processed_content = re.sub(include_pattern, replace_include, content)
-        
+
         return processed_content
 
     def filter_content(self, content, target):
@@ -370,21 +370,21 @@ class ContentGenerator:
 
         filtered_content = []
         seen_blocks = set()
-        
+
         # Find all matches
         matches = list(tag_block_pattern.finditer(content_without_frontmatter))
-        
+
         # Iterate sequentially through the content
         for match in matches:
             tag_combo = match.group(1)
             block_content = match.group(2).strip()
             tags = [t.strip().upper() for t in tag_combo.split('+')]
-            
+
             if 'ALL' in tags or target in tags:
                 if block_content and block_content not in seen_blocks:
                     filtered_content.append(block_content)
                     seen_blocks.add(block_content)
-        
+
         return '\n\n'.join(filtered_content)
 
     def check_pdf_slide(self, slide_content):
@@ -400,7 +400,7 @@ class ContentGenerator:
         After rendering, the expressions are wrapped in p tags for consistent styling.
         """
         import re
-        
+
         # First handle block math
         block_math_pattern = re.compile(r'(\${2}.*?\${2})', re.DOTALL)
         math_blocks = []
@@ -408,10 +408,10 @@ class ContentGenerator:
             idx = len(math_blocks)
             math_blocks.append(match.group(1))
             return f'__MATH_BLOCK_{idx}__'
-            
+
         # Replace all block math with placeholders
         content_with_placeholders = block_math_pattern.sub(math_replacer, content)
-        
+
         # Now handle inline math - look for \(...\) pattern
         inline_math_pattern = re.compile(r'\\\((.*?)\\\)')
         def inline_math_replacer(match):
@@ -420,22 +420,22 @@ class ContentGenerator:
             if not re.search(r'<p[^>]*>.*?\\\(' + re.escape(math_expr) + r'\\\).*?</p>', content_with_placeholders):
                 return f'${math_expr}$'
             return f'${math_expr}$'
-            
+
         # Replace inline math with wrapped versions
         content_with_placeholders = inline_math_pattern.sub(inline_math_replacer, content_with_placeholders)
-        
+
         # Move block math placeholders to root level
         def move_placeholder_to_root(match):
             return f'\n{match.group(0)}\n'
         content_with_placeholders = re.sub(r'__MATH_BLOCK_\d+__', move_placeholder_to_root, content_with_placeholders)
-        
+
         # Remove extra blank lines
         content_with_placeholders = re.sub(r'\n{3,}', '\n\n', content_with_placeholders)
-        
+
         # Replace placeholders with actual math blocks
         for idx, math_block in enumerate(math_blocks):
             content_with_placeholders = content_with_placeholders.replace(f'__MATH_BLOCK_{idx}__', math_block)
-            
+
         # After all math is processed, wrap rendered math expressions in p tags
         # This will happen after Marp/MathJax has rendered the expressions
         content_with_placeholders = re.sub(
@@ -448,31 +448,31 @@ class ContentGenerator:
             r'<p>\1</p>',
             content_with_placeholders
         )
-            
+
         return content_with_placeholders
 
     def process_lecture(self, lecture_file):
         """Process a lecture file to generate all formats."""
         print(f"Processing {lecture_file}...")
-        
+
         # Get course code from path
         course_code = lecture_file.parent.name
-        
+
         # Get course metadata
         course_metadata = self.get_course_metadata(course_code)
-        
+
         # Create course-specific directories
         course_lectures_dir = self.lectures_dir / course_code
         course_slides_dir = self.assets_dir / "slides" / course_code
         course_notebooks_dir = self.assets_dir / "notebooks" / course_code
-        
+
         for dir_path in [course_lectures_dir, course_slides_dir, course_notebooks_dir]:
             dir_path.mkdir(parents=True, exist_ok=True)
-        
+
         # Read and clean the content first
         with open(lecture_file, 'r', encoding='utf-8') as f:
             content = f.read()
-            
+
         # Protect Python comments in code blocks before any processing
         code_block_pattern = r'```(?:python)?\n(.*?)```'
         def protect_comments(match):
@@ -488,13 +488,13 @@ class ContentGenerator:
                 else:
                     protected_lines.append(line)
             return f'```python\n{chr(10).join(protected_lines)}\n```'
-        
+
         # Replace comments in all code blocks
         content = re.sub(code_block_pattern, protect_comments, content, flags=re.DOTALL)
-            
+
         # Clean code blocks to remove any markdown/HTML artifacts
         content = self.clean_code_blocks(content)
-        
+
         # Generate content with course-specific paths
         self.generate_rendered_lecture(lecture_file, course_lectures_dir, course_metadata)
         self.generate_slides(lecture_file, course_slides_dir)
@@ -528,7 +528,7 @@ class ContentGenerator:
         # Generate only slides (no rendered lecture, no notebook)
         self.generate_slides(talk_file, course_slides_dir)
 
-        # Build slides URL (match existing talks.yml format)
+        # Build slides URL: always a single-line absolute URL for talks.yml
         config_file = self.base_dir / "_config.yml"
         base_url = "https://cabrerac.github.io"
         if config_file.exists():
@@ -536,8 +536,8 @@ class ContentGenerator:
                 config_content = cf.read()
                 url_match = re.search(r'url:\s*["\']([^"\']+)["\']', config_content)
                 if url_match:
-                    base_url = url_match.group(1).rstrip('/')
-        slides_url = f"{base_url}/assets/slides/{year}/{talk_id}.html"
+                    base_url = url_match.group(1).strip().rstrip('/')
+        slides_url = f"{base_url}/assets/slides/{year}/{talk_id}.html".strip()
 
         # Update or create talks.yml entry (only talk-specific keys)
         talk_entry = {}
@@ -546,7 +546,7 @@ class ContentGenerator:
                 if k in existing and existing[k] is not None:
                     talk_entry[k] = existing[k]
         talk_entry['talk_id'] = talk_id
-        talk_entry['slides'] = slides_url
+        talk_entry['slides'] = slides_url  # always overwrite with generated URL
         if metadata.get('output_page'):
             talk_entry['page'] = f"{base_url}/talks/{year}/{talk_id}/"
         elif existing and existing.get('page'):
@@ -612,7 +612,7 @@ class ContentGenerator:
         """Clean code blocks to remove markdown/HTML artifacts."""
         # Pattern to match code blocks, including those inside HTML elements
         code_block_pattern = r'```(?:python)?\n(.*?)```'
-        
+
         def clean_code(match):
             code = match.group(1)
             # Remove any HTML tags while preserving their content
@@ -621,7 +621,7 @@ class ContentGenerator:
             code = re.sub(r'^---$', '', code, flags=re.MULTILINE)
             # Remove empty lines at start and end
             code = code.strip()
-            
+
             # Add line numbers and proper formatting
             lines = code.split('\n')
             numbered_lines = []
@@ -629,9 +629,9 @@ class ContentGenerator:
                 # Add proper indentation and line number
                 numbered_lines.append(f"{i:3d} | {line}")
             code = '\n'.join(numbered_lines)
-            
+
             return f'```python\n{code}\n```'
-        
+
         # First, temporarily replace HTML elements containing code blocks
         html_code_blocks = []
         def replace_html_code(match):
@@ -645,18 +645,18 @@ class ContentGenerator:
                     html_code_blocks.append((placeholder, code_match.group(0)))
                     html_content = html_content.replace(code_match.group(0), placeholder)
             return html_content
-        
+
         # Find HTML elements that might contain code blocks
         html_pattern = r'<[^>]+>.*?```.*?```.*?</[^>]+>'
         content = re.sub(html_pattern, replace_html_code, content, flags=re.DOTALL)
-        
+
         # Now process all code blocks in the content
         processed_content = re.sub(code_block_pattern, clean_code, content, flags=re.DOTALL)
-        
+
         # Restore the code blocks from HTML elements
         for placeholder, code_block in html_code_blocks:
             processed_content = processed_content.replace(placeholder, clean_code(re.match(code_block_pattern, code_block)))
-        
+
         # Add custom styling for code blocks
         style_block = """
 <style>
@@ -807,7 +807,7 @@ html[data-theme='dark'] code::before {
 """
         # Add the style block to the content
         processed_content = style_block + processed_content
-        
+
         return processed_content
 
     def generate_rendered_lecture(self, lecture_file, output_dir, course_metadata):
@@ -815,7 +815,7 @@ html[data-theme='dark'] code::before {
         # Read source content
         with open(lecture_file, 'r', encoding='utf-8') as f:
             content = f.read()
-        
+
         # Extract front matter from source
         front_matter = re.match(r'^---\n(.*?)\n---', content, re.DOTALL)
         if front_matter:
@@ -823,7 +823,7 @@ html[data-theme='dark'] code::before {
             content = content[front_matter.end():]
         else:
             lecture_metadata = {}
-        
+
         # Merge course and lecture metadata, preserving all fields
         metadata = lecture_metadata.copy()
         metadata.update({
@@ -832,31 +832,31 @@ html[data-theme='dark'] code::before {
             'course_code': course_metadata.get('course_code', ''),
             'permalink': f"/teaching/{course_metadata.get('course_code', '')}/{lecture_file.stem}/"
         })
-        
+
         # Process includes and media first, then filter for RENDER tags
         processed_content = self.process_includes(content)
         processed_content = self.process_media(processed_content)
         filtered_content = self.filter_content(processed_content, 'RENDER')
         # Preprocess math blocks for correct rendering
         filtered_content = self.preprocess_math_blocks(filtered_content)
-        
+
         index_url = "{ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/'}"
         # Create rendered content with metadata and resources
         rendered_content = f"""---
 {yaml.dump(metadata, default_flow_style=False)}---
 
 <link rel=\"stylesheet\" href=\"/assets/css/slides.css\">
-<div class=\"lecture-resources\">  
+<div class=\"lecture-resources\">
   <p>
-    <a href=\"/assets/slides/{course_metadata.get('course_code', '')}/{lecture_file.stem}.html\" target=\"_blank\">[HTML Slides]</a>    
+    <a href=\"/assets/slides/{course_metadata.get('course_code', '')}/{lecture_file.stem}.html\" target=\"_blank\">[HTML Slides]</a>
     <a href=\"https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/{course_metadata.get('course_code', '')}/{lecture_file.stem}.ipynb\" target=\"_blank\">[Colab Notebook]</a>
-    <a href=\"/teaching/{course_metadata.get('course_code', '')}/">[Back to Course]</a>    
+    <a href=\"/teaching/{course_metadata.get('course_code', '')}/">[Back to Course]</a>
   </p>
 </div>
-  
+
 {filtered_content}
 """
-        
+
         # Save rendered lecture
         output_file = output_dir / lecture_file.name
         with open(output_file, 'w', encoding='utf-8') as f:
@@ -890,16 +890,16 @@ html[data-theme='dark'] code::before {
 
         slides = []
         pdf_slides = []  # Store slides marked for PDF separately
-        
+
         for block in slide_blocks:
             block_lines = block.strip().split('\n')
             if not block_lines:
                 continue
             first_line = block_lines[0].strip()
-            
+
             # Check if this slide should be included in PDF
             include_in_pdf = self.check_pdf_slide(block)
-            
+
             # Title slide (# ...)
             if first_line.startswith('# '):
                 title = first_line[2:].strip()
@@ -933,7 +933,7 @@ html[data-theme='dark'] code::before {
         # Join slides with Marp slide separator
         slides_content = '\n\n---\n\n'.join(slides)
         pdf_slides_content = '\n\n---\n\n'.join(pdf_slides)
-        
+
         # Extract front matter
         front_matter = re.match(r'^---\n(.*?)\n---', lecture_content, re.DOTALL)
         if front_matter:
@@ -944,7 +944,7 @@ html[data-theme='dark'] code::before {
                 'session': '1',
                 'description': 'Lecture'
             }
-        
+
         # Header: for talks use venue, for lectures use session
         slide_header = (f"{metadata.get('venue', '')} - {metadata.get('title', '')}"
                         if metadata.get('venue') else
@@ -1161,7 +1161,7 @@ style: |
     color: var(--code-text);
     max-width: 100%;
     display: block;
-  }}      
+  }}
 
   /* Syntax highlighting for light theme */
   .hljs-keyword,
@@ -1305,7 +1305,7 @@ style: |
 
   /* Content styling */
   .column p, .row p {{
-    margin: 0;  
+    margin: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     color: var(--text-color);
@@ -1343,7 +1343,7 @@ style: |
   }}
 
   /* Fix for inline styles */
-  .column img[style*="width:"][style*="height:"], 
+  .column img[style*="width:"][style*="height:"],
   .row img[style*="width:"][style*="height:"] {{
     object-fit: contain;
     max-width: 100%;
@@ -1365,7 +1365,7 @@ style: |
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
-  }}    
+  }}
 
   /* Ensure links use accent color */
   .column a, .row a {{
@@ -1549,7 +1549,7 @@ style: |
 # Many Thanks!
 <p style="color: var(--accent-color);"><a href="mailto:{metadata.get('email', '')}" style="color: var(--accent-color);">{metadata.get('email', '')}</a></p>
 """
-        
+
         # Save markdown slides for HTML
         html_file = output_dir / f"{lecture_file.stem}.html.md"
         with open(html_file, 'w', encoding='utf-8') as f:
@@ -1603,11 +1603,11 @@ style: |
         user-select: none;
         transition: transform 0.3s ease;
       }
-      
+
       #theme-toggle:hover {
         transform: scale(1.1);
       }
-      
+
       html[data-theme='dark'] {
         --primary-color: #FFFFFF;
         --secondary-color: #0E73B8;
@@ -1616,7 +1616,7 @@ style: |
         --background-color: #1E1E1E;
         --progress-color: #0E73B8;
       }
-      
+
       html[data-theme='light'] {
         --primary-color: #00244A;
         --secondary-color: #0E73B8;
@@ -1625,30 +1625,30 @@ style: |
         --background-color: #FFFFFF;
         --progress-color: #0E73B8;
       }
-      
+
       html[data-theme='dark'] section {
         background-color: #1E1E1E !important;
         color: #FFFFFF !important;
       }
-      
-      html[data-theme='dark'] h1, 
-      html[data-theme='dark'] h2, 
-      html[data-theme='dark'] h3, 
-      html[data-theme='dark'] h4, 
-      html[data-theme='dark'] h5, 
+
+      html[data-theme='dark'] h1,
+      html[data-theme='dark'] h2,
+      html[data-theme='dark'] h3,
+      html[data-theme='dark'] h4,
+      html[data-theme='dark'] h5,
       html[data-theme='dark'] h6 {
         color: #FFFFFF !important;
       }
-      
+
       html[data-theme='dark'] a {
         color: #0E73B8 !important;
       }
-      
+
       html[data-theme='dark'] body,
       html[data-theme='dark'] .marpit {
         background-color: #1E1E1E !important;
       }
-      
+
       html[data-theme='dark'] header {
         color: #FFFFFF !important;
       }
@@ -1671,15 +1671,15 @@ style: |
       html[data-theme='dark'] section .row p em {
         color: #FFFFFF !important;
       }
-                    
+
       html[data-theme='dark'] section .pre {
         background-color: #2A2A2A !important;
       }
-                    
+
       html[data-theme='dark'] section .slide-content img {
         background-color: #1e1e1e !important;
       }
-                    
+
       html[data-theme='dark'] section .timeline-container circle {
         fill: #0E73B8 !important;
       }
@@ -1708,7 +1708,7 @@ style: |
       html[data-theme='dark'] section .row p a {
         color: var(--accent-color) !important;
       }
-                    
+
       html[data-theme='dark'] section .slide-content img.external-svg {
         background-color: #f6f8fa !important;
       }
@@ -1724,7 +1724,7 @@ style: |
       document.documentElement.setAttribute("data-theme", theme);
       localStorage.setItem("theme", theme);
       toggle.innerHTML = theme === "dark" ? "🌔" : "🌒";
-      
+
       // Force update paragraph colors
       if (theme === "dark") {
         document.querySelectorAll('section p, section p *, section .column p, section .column p *, section .row p, section .row p *').forEach(el => {
@@ -1748,12 +1748,12 @@ style: |
   });
 </script>
 """)
-            
+
         # Save markdown slides for PDF
         #pdf_file = output_dir / f"{lecture_file.stem}.pdf.md"
         #with open(pdf_file, 'w', encoding='utf-8') as f:
         #    f.write(marp_template + pdf_content)
-            
+
         # Generate PDF and HTML slides using Marp CLI
         try:
             # Try to find marp in common locations, with your specific path first
@@ -1764,7 +1764,7 @@ style: |
                 os.path.join(os.environ.get('ProgramFiles(x86)', ''), 'nodejs', 'marp.cmd'),
                 os.path.join(os.path.expanduser('~'), '.npm-global', 'bin', 'marp.cmd'),
             ]
-            
+
             marp_cmd = None
             for path in marp_paths:
                 if os.path.exists(path):
@@ -1775,7 +1775,7 @@ style: |
                     print(f"Found Marp in PATH: {path}")
                     marp_cmd = path
                     break
-            
+
             if not marp_cmd:
                 # Try using npx as a fallback
                 try:
@@ -1784,7 +1784,7 @@ style: |
                     print("Using npx to run Marp")
                 except:
                     raise FileNotFoundError("Marp CLI not found in any common locations")
-            
+
             # Generate PDF from PDF-specific file
             """if isinstance(marp_cmd, list):
                 pdf_cmd = marp_cmd + [
@@ -1805,10 +1805,10 @@ style: |
                     '--html',
                     '-o', str(output_dir / f"{lecture_file.stem}.pdf")
                 ]
-            
+
             print(f"Running command: {' '.join(pdf_cmd)}")
             subprocess.run(pdf_cmd, check=True)"""
-            
+
             # Generate HTML from the HTML-specific file
             if isinstance(marp_cmd, list):
                 html_cmd = marp_cmd + [
@@ -1838,14 +1838,14 @@ style: |
                 extra = os.pathsep.join(d for d in node_dirs if d and os.path.isdir(d))
                 if extra:
                     run_env = {**os.environ, 'PATH': extra + os.pathsep + os.environ.get('PATH', '')}
-            
+
             print(f"Running command: {' '.join(html_cmd)}")
             subprocess.run(html_cmd, check=True, env=run_env)
-            
+
             # Remove the temporary files
             os.remove(html_file)
             #os.remove(pdf_file)
-            
+
             print(f"✓ Successfully generated slides for {lecture_file.stem}")
         except subprocess.CalledProcessError as e:
             out = (e.output or e.stderr or b'').decode(errors='replace')
@@ -1872,7 +1872,7 @@ style: |
     def generate_notebook(self, lecture_file, output_dir, course_metadata):
         """Generate Jupyter notebook from lecture content."""
         print(f"Generating notebook for {lecture_file}")
-        
+
         lecture_content = self.read_snippet(lecture_file)
 
         # Extract front matter from source
@@ -1885,16 +1885,16 @@ style: |
         # Process includes first
         processed_content = self.process_includes(lecture_content)
         processed_content = self.process_media(processed_content)
-        
+
         # Filter content for notebook
         filtered_content = self.filter_content(processed_content, 'NOTEBOOK')
-        
+
         # Preprocess math blocks for correct rendering
         filtered_content = self.preprocess_math_blocks(filtered_content)
-        
+
         # Create notebook
         nb = nbf.v4.new_notebook()
-        
+
         # Add title and description cell
         title_cell = nbf.v4.new_markdown_cell(f"""# Practical Session {lecture_metadata.get('session', '1')}: {lecture_metadata.get('title', lecture_file.stem)}
 
@@ -1915,7 +1915,7 @@ style: |
 **Course Institution:** {course_metadata.get('institution', '')}
 """)
         nb.cells.append(title_cell)
-        
+
         # Process content and create cells
         if filtered_content.strip():  # Only process if there's content
             sections = filtered_content.split('\n\n')
@@ -1928,15 +1928,15 @@ style: |
                     else:
                         # Markdown cell
                         nb.cells.append(nbf.v4.new_markdown_cell(section))
-        
+
         # Save notebook
         output_file = output_dir / f"{lecture_file.stem}.ipynb"
         with open(output_file, 'w', encoding='utf-8') as f:
             nbf.write(nb, f)
-        
+
         # Create Colab link using the current repository and gh-pages branch
         colab_link = f"https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/{course_metadata.get('course_code', '')}/{lecture_file.stem}.ipynb"
-        
+
         # Verify the link
         if self.verify_colab_link(colab_link):
             print(f"✓ Colab notebook link is accessible: {colab_link}")
@@ -1995,4 +1995,4 @@ def main():
         generator.process_lecture(lecture_file)
 
 if __name__ == "__main__":
-    main() 
+    main()

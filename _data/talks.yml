@@ -9,9 +9,7 @@
   date: '2026-02-23'
   type: conference_talk
   status: upcoming
-  slides: '
-
-    baseurl: /assets/slides/2026/icms-intellectual-debt.html'
+  slides: baseurl:/assets/slides/2026/icms-intellectual-debt.html
 - title: Data-Oriented Architectures for Healthcare
   venue: Karolinska Institute
   institution: Karolinska Institute
