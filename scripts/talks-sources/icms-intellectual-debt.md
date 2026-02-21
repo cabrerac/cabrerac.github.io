@@ -6,7 +6,7 @@ institution: "ICMS, Bayes Centre"
 location: "Edinburgh"
 year: 2026
 month: "February"
-date: "2026-02"
+date: "2026-02-23"
 type: "conference_talk"
 status: "upcoming"
 # Set to true to generate a dedicated page at /talks/2026/icms-intellectual-debt/
