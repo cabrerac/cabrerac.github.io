@@ -53,7 +53,10 @@ class ContentGenerator:
     def __init__(self, base_dir):
         self.base_dir = Path(base_dir)
         self.sources_dir = self.base_dir / "scripts" / "lectures-sources"
+        self.talks_sources_dir = self.base_dir / "scripts" / "talks-sources"
         self.lectures_dir = self.base_dir / "content" / "_lectures"
+        self.talks_dir = self.base_dir / "content" / "_talks"
+        self.data_dir = self.base_dir / "_data"
         self.assets_dir = self.base_dir / "assets"
         self.media_dir = self.base_dir / "assets" / "media"
         
@@ -82,6 +85,21 @@ class ContentGenerator:
             return {}
             
         return yaml.safe_load(front_matter.group(1))
+
+    def load_talks_data(self):
+        """Load talks list from _data/talks.yml."""
+        talks_file = self.data_dir / "talks.yml"
+        if not talks_file.exists():
+            return []
+        with open(talks_file, 'r', encoding='utf-8') as f:
+            data = yaml.safe_load(f)
+        return data if isinstance(data, list) else []
+
+    def update_talks_yml(self, talks_list):
+        """Write updated talks list back to _data/talks.yml."""
+        talks_file = self.data_dir / "talks.yml"
+        with open(talks_file, 'w', encoding='utf-8') as f:
+            yaml.dump(talks_list, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
 
     def read_snippet(self, snippet_path):
         """Read a snippet file and return its content."""
@@ -476,6 +494,104 @@ class ContentGenerator:
         self.generate_slides(lecture_file, course_slides_dir)
         self.generate_notebook(lecture_file, course_notebooks_dir, course_metadata)
 
+    def process_talk(self, talk_file):
+        """Process a talk source file: generate slides, optional talk page, and update talks.yml."""
+        print(f"Processing talk {talk_file}...")
+        talk_id = talk_file.stem
+
+        with open(talk_file, 'r', encoding='utf-8') as f:
+            content = f.read()
+        front_matter = re.match(r'^---\n(.*?)\n---', content, re.DOTALL)
+        if front_matter:
+            metadata = yaml.safe_load(front_matter.group(1)) or {}
+        else:
+            metadata = {}
+
+        # Get year from front matter or from existing talks.yml entry
+        talks_list = self.load_talks_data()
+        existing = next((t for t in talks_list if t.get('talk_id') == talk_id), None)
+        year = metadata.get('year') or (existing.get('year') if existing else None)
+        if not year:
+            raise ValueError(f"Talk {talk_id}: provide 'year' in front matter or add a talks.yml entry with talk_id and year")
+        year = int(year)
+
+        # Output dir for slides: assets/slides/<year>/
+        course_slides_dir = self.assets_dir / "slides" / str(year)
+        course_slides_dir.mkdir(parents=True, exist_ok=True)
+
+        # Generate only slides (no rendered lecture, no notebook)
+        self.generate_slides(talk_file, course_slides_dir)
+
+        # Build slides URL (match existing talks.yml format)
+        config_file = self.base_dir / "_config.yml"
+        base_url = "https://cabrerac.github.io"
+        if config_file.exists():
+            with open(config_file, 'r', encoding='utf-8') as cf:
+                config_content = cf.read()
+                url_match = re.search(r'url:\s*["\']([^"\']+)["\']', config_content)
+                if url_match:
+                    base_url = url_match.group(1).rstrip('/')
+        slides_url = f"{base_url}/assets/slides/{year}/{talk_id}.html"
+
+        # Update or create talks.yml entry
+        talk_entry = existing.copy() if existing else {}
+        talk_entry['talk_id'] = talk_id
+        talk_entry['slides'] = slides_url
+        if metadata.get('output_page'):
+            talk_entry['page'] = f"{base_url}/talks/{year}/{talk_id}/"
+        elif existing and existing.get('page'):
+            talk_entry['page'] = existing['page']
+        for key in ('title', 'venue', 'institution', 'location', 'year', 'month', 'date', 'type', 'status'):
+            if metadata.get(key) is not None:
+                talk_entry[key] = metadata[key]
+        if not existing:
+            talks_list.append(talk_entry)
+        else:
+            idx = next(i for i, t in enumerate(talks_list) if t.get('talk_id') == talk_id)
+            talks_list[idx] = talk_entry
+        self.update_talks_yml(talks_list)
+        print(f"✓ Updated _data/talks.yml for {talk_id}")
+
+        # Optional: generate talk page in content/_talks/
+        if metadata.get('output_page'):
+            self.talks_dir.mkdir(parents=True, exist_ok=True)
+            page_slug = f"{year}-{talk_id}"
+            permalink = f"/talks/{year}/{talk_id}/"
+            page_metadata = {
+                'layout': 'talk',
+                'title': talk_entry.get('title', talk_id),
+                'permalink': permalink,
+                'talk_id': talk_id,
+                'venue': talk_entry.get('venue', ''),
+                'institution': talk_entry.get('institution', ''),
+                'location': talk_entry.get('location', ''),
+                'year': year,
+                'month': talk_entry.get('month', ''),
+                'date': talk_entry.get('date', ''),
+                'type': talk_entry.get('type', ''),
+                'status': talk_entry.get('status', ''),
+                'slides': slides_url,
+            }
+            body_raw = content[front_matter.end():].lstrip() if front_matter else content
+            processed = self.process_includes(body_raw)
+            processed = self.process_media(processed)
+            body = self.filter_content(processed, 'RENDER')
+            body = self.preprocess_math_blocks(body)
+            page_content = f"""---
+{yaml.dump(page_metadata, default_flow_style=False)}---
+
+<link rel="stylesheet" href="/assets/css/slides.css">
+<div class="lecture-resources">
+  <p><a href="{slides_url}" target="_blank" rel="noopener noreferrer">[View Slides]</a></p>
+</div>
+
+{body}
+"""
+            output_file = self.talks_dir / f"{page_slug}.md"
+            with open(output_file, 'w', encoding='utf-8') as f:
+                f.write(page_content)
+            print(f"✓ Wrote talk page {output_file}")
+
     def clean_code_blocks(self, content):
         """Clean code blocks to remove markdown/HTML artifacts."""
         # Pattern to match code blocks, including those inside HTML elements
@@ -813,12 +929,16 @@ html[data-theme='dark'] code::before {
                 'description': 'Lecture'
             }
         
+        # Header: for talks use venue, for lectures use session
+        slide_header = (f"{metadata.get('venue', '')} - {metadata.get('title', '')}"
+                        if metadata.get('venue') else
+                        f"Session {metadata.get('session', '1')} - {metadata.get('title', '')}")
         # Template for slides (removing duplicated lead sections)
         marp_template = f"""---
 marp: true
 theme: default
 paginate: true
-header: "Session {metadata.get('session', '1')} - {metadata.get('title', '')}"
+header: "{slide_header}"
 footer: ""
 style: |
   :root {{
@@ -1689,9 +1809,22 @@ style: |
                     '--allow-local-files',
                     '-o', str(output_dir / f"{lecture_file.stem}.html")
                 ]
+
+            # On Windows, marp.cmd invokes node; ensure Node.js is on PATH in the subprocess
+            run_env = None
+            if os.name == 'nt':
+                node_dirs = [
+                    os.path.join(os.environ.get('ProgramFiles', 'C:\\Program Files'), 'nodejs'),
+                    os.path.join(os.environ.get('ProgramFiles(x86)', ''), 'nodejs'),
+                    os.path.join(os.environ.get('APPDATA', ''), 'npm'),
+                    os.path.join(os.environ.get('LOCALAPPDATA', ''), 'Programs', 'nodejs'),
+                ]
+                extra = os.pathsep.join(d for d in node_dirs if d and os.path.isdir(d))
+                if extra:
+                    run_env = {**os.environ, 'PATH': extra + os.pathsep + os.environ.get('PATH', '')}
             
             print(f"Running command: {' '.join(html_cmd)}")
-            subprocess.run(html_cmd, check=True)
+            subprocess.run(html_cmd, check=True, env=run_env)
             
             # Remove the temporary files
             os.remove(html_file)
@@ -1699,8 +1832,15 @@ style: |
             
             print(f"✓ Successfully generated slides for {lecture_file.stem}")
         except subprocess.CalledProcessError as e:
+            out = (e.output or e.stderr or b'').decode(errors='replace')
             print(f"Error: Failed to generate slides: {e}")
-            print(f"Command output: {e.output.decode() if e.output else 'No output'}")
+            if out:
+                print(f"Command output: {out}")
+            if 'node' in out.lower() or 'not recognized' in out.lower():
+                print("Marp CLI requires Node.js. Ensure Node.js is installed and on your PATH:")
+                print("  https://nodejs.org/")
+            print("Then install Marp: npm install -g @marp-team/marp-cli")
+            raise
         except FileNotFoundError as e:
             print(f"Error: {e}")
             print("Please install Marp CLI using one of these methods:")
@@ -1711,6 +1851,7 @@ style: |
             print("1. Restart your terminal")
             print("2. Check if the installation path is in your system's PATH")
             print("3. Try running 'marp --version' to verify the installation")
+            raise
 
     def generate_notebook(self, lecture_file, output_dir, course_metadata):
         """Generate Jupyter notebook from lecture content."""
@@ -1792,27 +1933,49 @@ style: |
 
 def main():
     # Set up argument parser
-    parser = argparse.ArgumentParser(description='Generate content for lectures')
-    parser.add_argument('lectures', nargs='+', help='Names of lecture files to process (format: course_code/lecture_name)')
+    parser = argparse.ArgumentParser(description='Generate content for lectures and talks')
+    parser.add_argument('lectures', nargs='*', help='Lecture files to process (format: course_code/lecture_name)')
+    parser.add_argument('--talk', metavar='TALK_ID', help='Process a single talk from scripts/talks-sources/<TALK_ID>.md')
+    parser.add_argument('--talk-all', action='store_true', help='Process all .md files in scripts/talks-sources/')
     args = parser.parse_args()
 
     generator = ContentGenerator(os.getcwd())
-    
-    # Process each specified lecture
+
+    # Talk mode
+    if args.talk_all:
+        if not generator.talks_sources_dir.exists():
+            print(f"Error: Talks sources dir {generator.talks_sources_dir} not found")
+            return
+        for talk_file in sorted(generator.talks_sources_dir.glob("*.md")):
+            generator.process_talk(talk_file)
+        return
+    if args.talk:
+        talk_file = generator.talks_sources_dir / f"{args.talk}.md"
+        if not talk_file.exists():
+            print(f"Error: Talk file {talk_file} not found")
+            return
+        generator.process_talk(talk_file)
+        return
+
+    # Lecture mode
+    if not args.lectures:
+        parser.print_help()
+        print("\nExamples:")
+        print("  python scripts/generate_content.py 25-udenar-ml-intro/ai-systems")
+        print("  python scripts/generate_content.py --talk icms-intellectual-debt")
+        print("  python scripts/generate_content.py --talk-all")
+        return
+
     for lecture_path in args.lectures:
-        # Split course_code/lecture_name
         parts = lecture_path.split('/')
         if len(parts) != 2:
             print(f"Error: Invalid lecture path format. Use course_code/lecture_name")
             continue
-            
         course_code, lecture_name = parts
         lecture_file = generator.sources_dir / course_code / f"{lecture_name}.md"
-        
         if not lecture_file.exists():
             print(f"Error: Lecture file {lecture_file} not found")
             continue
-            
         generator.process_lecture(lecture_file)
 
 if __name__ == "__main__":

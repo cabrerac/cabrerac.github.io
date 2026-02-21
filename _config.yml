@@ -53,3 +53,6 @@ collections:
     output: true
   lectures:
     output: true
+  talks:
+    permalink: ":permalink"
+    output: true
