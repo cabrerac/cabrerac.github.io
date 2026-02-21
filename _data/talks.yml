@@ -9,6 +9,7 @@
   date: '2026-02-23'
   type: conference_talk
   status: upcoming
+  visible: false
   slides: baseurl:/assets/slides/2026/icms-intellectual-debt.html
 - title: Data-Oriented Architectures for Healthcare
   venue: Karolinska Institute
@@ -19,6 +20,7 @@
   date: 2025-11
   type: invited_talk
   status: past
+  visible: true
   slides: https://cabrerac.github.io/assets/slides/2025/ki-aicu-systems.pdf
 - title: Data-oriented Architecture and Real-World ML Systems
   venue: Data Science Africa Summer School
@@ -29,6 +31,7 @@
   date: 2023-05
   type: invited_talk
   status: past
+  visible: true
   slides: https://cabrerac.github.io/assets/slides/2023/dsa-doa-ml-sys.pdf
 - title: AI-based systems
   venue: Universidad de Nariño
@@ -39,6 +42,7 @@
   date: 2022-10
   type: invited_talk
   status: past
+  visible: true
   slides: https://cabrerac.github.io/assets/slides/2022/ee-ai-based-systems.pdf
 - title: AI-based systems
   venue: Universidad de Nariño
@@ -49,4 +53,5 @@
   date: 2022-03
   type: invited_talk
   status: past
+  visible: true
   slides: https://cabrerac.github.io/assets/slides/2022/se-ai-based-systems.pdf
