@@ -98,7 +98,7 @@ class ContentGenerator:
     # Keys allowed in talks.yml (talk-only metadata; do not mix in lecture-only fields)
     TALK_YML_KEYS = (
         'talk_id', 'title', 'conference', 'venue', 'institution', 'location',
-        'year', 'month', 'date', 'type', 'status', 'slides', 'page'
+        'year', 'month', 'date', 'type', 'status', 'visible', 'slides', 'page'
     )
 
     def update_talks_yml(self, talks_list):
@@ -556,6 +556,9 @@ class ContentGenerator:
                 continue
             if metadata.get(key) is not None:
                 talk_entry[key] = metadata[key]
+        # Default visible to true if unset (same as lectures: front matter controls visibility)
+        if 'visible' not in talk_entry:
+            talk_entry['visible'] = True
         # Ensure order and only allowed keys for consistent YAML
         ordered = {k: talk_entry[k] for k in self.TALK_YML_KEYS if k in talk_entry and talk_entry[k] is not None}
         if not existing:

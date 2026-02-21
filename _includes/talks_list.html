@@ -1,5 +1,7 @@
 {% if site.data.talks %}
-{% assign all_talks = site.data.talks | sort: "date" | reverse %}
+{% comment %} Same as lectures: only show talks where visible != false (true or absent) {% endcomment %}
+{% assign visible_talks = site.data.talks | where_exp: "item", "item.visible != false" %}
+{% assign all_talks = visible_talks | sort: "date" | reverse %}
 {% assign talks_by_year = all_talks | group_by: "year" %}
 
 {% for year_group in talks_by_year %}
