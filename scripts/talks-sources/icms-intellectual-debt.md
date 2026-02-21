@@ -16,7 +16,7 @@ position: Assistant Research Professor
 department: Department of Computer Science and Technology
 institution: University of Cambridge
 output_page: false
-visible: false
+visible: true
 ---
 
 <!-- SLIDES: -->
