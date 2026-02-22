@@ -84,10 +84,10 @@
     <div class="row" style="height: 80%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/doa-survey-csur.png" alt="DOA Survey" style="height: 500px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/doa-survey-csur.png" alt="DOA Survey" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>To what extent and how practitioners have adopted DOA principles?</b></p>
+               <p>Most of the surveyed works partially adopt the DOA principles to handle data-intensive requirements. The survey results also show that diverse tools can support adopting DOA principles: Apache Kafka, Spark Streaming, Hadoop Distributed File System, MQTT, and RabbitMQ.</p>
             </div>
         </div>
     </div>
@@ -99,19 +99,11 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/doa-survey.png" alt="DOA Survey" style="height: 500px">
-            </div>
-        </div>
-    </div>
-</div>
-
-## Data-Orientation
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/soa-doa.png" alt="Openness" style="height: 400px">
+                <p><b>Data-Orientated Architectures</b> make data available by design facilitating monitoring and maintenance. Decentralisation supports local data processing, reducing latency and improving privacy by respecting data ownership. Openness enables managing resource-constrained environments by exploiting the computing power of everyday devices <a
+                href="https://dl.acm.org/doi/full/10.1145/3769292" target="_blank" rel="noopener noreferrer">(Cabrera et al., 2025)</a>.</p>
+                <br>
+                <br>
+                <p><b>How can we exploit these properties to address the intellectual debt problem in AI-based systems?</b></p>
             </div>
         </div>
     </div>
