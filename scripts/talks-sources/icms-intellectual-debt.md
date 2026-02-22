@@ -69,12 +69,6 @@ visible: false
 
 {% include _snippets/doagent.md %}
 
-<!-- SLIDES: -->
-
-# Conclusions
-
-<!-- end SLIDES: -->
-
 {% include _snippets/talks/icms-intellectual-debt/conclusions.md %}
 
 <!-- RENDER: -->
