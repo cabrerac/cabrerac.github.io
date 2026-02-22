@@ -10,7 +10,7 @@
                 <div class="footnote">Deep Neural Network with multiple hidden layers - QuantuMechaniX8, CC0, via Wikimedia Commons</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="https://cabrerac.github.io/assets/media/images/doa-architecture.png" alt="DOA Architecture" style="height: 400px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/context-3.png" alt="AI System" style="height: 400px">
             </div>
         </div>
     </div>
@@ -38,7 +38,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 95%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <img src="{{ site.url }}/assets/media/images/doa-llm-debugger.png" alt="DOA Debugger" style="height: 800px">
+                <img src="{{ site.url }}/assets/media/images/doa-llm-debugger.png" alt="DOA Debugger" style="height: 500px">
             </div>
         </div>
     </div>
