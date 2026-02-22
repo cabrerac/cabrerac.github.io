@@ -1,5 +1,5 @@
 - talk_id: icms-intellectual-debt
-  title: Mitigating Intellectual Debt in ML Systems
+  title: Mitigating Intellectual Debt in AI Systems
   conference: AI × Mathematics
   venue: ICMS, Bayes Centre
   institution: University of Cambridge
@@ -9,7 +9,7 @@
   date: '2026-02-23'
   type: conference_talk
   status: upcoming
-  visible: false
+  visible: true
   slides: https://cabrerac.github.io/assets/slides/2026/icms-intellectual-debt.html
 - title: Data-Oriented Architectures for Healthcare
   venue: Karolinska Institute

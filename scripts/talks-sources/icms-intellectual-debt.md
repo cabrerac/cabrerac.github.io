@@ -1,7 +1,7 @@
 ---
 talk_id: icms-intellectual-debt
-title: "Mitigating Intellectual Debt in ML Systems"
-description: Machine Learning (ML) practitioners fall into intellectual debt when deploying ML-basedsystems without understanding how and why they work. For example, systems that integratedeep neural networks (DNNs) generate intellectual debt when the learned parameters thatdrive their behaviour are hard to access and interpret, given their format and dimensionality.This lack of understanding and the nature of DNNs' faults affect our ability to debug ML-based systems. DNNs often present silent faults that are hard to repair, as they do not causeimmediate failures but instead lead to incorrect predictions. I will talk about our attempts tomitigate intellectual debt in ML-based systems based on data-oriented principles and LLMs.
+title: "Mitigating Intellectual Debt in AI Systems"
+description: Machine Learning (ML) practitioners fall into intellectual debt when deploying ML-based systems without understanding how and why they work. For example, systems that integrate deep neural networks (DNNs) generate intellectual debt when the learned parameters that drive their behaviour are hard to access and interpret, given their format and dimensionality. This lack of understanding and the nature of DNNs' faults affect our ability to debug ML-based systems. DNNs often present silent faults that are hard to repair, as they do not cause immediate failures but instead lead to incorrect predictions. I will talk about our attempts to mitigate intellectual debt in ML-based systems based on data-oriented principles and LLMs.
 conference: "AI × Mathematics"
 venue: "ICMS, Bayes Centre"
 location: "Edinburgh"
@@ -19,21 +19,63 @@ output_page: false
 visible: true
 ---
 
-<!-- SLIDES: -->
-
-# Mitigating Intellectual Debt in ML Systems
-
-<!-- end SLIDES: -->
+{% include _snippets/talks/icms-intellectual-debt/outline.md %}
 
 <!-- SLIDES: -->
 
-# Outline
-
-- Intellectual debt in ML systems
-- Mitigation strategies
-- Takeaways
+# The AI Adoption Process
 
 <!-- end SLIDES: -->
+
+{% include _snippets/talks/icms-intellectual-debt/adoption.md %}
+
+<!-- SLIDES: -->
+
+# AI-based Software Systems
+
+<!-- end SLIDES: -->
+
+{% include _snippets/talks/icms-intellectual-debt/ai-systems.md %}
+
+<!-- SLIDES: -->
+
+# AI as a Service
+
+<!-- end SLIDES: -->
+
+{% include _snippets/talks/icms-intellectual-debt/ai-service.md %}
+
+<!-- SLIDES: -->
+
+# Data-Orientation
+
+<!-- end SLIDES: -->
+
+{% include _snippets/talks/icms-intellectual-debt/data-orientation.md %}
+
+<!-- SLIDES: -->
+
+# Data-Oriented Debugger
+
+<!-- end SLIDES: -->
+
+{% include _snippets/doa-debugger.md %}
+
+<!-- SLIDES: -->
+
+# DOAgent Library
+
+<!-- end SLIDES: -->
+
+{% include _snippets/doagent.md %}
+
+<!-- SLIDES: -->
+
+# Conclusions
+
+<!-- end SLIDES: -->
+
+{% include _snippets/talks/icms-intellectual-debt/conclusions.md %}
 
 <!-- RENDER: -->
 
