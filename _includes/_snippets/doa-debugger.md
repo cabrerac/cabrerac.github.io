@@ -67,4 +67,16 @@
         </div>
     </div>
 </div>
+
+## Data-Oriented Debugger
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 95%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/images/doa-llm-debugger-ki.png" alt="DOA Debugger" style="height: 500px">
+            </div>
+        </div>
+    </div>
+</div>
 <!-- end SLIDES: -->
