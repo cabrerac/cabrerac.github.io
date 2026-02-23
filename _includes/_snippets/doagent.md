@@ -260,6 +260,18 @@ while not done:
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/trace_graph.png" alt="Trace graph" style="max-width: 100%; height: auto;">
+            </div>
+        </div>
+    </div>
+</div>
+
+## DOAgent Library
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <br>
 
