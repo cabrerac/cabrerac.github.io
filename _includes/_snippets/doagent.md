@@ -37,6 +37,7 @@ for r in shared_data.listen("note"):
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Data-first Principle</b></p>
+                <p>Agents communicate through a data-medium</p>
                 <ul>
                     <li>Shared data adapter with CRUD and listen operations
                     <li>Adapters: For now, InMemory, File (JSONL), and MongoDB</li>
@@ -68,6 +69,7 @@ for r in shared_data.listen("note"):
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Data-first Principle</b></p>
+                <p>Agents communicate through a data-medium</p>
                 <ul>
                     <li>Data Model storing agents updates, environment outcomes, and traces</li>
                     <li>Logging levels controls trace, explanation, provenance, and accountability writes</li>
@@ -98,6 +100,7 @@ decision = select_routing(config)
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Decentralisation Principle</b></p>
+                <p>Support for heterogeneous communication schemas</p>
                 <ul>
                     <li>Topology: Centralised, federated, p2p</li>
                     <li>TopologyConfig and select_routing: Visibility filters which records each agent sees</li>
@@ -127,6 +130,7 @@ registry.register(ParticipationRecord(
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Openness Principle</b></p>
+                <p>Agents can join and leave at any time</p>
                 <ul>
                     <li>ParticipationRegistry: Register and query which agents are present to support join/leave and resource exchange</li>
                     <li>ParticipationRecord: agent identifier, capabilities, and resources</li>
