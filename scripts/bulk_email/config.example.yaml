@@ -1,0 +1,36 @@
+# Bulk email config (copy to config.yaml and edit)
+# Credentials: prompted when you run the script (or set OUTLOOK_EMAIL / OUTLOOK_PASSWORD in env)
+
+subject: "Your subject here – {{name}}"
+
+# Body: set at least one. Placeholders: {{email}}, {{name}}, {{surname}}, {{custom_line}}
+# body_file: body.txt              # plain text
+# body: "inline text here"         # or inline plain text
+# body_html_file: body.html        # HTML (optional with above, or use alone for HTML-only)
+body_file: body.txt
+# body_html_file: body.html
+
+# Path to recipients CSV (relative to this config file or repo root).
+# CSV must have columns: email, name, surname, custom_line
+csv_path: recipients.csv
+
+# SMTP server (optional; defaults: smtp.office365.com, port 587, timeout 30s)
+# smtp_host: smtp.office365.com
+# smtp_port: 587
+# smtp_timeout: 30
+# For internal relays that don't use login or TLS (e.g. some university relays):
+# smtp_auth: false
+# smtp_use_tls: false
+# sender: your.email@institution.ac.uk   # required when smtp_auth is false
+
+# Delay between sends in seconds (optional; default 2). Override with --delay on the command line.
+# delay: 5
+
+# Optional
+cc: []
+# cc: ["someone@example.com"]
+bcc: []
+
+# Attachment paths (relative to this config file’s directory)
+attachments: []
+# attachments: ["docs/letter.pdf"]

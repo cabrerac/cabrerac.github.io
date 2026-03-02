@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 640px; margin: 2rem auto; padding: 0 1rem; }
+    .lock { margin: 2rem 0; }
+    input[type="password"] { padding: 0.5rem; width: 200px; margin-right: 0.5rem; }
+    button { padding: 0.5rem 1rem; cursor: pointer; }
+    .err { color: #c00; margin-top: 0.5rem; }
+    h2 { margin-top: 1.5rem; font-size: 1.1rem; }
+    ul { list-style: none; padding: 0; }
+    li { padding: 0.35rem 0; border-bottom: 1px solid #eee; }
+    .cat { font-size: 0.85em; color: #666; }
+    .full { margin-top: 1rem; }
+    .toggle { margin-top: 0.5rem; font-size: 0.9rem; cursor: pointer; color: #06c; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="lock" id="lock">
+      <input type="password" id="pw" placeholder="Password" />
+      <button id="unlock">Unlock</button>
+      <div class="err" id="err"></div>
+    </div>
+    <div id="content" style="display: none;">
+      <h2 id="todayTitle"></h2>
+      <ul id="todayList"></ul>
+      <div class="full">
+        <span class="toggle" id="toggleFull">Show all</span>
+        <ul id="allList" style="display: none;"></ul>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+  <script src="./decrypt.js"></script>
+  <script src="./balance.js"></script>
+  <script>
+    (function () {
+      const lock = document.getElementById('lock');
+      const content = document.getElementById('content');
+      const err = document.getElementById('err');
+      const todayTitle = document.getElementById('todayTitle');
+      const todayList = document.getElementById('todayList');
+      const allList = document.getElementById('allList');
+      const toggleFull = document.getElementById('toggleFull');
+
+      document.getElementById('unlock').addEventListener('click', run);
+      document.getElementById('pw').addEventListener('keydown', function (e) { if (e.key === 'Enter') run(); });
+
+      async function run() {
+        const password = document.getElementById('pw').value.trim();
+        err.textContent = '';
+        if (!password) { err.textContent = 'Enter password.'; return; }
+        try {
+          const res = await fetch('./data.enc');
+          if (!res.ok) throw new Error('Could not load data.');
+          const payloadStr = await res.text();
+          const decryptFn = (typeof self !== 'undefined' && self.TODO_decrypt) ? self.TODO_decrypt.decrypt : null;
+          if (!decryptFn) throw new Error('Decrypt not available.');
+          const plaintext = await decryptFn(payloadStr, password);
+          const data = jsyaml.load(plaintext);
+          if (!data || !Array.isArray(data.tasks)) throw new Error('Invalid data.');
+          const balanceFn = (typeof self !== 'undefined' && self.TODO_balance) ? self.TODO_balance.balance : null;
+          if (!balanceFn) throw new Error('Balance not available.');
+          const { today, all } = balanceFn(data, { maxTotal: 8, daysAhead: 7 });
+          lock.style.display = 'none';
+          content.style.display = 'block';
+          todayTitle.textContent = 'Today';
+          todayList.innerHTML = today.map(function (t) {
+            const cat = t.category ? '<span class="cat">' + t.category + '</span>' : '';
+            return '<li>' + (t.title || t.id || '') + ' ' + cat + '</li>';
+          }).join('');
+          allList.innerHTML = all.map(function (t) {
+            const cat = t.category ? '<span class="cat">' + t.category + '</span>' : '';
+            return '<li>' + (t.title || t.id || '') + ' ' + cat + '</li>';
+          }).join('');
+        } catch (e) {
+          err.textContent = e.message || 'Error.';
+        }
+      }
+
+      toggleFull.addEventListener('click', function () {
+        const hidden = allList.style.display === 'none';
+        allList.style.display = hidden ? 'block' : 'none';
+        toggleFull.textContent = hidden ? 'Hide all' : 'Show all';
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -92,6 +92,13 @@ dmypy.json
 # Pytest
 .pytest_cache/
 
+# Bulk email (local config and credentials)
+scripts/bulk_email/config.yaml
+scripts/bulk_email/.env
+scripts/bulk_email/body/
+scripts/bulk_email/config/
+scripts/bulk_email/recipients/
+
 # Node.js (for Marp CLI)
 node_modules/
 npm-debug.log*
