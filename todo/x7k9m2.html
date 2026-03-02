@@ -27,6 +27,8 @@
     .full-list li { padding: 0.35rem 0; border-bottom: 1px solid #eee; }
     .toggle { margin-top: 0.5rem; font-size: 0.9rem; cursor: pointer; color: #06c; }
     .hidden { display: none !important; }
+    .save-modal { margin: 1rem 0; padding: 1rem; background: #f0f4f8; border-radius: 8px; }
+    .save-modal input { margin: 0.5rem 0; padding: 0.5rem; width: 200px; display: block; }
   </style>
 </head>
 <body>
@@ -47,10 +49,19 @@
           <button id="btnDone">Done</button>
           <button id="btnSkip">Skip</button>
           <button id="btnShowList">Show list</button>
+          <button id="btnSave">Save changes</button>
+          <button id="btnExportYaml">Download tasks.yaml</button>
         </div>
       </div>
+      <div id="saveModal" class="save-modal hidden">
+        <p>Password to re-encrypt (same as unlock):</p>
+        <input type="password" id="savePassword" placeholder="Password" />
+        <button id="btnSaveConfirm">Save</button>
+        <button id="btnSaveCancel">Cancel</button>
+        <div class="err" id="saveErr"></div>
+      </div>
       <div id="editPanel" class="edit-panel hidden">
-        <h3>Edit (session only – update tasks.yaml for permanent changes)</h3>
+        <h3>Edit (changes can be saved to encrypted file via Save changes)</h3>
         <label>Title</label>
         <input type="text" id="editTitle" />
         <label>Subtasks (one per line)</label>
@@ -325,6 +336,51 @@
       document.getElementById('btnAddSubtask').onclick = function () {
         const ta = document.getElementById('editSubtasks');
         ta.value = (ta.value.trim() ? ta.value + '\n' : '') + 'New subtask';
+      };
+
+      document.getElementById('btnSave').onclick = function () {
+        if (!state) return;
+        document.getElementById('saveModal').classList.remove('hidden');
+        document.getElementById('saveErr').textContent = '';
+        document.getElementById('savePassword').value = '';
+      };
+      document.getElementById('btnSaveCancel').onclick = function () {
+        document.getElementById('saveModal').classList.add('hidden');
+      };
+      document.getElementById('btnSaveConfirm').onclick = saveChanges;
+
+      async function saveChanges() {
+        const password = document.getElementById('savePassword').value.trim();
+        document.getElementById('saveErr').textContent = '';
+        if (!password) { document.getElementById('saveErr').textContent = 'Enter password.'; return; }
+        const encryptFn = (typeof self !== 'undefined' && self.TODO_decrypt && self.TODO_decrypt.encrypt) ? self.TODO_decrypt.encrypt : null;
+        if (!encryptFn) { document.getElementById('saveErr').textContent = 'Encrypt not available.'; return; }
+        try {
+          const data = { venues: state.venues || [], tasks: state.tasks };
+          const yamlStr = jsyaml.dump(data, { lineWidth: -1 });
+          const payload = await encryptFn(yamlStr, password);
+          const blob = new Blob([JSON.stringify(payload)], { type: 'application/octet-stream' });
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'data.enc';
+          a.click();
+          URL.revokeObjectURL(a.href);
+          document.getElementById('saveModal').classList.add('hidden');
+        } catch (e) {
+          document.getElementById('saveErr').textContent = e.message || 'Error.';
+        }
+      }
+
+      document.getElementById('btnExportYaml').onclick = function () {
+        if (!state) return;
+        const data = { venues: state.venues || [], tasks: state.tasks };
+        const yamlStr = jsyaml.dump(data, { lineWidth: -1 });
+        const blob = new Blob([yamlStr], { type: 'application/x-yaml' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'tasks.yaml';
+        a.click();
+        URL.revokeObjectURL(a.href);
       };
     })();
   </script>
