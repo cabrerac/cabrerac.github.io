@@ -8,14 +8,25 @@
     body { font-family: system-ui, sans-serif; max-width: 640px; margin: 2rem auto; padding: 0 1rem; }
     .lock { margin: 2rem 0; }
     input[type="password"] { padding: 0.5rem; width: 200px; margin-right: 0.5rem; }
-    button { padding: 0.5rem 1rem; cursor: pointer; }
+    button { padding: 0.5rem 1rem; cursor: pointer; margin: 0.25rem 0.25rem 0.25rem 0; }
     .err { color: #c00; margin-top: 0.5rem; }
-    h2 { margin-top: 1.5rem; font-size: 1.1rem; }
-    ul { list-style: none; padding: 0; }
-    li { padding: 0.35rem 0; border-bottom: 1px solid #eee; }
+    .focus-task { margin: 1rem 0; padding: 1rem; background: #f8f8f8; border-radius: 8px; }
+    .focus-task h2 { margin: 0 0 0.5rem 0; font-size: 1.1rem; }
     .cat { font-size: 0.85em; color: #666; }
-    .full { margin-top: 1rem; }
+    .subtasks { margin: 0.75rem 0 0 1rem; padding-left: 0.5rem; border-left: 2px solid #ddd; }
+    .subtasks ul { list-style: disc; padding-left: 1.25rem; margin: 0.25rem 0; }
+    .subtasks li { border: none; padding: 0.15rem 0; }
+    .edit-panel { margin: 1rem 0; padding: 1rem; background: #f0f4f8; border-radius: 8px; }
+    .edit-panel h3 { margin: 0 0 0.5rem 0; font-size: 0.95rem; }
+    .edit-panel input, .edit-panel textarea { width: 100%; max-width: 400px; padding: 0.35rem; margin: 0.25rem 0; }
+    .edit-panel ul { list-style: none; padding: 0; }
+    .edit-panel li { display: flex; gap: 0.5rem; align-items: center; margin: 0.25rem 0; }
+    .edit-panel li input { flex: 1; }
+    .full-list { margin-top: 1rem; }
+    .full-list ul { list-style: none; padding: 0; }
+    .full-list li { padding: 0.35rem 0; border-bottom: 1px solid #eee; }
     .toggle { margin-top: 0.5rem; font-size: 0.9rem; cursor: pointer; color: #06c; }
+    .hidden { display: none !important; }
   </style>
 </head>
 <body>
@@ -25,12 +36,32 @@
       <button id="unlock">Unlock</button>
       <div class="err" id="err"></div>
     </div>
-    <div id="content" style="display: none;">
-      <h2 id="todayTitle"></h2>
-      <ul id="todayList"></ul>
-      <div class="full">
-        <span class="toggle" id="toggleFull">Show all</span>
-        <ul id="allList" style="display: none;"></ul>
+    <div id="content" class="hidden">
+      <div id="focusView">
+        <div class="focus-task" id="focusTask">
+          <h2 id="focusTitle"></h2>
+          <span class="cat" id="focusCat"></span>
+          <div class="subtasks" id="focusSubtasks"></div>
+        </div>
+        <div>
+          <button id="btnDone">Done</button>
+          <button id="btnSkip">Skip</button>
+          <button id="btnShowList">Show list</button>
+        </div>
+      </div>
+      <div id="editPanel" class="edit-panel hidden">
+        <h3>Edit (session only – update tasks.yaml for permanent changes)</h3>
+        <label>Title</label>
+        <input type="text" id="editTitle" />
+        <label>Subtasks (one per line)</label>
+        <textarea id="editSubtasks" rows="4"></textarea>
+        <button id="btnAddSubtask">Add subtask</button>
+        <button id="btnAddNewTask">Add new task to today</button>
+        <button id="btnContinue">Continue</button>
+      </div>
+      <div id="listView" class="full-list hidden">
+        <span class="toggle" id="toggleBack">← Back to focus</span>
+        <ul id="allList"></ul>
       </div>
     </div>
   </div>
@@ -39,21 +70,194 @@
   <script src="./balance.js"></script>
   <script>
     (function () {
-      const lock = document.getElementById('lock');
-      const content = document.getElementById('content');
-      const err = document.getElementById('err');
-      const todayTitle = document.getElementById('todayTitle');
-      const todayList = document.getElementById('todayList');
-      const allList = document.getElementById('allList');
-      const toggleFull = document.getElementById('toggleFull');
+      const CHECK_EMAIL_ID = 'general-check-email';
+      const STORAGE_PREFIX = 'plan_';
+      const LUNCH_START = 12;
+      const LUNCH_END = 14;
+      const EOD_START = 17;
+      const EOD_END = 18;
+
+      function now() { return new Date(); }
+      function dateKey() { const d = now(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+      function inLunch() { const h = now().getHours(); return h >= LUNCH_START && h < LUNCH_END; }
+      function inEod() { const h = now().getHours(); return h >= EOD_START && h < EOD_END; }
+      function emailWindowKey() {
+        if (inLunch()) return STORAGE_PREFIX + 'email_' + dateKey() + '_lunch';
+        if (inEod()) return STORAGE_PREFIX + 'email_' + dateKey() + '_eod';
+        return null;
+      }
+      function shouldShowCheckEmailAgain() {
+        const k = emailWindowKey();
+        if (!k) return false;
+        try { return localStorage.getItem(k) !== '1'; } catch (e) { return false; }
+      }
+      function markCheckEmailShown() {
+        const k = emailWindowKey();
+        if (k) try { localStorage.setItem(k, '1'); } catch (e) {}
+      }
+
+      function getSubtasks(task) {
+        const s = task.subtasks;
+        if (!s) return [];
+        return s.map(function (x) { return typeof x === 'string' ? x : (x.title || ''); });
+      }
+
+      function stateFromStorage() {
+        try {
+          const raw = sessionStorage.getItem(STORAGE_PREFIX + 'state');
+          if (!raw) return null;
+          const s = JSON.parse(raw);
+          if (s.dateKey !== dateKey()) return null;
+          return s;
+        } catch (e) { return null; }
+      }
+      function saveState(state) {
+        try {
+          const copy = { dateKey: dateKey(), tasks: state.tasks, venues: state.venues, doneIds: Array.from(state.doneIds), queue: state.queue, queueIndex: state.queueIndex };
+          sessionStorage.setItem(STORAGE_PREFIX + 'state', JSON.stringify(copy));
+        } catch (e) {}
+      }
+
+      let state = null;
+
+      function findCheckEmail(tasks) {
+        return tasks.find(function (t) { return (t.id && t.id === CHECK_EMAIL_ID) || (t.title && t.title.toLowerCase().indexOf('check email') !== -1); }) || null;
+      }
+
+      function buildQueue(todayOrdered, checkEmail) {
+        let q = todayOrdered.slice();
+        if (checkEmail && q.length && (q[0].id !== checkEmail.id && q[0].title !== checkEmail.title)) {
+          q = [checkEmail].concat(q.filter(function (t) { return t.id !== checkEmail.id; }));
+        }
+        return q;
+      }
+
+      function getNextTask() {
+        if (!state || !state.queue.length) return null;
+        const checkEmail = findCheckEmail(state.tasks);
+        if (checkEmail && shouldShowCheckEmailAgain()) return { task: checkEmail, fromWindow: true };
+        let idx = state.queueIndex;
+        while (idx < state.queue.length) {
+          const t = state.queue[idx];
+          if (!state.doneIds.has(t.id || t.title)) return { task: t, fromWindow: false, queueIndex: idx };
+          idx++;
+        }
+        state.queueIndex = state.queue.length;
+        return null;
+      }
+
+      function renderFocus(task) {
+        document.getElementById('focusTitle').textContent = task.title || task.id || '';
+        document.getElementById('focusCat').textContent = task.category ? ' · ' + task.category : '';
+        const subs = getSubtasks(task);
+        const el = document.getElementById('focusSubtasks');
+        if (subs.length) {
+          el.innerHTML = '<ul>' + subs.map(function (s) { return '<li>' + escapeHtml(s) + '</li>'; }).join('') + '</ul>';
+          el.classList.remove('hidden');
+        } else {
+          el.innerHTML = '';
+          el.classList.add('hidden');
+        }
+      }
+
+      function escapeHtml(s) {
+        const d = document.createElement('div');
+        d.textContent = s;
+        return d.innerHTML;
+      }
+
+      function showFocus() {
+        document.getElementById('focusView').classList.remove('hidden');
+        document.getElementById('editPanel').classList.add('hidden');
+        document.getElementById('listView').classList.add('hidden');
+      }
+
+      function showEdit(currentTask, fromWindow, action, queueIndex) {
+        document.getElementById('focusView').classList.add('hidden');
+        document.getElementById('editPanel').classList.remove('hidden');
+        document.getElementById('editTitle').value = currentTask.title || currentTask.id || '';
+        document.getElementById('editSubtasks').value = getSubtasks(currentTask).join('\n');
+        document.getElementById('editPanel').dataset.taskId = currentTask.id || currentTask.title || '';
+        document.getElementById('editPanel').dataset.fromWindow = fromWindow ? '1' : '0';
+        document.getElementById('editPanel').dataset.action = action || 'skip';
+        document.getElementById('editPanel').dataset.queueIndex = String(queueIndex != null ? queueIndex : -1);
+      }
+
+      function applyEdit() {
+        const id = document.getElementById('editPanel').dataset.taskId;
+        const fromWindow = document.getElementById('editPanel').dataset.fromWindow === '1';
+        const action = document.getElementById('editPanel').dataset.action;
+        const queueIndex = parseInt(document.getElementById('editPanel').dataset.queueIndex, 10);
+        const title = document.getElementById('editTitle').value.trim();
+        const subtasksText = document.getElementById('editSubtasks').value.trim();
+        const subtasks = subtasksText ? subtasksText.split('\n').map(function (s) { return s.trim(); }).filter(Boolean) : [];
+
+        const task = state.tasks.find(function (t) { return (t.id || t.title) === id; });
+        if (task) {
+          task.title = title || task.title;
+          task.subtasks = subtasks.length ? subtasks : undefined;
+        }
+        const inQueue = state.queue.find(function (t) { return (t.id || t.title) === id; });
+        if (inQueue) {
+          inQueue.title = title || inQueue.title;
+          inQueue.subtasks = subtasks.length ? subtasks : undefined;
+        }
+        if (fromWindow) markCheckEmailShown();
+        if (action === 'done' && !isNaN(queueIndex) && queueIndex >= 0 && state.queue[queueIndex])
+          state.doneIds.add(state.queue[queueIndex].id || state.queue[queueIndex].title);
+        saveState(state);
+        goNext();
+      }
+
+      function goNext() {
+        document.getElementById('editPanel').classList.add('hidden');
+        showFocus();
+        const next = getNextTask();
+        if (next) {
+          if (next.queueIndex !== undefined) state.queueIndex = next.queueIndex + 1;
+          renderFocus(next.task);
+        } else {
+          document.getElementById('focusView').innerHTML = '<p>No more tasks for now. Refresh to reset or update your list.</p><button id="btnShowList2">Show list</button>';
+          document.getElementById('focusView').querySelector('#btnShowList2').onclick = showList;
+        }
+        saveState(state);
+      }
+
+      function showList() {
+        document.getElementById('focusView').classList.add('hidden');
+        document.getElementById('listView').classList.remove('hidden');
+        const list = state.queue.filter(function (t) { return !state.doneIds.has(t.id || t.title); });
+        document.getElementById('allList').innerHTML = list.map(function (t) {
+          const cat = t.category ? '<span class="cat"> ' + t.category + '</span>' : '';
+          const subs = getSubtasks(t);
+          const subHtml = subs.length ? '<ul>' + subs.map(function (s) { return '<li>' + escapeHtml(s) + '</li>'; }).join('') + '</ul>' : '';
+          return '<li><strong>' + escapeHtml(t.title || t.id || '') + '</strong>' + cat + subHtml + '</li>';
+        }).join('');
+      }
+
+      document.getElementById('toggleBack').onclick = function () {
+        document.getElementById('listView').classList.add('hidden');
+        showFocus();
+      };
+
+      document.getElementById('btnContinue').onclick = applyEdit;
+
+      document.getElementById('btnAddNewTask').onclick = function () {
+        const title = prompt('New task title');
+        if (!title || !title.trim()) return;
+        const newTask = { id: 'session-' + Date.now(), title: title.trim(), category: 'admin' };
+        state.tasks.push(newTask);
+        state.queue.push(newTask);
+        saveState(state);
+      };
 
       document.getElementById('unlock').addEventListener('click', run);
       document.getElementById('pw').addEventListener('keydown', function (e) { if (e.key === 'Enter') run(); });
 
       async function run() {
         const password = document.getElementById('pw').value.trim();
-        err.textContent = '';
-        if (!password) { err.textContent = 'Enter password.'; return; }
+        document.getElementById('err').textContent = '';
+        if (!password) { document.getElementById('err').textContent = 'Enter password.'; return; }
         try {
           const res = await fetch('./data.enc');
           if (!res.ok) throw new Error('Could not load data.');
@@ -63,30 +267,65 @@
           const plaintext = await decryptFn(payloadStr, password);
           const data = jsyaml.load(plaintext);
           if (!data || !Array.isArray(data.tasks)) throw new Error('Invalid data.');
+
           const balanceFn = (typeof self !== 'undefined' && self.TODO_balance) ? self.TODO_balance.balance : null;
           if (!balanceFn) throw new Error('Balance not available.');
-          const { today, all } = balanceFn(data, { maxTotal: 8, daysAhead: 7 });
-          lock.style.display = 'none';
-          content.style.display = 'block';
-          todayTitle.textContent = 'Today';
-          todayList.innerHTML = today.map(function (t) {
-            const cat = t.category ? '<span class="cat">' + t.category + '</span>' : '';
-            return '<li>' + (t.title || t.id || '') + ' ' + cat + '</li>';
-          }).join('');
-          allList.innerHTML = all.map(function (t) {
-            const cat = t.category ? '<span class="cat">' + t.category + '</span>' : '';
-            return '<li>' + (t.title || t.id || '') + ' ' + cat + '</li>';
-          }).join('');
+          let { today } = balanceFn(data, { maxTotal: 8, daysAhead: 7 });
+          const checkEmail = findCheckEmail(data.tasks);
+          if (checkEmail && today.length) {
+            today = [checkEmail].concat(today.filter(function (t) { return t.id !== checkEmail.id && t.title !== checkEmail.title; }));
+          }
+          const queue = buildQueue(today, checkEmail);
+          state = {
+            tasks: JSON.parse(JSON.stringify(data.tasks)),
+            venues: data.venues || [],
+            doneIds: new Set(),
+            queue: queue,
+            queueIndex: 0
+          };
+          const restored = stateFromStorage();
+          if (restored && restored.tasks && restored.queue) {
+            state.tasks = restored.tasks;
+            state.doneIds = new Set(restored.doneIds || []);
+            state.queue = restored.queue;
+            state.queueIndex = restored.queueIndex != null ? restored.queueIndex : 0;
+          }
+          saveState(state);
+
+          document.getElementById('lock').classList.add('hidden');
+          document.getElementById('content').classList.remove('hidden');
+
+          const next = getNextTask();
+          if (next) {
+            if (next.queueIndex !== undefined) state.queueIndex = next.queueIndex;
+            renderFocus(next.task);
+          } else {
+            document.getElementById('focusView').innerHTML = '<p>No tasks.</p>';
+          }
         } catch (e) {
-          err.textContent = e.message || 'Error.';
+          document.getElementById('err').textContent = e.message || 'Error.';
         }
       }
 
-      toggleFull.addEventListener('click', function () {
-        const hidden = allList.style.display === 'none';
-        allList.style.display = hidden ? 'block' : 'none';
-        toggleFull.textContent = hidden ? 'Hide all' : 'Show all';
-      });
+      document.getElementById('btnDone').onclick = function () {
+        const next = getNextTask();
+        if (!next) return;
+        showEdit(next.task, next.fromWindow, 'done', next.queueIndex);
+      };
+
+      document.getElementById('btnSkip').onclick = function () {
+        const next = getNextTask();
+        if (!next) return;
+        if (next.queueIndex !== undefined && next.queueIndex < state.queue.length) state.queueIndex = next.queueIndex + 1;
+        showEdit(next.task, next.fromWindow, 'skip', next.queueIndex);
+      };
+
+      document.getElementById('btnShowList').onclick = showList;
+
+      document.getElementById('btnAddSubtask').onclick = function () {
+        const ta = document.getElementById('editSubtasks');
+        ta.value = (ta.value.trim() ? ta.value + '\n' : '') + 'New subtask';
+      };
     })();
   </script>
 </body>
