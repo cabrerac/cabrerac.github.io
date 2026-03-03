@@ -29,6 +29,19 @@
     .hidden { display: none !important; }
     .save-modal { margin: 1rem 0; padding: 1rem; background: #f0f4f8; border-radius: 8px; }
     .save-modal input { margin: 0.5rem 0; padding: 0.5rem; width: 200px; display: block; }
+    .meetings-view { margin-top: 1rem; }
+    .meetings-view h2 { font-size: 1rem; margin: 1rem 0 0.5rem 0; }
+    .meetings-day-group { margin: 1rem 0; padding: 0.75rem; background: #f5f5f5; border-radius: 6px; }
+    .meeting-card { margin: 0.75rem 0; padding: 0.75rem; background: #fff; border-radius: 6px; border-left: 3px solid #06c; }
+    .meeting-card h3 { margin: 0 0 0.5rem 0; font-size: 1rem; }
+    .meeting-notes { font-size: 0.9rem; margin: 0.25rem 0; }
+    .meeting-notes ul { margin: 0.25rem 0; padding-left: 1.25rem; }
+    .meeting-links a { display: block; margin: 0.25rem 0; font-size: 0.9rem; color: #06c; }
+    .meeting-actions { margin-top: 0.5rem; }
+    .meeting-actions button { margin-right: 0.5rem; font-size: 0.85rem; }
+    .yaml-modal { margin: 1rem 0; padding: 1rem; background: #f0f4f8; border-radius: 8px; }
+    .yaml-modal h3 { margin: 0 0 0.5rem 0; }
+    .yaml-modal textarea { display: block; margin: 0.5rem 0; }
   </style>
 </head>
 <body>
@@ -49,9 +62,23 @@
           <button id="btnDone">Done</button>
           <button id="btnSkip">Skip</button>
           <button id="btnShowList">Show list</button>
+          <button id="btnMeetings">Meetings</button>
           <button id="btnSave">Save changes</button>
           <button id="btnExportYaml">Download tasks.yaml</button>
         </div>
+      </div>
+      <div id="meetingsView" class="meetings-view hidden">
+        <span class="toggle" id="toggleBackFromMeetings">← Back to focus</span>
+        <h2>Meetings (by day)</h2>
+        <div id="meetingsByDay"></div>
+        <button id="btnAddMeeting">Add meeting</button>
+      </div>
+      <div id="yamlEditModal" class="yaml-modal hidden">
+        <h3 id="yamlEditTitle"></h3>
+        <textarea id="yamlEditText" rows="16" style="width:100%; max-width:560px; font-family:monospace; font-size:0.9rem;"></textarea>
+        <div class="err" id="yamlEditErr"></div>
+        <button id="yamlEditSave">Save</button>
+        <button id="yamlEditCancel">Cancel</button>
       </div>
       <div id="saveModal" class="save-modal hidden">
         <p>Password to re-encrypt (same as unlock):</p>
@@ -67,11 +94,13 @@
         <label>Subtasks (one per line)</label>
         <textarea id="editSubtasks" rows="4"></textarea>
         <button id="btnAddSubtask">Add subtask</button>
+        <button id="btnEditTaskYaml">Edit as YAML</button>
         <button id="btnAddNewTask">Add new task to today</button>
         <button id="btnContinue">Continue</button>
       </div>
       <div id="listView" class="full-list hidden">
         <span class="toggle" id="toggleBack">← Back to focus</span>
+        <button id="btnAddTaskList" type="button">Add task (YAML)</button>
         <ul id="allList"></ul>
       </div>
     </div>
@@ -124,7 +153,7 @@
       }
       function saveState(state) {
         try {
-          const copy = { dateKey: dateKey(), tasks: state.tasks, venues: state.venues, doneIds: Array.from(state.doneIds), queue: state.queue, queueIndex: state.queueIndex };
+          const copy = { dateKey: dateKey(), tasks: state.tasks, venues: state.venues, meetings: state.meetings || [], doneIds: Array.from(state.doneIds), queue: state.queue, queueIndex: state.queueIndex };
           sessionStorage.setItem(STORAGE_PREFIX + 'state', JSON.stringify(copy));
         } catch (e) {}
       }
@@ -181,6 +210,7 @@
         document.getElementById('focusView').classList.remove('hidden');
         document.getElementById('editPanel').classList.add('hidden');
         document.getElementById('listView').classList.add('hidden');
+        document.getElementById('meetingsView').classList.add('hidden');
       }
 
       function showEdit(currentTask, fromWindow, action, queueIndex) {
@@ -228,23 +258,189 @@
           if (next.queueIndex !== undefined) state.queueIndex = next.queueIndex + 1;
           renderFocus(next.task);
         } else {
-          document.getElementById('focusView').innerHTML = '<p>No more tasks for now. Refresh to reset or update your list.</p><button id="btnShowList2">Show list</button>';
-          document.getElementById('focusView').querySelector('#btnShowList2').onclick = showList;
+          document.getElementById('focusTitle').textContent = 'No more tasks for now';
+          document.getElementById('focusCat').textContent = 'Refresh to reset or update your list.';
+          document.getElementById('focusSubtasks').innerHTML = '<button type="button" id="btnShowList2">Show list</button>';
+          document.getElementById('focusSubtasks').classList.remove('hidden');
+          document.getElementById('focusSubtasks').querySelector('#btnShowList2').onclick = showList;
         }
         saveState(state);
       }
 
       function showList() {
         document.getElementById('focusView').classList.add('hidden');
+        document.getElementById('editPanel').classList.add('hidden');
         document.getElementById('listView').classList.remove('hidden');
+        document.getElementById('meetingsView').classList.add('hidden');
         const list = state.queue.filter(function (t) { return !state.doneIds.has(t.id || t.title); });
         document.getElementById('allList').innerHTML = list.map(function (t) {
           const cat = t.category ? '<span class="cat"> ' + t.category + '</span>' : '';
           const subs = getSubtasks(t);
           const subHtml = subs.length ? '<ul>' + subs.map(function (s) { return '<li>' + escapeHtml(s) + '</li>'; }).join('') + '</ul>' : '';
-          return '<li><strong>' + escapeHtml(t.title || t.id || '') + '</strong>' + cat + subHtml + '</li>';
+          const tid = (t.id || t.title || '').replace(/"/g, '&quot;');
+          return '<li data-task-id="' + tid + '"><strong>' + escapeHtml(t.title || t.id || '') + '</strong>' + cat + subHtml + '<span class="meeting-actions"><button type="button" class="btn-edit-task-yaml">Edit YAML</button><button type="button" class="btn-remove-task">Remove</button></span></li>';
         }).join('');
+        document.getElementById('allList').querySelectorAll('.btn-edit-task-yaml').forEach(function (btn) {
+          btn.onclick = function () {
+            const li = btn.closest('li');
+            const id = li && li.dataset.taskId;
+            const task = state.tasks.find(function (t) { return (t.id || t.title) === id; });
+            if (task) openYamlEdit('task', task, id);
+          };
+        });
+        document.getElementById('allList').querySelectorAll('.btn-remove-task').forEach(function (btn) {
+          btn.onclick = function () {
+            const li = btn.closest('li');
+            const id = li && li.dataset.taskId;
+            if (!id || !confirm('Remove this task from the list?')) return;
+            state.tasks = state.tasks.filter(function (t) { return (t.id || t.title) !== id; });
+            state.queue = state.queue.filter(function (t) { return (t.id || t.title) !== id; });
+            state.doneIds.delete(id);
+            saveState(state);
+            showList();
+          };
+        });
       }
+
+      function meetingDayKey(m) {
+        const n = m.next;
+        if (!n) return 'no-date';
+        const d = new Date(n);
+        return isNaN(d.getTime()) ? String(n) : d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+      }
+
+      function renderMeetingsView() {
+        const meetings = state.meetings || [];
+        const byDay = {};
+        meetings.forEach(function (m) {
+          const k = meetingDayKey(m);
+          if (!byDay[k]) byDay[k] = [];
+          byDay[k].push(m);
+        });
+        const days = Object.keys(byDay).sort();
+        let html = '';
+        days.forEach(function (day) {
+          const list = byDay[day];
+          html += '<div class="meetings-day-group"><h2>' + (day === 'no-date' ? 'No date' : day) + '</h2>';
+          list.forEach(function (m) {
+            const pre = (m['pre-notes'] || m.pre_notes || m.preNotes || []);
+            const post = (m['post-notes'] || m.post_notes || m.postNotes || []);
+            const links = m.links || [];
+            const linksHtml = links.length ? '<div class="meeting-links">' + links.map(function (url) { return '<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener">' + escapeHtml(url) + '</a>'; }).join('') + '</div>' : '';
+            html += '<div class="meeting-card" data-meeting-id="' + escapeHtml(m.id || '') + '">';
+            html += '<h3>' + escapeHtml(m.title || m.id || '') + '</h3>';
+            if (pre.length) html += '<div class="meeting-notes"><strong>Pre:</strong><ul>' + pre.map(function (n) { return '<li>' + escapeHtml(n) + '</li>'; }).join('') + '</ul></div>';
+            if (post.length) html += '<div class="meeting-notes"><strong>Post:</strong><ul>' + post.map(function (n) { return '<li>' + escapeHtml(n) + '</li>'; }).join('') + '</ul></div>';
+            html += linksHtml;
+            html += '<div class="meeting-actions"><button type="button" class="btn-edit-meeting-yaml">Edit YAML</button><button type="button" class="btn-remove-meeting">Remove</button></div></div>';
+          });
+          html += '</div>';
+        });
+        if (!days.length) html = '<p>No meetings.</p>';
+        document.getElementById('meetingsByDay').innerHTML = html;
+        document.getElementById('meetingsByDay').querySelectorAll('.btn-edit-meeting-yaml').forEach(function (btn) {
+          btn.onclick = function () {
+            const card = btn.closest('.meeting-card');
+            const id = card && card.dataset.meetingId;
+            const meeting = (state.meetings || []).find(function (m) { return m.id === id; });
+            if (meeting) openYamlEdit('meeting', meeting, id);
+          };
+        });
+        document.getElementById('meetingsByDay').querySelectorAll('.btn-remove-meeting').forEach(function (btn) {
+          btn.onclick = function () {
+            const card = btn.closest('.meeting-card');
+            const id = card && card.dataset.meetingId;
+            if (!id || !confirm('Remove this meeting?')) return;
+            state.meetings = (state.meetings || []).filter(function (m) { return m.id !== id; });
+            saveState(state);
+            renderMeetingsView();
+          };
+        });
+      }
+
+      function showMeetings() {
+        document.getElementById('focusView').classList.add('hidden');
+        document.getElementById('editPanel').classList.add('hidden');
+        document.getElementById('listView').classList.add('hidden');
+        document.getElementById('meetingsView').classList.remove('hidden');
+        renderMeetingsView();
+      }
+
+      function openYamlEdit(kind, item, id) {
+        document.getElementById('yamlEditModal').classList.remove('hidden');
+        document.getElementById('yamlEditTitle').textContent = kind === 'meeting' ? ('Edit meeting: ' + (item.title || item.id)) : ('Edit task: ' + (item.title || item.id));
+        document.getElementById('yamlEditErr').textContent = '';
+        try {
+          document.getElementById('yamlEditText').value = jsyaml.dump(item, { lineWidth: -1 });
+        } catch (e) {
+          document.getElementById('yamlEditText').value = jsyaml.dump(item, { lineWidth: -1, noRefs: true });
+        }
+        document.getElementById('yamlEditModal').dataset.kind = kind;
+        document.getElementById('yamlEditModal').dataset.id = id || '';
+      }
+
+      function closeYamlEdit() {
+        document.getElementById('yamlEditModal').classList.add('hidden');
+      }
+
+      function saveYamlEdit() {
+        const kind = document.getElementById('yamlEditModal').dataset.kind;
+        const id = document.getElementById('yamlEditModal').dataset.id;
+        const text = document.getElementById('yamlEditText').value.trim();
+        document.getElementById('yamlEditErr').textContent = '';
+        try {
+          const parsed = jsyaml.load(text);
+          if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+            document.getElementById('yamlEditErr').textContent = 'Invalid YAML: expected a single object.';
+            return;
+          }
+          if (kind === 'meeting') {
+            const idx = (state.meetings || []).findIndex(function (m) { return m.id === id; });
+            if (idx >= 0) {
+              state.meetings[idx] = parsed;
+            } else {
+              state.meetings = state.meetings || [];
+              state.meetings.push(parsed);
+            }
+            saveState(state);
+            renderMeetingsView();
+          } else {
+            const taskIdx = state.tasks.findIndex(function (t) { return (t.id || t.title) === id; });
+            if (taskIdx >= 0) {
+              state.tasks[taskIdx] = parsed;
+              const qIdx = state.queue.findIndex(function (t) { return (t.id || t.title) === id; });
+              if (qIdx >= 0) state.queue[qIdx] = parsed;
+            } else {
+              state.tasks.push(parsed);
+              state.queue.push(parsed);
+            }
+            saveState(state);
+            const editPanel = document.getElementById('editPanel');
+            if (editPanel && !editPanel.classList.contains('hidden') && editPanel.dataset.taskId === (parsed.id || parsed.title)) {
+              document.getElementById('editTitle').value = parsed.title || parsed.id || '';
+              document.getElementById('editSubtasks').value = getSubtasks(parsed).join('\n');
+            }
+            if (!document.getElementById('listView').classList.contains('hidden')) showList();
+          }
+          closeYamlEdit();
+        } catch (e) {
+          document.getElementById('yamlEditErr').textContent = e.message || 'Invalid YAML.';
+        }
+      }
+
+      document.getElementById('btnMeetings').onclick = showMeetings;
+      document.getElementById('toggleBackFromMeetings').onclick = showFocus;
+      document.getElementById('yamlEditSave').onclick = saveYamlEdit;
+      document.getElementById('yamlEditCancel').onclick = closeYamlEdit;
+
+      document.getElementById('btnAddMeeting').onclick = function () {
+        const template = { id: 'meeting-' + Date.now(), title: 'New meeting', category: 'meeting', next: new Date().toISOString().slice(0, 10), tasks: [], status: 'upcoming', links: [], 'pre-notes': [], 'post-notes': [] };
+        openYamlEdit('meeting', template, null);
+      };
+      document.getElementById('btnAddTaskList').onclick = function () {
+        const template = { id: 'session-' + Date.now(), title: 'New task', category: 'admin', reward: 'medium', urgency: 'flexible' };
+        openYamlEdit('task', template, null);
+      };
 
       document.getElementById('toggleBack').onclick = function () {
         document.getElementById('listView').classList.add('hidden');
@@ -277,28 +473,37 @@
           if (!decryptFn) throw new Error('Decrypt not available.');
           const plaintext = await decryptFn(payloadStr, password);
           const data = jsyaml.load(plaintext);
-          if (!data || !Array.isArray(data.tasks)) throw new Error('Invalid data.');
+          if (!data) throw new Error('Invalid data.');
+          const tasks = Array.isArray(data.tasks) ? data.tasks : [];
+          const meetings = Array.isArray(data.meetings) ? data.meetings : [];
 
-          const balanceFn = (typeof self !== 'undefined' && self.TODO_balance) ? self.TODO_balance.balance : null;
-          if (!balanceFn) throw new Error('Balance not available.');
-          let { today } = balanceFn(data, { maxTotal: 8, daysAhead: 7 });
-          const checkEmail = findCheckEmail(data.tasks);
-          if (checkEmail && today.length) {
-            today = [checkEmail].concat(today.filter(function (t) { return t.id !== checkEmail.id && t.title !== checkEmail.title; }));
+          let today = [];
+          if (tasks.length) {
+            const balanceFn = (typeof self !== 'undefined' && self.TODO_balance) ? self.TODO_balance.balance : null;
+            if (balanceFn) {
+              const out = balanceFn({ tasks: tasks, venues: data.venues || [] }, { maxTotal: 8, daysAhead: 7 });
+              today = out.today || [];
+            }
+            const checkEmail = findCheckEmail(tasks);
+            if (checkEmail && today.length) {
+              today = [checkEmail].concat(today.filter(function (t) { return t.id !== checkEmail.id && t.title !== checkEmail.title; }));
+            }
           }
-          const queue = buildQueue(today, checkEmail);
+          const queue = buildQueue(today, findCheckEmail(tasks));
           state = {
-            tasks: JSON.parse(JSON.stringify(data.tasks)),
+            tasks: JSON.parse(JSON.stringify(tasks)),
             venues: data.venues || [],
+            meetings: JSON.parse(JSON.stringify(meetings)),
             doneIds: new Set(),
             queue: queue,
             queueIndex: 0
           };
           const restored = stateFromStorage();
-          if (restored && restored.tasks && restored.queue) {
-            state.tasks = restored.tasks;
+          if (restored && (restored.tasks || restored.meetings)) {
+            if (restored.tasks) state.tasks = restored.tasks;
+            if (restored.meetings) state.meetings = restored.meetings;
             state.doneIds = new Set(restored.doneIds || []);
-            state.queue = restored.queue;
+            if (restored.queue) state.queue = restored.queue;
             state.queueIndex = restored.queueIndex != null ? restored.queueIndex : 0;
           }
           saveState(state);
@@ -311,7 +516,10 @@
             if (next.queueIndex !== undefined) state.queueIndex = next.queueIndex;
             renderFocus(next.task);
           } else {
-            document.getElementById('focusView').innerHTML = '<p>No tasks.</p>';
+            document.getElementById('focusTitle').textContent = 'No tasks for now';
+            document.getElementById('focusCat').textContent = '';
+            document.getElementById('focusSubtasks').innerHTML = '';
+            document.getElementById('focusSubtasks').classList.add('hidden');
           }
         } catch (e) {
           document.getElementById('err').textContent = e.message || 'Error.';
@@ -337,6 +545,11 @@
         const ta = document.getElementById('editSubtasks');
         ta.value = (ta.value.trim() ? ta.value + '\n' : '') + 'New subtask';
       };
+      document.getElementById('btnEditTaskYaml').onclick = function () {
+        const id = document.getElementById('editPanel').dataset.taskId;
+        const task = state.tasks.find(function (t) { return (t.id || t.title) === id; });
+        if (task) openYamlEdit('task', task, id);
+      };
 
       document.getElementById('btnSave').onclick = function () {
         if (!state) return;
@@ -356,7 +569,7 @@
         const encryptFn = (typeof self !== 'undefined' && self.TODO_decrypt && self.TODO_decrypt.encrypt) ? self.TODO_decrypt.encrypt : null;
         if (!encryptFn) { document.getElementById('saveErr').textContent = 'Encrypt not available.'; return; }
         try {
-          const data = { venues: state.venues || [], tasks: state.tasks };
+          const data = { venues: state.venues || [], meetings: state.meetings || [], tasks: state.tasks };
           const yamlStr = jsyaml.dump(data, { lineWidth: -1 });
           const payload = await encryptFn(yamlStr, password);
           const blob = new Blob([JSON.stringify(payload)], { type: 'application/octet-stream' });
@@ -373,7 +586,7 @@
 
       document.getElementById('btnExportYaml').onclick = function () {
         if (!state) return;
-        const data = { venues: state.venues || [], tasks: state.tasks };
+        const data = { venues: state.venues || [], meetings: state.meetings || [], tasks: state.tasks };
         const yamlStr = jsyaml.dump(data, { lineWidth: -1 });
         const blob = new Blob([yamlStr], { type: 'application/x-yaml' });
         const a = document.createElement('a');

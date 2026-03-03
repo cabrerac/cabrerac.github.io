@@ -86,6 +86,15 @@ function balance(data, options = {}) {
   const pickedIds = new Set(picked.map((t) => t.id || t.title));
   let adminCount = picked.filter((t) => t.category === 'admin').length;
 
+  // 1b) Always include every task with urgency: immediate (so urgent tasks are never left out)
+  for (const t of tasks) {
+    if (t.urgency === 'immediate' && !pickedIds.has(t.id || t.title)) {
+      picked.push(t);
+      pickedIds.add(t.id || t.title);
+      if (t.category === 'admin') adminCount++;
+    }
+  }
+
   // 2) Ensure min 1 research, 1 studying (if any exist)
   const hasResearch = picked.some((t) => t.category === 'research');
   const hasStudying = picked.some((t) => t.category === 'studying');
