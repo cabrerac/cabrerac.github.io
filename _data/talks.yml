@@ -55,3 +55,15 @@
   status: past
   visible: true
   slides: https://cabrerac.github.io/assets/slides/2022/se-ai-based-systems.pdf
+- talk_id: katary-ai-intellectual-debt
+  title: Artificial Intelligence and Intellectual Debt
+  venue: Katary - Software Factory
+  institution: University of Cambridge
+  location: Pasto (Online)
+  year: 2026
+  month: February
+  date: '2026-03-05'
+  type: invited_talk
+  status: upcoming
+  visible: true
+  slides: https://cabrerac.github.io/assets/slides/2026/katary-ai-intellectual-debt.html
