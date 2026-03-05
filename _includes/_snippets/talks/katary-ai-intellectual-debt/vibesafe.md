@@ -53,7 +53,7 @@
                <div class="footnote">Two rival teams of agents - Jordan K. Terry, CC BY-SA 4.0, via Wikimedia Commons</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>I have been using <b>VibeSafe</b> for developing the <a href="https://github.com/lawrennd/vibesafe/" target="_blank" rel="noopener noreferrer">DOAgent project</a></p>
+                <p>I have been using <b>VibeSafe</b> for developing the <a href="https://github.com/cabrerac/doagent" target="_blank" rel="noopener noreferrer">DOAgent project</a></p>
                 <p>The goal is to develop a Python library to addreess the intellectual debt problem in Multi-Agent Systems (i.e., Agentic AI).</p>
             </div>
         </div>
