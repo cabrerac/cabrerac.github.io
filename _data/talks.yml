@@ -8,7 +8,7 @@
   month: February
   date: '2026-02-23'
   type: conference_talk
-  status: upcoming
+  status: past
   visible: true
   slides: https://cabrerac.github.io/assets/slides/2026/icms-intellectual-debt.html
 - title: Data-Oriented Architectures for Healthcare
@@ -65,5 +65,5 @@
   date: '2026-03-05'
   type: invited_talk
   status: upcoming
-  visible: false
+  visible: true
   slides: https://cabrerac.github.io/assets/slides/2026/katary-ai-intellectual-debt.html

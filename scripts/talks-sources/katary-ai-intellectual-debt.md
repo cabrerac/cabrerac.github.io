@@ -29,19 +29,27 @@ visible: true
 
 <!-- SLIDES: -->
 
-# Intellectual debt
-
-<!-- end SLIDES: -->
-
-{% include _snippets/talks/katary-ai-intellectual-debt/intellectual-debt.md %}
-
-<!-- SLIDES: -->
-
-# Systems engineering
+# The Systems Engineering Approach
 
 <!-- end SLIDES: -->
 
 {% include _snippets/talks/katary-ai-intellectual-debt/systems-engineering.md %}
+
+<!-- SLIDES: -->
+
+# VibeSafe
+
+<!-- end SLIDES: -->
+
+{% include _snippets/talks/katary-ai-intellectual-debt/vibesafe.md %}
+
+<!-- SLIDES: -->
+
+# Conclusions
+
+<!-- end SLIDES: -->
+
+{% include _snippets/talks/katary-ai-intellectual-debt/conclusions.md %}
 
 <!-- RENDER: -->
 
