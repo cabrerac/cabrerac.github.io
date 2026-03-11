@@ -2,13 +2,14 @@
 """
 PDF to Markdown — extract paper content for LLM use
 
-Reads a PDF and writes a Markdown file with extracted text and structure
-(headings inferred from font size). Intended for use as input to an LLM
-so you can chat with the paper while reading.
+Reads a PDF and writes a Markdown file with extracted text and structure.
+Use --llm to use pymupdf4llm (tables, lists, better structure); otherwise
+uses PyMuPDF with simple heading inference.
 
 Example:
   python scripts/pdf_to_markdown/pdf_to_markdown.py paper.pdf output.md
-  python scripts/pdf_to_markdown/pdf_to_markdown.py paper.pdf --output notes/paper.md
+  python scripts/pdf_to_markdown/pdf_to_markdown.py paper.pdf -o notes/paper.md
+  python scripts/pdf_to_markdown/pdf_to_markdown.py paper.pdf --llm -o paper.md
 """
 
 import argparse
@@ -25,7 +26,7 @@ except ImportError:
     sys.exit(1)
 
 
-def extract_markdown(pdf_path: Path) -> str:
+def extract_markdown_pymupdf(pdf_path: Path) -> str:
     """Extract text from PDF with simple structure (headings vs body) as Markdown."""
     doc = fitz.open(pdf_path)
     lines_out = []
@@ -86,6 +87,29 @@ def extract_markdown(pdf_path: Path) -> str:
     return "\n\n".join(paragraphs).strip() + "\n"
 
 
+def extract_markdown_llm(pdf_path: Path) -> str:
+    """Extract PDF to Markdown using pymupdf4llm (tables, lists, structure)."""
+    try:
+        import pymupdf4llm
+    except ImportError:
+        print(
+            "Error: pymupdf4llm is required for --llm. Install with: pip install pymupdf4llm",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+    md = pymupdf4llm.to_markdown(str(pdf_path))
+    if isinstance(md, bytes):
+        return md.decode("utf-8", errors="replace")
+    return md
+
+
+def extract_markdown(pdf_path: Path, use_llm: bool) -> str:
+    """Extract PDF to Markdown; use_llm=True for pymupdf4llm, else PyMuPDF."""
+    if use_llm:
+        return extract_markdown_llm(pdf_path)
+    return extract_markdown_pymupdf(pdf_path)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Extract PDF content to Markdown for LLM use (e.g. chat with the paper)."
@@ -109,6 +133,11 @@ def main() -> None:
         dest="output_path_opt",
         help="Path for the output Markdown file (alternative to positional)",
     )
+    parser.add_argument(
+        "--llm",
+        action="store_true",
+        help="Use pymupdf4llm for extraction (tables, lists, better structure). Requires: pip install pymupdf4llm",
+    )
     args = parser.parse_args()
 
     pdf_path = args.pdf_path.resolve()
@@ -126,7 +155,7 @@ def main() -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     try:
-        md_content = extract_markdown(pdf_path)
+        md_content = extract_markdown(pdf_path, use_llm=args.llm)
     except Exception as e:
         print(f"Error extracting PDF: {e}", file=sys.stderr)
         sys.exit(1)

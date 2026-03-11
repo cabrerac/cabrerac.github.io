@@ -5,27 +5,32 @@ Extract text from a PDF paper into a Markdown file for use as context with an LL
 ## Requirements
 
 - Python 3.10+
-- PyMuPDF: `pip install PyMuPDF`
+- **PyMuPDF** (default backend): `pip install PyMuPDF`
+- **pymupdf4llm** (optional, for `--llm`): `pip install pymupdf4llm` — better tables, lists, and structure
 
 ## Usage
 
 ```bash
-# Output to same name with .md (e.g. paper.pdf → paper.md)
+# Default: PyMuPDF extraction (headings from font size, page markers)
 python scripts/pdf_to_markdown/pdf_to_markdown.py path/to/paper.pdf
 
-# Explicit output path
-python scripts/pdf_to_markdown/pdf_to_markdown.py paper.pdf output.md
+# Use pymupdf4llm for richer markdown (tables, lists, structure)
+python scripts/pdf_to_markdown/pdf_to_markdown.py paper.pdf --llm -o paper.md
 
-# Using -o
+# Explicit output path (with or without --llm)
+python scripts/pdf_to_markdown/pdf_to_markdown.py paper.pdf output.md
 python scripts/pdf_to_markdown/pdf_to_markdown.py paper.pdf -o notes/paper.md
 ```
 
+## Options
+
+| Option | Description |
+|-------|-------------|
+| `-o`, `--output` | Output Markdown path (alternative to positional). |
+| `--llm` | Use **pymupdf4llm** for extraction (requires `pip install pymupdf4llm`). Produces markdown with tables, lists, and improved structure. |
+
 ## Behaviour
 
-- Text is extracted with basic structure: lines with larger font size are emitted as `##` headings.
-- Page breaks are marked with `---` and `*Page N*` so you can refer to pages when chatting with the LLM.
+- **Without `--llm`**: PyMuPDF extracts text; lines with larger font size become `##` headings; page breaks are marked with `---` and `*Page N*`.
+- **With `--llm`**: pymupdf4llm extracts with layout awareness: headers, bold/italic, lists, tables, multi-column order. No page markers (pymupdf4llm returns a single flow).
 - Output is UTF-8 Markdown; paste or feed it into your LLM as context.
-
-## Optional: `pymupdf4llm`
-
-For markdown tuned for LLMs (tables, lists, structure), you can use [pymupdf4llm](https://github.com/pymupdf/pymupdf4llm) and call it from a small wrapper, or switch this script to use it instead of raw PyMuPDF.
