@@ -30,9 +30,9 @@ generator = ContentGenerator(os.getcwd())
 generator.process_lecture("course_code/lecture_name.md")
 ```
 
-or from the command line:
+or from the command line (run from repo root):
 ```
-python scripts/generate_content.py course_code/lecture_name
+python scripts/generate_content/generate_content.py course_code/lecture_name
 ```
 """
 import os
@@ -52,8 +52,8 @@ import argparse
 class ContentGenerator:
     def __init__(self, base_dir):
         self.base_dir = Path(base_dir)
-        self.sources_dir = self.base_dir / "scripts" / "lectures-sources"
-        self.talks_sources_dir = self.base_dir / "scripts" / "talks-sources"
+        self.sources_dir = self.base_dir / "scripts" / "generate_content" / "lectures-sources"
+        self.talks_sources_dir = self.base_dir / "scripts" / "generate_content" / "talks-sources"
         self.lectures_dir = self.base_dir / "content" / "_lectures"
         self.talks_dir = self.base_dir / "content" / "_talks"
         self.data_dir = self.base_dir / "_data"
@@ -1955,8 +1955,8 @@ def main():
     # Set up argument parser
     parser = argparse.ArgumentParser(description='Generate content for lectures and talks')
     parser.add_argument('lectures', nargs='*', help='Lecture files to process (format: course_code/lecture_name)')
-    parser.add_argument('--talk', metavar='TALK_ID', help='Process a single talk from scripts/talks-sources/<TALK_ID>.md')
-    parser.add_argument('--talk-all', action='store_true', help='Process all .md files in scripts/talks-sources/')
+    parser.add_argument('--talk', metavar='TALK_ID', help='Process a single talk from scripts/generate_content/talks-sources/<TALK_ID>.md')
+    parser.add_argument('--talk-all', action='store_true', help='Process all .md files in scripts/generate_content/talks-sources/')
     args = parser.parse_args()
 
     generator = ContentGenerator(os.getcwd())
@@ -1981,9 +1981,9 @@ def main():
     if not args.lectures:
         parser.print_help()
         print("\nExamples:")
-        print("  python scripts/generate_content.py 25-udenar-ml-intro/ai-systems")
-        print("  python scripts/generate_content.py --talk icms-intellectual-debt")
-        print("  python scripts/generate_content.py --talk-all")
+        print("  python scripts/generate_content/generate_content.py 25-udenar-ml-intro/ai-systems")
+        print("  python scripts/generate_content/generate_content.py --talk icms-intellectual-debt")
+        print("  python scripts/generate_content/generate_content.py --talk-all")
         return
 
     for lecture_path in args.lectures:
