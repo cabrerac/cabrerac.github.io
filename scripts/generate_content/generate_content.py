@@ -1512,15 +1512,29 @@ style: |
   }}
 ---"""
 
-        # Create Marp slides for HTML (all slides)
-        html_content = f"""
-<!-- _class: lead -->
+        # Internal talks: title and thanks slides show only author name (no affiliation)
+        is_internal = metadata.get('type') == 'internal'
+        if is_internal:
+            title_block = f"""<!-- _class: lead -->
+# {metadata.get('title', '')}
+<p style="color: var(--text-color);"><b>{metadata.get('author', '')}</b></p>"""
+            thanks_block = """<!-- _class: lead last-slide -->
+# Many Thanks!"""
+        else:
+            title_block = f"""<!-- _class: lead -->
 # {metadata.get('title', '')}
 <p style="color: var(--text-color);"><b>{metadata.get('author', '')}</b></p>
 <p style="color: var(--text-color);">{metadata.get('position', '')}</p>
 <p style="color: var(--text-color);">{metadata.get('department', '')}</p>
 <p style="color: var(--text-color);">{metadata.get('institution', '')}</p>
-<p style="color: var(--accent-color);"><a href="mailto:{metadata.get('email', '')}" style="color: var(--accent-color);">{metadata.get('email', '')}</a></p>
+<p style="color: var(--accent-color);"><a href="mailto:{metadata.get('email', '')}" style="color: var(--accent-color);">{metadata.get('email', '')}</a></p>"""
+            thanks_block = f"""<!-- _class: lead last-slide -->
+# Many Thanks!
+<p style="color: var(--accent-color);"><a href="mailto:{metadata.get('email', '')}" style="color: var(--accent-color);">{metadata.get('email', '')}</a></p>"""
+
+        # Create Marp slides for HTML (all slides)
+        html_content = f"""
+{title_block}
 
 ---
 
@@ -1528,20 +1542,12 @@ style: |
 
 ---
 
-<!-- _class: lead last-slide -->
-# Many Thanks!
-<p style="color: var(--accent-color);"><a href="mailto:{metadata.get('email', '')}" style="color: var(--accent-color);">{metadata.get('email', '')}</a></p>
+{thanks_block}
 """
 
         # Create Marp slides for PDF (only marked slides)
         pdf_content = f"""
-<!-- _class: lead -->
-# {metadata.get('title', '')}
-<p style="color: var(--text-color);"><b>{metadata.get('author', '')}</b></p>
-<p style="color: var(--text-color);">{metadata.get('position', '')}</p>
-<p style="color: var(--text-color);">{metadata.get('department', '')}</p>
-<p style="color: var(--text-color);">{metadata.get('institution', '')}</p>
-<p style="color: var(--text-color);">{metadata.get('email', '')}</p>
+{title_block}
 
 ---
 
@@ -1549,9 +1555,7 @@ style: |
 
 ---
 
-<!-- _class: lead last-slide -->
-# Many Thanks!
-<p style="color: var(--accent-color);"><a href="mailto:{metadata.get('email', '')}" style="color: var(--accent-color);">{metadata.get('email', '')}</a></p>
+{thanks_block}
 """
 
         # Save markdown slides for HTML
@@ -1813,9 +1817,10 @@ style: |
             print(f"Running command: {' '.join(pdf_cmd)}")
             subprocess.run(pdf_cmd, check=True)"""
 
-            # Generate HTML from the HTML-specific file
+            # Generate HTML from the HTML-specific file (--no-stdin so Marp reads from file, not stdin)
             if isinstance(marp_cmd, list):
                 html_cmd = marp_cmd + [
+                    '--no-stdin',
                     str(html_file),
                     '--html',
                     '--allow-local-files',
@@ -1824,6 +1829,7 @@ style: |
             else:
                 html_cmd = [
                     marp_cmd,
+                    '--no-stdin',
                     str(html_file),
                     '--html',
                     '--allow-local-files',
@@ -1850,7 +1856,7 @@ style: |
             os.remove(html_file)
             #os.remove(pdf_file)
 
-            print(f"✓ Successfully generated slides for {lecture_file.stem}")
+            print(f"[OK] Successfully generated slides for {lecture_file.stem}")
         except subprocess.CalledProcessError as e:
             out = (e.output or e.stderr or b'').decode(errors='replace')
             print(f"Error: Failed to generate slides: {e}")

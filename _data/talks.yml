@@ -67,3 +67,14 @@
   status: upcoming
   visible: true
   slides: https://cabrerac.github.io/assets/slides/2026/katary-ai-intellectual-debt.html
+- talk_id: internal-interfaces
+  title: The Interfaces Research Programme
+  venue: Internal
+  location: Cambridge
+  year: 2026
+  month: March
+  date: '2026-03-17'
+  type: internal
+  status: upcoming
+  visible: false
+  slides: https://cabrerac.github.io/assets/slides/2026/internal-interfaces.html
