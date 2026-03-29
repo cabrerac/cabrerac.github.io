@@ -6,7 +6,7 @@
     <div class="row" style="height: 50%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <img src="{{ site.url }}/assets/media/interfaces/interfaces-logo.png" alt="Interfaces logo" style="height: 180px">
+                <img src="{{ site.url }}/assets/media/images/interfaces-logo.png" alt="Interfaces logo" style="height: 180px">
             </div>
         </div>
     </div>
@@ -75,6 +75,18 @@
                     <li><b>Interpret AI-based systems:</b> Techniques and tools to improve interpretability of autonomous behaviour and decisions, while keeping humans in control and steering.</li>
                 </ul>
                 <p>The outputs will benefit engineers, practitioners, and the general public through advances that different communities can use to build sustainable AI-based systems.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Partners and collaborations
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <p>The Interfaces programme validates its contributions through use cases across multiple domains: <b>IoT and smart environments</b>, <b>edge computing and local-first systems</b>, <b>healthcare</b>, and <b>security</b>.</p>
             </div>
         </div>
     </div>

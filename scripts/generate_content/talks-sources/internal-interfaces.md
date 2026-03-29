@@ -49,6 +49,14 @@ visible: false
 
 <!-- SLIDES: -->
 
+# Partners
+
+<!-- end SLIDES: -->
+
+{% include _snippets/talks/internal-interfaces/partners.md %}
+
+<!-- SLIDES: -->
+
 # Team
 
 <!-- end SLIDES: -->
@@ -57,11 +65,11 @@ visible: false
 
 <!-- SLIDES: -->
 
-# Partners
+# References
 
 <!-- end SLIDES: -->
 
-{% include _snippets/talks/internal-interfaces/partners.md %}
+{% include _snippets/talks/internal-interfaces/references.md %}
 
 <!-- RENDER: -->
 

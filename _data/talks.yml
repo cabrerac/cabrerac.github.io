@@ -8,8 +8,8 @@
   month: February
   date: '2026-02-23'
   type: conference_talk
-  status: upcoming
-  visible: false
+  status: past
+  visible: true
   slides: https://cabrerac.github.io/assets/slides/2026/icms-intellectual-debt.html
 - title: Data-Oriented Architectures for Healthcare
   venue: Karolinska Institute
@@ -64,7 +64,7 @@
   month: February
   date: '2026-03-05'
   type: invited_talk
-  status: upcoming
+  status: past
   visible: true
   slides: https://cabrerac.github.io/assets/slides/2026/katary-ai-intellectual-debt.html
 - talk_id: internal-interfaces
@@ -75,6 +75,19 @@
   month: March
   date: '2026-03-17'
   type: internal
-  status: upcoming
+  status: past
   visible: false
   slides: https://cabrerac.github.io/assets/slides/2026/internal-interfaces.html
+- talk_id: sorrento-doagent
+  title: 'DOAgent: A Data-Oriented Library for Observable Multi-Agent Systems'
+  conference: The Sorrento Meeting
+  venue: The Sorrento Meeting
+  institution: University of Cambridge
+  location: Sorrento, Italy
+  year: 2026
+  month: April
+  date: '2026-04-01'
+  type: conference_talk
+  status: upcoming
+  visible: false
+  slides: https://cabrerac.github.io/assets/slides/2026/sorrento-doagent.html

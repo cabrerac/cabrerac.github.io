@@ -6,7 +6,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <p>Deploying ML converts software systems into <b>data-driven systems</b>. These systems are <b>interfaces</b> between socio-technical needs and AI capabilities. Developers do not predefined behaviour—ML components learn it from data. Behaviour depends on data quality; ML components operate as black boxes with stochastic behaviour and propagating uncertainty.</p>
+                <p>Deploying ML converts software systems into data-driven systems. Developers do not predefine behaviour as ML components learn it from data. ML components operate as black boxes with stochastic behaviour and propagating uncertainty through systems.</p>
                 <p>This shift creates <b>Intellectual Debt</b>: practitioners deploy systems that work in practice but whose inner workings they do not understand. It threatens transparency, safety, and trust.</p>
             </div>
         </div>
@@ -37,6 +37,21 @@
         </div>
     </div>
 </div>
+
+## DOCS — Impact
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <p>DOCS aims to provide practitioners with a concrete <b>architectural paradigm and tooling</b> that increase system transparency, reduce intellectual debt, and enable safe, sustainable AI deployments in IoT, edge computing, and healthcare.</p>
+                <p><em>Reference:</em> Cabrera, Paleyes, Thodoroff, Lawrence. Machine Learning Systems: A Survey from a Data-Oriented Perspective. ACM Computing Surveys 2025.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- end SLIDES: -->
 
 ## DOCS — Key objectives
 
@@ -73,18 +88,3 @@
         </div>
     </div>
 </div>
-
-## DOCS — Impact
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p>DOCS aims to provide practitioners with a concrete <b>architectural paradigm and tooling</b> that increase system transparency, reduce intellectual debt, and enable safe, sustainable AI deployments in IoT, edge computing, and healthcare.</p>
-                <p><em>Reference:</em> Cabrera, Paleyes, Thodoroff, Lawrence. Machine Learning Systems: A Survey from a Data-Oriented Perspective. ACM Computing Surveys 2025.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- end SLIDES: -->
