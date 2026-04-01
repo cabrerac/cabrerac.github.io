@@ -194,7 +194,7 @@ class ContentGenerator:
                     break
 
             if not npm_cmd:
-                print("⚠ npm not found in PATH")
+                print("[WARN] npm not found in PATH")
                 print("\nPlease install Node.js and npm:")
                 print("1. Download Node.js from https://nodejs.org/")
                 print("2. Run the installer")
@@ -202,20 +202,20 @@ class ContentGenerator:
                 print("4. Restart your terminal after installation")
                 return False
 
-            print(f"✓ Found npm at: {npm_cmd}")
+            print(f"[OK] Found npm at: {npm_cmd}")
 
             # Check npm global installation
             try:
                 npm_prefix = subprocess.check_output([npm_cmd, 'config', 'get', 'prefix'], text=True).strip()
-                print(f"✓ npm global prefix: {npm_prefix}")
+                print(f"[OK] npm global prefix: {npm_prefix}")
 
                 # Check if Marp is installed globally
                 try:
                     marp_version = subprocess.check_output([npm_cmd, 'list', '-g', '@marp-team/marp-cli'], text=True)
-                    print("✓ Marp CLI is installed globally")
+                    print("[OK] Marp CLI is installed globally")
                     print(f"  Installation details:\n{marp_version}")
                 except subprocess.CalledProcessError:
-                    print("⚠ Marp CLI is not installed globally")
+                    print("[WARN] Marp CLI is not installed globally")
                     print("\nPlease install Marp CLI:")
                     print(f"1. Run: {npm_cmd} install -g @marp-team/marp-cli")
                     print("2. Restart your terminal after installation")
@@ -234,13 +234,13 @@ class ContentGenerator:
                 found = False
                 for location in marp_locations:
                     if os.path.exists(location):
-                        print(f"✓ Found Marp at: {location}")
+                        print(f"[OK] Found Marp at: {location}")
                         found = True
                     else:
-                        print(f"✗ Not found: {location}")
+                        print(f"[--] Not found: {location}")
 
                 if not found:
-                    print("\n⚠ Marp executable not found in common locations")
+                    print("\n[WARN] Marp executable not found in common locations")
                     print(f"  Try running: {npm_cmd} install -g @marp-team/marp-cli")
                     return False
 
@@ -255,18 +255,18 @@ class ContentGenerator:
 
                 for dir_path in npm_bin_dirs:
                     if dir_path in path_dirs:
-                        print(f"✓ npm bin directory in PATH: {dir_path}")
+                        print(f"[OK] npm bin directory in PATH: {dir_path}")
                     else:
-                        print(f"✗ npm bin directory not in PATH: {dir_path}")
+                        print(f"[--] npm bin directory not in PATH: {dir_path}")
                         print("  You may need to add this to your PATH")
 
                 # Try running marp directly
                 try:
                     marp_version = subprocess.check_output(['marp', '--version'], text=True)
-                    print(f"\n✓ Marp CLI is accessible: {marp_version.strip()}")
+                    print(f"\n[OK] Marp CLI is accessible: {marp_version.strip()}")
                     return True
                 except:
-                    print("\n⚠ Marp CLI is not accessible from PATH")
+                    print("\n[WARN] Marp CLI is not accessible from PATH")
                     print("  Try restarting your terminal or adding the npm bin directory to PATH")
                     return False
 
@@ -393,74 +393,185 @@ class ContentGenerator:
         pdf_patterns = ["<!-- PDF -->", "<!--PDF-->", "<!-- pdf -->", "<!--pdf-->"]
         return any(pattern in slide_content for pattern in pdf_patterns)
 
-    def preprocess_math_blocks(self, content):
+    @staticmethod
+    def split_filtered_content_into_slide_blocks(filtered_content):
         """
-        Ensure block math ($$...$$) is always at the root level in Markdown output, not inside HTML tags.
-        This helps Marp/Markdown/MathJax render AI/ML equations (matrices, vectors, sums, integrals, etc.) correctly.
-        After rendering, the expressions are wrapped in p tags for consistent styling.
+        Split SLIDES-filtered markdown into one block per slide.
 
-        Marp does not parse $$...$$ inside raw HTML <p>...</p>; it is left as literal text. Unwrap to <div>.
-        Inline $...$ inside <p> is also skipped by the Markdown parser in HTML context — avoid or use <div> blocks.
+        Slide boundaries are lines that look like Marp headings: '# ' or '## ' at the
+        start of the line (after stripping leading whitespace only for the heading test).
+
+        Lines that look like headings inside fenced code blocks (``` ... ```) are not
+        boundaries, so examples containing '# ' or '## ' do not start a new slide.
+        """
+        slide_blocks = []
+        current_block = []
+        in_fence = False
+        for line in filtered_content.split('\n'):
+            stripped = line.strip()
+            is_slide_boundary = not in_fence and bool(
+                re.match(r'^#{1,2} ', stripped)
+            )
+            if is_slide_boundary and current_block:
+                slide_blocks.append('\n'.join(current_block))
+                current_block = []
+            current_block.append(line)
+            if stripped.startswith('```'):
+                in_fence = not in_fence
+        if current_block:
+            slide_blocks.append('\n'.join(current_block))
+        return slide_blocks
+
+    @staticmethod
+    def _inner_looks_like_tex_math(inner: str) -> bool:
+        """Heuristic: TeX math vs currency like $5 (no closing $)."""
+        if "$$" in inner:
+            return True
+        return bool(re.search(r"\$\$|\$[^\$\s\d]", inner))
+
+    def unwrap_html_paragraphs_for_marp_math(self, content):
+        """
+        Marp does not run MathJax on text inside raw HTML <p>...</p>. For slide sources,
+        rewrite those tags into plain markdown paragraphs when the inner HTML looks like
+        it contains TeX ($...$ or $$...$$). Authors can then write math inside <p> naturally.
+
+        Fenced ``` blocks are left unchanged. Only used on the slide (Marp) pipeline.
         """
         import re
 
-        # Unwrap block math mistakenly wrapped in <p> (Marp/KaTeX will not process it there)
+        fence_re = re.compile(r"(?ms)^\s*```[^\n]*\n.*?^\s*```\s*$")
+        placeholders = []
+
+        def extract_fences(text):
+            parts = []
+            pos = 0
+            for m in fence_re.finditer(text):
+                parts.append(text[pos:m.start()])
+                i = len(placeholders)
+                placeholders.append(m.group(0))
+                parts.append(f"<<UNWRAPPFENCE{i}>>")
+                pos = m.end()
+            parts.append(text[pos:])
+            return "".join(parts)
+
+        text = extract_fences(content)
+        p_tag = re.compile(r"<p\b[^>]*>(.*?)</p>", re.DOTALL | re.IGNORECASE)
+
+        def repl(m):
+            inner = m.group(1)
+            if "<p" in inner.lower():
+                return m.group(0)
+            if not self._inner_looks_like_tex_math(inner):
+                return m.group(0)
+            return f"\n\n{inner.strip()}\n\n"
+
+        text = p_tag.sub(repl, text)
+        for i in range(len(placeholders) - 1, -1, -1):
+            text = text.replace(f"<<UNWRAPPFENCE{i}>>", placeholders[i])
+        return text
+
+    def dedent_indented_html_tag_lines_for_marp(self, content):
+        """
+        CommonMark treats a line indented with 4+ spaces as an indented code block. Slide
+        snippets often align HTML (`<br>`, `<ul>`, `<div>`, …) under column divs, so after a
+        markdown math paragraph (column 0) those lines look like code and render as a gray
+        <pre> block. Strip leading whitespace only on lines that are clearly HTML tags so
+        layout alignment in the source does not break Marp.
+
+        Fenced ``` blocks are unchanged. Slide (Marp) pipeline only.
+        """
+        import re
+
+        fence_re = re.compile(r"(?ms)^\s*```[^\n]*\n.*?^\s*```\s*$")
+        placeholders = []
+
+        def extract_fences(text):
+            parts = []
+            pos = 0
+            for m in fence_re.finditer(text):
+                parts.append(text[pos:m.start()])
+                i = len(placeholders)
+                placeholders.append(m.group(0))
+                parts.append(f"<<DEDENTFENCE{i}>>")
+                pos = m.end()
+            parts.append(text[pos:])
+            return "".join(parts)
+
+        text = extract_fences(content)
+        out_lines = []
+        for line in text.split("\n"):
+            stripped = line.lstrip()
+            indent = len(line) - len(stripped)
+            if indent >= 4 and stripped.startswith("<"):
+                out_lines.append(stripped)
+            else:
+                out_lines.append(line)
+        text = "\n".join(out_lines)
+        for i in range(len(placeholders) - 1, -1, -1):
+            text = text.replace(f"<<DEDENTFENCE{i}>>", placeholders[i])
+        return text
+
+    def preprocess_math_blocks(self, content):
+        """
+        Prepare markdown for Marp math ($...$, $$...$$) and optional \\(...\\) (converted to $...$).
+
+        Fenced code blocks (``` ... ```) are left untouched so $ and $$ inside JSON/Python/etc. are not
+        treated as math.
+
+        Marp often leaves $$...$$ as literal text inside raw HTML <p>...</p>; unwrap to <div>.
+        """
+        import re
+
+        # --- Isolate fenced code so $ / $$ inside listings are never math ---
+        fence_re = re.compile(r"(?ms)^\s*```[^\n]*\n.*?^\s*```\s*$")
+        fence_placeholders = []
+
+        def extract_fences(text):
+            out = []
+            pos = 0
+            for m in fence_re.finditer(text):
+                out.append(text[pos:m.start()])
+                i = len(fence_placeholders)
+                fence_placeholders.append(m.group(0))
+                out.append(f"<<MATHFENCE{i}>>")
+                pos = m.end()
+            out.append(text[pos:])
+            return "".join(out)
+
+        content = extract_fences(content)
+
+        # Block math only inside <p> (Marp will not process it there) — allow attributes on <p>
         content = re.sub(
-            r'<p>\s*(\$\$.*?\$\$)\s*</p>',
-            r'<div>\1</div>',
+            r"<p\b[^>]*>\s*(\$\$.*?\$\$)\s*</p>",
+            r"<div>\1</div>",
             content,
             flags=re.DOTALL,
         )
 
-        # First handle block math
-        block_math_pattern = re.compile(r'(\${2}.*?\${2})', re.DOTALL)
+        block_math_pattern = re.compile(r"(\${2}.*?\${2})", re.DOTALL)
         math_blocks = []
+
         def math_replacer(match):
             idx = len(math_blocks)
             math_blocks.append(match.group(1))
-            return f'__MATH_BLOCK_{idx}__'
+            return f"__MATH_BLOCK_{idx}__"
 
-        # Replace all block math with placeholders
-        content_with_placeholders = block_math_pattern.sub(math_replacer, content)
+        content = block_math_pattern.sub(math_replacer, content)
 
-        # Now handle inline math - look for \(...\) pattern
-        inline_math_pattern = re.compile(r'\\\((.*?)\\\)')
-        def inline_math_replacer(match):
-            math_expr = match.group(1)
-            # Only wrap in p tags if not already inside a p tag
-            if not re.search(r'<p[^>]*>.*?\\\(' + re.escape(math_expr) + r'\\\).*?</p>', content_with_placeholders):
-                return f'${math_expr}$'
-            return f'${math_expr}$'
+        # \( ... \) -> $...$ (Pandoc-style; common in authored LaTeX)
+        content = re.sub(r"\\\((.*?)\\\)", r"$\1$", content)
 
-        # Replace inline math with wrapped versions
-        content_with_placeholders = inline_math_pattern.sub(inline_math_replacer, content_with_placeholders)
+        content = re.sub(r"__MATH_BLOCK_\d+__", lambda m: f"\n{m.group(0)}\n", content)
+        content = re.sub(r"\n{3,}", "\n\n", content)
 
-        # Move block math placeholders to root level
-        def move_placeholder_to_root(match):
-            return f'\n{match.group(0)}\n'
-        content_with_placeholders = re.sub(r'__MATH_BLOCK_\d+__', move_placeholder_to_root, content_with_placeholders)
-
-        # Remove extra blank lines
-        content_with_placeholders = re.sub(r'\n{3,}', '\n\n', content_with_placeholders)
-
-        # Replace placeholders with actual math blocks
         for idx, math_block in enumerate(math_blocks):
-            content_with_placeholders = content_with_placeholders.replace(f'__MATH_BLOCK_{idx}__', math_block)
+            content = content.replace(f"__MATH_BLOCK_{idx}__", math_block)
 
-        # After all math is processed, wrap rendered math expressions in p tags
-        # This will happen after Marp/MathJax has rendered the expressions
-        content_with_placeholders = re.sub(
-            r'(<span class="math inline">.*?</span>)',
-            r'<p>\1</p>',
-            content_with_placeholders
-        )
-        content_with_placeholders = re.sub(
-            r'(<span class="math display">.*?</span>)',
-            r'<p>\1</p>',
-            content_with_placeholders
-        )
+        # Restore fences (high indices first so tokens like <<MATHFENCE10>> are not corrupted)
+        for i in range(len(fence_placeholders) - 1, -1, -1):
+            content = content.replace(f"<<MATHFENCE{i}>>", fence_placeholders[i])
 
-        return content_with_placeholders
+        return content
 
     def process_lecture(self, lecture_file):
         """Process a lecture file to generate all formats."""
@@ -578,8 +689,9 @@ class ContentGenerator:
         else:
             idx = next(i for i, t in enumerate(talks_list) if t.get('talk_id') == talk_id)
             talks_list[idx] = ordered
+        # Every talk run rewrites _data/talks.yml: merge this talk's entry and refresh slides URL
         self.update_talks_yml(talks_list)
-        print(f"✓ Updated _data/talks.yml for {talk_id}")
+        print(f"[OK] Updated _data/talks.yml for {talk_id}")
 
         # Optional: generate talk page in content/_talks/
         if metadata.get('output_page'):
@@ -621,7 +733,7 @@ class ContentGenerator:
             output_file = self.talks_dir / f"{page_slug}.md"
             with open(output_file, 'w', encoding='utf-8') as f:
                 f.write(page_content)
-            print(f"✓ Wrote talk page {output_file}")
+            print(f"[OK] Wrote talk page {output_file}")
 
     def clean_code_blocks(self, content):
         """Clean code blocks to remove markdown/HTML artifacts."""
@@ -887,21 +999,13 @@ html[data-theme='dark'] code::before {
 
         # Filter content for slides
         filtered_content = self.filter_content(processed_content, 'SLIDES')
-        # Preprocess math blocks for correct rendering
+        # Let authors use <p>...</p> with $...$; Marp ignores math inside raw HTML unless we unwrap
+        filtered_content = self.unwrap_html_paragraphs_for_marp_math(filtered_content)
+        # Aligning HTML under columns uses 4+ space indent; CommonMark would treat that as a code block
+        filtered_content = self.dedent_indented_html_tag_lines_for_marp(filtered_content)
         filtered_content = self.preprocess_math_blocks(filtered_content)
 
-        # Split into slide blocks using # and ## as slide boundaries
-        slide_blocks = []
-        current_block = []
-        lines = filtered_content.split('\n')
-        for line in lines:
-            if re.match(r'^#{1,2} ', line.strip()):
-                if current_block:
-                    slide_blocks.append('\n'.join(current_block))
-                    current_block = []
-            current_block.append(line)
-        if current_block:
-            slide_blocks.append('\n'.join(current_block))
+        slide_blocks = self.split_filtered_content_into_slide_blocks(filtered_content)
 
         slides = []
         pdf_slides = []  # Store slides marked for PDF separately
@@ -980,6 +1084,7 @@ html[data-theme='dark'] code::before {
         marp_template = f"""---
 marp: true
 theme: default
+math: mathjax
 paginate: true
 header: "{slide_header}"
 footer: ""
@@ -1137,6 +1242,12 @@ style: |
     padding: 0.2em;
     font-size: 0.9em;
     line-height: 1.2;
+  }}
+
+  /* MathJax (Marp math: mathjax) — match slide text colour */
+  section .MathJax,
+  section mjx-container {{
+    color: var(--text-color) !important;
   }}
 
   /* Scale down content if it would overflow */
@@ -1964,9 +2075,9 @@ style: |
 
         # Verify the link
         if self.verify_colab_link(colab_link):
-            print(f"✓ Colab notebook link is accessible: {colab_link}")
+            print(f"[OK] Colab notebook link is accessible: {colab_link}")
         else:
-            print(f"⚠ Colab notebook link may not be accessible: {colab_link}")
+            print(f"[WARN] Colab notebook link may not be accessible: {colab_link}")
             print("  Please ensure:")
             print("  1. The notebook is committed to the repository")
             print("  2. The changes are pushed to the gh-pages branch")

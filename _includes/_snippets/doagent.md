@@ -315,6 +315,7 @@ from doagent.analysis import (
     accountability, interpretability,
 )
 
+# DOAgent Analysis Module
 provenance.render_chain_tree("last", run_id,
     output_base="output", write_output=True)
 traceability.build_trace_graph(run_id,
@@ -404,7 +405,9 @@ def heuristic_goal_seek(params):
 ```
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Policies in MAS</b> are functions that map an agent's observations to actions: <i>&#x03C0;</i>(<i>o</i>) &#x2192; <i>a</i></p>
+                <p><b>Policies in MAS</b> are functions that map an agent's observations to actions:</p>
+                <br>
+                <p>$\pi(o) \to a$</p>
                 <br>
                 <p>Agents have always had policies: rules, heuristics, RL, symbolic planners. A policy receives a observations and returns an action</p>
                 <br>
@@ -422,8 +425,12 @@ def heuristic_goal_seek(params):
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Policy Factorisation</b> decomposes the agent's policy into reasoning and action <a href="https://arxiv.org/abs/2601.12538" target="_blank" rel="noopener noreferrer">(Wei et al., 2026)</a>.</p>
                 <br>
-                <p style="text-align: center; margin: 0.25em 0;"><img class="external-svg" src="{{ site.url }}/assets/media/diagrams/policy-factorisation-wei-2026.svg" alt="Policy factorisation: pi_theta(z_t,a_t|h_t) equals pi_reason times pi_exec with Internal Thought and External Action labels" style="max-width: 100%; height: auto; max-height: 5.5rem;"></p>
-                <p><i>h</i><sub>t</sub>: history at step <i>t</i>; <i>z</i><sub>t</sub> internal reasoning; <i>a</i><sub>t</sub> external action.</p>
+
+$$
+\pi_{\theta}(z_t, a_t \mid h_t) = \pi_{\text{reason}}(z_t \mid h_t) \cdot \pi_{\text{exec}}(a_t \mid h_t, z_t)
+$$
+               <br>
+                <p style="text-align: center; margin: 0.35em 0;">$h_t$: history at step $t$; $z_t$: internal reasoning; $a_t$: external action.</p>
                 <br>
                 <ul>
                     <li><i>z</i> (reasoning): chain-of-thought, tool-use traces, confidence scores</li>

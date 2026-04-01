@@ -17,7 +17,7 @@ email: chc79@cam.ac.uk
 #department: Department of Computer Science and Technology
 institution: University of Cambridge
 output_page: false
-visible: false
+visible: true
 ---
 
 <!-- SLIDES: -->
