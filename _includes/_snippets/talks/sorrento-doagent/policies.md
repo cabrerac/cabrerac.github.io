@@ -9,7 +9,6 @@
                 <br>
 
 ```python
-# A heuristic policy — always acts, no reasoning
 def heuristic_goal_seek(params):
     def decide(request):
         obs = request["inputs"]["observation"]
@@ -44,7 +43,6 @@ def heuristic_goal_seek(params):
                 <br>
 
 ```python
-# An LLM policy — same API, richer output
 def llm_decide_factory(params):
     def decide(request):
         llm = request["tools"]["llm"]

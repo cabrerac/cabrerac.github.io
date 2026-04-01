@@ -1,7 +1,7 @@
 ---
 talk_id: sorrento-doagent
-title: "DOAgent: A Data-Oriented Library for Observable Multi-Agent Systems"
-description: Multi-agent systems (MAS) are AI-based software systems. When agents make opaque decisions, the intellectual debt — deploying systems we do not fully understand — compounds across every agent and interaction. DOAgent is a data-oriented library that addresses this by making agent behaviour observable, traceable, and interpretable through a shared data model. I will present the library, demonstrate how it supports diverse policies from heuristics to LLMs, and show how LLMs enable policy factorisation — separating reasoning from action — leading naturally to an explicit "I don't know" function where agents can abstain and explain why.
+title: "DOAgent: Towards Observable Multi-Agent Systems"
+description: Intellectual debt emerges when we deploy ML-based systems we do not fully understand and control. Multi-agent systems (MAS) can generate intellectual debt when agents make opaque decisions. DOAgent is a data-oriented library that addresses this by making agent behaviour observable and traceable through a shared data model. This talk introduces the library, demonstrates how it supports diverse policies from heuristics to LLMs, and shows how we can build MAS that are observable and interpretable by design.
 conference: "The Sorrento Meeting"
 venue: "The Sorrento Meeting"
 location: "Sorrento, Italy"
@@ -10,24 +10,23 @@ month: "April"
 date: "2026-04-01"
 type: "conference_talk"
 status: "upcoming"
+show_slide_counter: false
 author: Christian Cabrera Jojoa
 email: chc79@cam.ac.uk
-position: Assistant Research Professor
-department: Department of Computer Science and Technology
+#position: Assistant Research Professor
+#department: Department of Computer Science and Technology
 institution: University of Cambridge
 output_page: false
 visible: false
 ---
 
-{% include _snippets/talks/sorrento-doagent/outline.md %}
-
 <!-- SLIDES: -->
 
-# AI-based Software Systems
+# AI-based Systems
 
 <!-- end SLIDES: -->
 
-{% include _snippets/talks/icms-intellectual-debt/ai-systems.md %}
+{% include _snippets/talks/sorrento-doagent/ai-systems.md %}
 
 <!-- SLIDES: -->
 
@@ -35,7 +34,7 @@ visible: false
 
 <!-- end SLIDES: -->
 
-{% include _snippets/talks/icms-intellectual-debt/ai-service.md %}
+{% include _snippets/talks/sorrento-doagent/ai-service.md %}
 
 <!-- SLIDES: -->
 
@@ -47,7 +46,7 @@ visible: false
 
 <!-- SLIDES: -->
 
-# Multi-Agent Systems Are AI Systems
+# Multi-Agent Systems
 
 <!-- end SLIDES: -->
 
@@ -55,27 +54,11 @@ visible: false
 
 <!-- SLIDES: -->
 
-# DOAgent Library
+# DOAgent
 
 <!-- end SLIDES: -->
 
 {% include _snippets/doagent.md %}
-
-<!-- SLIDES: -->
-
-# Policies: From Heuristics to LLMs
-
-<!-- end SLIDES: -->
-
-{% include _snippets/talks/sorrento-doagent/policies.md %}
-
-<!-- SLIDES: -->
-
-# Policy Factorisation & the "I Don't Know" Function
-
-<!-- end SLIDES: -->
-
-{% include _snippets/talks/sorrento-doagent/factorisation-idk.md %}
 
 {% include _snippets/talks/sorrento-doagent/conclusions.md %}
 

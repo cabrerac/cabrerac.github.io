@@ -79,7 +79,7 @@
   visible: false
   slides: https://cabrerac.github.io/assets/slides/2026/internal-interfaces.html
 - talk_id: sorrento-doagent
-  title: 'DOAgent: A Data-Oriented Library for Observable Multi-Agent Systems'
+  title: 'DOAgent: Towards Observable Multi-Agent Systems'
   conference: The Sorrento Meeting
   venue: The Sorrento Meeting
   institution: University of Cambridge

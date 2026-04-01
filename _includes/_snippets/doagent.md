@@ -1,6 +1,6 @@
 <!-- SLIDES: -->
 
-## DOAgent Library
+## DOAgent
 
 <div class="rows" style="height: 100%">
    <div class="row" style="height: 100%">
@@ -16,7 +16,7 @@
     </div>
 </div>
 
-## DOAgent Library
+## DOAgent
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -52,7 +52,7 @@ session = Session.from_config({
     </div>
 </div>
 
-## DOAgent Library
+## DOAgent
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -100,7 +100,7 @@ session = Session.from_config({
     </div>
 </div>
 
-## DOAgent Library
+## DOAgent
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -121,7 +121,6 @@ session = Session.from_config({
         }
     },
 })
-# Each agent sees only listed peers' records
 records = session.visible_records("agent_0",
     kind="agent_update")
 ```
@@ -139,7 +138,7 @@ records = session.visible_records("agent_0",
     </div>
 </div>
 
-## DOAgent Library
+## DOAgent
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -148,15 +147,12 @@ records = session.visible_records("agent_0",
                 <br>
 
 ```python
-# Participation registry: agents join and leave
 session.register_participant("agent_0",
     capabilities=["map_discovery"])
 
-# Energy model: deregister when depleted
 if energy <= 0:
     session.deregister_participant("agent_0")
 
-# Query who is present
 participants = session.participation_registry
 ```
 </div>
@@ -173,23 +169,20 @@ participants = session.participation_registry
     </div>
 </div>
 
-## DOAgent Library
+## DOAgent
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 75%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                <!-- TODO: Update architecture diagram with choice/reasoning/factorisation -->
                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/doagent-architecture.svg" alt="DOAgent Architecture" style="height: 1000px">
-            </div>
-            <div class="column vertical-middle text-left" style="width: 25%">
-               <img class="external-svg" src="{{ site.url }}/assets/media/images/doagent-qr.png" alt="DOAgent QR Code" style="height: 400px">
             </div>
         </div>
     </div>
 </div>
 
-## DOAgent Library
+## DOAgent
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -211,7 +204,7 @@ participants = session.participation_registry
     </div>
 </div>
 
-## DOAgent Library
+## DOAgent
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -220,6 +213,7 @@ participants = session.participation_registry
                 <br>
 
 ```python
+
 from doagent import Session, make_env
 
 session = Session.from_config(config)
@@ -227,8 +221,8 @@ env = make_env(create_push_env, max_cycles=100)
 wrapped = session.wrap_env(env, env_actor="push_env")
 agents = session.create_agents(configs,
     goal="push_towards_landmark")
-
 observations = wrapped.reset(seed=42)
+
 for round_id in range(1, 101):
     actions = {
         aid: agents[aid].decide(
@@ -246,14 +240,13 @@ for round_id in range(1, 101):
                     <li><code>session.wrap_env</code> records outcomes and traces automatically</li>
                     <li><code>session.create_agents</code> binds policies from config</li>
                     <li><code>agent.decide()</code> records the agent_update, wraps tools, merges reasoning</li>
-                    <li>User code stays minimal — the library handles recording</li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
 
-## DOAgent Library
+## DOAgent
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -274,7 +267,7 @@ for round_id in range(1, 101):
     </div>
 </div>
 
-## DOAgent Library
+## DOAgent
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -307,19 +300,7 @@ for round_id in range(1, 101):
     </div>
 </div>
 
-## DOAgent Library
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/trace_graph.png" alt="Trace graph" style="max-width: 100%; height: auto;">
-            </div>
-        </div>
-    </div>
-</div>
-
-## DOAgent Library
+## DOAgent
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -347,8 +328,8 @@ interpretability.build_atomic_explanations(
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Analysis from records alone</b></p>
                 <ul>
-                    <li><b>Provenance:</b> chain of records leading to an outcome</li>
                     <li><b>Traceability:</b> cause-effect graph across the run</li>
+                    <li><b>Provenance:</b> chain of records leading to an outcome</li>
                     <li><b>Accountability:</b> causal attribution — which agent caused which state transitions</li>
                     <li><b>Interpretability:</b> atomic explanation units from traces and decisions</li>
                 </ul>
@@ -359,7 +340,31 @@ interpretability.build_atomic_explanations(
     </div>
 </div>
 
-## DOAgent Library
+## DOAgent
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/trace_graph.png" alt="Trace graph" style="max-width: 100%; height: auto;">
+            </div>
+        </div>
+    </div>
+</div>
+
+## DOAgent
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/provenance_tree.png" alt="Trace graph" style="max-width: 100%; height: auto;">
+            </div>
+        </div>
+    </div>
+</div>
+
+## DOAgent
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 80%">
@@ -373,6 +378,132 @@ interpretability.build_atomic_explanations(
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Causal attribution results:</b> Left: per-agent cumulative discovery over rounds. Centre: total cells discovered per agent. Right: decision effectiveness (productive vs redundant transitions). All derived from shared records.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## DOAgent
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <br>
+
+```python
+def heuristic_goal_seek(params):
+    def decide(request):
+        obs = request["inputs"]["observation"]
+        action = compute_best_move(obs)
+        return {
+            "choice": {"status": "act", "action": action}
+        }
+    return decide
+```
+</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>A <b>policy</b> is a function that maps an agent's observations to actions: <b>&pi;(o) &rarr; a</b>.</p>
+                <br>
+                <p>Agents have always had policies: rules, heuristics, RL, symbolic planners/ A policy receives observations and returns an action.</p>
+                <br>
+                <p>DOAgent is <b>model-agnostic</b>: the library coordinates decisions, not how they are made.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## DOAgent
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Policy factorisation</b> allows us to decompose the policy into reasoning and action</p>
+                <br>
+                <p>Standard policy: <b>&pi;(o) &rarr; a</b></p>
+                <p>Factorised policy: <b>&pi;(o) &rarr; (z, a)</b></p>
+                <br>
+                <p>LLM-based policies naturally produce <b>z</b> in natural language <a href="https://arxiv.org/abs/2601.12538" target="_blank" rel="noopener noreferrer">(Wei et al., 2026)</a>.</p>
+                <ul>
+                    <li><b>z</b> (reasoning): chain-of-thought, tool-use traces, confidence scores</li>
+                    <li><b>a</b> (action): the environment-specific primitive</li>
+                </ul>
+                <br>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <br>
+
+```json
+{
+  "actor": "agent_3",
+  "kind": "agent_update",
+  "payload": {
+    "decision": {
+      "response": {
+        "choice": {"status": "act", "action": 1},
+        "reasoning": {
+          "confidence": 0.8,
+          "source": "llm",
+          "text": "Moving left is the least
+            explored direction...",
+          "tool_steps": [{"kind": "tool",
+            "name": "llm", "elapsed_s": 1.24}]
+        }
+      },
+      "explanation": "Moving left — least explored."
+    }
+  }
+}
+```
+
+<p style="text-align: center;">LLM record includes action + reasoning (<b>z</b>).</p>
+</div>
+        </div>
+    </div>
+</div>
+
+## DOAgent
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <br>
+
+```json
+{
+  "actor": "agent_3",
+  "kind": "agent_update",
+  "payload": {
+    "decision": {
+      "response": {
+        "choice": {
+          "status": "abstain",
+          "action": null
+        },
+        "reasoning": {
+          "confidence": 0.0,
+          "source": "llm",
+          "text": "All surrounding cells explored.
+            Cannot determine best move."
+        }
+      },
+      "explanation": "Abstained: low confidence."
+    }
+  }
+}
+```
+</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>The <b>Consistent Reasoning Paradox (CRP)</b>: a trustworthy intelligent system cannot simultaneously maintain consistent reasoning and always produce an answer. The resolution is the ability to say <i>"I don't know"</i> <a href="https://arxiv.org/abs/2408.02357" target="_blank" rel="noopener noreferrer">(Bastounis et al., 2024)</a>.</p>
+                <br>
+                <ul>
+                    <li>"I don't know" is not a special feature — it is a <b>natural product of factorised reasoning</b></li>
+                    <li>The LLM reasons, concludes low confidence
+                    <li>Factorisation makes abstention <b>observable</b>
+                    <li>The reasoning trace explains <b>why</b> the agent abstained</li>
+                </ul>
             </div>
         </div>
     </div>

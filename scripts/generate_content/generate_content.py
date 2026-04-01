@@ -953,6 +953,18 @@ html[data-theme='dark'] code::before {
         slide_header = (f"{metadata.get('venue', '')} - {metadata.get('title', '')}"
                         if metadata.get('venue') else
                         f"Session {metadata.get('session', '1')} - {metadata.get('title', '')}")
+        show_slide_counter = metadata.get('show_slide_counter', True)
+        counter_css = """section::before {
+    font-size: 0.6em;
+    content: attr(data-marpit-pagination) " / " attr(data-marpit-pagination-total);
+    position: absolute;
+    text-align: right;
+    bottom: 1em;
+    right: 1em;
+    color: var(--secondary-color);
+  }""" if show_slide_counter else """section::before {
+    display: none !important;
+  }"""
         # Template for slides (removing duplicated lead sections)
         marp_template = f"""---
 marp: true
@@ -1401,15 +1413,7 @@ style: |
     color: #FFFFFF !important;
   }}
 
-  section::before {{
-    font-size: 0.6em;
-    content: attr(data-marpit-pagination) " / " attr(data-marpit-pagination-total);
-    position: absolute;
-    text-align: right;
-    bottom: 1em;
-    right: 1em;
-    color: var(--secondary-color);
-  }}
+  {counter_css}
 
   section::after {{
     display: none !important;

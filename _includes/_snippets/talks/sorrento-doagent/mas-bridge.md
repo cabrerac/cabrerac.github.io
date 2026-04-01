@@ -1,6 +1,6 @@
 <!-- SLIDES: -->
 
-## Multi-Agent Systems Are AI Systems
+## Multi-Agent Systems
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -12,13 +12,13 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Multi-agent systems (MAS)</b> have been studied for decades: BDI architectures, FIPA protocols, POMDP-based coordination, distributed problem solving.</p>
                 <br>
-                <p>MAS are <b>AI-based software systems</b>. Agents make decisions using learned or programmed policies. When those decisions are opaque, the same intellectual debt applies.</p>
+                <p>MAS are <b>AI-based systems</b>. Agents make decisions using learned or programmed policies. When those decisions are opaque, the same intellectual debt applies.</p>
             </div>
         </div>
     </div>
 </div>
 
-## Multi-Agent Systems Are AI Systems
+## Multi-Agent Systems
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
