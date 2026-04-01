@@ -398,8 +398,19 @@ class ContentGenerator:
         Ensure block math ($$...$$) is always at the root level in Markdown output, not inside HTML tags.
         This helps Marp/Markdown/MathJax render AI/ML equations (matrices, vectors, sums, integrals, etc.) correctly.
         After rendering, the expressions are wrapped in p tags for consistent styling.
+
+        Marp does not parse $$...$$ inside raw HTML <p>...</p>; it is left as literal text. Unwrap to <div>.
+        Inline $...$ inside <p> is also skipped by the Markdown parser in HTML context — avoid or use <div> blocks.
         """
         import re
+
+        # Unwrap block math mistakenly wrapped in <p> (Marp/KaTeX will not process it there)
+        content = re.sub(
+            r'<p>\s*(\$\$.*?\$\$)\s*</p>',
+            r'<div>\1</div>',
+            content,
+            flags=re.DOTALL,
+        )
 
         # First handle block math
         block_math_pattern = re.compile(r'(\${2}.*?\${2})', re.DOTALL)

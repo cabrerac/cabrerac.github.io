@@ -404,7 +404,7 @@ def heuristic_goal_seek(params):
 ```
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Policies in MAS</b> are functions that map an agent's observations to actions: <b>&pi;(o) &rarr; a</b></p>
+                <p><b>Policies in MAS</b> are functions that map an agent's observations to actions: <i>&#x03C0;</i>(<i>o</i>) &#x2192; <i>a</i></p>
                 <br>
                 <p>Agents have always had policies: rules, heuristics, RL, symbolic planners. A policy receives a observations and returns an action</p>
                 <br>
@@ -420,17 +420,17 @@ def heuristic_goal_seek(params):
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Policy Factorisation</b> decomposes the agent's policy into reasoning and action <a href="https://arxiv.org/abs/2601.12538" target="_blank" rel="noopener noreferrer">(Wei et al., 2026)</a>..</p>
+                <p><b>Policy Factorisation</b> decomposes the agent's policy into reasoning and action <a href="https://arxiv.org/abs/2601.12538" target="_blank" rel="noopener noreferrer">(Wei et al., 2026)</a>.</p>
                 <br>
-                <p>Standard policy: <b>&pi;(o) &rarr; a</b></p>
-                <p>Factorised policy: <b>&pi;(o) &rarr; (z, a)</b></p>
+                <p style="text-align: center; margin: 0.25em 0;"><img class="external-svg" src="{{ site.url }}/assets/media/diagrams/policy-factorisation-wei-2026.svg" alt="Policy factorisation: pi_theta(z_t,a_t|h_t) equals pi_reason times pi_exec with Internal Thought and External Action labels" style="max-width: 100%; height: auto; max-height: 5.5rem;"></p>
+                <p><i>h</i><sub>t</sub>: history at step <i>t</i>; <i>z</i><sub>t</sub> internal reasoning; <i>a</i><sub>t</sub> external action.</p>
                 <br>
                 <ul>
-                    <li><b>z</b> (reasoning): chain-of-thought, tool-use traces, confidence scores</li>
-                    <li><b>a</b> (action): the environment-specific primitive</li>
+                    <li><i>z</i> (reasoning): chain-of-thought, tool-use traces, confidence scores</li>
+                    <li><i>a</i> (action): the environment-specific primitive</li>
                 </ul>
                 <br>
-                <p>LLM-based policies produce <b>z</b> in natural language. <b>Is that a particular feature of Agentic AI?</b></p>
+                <p>LLM-based policies produce <i>z</i> in natural language. <b>Is that a particular feature of Agentic AI?</b></p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <br>
@@ -458,7 +458,7 @@ def heuristic_goal_seek(params):
 }
 ```
 
-<p style="text-align: center;"><b>LLM record:</b> action + observable reasoning (<b>z</b>).</p>
+<p style="text-align: center;"><b>LLM record:</b> action + observable reasoning (<i>z</i>).</p>
 </div>
         </div>
     </div>
@@ -504,7 +504,7 @@ def heuristic_goal_seek(params):
                 <ul>
                     <li>"I don't know" is not a special feature — it is a <b>natural product of factorised reasoning</b></li>
                     <li>The LLM reasons, concludes low confidence then abstains</li>
-                    <li>Factorisation makes abstention <b>observable</b>
+                    <li>Factorisation makes abstention <b>observable</b></li>
                     <li>The reasoning trace explains <b>why</b> the agent abstained</li>
                 </ul>
             </div>
