@@ -175,7 +175,6 @@ participants = session.participation_registry
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-               <!-- TODO: Update architecture diagram with choice/reasoning/factorisation -->
                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/doagent-architecture.svg" alt="DOAgent Architecture" style="height: 1000px">
             </div>
         </div>
@@ -305,6 +304,18 @@ for round_id in range(1, 101):
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/trace_graph.png" alt="Trace graph" style="max-width: 100%; height: auto;">
+            </div>
+        </div>
+    </div>
+</div>
+
+## DOAgent
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <br>
 
@@ -328,37 +339,13 @@ interpretability.build_atomic_explanations(
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Analysis from records alone</b></p>
                 <ul>
-                    <li><b>Traceability:</b> cause-effect graph across the run</li>
                     <li><b>Provenance:</b> chain of records leading to an outcome</li>
+                    <li><b>Traceability:</b> cause-effect graph across the run</li>
                     <li><b>Accountability:</b> causal attribution — which agent caused which state transitions</li>
                     <li><b>Interpretability:</b> atomic explanation units from traces and decisions</li>
                 </ul>
                 <br>
                 <p>All analysis uses <b>only shared records</b>. No access to policy or env internals. Same tools for any policy type.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-## DOAgent
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/trace_graph.png" alt="Trace graph" style="max-width: 100%; height: auto;">
-            </div>
-        </div>
-    </div>
-</div>
-
-## DOAgent
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/provenance_tree.png" alt="Trace graph" style="max-width: 100%; height: auto;">
             </div>
         </div>
     </div>
@@ -403,9 +390,15 @@ def heuristic_goal_seek(params):
 ```
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Policies in MAS</b></p>
                 <p>A <b>policy</b> is a function that maps an agent's observations to actions: <b>&pi;(o) &rarr; a</b>.</p>
                 <br>
-                <p>Agents have always had policies: rules, heuristics, RL, symbolic planners/ A policy receives observations and returns an action.</p>
+                <ul>
+                    <li>Agents have always had policies: rules, heuristics, RL, symbolic planners</li>
+                    <li>A policy receives a <code>request</code> and returns a <code>choice</code></li>
+                    <li><code>choice.status</code>: "act", "abstain", or "error"</li>
+                    <li><code>choice.action</code>: the environment-specific primitive</li>
+                </ul>
                 <br>
                 <p>DOAgent is <b>model-agnostic</b>: the library coordinates decisions, not how they are made.</p>
             </div>
@@ -419,18 +412,59 @@ def heuristic_goal_seek(params):
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Policy factorisation</b> allows us to decompose the policy into reasoning and action</p>
+                <p><b>Policy Factorisation</b></p>
                 <br>
                 <p>Standard policy: <b>&pi;(o) &rarr; a</b></p>
                 <p>Factorised policy: <b>&pi;(o) &rarr; (z, a)</b></p>
                 <br>
-                <p>LLM-based policies naturally produce <b>z</b> in natural language <a href="https://arxiv.org/abs/2601.12538" target="_blank" rel="noopener noreferrer">(Wei et al., 2026)</a>.</p>
                 <ul>
                     <li><b>z</b> (reasoning): chain-of-thought, tool-use traces, confidence scores</li>
                     <li><b>a</b> (action): the environment-specific primitive</li>
                 </ul>
                 <br>
+                <p>LLM-based policies naturally produce <b>z</b> — enabling factorisation that heuristic policies cannot <a href="https://arxiv.org/abs/2601.12538" target="_blank" rel="noopener noreferrer">(Wei et al., 2026)</a>.</p>
             </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>DOAgent captures the decomposition transparently:</b></p>
+                <br>
+                <p><b>1. Tool traces (automatic)</b></p>
+                <p>When agents have <code>tools</code>, the library wraps each callable and captures inputs, output, and timing.</p>
+                <br>
+                <p><b>2. Policy-provided reasoning</b></p>
+                <p>The policy may return its own <code>reasoning</code> (e.g. LLM chain-of-thought, native reasoning tokens).</p>
+                <br>
+                <p>The library <b>merges</b> both sources into a single <code>reasoning</code> field in the <code>agent_update</code> record. Both <b>z</b> and <b>a</b> are observable, queryable, and analysable.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## DOAgent
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <br>
+
+```json
+{
+  "actor": "agent_0",
+  "kind": "agent_update",
+  "payload": {
+    "decision": {
+      "response": {
+        "choice": {"status": "act", "action": 4}
+      },
+      "explanation": "Frontier policy: move toward
+        nearest unknown cells."
+    }
+  }
+}
+```
+
+<p style="text-align: center;"><b>Heuristic record</b><br>Simple choice, no reasoning.</p>
+</div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <br>
 
@@ -457,7 +491,7 @@ def heuristic_goal_seek(params):
 }
 ```
 
-<p style="text-align: center;">LLM record includes action + reasoning (<b>z</b>).</p>
+<p style="text-align: center;"><b>LLM record</b><br>Same choice + observable reasoning (<b>z</b>).</p>
 </div>
         </div>
     </div>
@@ -496,12 +530,14 @@ def heuristic_goal_seek(params):
 ```
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>The <b>Consistent Reasoning Paradox (CRP)</b>: a trustworthy intelligent system cannot simultaneously maintain consistent reasoning and always produce an answer. The resolution is the ability to say <i>"I don't know"</i> <a href="https://arxiv.org/abs/2408.02357" target="_blank" rel="noopener noreferrer">(Bastounis et al., 2024)</a>.</p>
+                <p><b>The "I Don't Know" Function</b></p>
+                <br>
+                <p>The <b>Consistent Reasoning Paradox (CRP)</b>: a trustworthy intelligent system cannot simultaneously maintain consistent reasoning and always produce an answer. The resolution is the ability to say <i>"I don't know"</i> — an optimal trust mechanism <a href="https://arxiv.org/abs/2408.02357" target="_blank" rel="noopener noreferrer">(Bastounis et al., 2024)</a>.</p>
                 <br>
                 <ul>
                     <li>"I don't know" is not a special feature — it is a <b>natural product of factorised reasoning</b></li>
-                    <li>The LLM reasons, concludes low confidence
-                    <li>Factorisation makes abstention <b>observable</b>
+                    <li>The LLM reasons, concludes low confidence &rarr; <code>status: "abstain"</code></li>
+                    <li>Factorisation makes abstention <b>observable</b>: without it, a null action is indistinguishable from a bug</li>
                     <li>The reasoning trace explains <b>why</b> the agent abstained</li>
                 </ul>
             </div>

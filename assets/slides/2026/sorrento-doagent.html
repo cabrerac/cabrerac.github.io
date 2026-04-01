@@ -32154,7 +32154,6 @@ html[data-theme='dark'] .slide-content ol li {
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-               
                <img class="external-svg" src="https://cabrerac.github.io/assets/media/diagrams/doagent-architecture.svg" alt="DOAgent Architecture" style="height: 1000px" />
             </div>
         </div>
@@ -37725,34 +37724,8 @@ html[data-theme='dark'] .slide-content ol li {
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <br />
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> doagent.analysis <span class="hljs-keyword">import</span> (
-    provenance, traceability,
-    accountability, interpretability,
-)
-
-provenance.render_chain_tree(<span class="hljs-string">&quot;last&quot;</span>, run_id,
-    output_base=<span class="hljs-string">&quot;output&quot;</span>, write_output=<span class="hljs-literal">True</span>)
-traceability.build_trace_graph(run_id,
-    output_base=<span class="hljs-string">&quot;output&quot;</span>, write_output=<span class="hljs-literal">True</span>)
-accountability.causal_attribution(run_id,
-    output_base=<span class="hljs-string">&quot;output&quot;</span>, write_output=<span class="hljs-literal">True</span>)
-interpretability.build_atomic_explanations(
-    <span class="hljs-string">&quot;last&quot;</span>, run_id, output_base=<span class="hljs-string">&quot;output&quot;</span>,
-    write_output=<span class="hljs-literal">True</span>)
-</code></pre>
-</div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Analysis from records alone</b></p>
-                <ul>
-                    <li><b>Traceability:</b> cause-effect graph across the run</li>
-                    <li><b>Provenance:</b> chain of records leading to an outcome</li>
-                    <li><b>Accountability:</b> causal attribution — which agent caused which state transitions</li>
-                    <li><b>Interpretability:</b> atomic explanation units from traces and decisions</li>
-                </ul>
-                <br />
-                <p>All analysis uses <b>only shared records</b>. No access to policy or env internals. Same tools for any policy type.</p>
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img class="external-svg" src="https://cabrerac.github.io/assets/media/images/trace_graph.png" alt="Trace graph" style="max-width: 100%; height: auto;" />
             </div>
         </div>
     </div>
@@ -38852,8 +38825,34 @@ html[data-theme='dark'] .slide-content ol li {
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <img class="external-svg" src="https://cabrerac.github.io/assets/media/images/trace_graph.png" alt="Trace graph" style="max-width: 100%; height: auto;" />
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <br />
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> doagent.analysis <span class="hljs-keyword">import</span> (
+    provenance, traceability,
+    accountability, interpretability,
+)
+
+provenance.render_chain_tree(<span class="hljs-string">&quot;last&quot;</span>, run_id,
+    output_base=<span class="hljs-string">&quot;output&quot;</span>, write_output=<span class="hljs-literal">True</span>)
+traceability.build_trace_graph(run_id,
+    output_base=<span class="hljs-string">&quot;output&quot;</span>, write_output=<span class="hljs-literal">True</span>)
+accountability.causal_attribution(run_id,
+    output_base=<span class="hljs-string">&quot;output&quot;</span>, write_output=<span class="hljs-literal">True</span>)
+interpretability.build_atomic_explanations(
+    <span class="hljs-string">&quot;last&quot;</span>, run_id, output_base=<span class="hljs-string">&quot;output&quot;</span>,
+    write_output=<span class="hljs-literal">True</span>)
+</code></pre>
+</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Analysis from records alone</b></p>
+                <ul>
+                    <li><b>Provenance:</b> chain of records leading to an outcome</li>
+                    <li><b>Traceability:</b> cause-effect graph across the run</li>
+                    <li><b>Accountability:</b> causal attribution — which agent caused which state transitions</li>
+                    <li><b>Interpretability:</b> atomic explanation units from traces and decisions</li>
+                </ul>
+                <br />
+                <p>All analysis uses <b>only shared records</b>. No access to policy or env internals. Same tools for any policy type.</p>
             </div>
         </div>
     </div>
@@ -39951,10 +39950,17 @@ html[data-theme='dark'] .slide-content ol li {
 <h2 id="doagent-12">DOAgent</h2>
 <div class="slide-content">
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 80%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <img class="external-svg" src="https://cabrerac.github.io/assets/media/images/provenance_tree.png" alt="Trace graph" style="max-width: 100%; height: auto;" />
+                <img class="external-svg" src="https://cabrerac.github.io/assets/media/images/causal_attribution.png" alt="Causal attribution results" style="max-width: 100%; height: auto;" />
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 20%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <p><b>Causal attribution results:</b> Left: per-agent cumulative discovery over rounds. Centre: total cells discovered per agent. Right: decision effectiveness (productive vs redundant transitions). All derived from shared records.</p>
             </div>
         </div>
     </div>
@@ -41052,17 +41058,32 @@ html[data-theme='dark'] .slide-content ol li {
 <h2 id="doagent-13">DOAgent</h2>
 <div class="slide-content">
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 80%">
+    <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <img class="external-svg" src="https://cabrerac.github.io/assets/media/images/causal_attribution.png" alt="Causal attribution results" style="max-width: 100%; height: auto;" />
-            </div>
-        </div>
-    </div>
-    <div class="row" style="height: 20%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Causal attribution results:</b> Left: per-agent cumulative discovery over rounds. Centre: total cells discovered per agent. Right: decision effectiveness (productive vs redundant transitions). All derived from shared records.</p>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <br />
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">heuristic_goal_seek</span>(<span class="hljs-params">params</span>):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">decide</span>(<span class="hljs-params">request</span>):
+        obs = request[<span class="hljs-string">&quot;inputs&quot;</span>][<span class="hljs-string">&quot;observation&quot;</span>]
+        action = compute_best_move(obs)
+        <span class="hljs-keyword">return</span> {
+            <span class="hljs-string">&quot;choice&quot;</span>: {<span class="hljs-string">&quot;status&quot;</span>: <span class="hljs-string">&quot;act&quot;</span>, <span class="hljs-string">&quot;action&quot;</span>: action}
+        }
+    <span class="hljs-keyword">return</span> decide
+</code></pre>
+</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Policies in MAS</b></p>
+                <p>A <b>policy</b> is a function that maps an agent's observations to actions: <b>&pi;(o) &rarr; a</b>.</p>
+                <br />
+                <ul>
+                    <li>Agents have always had policies: rules, heuristics, RL, symbolic planners</li>
+                    <li>A policy receives a <code>request</code> and returns a <code>choice</code></li>
+                    <li><code>choice.status</code>: "act", "abstain", or "error"</li>
+                    <li><code>choice.action</code>: the environment-specific primitive</li>
+                </ul>
+                <br />
+                <p>DOAgent is <b>model-agnostic</b>: the library coordinates decisions, not how they are made.</p>
             </div>
         </div>
     </div>
@@ -42163,23 +42184,28 @@ html[data-theme='dark'] .slide-content ol li {
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Policy Factorisation</b></p>
                 <br />
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">heuristic_goal_seek</span>(<span class="hljs-params">params</span>):
-    <span class="hljs-keyword">def</span> <span class="hljs-title function_">decide</span>(<span class="hljs-params">request</span>):
-        obs = request[<span class="hljs-string">&quot;inputs&quot;</span>][<span class="hljs-string">&quot;observation&quot;</span>]
-        action = compute_best_move(obs)
-        <span class="hljs-keyword">return</span> {
-            <span class="hljs-string">&quot;choice&quot;</span>: {<span class="hljs-string">&quot;status&quot;</span>: <span class="hljs-string">&quot;act&quot;</span>, <span class="hljs-string">&quot;action&quot;</span>: action}
-        }
-    <span class="hljs-keyword">return</span> decide
-</code></pre>
-</div>
+                <p>Standard policy: <b>&pi;(o) &rarr; a</b></p>
+                <p>Factorised policy: <b>&pi;(o) &rarr; (z, a)</b></p>
+                <br />
+                <ul>
+                    <li><b>z</b> (reasoning): chain-of-thought, tool-use traces, confidence scores</li>
+                    <li><b>a</b> (action): the environment-specific primitive</li>
+                </ul>
+                <br />
+                <p>LLM-based policies naturally produce <b>z</b> — enabling factorisation that heuristic policies cannot <a href="https://arxiv.org/abs/2601.12538" target="_blank" rel="noopener noreferrer">(Wei et al., 2026)</a>.</p>
+            </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>A <b>policy</b> is a function that maps an agent's observations to actions: <b>&pi;(o) &rarr; a</b>.</p>
+                <p><b>DOAgent captures the decomposition transparently:</b></p>
                 <br />
-                <p>Agents have always had policies: rules, heuristics, RL, symbolic planners/ A policy receives observations and returns an action.</p>
+                <p><b>1. Tool traces (automatic)</b></p>
+                <p>When agents have <code>tools</code>, the library wraps each callable and captures inputs, output, and timing.</p>
                 <br />
-                <p>DOAgent is <b>model-agnostic</b>: the library coordinates decisions, not how they are made.</p>
+                <p><b>2. Policy-provided reasoning</b></p>
+                <p>The policy may return its own <code>reasoning</code> (e.g. LLM chain-of-thought, native reasoning tokens).</p>
+                <br />
+                <p>The library <b>merges</b> both sources into a single <code>reasoning</code> field in the <code>agent_update</code> record. Both <b>z</b> and <b>a</b> are observable, queryable, and analysable.</p>
             </div>
         </div>
     </div>
@@ -43280,18 +43306,23 @@ html[data-theme='dark'] .slide-content ol li {
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Policy factorisation</b> allows us to decompose the policy into reasoning and action</p>
                 <br />
-                <p>Standard policy: <b>&pi;(o) &rarr; a</b></p>
-                <p>Factorised policy: <b>&pi;(o) &rarr; (z, a)</b></p>
-                <br />
-                <p>LLM-based policies naturally produce <b>z</b> in natural language <a href="https://arxiv.org/abs/2601.12538" target="_blank" rel="noopener noreferrer">(Wei et al., 2026)</a>.</p>
-                <ul>
-                    <li><b>z</b> (reasoning): chain-of-thought, tool-use traces, confidence scores</li>
-                    <li><b>a</b> (action): the environment-specific primitive</li>
-                </ul>
-                <br />
-            </div>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;actor&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;agent_0&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;kind&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;agent_update&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;payload&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;decision&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;response&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">&quot;choice&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-attr">&quot;status&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;act&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;action&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;explanation&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Frontier policy: move toward
+        nearest unknown cells.&quot;</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p style="text-align: center;"><b>Heuristic record</b><br />Simple choice, no reasoning.</p>
+</div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <br />
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-punctuation">{</span>
@@ -43315,7 +43346,7 @@ html[data-theme='dark'] .slide-content ol li {
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-<p style="text-align: center;">LLM record includes action + reasoning (<b>z</b>).</p>
+<p style="text-align: center;"><b>LLM record</b><br />Same choice + observable reasoning (<b>z</b>).</p>
 </div>
         </div>
     </div>
@@ -44441,12 +44472,14 @@ html[data-theme='dark'] .slide-content ol li {
 </code></pre>
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>The <b>Consistent Reasoning Paradox (CRP)</b>: a trustworthy intelligent system cannot simultaneously maintain consistent reasoning and always produce an answer. The resolution is the ability to say <i>"I don't know"</i> <a href="https://arxiv.org/abs/2408.02357" target="_blank" rel="noopener noreferrer">(Bastounis et al., 2024)</a>.</p>
+                <p><b>The "I Don't Know" Function</b></p>
+                <br />
+                <p>The <b>Consistent Reasoning Paradox (CRP)</b>: a trustworthy intelligent system cannot simultaneously maintain consistent reasoning and always produce an answer. The resolution is the ability to say <i>"I don't know"</i> — an optimal trust mechanism <a href="https://arxiv.org/abs/2408.02357" target="_blank" rel="noopener noreferrer">(Bastounis et al., 2024)</a>.</p>
                 <br />
                 <ul>
                     <li>"I don't know" is not a special feature — it is a <b>natural product of factorised reasoning</b></li>
-                    <li>The LLM reasons, concludes low confidence
-                    <li>Factorisation makes abstention <b>observable</b>
+                    <li>The LLM reasons, concludes low confidence &rarr; <code>status: "abstain"</code></li>
+                    <li>Factorisation makes abstention <b>observable</b>: without it, a null action is indistinguishable from a bug</li>
                     <li>The reasoning trace explains <b>why</b> the agent abstained</li>
                 </ul>
             </div>
