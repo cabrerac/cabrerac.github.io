@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 100" font-family="Times New Roman, STIX Two Math, Liberation Serif, serif">
-  <!-- Left: π_θ(z_t, a_t | h_t) = -->
-  <text x="8" y="32" font-size="15" fill="#1a1a1a">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 100" font-family="Times New Roman, STIX Two Math, Liberation Serif, serif">
+  <!-- π_θ(z_t, a_t | h_t) = -->
+  <text x="4" y="32" font-size="15" fill="#1a1a1a">
     <tspan font-style="italic">&#x03C0;</tspan><tspan baseline-shift="sub" font-size="11">&#x03B8;</tspan>
     <tspan>(</tspan><tspan font-style="italic">z</tspan><tspan baseline-shift="sub" font-size="11">t</tspan><tspan>, </tspan><tspan font-style="italic">a</tspan><tspan baseline-shift="sub" font-size="11">t</tspan>
     <tspan> | </tspan><tspan font-style="italic">h</tspan><tspan baseline-shift="sub" font-size="11">t</tspan><tspan>) = </tspan>
   </text>
-  <!-- Factor 1: π_reason(z_t | h_t) -->
-  <text x="168" y="32" font-size="15" fill="#1a1a1a">
+  <!-- π_reason(z_t | h_t) -->
+  <text x="164" y="32" font-size="15" fill="#1a1a1a">
     <tspan font-style="italic">&#x03C0;</tspan><tspan baseline-shift="sub" font-size="11">reason</tspan>
     <tspan>(</tspan><tspan font-style="italic">z</tspan><tspan baseline-shift="sub" font-size="11">t</tspan><tspan> | </tspan><tspan font-style="italic">h</tspan><tspan baseline-shift="sub" font-size="11">t</tspan><tspan>)</tspan>
   </text>
-  <text x="268" y="32" font-size="15" fill="#1a1a1a">&#x00B7;</text>
-  <!-- Factor 2: π_exec(a_t | h_t, z_t) -->
-  <text x="284" y="32" font-size="15" fill="#1a1a1a">
+  <text x="264" y="32" font-size="15" fill="#1a1a1a">&#x00B7;</text>
+  <!-- π_exec(a_t | h_t, z_t) -->
+  <text x="280" y="32" font-size="15" fill="#1a1a1a">
     <tspan font-style="italic">&#x03C0;</tspan><tspan baseline-shift="sub" font-size="11">exec</tspan>
     <tspan>(</tspan><tspan font-style="italic">a</tspan><tspan baseline-shift="sub" font-size="11">t</tspan><tspan> | </tspan><tspan font-style="italic">h</tspan><tspan baseline-shift="sub" font-size="11">t</tspan><tspan>, </tspan><tspan font-style="italic">z</tspan><tspan baseline-shift="sub" font-size="11">t</tspan><tspan>)</tspan>
   </text>
-  <!-- Underbraces (horizontal rules) -->
-  <line x1="165" y1="40" x2="262" y2="40" stroke="#333" stroke-width="0.8"/>
-  <line x1="280" y1="40" x2="748" y2="40" stroke="#333" stroke-width="0.8"/>
-  <text x="213" y="58" text-anchor="middle" font-size="11" fill="#444">Internal Thought</text>
-  <text x="514" y="58" text-anchor="middle" font-size="11" fill="#444">External Action</text>
+  <!-- Underlines: span each factor only (underline style like the paper) -->
+  <line x1="162" y1="40" x2="258" y2="40" stroke="#333" stroke-width="0.8"/>
+  <line x1="278" y1="40" x2="438" y2="40" stroke="#333" stroke-width="0.8"/>
+  <text x="210" y="58" text-anchor="middle" font-size="11" fill="#444">Internal Thought</text>
+  <text x="358" y="58" text-anchor="middle" font-size="11" fill="#444">External Action</text>
 </svg>
