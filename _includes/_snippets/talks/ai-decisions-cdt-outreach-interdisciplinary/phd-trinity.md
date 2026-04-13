@@ -44,14 +44,33 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>The experiments started to work when I introduced <b>strong assumptions</b> — simplifying the environment until it no longer reflected the real world.</p>
+                <p>The experiments started to work when I introduced <b>strong assumptions</b>, simplifying the environment until it no longer reflected the real world.</p>
                 <br>
                 <p>RL worked, but only in a <b>very limited and controlled setting</b>.</p>
                 <br>
                 <p>This was the realisation: <b>ML can work in isolation, but deploying it in real-world environments is a fundamentally different challenge.</b></p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/PLACEHOLDER-rl-with-assumptions.png" alt="RL experiments — working under assumptions" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/q-table-final.png" alt="RL experiments — working under assumptions" style="height: 400px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Self-Adaptive Service Discovery
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>The experiments started to work when I introduced <b>strong assumptions</b>, simplifying the environment until it no longer reflected the real world.</p>
+                <br>
+                <p>RL worked, but only in a <b>very limited and controlled setting</b>.</p>
+                <br>
+                <p>This was the realisation: <b>ML can work in isolation, but deploying it in real-world environments is a fundamentally different challenge.</b></p>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/rl-working.png" alt="RL experiments — working under assumptions" style="height: 400px">
             </div>
         </div>
     </div>
