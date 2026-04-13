@@ -6,7 +6,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>The problem:</b> Large environments require autonomous service-oriented architectures.</p>
+                <p><b>The problem:</b> large environments require autonomous service-oriented architectures.</p>
                 <br>
                 <p><b>The goal:</b> enable self-adaptive service discovery in dynamic urban environments. Service architectures should reorganise themselves in response to changing urban conditions.</p>
             </div>
@@ -67,7 +67,7 @@
                 <br>
                 <p>RL worked, but only in a <b>very limited and controlled setting</b>.</p>
                 <br>
-                <p>This was the realisation: <b>ML can work in isolation, but deploying it in real-world environments is a fundamentally different challenge.</b></p>
+                <p><b>ML can work in isolation, but deploying it in real-world environments is a fundamentally different challenge.</b></p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/images/rl-working.png" alt="RL experiments — working under assumptions" style="height: 400px">

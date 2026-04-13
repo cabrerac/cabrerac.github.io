@@ -34,7 +34,7 @@ visible: false
 
 <!-- end SLIDES: -->
 
-{% include _snippets/talks/ai-decisions-cdt-outreach-interdisciplinary/realisation.md %}
+{% include _snippets/talks/ai-decisions-cdt-outreach-interdisciplinary/autoai.md %}
 
 <!-- SLIDES: -->
 
