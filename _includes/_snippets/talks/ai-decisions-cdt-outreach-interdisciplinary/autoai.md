@@ -38,7 +38,7 @@
                 <ul>
                     <li>Understanding their language and technical framing</li>
                     <li>Making the systems perspective understood</li>
-                    <li>Recognising that both views were valid, just different</li>
+                    <li>Recognising that both views were valid</li>
                 </ul>
             </div>
         </div>
@@ -50,16 +50,21 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p>My first instinct was to <b>catch up</b> with the ML experts and try to reach their level of technical depth.</p>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/autoai.png" alt="The AutoAI Project" style="height: 400px">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>My first instinct was to <b>catch up</b> with the ML experts.</p>
                 <br>
-                <p>I quickly realised that was <b>neither feasible nor the right mindset</b>. I could not become an ML expert overnight, and that was not why I was there.</p>
+                <p>I realised that was <b>not feasible</b>.</p>
                 <br>
                 <p>What actually helped:</p>
                 <ul>
-                    <li><b>Catch up enough</b> to have informed conversations, but not pretend to be an ML expert</li>
-                    <li><b>Value what I brought to the table</b>  as the systems engineering perspective was exactly why I was part of the team</li>
-                    <li><b>Patience</b> to give time to the process of mutual understanding</li>
+                    <li><b>Catch up enough</b> to have informed conversations</li>
+                    <li><b>The problem</b> as the main driver of our work</li>
+                    <li><b>Different views</b> on the problem generate better informed solutions</li>
+                    <li><b>Value</b> the systems perspective</li>
+                    <li>Giving <b>time</b> to the process of mutual understanding</li>
                 </ul>
             </div>
         </div>

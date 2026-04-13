@@ -48,7 +48,7 @@
                 <br>
                 <p>RL worked, but only in a <b>very limited and controlled setting</b>.</p>
                 <br>
-                <p>This was the realisation: <b>ML can work in isolation, but deploying it in real-world environments is a fundamentally different challenge.</b></p>
+                <p><b>ML can work in isolation, but deploying it in real-world environments is a fundamentally different challenge.</b></p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/images/q-table-final.png" alt="RL experiments — working under assumptions" style="height: 400px">

@@ -6,6 +6,20 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
+                <p>The <b>problem</b> is the shared anchor — everyone brings a different lens, but the problem at hand is what connects the team.</p>
+                <br>
+                <p>Different perspectives do not mean someone is right and someone is wrong — they mean a <b>richer understanding</b> when you can agree on the common ground.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## A Few Observations
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Teamwork skills</b> that helped across both experiences:</p>
                 <ul>
                     <li>Patience — giving time to the process of mutual understanding</li>
