@@ -11,7 +11,7 @@
                 <p><b>The goal:</b> enable self-adaptive service discovery in dynamic urban environments. Service architectures should reorganise themselves in response to changing urban conditions.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/PLACEHOLDER-service-discovery-architecture.png" alt="Self-adaptive service discovery architecture" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/adaptive-service-discovery.png" alt="Self-adaptive service discovery architecture" style="height: 400px">
             </div>
         </div>
     </div>
