@@ -56,7 +56,7 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p>My first instinct was to <b>catch up</b> with the ML experts.</p>
                 <br>
-                <p>I realised that was <b>not feasible</b>.</p>
+                <p>I realised that it was <b>not feasible</b>.</p>
                 <br>
                 <p>What actually helped:</p>
                 <ul>
