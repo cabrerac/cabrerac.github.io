@@ -13,7 +13,7 @@
                 <p>The team: <b>doctors, data scientists, ML experts, and HCI experts</b>. A much more diverse interdisciplinary setting.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/aicu-workshop.jpg" alt="The aICU Project" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/aicu-workshop.jpg" alt="The aICU workshop" style="height: 400px">
             </div>
         </div>
     </div>
@@ -37,7 +37,7 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/aicu-workshop.jpg.png" alt="The aICU team" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/aicu-workshop.jpg" alt="The aICU workshop" style="height: 400px">
             </div>
         </div>
     </div>
