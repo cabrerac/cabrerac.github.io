@@ -14,8 +14,9 @@ status: "upcoming"
 author: Christian Cabrera Jojoa
 email: chc79@cam.ac.uk
 institution: University of Cambridge
+show_slide_counter: false
 output_page: false
-visible: false
+visible: true
 ---
 
 {% include _snippets/talks/ai-decisions-cdt-outreach-interdisciplinary/introduction.md %}

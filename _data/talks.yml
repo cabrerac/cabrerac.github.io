@@ -112,5 +112,5 @@
   date: '2026-04-14'
   type: invited_talk
   status: upcoming
-  visible: false
+  visible: true
   slides: https://cabrerac.github.io/assets/slides/2026/ai-decisions-cdt-outreach-interdisciplinary.html
