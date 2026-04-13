@@ -22,7 +22,7 @@ visible: false
 
 <!-- SLIDES: -->
 
-# PhD at Trinity College Dublin
+# Self-Adaptive Service Discovery
 
 <!-- end SLIDES: -->
 

@@ -6,9 +6,9 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>PhD at <b>Trinity College Dublin</b> — exploring service-oriented architectures for smart cities.</p>
+                <p><b>The problem:</b> Large environments require autonomous service-oriented architectures.</p>
                 <br>
-                <p>The goal: enable <b>self-adaptive service discovery</b> in dynamic environments using <b>reinforcement learning (RL)</b>. Services would learn to find and compose each other in response to changing urban conditions.</p>
+                <p><b>The goal:</b> enable self-adaptive service discovery in dynamic urban environments. Service architectures should reorganise themselves in response to changing urban conditions.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/images/PLACEHOLDER-service-discovery-architecture.png" alt="Self-adaptive service discovery architecture" style="height: 400px">
