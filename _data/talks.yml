@@ -98,7 +98,7 @@
   month: April
   date: '2026-04-01'
   type: conference_talk
-  status: upcoming
+  status: past
   visible: true
   slides: https://cabrerac.github.io/assets/slides/2026/2026-ifogsim-placement-seams.pdf
 - talk_id: ai-decisions-cdt-outreach-interdisciplinary
