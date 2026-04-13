@@ -88,16 +88,16 @@
   month: April
   date: '2026-04-01'
   type: conference_talk
-  status: upcoming
+  status: past
   visible: true
   slides: https://cabrerac.github.io/assets/slides/2026/sorrento-doagent.html
-- title: iFogSim-Placement: A Simulation Framework for Edge Service Placement
-  venue: 21st International Conference on Software Engineering for Adaptive and Self-Managing Systems
-  location: Brazil
+- title: 'iFogSim-Placement: A Simulation Framework for Edge Service Placement'
+  venue: The 21st International Conference on Software Engineering for Adaptive and Self-Managing Systems (SEAMS 2026)
+  location: Rio de Janeiro, Brazil
   year: 2026
   month: April
-  date: 2026-04
+  date: '2026-04-01'
   type: conference_talk
-  status: past
+  status: upcoming
   visible: true
   slides: https://cabrerac.github.io/assets/slides/2026/2026-ifogsim-placement-seams.pdf
