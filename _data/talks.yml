@@ -91,7 +91,8 @@
   visible: true
   slides: https://cabrerac.github.io/assets/slides/2026/sorrento-doagent.html
 - title: 'iFogSim-Placement: A Simulation Framework for Edge Service Placement'
-  venue: The 21st International Conference on Software Engineering for Adaptive and Self-Managing Systems (SEAMS 2026)
+  venue: The 21st International Conference on Software Engineering for Adaptive and
+    Self-Managing Systems (SEAMS 2026)
   location: Rio de Janeiro, Brazil
   year: 2026
   month: April
@@ -100,3 +101,16 @@
   status: upcoming
   visible: true
   slides: https://cabrerac.github.io/assets/slides/2026/2026-ifogsim-placement-seams.pdf
+- talk_id: ai-decisions-cdt-outreach-interdisciplinary
+  title: 'Interdisciplinary Work in Computer Science: A Few Observations'
+  conference: Outreach in Science CDT in Complex Decision Making
+  venue: University of Manchester
+  institution: University of Cambridge
+  location: Nancy Rothwell Building, Manchester, UK (Online)
+  year: 2026
+  month: April
+  date: '2026-04-14'
+  type: invited_talk
+  status: upcoming
+  visible: false
+  slides: https://cabrerac.github.io/assets/slides/2026/ai-decisions-cdt-outreach-interdisciplinary.html

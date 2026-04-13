@@ -1640,15 +1640,16 @@ style: |
 
         # Internal talks: title and thanks slides show only author name (no affiliation)
         is_internal = metadata.get('type') == 'internal'
+        display_title = metadata.get('title_slide', metadata.get('title', ''))
         if is_internal:
             title_block = f"""<!-- _class: lead -->
-# {metadata.get('title', '')}
+# {display_title}
 <p style="color: var(--text-color);"><b>{metadata.get('author', '')}</b></p>"""
             thanks_block = """<!-- _class: lead last-slide -->
 # Many Thanks!"""
         else:
             title_block = f"""<!-- _class: lead -->
-# {metadata.get('title', '')}
+# {display_title}
 <p style="color: var(--text-color);"><b>{metadata.get('author', '')}</b></p>
 <p style="color: var(--text-color);">{metadata.get('position', '')}</p>
 <p style="color: var(--text-color);">{metadata.get('department', '')}</p>

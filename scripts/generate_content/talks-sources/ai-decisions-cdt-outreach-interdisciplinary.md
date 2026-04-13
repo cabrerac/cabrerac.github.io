@@ -1,6 +1,7 @@
 ---
 talk_id: ai-decisions-cdt-outreach-interdisciplinary
 title: "Interdisciplinary Work in Computer Science: A Few Observations"
+title_slide: "Interdisciplinary Work in Computer Science:<br>A Few Observations"
 description: A reflection on interdisciplinary research from the perspective of a systems engineer. Drawing on experiences across smart cities, machine learning systems, and healthcare AI, this talk shares practical observations on navigating different vocabularies, valuing diverse perspectives, and using systems engineering principles — problem-first thinking and systems views — as tools for effective interdisciplinary collaboration.
 conference: "Outreach in Science CDT in Complex Decision Making"
 venue: "University of Manchester"
@@ -17,12 +18,6 @@ output_page: false
 visible: false
 ---
 
-<!-- SLIDES: -->
-
-# Introduction
-
-<!-- end SLIDES: -->
-
 {% include _snippets/talks/ai-decisions-cdt-outreach-interdisciplinary/introduction.md %}
 
 <!-- SLIDES: -->
@@ -35,19 +30,11 @@ visible: false
 
 <!-- SLIDES: -->
 
-# The Realisation
+# The AutoAI Project
 
 <!-- end SLIDES: -->
 
 {% include _snippets/talks/ai-decisions-cdt-outreach-interdisciplinary/realisation.md %}
-
-<!-- SLIDES: -->
-
-# Moving to Cambridge
-
-<!-- end SLIDES: -->
-
-{% include _snippets/talks/ai-decisions-cdt-outreach-interdisciplinary/cambridge.md %}
 
 <!-- SLIDES: -->
 
@@ -64,8 +51,6 @@ visible: false
 <!-- end SLIDES: -->
 
 {% include _snippets/talks/ai-decisions-cdt-outreach-interdisciplinary/observations.md %}
-
-{% include _snippets/talks/ai-decisions-cdt-outreach-interdisciplinary/thanks.md %}
 
 <!-- RENDER: -->
 
