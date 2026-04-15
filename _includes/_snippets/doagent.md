@@ -504,16 +504,9 @@ $$
 ```
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>The "I Don't Know" Function</b></p>
+                <p>Let's imagine the hypothetical case where the agent says <b>"I Don't Know"</b>.</p>
                 <br>
-                <p>The <b>Consistent Reasoning Paradox (CRP)</b>: a trustworthy intelligent system cannot simultaneously maintain consistent reasoning and always produce an answer. The resolution is the ability to say <i>"I don't know"</i><a href="https://arxiv.org/abs/2408.02357" target="_blank" rel="noopener noreferrer">(Bastounis et al., 2024)</a>.</p>
-                <br>
-                <ul>
-                    <li>"I don't know" is not a special feature — it is a <b>natural product of factorised reasoning</b></li>
-                    <li>The LLM reasons, concludes low confidence then abstains</li>
-                    <li>Factorisation makes abstention <b>observable</b></li>
-                    <li>The reasoning trace explains <b>why</b> the agent abstained</li>
-                </ul>
+                <p>If we factorise the policy, DOAgent offers and engineering approach to observe the reasoning trace that explains <b>why</b> the agent abstained.</p>
             </div>
         </div>
     </div>

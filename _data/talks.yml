@@ -114,3 +114,16 @@
   status: past
   visible: true
   slides: https://cabrerac.github.io/assets/slides/2026/ai-decisions-cdt-outreach-interdisciplinary.html
+- talk_id: safaris-intellectual-debt
+  title: Mitigating Intellectual Debt in AI Systems
+  conference: 4th Safaris - Tech Congress
+  venue: Universidad Cesmag
+  institution: University of Cambridge
+  location: Pasto, Nariño, Colombia
+  year: 2026
+  month: April
+  date: '2026-04-17'
+  type: conference_talk
+  status: upcoming
+  visible: false
+  slides: https://cabrerac.github.io/assets/slides/2026/safaris-intellectual-debt.html

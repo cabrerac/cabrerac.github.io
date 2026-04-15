@@ -34,6 +34,13 @@ or from the command line (run from repo root):
 ```
 python scripts/generate_content/generate_content.py course_code/lecture_name
 ```
+
+Optional talk front matter (non-internal) for the closing **Many Thanks** slide:
+
+- ``thanks_slides_qr: true`` — show a QR code (slides URL), then **Many Thanks!**, then optional website and email lines.
+- ``thanks_website_url`` — full URL shown as a link under the title (omit to skip that line).
+- ``thanks_qr_target_url`` — optional; if set, the QR encodes this URL instead of the default ``{site}/assets/slides/{year}/{source_stem}.html``.
+- ``thanks_extended`` — alias for ``thanks_slides_qr`` if you prefer the name.
 """
 import os
 import re
@@ -46,7 +53,8 @@ import magic
 from PIL import Image
 import mimetypes
 import requests
-from urllib.parse import urlparse
+from urllib.parse import urlparse, quote
+from html import escape
 import argparse
 
 class ContentGenerator:
@@ -106,6 +114,26 @@ class ContentGenerator:
         talks_file = self.data_dir / "talks.yml"
         with open(talks_file, 'w', encoding='utf-8') as f:
             yaml.dump(talks_list, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
+
+    def get_site_base_url(self):
+        """Site origin from _config.yml ``url`` (for absolute slide and page links)."""
+        config_file = self.base_dir / "_config.yml"
+        base_url = "https://cabrerac.github.io"
+        if config_file.exists():
+            with open(config_file, 'r', encoding='utf-8') as cf:
+                config_content = cf.read()
+            url_match = re.search(r'^\s*url:\s*["\']([^"\']+)["\']', config_content, re.MULTILINE)
+            if url_match:
+                base_url = url_match.group(1).strip().rstrip('/')
+        return base_url
+
+    def resolve_public_slides_url(self, metadata, file_stem):
+        """Absolute deployed slides URL; output file is always ``<file_stem>.html`` (needs ``year``)."""
+        year = metadata.get('year')
+        if year is None:
+            return None
+        base = self.get_site_base_url()
+        return f"{base}/assets/slides/{int(year)}/{file_stem}.html".strip()
 
     def read_snippet(self, snippet_path):
         """Read a snippet file and return its content."""
@@ -651,15 +679,7 @@ class ContentGenerator:
         self.generate_slides(talk_file, course_slides_dir)
 
         # Build slides URL: always a single-line absolute URL for talks.yml
-        # Match only the "url:" key (not "baseurl:") by requiring start of line
-        config_file = self.base_dir / "_config.yml"
-        base_url = "https://cabrerac.github.io"
-        if config_file.exists():
-            with open(config_file, 'r', encoding='utf-8') as cf:
-                config_content = cf.read()
-                url_match = re.search(r'^\s*url:\s*["\']([^"\']+)["\']', config_content, re.MULTILINE)
-                if url_match:
-                    base_url = url_match.group(1).strip().rstrip('/')
+        base_url = self.get_site_base_url()
         slides_url = f"{base_url}/assets/slides/{year}/{talk_id}.html".strip()
 
         # Update or create talks.yml entry (only talk-specific keys)
@@ -1655,7 +1675,53 @@ style: |
 <p style="color: var(--text-color);">{metadata.get('department', '')}</p>
 <p style="color: var(--text-color);">{metadata.get('institution', '')}</p>
 <p style="color: var(--accent-color);"><a href="mailto:{metadata.get('email', '')}" style="color: var(--accent-color);">{metadata.get('email', '')}</a></p>"""
-            thanks_block = f"""<!-- _class: lead last-slide -->
+            thanks_extended = metadata.get('thanks_slides_qr') or metadata.get('thanks_extended')
+            email = metadata.get('email', '') or ''
+            website_url = (metadata.get('thanks_website_url') or '').strip()
+            if thanks_extended:
+                qr_target = (metadata.get('thanks_qr_target_url') or '').strip()
+                if not qr_target:
+                    qr_target = self.resolve_public_slides_url(metadata, lecture_file.stem) or ''
+                if not qr_target:
+                    print(
+                        "Warning: thanks_slides_qr is set but no slides URL could be built; "
+                        "set thanks_qr_target_url or ensure year and talk_id (or file stem) are in front matter."
+                    )
+                qr_src = ''
+                if qr_target:
+                    qr_src = (
+                        "https://api.qrserver.com/v1/create-qr-code/?size=240x240&data="
+                        + quote(qr_target, safe='')
+                    )
+                esc_website_href = escape(website_url, quote=True) if website_url else ''
+                esc_website_text = escape(website_url) if website_url else ''
+                esc_email_href = escape(email, quote=True)
+                esc_email_text = escape(email)
+                qr_img = ''
+                if qr_src:
+                    esc_qr_src = escape(qr_src, quote=True)
+                    qr_img = (
+                        f'<p style="margin:0;">'
+                        f'<img src="{esc_qr_src}" alt="QR code: link to slides" '
+                        f'style="width:220px;height:220px;object-fit:contain;">'
+                        f'</p>'
+                    )
+                website_line = ''
+                if website_url:
+                    website_line = (
+                        f'<p style="margin:0;padding:0.2em;">'
+                        f'<a href="{esc_website_href}" style="color:var(--accent-color);">{esc_website_text}</a>'
+                        f'</p>'
+                    )
+                thanks_block = f"""<!-- _class: lead last-slide -->
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;gap:0.55rem;padding:0.75rem;">
+{qr_img}
+<h1 style="margin:0;color:var(--text-color);">Many Thanks!</h1>
+{website_line}
+<p style="margin:0;padding:0.2em;"><a href="mailto:{esc_email_href}" style="color:var(--accent-color);">{esc_email_text}</a></p>
+</div>"""
+            else:
+                thanks_block = f"""<!-- _class: lead last-slide -->
 # Many Thanks!
 <p style="color: var(--accent-color);"><a href="mailto:{metadata.get('email', '')}" style="color: var(--accent-color);">{metadata.get('email', '')}</a></p>"""
 
