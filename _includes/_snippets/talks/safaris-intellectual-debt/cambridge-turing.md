@@ -23,7 +23,7 @@
     <div class="photo-caption" style="position: absolute; bottom: 0; left: 0; right: 0; background: var(--primary-color); color: var(--background-color); padding: 8px; opacity: 0.9; font-weight: 500; font-size: 0.45em;">Charles Darwin (1809–1882)</div>
   </div>
   <div class="photo-item" style="position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/James_Clerk_Maxwell.png" alt="James Clerk Maxwell" style="width: 100%; height: 100%; object-fit: contain; aspect-ratio: 1; background-color: var(--background-color);">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/James-Clerk-Maxwell-1831-1879.jpg" alt="James Clerk Maxwell" style="width: 100%; height: 100%; object-fit: contain; aspect-ratio: 1; background-color: var(--background-color);">
     <div class="photo-caption" style="position: absolute; bottom: 0; left: 0; right: 0; background: var(--primary-color); color: var(--background-color); padding: 8px; opacity: 0.9; font-weight: 500; font-size: 0.45em;">James Clerk Maxwell (1831–1879)</div>
   </div>
   <div class="photo-item" style="position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">

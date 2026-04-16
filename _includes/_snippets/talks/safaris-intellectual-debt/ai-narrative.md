@@ -121,6 +121,38 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><em>"We should stop training radiologists now. It’s just completely obvious that within five years, deep learning is going to do better than radiologists."</em> <b>(Hinton, 2016)</b></p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Geoffrey_E._Hinton%2C_2024_Nobel_Prize_Laureate_in_Physics_%28cropped1%29.jpg" alt="Geoffrey Hinton" style="height: 460px">
+                <div class="footnote">NOBEL Prizes Ceremony 2024: Arthur Petron, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## The AI Narrative
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><em>"We should stop training radiologists now. It’s just completely obvious that within five years, deep learning is going to do better than radiologists."</em> <b>(Hinton, 2016)</b></p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/radiology-crisis.png" alt="Radiology Crisis" style="height: 460px">
+                <div class="footnote">Radiology Crisis - Independent: https://www.independent.co.uk/news/health/cancer-delays-nhs-staff-shortages-b2561385.html</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## The AI Narrative
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p>The freshest wave of the narrative is <b>Agentic AI</b>: autonomous agents, tool use, and orchestration. The <b>pattern</b> matches earlier hype: bold claims, compressed timelines, a rush to product, and ignoring previous communities like the <b>Multi-Agent Systems (MAS)</b> one.</p>
                 <br>
@@ -129,12 +161,6 @@
         </div>
     </div>
 </div>
-
-<!-- end SLIDES: -->
-
-{% include _snippets/timelines/ai-history-2001-today.md %}
-
-<!-- SLIDES: -->
 
 ## The AI Narrative
 
@@ -158,7 +184,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/PLACEHOLDER-big-tech-investment-loop.png" alt="Big tech companies investing in each other" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/ai-bigtech-bubble.jpeg" alt="Big tech companies investing in each other" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p>Big tech companies have a <b>direct economic interest</b> in sustaining the narrative. They create value bubbles by investing in each other, inflating expectations and market valuations.</p>
