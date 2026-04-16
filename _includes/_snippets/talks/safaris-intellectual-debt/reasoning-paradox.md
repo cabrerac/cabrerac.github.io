@@ -38,12 +38,12 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Code Roulette</b>: LLMs generate code even when the prompt is truncated or obfuscated to the point of being unintelligible <a href="https://arxiv.org/abs/2506.10204" target="_blank" rel="noopener noreferrer">(Paleyes, Robinson, Sendyka, Cabrera, Lawrence, 2026)</a>.</p>
+                <p><b>Code Roulette</b>: LLMs generate code even when the prompt is truncated or obfuscated to the point of being unintelligible <a href="https://arxiv.org/abs/2506.10204" target="_blank" rel="noopener noreferrer">(Paleyes et al., 2026)</a>.</p>
                 <br>
                 <p>Presented at <a href="https://llm4code.github.io/" target="_blank" rel="noopener noreferrer">LLM4Code @ ICSE 2026</a>, Rio de Janeiro, Brazil.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/PLACEHOLDER-code-roulette.png" alt="Code Roulette results" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/obfuscated-tasks-llms.png" alt="Obfuscated Tasks LLMs" style="height: 400px">
             </div>
         </div>
     </div>

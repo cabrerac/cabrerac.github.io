@@ -184,12 +184,12 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/ai-bigtech-bubble.jpeg" alt="Big tech companies investing in each other" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/ai-bigtech-bubble.jpeg" alt="Big tech companies investing in each other" style="height: 540px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p>Big tech companies have a <b>direct economic interest</b> in sustaining the narrative. They create value bubbles by investing in each other, inflating expectations and market valuations.</p>
                 <br>
-                <p>The hype cycle is not only an intellectual phenomenon — it is also an <b>economic one</b>.</p>
+                <p>The hype cycle is not only an intellectual phenomenon, it is also an <b>economic one</b>.</p>
             </div>
         </div>
     </div>
