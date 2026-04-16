@@ -407,7 +407,7 @@ def heuristic_goal_seek(params):
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Policies in MAS</b> are functions that map an agent's observations to actions:</p>
                 <br>
-                <p>$\pi(o) \to a$</p>
+                <p style="text-align: center;">$\pi(o) \to a$</p>
                 <br>
                 <p>Agents have always had policies: rules, heuristics, RL, symbolic planners. A policy receives a observations and returns an action</p>
                 <br>
