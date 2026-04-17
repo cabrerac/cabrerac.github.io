@@ -46,28 +46,6 @@
 
 ## Cambridge and Alan Turing
 
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p>In 1950, <b>Alan Turing</b> published <a href="https://doi.org/10.1093/mind/LIX.236.433" target="_blank" rel="noopener noreferrer"><em>"Computing Machinery and Intelligence"</em></a> and asked a question that shaped the field of AI:</p>
-                <br>
-                <p><em><b>"Can machines think?"</b></em></p>
-            </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/turing.jpg" alt="Statue of Alan Turing, Bletchley Park" style="height: 560px; max-width: 80%; width: auto;">
-                <div class="footnote">Statue of Alan Turing, Bletchley Park (Stephen Kettle, 2007)</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- end SLIDES: -->
-
-{% include _snippets/timelines/ai-history-2001-today.md %}
-
-## Cambridge and Alan Turing
-
 <div class="columns" style="width: 100%; height: 100%; display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
   <div class="column vertical-middle text-center" style="width: 35%;">
     <img src="{{ site.url }}/assets/media/images/enigma.jpg" alt="Enigma Machine, Bletchley Park" style="height: auto; max-width: 100%;">
@@ -87,3 +65,24 @@
   </div>
 </div>
 
+## Cambridge and Alan Turing
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>In 1950, <b>Alan Turing</b> published <a href="https://doi.org/10.1093/mind/LIX.236.433" target="_blank" rel="noopener noreferrer"><em>"Computing Machinery and Intelligence"</em></a> and asked a question that shaped the field of AI:</p>
+                <br>
+                <p><em><b>"Can machines think?"</b></em></p>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/turing.jpg" alt="Statue of Alan Turing, Bletchley Park" style="height: 560px; max-width: 80%; width: auto;">
+                <div class="footnote">Statue of Alan Turing, Bletchley Park (Stephen Kettle, 2007)</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- end SLIDES: -->
+
+{% include _snippets/timelines/ai-history-2001-today.md %}
