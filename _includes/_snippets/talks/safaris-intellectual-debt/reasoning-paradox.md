@@ -69,7 +69,7 @@
                 <br>
                 <p>The LLM always produces an answer, even when the input is meaningless. <b>It cannot say "I don't know"</b>.</p>
                 <br>
-                <p>Does this pass the Turing Test? <b>No.</b> A human interrogator would immediately know: no human responds to unintelligible input with confident, plausible-looking code.</p>
+                <p>Does this pass the Turing Test? A human interrogator would immediately know: no human responds to unintelligible input with confident, plausible-looking code.</p>
             </div>
         </div>
     </div>
