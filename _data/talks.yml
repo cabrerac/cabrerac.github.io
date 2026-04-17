@@ -125,5 +125,5 @@
   date: '2026-04-17'
   type: conference_talk
   status: upcoming
-  visible: false
+  visible: true
   slides: https://cabrerac.github.io/assets/slides/2026/safaris-intellectual-debt.html

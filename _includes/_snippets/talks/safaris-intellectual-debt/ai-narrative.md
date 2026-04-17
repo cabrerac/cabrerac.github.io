@@ -24,23 +24,19 @@
     </div>
 </div>
 
-<!-- end SLIDES: -->
-
-{% include _snippets/timelines/ai-history-2001-today.md %}
-
-<!-- SLIDES: -->
-
 ## The AI Narrative
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
+                <p><em>"Within ten years a digital computer will be the world's chess champion." <b>(Simon & Newell, 1958)</b></em></p>
+                <br>
                 <p><em>"Machines will be capable, within twenty years, of doing any work a man can do."  <b>(Simon, 1965)</b></em></p>
                 <br>
-                <p><em>"In from three to eight years we will have a machine with the general intelligence of an average human being." <b>(Minsky, 1970)</b></em></p>
+                <p><em>"Within a generation... the problem of creating 'artificial intelligence' will substantially be solved." <b>(Minsky, 1967)</b></em></p>
                 <br>
-                <p><em>"In medicine, management, and the military — indeed in most of the world's work — the daily tasks are those requiring symbolic reasoning with detailed professional knowledge." <b>(Feigenbaum, 1982)</b></em></p>
+                <p><em>"In from three to eight years we will have a machine with the general intelligence of an average human being." <b>(Minsky, 1970)</b></em></p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><em>"AI will be capable of generating novel insights next year."</em> <b>(Altman, 2025)</b></p>

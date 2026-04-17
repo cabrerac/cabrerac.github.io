@@ -5,8 +5,14 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p>We now return to <b>Turing's imitation game</b> and to the chain we set up at the start: what kind of behaviour counts as human-like in dialogue, and what does that demand of a machine?</p>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>Turing proposed the <b>Imitation Game</b> (now called the <b>Turing Test</b>): a machine wins if the interrogator cannot tell it apart from a human.</p>
+                <br>
+                <p><em>"It will be assumed that the best strategy [for the machine] is to try to provide answers that would naturally be given by a man." </em><a href="https://doi.org/10.1093/mind/LIX.236.433" target="_blank" rel="noopener noreferrer">(Turing, 1950)</a></p>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Turing_test_diagram.png" alt="The Turing Test" style="height: 400px">
+                <div class="footnote">The Turing Test (Imitation Game)</div>
             </div>
         </div>
     </div>
@@ -17,16 +23,14 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p>A key feature of human intelligence is <b>consistent reasoning</b>: humans can solve equivalent problems stated in different ways and give the same correct answer.</p>
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <p>A key feature of human intelligence is <b>consistent reasoning</b>: humans can solve equivalent problems stated by different sentences and provide the same correct answer <a href="https://arxiv.org/abs/2408.02357" target="_blank" rel="noopener noreferrer">(Bastounis et al., 2024)</a>.</p>
                 <br>
-                <p>Consistent reasoning underpins scientific discussion and communication. To pass the Turing Test, a machine must also reason consistently.</p>
+                <p>Consistent reasoning is at the core of scientific discussions, communication, and reasoning. To pass the Turing Test, a machine must also reason consistently.</p>
                 <br>
-                <p><b>AGI ⇒ Passing the Turing Test ⇒ Consistent Reasoning</b></p>
-            </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Turing_test_diagram.png" alt="The Turing Test" style="height: 400px">
-                <div class="footnote">The Turing Test (Imitation Game)</div>
+                <p style="text-align: center;"><b>AGI ⇒ Passing the Turing Test ⇒ Consistent Reasoning</b></p>
+                <br>
+                <p>Consisten reasoning implies the ability to say <b>I don't know!</b></p>
             </div>
         </div>
     </div>
@@ -79,9 +83,11 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p>The <b>Consistent Reasoning Paradox (CRP)</b> <a href="https://arxiv.org/abs/2408.02357" target="_blank" rel="noopener noreferrer">(Bastounis et al., 2024)</a>:</p>
                 <br>
-                <p>Any AI that emulates human intelligence through <b>consistent reasoning</b> and <b>always answers</b> will hallucinate infinitely often and is not trustworthy.</p>
+                <p>Any AI that emulates human intelligence through <b>consistent reasoning</b> and <b>always answers</b> will hallucinate infinitely often.</p>
                 <br>
                 <p>The paradox: there exists a specialised AI that is always correct on those problems, but it does not reason consistently and therefore <b>cannot pass the Turing Test</b>.</p>
+                <br>
+                <p>Current AI most advanced models do not learn an "I don't know function". <b>They are not trustworthy.</b></p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Turing_test_diagram.png" alt="The Turing Test" style="height: 400px">

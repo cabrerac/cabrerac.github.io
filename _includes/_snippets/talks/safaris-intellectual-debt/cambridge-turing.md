@@ -46,6 +46,28 @@
 
 ## Cambridge and Alan Turing
 
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>In 1950, <b>Alan Turing</b> published <a href="https://doi.org/10.1093/mind/LIX.236.433" target="_blank" rel="noopener noreferrer"><em>"Computing Machinery and Intelligence"</em></a> and asked a question that shaped the field of AI:</p>
+                <br>
+                <p><em><b>"Can machines think?"</b></em></p>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/turing.jpg" alt="Statue of Alan Turing, Bletchley Park" style="height: 560px; max-width: 80%; width: auto;">
+                <div class="footnote">Statue of Alan Turing, Bletchley Park (Stephen Kettle, 2007)</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- end SLIDES: -->
+
+{% include _snippets/timelines/ai-history-2001-today.md %}
+
+## Cambridge and Alan Turing
+
 <div class="columns" style="width: 100%; height: 100%; display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
   <div class="column vertical-middle text-center" style="width: 35%;">
     <img src="{{ site.url }}/assets/media/images/enigma.jpg" alt="Enigma Machine, Bletchley Park" style="height: auto; max-width: 100%;">
@@ -65,58 +87,3 @@
   </div>
 </div>
 
-## Cambridge and Alan Turing
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p>In 1950, <b>Alan Turing</b> published <a href="https://doi.org/10.1093/mind/LIX.236.433" target="_blank" rel="noopener noreferrer"><em>"Computing Machinery and Intelligence"</em></a> and asked a question that shaped the field of AI:</p>
-                <br>
-                <p><em><b>"Can machines think?"</b></em></p>
-            </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/turing.jpg" alt="Statue of Alan Turing, Bletchley Park" style="height: 560px; max-width: 80%; width: auto;">
-                <div class="footnote">Statue of Alan Turing, Bletchley Park (Stephen Kettle, 2007)</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Cambridge and Alan Turing
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p>Turing proposed the <b>Imitation Game</b> (now called the <b>Turing Test</b>): a machine wins if the interrogator cannot tell it apart from a human.</p>
-                <br>
-                <p><em>"It will be assumed that the best strategy [for the machine] is to try to provide answers that would naturally be given by a man." </em><a href="https://doi.org/10.1093/mind/LIX.236.433" target="_blank" rel="noopener noreferrer">(Turing, 1950)</a></p>
-            </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Turing_test_diagram.png" alt="The Turing Test" style="height: 400px">
-                <div class="footnote">The Turing Test (Imitation Game)</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Cambridge and Alan Turing
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p>A key feature of human intelligence is <b>consistent reasoning</b>: humans can solve equivalent problems stated by different sentences and provide the same correct answer <a href="https://arxiv.org/abs/2408.02357" target="_blank" rel="noopener noreferrer">(Bastounis et al., 2024)</a>.</p>
-                <br>
-                <p>Consistent reasoning is at the core of scientific discussions, communication, and reasoning. To pass the Turing Test, a machine must also reason consistently.</p>
-                <br>
-                <p style="text-align: center;"><b>AGI ⇒ Passing the Turing Test ⇒ Consistent Reasoning</b></p>
-                <br>
-                <p><b>We will come back to this at the end!</b></p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- end SLIDES: -->

@@ -15,7 +15,7 @@ author: Christian Cabrera Jojoa
 email: chc79@cam.ac.uk
 institution: University of Cambridge
 output_page: false
-visible: false
+visible: true
 thanks_slides_qr: true
 thanks_website_url: https://cabrerac.github.io
 # thanks_qr_target_url: https://example.com/custom  # optional; default is deployed slides URL
