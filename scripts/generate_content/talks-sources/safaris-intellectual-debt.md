@@ -9,7 +9,7 @@ year: 2026
 month: "April"
 date: "2026-04-17"
 type: "conference_talk"
-status: "upcoming"
+status: "past"
 show_slide_counter: true
 author: Christian Cabrera Jojoa
 email: chc79@cam.ac.uk
