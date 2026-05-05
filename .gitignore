@@ -31,6 +31,7 @@ venv.bak/
 supervisions/
 plans/
 docs/
+work-space/
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -114,3 +115,6 @@ yarn-error.log*
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Cursor rules
+.cursor/rules/
