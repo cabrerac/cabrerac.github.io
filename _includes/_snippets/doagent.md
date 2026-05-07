@@ -21,6 +21,44 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <p><b>Related Work</b></p>
+                <ul>
+                    <li><b>Multi-Agent Systems (MAS):</b> rich work on coordination, communication, and decentralised decision-making</li>
+                    <li><b>Agent engineering frameworks:</b> useful abstractions for environments, policies, and orchestration</li>
+                    <li><b>Observability / tracing ecosystems:</b> strong tools for logs and telemetry, often external to the agent data model</li>
+                    <li><b>Gap:</b> limited support for a unified, first-class record structure that jointly captures <b>decisions, outcomes, traces, provenance, and accountability</b> across policy types</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## DOAgent
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <p><b>Positioning of DOAgent</b></p>
+                <br>
+                <p>DOAgent contributes a <b>data-oriented substrate</b> for MAS where analysis is not an afterthought but a built-in property of the execution model.</p>
+                <br>
+                <ul>
+                    <li>Policy-agnostic records (heuristic, RL, LLM) under a common schema</li>
+                    <li>Built-in traceability, provenance, accountability, and interpretability from shared records</li>
+                    <li>Explicit support for policy factorisation and observable abstention behaviours (e.g., "I don't know")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## DOAgent
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <br>
 

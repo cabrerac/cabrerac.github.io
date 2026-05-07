@@ -127,3 +127,14 @@
   status: past
   visible: true
   slides: https://cabrerac.github.io/assets/slides/2026/safaris-intellectual-debt.html
+- talk_id: internal-doa-debugger-doagent
+  title: 'Data-Oriented Architectures: DOA Debugger & DOAgent'
+  venue: Internal
+  location: Cambridge
+  year: 2026
+  month: May
+  date: '2026-05-12'
+  type: internal
+  status: upcoming
+  visible: false
+  slides: https://cabrerac.github.io/assets/slides/2026/internal-doa-debugger-doagent.html

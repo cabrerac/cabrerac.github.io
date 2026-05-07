@@ -35,6 +35,10 @@ or from the command line (run from repo root):
 python scripts/generate_content/generate_content.py course_code/lecture_name
 ```
 
+Optional talk front matter for **internal** talks (``type: internal``) title slide:
+
+- **Multi-line title:** use a YAML block string (``title_slide: |``) with one line per title line, or put ``@NL@`` in a single-line string to mark a line break. Colons in the title do **not** trigger a split.
+
 Optional talk front matter (non-internal) for the closing **Many Thanks** slide:
 
 - ``thanks_slides_qr: true`` — show a QR code (slides URL), then **Many Thanks!**, then optional website and email lines.
@@ -1659,12 +1663,33 @@ style: |
 ---"""
 
         # Internal talks: title and thanks slides show only author name (no affiliation)
+        # Multi-line titles: separate lines with YAML newlines/title_slide: | block or the in-line marker @NL@ (never split on ':').
         is_internal = metadata.get('type') == 'internal'
         display_title = metadata.get('title_slide', metadata.get('title', ''))
         if is_internal:
+            td = display_title.strip() if isinstance(display_title, str) else ''
+            raw_parts = []
+            if td:
+                if '@NL@' in td:
+                    for seg in td.split('@NL@'):
+                        raw_parts.extend(
+                            [p.strip() for p in re.split(r'\r?\n', seg) if p.strip()]
+                        )
+                else:
+                    raw_parts = [p.strip() for p in re.split(r'\r?\n', td) if p.strip()]
+            author_raw = metadata.get('author') or ''
+            author_esc = escape(author_raw)
+            if len(raw_parts) >= 2:
+                h1_inner = '<br>'.join(escape(p) for p in raw_parts)
+            elif raw_parts:
+                h1_inner = escape(raw_parts[0])
+            else:
+                h1_inner = ''
             title_block = f"""<!-- _class: lead -->
-# {display_title}
-<p style="color: var(--text-color);"><b>{metadata.get('author', '')}</b></p>"""
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:1rem;width:100%;min-height:100%;box-sizing:border-box;">
+<h1 style="margin: 0; padding: 0; text-align: left;">{h1_inner}</h1>
+<p style="margin: 0; color: var(--text-color);"><b>{author_esc}</b></p>
+</div>"""
             thanks_block = """<!-- _class: lead last-slide -->
 # Many Thanks!"""
         else:
