@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Related-work taxonomy for DOA debugger slides (paper Related Work section) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 430" width="1200" height="430">
+  <defs>
+    <marker id="tw-arrow" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0 10 5 0 10" fill="#224466"/>
+    </marker>
+    <style type="text/css"><![CDATA[
+      .root-box  { fill:#224466; stroke:#224466; stroke-width:2; rx:8; ry:8; }
+      .root-txt  { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:22px; font-weight:600; fill:#ffffff; text-anchor:middle; dominant-baseline:middle; }
+      .lvl2-box  { fill:#ffffff; stroke:#224466; stroke-width:2; rx:8; ry:8; }
+      .lvl2-txt  { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:17px; font-weight:600; fill:#224466; text-anchor:middle; dominant-baseline:middle; }
+      .lvl2-sub  { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:13px; font-weight:400; fill:#224466; text-anchor:middle; dominant-baseline:middle; }
+      .cat-box   { fill:#f6f8fa; stroke:#0e73b8; stroke-width:1.5; rx:6; ry:6; }
+      .cat-txt   { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:14px; font-weight:700; fill:#0e73b8; text-anchor:middle; dominant-baseline:middle; }
+      .leaf-c    { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:13px; fill:#224466; text-anchor:middle; }
+      .leaf-l    { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:13px; fill:#224466; text-anchor:start; }
+      .edge      { stroke:#224466; stroke-width:2; fill:none; marker-end:url(#tw-arrow); }
+      .edge-soft { stroke:#0e73b8; stroke-width:1.5; fill:none; }
+      .note      { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:12px; font-style:italic; fill:#555555; text-anchor:middle; }
+    ]]></style>
+  </defs>
+
+  <!-- Root -->
+  <rect x="510" y="14" width="180" height="46" class="root-box"/>
+  <text x="600" y="37" class="root-txt">Debugging</text>
+
+  <!-- Root to level 2 (orthogonal arrows) -->
+  <path class="edge-soft" d="M 600 60 V 88 H 200 V 108"/>
+  <path class="edge-soft" d="M 600 60 V 88 H 1000 V 108"/>
+
+  <!-- Software debugging (LLM-assisted code) -->
+  <rect x="30" y="110" width="340" height="58" class="lvl2-box"/>
+  <text x="200" y="132" class="lvl2-txt">Software debugging</text>
+  <text x="200" y="152" class="lvl2-sub">(LLM-assisted code)</text>
+  <text x="200" y="194" class="leaf-c">Toggle (2024) &#183; RAGFix (2024) &#183; Confix (2024) &#183;</text>
+  <text x="200" y="212" class="leaf-c">Yaraghi et al. (2025) &#8230;</text>
+
+  <!-- DNN debugging -->
+  <rect x="830" y="110" width="340" height="58" class="lvl2-box"/>
+  <text x="1000" y="132" class="lvl2-txt">DNN debugging</text>
+  <text x="1000" y="152" class="lvl2-sub">(visual &#183; fault loc. &#183; repair &#183; LLMs)</text>
+
+  <!-- DNN to four categories (orthogonal trunk + drops) -->
+  <path class="edge-soft" d="M 1000 168 V 222"/>
+  <path class="edge-soft" d="M 150 222 H 1000"/>
+  <path class="edge-soft" d="M 150 222 V 244"/>
+  <path class="edge-soft" d="M 430 222 V 244"/>
+  <path class="edge-soft" d="M 715 222 V 244"/>
+  <path class="edge-soft" d="M 1000 222 V 244"/>
+
+  <!-- Visual tools -->
+  <rect x="50" y="244" width="200" height="34" class="cat-box"/>
+  <text x="150" y="263" class="cat-txt">Visual tools</text>
+  <text x="150" y="302" class="leaf-c">Cockpit (2021) &#183; Comgra (2024)</text>
+
+  <!-- Fault localisation -->
+  <rect x="280" y="244" width="300" height="34" class="cat-box"/>
+  <text x="430" y="263" class="cat-txt">Fault localisation</text>
+  <text x="288" y="302" class="leaf-l">DeepLocalize (2021) &#183; Pysiassist (2024) &#183;</text>
+  <text x="288" y="320" class="leaf-l">DeepFD (2022) &#183; FL4Deep (2024) &#183;</text>
+  <text x="288" y="338" class="leaf-l">MODE (2018) &#183; HUDD (2022) &#183; &#8230;</text>
+
+  <!-- Repair frameworks -->
+  <rect x="610" y="244" width="210" height="34" class="cat-box"/>
+  <text x="715" y="263" class="cat-txt">Repair frameworks</text>
+  <text x="618" y="302" class="leaf-l">DeepDiagnosis (2022) &#183;</text>
+  <text x="618" y="320" class="leaf-l">DeepCNN (2024) &#183;</text>
+  <text x="618" y="338" class="leaf-l">AutoTrainer (2025)</text>
+
+  <!-- LLMs / VLMs for DNNs -->
+  <rect x="850" y="244" width="300" height="34" class="cat-box"/>
+  <text x="1000" y="263" class="cat-txt">LLMs / VLMs (DNNs)</text>
+  <text x="900" y="302" class="leaf-l">Hu et al. (2025) &#183; HiBug2 (2025) &#183;</text>
+  <text x="900" y="320" class="leaf-l">Kim et al. (2025) &#183; Cao et al. (2025) &#183; &#8230;</text>
+
+</svg>

@@ -107,7 +107,11 @@
 
 <div class="rows" style="height: 100%">
    <div class="row text-center vertical-middle" style="height: 10%">
-      <b>The Systems View</b>
+      <div class="columns" style="width: 100%">
+         <div class="column vertical-top text-center" style="width: 100%">
+            <b>The Systems View</b>
+         </div>
+      </div>
    </div>
    <div class="row" style="height: 80%">
       <div class="columns" style="width: 100%">
@@ -120,27 +124,7 @@
       </div>
    </div>
    <div class="row text-center vertical-top" style="height: 10%">
-   </div>
-</div>
-
-## AI-based Systems
-
-<div class="rows" style="height: 100%">
-   <div class="row text-center vertical-middle" style="height: 10%">
-      <b>The Systems View</b>
-   </div>
-   <div class="row" style="height: 80%">
-      <div class="columns" style="width: 100%">
-         <div class="column vertical-top text-center" style="width: 50%">
-            <img class="external-svg" src="{{ site.url }}/assets/media/images/context-3.png" alt="AI System" style="height: 400px">
-         </div>
-         <div class="column vertical-top text-center" style="width: 50%">
-            <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/s4-general-diagram-adoption.svg" alt="AI System" style="height: 400px">
-         </div>
-      </div>
-   </div>
-   <div class="row text-center vertical-top" style="height: 10%">
-      How are software systems currently designed, developed, and deployed?
+      <b>How are software systems currently designed, developed, and deployed?</b>
    </div>
 </div>
 

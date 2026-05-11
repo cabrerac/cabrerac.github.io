@@ -12,6 +12,8 @@
     </div>
 </div>
 
+<!-- end SLIDES: -->
+
 ## AI as a Service
 
 <div class="rows" style="height: 100%">
@@ -57,6 +59,8 @@
         </div>
     </div>
 </div>
+
+<!-- SLIDES: -->
 
 ## AI as a Service
 
