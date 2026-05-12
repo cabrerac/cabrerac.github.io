@@ -18,6 +18,7 @@ status: upcoming
 author: Christian Cabrera Jojoa
 output_page: false
 visible: false
+show_slide_counter: false
 ---
 
 <!-- SLIDES: -->
@@ -75,8 +76,6 @@ visible: false
 <!-- end SLIDES: -->
 
 {% include _snippets/doagent.md %}
-
-{% include _snippets/talks/icms-intellectual-debt/conclusions.md %}
 
 <!-- RENDER: -->
 

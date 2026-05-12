@@ -40,9 +40,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Positioning of DOAgent</b></p>
-                <br>
-                <p>DOAgent contributes a <b>data-oriented substrate</b> for MAS where analysis is not an afterthought but a built-in property of the execution model.</p>
+                <p>DOAgent contributes a <b>data-oriented substrate</b> for MAS where analysis is not an afterthought but a built-in property of the multi-agent system.</p>
                 <br>
                 <ul>
                     <li>Policy-agnostic records (heuristic, RL, LLM) under a common schema</li>
