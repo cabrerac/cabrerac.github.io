@@ -10,7 +10,7 @@ year: 2026
 month: "April"
 date: "2026-04-14"
 type: "invited_talk"
-status: "upcoming"
+status: "past"
 author: Christian Cabrera Jojoa
 email: chc79@cam.ac.uk
 institution: University of Cambridge

@@ -135,6 +135,6 @@
   month: May
   date: '2026-05-12'
   type: internal
-  status: upcoming
+  status: past
   visible: false
   slides: https://cabrerac.github.io/assets/slides/2026/internal-doa-debugger-doagent.html

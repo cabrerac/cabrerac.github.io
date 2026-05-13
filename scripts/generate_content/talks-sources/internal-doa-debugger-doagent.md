@@ -14,7 +14,7 @@ year: 2026
 month: May
 date: '2026-05-12'
 type: internal
-status: upcoming
+status: "past"
 author: Christian Cabrera Jojoa
 output_page: false
 visible: false

@@ -9,7 +9,7 @@ year: 2026
 month: "February"
 date: "2026-03-05"
 type: "invited_talk"
-status: "upcoming"
+status: "past"
 author: Christian Cabrera Jojoa
 email: chc79@cam.ac.uk
 position: Assistant Research Professor

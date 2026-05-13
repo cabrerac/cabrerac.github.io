@@ -9,7 +9,7 @@ year: 2026
 month: "March"
 date: "2026-03-17"
 type: "internal"
-status: "upcoming"
+status: "past"
 author: Christian Cabrera Jojoa
 output_page: false
 visible: false
