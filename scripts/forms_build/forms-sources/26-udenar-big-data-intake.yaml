@@ -1,0 +1,224 @@
+# Machine-readable intake form — Udenar Big Data 2026
+# Human spec: work-space/teaching/big-data/planning/intake-form-spec.md
+# Build: python scripts/forms_build/build_form.py 26-udenar-big-data-intake
+
+meta:
+  course_code: 26-udenar-big-data
+  language: es
+  owner_account: chc79@cam.ac.uk
+  deadline: "2026-05-26T23:59:00-05:00"  # Colombia time
+  # Optional: Google Drive folder ID (from folder URL …/folders/THIS_PART)
+  drive_folder_id: "1p9B4ZsPwMl2ZINMCtZD2QF7yZ51m6vfw"
+  distribution:
+    - bulk_email
+    - moodle
+  submission_notes: |
+    Diagnostic notebook: students open from the course website, complete locally or in Colab,
+    then upload the .ipynb to Moodle before Saturday 0 (29 May 2026).
+    File name: diagnostic_{apellido}_{nombre}.ipynb
+
+form:
+  title: "Electiva I Big Data — Formulario de inicio"
+  document_title: "Udenar Big Data 2026 — Intake"
+  # VERIFIED = collect signed-in user email (Workspace); RESPONDER_INPUT = ask on form
+  email_collection_type: VERIFIED
+  description: |
+    Respuestas para conformar grupos de trabajo y adaptar el apoyo del curso.
+    La evaluación diagnóstica en Google Colab no es calificada.
+    Tiempo estimado: 10–15 min (este formulario) + 45–60 min (notebook).
+
+    Los materiales del curso están en inglés; puede escribir sus reflexiones en español o inglés.
+  confirmation_message: |
+    Gracias por completar el formulario.
+
+    Siguiente paso — diagnóstico en Colab (45–60 min, no calificable):
+    Abra el notebook desde la página del curso en el sitio web del docente
+    (sección Saturday 0 / Diagnostic) o use el enlace que recibirá por correo.
+
+    Al terminar, suba su notebook (.ipynb) en Moodle con el nombre:
+    diagnostic_apellido_nombre.ipynb
+
+    Si el formulario le permite editar su respuesta, vuelva aquí para indicar
+    cuántos ejercicios completó (Sección 5).
+
+sections:
+  - title: "Sección 1 — Datos básicos"
+    items:
+      - type: text
+        title: "Nombre completo"
+        required: true
+      - type: text
+        title: "Correo electrónico"
+        required: true
+
+  - title: "Sección 2 — Formación y experiencia"
+    items:
+      - type: choice
+        title: "Título universitario más alto y área"
+        required: true
+        options:
+          - "Licenciatura/pregrado en Matemáticas o Estadística"
+          - "Licenciatura/pregrado en Física u otra ciencia básica"
+          - "Ingeniería (industrial, química, sistemas, agroforestal, etc.)"
+          - "Psicología o ciencias sociales"
+          - "Medicina o ciencias de la salud"
+          - "Administración, economía u otras ciencias sociales aplicadas"
+          - "Maestría en otra área (especificar)"
+          - "Otro (especificar)"
+      - type: text
+        title: 'Si eligió "Otro" o "Maestría", especifique'
+        required: false
+      - type: choice
+        title: "Rol o actividad principal actual"
+        required: true
+        options:
+          - "Docente universitario/escolar"
+          - "Investigador/a"
+          - "Analista de datos/estadístico en sector público"
+          - "Analista en empresa privada"
+          - "Profesional independiente/consultoría"
+          - "Estudiante (solo estudios)"
+          - "Otro"
+      - type: choice
+        title: "Uso de estadística en su trabajo o estudios"
+        required: true
+        options:
+          - "Casi nunca"
+          - "Ocasionalmente"
+          - "Con frecuencia"
+          - "Es el núcleo de mi trabajo"
+      - type: choice
+        title: "¿Ha trabajado antes con conjuntos de datos grandes o complejos?"
+        required: true
+        options:
+          - "No"
+          - "Sí, en cursos o proyectos académicos"
+          - "Sí, en trabajo profesional"
+          - "Sí, en ambos"
+      - type: paragraph
+        title: "Ejemplo breve (opcional): tipo de dato y tamaño aproximado"
+        required: false
+
+  - title: "Sección 3a — Inglés (autoevaluación)"
+    description: |
+      Los materiales del curso (notebooks, videos) están en inglés.
+      Puede escribir sus reflexiones y el informe de decisiones en español o inglés.
+      Usamos estas respuestas para formar grupos equilibrados.
+    items:
+      - type: choice
+        title: "Inglés — lectura (textos técnicos)"
+        required: true
+        options:
+          - "1 — Necesito ayuda"
+          - "2 — Lo entiendo con esfuerzo"
+          - "3 — Cómodo/a con material técnico"
+          - "4 — Fluido/a"
+      - type: choice
+        title: "Inglés — escritura (notas e informes técnicos)"
+        required: true
+        options:
+          - "1 — Necesito ayuda"
+          - "2 — Frases simples"
+          - "3 — Cómodo/a con notas técnicas"
+          - "4 — Fluido/a"
+      - type: choice
+        title: "Inglés — comprensión auditiva (videos técnicos)"
+        required: true
+        options:
+          - "1 — Necesito ayuda"
+          - "2 — Lo entiendo con esfuerzo"
+          - "3 — Cómodo/a con videos técnicos"
+          - "4 — Fluido/a"
+      - type: choice
+        title: "Inglés — expresión oral (discusiones técnicas)"
+        required: true
+        options:
+          - "1 — Necesito ayuda"
+          - "2 — Frases cortas"
+          - "3 — Cómodo/a en discusiones técnicas"
+          - "4 — Fluido/a"
+
+  - title: "Sección 3 — Python y herramientas (autoreporte)"
+    items:
+      - type: choice
+        title: "Experiencia programando en Python"
+        required: true
+        options:
+          - "Nunca"
+          - "Tutoriales o cursos introductorios"
+          - "Programo ocasionalmente"
+          - "Programo con frecuencia y me siento cómodo/a"
+      - type: choice
+        title: "Uso de notebooks (Jupyter / Google Colab)"
+        required: true
+        options:
+          - "Nunca"
+          - "Algunas veces"
+          - "Con frecuencia"
+      - type: choice
+        title: "Pandas (lectura y manipulación de datos)"
+        required: true
+        options:
+          - "No lo conozco"
+          - "Lo he usado poco"
+          - "Cómodo/a con operaciones básicas"
+      - type: choice
+        title: "SQL"
+        required: true
+        options:
+          - "No"
+          - "Consultas básicas (SELECT, WHERE, JOIN simple)"
+          - "Intermedio o avanzado"
+      - type: checkbox
+        title: "Herramientas de visualización"
+        required: true
+        options:
+          - "Ninguna"
+          - "matplotlib/seaborn"
+          - "Power BI"
+          - "Tableau u otra similar"
+          - "Solo Excel/Sheets"
+
+  - title: "Sección 4 — Curso y proyecto"
+    items:
+      - type: checkbox
+        title: "¿Qué espera principalmente de esta electiva? (elija hasta 2)"
+        description: "Seleccione como máximo dos opciones."
+        required: true
+        options:
+          - "Proceso Big Data de punta a punta"
+          - "Herramientas concretas"
+          - "Proyecto aplicable a mi trabajo"
+          - "Ética y gobernanza"
+          - "Fortalecer Python para datos"
+          - "Otro"
+      - type: paragraph
+        title: "Dominio o contexto posible para su proyecto (opcional)"
+        required: false
+      - type: choice
+        title: "Confirmo que trabajaré en un grupo estable durante todo el curso"
+        required: true
+        options:
+          - "Sí"
+          - "Prefiero consultar con el docente"
+      - type: paragraph
+        title: "¿Incompatibilidad para trabajar con alguien del curso? (confidencial)"
+        required: false
+
+  - title: "Sección 5 — Diagnóstico Colab"
+    description: |
+      Tras enviar este formulario, complete el notebook diagnóstico (45–60 min).
+      No es calificable. Suba su .ipynb en Moodle cuando termine.
+    items:
+      - type: choice
+        title: "¿Cuántos ejercicios completó con éxito en el notebook diagnóstico?"
+        required: false
+        options:
+          - "Aún no lo he hecho"
+          - "0–1"
+          - "2–3"
+          - "4–5"
+          - "6 o más"
+      - type: text
+        title: "Resumen del notebook (p. ej. DIAGNOSTIC_SCORE=5) o nota sobre su entrega en Moodle"
+        required: false

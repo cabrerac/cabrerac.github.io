@@ -118,3 +118,8 @@ Thumbs.db
 
 # Cursor rules
 .cursor/rules/
+
+# Google Cloud (Forms builder — local credentials)
+scripts/forms_build/client_secrets.json
+scripts/forms_build/client_secret.json
+scripts/forms_build/token.json

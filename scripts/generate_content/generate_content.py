@@ -638,7 +638,7 @@ class ContentGenerator:
                 # Check if line starts with # (after any whitespace)
                 if re.match(r'^\s*#', line):
                     # Replace # with a special marker that won't be interpreted as markdown
-                    protected_lines.append(re.sub(r'^\s*#', r'\1<comment>', line))
+                    protected_lines.append(re.sub(r'^(\s*)#', r'\1<comment>', line))
                 else:
                     protected_lines.append(line)
             return f'```python\n{chr(10).join(protected_lines)}\n```'

@@ -1,0 +1,25 @@
+form_id: 13FDEj-8EkBL7t-eKQTDIzBC9UsjRbaVj_Xof15MGWY4
+responder_url: https://docs.google.com/forms/d/e/1FAIpQLSddAP60BHPP-DZ_a0pXrj8v96tPCuapWWR8tEJEzqgOvnr2QQ/viewform
+edit_url: https://docs.google.com/forms/d/13FDEj-8EkBL7t-eKQTDIzBC9UsjRbaVj_Xof15MGWY4/edit
+drive_folder_id: 1p9B4ZsPwMl2ZINMCtZD2QF7yZ51m6vfw
+confirmation_message_manual: The Forms API v1 does not expose confirmation text. Paste
+  the block below in Google Forms → Settings → Presentation.
+confirmation_message: 'Gracias por completar el formulario.
+
+
+  Siguiente paso — diagnóstico en Colab (45–60 min, no calificable):
+
+  Abra el notebook desde la página del curso en el sitio web del docente
+
+  (sección Saturday 0 / Diagnostic) o use el enlace que recibirá por correo.
+
+
+  Al terminar, suba su notebook (.ipynb) en Moodle con el nombre:
+
+  diagnostic_apellido_nombre.ipynb
+
+
+  Si el formulario le permite editar su respuesta, vuelva aquí para indicar
+
+  cuántos ejercicios completó (Sección 5).'
+note: Paste responder_url into bulk email and Moodle.

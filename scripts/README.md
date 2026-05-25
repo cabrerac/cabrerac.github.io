@@ -5,6 +5,7 @@ Helper scripts for the site and workflows. Each tool lives in its own folder wit
 | Tool | Description |
 |------|-------------|
 | **[bulk_email](bulk_email/)** | Send personalized bulk emails from a CSV (Outlook or custom SMTP). |
+| **[forms_build](forms_build/)** | Build Google Forms from YAML via the Google Forms API. |
 | **[generate_content](generate_content/)** | Generate lecture pages, Marp slides, and Jupyter notebooks from Markdown; generate talk slides and update `_data/talks.yml`. |
 | **[pdf_to_markdown](pdf_to_markdown/)** | Extract a PDF into Markdown for use as LLM context (e.g. chat with a paper). |
 
