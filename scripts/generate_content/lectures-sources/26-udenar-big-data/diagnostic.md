@@ -1,6 +1,7 @@
 ---
 course_code: 26-udenar-big-data
-title: "Diagnostic: Ungraded baseline check before starting the course. Async, ~45–60 min. Six guided exercises with light auto-checks (`DIAGNOSTIC_SCORE` 0–6) on the UCI Adult dataset to demonstrate Python and data skills."
+title: "Diagnostic Notebook"
+description: Ungraded baseline check before starting the course. Async, ~45–60 min. Six guided exercises with light auto-checks (`DIAGNOSTIC_SCORE` 0–6) on the UCI Adult dataset to demonstrate Python and data skills.
 session: 0
 start_time: async
 end_time: async
