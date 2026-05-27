@@ -22,20 +22,27 @@ visible: false
 
 ## Instructions (read first)
 
-**Purpose.** This diagnostic is **not graded**. It measures your starting point in Python, pandas, and reading data, so we can support you and plan the course accordingly. It is important you are honest when developing and reporting the diagnostic scores for this exercise to work.
+**Purpose.** This diagnostic is **not graded**. It measures your starting point in Python, pandas, and reading data, so we can form balanced groups and adapt support during the course.
 
-**How to work.**
+**Honesty (required).** This exercise only works if you are honest:
 
-1. Run cells **top to bottom** unless a cell tells you otherwise.
-2. Cells marked **Your turn** expect you to write or fix code yourself. Cells marked **Check** run automatic tests — re-run after fixing your code until the check passes.
-3. The final **Submission** cell counts how many of the six band checks passed and prints `DIAGNOSTIC_SCORE=n` (0–6). This is **self-reported in the intake form**; the instructor does not grade it.
-4. Some checks accept a wide tolerance (e.g. counts within an expected range). The goal is *attempted and roughly correct*, not pixel-perfect output.
+- Do the **Your turn** cells yourself.
+- Run the **Submission** cell and report the **real** `DIAGNOSTIC_SCORE` it prints (0–6) in the intake form. Do not inflate or lower your score.
+- The instructor does **not** grade this notebook. We use your self-reported score together with the form to plan the course, not to assign a grade.
 
-**Dataset.** [UCI Adult / Census Income](https://archive.ics.uci.edu/dataset/2/adult). A well-known public dataset (~32k rows) about employment and income. Themes are similar to our course spine (DANE GEIH) but at a much smaller scale.
+**What to do (in order).**
+
+1. Open this notebook in **Google Colab** (use the link from your course email or the intake form).
+2. Run cells **top to bottom** unless a cell tells you otherwise.
+3. In cells marked **Your turn**, write the code yourself. In cells marked **Check**, run the tests and fix your code until the check passes.
+4. Run the final **Submission** cell. It prints `DIAGNOSTIC_SCORE=n` (0–6).
+5. Open the **intake form** [here](https://docs.google.com/forms/d/e/1FAIpQLSddAP60BHPP-DZ_a0pXrj8v96tPCuapWWR8tEJEzqgOvnr2QQ/viewform) and complete it. In **Section 5**, enter your score and how many bands you completed. You may **edit your form response** later if you finish more bands.
+
+**Dataset.** [UCI Adult / Census Income](https://archive.ics.uci.edu/dataset/2/adult). A well-known public dataset (~32k rows) about employment and income.
 
 ## Setup
 
-Run this cell once. The loader tries the canonical UCI URL first, then a course-hosted copy, then a `scikit-learn` fallback. You should not get stuck on network issues.
+Run the following cells once. The loader tries the canonical UCI URL first, then a course-hosted copy, then a `scikit-learn` fallback. You should not get stuck on network issues.
 
 We start with the required imports.
 
@@ -214,7 +221,11 @@ print("Band 6 - short answer: OK")
 
 ## Submission
 
-Run this cell after all band checks have passed (or as far as you got). It prints your `DIAGNOSTIC_SCORE` (0–6) and reminds you of the Moodle filename.
+Run this cell after all band checks have passed (or as far as you got). It prints your `DIAGNOSTIC_SCORE` (0–6). Copy that number into **Section 5** of the intake form.
+
+[Intake form link](https://docs.google.com/forms/d/e/1FAIpQLSddAP60BHPP-DZ_a0pXrj8v96tPCuapWWR8tEJEzqgOvnr2QQ/viewform)
+
+Report your score honestly — do not change the number to match what you wish you had scored.
 
 ```python
 def _band_ok(name, predicate):
@@ -236,7 +247,7 @@ for name, predicate in checks:
     passed += int(ok)
     print(f"{name}: {'OK' if ok else 'incomplete'}")
 print(f"\nDIAGNOSTIC_SCORE={passed}")
-print("Upload this using Section 5 in intake form.")
+print("Report this score honestly in Section 5 of the intake form")
 ```
 
 <!-- end NOTEBOOK: -->
