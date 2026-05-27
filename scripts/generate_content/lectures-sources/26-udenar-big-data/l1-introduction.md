@@ -1,10 +1,10 @@
 ---
 course_code: 26-udenar-big-data
 title: Introduction to Big Data, methodology, and ecosystems
-description: Lecture 1 — framing, process model, case shell, group charter (L1 homework). Stub — content to be authored.
+description: Lecture 1 — framing, process model, case shell, group charter (L1 homework). Async ~2 h video (V1 theory + V2 demo) + ~3 h Saturday sync inside the shared 07:00–13:00 CO Saturday block. Stub — content to be authored.
 session: 1
-start_time: 08:00 am
-end_time: 12:00 pm
+start_time: 07:00 am
+end_time: 01:00 pm
 hours: 5
 author: Christian Cabrera Jojoa
 email: chc79@cam.ac.uk
