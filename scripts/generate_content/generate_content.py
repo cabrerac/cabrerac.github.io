@@ -2097,6 +2097,38 @@ style: |
             print("3. Try running 'marp --version' to verify the installation")
             raise
 
+    _NOTEBOOK_FENCE_RE = re.compile(
+        r"^```python\s*\n(.*?)^```\s*$",
+        re.MULTILINE | re.DOTALL,
+    )
+
+    def _split_markdown_sections(self, markdown: str) -> list[str]:
+        """Split markdown prose into cells on blank-line boundaries."""
+        return [section.strip() for section in markdown.split("\n\n") if section.strip()]
+
+    def _iter_notebook_blocks(self, content: str):
+        """
+        Yield ('markdown', text) or ('code', text) in document order.
+
+        Fenced ```python blocks must stay intact (blank lines inside code are common).
+        The previous split-on-\\n\\n approach broke code blocks into markdown fragments.
+        """
+        pos = 0
+        for match in self._NOTEBOOK_FENCE_RE.finditer(content):
+            md = content[pos : match.start()].strip()
+            if md:
+                for section in self._split_markdown_sections(md):
+                    yield ("markdown", section)
+            code = match.group(1)
+            if code.endswith("\n"):
+                code = code[:-1]
+            yield ("code", code)
+            pos = match.end()
+        tail = content[pos:].strip()
+        if tail:
+            for section in self._split_markdown_sections(tail):
+                yield ("markdown", section)
+
     def generate_notebook(self, lecture_file, output_dir, course_metadata):
         """Generate Jupyter notebook from lecture content."""
         print(f"Generating notebook for {lecture_file}")
@@ -2146,16 +2178,11 @@ style: |
 
         # Process content and create cells
         if filtered_content.strip():  # Only process if there's content
-            sections = filtered_content.split('\n\n')
-            for section in sections:
-                if section.strip():
-                    if section.startswith('```python'):
-                        # Code cell
-                        code = section.split('\n', 1)[1].rsplit('\n', 1)[0]
-                        nb.cells.append(nbf.v4.new_code_cell(code))
-                    else:
-                        # Markdown cell
-                        nb.cells.append(nbf.v4.new_markdown_cell(section))
+            for block_type, source in self._iter_notebook_blocks(filtered_content):
+                if block_type == "code":
+                    nb.cells.append(nbf.v4.new_code_cell(source))
+                else:
+                    nb.cells.append(nbf.v4.new_markdown_cell(source))
 
         # Save notebook
         output_file = output_dir / f"{lecture_file.stem}.ipynb"
