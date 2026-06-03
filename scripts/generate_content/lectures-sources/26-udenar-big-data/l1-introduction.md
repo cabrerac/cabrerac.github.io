@@ -18,7 +18,7 @@ permalink: /teaching/26-udenar-big-data/l1-introduction/
 visible: true
 notebook_language: es
 notebook_title: Introducción a big data, metodología y ecosistemas
-notebook_description: Práctica individual de la Lección 1. Poner a disposición datos GEIH (Access). Entregas de la semana 1 en la página de la Lección 2.
+notebook_description: Práctica individual de la Lección 1. Poner a disposición datos GEIH (Access).
 ---
 
 <!-- RENDER: -->
@@ -842,11 +842,5 @@ if passed >= 4:
 ```
 
 ---
-
-## Tareas
-
-Este cuaderno es **práctica individual** (Access). No define entregas en Moodle.
-
-Las entregas de la **semana 1** (L1 + L2) están en la [página de la Lección 2](https://cabrerac.github.io/teaching/26-udenar-big-data/l2-ethics-governance/) y en la sección **Tareas** del cuaderno [L2](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l2-ethics-governance.ipynb) y del cuaderno grupal [week-1-group](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-1-group.ipynb).
 
 <!-- end NOTEBOOK: -->

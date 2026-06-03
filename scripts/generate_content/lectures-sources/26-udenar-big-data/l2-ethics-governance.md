@@ -19,7 +19,7 @@ visible: true
 group_notebook: week-1-group
 notebook_language: es
 notebook_title: Ética, privacidad y gobernanza de datos
-notebook_description: Práctica de la Lección 2. Auditoría ética sobre GEIH y primer enlace con OpenStreetMap (escuelas). Ejercicios de entrega en el cuaderno grupal week-1-group.
+notebook_description: Práctica de la Lección 2. Auditoría ética sobre GEIH y primer enlace con OpenStreetMap (escuelas).
 ---
 
 <!-- RENDER: -->
@@ -54,9 +54,13 @@ Un **DataFrame** es una tabla. **`read_csv`** abre un CSV. **`value_counts`** cu
 ```python
 import pandas as pd
 
+# Crear un diccionario de datos
 datos = {"dpto": [52, 52, 11], "edad": [25, 40, 30]}
+# Crear un DataFrame a partir de un diccionario. Las llaves son los nombres de las columnas
 df = pd.DataFrame(datos)
+# Agrupar por departamento y calcular la edad media
 print(df.groupby("dpto")["edad"].mean())
+# Contar cuántas filas hay por departamento
 print(df["dpto"].value_counts())
 ```
 
@@ -65,24 +69,27 @@ print(df["dpto"].value_counts())
 **`merge`** combina tablas por una columna común (aquí **`DPTO`**).
 
 ```python
+# Crear dos datasets
 geih = pd.DataFrame({"dpto": [52, 11], "personas": [1000, 5000]})
 osm = pd.DataFrame({"dpto": [52, 11], "poi_school_count": [120, 800]})
+# Unir los dos datasets a través del código de departamento
 unido = geih.merge(osm, on="dpto", how="left")
 print(unido)
 ```
 
 ### Peticiones HTTP con `requests`
 
-**`requests.post`** envía datos a un servicio web. OpenStreetMap expone la **Overpass API** para consultar mapas.
+**`requests.post`** envía datos a un servicio web. OpenStreetMap expone la **Overpass API** para consultar mapas. El servidor público exige un **`User-Agent`** que identifique la aplicación (no el valor por defecto de `requests`).
 
 ```python
 import requests
 
-url = "https://overpass-api.de/api/interpreter"
-query = '[out:json]; node["amenity"="school"](area:120027); out count;'
-resp = requests.post(url, data={"data": query}, timeout=60)
-resp.raise_for_status()
-print(resp.json())
+OVERPASS_URL = "https://overpass-api.de/api/interpreter"
+OVERPASS_HEADERS = {
+    "User-Agent": "UDENAR-BigData-2026/1.0 (Universidad de Nariño — Big Data elective)",
+    "Accept": "application/json",
+}
+print("Overpass listo. User-Agent:", OVERPASS_HEADERS["User-Agent"])
 ```
 
 ### Comprobar con `assert`
@@ -276,7 +283,7 @@ OSM es un mapa colaborativo. Consultamos **Overpass API** para contar nodos con 
 
 ### Paso 1 — Configuración OSM
 
-Cada departamento tiene un **id de área** en OSM (relación administrativa). Para Nariño usamos **`120027`**. En el cuaderno grupal completarán ids para más departamentos.
+Cada departamento tiene un **id de relación** en OSM (límite administrativo). Para Nariño la relación es **`120027`**. En Overpass el **id de área** es **`3600000000 + id_relación`**.
 
 ```python
 import json
@@ -286,13 +293,18 @@ import matplotlib.pyplot as plt
 import requests
 
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
+OVERPASS_HEADERS = {
+    "User-Agent": "UDENAR-BigData-2026/1.0 (Universidad de Nariño — Big Data elective)",
+    "Accept": "application/json",
+}
 OUTPUTS_DIR = Path("outputs")
 OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 
 # Nariño — código DANE 52
 DPTO_DEMO = 52
 DPTO_DEMO_NOMBRE = "Nariño"
-OSM_AREA_ID_NARINO = 120027
+OSM_RELATION_NARINO = 120027
+OSM_AREA_ID_NARINO = 3600000000 + OSM_RELATION_NARINO
 
 AMENITY_SCHOOL = "school"
 PAUSA_SEG = 1.0  # cortesía con el servidor público Overpass
@@ -302,14 +314,19 @@ PAUSA_SEG = 1.0  # cortesía con el servidor público Overpass
 
 ```python
 def contar_nodos_amenity(area_id: int, amenity: str, timeout: int = 90) -> int:
-    """Cuenta nodos OSM con amenity dado dentro del area_id."""
+    """Cuenta nodos OSM con amenity dado dentro del area_id de Overpass."""
     query = f"""
-    [out:json][timeout:60];
-    area({area_id})->.a;
-    node["amenity"="{amenity}"](area.a);
-    out;
-    """
-    resp = requests.post(OVERPASS_URL, data={"data": query}, timeout=timeout)
+[out:json][timeout:60];
+area({area_id})->.a;
+node["amenity"="{amenity}"](area.a);
+out;
+"""
+    resp = requests.post(
+        OVERPASS_URL,
+        data={"data": query},
+        headers=OVERPASS_HEADERS,
+        timeout=timeout,
+    )
     resp.raise_for_status()
     data = resp.json()
     return len(data.get("elements", []))
@@ -431,7 +448,7 @@ Esta sección define **qué entregar en Moodle** para la semana 1. Plantillas en
 
 ### Trabajo en grupo (60 % de la formativa semana 1)
 
-Use el Colab plantilla **[`week-1-group`](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-1-group.ipynb)**. Consolida **L1 + L2**. Entregar ZIP **`week-1-<group_id>.zip`** hasta el **miércoles 10 de junio de 2026, 23:59 (Colombia)**:
+Use el Colab plantilla **[`week-1-group`](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-1-group.ipynb)**. Consolida **L1 + L2**. Entregar ZIP **`week-1-<group_id>.zip`** hasta el **miércoles 10 de junio de 2026**:
 
 | Archivo en el ZIP | Descripción |
 |-------------------|-------------|
@@ -439,14 +456,12 @@ Use el Colab plantilla **[`week-1-group`](https://colab.research.google.com/gith
 | `manifest.json` | Registro de acceso DANE |
 | `osm_poi_by_dpto.csv` | Conteos OSM por departamento |
 
-Los **requerimientos del proyecto** (`project_requirements.pdf`) se entregan en la **semana 2** (plantilla en la página de esta lección).
-
 ### Reflexión individual (40 % de la formativa semana 1)
 
-PDF **`week-1-reflection-<student>.pdf`** hasta el **jueves 11 de junio de 2026, 23:59 (Colombia)**. Cubre L1 y L2 (plantilla semana 1).
+PDF **`week-1-reflection-<student>.pdf`** hasta el **jueves 11 de junio de 2026**. Cubre L1 y L2 (plantilla semana 1).
 
 ### Requerimientos del proyecto
 
-`project_requirements.pdf` se entrega en la **semana 2** (ver definición del proyecto). El cuaderno grupal incluye borrador de práctica responsable para la clínica del sábado.
+`project_requirements.pdf` se discute en la sesión grupal de la **semana 2**.
 
 <!-- end NOTEBOOK: -->

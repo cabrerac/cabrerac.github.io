@@ -16,8 +16,7 @@ layout: lecture
 lecture_code: l2-ethics-governance
 lecture_date: 06/06/2026
 notebook_description: "Pr\xE1ctica de la Lecci\xF3n 2. Auditor\xEDa \xE9tica sobre\
-  \ GEIH y primer enlace con OpenStreetMap (escuelas). Ejercicios de entrega en el\
-  \ cuaderno grupal week-1-group."
+  \ GEIH y primer enlace con OpenStreetMap (escuelas)."
 notebook_language: es
 notebook_title: "\xC9tica, privacidad y gobernanza de datos"
 permalink: /teaching/26-udenar-big-data/l2-ethics-governance/
