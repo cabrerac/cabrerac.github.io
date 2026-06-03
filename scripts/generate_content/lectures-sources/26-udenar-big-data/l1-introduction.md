@@ -24,16 +24,14 @@ notebook_description: Práctica de la Lección 1. Poner a disposición datos de 
 
 <!-- RENDER: -->
 
-## Resources
+### Resources
 
-- [Project requirements template](/assets/documents/26-udenar-big-data/plantilla-requerimientos-proyecto.docx): Group deliverable "project_requirements.pdf" inside the group ZIP. Deadline 10/06/2026.
-- [L1 individual reflection template](/assets/documents/26-udenar-big-data/plantilla-reflexion-l1.docx): Individual deliverable "l1-reflexion-<student-name>.pdf". Deadline 11/06/2026.
+- [Project requirements template](/assets/documents/26-udenar-big-data/plantilla-requerimientos-proyecto.docx): Group deliverable inside the group ZIP. Deadline 10/06/2026.
+- [L1 individual reflection template](/assets/documents/26-udenar-big-data/plantilla-reflexion-l1.docx): Individual deliverable. Deadline 11/06/2026.
 - [DANE microdata portal](https://microdatos.dane.gov.co/)
 - [GEIH 2024 catalog — methodology and documentation](https://microdatos.dane.gov.co/index.php/catalog/819)
 
-<br>
-
-## References
+### References
 
 - boyd, d., & Crawford, K. (2012). [Critical questions for big data](https://doi.org/10.1080/1369118X.2012.678878). *Information, Communication & Society*, 15(5), 662–679.
 - Zuboff, S. (2019). *The age of surveillance capitalism* (Chapter 1). PublicAffairs. *(Spanish or English edition — distributed by course email.)*
