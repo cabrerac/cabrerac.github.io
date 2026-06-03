@@ -1,0 +1,13 @@
+{
+  "plan_name": "test-one-slice",
+  "slices": {
+    "2024-03": {
+      "label": "2024-03",
+      "status": "extracted",
+      "zip_path": "data\\raw\\geih_2024-03.zip",
+      "extract_dir": "data\\raw\\2024-03",
+      "error": null,
+      "bytes_downloaded": 67171292
+    }
+  }
+}

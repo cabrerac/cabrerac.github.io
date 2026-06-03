@@ -1,0 +1,4 @@
+name: course-spine-access
+dest: data/raw
+segments:
+  - years: [2022, 2023, 2024, 2025]

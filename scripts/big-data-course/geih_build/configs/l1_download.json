@@ -1,0 +1,5 @@
+{
+  "catalog_id": 819,
+  "l1_filename": "Ene_2024.zip",
+  "note": "Instructor reference for L1. Students scrape file_id from get-microdata; do not hardcode file_id in Colab."
+}

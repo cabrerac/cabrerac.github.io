@@ -2,10 +2,10 @@
 author: Christian Cabrera Jojoa
 course_code: 26-udenar-big-data
 department: Department of Computer Science and Technology
-description: "Esta lecci\xF3n presenta el curso y c\xF3mo trabajaremos. Introduce\
-  \ el concepto de Big Data, su contexto y ecosistemas. Presentamos la metodolog\xED\
-  a de ciencia de datos y exploramos su primera etapa \u2014 poner los datos a disposici\xF3\
-  n (Access)."
+description: This lecture introduces the course and how we will work along it. It
+  also introduces the Big Data concept, history, context, applications, and ecosystems.
+  We present the data science methodology that will drive our work and explore its
+  first stage, making data available.
 email: chc79@cam.ac.uk
 end_time: 01:00 pm
 hours: 5

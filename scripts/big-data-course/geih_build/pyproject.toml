@@ -1,0 +1,17 @@
+[project]
+name = "geih-build"
+version = "0.1.0"
+description = "GEIH download and harmonisation for Udenar Big Data course"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas>=2.0",
+    "pyarrow>=14.0",
+    "requests>=2.28",
+]
+
+[project.scripts]
+geih-build = "geih_build.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["geih_build*"]

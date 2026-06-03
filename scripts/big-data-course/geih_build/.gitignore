@@ -1,0 +1,6 @@
+data/
+manifest.json
+build_state.json
+catalog_registry.json
+*.zip
+*.egg-info/

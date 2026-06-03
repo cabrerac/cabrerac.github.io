@@ -1,0 +1,5 @@
+{
+  "name": "test-one-file",
+  "dest": "data/raw",
+  "segments": [{ "years": [2024] }]
+}

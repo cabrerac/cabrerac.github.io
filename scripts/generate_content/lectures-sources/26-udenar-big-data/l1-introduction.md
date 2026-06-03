@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-big-data
 title: Introduction to Big Data, methodology, and ecosystems
-description: Esta lección presenta el curso y cómo trabajaremos. Introduce el concepto de Big Data, su contexto y ecosistemas. Presentamos la metodología de ciencia de datos y exploramos su primera etapa — poner los datos a disposición (Access).
+description: This lecture introduces the course and how we will work along it. It also introduces the Big Data concept, history, context, applications, and ecosystems. We present the data science methodology that will drive our work and explore its first stage, making data available.
 session: 1
 start_time: 07:00 am
 end_time: 01:00 pm
