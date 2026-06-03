@@ -20,8 +20,8 @@ visible: false
 
 <!-- NOTEBOOK: -->
 
-*Lecture 4 notebook — to be authored.*
+*Cuaderno de la Lección 4 — por redactar.*
 
-**Ethics hook (AA-rec):** consent enforcement in transforms; DP / k-anon demo at processing time.
+**Gancho ético (AA-rec):** consentimiento en transformaciones; demo de DP / k-anon en tiempo de procesamiento.
 
 <!-- end NOTEBOOK: -->

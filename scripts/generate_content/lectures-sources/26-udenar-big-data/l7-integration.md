@@ -20,15 +20,15 @@ visible: false
 
 <!-- NOTEBOOK: -->
 
-*Lecture 7 — async project integration video — to be authored.*
+*Lección 7 — video async de integración del proyecto — por redactar.*
 
-Planned content:
+Contenido previsto:
 
-- Scope and structure of the final project (`project-brief.md`).
-- Walk-through of the rubric (G1–G4; P1–P5).
-- **Integration checklist** that groups should run before Sat 4 presentations.
-- Format and timing for live presentations (5 groups, Sat 27 Jun 07:00–13:00 CO).
+- Alcance y estructura del proyecto final (`project-brief.md`).
+- Recorrido de la rúbrica (G1–G4; P1–P5).
+- **Lista de verificación de integración** que los grupos deben ejecutar antes de las presentaciones del Sat 4.
+- Formato y tiempos de las presentaciones en vivo (5 grupos, Sat 27 Jun 07:00–13:00 CO).
 
-No Saturday sync block — the project-clinic role moves into the project week (instructor open hours over Teams, on request).
+Sin bloque de sincronía del sábado — el rol de clínica de proyecto pasa a la semana de proyecto (horas abiertas del instructor por Teams, a solicitud).
 
 <!-- end NOTEBOOK: -->

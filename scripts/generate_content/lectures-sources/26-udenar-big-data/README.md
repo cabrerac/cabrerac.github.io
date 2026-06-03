@@ -28,4 +28,6 @@ Set `visible: true` in each source front matter when ready to publish.
 
 **Website is the canonical materials hub.** Moodle and email are support channels for announcements and submissions.
 
+**Notebook language:** Student practice notebooks (L1–L8, diagnostic) are authored in **Spanish** in the markdown sources; regenerate `.ipynb` after edits.
+
 **Naming:** `lecture_code` matches the source filename stem (e.g. `l3-storage`). Homework artefacts use `L{n}_output` (see planning docs).

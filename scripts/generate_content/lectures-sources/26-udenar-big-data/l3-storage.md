@@ -20,8 +20,8 @@ visible: false
 
 <!-- NOTEBOOK: -->
 
-*Lecture 3 notebook — to be authored.*
+*Cuaderno de la Lección 3 — por redactar.*
 
-**Ethics hook (AA-rec):** retention rules and file/partition-level lineage tied back to L2 framing.
+**Gancho ético (AA-rec):** reglas de retención y linaje a nivel de archivo/partición, enlazado al marco de L2.
 
 <!-- end NOTEBOOK: -->

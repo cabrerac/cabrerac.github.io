@@ -20,15 +20,15 @@ visible: false
 
 <!-- NOTEBOOK: -->
 
-*Lecture 2 notebook — ethics and governance foundations — to be authored.*
+*Cuaderno de la Lección 2 — ética y fundamentos de gobernanza — por redactar.*
 
-Planned content (see `course-design.md` § Lecture 2):
+Contenido previsto (ver `course-design.md` § Lecture 2):
 
-- **V1 (theory, ~1 h):** Vs of harm, consent, fairness, accountable practice; Zuboff anchor; ethics-as-framing for the rest of the course.
-- **V2 (case demo, ~1 h):** worked walkthrough of an ethics-first audit of a GEIH-style scenario (no pipeline yet — that comes in L3+).
-- **Personal practice notebook (async):** ethics audit template applied to the group's charter archetype.
-- **Saturday sync (3 h inside the day-level block):** reading check on Zuboff; group reconvene to compare audit drafts; project clinic to update the charter's accountable-practice statement.
+- **V1 (teoría, ~1 h):** Vs del daño, consentimiento, equidad, práctica responsable; lectura ancla Zuboff; ética como marco para el resto del curso.
+- **V2 (demo de caso, ~1 h):** recorrido guiado de una auditoría ética en un escenario tipo GEIH (aún sin pipeline — eso viene en L3+).
+- **Cuaderno de práctica individual (async):** plantilla de auditoría ética aplicada al arquetipo del charter del grupo.
+- **Sincronía del sábado (3 h dentro del bloque del día):** revisión de lectura sobre Zuboff; el grupo compara borradores de auditoría; clínica de proyecto para actualizar la declaración de práctica responsable del charter.
 
-**Operational governance topics** (lineage, DP/k-anon, audit) intentionally **live in L3–L6 hooks** plus project P3, where they have technical context.
+Los temas **operativos de gobernanza** (linaje, DP/k-anon, auditoría) viven de forma intencional en **los ganchos de L3–L6** más la rúbrica P3 del proyecto, donde hay contexto técnico.
 
 <!-- end NOTEBOOK: -->

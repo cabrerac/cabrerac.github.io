@@ -2,9 +2,10 @@
 author: Christian Cabrera Jojoa
 course_code: 26-udenar-big-data
 department: Department of Computer Science and Technology
-description: "Ungraded baseline check before starting the course. Async, ~45\u2013\
-  60 min. Six guided exercises with light auto-checks (`DIAGNOSTIC_SCORE` 0\u2013\
-  6) on the UCI Adult dataset to demonstrate Python and data skills."
+description: "Prueba de l\xEDnea base sin calificaci\xF3n antes de iniciar el curso.\
+  \ Async, ~45\u201360 min. Seis ejercicios guiados con comprobaciones autom\xE1ticas\
+  \ ligeras (DIAGNOSTIC_SCORE 0\u20136) sobre el conjunto UCI Adult para mostrar habilidades\
+  \ en Python y datos."
 email: chc79@cam.ac.uk
 end_time: async
 hours: 1.5

@@ -20,11 +20,11 @@ visible: false
 
 <!-- NOTEBOOK: -->
 
-*Lecture 8 — final presentation run sheet — to be authored.*
+*Lección 8 — guión de presentaciones finales — por redactar.*
 
-Planned content:
+Contenido previsto:
 
-- **Run sheet** for 5 groups × ~12–15 min present + ~15–20 min Q&A (see `session-plan.md` § Sat 4 schedule).
-- Course close: cross-group reflection, instructor feedback, Moodle survey.
+- **Guión** para 5 grupos × ~12–15 min presentación + ~15–20 min preguntas (ver `session-plan.md` § Sat 4 schedule).
+- Cierre del curso: reflexión entre grupos, retroalimentación del instructor, encuesta en Moodle.
 
 <!-- end NOTEBOOK: -->

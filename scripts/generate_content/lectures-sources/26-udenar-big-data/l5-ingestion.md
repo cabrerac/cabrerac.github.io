@@ -20,8 +20,8 @@ visible: false
 
 <!-- NOTEBOOK: -->
 
-*Lecture 5 notebook — to be authored.*
+*Cuaderno de la Lección 5 — por redactar.*
 
-**Ethics hook (AA-rec):** audit logging, schema contracts, end-to-end provenance through the pipeline.
+**Gancho ético (AA-rec):** registro de auditoría, contratos de esquema, procedencia de extremo a extremo en el pipeline.
 
 <!-- end NOTEBOOK: -->

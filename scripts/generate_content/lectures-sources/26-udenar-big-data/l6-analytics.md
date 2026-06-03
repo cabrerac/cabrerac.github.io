@@ -20,8 +20,8 @@ visible: false
 
 <!-- NOTEBOOK: -->
 
-*Lecture 6 notebook — to be authored.*
+*Cuaderno de la Lección 6 — por redactar.*
 
-**Ethics hook (AA-rec):** dashboards as governance artefacts — what is surfaced, to whom; closes the L2 → L3–L5 thread before project week.
+**Gancho ético (AA-rec):** tableros como artefactos de gobernanza — qué se muestra y a quién; cierra el hilo L2 → L3–L5 antes de la semana de proyecto.
 
 <!-- end NOTEBOOK: -->
