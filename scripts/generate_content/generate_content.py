@@ -1015,7 +1015,6 @@ html[data-theme='dark'] code::before {
 {yaml.dump(metadata, default_flow_style=False)}---
 
 <link rel=\"stylesheet\" href=\"/assets/css/slides.css\">
-<link rel=\"stylesheet\" href=\"/assets/css/lecture-hub.css\">
 {resources_html}
 
 {filtered_content}
@@ -1034,29 +1033,27 @@ html[data-theme='dark'] code::before {
             "https://colab.research.google.com/github/cabrerac/cabrerac.github.io"
             f"/blob/gh-pages/assets/notebooks/{course_code}"
         )
-        items = []
+        links = []
         if not lecture_metadata.get('skip_slides'):
-            items.append(
-                f'<li><a href="/assets/slides/{course_code}/{stem}.html" target="_blank">'
-                "Slides (HTML)</a></li>"
+            links.append(
+                f'<a href="/assets/slides/{course_code}/{stem}.html" target="_blank">'
+                "HTML slides</a>"
             )
-        items.append(
-            f'<li><a href="{colab_base}/{stem}.ipynb" target="_blank">'
-            "Colab — individual practice</a></li>"
+        links.append(
+            f'<a href="{colab_base}/{stem}.ipynb" target="_blank">'
+            "Notebook - Individual</a>"
         )
         group_nb = lecture_metadata.get('group_notebook')
         if group_nb:
-            items.append(
-                f'<li><a href="{colab_base}/{group_nb}.ipynb" target="_blank">'
-                "Colab — group work</a></li>"
+            links.append(
+                f'<a href="{colab_base}/{group_nb}.ipynb" target="_blank">'
+                "Notebook - Group</a>"
             )
-        items.append(
-            f'<li><a href="/teaching/{course_code}/">Back to course</a></li>'
-        )
+        links.append(f'<a href="/teaching/{course_code}/">Back to course</a>')
         return (
-            '<div class="lecture-resources">\n  <ul class="lecture-resource-bar">\n    '
-            + "\n    ".join(items)
-            + "\n  </ul>\n</div>"
+            '<div class="lecture-resources">\n  <p>\n    '
+            + " &nbsp;|&nbsp; ".join(links)
+            + "\n  </p>\n</div>"
         )
 
     def generate_slides(self, lecture_file, output_dir):

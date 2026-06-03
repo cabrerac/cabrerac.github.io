@@ -19,67 +19,29 @@ visible: false
 group_notebook: l1-introduction-group
 notebook_language: es
 notebook_title: Introducción a big data, metodología y ecosistemas
-notebook_description: Práctica de la Lección 1 — poner a disposición datos GEIH (Access). Instrucciones de entrega en la sección **Tareas** de este cuaderno; plantillas Word en la página pública de la lección (Materials).
+notebook_description: Práctica de la Lección 1 — poner a disposición datos GEIH (Access). Instrucciones de entrega en la sección **Tareas** de este cuaderno; plantillas Word en la página pública de la lección (Resources).
 ---
 
 <!-- RENDER: -->
 
-<div class="lecture-hub">
+## Resources
 
-<p class="lecture-lead">
-  Public materials for Lecture 1. <strong>Lab instructions and Moodle submissions are in the Spanish Colab notebooks</strong> (links below and in the quick bar). This page is mainly for slides, notebooks, and Word templates.
-</p>
-
-<p class="lecture-note">
-  <strong>Students:</strong> open the individual Colab first for practice; use the group Colab for the team download (2022–2025). Homework deadlines and file names are spelled out in each notebook under <em>Tareas</em> / <em>Tarea grupal</em>.
-</p>
-
-## Materials
-
-<div class="resource-grid">
-
-<div class="resource-card">
-<strong>Slides</strong>
-<a href="/assets/slides/26-udenar-big-data/l1-introduction.html" target="_blank">Open HTML slides</a>
-<p>Theory outline for the Saturday block.</p>
-</div>
-
-<div class="resource-card">
-<strong>Colab — individual</strong>
-<a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction.ipynb" target="_blank">l1-introduction</a>
-<p>Practice notebook (Spanish). Parts 1–3: Access on 2024 GEIH. Not submitted to Moodle.</p>
-</div>
-
-<div class="resource-card">
-<strong>Colab — group</strong>
-<a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction-group.ipynb" target="_blank">l1-introduction-group</a>
-<p>Canonical group notebook (Spanish). Full spine 2022–2025 + contribution log. No separate slide deck.</p>
-</div>
-
-</div>
-
-## Word templates (download → complete → export to PDF)
-
-<ul class="compact">
-<li><a href="/assets/documents/26-udenar-big-data/plantilla-requerimientos-proyecto.docx">Project requirements template</a> (<code>plantilla-requerimientos-proyecto.docx</code>) — group deliverable: <code>project_requirements.pdf</code> inside the group ZIP.</li>
-<li><a href="/assets/documents/26-udenar-big-data/plantilla-reflexion-l1.docx">L1 individual reflection template</a> (<code>plantilla-reflexion-l1.docx</code>) — one PDF per student: <code>l1-reflexion-&lt;name&gt;.pdf</code>.</li>
-</ul>
+- [Project requirements template](/assets/documents/26-udenar-big-data/plantilla-requerimientos-proyecto.docx) (`plantilla-requerimientos-proyecto.docx`) — group deliverable: `project_requirements.pdf` inside the group ZIP.
+- [L1 individual reflection template](/assets/documents/26-udenar-big-data/plantilla-reflexion-l1.docx) (`plantilla-reflexion-l1.docx`) — one PDF per student: `l1-reflexion-<name>.pdf`.
 
 ## References
 
-<ul class="compact">
-<li><a href="/assets/media/diagrams/big-data-pipeline-template.svg">Pipeline diagram template</a> (for architecture sketch in the group PDF)</li>
-<li><a href="https://microdatos.dane.gov.co/">DANE microdata portal</a> (GEIH source)</li>
-</ul>
+**Week 1 readings (assigned before Saturday 6 June):**
 
-<div class="instructor-block">
-<strong>Instructor / planning:</strong>
-<a href="https://github.com/cabrerac/cabrerac.github.io/blob/main/work-space/teaching/big-data/planning/case-shell.md">Case shell</a> ·
-<a href="https://github.com/cabrerac/cabrerac.github.io/blob/main/work-space/teaching/big-data/planning/spine-spec.md">GEIH spine spec</a> ·
-Regenerate docx: <code>python scripts/big-data-course/build_l1_docx_templates.py</code>
-</div>
+- boyd, d., & Crawford, K. (2012). [Critical questions for big data](https://doi.org/10.1080/1369118X.2012.678878). *Information, Communication & Society*, 15(5), 662–679.
+- Zuboff, S. (2019). *The age of surveillance capitalism* (Chapter 1). PublicAffairs. *(Spanish or English edition — distributed by course email.)*
+- Mittelstadt, B. D., et al. (2016). [The ethics of algorithms: Mapping the debate](https://doi.org/10.1177/2053951716679679). *Big Data & Society*, 3(2).
 
-</div>
+**Data source (GEIH):**
+
+- [DANE microdata portal](https://microdatos.dane.gov.co/)
+- [GEIH 2024 catalog — study description, methodology files, and monthly microdata](https://microdatos.dane.gov.co/index.php/catalog/819) (dictionary, methodology PDF, and change log per release)
+- [GEIH labour-market theme (DANE)](https://www.dane.gov.co/index.php/estadisticas-por-tema/mercado-laboral/empleo-y-desempleo)
 
 <!-- end RENDER: -->
 
@@ -95,7 +57,7 @@ En producción, los microdatos nacionales de empleo abarcan **muchos años a esc
 2. **Parte 2 — el año completo**: ver **por qué** hace falta **extraer los `file_id` desde la página** get-microdata, automatizar esa lectura y descargar los otros once meses.
 3. **Parte 3 — reflexión (individual)**: clasificar las Vs, mapa de las tres A, boceto de arquitectura y comprobación de Access. El **documento de requerimientos del proyecto** (PDF grupal) y la **reflexión individual** (PDF) usan las **plantillas del curso** — ver **Tareas**.
 
-El **mismo patrón** de descarga lo usa el **[cuaderno grupal `l1-introduction-group`](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction-group.ipynb)** (**2022–2025**). Plantillas Word: [página de la lección](https://cabrerac.github.io/teaching/26-udenar-big-data/l1-introduction/) (Materials, en inglés).
+El **mismo patrón** de descarga lo usa el **[cuaderno grupal `l1-introduction-group`](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction-group.ipynb)** (**2022–2025**). Plantillas Word: [página de la lección](https://cabrerac.github.io/teaching/26-udenar-big-data/l1-introduction/) (Resources, en inglés).
 
 **Qué hacer (en orden).**
 
