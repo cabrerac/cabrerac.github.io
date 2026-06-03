@@ -26,7 +26,8 @@ notebook_description: Práctica de la Lección 2. Auditoría ética sobre GEIH y
 
 ### Resources
 
-- [Group notebook — week-1-group](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-1-group.ipynb): Deadline 10/06/2026
+- [Individual notebook](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l2-ethics-governance.ipynb)
+- [Group notebook](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-1-group.ipynb): Deadline 10/06/2026
 - [Week 1 reflection template](/assets/documents/26-udenar-big-data/reflection-week-1-template.docx): Deadline 11/06/2026
 - [Project requirements template](/assets/documents/26-udenar-big-data/project-requirements-template.docx): Discussion in week 2 group session
 - [OpenStreetMap — Colombia](https://www.openstreetmap.org/relation/120027)
