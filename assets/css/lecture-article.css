@@ -1,44 +1,36 @@
-/* Lecture page body (RENDER block) — uniform vertical rhythm */
+/* Lecture page — spacing after the resource bar (no wrapper div; keeps Kramdown parsing) */
 
 .lecture-resources {
   margin: 1rem 0 1.25rem;
 }
 
-.lecture-article h2 {
+main .lecture-resources ~ h2 {
   margin: 1.75rem 0 0.5rem;
   font-size: 1.35rem;
 }
 
-.lecture-article h2:first-child {
+main .lecture-resources ~ h2:first-of-type {
   margin-top: 0.25rem;
 }
 
-.lecture-article h3 {
+main .lecture-resources ~ h3 {
   margin: 1.25rem 0 0.4rem;
   font-size: 1.1rem;
 }
 
-.lecture-article p {
-  margin: 0 0 0.5rem;
-}
-
-.lecture-article ul,
-.lecture-article ol {
+main .lecture-resources ~ ul,
+main .lecture-resources ~ ol {
   margin: 0 0 1rem 1.25rem;
   padding: 0;
 }
 
-.lecture-article li {
+main .lecture-resources ~ li {
   margin-bottom: 0.4rem;
 }
 
-.lecture-article li:last-child {
-  margin-bottom: 0;
-}
-
-.lecture-article h2 + ul,
-.lecture-article h2 + ol,
-.lecture-article h3 + ul,
-.lecture-article h3 + ol {
+main .lecture-resources ~ h2 + ul,
+main .lecture-resources ~ h2 + ol,
+main .lecture-resources ~ h3 + ul,
+main .lecture-resources ~ h3 + ol {
   margin-top: 0.15rem;
 }

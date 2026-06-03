@@ -1006,10 +1006,6 @@ html[data-theme='dark'] code::before {
         filtered_content = self.filter_content(processed_content, 'RENDER')
         # Preprocess math blocks for correct rendering
         filtered_content = self.preprocess_math_blocks(filtered_content)
-        if filtered_content.strip():
-            filtered_content = (
-                f'<div class="lecture-article">\n{filtered_content.strip()}\n</div>'
-            )
 
         resources_html = self._lecture_resources_html(
             lecture_file, course_metadata, lecture_metadata

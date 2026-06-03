@@ -35,7 +35,6 @@ visible: false
   </p>
 </div>
 
-<div class="lecture-article">
 ## Resources
 
 - [Project requirements template](/assets/documents/26-udenar-big-data/plantilla-requerimientos-proyecto.docx): Group deliverable "project_requirements.pdf" inside the group ZIP. Deadline 10/06/2026.
@@ -53,4 +52,3 @@ visible: false
 
 - [DANE microdata portal](https://microdatos.dane.gov.co/)
 - [GEIH 2024 catalog — methodology and documentation](https://microdatos.dane.gov.co/index.php/catalog/819)
-</div>
