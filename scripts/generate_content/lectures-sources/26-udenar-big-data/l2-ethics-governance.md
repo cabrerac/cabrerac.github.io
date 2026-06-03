@@ -105,56 +105,176 @@ print("Repaso Python L2: OK")
 
 ## Instrucciones
 
-**Propósito.** Este cuaderno es su práctica de la **Lección 2**. Trabaja sobre los archivos GEIH que ya descargó en L1. El objetivo es ver **ética y gobernanza en datos reales**: cuasi-identificadores, riesgo de divulgación, límites de inferencia y un primer enlace con **OpenStreetMap (OSM)**.
+**Propósito.** Este cuaderno es su práctica de la **Lección 2**. Trabaja sobre microdatos GEIH reales. El objetivo es ver **ética y gobernanza**: cuasi-identificadores, riesgo de divulgación, límites de inferencia y un primer enlace con **OpenStreetMap (OSM)**.
+
+Si ya completó la **Parte 1 de L1**, reutiliza esos archivos. Si no, **Parte 1** de este cuaderno descarga **enero 2024** del DANE (mismo mes que L1).
 
 No hay celdas abiertas aquí. Los ejercicios de entrega están en el cuaderno grupal **[`week-1-group`](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-1-group.ipynb)**.
 
 **Qué hacer (en orden).**
 
-1. Complete al menos la **Parte 1** del cuaderno individual L1 (enero 2024 en disco).
-2. Ejecute las celdas **de arriba hacia abajo**.
-3. En celdas **Comprobar**, corrija celdas anteriores si algo falla.
-4. Lleve lo aprendido al cuaderno grupal y a la reflexión semana 1.
+1. Ejecute las celdas **de arriba hacia abajo**.
+2. En celdas **Comprobar**, corrija celdas anteriores si algo falla.
+3. Lleve lo aprendido al cuaderno grupal y a la reflexión semana 1.
 
 **Carpetas usadas:**
 
 | Ruta | Función |
 |------|---------|
-| `data/raw/2024/Ene_2024/` | CSV de enero 2024 (L1) |
+| `data/raw/2024/` | ZIP y carpeta del mes (enero 2024) |
+| `data/raw/2024/Ene_2024/` | CSV extraídos |
 | `outputs/` | Tablas y gráficos exportados |
 
 ---
 
-## Parte 1 — Cargar GEIH desde L1
+## Parte 1 — Access: un mes GEIH (enero 2024)
 
-Usamos **un mes** (enero 2024), igual que la Parte 1 de L1. Buscamos la tabla **Fuerza de trabajo**.
+Usamos **enero 2024**, igual que la Parte 1 de L1. URL de descarga directa (patrón del DANE):
+
+```text
+https://microdatos.dane.gov.co/index.php/catalog/{catalog_id}/download/{file_id}
+```
+
+Para enero 2024: `catalog_id=819`, `file_id=23313`. Más detalle en el [cuaderno L1](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction.ipynb).
+
+### Paso 1 — Configuración
 
 ```python
+import re
+import time
+import zipfile
 from pathlib import Path
 
 import pandas as pd
+import requests
+
+CATALOG_ID = 819
+YEAR = 2024
+FILE_ID = 23313
+DANE_FILENAME = "Ene_2024.zip"
+EXTRACT_DIR = "Ene_2024"
 
 CSV_SEP = ";"
 CSV_ENCODING = "latin-1"
-YEAR_DIR = Path("data/raw/2024")
-MONTH_DIR = YEAR_DIR / "Ene_2024"
+PRIMARY_TABLE_KEYWORD = "fuerza de trabajo"
 
-# Buscar el CSV de fuerza de trabajo (nombre puede variar en mayúsculas)
-candidatos = list(MONTH_DIR.glob("*fuerza*trabajo*.CSV")) + list(
-    MONTH_DIR.glob("*fuerza*trabajo*.csv")
+RAW_DIR = Path("data/raw")
+YEAR_DIR = RAW_DIR / str(YEAR)
+MONTH_DIR = YEAR_DIR / EXTRACT_DIR
+OUTPUTS_DIR = Path("outputs")
+YEAR_DIR.mkdir(parents=True, exist_ok=True)
+OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
+
+zip_path = YEAR_DIR / DANE_FILENAME
+print(f"Año {YEAR} | catalog {CATALOG_ID} | file {FILE_ID} | {DANE_FILENAME}")
+```
+
+**Comprobar:**
+
+```python
+assert CATALOG_ID == 819 and FILE_ID == 23313
+assert YEAR_DIR.is_dir()
+print("Parte 1, Paso 1 — configuración: OK")
+```
+
+---
+
+### Paso 2 — Descargar el ZIP (si falta)
+
+```python
+def download_zip(url: str, dest: Path, timeout: int = 600) -> tuple[float, int]:
+    """Descarga url a dest en streaming; devuelve (segundos, bytes)."""
+    t0 = time.perf_counter()
+    with requests.get(url.strip(), stream=True, timeout=timeout) as resp:
+        resp.raise_for_status()
+        with dest.open("wb") as fh:
+            for chunk in resp.iter_content(chunk_size=1 << 20):
+                if chunk:
+                    fh.write(chunk)
+    elapsed = round(time.perf_counter() - t0, 3)
+    if dest.read_bytes()[:2] != b"PK":
+        raise ValueError("El archivo descargado no es un ZIP válido.")
+    return elapsed, dest.stat().st_size
+
+
+download_url = (
+    f"https://microdatos.dane.gov.co/index.php/catalog/{CATALOG_ID}/download/{FILE_ID}"
 )
-if not candidatos:
-    raise FileNotFoundError(
-        f"No hay CSV de fuerza de trabajo en {MONTH_DIR}. "
-        "Complete la Parte 1 del cuaderno L1 primero."
-    )
-geih_path = candidatos[0]
 
-df = pd.read_csv(geih_path, sep=CSV_SEP, encoding=CSV_ENCODING, low_memory=False)
+if zip_path.is_file() and zip_path.read_bytes()[:2] == b"PK":
+    bytes_downloaded = zip_path.stat().st_size
+    print(f"ZIP ya en disco: {zip_path} ({bytes_downloaded / 1e6:.1f} MB) — omitiendo descarga")
+else:
+    download_seconds, bytes_downloaded = download_zip(download_url, zip_path)
+    print(f"Descargado: {zip_path} ({bytes_downloaded / 1e6:.1f} MB en {download_seconds} s)")
+```
+
+**Comprobar:**
+
+```python
+assert zip_path.is_file()
+assert zip_path.read_bytes()[:2] == b"PK"
+assert bytes_downloaded > 1_000_000
+print("Parte 1, Paso 2 — descarga: OK")
+```
+
+---
+
+### Paso 3 — Extraer CSV
+
+```python
+def extract_csvs(zip_path: Path, dest_dir: Path) -> list[Path]:
+    """Extrae cada .csv; si hay csv.zip anidado, lo abre y extrae."""
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    with zipfile.ZipFile(zip_path, "r") as zf:
+        names = zf.namelist()
+        csv_members = [n for n in names if n.lower().endswith(".csv")]
+        nested_csv_zip = next(
+            (n for n in names if re.fullmatch(r"csv\s*\d*\.zip", Path(n).name, re.I)),
+            None,
+        )
+        if nested_csv_zip and not csv_members:
+            inner_path = dest_dir / "_csv_inner.zip"
+            inner_path.write_bytes(zf.read(nested_csv_zip))
+            try:
+                return extract_csvs(inner_path, dest_dir)
+            finally:
+                inner_path.unlink(missing_ok=True)
+        if not csv_members:
+            raise ValueError(f"No hay CSV en {zip_path.name}")
+        for name in csv_members:
+            target = dest_dir / Path(name).name
+            with zf.open(name) as src, target.open("wb") as dst:
+                dst.write(src.read())
+    return sorted(dest_dir.glob("*.CSV")) + sorted(dest_dir.glob("*.csv"))
+
+
+csv_files = extract_csvs(zip_path, MONTH_DIR)
+labour_path = next(
+    p for p in csv_files if PRIMARY_TABLE_KEYWORD in p.name.lower().replace("\xa0", " ")
+)
+print(f"Extraídos {len(csv_files)} CSV en {MONTH_DIR}/")
+print(f"Tabla principal: {labour_path.name}")
+```
+
+**Comprobar:**
+
+```python
+assert len(csv_files) >= 1
+assert labour_path.is_file()
+print("Parte 1, Paso 3 — extracción: OK")
+```
+
+---
+
+### Paso 4 — Cargar fuerza de trabajo
+
+```python
+df = pd.read_csv(labour_path, sep=CSV_SEP, encoding=CSV_ENCODING, low_memory=False)
 n_rows = len(df)
 n_cols = len(df.columns)
 
-print(f"Archivo: {geih_path.name}")
+print(f"Archivo: {labour_path.name}")
 print(f"Filas: {n_rows:,}  |  Columnas: {n_cols}")
 print(df.head(3))
 ```
@@ -164,7 +284,7 @@ print(df.head(3))
 ```python
 assert n_rows > 10_000, "Se espera un mes nacional de fuerza de trabajo"
 assert "DPTO" in df.columns, "Falta columna DPTO"
-print("Parte 1 — carga GEIH: OK")
+print("Parte 1 — Access y carga GEIH: OK")
 ```
 
 ---
