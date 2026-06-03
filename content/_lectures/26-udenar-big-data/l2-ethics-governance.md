@@ -35,24 +35,11 @@ visible: false
   </p>
 </div>
 
-### Week 1 deliverables
+### Resources
 
-Cierra la semana 1 (Lecciones 1 y 2). Escenario del proyecto: [página L1](/teaching/26-udenar-big-data/l1-introduction/).
-
-| Recurso | Uso |
-|---------|-----|
-| [Cuaderno grupal week-1-group (Colab)](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-1-group.ipynb) | Entrega grupal — renombrar al exportar (ver abajo) |
-| [Plantilla reflexión semana 1](/assets/documents/26-udenar-big-data/reflection-week-1-template.docx) | PDF individual `week-1-reflection-<student>.pdf` — plazo **11/06/2026** |
-| [Plantilla requerimientos del proyecto](/assets/documents/26-udenar-big-data/project-requirements-template.docx) | PDF grupal `project_requirements.pdf` — **semana 2** |
-
-**ZIP grupal (miércoles 10/06/2026, 23:59 CO):** `week-1-<group_id>.zip` con:
-
-- `notebook-week-1-group-<group_id>.ipynb` (cuaderno ejecutado; plantilla Colab: `week-1-group`)
-- `manifest.json`
-- `osm_poi_by_dpto.csv`
-
-### Technical resources (L2)
-
+- [Group notebook — week-1-group](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-1-group.ipynb)
+- [Week 1 reflection template](/assets/documents/26-udenar-big-data/reflection-week-1-template.docx): due 11/06/2026
+- [Project requirements template](/assets/documents/26-udenar-big-data/project-requirements-template.docx): week 2
 - [OpenStreetMap — Colombia](https://www.openstreetmap.org/relation/120027)
 - [Overpass API](https://wiki.openstreetmap.org/wiki/Overpass_API)
 

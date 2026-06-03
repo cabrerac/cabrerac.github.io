@@ -25,14 +25,12 @@ notebook_description: Práctica individual de la Lección 1. Poner a disposició
 
 ### Resources
 
-Lea estos materiales **antes** de la primera sesión.
+- [Project definition](/assets/documents/26-udenar-big-data/project-definition-big-data.pdf)
+- [Individual Notebook](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction.ipynb)
+- [DANE data website](https://microdatos.dane.gov.co/)
+- [GEIH 2024 — documentation](https://microdatos.dane.gov.co/index.php/catalog/819)
 
-- [Definición del proyecto (PDF)](/assets/documents/26-udenar-big-data/project-definition-big-data.pdf)
-- [Cuaderno individual L1 (Colab)](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction.ipynb)
-- [Portal de microdatos DANE](https://microdatos.dane.gov.co/)
-- [Catálogo GEIH 2024 — documentación](https://microdatos.dane.gov.co/index.php/catalog/819)
-
-**Entregas y plantillas de la semana 1** están en la [página de la Lección 2](/teaching/26-udenar-big-data/l2-ethics-governance/) (cierra la semana 1).
+**Templates and deliverables for week 1** are in [Lecture 2 webpage](/teaching/26-udenar-big-data/l2-ethics-governance/)
 
 ### References
 
