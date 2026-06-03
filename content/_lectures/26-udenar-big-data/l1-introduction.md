@@ -14,9 +14,10 @@ institution: University of Cambridge
 layout: lecture
 lecture_code: l1-introduction
 lecture_date: 06/06/2026
-notebook_description: "Pr\xE1ctica de la Lecci\xF3n 1 \u2014 poner a disposici\xF3\
-  n datos GEIH (Access). Instrucciones de entrega en la secci\xF3n **Tareas** de este\
-  \ cuaderno; plantillas Word en la p\xE1gina p\xFAblica de la lecci\xF3n (Resources)."
+notebook_description: "Pr\xE1ctica de la Lecci\xF3n 1. Poner a disposici\xF3n datos\
+  \ de la encuesta GEIH del DANE (Access). Instrucciones de entrega en la secci\xF3\
+  n **Tareas** de este cuaderno. Plantillas Word en la p\xE1gina p\xFAblica de la\
+  \ lecci\xF3n."
 notebook_language: es
 notebook_title: "Introducci\xF3n a big data, metodolog\xEDa y ecosistemas"
 permalink: /teaching/26-udenar-big-data/l1-introduction/

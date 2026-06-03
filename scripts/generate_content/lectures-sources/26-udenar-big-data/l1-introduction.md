@@ -19,7 +19,7 @@ visible: false
 group_notebook: l1-introduction-group
 notebook_language: es
 notebook_title: Introducción a big data, metodología y ecosistemas
-notebook_description: Práctica de la Lección 1 — poner a disposición datos GEIH (Access). Instrucciones de entrega en la sección **Tareas** de este cuaderno; plantillas Word en la página pública de la lección (Resources).
+notebook_description: Práctica de la Lección 1. Poner a disposición datos de la encuesta GEIH del DANE (Access). Instrucciones de entrega en la sección **Tareas** de este cuaderno. Plantillas Word en la página pública de la lección.
 ---
 
 <!-- RENDER: -->

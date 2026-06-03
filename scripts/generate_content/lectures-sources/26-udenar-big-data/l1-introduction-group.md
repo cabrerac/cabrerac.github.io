@@ -19,16 +19,14 @@ skip_slides: true
 skip_lecture_page: true
 notebook_language: es
 notebook_title: Acceso grupal GEIH 2022–2025
-notebook_description: Cuaderno canónico del grupo para la Lección 1 — descarga del spine GEIH 2022–2025, manifiesto y registro de contribución. Entrega en la sección **Tarea grupal**; plantillas Word en la página pública de la lección.
+notebook_description: Cuaderno canónico del grupo para la Lección 1. Descarga del conjunto de datos GEIH 2022–2025, manifiesto y registro de contribución. Entrega en la sección **Tarea grupal**. Plantillas Word en la página pública de la lección.
 ---
 
 <!-- NOTEBOOK: -->
 
 ## Instrucciones
 
-**Propósito.** Este cuaderno es el **Colab canónico del grupo** para la Lección 1. Descargan el **spine GEIH 2022–2025** con el mismo patrón que practicaron en el cuaderno individual (`l1-introduction`): extraer archivos desde get-microdata → descargar → extraer CSV → `manifest.json`.
-
-**No es el cuaderno de práctica individual** — cada estudiante completa `l1-introduction` por su cuenta; aquí consolidan el trabajo del grupo.
+**Propósito.** Este cuaderno es el **Colab canónico del grupo** para la Lección 1. Descargan el conjunto de datos **GEIH 2022–2025** siguiendo el mismo patrón que en el [cuaderno individual L1](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction.ipynb) (`l1-introduction`): extraer archivos desde get-microdata → descargar → extraer CSV → `manifest.json`.
 
 **Plantillas Word:** descargue desde la [página de la Lección 1](https://cabrerac.github.io/teaching/26-udenar-big-data/l1-introduction/) (sección *Materials*). **Plazos y ZIP:** en **Tarea grupal** más abajo.
 
@@ -38,7 +36,7 @@ notebook_description: Cuaderno canónico del grupo para la Lección 1 — descar
 
 ## Configuración
 
-Reutilice las funciones del cuaderno individual (`download_zip`, `extract_csvs`) o cópielas aquí. Defina los **catalog_id** por año (los entrega el instructor).
+Reutilice las funciones del cuaderno individual (`download_zip`, `extract_csvs`) o cópielas aquí.
 
 ```python
 import json
@@ -148,7 +146,7 @@ print("Catalog ids:", CATALOG_BY_YEAR)
 
 ## Descargar 2022–2025
 
-Una petición get-microdata por año; bucle sobre todos los archivos mensuales. Puede tardar **varias horas** y **varios GB** — planifique red y disco.
+Una petición get-microdata por año. Bucle sobre todos los archivos mensuales. Puede tardar **varias horas** y **varios GB** — planifique red y disco.
 
 ```python
 manifest_entries: list[dict] = []
