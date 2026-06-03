@@ -15,7 +15,7 @@ layout: lecture
 lecture_code: l2-ethics-governance
 lecture_date: 06/06/2026
 permalink: /teaching/26-udenar-big-data/l2-ethics-governance/
-visible: false
+visible: true
 group_notebook: week-1-group
 notebook_language: es
 notebook_title: Ética, privacidad y gobernanza de datos

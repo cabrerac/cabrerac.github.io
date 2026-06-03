@@ -15,7 +15,7 @@ layout: lecture
 lecture_code: l1-introduction
 lecture_date: 06/06/2026
 permalink: /teaching/26-udenar-big-data/l1-introduction/
-visible: false
+visible: true
 notebook_language: es
 notebook_title: Introducción a big data, metodología y ecosistemas
 notebook_description: Práctica individual de la Lección 1. Poner a disposición datos GEIH (Access). Entregas de la semana 1 en la página de la Lección 2.
