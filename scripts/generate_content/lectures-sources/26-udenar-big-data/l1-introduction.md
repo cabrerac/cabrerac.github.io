@@ -142,7 +142,7 @@ En producción, los microdatos nacionales de empleo abarcan muchos años a escal
 
 ---
 
-## Cómo construir la URL de descarga
+### Cómo construir la URL de descarga
 
 El DANE publica microdatos GEIH en **[microdatos.dane.gov.co](https://microdatos.dane.gov.co/)**. Para descargar un archivo puede hacerlo manualmente así:
 
