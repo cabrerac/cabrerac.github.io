@@ -38,7 +38,7 @@ visible: false
 
 ### Resources
 
-- [Definición del proyecto (PDF, español)](/assets/documents/26-udenar-big-data/definicion-proyecto-big-data.pdf): Escenario compartido, spine GEIH, tres enfoques, fuentes opcionales. Leer antes de la sesión 1.
+- [Definición del proyecto](/assets/documents/26-udenar-big-data/definicion-proyecto-big-data.pdf): Leer antes de nuestra primera sesión.
 - [Plantilla requerimientos del proyecto](/assets/documents/26-udenar-big-data/plantilla-requerimientos-proyecto.docx): Entrega grupal en la semana 2 (ver definición del proyecto).
 - [Plantilla reflexión individual L1](/assets/documents/26-udenar-big-data/plantilla-reflexion-l1.docx): Entrega individual. Plazo 11/06/2026.
 - [DANE microdata portal](https://microdatos.dane.gov.co/)

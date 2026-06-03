@@ -26,7 +26,7 @@ notebook_description: Práctica de la Lección 1. Poner a disposición datos de 
 
 ### Resources
 
-- [Definición del proyecto (PDF, español)](/assets/documents/26-udenar-big-data/definicion-proyecto-big-data.pdf): Escenario compartido, spine GEIH, tres enfoques, fuentes opcionales. Leer antes de la sesión 1.
+- [Definición del proyecto](/assets/documents/26-udenar-big-data/definicion-proyecto-big-data.pdf): Leer antes de nuestra primera sesión.
 - [Plantilla requerimientos del proyecto](/assets/documents/26-udenar-big-data/plantilla-requerimientos-proyecto.docx): Entrega grupal en la semana 2 (ver definición del proyecto).
 - [Plantilla reflexión individual L1](/assets/documents/26-udenar-big-data/plantilla-reflexion-l1.docx): Entrega individual. Plazo 11/06/2026.
 - [DANE microdata portal](https://microdatos.dane.gov.co/)
@@ -41,6 +41,78 @@ notebook_description: Práctica de la Lección 1. Poner a disposición datos de 
 <!-- end RENDER: -->
 
 <!-- NOTEBOOK: -->
+
+## Repaso de Python para este cuaderno
+
+Antes de entrar en los detalles del laboratorio, vamos a hacer un repaso de los conceptos de Python que este cuaderno require. Si ya dominó el diagnóstico previo, puede ejecutar estas celdas rápido. Si no, léalas con calma. Aquí solo aparece lo que usaremos en las Partes 1 a 3. No es un curso de pandas completo.
+
+### Variables y cadenas de texto
+
+Una variable guarda un valor. Las cadenas con **`f"..."`** insertan variables dentro del texto.
+
+```python
+year = 2024
+catalog_id = 819
+print(f"Año {year}, catálogo {catalog_id}")
+```
+
+### Funciones
+
+Una función agrupa pasos reutilizables. **`return`** devuelve un resultado.
+
+```python
+def convert_to_mb(bytes_descargados: int) -> float:
+    return bytes_descargados / 1e6
+
+print(convert_to_mb(50000000))
+```
+
+### Diccionarios, listas y bucles
+
+Un **diccionario** guarda pares clave valor. Una **lista** ordena varios elementos. Un **`for`** recorre la lista.
+
+```python
+# Definimos un diccionario
+entrada = {"filename": "Ene_2024.zip", "seconds": 12.5}
+
+# Definimos una lista con un elemento de tipo diccionario
+manifest = [entrada]
+
+# Recorremos la lista y accedemos a los datos del diccionario
+for fila in manifest:
+    print(fila["filename"], fila["seconds"])
+```
+
+### Rutas con `Path`
+
+**`Path`** representa carpetas y archivos. El operador **`/`** une rutas. **`mkdir(parents=True, exist_ok=True)`** crea carpetas si faltan. Esta librería se utiliza para crear sistemas de archivos.
+
+```python
+from pathlib import Path
+
+carpeta = Path("data/raw") / "2024"
+carpeta.mkdir(parents=True, exist_ok=True)
+print(carpeta.is_dir())
+```
+
+### `json`, `requests` y `zipfile`
+
+- **`json`**: leer y escribir archivos JSON `manifest.json`.
+- **`requests`**: se utiliza para consumir servicios disponibles en Internet. En este caso, la utilizaremos para descargar archivos del DANE por HTTP.
+- **`zipfile`**: abrir archivos ZIP y extraer su contenido.
+
+Verá estos módulos importados en la celda de configuración de la Parte 1.
+
+### Comprobar con `assert`
+
+**`assert`** detiene la ejecución si una condición es falsa. Las celdas **Comprobar** usan este patrón.
+
+```python
+assert catalog_id == 819
+print("Repaso Python: OK")
+```
+
+---
 
 ## Instrucciones
 
@@ -117,73 +189,6 @@ Las celdas siguientes descargan los datos utilizando la ruta de descarga directa
 
 ---
 
-## Repaso de Python para este cuaderno
-
-Si ya dominó el diagnóstico previo (bandas 1 a 3), puede ejecutar estas celdas rápido. Si no, léalas con calma. Aquí solo aparece lo que usaremos en las Partes 1 a 3. No es un curso de pandas completo.
-
-### Variables y cadenas de texto
-
-Una variable guarda un valor. Las cadenas con **`f"..."`** insertan variables dentro del texto.
-
-```python
-year = 2024
-catalog_id = 819
-print(f"Año {year}, catálogo {catalog_id}")
-```
-
-### Funciones
-
-Una función agrupa pasos reutilizables. **`return`** devuelve un resultado. Los argumentos con nombre (como `skip_if_exists=True`) se pasan al final.
-
-```python
-def suma_mb(bytes_descargados: int) -> float:
-    return bytes_descargados / 1e6
-
-print(suma_mb(50_000_000))
-```
-
-### Diccionarios, listas y bucles
-
-Un **diccionario** guarda pares clave valor. Una **lista** ordena varios elementos. Un **`for`** recorre la lista.
-
-```python
-entrada = {"filename": "Ene_2024.zip", "seconds": 12.5}
-manifest = [entrada]
-for fila in manifest:
-    print(fila["filename"], fila["seconds"])
-```
-
-### Rutas con `Path`
-
-**`Path`** representa carpetas y archivos. El operador **`/`** une rutas. **`mkdir(parents=True, exist_ok=True)`** crea carpetas si faltan.
-
-```python
-from pathlib import Path
-
-carpeta = Path("data/raw") / "2024"
-carpeta.mkdir(parents=True, exist_ok=True)
-print(carpeta.is_dir())
-```
-
-### `json`, `requests` y `zipfile`
-
-- **`json`**: leer y escribir `manifest.json`.
-- **`requests`**: descargar archivos del DANE por HTTP.
-- **`zipfile`**: abrir ZIP y extraer CSV.
-
-Verá estos módulos importados en la celda de configuración de la Parte 1.
-
-### Comprobar con `assert`
-
-**`assert`** detiene la ejecución si una condición es falsa. Las celdas **Comprobar** usan este patrón.
-
-```python
-assert catalog_id == 819
-print("Repaso Python: OK")
-```
-
----
-
 ## Parte 1 — Descarga de datos para un mes (enero 2024)
 
 ### Paso 1 — Configuración — importaciones, constantes y carpetas
@@ -191,14 +196,14 @@ print("Repaso Python: OK")
 Usamos **`pandas`** y **`requests`**, más la biblioteca estándar de Python. La siguiente celda define las variables que vamos a utilizar y crea las carpetas donde almacenaremos los datos descargados.
 
 ```python
-import json
-import re
-import time
-import zipfile
+import json          # leer y escribir manifest.json
+import re            # expresiones regulares (parsear HTML del DANE)
+import time          # medir segundos de descarga
+import zipfile       # abrir archivos ZIP
 from pathlib import Path
 
-import pandas as pd
-import requests
+import pandas as pd   # tablas (DataFrame)
+import requests      # descargar archivos por HTTP
 
 # Año de práctica L1 — encuesta 2024, catalog_id 819
 CATALOG_ID = 819
@@ -207,7 +212,7 @@ YEAR = 2024
 # Mes de práctica L1 — enero 2024 (file_id del enlace manual arriba)
 FILE_ID = 23313
 DANE_FILENAME = "Ene_2024.zip"
-EXTRACT_DIR = Path(DANE_FILENAME).stem
+EXTRACT_DIR = Path(DANE_FILENAME).stem  # "Ene_2024" sin .zip
 
 # Procesamiento de archivos CSV
 CSV_SEP = ";"
@@ -218,7 +223,7 @@ PRIMARY_TABLE_KEYWORD = "fuerza de trabajo"
 RAW_DIR = Path("data/raw")
 YEAR_DIR = RAW_DIR / str(YEAR)
 OUTPUTS_DIR = Path("outputs")
-YEAR_DIR.mkdir(parents=True, exist_ok=True)
+YEAR_DIR.mkdir(parents=True, exist_ok=True)   # crea data/raw/2024/ si no existe
 OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 
 print(f"Año: {YEAR}  |  catalog id: {CATALOG_ID}  |  file id: {FILE_ID}  |  archivo: {DANE_FILENAME}")
@@ -249,15 +254,15 @@ Con **`stream=True`** y `iter_content(...)`, cada trozo se escribe al disco sin 
 ```python
 def download_zip(url: str, dest: Path, timeout: int = 600) -> tuple[float, int]:
     """Descarga url a dest en streaming; devuelve (segundos, bytes). Falla si no es ZIP."""
-    t0 = time.perf_counter()
+    t0 = time.perf_counter()  # marca de tiempo inicial
     with requests.get(url.strip(), stream=True, timeout=timeout) as resp:
-        resp.raise_for_status()
+        resp.raise_for_status()  # falla si HTTP 4xx/5xx
         with dest.open("wb") as fh:
-            for chunk in resp.iter_content(chunk_size=1 << 20):
+            for chunk in resp.iter_content(chunk_size=1 << 20):  # trozos de 1 MB
                 if chunk:
                     fh.write(chunk)
     elapsed = round(time.perf_counter() - t0, 3)
-    magic = dest.read_bytes()[:2]
+    magic = dest.read_bytes()[:2]  # un ZIP válido empieza con PK
     if magic != b"PK":
         raise ValueError(
             f"El archivo descargado no es un ZIP (obtuvo {magic!r}). "
@@ -269,6 +274,7 @@ def download_zip(url: str, dest: Path, timeout: int = 600) -> tuple[float, int]:
 Ahora creamos la URL de descarga directa para el archivo que deseamos descargar e invocamos a la función `download_zip` con los respectivos parámetros.
 
 ```python
+# Construir URL directa con catalog_id y file_id
 download_url = (
     f"https://microdatos.dane.gov.co/index.php/catalog/{CATALOG_ID}/download/{FILE_ID}"
 )
@@ -332,7 +338,7 @@ Nuevamente, invocamos la función con los respectivos parámetros.
 ```python
 extract_dir = YEAR_DIR / EXTRACT_DIR
 csv_files = extract_csvs(zip_path, extract_dir)
-total_csv_bytes = sum(p.stat().st_size for p in csv_files)
+total_csv_bytes = sum(p.stat().st_size for p in csv_files)  # suma tamaños en bytes
 
 print(f"Extraídos {len(csv_files)} archivo(s) CSV → {extract_dir}/\n")
 for p in csv_files:
@@ -344,6 +350,7 @@ print(f"\nTotal extraído: {total_csv_bytes / 1e6:.2f} MB")
 
 ```python
 assert len(csv_files) >= 1
+# next(...) toma el primer archivo cuyo nombre contiene "fuerza de trabajo"
 labour_path = next(
     p for p in csv_files if PRIMARY_TABLE_KEYWORD in p.name.lower().replace("\xa0", " ")
 )
@@ -360,19 +367,20 @@ El DANE entrega los CSV GEIH con separador **punto y coma** y codificación **`l
 Previsualizamos **`Fuerza de trabajo.CSV`** utilizando la funcion `read_csv` de pandas, la cual retorna un dataframe.
 
 ```python
+# read_csv carga el CSV en un DataFrame (tabla en memoria)
 df = pd.read_csv(labour_path, sep=CSV_SEP, encoding=CSV_ENCODING, low_memory=False)
-n_rows = len(df)
-n_cols = len(df.columns)
+n_rows = len(df)       # número de filas
+n_cols = len(df.columns)  # número de columnas
 
 print(f"Filas: {n_rows:,}  |  Columnas: {n_cols}")
 print(f"Columnas (primeras 12): {list(df.columns[:12])}")
-df.head()
+df.head()  # muestra las primeras 5 filas
 ```
 
-Podemos inspeccionar la información del dataframe.
+Podemos inspeccionar tipos y valores no nulos por columna.
 
 ```python
-df.info()
+df.info()  # resumen: tipos, conteo de no nulos por columna
 ```
 
 **Comprobar:**
@@ -387,10 +395,11 @@ print("Paso 4 — previsualización: OK")
 
 ### Paso 5 — Registrar el primer mes en `manifest.json`
 
-Con el fin de documentar el proceso de descaraga guardamos **un objeto JSON por archivo descargado** en el archivo `manifest.json`. Para esto creamos la función `write_manifest`.
+Con el fin de documentar el proceso de descarga guardamos **un objeto JSON por archivo descargado** en el archivo `manifest.json`. Para esto creamos la función `write_manifest`.
 
 ```python
 def write_manifest(path: Path, entries: list[dict]) -> None:
+    # json.dumps convierte la lista de diccionarios a texto JSON legible
     path.write_text(json.dumps(entries, indent=2), encoding="utf-8")
 ```
 
@@ -544,6 +553,7 @@ def access_file(
     out_dir = year_dir / Path(filename).stem
 
     if skip_if_exists and out_dir.is_dir() and any(out_dir.glob("*.CSV")):
+        # Ya extraído: no volver a descargar (ahorra tiempo y ancho de banda)
         return {
             "method": "http",
             "survey_year": YEAR,
@@ -578,10 +588,10 @@ def access_file(
 Aquí usamos la lista `all_files` del Paso 2 y omitimos enero porque ya está en disco desde la Parte 1.
 
 ```python
-entries = [manifest_entry]
+entries = [manifest_entry]  # enero ya registrado en Parte 1
 for row in all_files:
     if row["filename"] == DANE_FILENAME:
-        continue
+        continue  # enero ya está en disco
     print("Descargando:", row["filename"])
     entries.append(access_file(row, YEAR_DIR))
 
@@ -614,6 +624,7 @@ Las Vs, las tres A, la arquitectura y la reflexión escrita van en las diapositi
 Cargamos el manifiesto en un dataframe y vemos tamaño y tiempo por archivo.
 
 ```python
+# Cargar manifiesto y convertirlo en DataFrame para tablas y gráficos
 manifest_rows = json.loads(manifest_path.read_text(encoding="utf-8"))
 manifest_df = pd.DataFrame(manifest_rows)
 manifest_df["mb"] = manifest_df["bytes_downloaded"] / 1e6
@@ -677,11 +688,12 @@ print("Parte 3, Paso 2 — tamaño: OK")
 
 ### Paso 3 — Calidad básica en fuerza de trabajo
 
-En la Parte 1 abrió la tabla con `head` e `info`. Aquí revisamos valores faltantes y un código categórico. Esto es un primer paso de calidad, no una auditoría completa.
+En la Parte 1 abrió la tabla con `head` e `info`. Aquí revisamos valores faltantes y la distribución de un código categórico. Esto es un primer paso de calidad, no una auditoría completa.
 
 ```python
 cols_revisar = [c for c in ("PER", "DPTO", "MES") if c in df.columns]
 if cols_revisar:
+    # isna() detecta celdas vacías; mean() da proporción por columna
     missing = df[cols_revisar].isna().mean().mul(100).round(2)
     print("Porcentaje de valores faltantes:")
     print(missing.to_string())
@@ -689,13 +701,29 @@ else:
     print("Columnas PER, DPTO o MES no encontradas. Use df.columns para elegir tres columnas.")
 ```
 
-Si existe una columna de sexo o similar, mire la distribución de códigos.
+Distribución por departamento (siempre disponible en fuerza de trabajo) y, si existe, por sexo.
 
 ```python
-sex_col = next((c for c in df.columns if c.upper() in ("SEXO", "P6020")), None)
+if "DPTO" in df.columns:
+    print("\nFilas por departamento (10 con más registros en este mes):")
+    print(df["DPTO"].value_counts(dropna=False).head(10).to_string())
+
+# GEIH suele usar P6020 para sexo; a veces aparece como SEXO
+sex_col = next(
+    (
+        c
+        for c in df.columns
+        if c.strip().upper() in ("SEXO", "P6020")
+        or c.strip().upper().endswith("6020")
+    ),
+    None,
+)
 if sex_col:
-    print(f"\nConteo en {sex_col} (primeros 5 códigos):")
-    print(df[sex_col].value_counts(dropna=False).head())
+    print(f"\nConteo en {sex_col} (sexo, códigos DANE):")
+    print(df[sex_col].value_counts(dropna=False).head().to_string())
+else:
+    print("\nNo encontramos columna de sexo (SEXO / P6020).")
+    print("Revise el diccionario DANE o pruebe otra columna categórica de df.columns.")
 ```
 
 **Comprobar:**
@@ -708,40 +736,72 @@ print("Parte 3, Paso 3 — calidad: OK")
 
 ---
 
-### Paso 4 — Gráficos de descarga
+### Paso 4 — Gráficos de descarga y exploración
 
-Todas las descargas usaron **`stream=True`** (Parte 1). Aún no comparamos en el cuaderno `stream=True` frente a `stream=False`. Eso lo veremos en prácticas posteriores.
+Todas las descargas usaron **`stream=True`** (Parte 1). Aún no comparamos `stream=True` frente a `stream=False`. Eso lo veremos en prácticas posteriores.
 
-Sí podemos **visualizar lo que ya registró**: tiempo y tamaño por mes. Eso ayuda a ver **volumen** y **velocidad** con números propios.
+Visualizamos **todo el manifiesto** (todos los meses registrados). Si solo completó la Parte 1 verá un mes en descarga y un gráfico extra con datos GEIH de enero.
 
 ```python
 import matplotlib.pyplot as plt
 
-plot_df = manifest_df[manifest_df["seconds"] > 0].copy()
-if plot_df.empty:
-    print("No hay tiempos de descarga distintos de cero. Ejecute al menos la Parte 1.")
-else:
-    fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+# Orden cronológico de meses DANE (Ene … Dic)
+MES_ORDER = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+manifest_plot = manifest_df.copy()
+manifest_plot["mes_corto"] = manifest_plot["mes"].str.replace("_2024", "", regex=False)
+manifest_plot["mes_ord"] = manifest_plot["mes_corto"].map({m: i for i, m in enumerate(MES_ORDER)})
+manifest_plot = manifest_plot.sort_values("mes_ord")
 
-    plot_df.plot.bar(x="mes", y="seconds", ax=axes[0], legend=False, color="steelblue")
-    axes[0].set_title("Segundos de descarga por mes")
-    axes[0].set_xlabel("Mes")
-    axes[0].set_ylabel("Segundos")
-    axes[0].tick_params(axis="x", rotation=45)
+n_meses = len(manifest_plot)
+fig, axes = plt.subplots(1, 2, figsize=(12, 4))
 
-    axes[1].scatter(plot_df["mb"], plot_df["seconds"])
-    for _, row in plot_df.iterrows():
-        axes[1].annotate(row["mes"], (row["mb"], row["seconds"]), fontsize=8)
-    axes[1].set_title("Tamaño frente a tiempo")
-    axes[1].set_xlabel("MB descargados")
-    axes[1].set_ylabel("Segundos")
+# Gráfico 1: tamaño descargado por mes (MB) — usa todas las filas del manifiesto
+manifest_plot.plot.bar(
+    x="mes_corto", y="mb", ax=axes[0], legend=False, color="steelblue"
+)
+axes[0].set_title(f"Tamaño descargado por mes ({n_meses} mes(es) en manifiesto)")
+axes[0].set_xlabel("Mes")
+axes[0].set_ylabel("MB")
+axes[0].tick_params(axis="x", rotation=45)
 
+# Gráfico 2: segundos por mes (0 = omitido porque ya estaba en disco)
+manifest_plot.plot.bar(
+    x="mes_corto", y="seconds", ax=axes[1], legend=False, color="darkorange"
+)
+axes[1].set_title("Segundos de descarga por mes")
+axes[1].set_xlabel("Mes")
+axes[1].set_ylabel("Segundos")
+axes[1].tick_params(axis="x", rotation=45)
+
+plt.tight_layout()
+plt.show()
+
+# Si hay al menos 2 meses con tiempo de descarga real, relacionar tamaño y tiempo
+timed = manifest_plot[manifest_plot["seconds"] > 0].copy()
+if len(timed) >= 2:
+    fig2, ax2 = plt.subplots(figsize=(6, 4))
+    ax2.scatter(timed["mb"], timed["seconds"], color="steelblue")
+    for _, row in timed.iterrows():
+        ax2.annotate(row["mes_corto"], (row["mb"], row["seconds"]), fontsize=9)
+    ax2.set_title("Tamaño frente a tiempo (meses descargados en esta sesión)")
+    ax2.set_xlabel("MB descargados")
+    ax2.set_ylabel("Segundos")
     plt.tight_layout()
     plt.show()
-
-    plot_df["seg_por_mb"] = plot_df["seconds"] / plot_df["mb"]
-    print("Segundos por MB (solo descargas reales):")
-    print(plot_df[["mes", "seg_por_mb"]].sort_values("seg_por_mb").to_string(index=False))
+    timed["seg_por_mb"] = timed["seconds"] / timed["mb"]
+    print("Segundos por MB:")
+    print(timed[["mes_corto", "seg_por_mb"]].sort_values("seg_por_mb").to_string(index=False))
+elif "DPTO" in df.columns:
+    # Un solo mes en manifiesto: explorar variación dentro de enero por departamento
+    fig2, ax2 = plt.subplots(figsize=(8, 4))
+    df["DPTO"].value_counts().head(12).sort_values().plot.barh(ax=ax2, color="seagreen")
+    ax2.set_title("Filas en fuerza de trabajo por departamento (enero, top 12)")
+    ax2.set_xlabel("Número de filas")
+    plt.tight_layout()
+    plt.show()
+    print("Parte 2 pendiente: complete el año 2024 para gráficos de descarga multi-mes.")
+else:
+    print("Ejecute al menos la Parte 1 para ver gráficos.")
 ```
 
 **Comprobar:**
@@ -754,33 +814,7 @@ print("Parte 3, Paso 4 — gráficos: OK")
 
 ---
 
-### Paso 5 — Enlace con la lección (Su turno)
-
-Use **su experiencia en este cuaderno** (Access en las Partes 1 y 2, exploración en la Parte 3) para la **reflexión individual** en PDF. No la calificamos aquí.
-
-**Pregunta central:** ¿Cómo se relacionan el ejercicio de Access y esta exploración inicial con los conceptos de la primera lección (big data, las Vs, metodología Access Assess Address, ecosistemas)?
-
-Escriba **tres oraciones** en la celda. Incluya **al menos un número** del manifiesto o de la calidad (por ejemplo total en MB, segundos de un mes, filas o faltantes). Esas ideas las desarrollará en el PDF con las secciones R1 a R5 de la plantilla.
-
-```python
-enlace_leccion = """
-SU TEXTO AQUÍ (tres oraciones, al menos un número de este cuaderno)
-"""
-print(enlace_leccion.strip())
-```
-
-**Comprobar:**
-
-```python
-texto = enlace_leccion.strip()
-assert len(texto) >= 80, "Escriba al menos tres oraciones"
-assert any(ch.isdigit() for ch in texto), "Incluya al menos un número de sus resultados"
-print("Parte 3, Paso 5 — enlace con la lección: OK")
-```
-
----
-
-### Paso 6 — Comprobación de Access completado
+### Paso 5 — Comprobación de Access completado
 
 Ejecute esto después de la **Parte 1** (mínimo) o la **Parte 2** (año completo). Imprime **`ACCESS_OK`** cuando la ruta principal de Access funcionó.
 
@@ -811,7 +845,7 @@ if passed >= 4:
 
 ## Tareas
 
-Esta sección define **qué entregar en Moodle**. Las plantillas Word están en la [página de la lección](https://cabrerac.github.io/teaching/26-udenar-big-data/l1-introduction/) (descargas en inglés); complételas en Word y expórtelas a PDF.
+Esta sección define **qué entregar en Moodle**. Las plantillas Word están en la [página de la lección](https://cabrerac.github.io/teaching/26-udenar-big-data/l1-introduction/), complételas en Word y expórtelas a PDF.
 
 ### Trabajo en grupo (60 % de la formativa L1)
 
@@ -822,7 +856,7 @@ Use el Colab **[`l1-introduction-group`](https://colab.research.google.com/githu
 | `l1-introduction-<nombre-grupo>.ipynb` | Cuaderno grupal ejecutado — descarga GEIH **2022–2025** + registro de contribución |
 | `manifest.json` | Registro de acceso (una fila por archivo descargado del DANE) |
 
-El **`project_requirements.pdf`** se discute en la **semana 2** (ver [definición del proyecto](/assets/documents/26-udenar-big-data/definicion-proyecto-big-data.pdf)).
+Los requerimientos del proyecto se discuten en la **semana 2** (ver [definición del proyecto](/assets/documents/26-udenar-big-data/definicion-proyecto-big-data.pdf)).
 
 ### Reflexión individual (40 % de la formativa L1)
 
@@ -832,6 +866,6 @@ Entregar **un PDF por estudiante** hasta el **jueves 11 de junio de 2026, 23:59 
 |------------|-------------|
 | `l1-reflexion-<nombre-estudiante>.pdf` | Reflexión semana 1 (plantilla Word del curso) |
 
-Use la **Parte 3** de este cuaderno y el trabajo de Access como base del PDF. Desarrolle allí la pregunta central: **¿cómo se relacionan el ejercicio de Access y la exploración inicial con los conceptos de la primera lección y las lecturas?**
+Use la **Parte 3** de este cuaderno y el trabajo de Access como base del PDF. Desarrolle allí la lista de preguntas.
 
 <!-- end NOTEBOOK: -->
