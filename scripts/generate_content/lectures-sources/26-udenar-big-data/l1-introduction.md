@@ -31,16 +31,16 @@ notebook_description: Práctica de la Lección 1 — poner a disposición datos 
 
 ## References
 
-**Week 1 readings:**
+### Week 1 readings
 
 - boyd, d., & Crawford, K. (2012). [Critical questions for big data](https://doi.org/10.1080/1369118X.2012.678878). *Information, Communication & Society*, 15(5), 662–679.
 - Zuboff, S. (2019). *The age of surveillance capitalism* (Chapter 1). PublicAffairs. *(Spanish or English edition — distributed by course email.)*
 - Mittelstadt, B. D., et al. (2016). [The ethics of algorithms: Mapping the debate](https://doi.org/10.1177/2053951716679679). *Big Data & Society*, 3(2).
 
-**Data source (GEIH):**
+### Data source (GEIH)
 
 - [DANE microdata portal](https://microdatos.dane.gov.co/)
-- [GEIH 2024 Document](file:///D:/ddi-documentation-spanish-819.pdf)
+- [GEIH 2024 catalog — methodology and documentation](https://microdatos.dane.gov.co/index.php/catalog/819)
 
 <!-- end RENDER: -->
 

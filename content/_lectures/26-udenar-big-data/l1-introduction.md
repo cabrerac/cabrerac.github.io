@@ -28,12 +28,14 @@ visible: false
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
+<link rel="stylesheet" href="/assets/css/lecture-article.css">
 <div class="lecture-resources">
   <p>
     <a href="/assets/slides/26-udenar-big-data/l1-introduction.html" target="_blank">HTML slides</a> &nbsp;|&nbsp; <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction.ipynb" target="_blank">Notebook - Individual</a> &nbsp;|&nbsp; <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction-group.ipynb" target="_blank">Notebook - Group</a> &nbsp;|&nbsp; <a href="/teaching/26-udenar-big-data/">Back to course</a>
   </p>
 </div>
 
+<div class="lecture-article">
 ## Resources
 
 - [Project requirements template](/assets/documents/26-udenar-big-data/plantilla-requerimientos-proyecto.docx): Group deliverable "project_requirements.pdf" inside the group ZIP. Deadline 10/06/2026.
@@ -41,13 +43,14 @@ visible: false
 
 ## References
 
-**Week 1 readings:**
+### Week 1 readings
 
 - boyd, d., & Crawford, K. (2012). [Critical questions for big data](https://doi.org/10.1080/1369118X.2012.678878). *Information, Communication & Society*, 15(5), 662–679.
 - Zuboff, S. (2019). *The age of surveillance capitalism* (Chapter 1). PublicAffairs. *(Spanish or English edition — distributed by course email.)*
 - Mittelstadt, B. D., et al. (2016). [The ethics of algorithms: Mapping the debate](https://doi.org/10.1177/2053951716679679). *Big Data & Society*, 3(2).
 
-**Data source (GEIH):**
+### Data source (GEIH)
 
 - [DANE microdata portal](https://microdatos.dane.gov.co/)
-- [GEIH 2024 Document](file:///D:/ddi-documentation-spanish-819.pdf)
+- [GEIH 2024 catalog — methodology and documentation](https://microdatos.dane.gov.co/index.php/catalog/819)
+</div>

@@ -1,0 +1,44 @@
+/* Lecture page body (RENDER block) — uniform vertical rhythm */
+
+.lecture-resources {
+  margin: 1rem 0 1.25rem;
+}
+
+.lecture-article h2 {
+  margin: 1.75rem 0 0.5rem;
+  font-size: 1.35rem;
+}
+
+.lecture-article h2:first-child {
+  margin-top: 0.25rem;
+}
+
+.lecture-article h3 {
+  margin: 1.25rem 0 0.4rem;
+  font-size: 1.1rem;
+}
+
+.lecture-article p {
+  margin: 0 0 0.5rem;
+}
+
+.lecture-article ul,
+.lecture-article ol {
+  margin: 0 0 1rem 1.25rem;
+  padding: 0;
+}
+
+.lecture-article li {
+  margin-bottom: 0.4rem;
+}
+
+.lecture-article li:last-child {
+  margin-bottom: 0;
+}
+
+.lecture-article h2 + ul,
+.lecture-article h2 + ol,
+.lecture-article h3 + ul,
+.lecture-article h3 + ol {
+  margin-top: 0.15rem;
+}
