@@ -19,7 +19,7 @@ skip_slides: true
 skip_lecture_page: true
 notebook_language: es
 notebook_title: Acceso grupal GEIH 2022–2025
-notebook_description: Cuaderno canónico del grupo para la Lección 1 — descarga del spine GEIH 2022–2025, manifiesto y registro de contribución. Plantillas Word y tareas en la página de l1-introduction.
+notebook_description: Cuaderno canónico del grupo para la Lección 1 — descarga del spine GEIH 2022–2025, manifiesto y registro de contribución. Entrega en la sección **Tarea grupal**; plantillas Word en la página pública de la lección.
 ---
 
 <!-- NOTEBOOK: -->
@@ -30,7 +30,7 @@ notebook_description: Cuaderno canónico del grupo para la Lección 1 — descar
 
 **No es el cuaderno de práctica individual** — cada estudiante completa `l1-introduction` por su cuenta; aquí consolidan el trabajo del grupo.
 
-**Plantillas y plazos:** en la [página de la Lección 1](https://cabrerac.github.io/teaching/26-udenar-big-data/l1-introduction/) (secciones Recursos y Tareas) — descargue los `.docx`, complételos en Word y exporte a PDF.
+**Plantillas Word:** descargue desde la [página de la Lección 1](https://cabrerac.github.io/teaching/26-udenar-big-data/l1-introduction/) (sección *Materials*). **Plazos y ZIP:** en **Tarea grupal** más abajo.
 
 **Entrega Moodle (miércoles):** ZIP `l1-introduction-<nombre-grupo>.zip` con este `.ipynb`, `manifest.json` y `project_requirements.pdf`.
 

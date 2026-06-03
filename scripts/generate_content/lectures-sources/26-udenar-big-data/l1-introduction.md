@@ -19,60 +19,67 @@ visible: false
 group_notebook: l1-introduction-group
 notebook_language: es
 notebook_title: Introducción a big data, metodología y ecosistemas
-notebook_description: Práctica de la Lección 1 — poner a disposición datos GEIH (Access). Las tareas, plantillas Word y el Colab grupal están en la página de esta lección (secciones Recursos y Tareas).
+notebook_description: Práctica de la Lección 1 — poner a disposición datos GEIH (Access). Instrucciones de entrega en la sección **Tareas** de este cuaderno; plantillas Word en la página pública de la lección (Materials).
 ---
 
 <!-- RENDER: -->
 
-## Recursos
+<div class="lecture-hub">
 
-### Cuadernos (Colab)
+<p class="lecture-lead">
+  Public materials for Lecture 1. <strong>Lab instructions and Moodle submissions are in the Spanish Colab notebooks</strong> (links below and in the quick bar). This page is mainly for slides, notebooks, and Word templates.
+</p>
 
-- [Práctica individual — `l1-introduction`](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction.ipynb)
-- [Trabajo grupal — `l1-introduction-group`](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction-group.ipynb) (sin diapositivas HTML; solo cuaderno)
+<p class="lecture-note">
+  <strong>Students:</strong> open the individual Colab first for practice; use the group Colab for the team download (2022–2025). Homework deadlines and file names are spelled out in each notebook under <em>Tareas</em> / <em>Tarea grupal</em>.
+</p>
 
-### Plantillas (Word)
+## Materials
 
-Descargue, complete en Word y exporte a PDF para Moodle:
+<div class="resource-grid">
 
-- [plantilla-requerimientos-proyecto.docx](/assets/documents/26-udenar-big-data/plantilla-requerimientos-proyecto.docx) → entregar como `project_requirements.pdf` (dentro del ZIP grupal)
-- [plantilla-reflexion-l1.docx](/assets/documents/26-udenar-big-data/plantilla-reflexion-l1.docx) → entregar como `l1-reflexion-<nombre-estudiante>.pdf` (individual, jueves)
+<div class="resource-card">
+<strong>Slides</strong>
+<a href="/assets/slides/26-udenar-big-data/l1-introduction.html" target="_blank">Open HTML slides</a>
+<p>Theory outline for the Saturday block.</p>
+</div>
 
-Regenerar plantillas (instructor): `python scripts/big-data-course/build_l1_docx_templates.py`
+<div class="resource-card">
+<strong>Colab — individual</strong>
+<a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction.ipynb" target="_blank">l1-introduction</a>
+<p>Practice notebook (Spanish). Parts 1–3: Access on 2024 GEIH. Not submitted to Moodle.</p>
+</div>
 
-### Referencias de planificación (instructor / lectura avanzada)
+<div class="resource-card">
+<strong>Colab — group</strong>
+<a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction-group.ipynb" target="_blank">l1-introduction-group</a>
+<p>Canonical group notebook (Spanish). Full spine 2022–2025 + contribution log. No separate slide deck.</p>
+</div>
 
-- [Case shell](https://github.com/cabrerac/cabrerac.github.io/blob/main/work-space/teaching/big-data/planning/case-shell.md)
-- [Especificación del spine GEIH](https://github.com/cabrerac/cabrerac.github.io/blob/main/work-space/teaching/big-data/planning/spine-spec.md)
-- [Plantilla de diagrama de pipeline](/assets/media/diagrams/big-data-pipeline-template.svg)
+</div>
 
----
+## Word templates (download → complete → export to PDF)
 
-## Tareas
+<ul class="compact">
+<li><a href="/assets/documents/26-udenar-big-data/plantilla-requerimientos-proyecto.docx">Project requirements template</a> (<code>plantilla-requerimientos-proyecto.docx</code>) — group deliverable: <code>project_requirements.pdf</code> inside the group ZIP.</li>
+<li><a href="/assets/documents/26-udenar-big-data/plantilla-reflexion-l1.docx">L1 individual reflection template</a> (<code>plantilla-reflexion-l1.docx</code>) — one PDF per student: <code>l1-reflexion-&lt;name&gt;.pdf</code>.</li>
+</ul>
 
-### Práctica individual (no calificada)
+## References
 
-Cuaderno **`l1-introduction`** en Colab — Partes 1–3 (Access 2024 + reflexión en el cuaderno). No se entrega el `.ipynb` individual.
+<ul class="compact">
+<li><a href="/assets/media/diagrams/big-data-pipeline-template.svg">Pipeline diagram template</a> (for architecture sketch in the group PDF)</li>
+<li><a href="https://microdatos.dane.gov.co/">DANE microdata portal</a> (GEIH source)</li>
+</ul>
 
-### Trabajo en grupo (60 % formativa L1)
+<div class="instructor-block">
+<strong>Instructor / planning:</strong>
+<a href="https://github.com/cabrerac/cabrerac.github.io/blob/main/work-space/teaching/big-data/planning/case-shell.md">Case shell</a> ·
+<a href="https://github.com/cabrerac/cabrerac.github.io/blob/main/work-space/teaching/big-data/planning/spine-spec.md">GEIH spine spec</a> ·
+Regenerate docx: <code>python scripts/big-data-course/build_l1_docx_templates.py</code>
+</div>
 
-Colab **`l1-introduction-group`**. Entregar en Moodle un ZIP **`l1-introduction-<nombre-grupo>.zip`** hasta el **miércoles 10 de junio de 2026**:
-
-| Archivo en el ZIP | Descripción |
-|-------------------|-------------|
-| `l1-introduction-<nombre-grupo>.ipynb` | Cuaderno grupal — descarga GEIH **2022–2025** + registro de contribución |
-| `manifest.json` | Un registro por cada archivo DANE descargado |
-| `project_requirements.pdf` | Requerimientos del proyecto (desde plantilla Word) |
-
-### Reflexión individual (40 % formativa L1)
-
-Entregar en Moodle hasta el **jueves 11 de junio de 2026** (un PDF por estudiante, no dentro del ZIP grupal):
-
-| Entregable | Descripción |
-|------------|-------------|
-| `l1-reflexion-<nombre-estudiante>.pdf` | Reflexión semana 1 (plantilla Word) |
-
-**Consigna:** *Si el DANE restringiera mañana las descargas masivas, ¿qué parte de su configuración de Access cambiaría primero — y qué implicaría eso para la rendición de cuentas pública?*
+</div>
 
 <!-- end RENDER: -->
 
@@ -88,7 +95,7 @@ En producción, los microdatos nacionales de empleo abarcan **muchos años a esc
 2. **Parte 2 — el año completo**: ver **por qué** hace falta **extraer los `file_id` desde la página** get-microdata, automatizar esa lectura y descargar los otros once meses.
 3. **Parte 3 — reflexión (individual)**: clasificar las Vs, mapa de las tres A, boceto de arquitectura y comprobación de Access. El **documento de requerimientos del proyecto** (PDF grupal) y la **reflexión individual** (PDF) usan las **plantillas del curso** — ver **Tareas**.
 
-El **mismo patrón** de descarga lo usa el **[cuaderno grupal `l1-introduction-group`](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction-group.ipynb)** (**2022–2025**). Enlace también en la [página de la lección](https://cabrerac.github.io/teaching/26-udenar-big-data/l1-introduction/).
+El **mismo patrón** de descarga lo usa el **[cuaderno grupal `l1-introduction-group`](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction-group.ipynb)** (**2022–2025**). Plantillas Word: [página de la lección](https://cabrerac.github.io/teaching/26-udenar-big-data/l1-introduction/) (Materials, en inglés).
 
 **Qué hacer (en orden).**
 
@@ -689,13 +696,30 @@ if passed >= 4:
 
 ## Tareas
 
-Resumen de entregables — detalle, plantillas `.docx` y enlaces Colab en la **[página de la lección](https://cabrerac.github.io/teaching/26-udenar-big-data/l1-introduction/)** (secciones **Recursos** y **Tareas**).
+Esta sección define **qué entregar en Moodle**. Las plantillas Word están en la [página de la lección](https://cabrerac.github.io/teaching/26-udenar-big-data/l1-introduction/) (descargas en inglés); complételas en Word y expórtelas a PDF.
 
-| Qué | Cuándo | Archivo(s) |
-|-----|--------|------------|
-| Grupo | Miércoles 10 jun 2026 | ZIP `l1-introduction-<grupo>.zip` (cuaderno grupal + `manifest.json` + `project_requirements.pdf`) |
-| Individual | Jueves 11 jun 2026 | `l1-reflexion-<estudiante>.pdf` |
+### Práctica individual (no calificada)
 
-Use las plantillas Word de la página de la lección; no entregue el cuaderno individual `l1-introduction.ipynb`.
+Cuaderno **`l1-introduction`** (este Colab) — Partes 1–3: Access 2024 + reflexión en el cuaderno. **No** entregue este `.ipynb` en Moodle.
+
+### Trabajo en grupo (60 % de la formativa L1)
+
+Use el Colab **`l1-introduction-group`**. Entregar un ZIP **`l1-introduction-<nombre-grupo>.zip`** hasta el **miércoles 10 de junio de 2026, 23:59 (Colombia)**:
+
+| Archivo en el ZIP | Descripción |
+|-------------------|-------------|
+| `l1-introduction-<nombre-grupo>.ipynb` | Cuaderno grupal ejecutado — descarga GEIH **2022–2025** + registro de contribución |
+| `manifest.json` | Un registro por cada archivo descargado del DANE |
+| `project_requirements.pdf` | Requerimientos del proyecto (desde la plantilla Word del curso) |
+
+### Reflexión individual (40 % de la formativa L1)
+
+Entregar **un PDF por estudiante** hasta el **jueves 11 de junio de 2026, 23:59 (Colombia)** — **no** va dentro del ZIP grupal.
+
+| Entregable | Descripción |
+|------------|-------------|
+| `l1-reflexion-<nombre-estudiante>.pdf` | Reflexión semana 1 (plantilla Word del curso) |
+
+**Consigna:** *Si el DANE restringiera mañana las descargas masivas, ¿qué parte de su configuración de Access cambiaría primero — y qué implicaría eso para la rendición de cuentas pública?*
 
 <!-- end NOTEBOOK: -->

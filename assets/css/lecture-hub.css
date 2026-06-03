@@ -1,0 +1,110 @@
+/* Lecture hub — materials page (public English); scoped under .lecture-hub */
+
+.lecture-resources {
+  margin: 1.25rem 0 1.75rem;
+  padding: 0.85rem 1rem;
+  background: #f4f7fb;
+  border: 1px solid #d8e2ef;
+  border-radius: 8px;
+}
+
+.lecture-resource-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lecture-resource-bar a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.lecture-resource-bar a:hover {
+  text-decoration: underline;
+}
+
+.lecture-hub {
+  max-width: 52rem;
+  line-height: 1.55;
+}
+
+.lecture-hub .lecture-lead {
+  font-size: 1.05rem;
+  color: #334155;
+  margin: 0 0 1.5rem;
+}
+
+.lecture-hub .lecture-note {
+  font-size: 0.95rem;
+  color: #475569;
+  background: #fffbeb;
+  border-left: 4px solid #f59e0b;
+  padding: 0.75rem 1rem;
+  margin: 0 0 1.5rem;
+  border-radius: 0 6px 6px 0;
+}
+
+.lecture-hub h2 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.35rem;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 0.35rem;
+}
+
+.lecture-hub h3 {
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  color: #1e3a5f;
+}
+
+.lecture-hub .resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.lecture-hub .resource-card {
+  border: 1px solid #dbe4f0;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #fff;
+}
+
+.lecture-hub .resource-card strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #0f172a;
+}
+
+.lecture-hub .resource-card p {
+  margin: 0.35rem 0 0;
+  font-size: 0.92rem;
+  color: #64748b;
+}
+
+.lecture-hub .resource-card a {
+  font-weight: 600;
+}
+
+.lecture-hub ul.compact {
+  margin: 0.5rem 0 1rem;
+  padding-left: 1.25rem;
+}
+
+.lecture-hub ul.compact li {
+  margin-bottom: 0.35rem;
+}
+
+.lecture-hub .instructor-block {
+  font-size: 0.92rem;
+  color: #64748b;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px dashed #cbd5e1;
+}
