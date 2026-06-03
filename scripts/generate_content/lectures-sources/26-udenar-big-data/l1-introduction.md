@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-big-data
 title: Introduction to Big Data, methodology, and ecosystems
-description: This lecture introduces the course and how we will work along it. It also introduces the Big Data concept, history, context, applications, and ecosystems. We present the data science methodology that will drive our work and explore its first stage, making data available.
+description: Lecture 1 introduces the course and how we will work along it. It also introduces the Big Data concept, history, context, applications, and ecosystems. We present the problem first principle and a data science methodology that will drive our work. We start implementing the first stage of the methodology, making data available.
 session: 1
 start_time: 07:00 am
 end_time: 01:00 pm

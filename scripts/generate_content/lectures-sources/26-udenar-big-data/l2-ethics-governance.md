@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-big-data
 title: Ethics, privacy, and foundations of data governance
-description: Lecture 2 (ethics-first framing) — Vs of harm, consent, fairness, Zuboff anchor reading, accountable practice; deepens the L1 project requirements doc before any technical lecture. Async ~2 h video (V1 theory + V2 case-study walkthrough) + ~3 h Saturday sync inside the shared 07:00–13:00 CO block.
+description: Lecture 2 follows the first access to GEIH by asking what responsible use of that data requires. We treat harm, consent, and fairness not as a final checklist but as requirements that shape every technical choice in Big Data projects. The readings and a guided ethics audit on survey and map data prepare the accountable-practice frame for storage, processing, and analytics ahead.
 session: 2
 start_time: 07:00 am
 end_time: 01:00 pm

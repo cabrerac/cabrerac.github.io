@@ -2,10 +2,11 @@
 author: Christian Cabrera Jojoa
 course_code: 26-udenar-big-data
 department: Department of Computer Science and Technology
-description: This lecture introduces the course and how we will work along it. It
-  also introduces the Big Data concept, history, context, applications, and ecosystems.
-  We present the data science methodology that will drive our work and explore its
-  first stage, making data available.
+description: Lecture 1 introduces the course and how we will work along it. It also
+  introduces the Big Data concept, history, context, applications, and ecosystems.
+  We present the problem first principle and a data science methodology that will
+  drive our work. We start implementing the first stage of the methodology, making
+  data available.
 email: chc79@cam.ac.uk
 end_time: 01:00 pm
 hours: 5
