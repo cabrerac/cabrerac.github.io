@@ -77,9 +77,27 @@ def download_zip(url: str, dest: Path, timeout: int = 600) -> tuple[float, int]:
 
 
 def extract_csvs(zip_path: Path, dest_dir: Path) -> list[Path]:
+    """Extrae .csv; meses con csv.zip anidado (p. ej. Abril) se abren en recursión."""
     dest_dir.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(zip_path, "r") as zf:
-        csv_members = [n for n in zf.namelist() if n.lower().endswith(".csv")]
+        names = zf.namelist()
+        csv_members = [n for n in names if n.lower().endswith(".csv")]
+        nested_csv_zip = next(
+            (n for n in names if re.fullmatch(r"csv\s*\d*\.zip", Path(n).name, re.I)),
+            None,
+        )
+        if nested_csv_zip and not csv_members:
+            inner_path = dest_dir / "_csv_inner.zip"
+            inner_path.write_bytes(zf.read(nested_csv_zip))
+            try:
+                return extract_csvs(inner_path, dest_dir)
+            finally:
+                inner_path.unlink(missing_ok=True)
+        if not csv_members:
+            raise ValueError(
+                f"No hay CSV en {zip_path.name}. Entradas: "
+                f"{[Path(n).name for n in names[:8]]}"
+            )
         for name in csv_members:
             target = dest_dir / Path(name).name
             with zf.open(name) as src, target.open("wb") as dst:

@@ -28,7 +28,7 @@ geih-build status
 1. **Discovers** national GEIH catalog ids by searching DANE
 2. **Scrapes** each get-microdata page for `{filename, file_id, url}` via `mostrarModal(...)`
 3. **Downloads** ZIPs using **DANE filenames** (e.g. `Ene_2024.zip`)
-4. **Extracts** CSVs to `data/raw/{filename_stem}/`
+4. **Extracts** CSVs to `data/raw/{filename_stem}/` (flat `.csv` or nested `csv.zip` inside the month bundle)
 5. **Resumes** — skips files already on disk (`build_state.json`)
 
 Only **CSV microdata ZIPs** are downloaded (SAV/TXT variants on older catalogs are skipped automatically). Survey year folders come from the catalog page metadata.

@@ -43,15 +43,13 @@ notebook_description: Práctica de la Lección 1. Poner a disposición datos de 
 
 ## Instrucciones
 
-**Propósito.** Este cuaderno es su **práctica de la Lección 1**. Va a **poner a disposición datos de la encuesta del DANE "Gran Encuesta Integrada de Hogares (GEIH)"**. Esa es la primera etapa de nuestra metodología: **Access** (tener los datos disponibles antes de evaluarlos o analizarlos).
+**Propósito.** Este cuaderno es su práctica de la Lección 1. El objetivo es **poner a disposición datos de la encuesta del DANE "Gran Encuesta Integrada de Hogares (GEIH)"**. Esa es la primera etapa de nuestra metodología: **Access** (tener los datos disponibles antes de evaluarlos o analizarlos).
 
-En producción, los microdatos nacionales de empleo abarcan **muchos años a escala de gigabytes**. En este laboratorio trabajamos el **año de encuesta 2024** en dos partes:
+En producción, los microdatos nacionales de empleo abarcan muchos años a escala de gigabytes. En este laboratorio vamos a empezar en una escala más pequeña. Trabajaremos con los datos de la encuesta para el año 2024 en dos partes:
 
-1. **Parte 1 — un mes** (enero): con el `catalog_id` y `file_id` que entrega el instructor (como en el navegador), descargar un ZIP, extraer, previsualizar y registrar el resultado en `manifest.json`.
-2. **Parte 2 — el año completo**: ver **por qué** hace falta **extraer los `file_id` desde la página** get-microdata, automatizar esa lectura y descargar los otros once meses.
-3. **Parte 3 — reflexión (individual)**: clasificar las Vs, mapa de las tres A, boceto de arquitectura y comprobación de Access. El **documento de requerimientos del proyecto** (PDF grupal) y la **reflexión individual** (PDF) usan las **plantillas del curso** — ver **Tareas**.
-
-El **mismo patrón** de descarga lo usa el **[cuaderno grupal `l1-introduction-group`](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction-group.ipynb)** (**2022–2025**). Plantillas Word: [página de la lección](https://cabrerac.github.io/teaching/26-udenar-big-data/l1-introduction/) (Resources, en inglés).
+1. **Parte 1 — un mes** (enero): utilizando el respectivo `catalog_id` y `file_id`, descargar un ZIP, extraer, previsualizar y registrar el resultado en `manifest.json`.
+2. **Parte 2 — el año completo**: ver por qué hace falta extraer los `file_id` desde la página get-microdata, automatizar esa lectura y descargar los otros once meses.
+3. **Parte 3 — reflexión (individual)**: clasificar las Vs, mapa de las tres A, boceto de arquitectura y comprobación de Access. El documento de requerimientos del proyecto (PDF grupal) y la reflexión individual (PDF) usan las plantillas del curso. Ver **Tareas**.
 
 **Qué hacer (en orden).**
 
@@ -114,7 +112,7 @@ https://microdatos.dane.gov.co/index.php/catalog/{catalog_id}/download/{file_id}
 | `{catalog_id}` | Id DANE del **año de encuesta** | `819` para 2024 |
 | `{file_id}` | Id interno de **un ZIP** | `23313` para enero 2024 |
 
-Las celdas siguientes implementan esto en Python. La **Parte 1** usa el enlace de **enero** que ya conoce. La **Parte 2** automatiza la lectura de la página y descarga **el resto de 2024**.
+Las celdas siguientes descargan los datos utilizando la ruta de descarga directa. La **Parte 1** usa el enlace de **enero** que ya conocemos. La **Parte 2** automatiza la lectura de la página y descarga **el resto de 2024**.
 
 ---
 
@@ -176,7 +174,7 @@ Construimos la URL con el patrón de la sección anterior (`catalog_id` + `file_
 
 La función `download_zip` guarda el archivo en **`data/raw/2024/`** y registra tiempo y tamaño para el manifiesto.
 
-### ¿Por qué `stream=True`?
+¿Por qué `stream=True`?
 
 Con **`stream=True`** y `iter_content(...)`, cada trozo se escribe al disco sin cargar todo el ZIP en RAM. Con `stream=False` y `resp.content`, Python puede usar **casi el doble de memoria** un momento. Para **un mes** en Colab el tiempo suele ser similar, la diferencia importa cuando bajan **muchos archivos grandes** o trabajan en un equipo con poca RAM. Esta consideración es importante cuando se piensa en la dimensión **V de volumen**.
 
@@ -229,14 +227,31 @@ print("Paso 2 — descarga: OK")
 
 Cada ZIP mensual trae **varias** tablas CSV (fuerza de trabajo, vivienda, educación, etc.). Access significa tener **todas** disponibles, para ello implementaremos la función **`extract_csvs`**. Esta función escribe cada archivo `.csv` en una carpeta con el nombre base del ZIP del DANE, p. ej. `data/raw/2024/Ene_2024/`.
 
+En algunos meses (p. ej. **abril 2024**) el ZIP exterior no trae `.csv` sueltos sino un **`csv.zip` anidado** (junto con `dta.zip`, `sav.zip`, etc.). La función lo detecta y extrae el ZIP interior — el mismo criterio que usa `geih_build` en `scripts/big-data-course/geih_build/`.
+
 ```python
 def extract_csvs(zip_path: Path, dest_dir: Path) -> list[Path]:
-    """Extrae cada miembro .csv; devuelve lista ordenada de rutas."""
+    """Extrae cada .csv; si el mes trae csv.zip anidado, lo abre y extrae ahí."""
     dest_dir.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(zip_path, "r") as zf:
-        csv_members = [n for n in zf.namelist() if n.lower().endswith(".csv")]
+        names = zf.namelist()
+        csv_members = [n for n in names if n.lower().endswith(".csv")]
+        nested_csv_zip = next(
+            (n for n in names if re.fullmatch(r"csv\s*\d*\.zip", Path(n).name, re.I)),
+            None,
+        )
+        if nested_csv_zip and not csv_members:
+            inner_path = dest_dir / "_csv_inner.zip"
+            inner_path.write_bytes(zf.read(nested_csv_zip))
+            try:
+                return extract_csvs(inner_path, dest_dir)
+            finally:
+                inner_path.unlink(missing_ok=True)
         if not csv_members:
-            raise ValueError(f"No CSV files inside {zip_path.name}")
+            raise ValueError(
+                f"No hay CSV en {zip_path.name}. Entradas: "
+                f"{[Path(n).name for n in names[:8]]}"
+            )
         for name in csv_members:
             target = dest_dir / Path(name).name
             with zf.open(name) as src, target.open("wb") as dst:
