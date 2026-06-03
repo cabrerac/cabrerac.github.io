@@ -30,8 +30,9 @@ notebook_description: Práctica de la Lección 2. Auditoría ética sobre GEIH y
 - [Group notebook week 1](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-1-group.ipynb): Deadline 10/06/2026
 - [Reflection template week 1](/assets/documents/26-udenar-big-data/reflection-week-1-template.docx): Deadline 11/06/2026
 - [Project requirements template](/assets/documents/26-udenar-big-data/project-requirements-template.docx): Discussion in group session week 2
-- [OpenStreetMap — Colombia](https://www.openstreetmap.org/relation/120027)
+- [OpenStreetMap — Nariño (departamento)](https://www.openstreetmap.org/relation/1380130)
 - [Overpass API](https://wiki.openstreetmap.org/wiki/Overpass_API)
+- [GEIH 2024 — diccionario de datos (DANE)](https://microdatos.dane.gov.co/index.php/catalog/819/data-dictionary)
 
 ### References
 
@@ -79,14 +80,14 @@ print(unido)
 
 ### Peticiones HTTP con `requests`
 
-**`requests.post`** envía datos a un servicio web. OpenStreetMap expone la **Overpass API** para consultar mapas. El servidor público exige un **`User-Agent`** que identifique la aplicación (no el valor por defecto de `requests`).
+**`requests.post`** envía datos a un servicio web. OpenStreetMap expone la **Overpass API** para consultar mapas. El servidor público exige un **`User-Agent`** que identifique la aplicación (no el valor por defecto de `requests`). Use solo caracteres **ASCII** en ese encabezado (sin guiones largos «—»).
 
 ```python
 import requests
 
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 OVERPASS_HEADERS = {
-    "User-Agent": "UDENAR-BigData-2026/1.0 (Universidad de Nariño — Big Data elective)",
+    "User-Agent": "UDENAR-BigData-2026/1.0 (Universidad de Narino - Big Data elective)",
     "Accept": "application/json",
 }
 print("Overpass listo. User-Agent:", OVERPASS_HEADERS["User-Agent"])
@@ -157,6 +158,9 @@ EXTRACT_DIR = "Ene_2024"
 CSV_SEP = ";"
 CSV_ENCODING = "latin-1"
 PRIMARY_TABLE_KEYWORD = "fuerza de trabajo"
+DEMOG_TABLE_KEYWORDS = ("caracter", "generales")
+# Claves de persona compartidas por todas las tablas del mes (ver diccionario DANE)
+PERSON_KEYS = ["DIRECTORIO", "HOGAR", "ORDEN"]
 
 RAW_DIR = Path("data/raw")
 YEAR_DIR = RAW_DIR / str(YEAR)
@@ -269,6 +273,10 @@ print("Parte 1, Paso 3 — extracción: OK")
 
 ### Paso 4 — Cargar fuerza de trabajo
 
+Cada ZIP mensual trae **varias** tablas CSV (no una sola). Los nombres de columna (`P6240`, `P6040`, …) y su significado están en el [diccionario de datos GEIH 2024](https://microdatos.dane.gov.co/index.php/catalog/819/data-dictionary) del DANE — una entrada por tabla (p. ej. [Fuerza de trabajo](https://microdatos.dane.gov.co/index.php/catalog/819/data-dictionary/F65?file_name=Fuerza+de+trabajo), [Características generales](https://microdatos.dane.gov.co/index.php/catalog/819/data-dictionary/F63?file_name=Caracteristicas+generales%2C+seguridad+social+en+salud+y+educacion)).
+
+La tabla **Fuerza de trabajo** trae variables de empleo (`P6240`, `P6250`, …). **Edad (`P6040`) y sexo (`P3271`)** están en **Características generales**; las unimos en el Paso 5.
+
 ```python
 df = pd.read_csv(labour_path, sep=CSV_SEP, encoding=CSV_ENCODING, low_memory=False)
 n_rows = len(df)
@@ -276,6 +284,7 @@ n_cols = len(df.columns)
 
 print(f"Archivo: {labour_path.name}")
 print(f"Filas: {n_rows:,}  |  Columnas: {n_cols}")
+print(f"Primeras columnas: {list(df.columns[:12])}")
 print(df.head(3))
 ```
 
@@ -284,7 +293,41 @@ print(df.head(3))
 ```python
 assert n_rows > 10_000, "Se espera un mes nacional de fuerza de trabajo"
 assert "DPTO" in df.columns, "Falta columna DPTO"
-print("Parte 1 — Access y carga GEIH: OK")
+assert all(k in df.columns for k in PERSON_KEYS), "Faltan claves de persona para unir tablas"
+print("Parte 1, Paso 4 — carga fuerza de trabajo: OK")
+```
+
+---
+
+### Paso 5 — Unir edad desde Características generales
+
+```python
+demog_path = next(
+    p
+    for p in csv_files
+    if all(kw in p.name.lower().replace("\xa0", " ") for kw in DEMOG_TABLE_KEYWORDS)
+)
+print(f"Tabla demográfica: {demog_path.name}")
+
+demog = pd.read_csv(
+    demog_path,
+    sep=CSV_SEP,
+    encoding=CSV_ENCODING,
+    usecols=PERSON_KEYS + ["P6040"],
+    low_memory=False,
+)
+
+df = df.merge(demog, on=PERSON_KEYS, how="left", validate="many_to_one")
+n_with_age = df["P6040"].notna().sum()
+print(f"Filas con P6040 (edad): {n_with_age:,} de {len(df):,}")
+```
+
+**Comprobar:**
+
+```python
+assert "P6040" in df.columns
+assert n_with_age > 10_000
+print("Parte 1 — Access, carga y edad: OK")
 ```
 
 ---
@@ -293,7 +336,7 @@ print("Parte 1 — Access y carga GEIH: OK")
 
 La GEIH no trae nombre ni cédula, pero sí **cuasi-identificadores**: combinaciones que pueden acercarse a identificar hogares o personas en celdas pequeñas.
 
-Listamos columnas sensibles frecuentes en fuerza de trabajo.
+Listamos columnas sensibles frecuentes en GEIH. Algunas vienen de **Fuerza de trabajo**; otras (p. ej. **P6040**) de **Características generales** ya unidas en Parte 1.
 
 ```python
 # Columnas que suelen ser cuasi-identificadores en GEIH
@@ -326,12 +369,13 @@ if faltantes:
     print("\nNo encontradas en este mes (puede variar por año):", ", ".join(faltantes))
 ```
 
-Interpretación breve:
+Interpretación breve (consulte el [diccionario DANE](https://microdatos.dane.gov.co/index.php/catalog/819/data-dictionary) para el texto exacto de cada pregunta):
 
 - **DPTO / MPIO / AREA**: geografía.
-- **P6040** (o similar): edad.
-- **P6020 / SEXO**: sexo.
-- **P6160, P6240, P6090**: educación, ocupación, tipo de empleo (según diccionario DANE).
+- **P6040**: edad en años cumplidos — tabla *Características generales*.
+- **P3271 / P6020 / SEXO**: sexo (nombre varía por año).
+- **P6240**: actividad principal la semana pasada — tabla *Fuerza de trabajo*.
+- **P6160, P6090**: educación y afiliación en salud — suelen estar en *Características generales*.
 
 **Comprobar:**
 
@@ -345,12 +389,14 @@ print("Parte 2 — cuasi-identificadores: OK")
 
 ## Parte 3 — Vista previa de divulgación estadística
 
-Contamos filas en la celda más pequeña **departamento × banda de edad**. Si hay muy pocas filas, publicar ese agregado puede acercarse a identificar personas. En L4 verán mitigaciones (k-anon, supresión). Aquí solo **medimos**.
+Contamos filas en la celda más pequeña **departamento × banda de edad**. Si hay muy pocas filas, publicar ese agregado puede acercarse a identificar personas.
 
 ```python
-# Columna de edad: P6040 es habitual en GEIH
+# P6040 (edad) viene de Características generales — unida en Parte 1, Paso 5
 if "P6040" not in df.columns:
-    raise KeyError("No hay P6040 (edad). Revise df.columns y adapte el nombre.")
+    raise KeyError(
+        "No hay P6040. Ejecute Parte 1 Paso 5 (merge con Características generales)."
+    )
 
 # Normalizar DPTO como texto sin ceros a la izquierda inconsistentes
 work = df[["DPTO", "P6040"]].copy()
@@ -399,11 +445,13 @@ print("Parte 3 — divulgación (vista previa): OK")
 
 ## Parte 4 — OpenStreetMap: escuelas en un departamento
 
-OSM es un mapa colaborativo. Consultamos **Overpass API** para contar nodos con **`amenity=school`** en **un departamento** (Nariño, código DANE **`52`**).
+En el anterior cuaderno automatizamos la descarga del dataset GEIH desde la página web del DANE. En esta ocasión vamos a acceder datos a través del una API de OpenStreetMaps (OSM). OSM es una mapa colaborativo que conforma un dataset que expone información geografica de todo el planeta.
+
+Para acceder datos de OSM consultamos **Overpass API**. En este caso utilizamos el API para contar el número de escualas en el departamento de Nariño. Para ello contamos los nodos con **`amenity=school`** en **un departamento** (Nariño, código DANE **`52`**).
 
 ### Paso 1 — Configuración OSM
 
-Cada departamento tiene un **id de relación** en OSM (límite administrativo). Para Nariño la relación es **`120027`**. En Overpass el **id de área** es **`3600000000 + id_relación`**.
+Cada departamento tiene un **id de relación** en OSM (límite administrativo, `admin_level=4`). Para Nariño la relación es **`1380130`** (no confundir con **`120027`**, que es el límite de **Colombia**). En Overpass el **id de área** es **`3600000000 + id_relación`** → **`3601380130`**.
 
 ```python
 import json
@@ -414,7 +462,7 @@ import requests
 
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 OVERPASS_HEADERS = {
-    "User-Agent": "UDENAR-BigData-2026/1.0 (Universidad de Nariño — Big Data elective)",
+    "User-Agent": "UDENAR-BigData-2026/1.0 (Universidad de Narino - Big Data elective)",
     "Accept": "application/json",
 }
 OUTPUTS_DIR = Path("outputs")
@@ -423,8 +471,8 @@ OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 # Nariño — código DANE 52
 DPTO_DEMO = 52
 DPTO_DEMO_NOMBRE = "Nariño"
-OSM_RELATION_NARINO = 120027
-OSM_AREA_ID_NARINO = 3600000000 + OSM_RELATION_NARINO
+OSM_RELATION_NARINO = 1380130
+OSM_AREA_ID_NARINO = 3600000000 + OSM_RELATION_NARINO  # 3601380130
 
 AMENITY_SCHOOL = "school"
 PAUSA_SEG = 1.0  # cortesía con el servidor público Overpass
@@ -465,6 +513,10 @@ print(f"Consulta Overpass: {elapsed} s")
 
 ```python
 assert poi_school_count >= 0
+assert poi_school_count < 15_000, (
+    "Conteo OSM muy alto: ¿usó la relación del departamento (1380130) "
+    "y no la de Colombia (120027)?"
+)
 print("Parte 4, Paso 2 — consulta OSM: OK")
 ```
 
@@ -515,7 +567,7 @@ print("Parte 4, Paso 3 — agregado GEIH: OK")
 ```python
 fig, ax = plt.subplots(figsize=(5, 3))
 ax.bar(["Personas\n(muestra GEIH)", "Escuelas\n(OSM)"], [personas_demo, poi_school_count], color=["#4472C4", "#ED7D31"])
-ax.set_title(f"Nariño (DPTO {DPTO_DEMO}) — enero 2024")
+ax.set_title(f"Nariño (DPTO {DPTO_DEMO}) - enero 2024")
 ax.set_ylabel("Conteo")
 fig.tight_layout()
 fig.savefig(OUTPUTS_DIR / "enlace_geih_osm_demo.png", dpi=120)
@@ -531,7 +583,7 @@ Al unir encuesta y mapa aparecen límites que debe conocer antes del proyecto:
 2. **Falacia ecológica.** Un patrón a nivel departamento no prueba nada sobre una persona concreta.
 3. **Sin consentimiento cruzado.** Los encuestados no acordaron mezclar sus respuestas con un mapa voluntario.
 4. **Sesgo urbano.** Las ciudades suelen tener más nodos OSM que zonas rurales.
-5. **Definición del POI.** Aquí contamos solo **`amenity=school`**. Otro tag daría otra historia (lo verán en el cuaderno grupal).
+5. **Definición del POI.** Aquí contamos solo **`amenity=school`**. Otro tag daría otra historia.
 
 **Comprobar:**
 
@@ -550,7 +602,7 @@ Relacionamos lo visto en código con las lecturas de la semana.
 
 **Zuboff.** GEIH es estadística pública con marco legal. OSM es datos colaborativos con otra lógica de producción. No es "surplus" comercial, pero sí mezcla regímenes de datos distintos que hay que declarar en el pipeline.
 
-**Mittelstadt et al.** Al publicar agregados pueden aparecer daños por **discriminación** (priorizar regiones con más escuelas mapeadas) o **falta de transparencia** (no explicar límites del join). El cuaderno grupal pedirá mapear dos tipos de daño a su arquetipo.
+**Mittelstadt et al.** Al publicar agregados pueden aparecer daños por **discriminación** (priorizar regiones con más escuelas mapeadas) o **falta de transparencia** (no explicar límites del join).
 
 Estos temas alimentan la sección **Preocupaciones éticas** del PDF grupal (semana 2) y la reflexión semana 1.
 

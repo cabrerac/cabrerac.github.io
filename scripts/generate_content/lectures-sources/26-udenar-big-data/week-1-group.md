@@ -236,7 +236,7 @@ Parta de **`contar_nodos_amenity`** del cuaderno individual L2.
 2. Nodos con **`amenity`** en `hospital`, `clinic`, `doctors`, `pharmacy`, `health_centre` → `poi_health_count`
 3. **`poi_servicios_basicos_count`** = suma de escuelas + salud
 
-Complete **`DPTO_TO_OSM_RELATION`**: id de **relación** OSM por código DANE. El id de área Overpass es **`3600000000 + relación`**. Nariño (`52`) → relación `120027` → área `3600120027`. Busque otras relaciones en [OpenStreetMap](https://www.openstreetmap.org/) (administrative level 4). Reutilice **`OVERPASS_HEADERS`** del cuaderno L2. Use **`skip_if_exists`** o cache si re-ejecuta.
+Complete **`DPTO_TO_OSM_RELATION`**: id de **relación** OSM por código DANE. El id de área Overpass es **`3600000000 + relación`**. Nariño (`52`) → relación **`1380130`** → área **`3601380130`** (no **`120027`**, que es Colombia). Busque otras relaciones en [OpenStreetMap](https://www.openstreetmap.org/) (`admin_level=4`). Reutilice **`OVERPASS_HEADERS`** del cuaderno L2. Use **`skip_if_exists`** o cache si re-ejecuta.
 
 ```python
 # SU CÓDIGO — funciones contar escuelas y contar salud; bucle por DPTO; guardar outputs/osm_poi_by_dpto.csv

@@ -41,8 +41,9 @@ visible: true
 - [Group notebook week 1](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-1-group.ipynb): Deadline 10/06/2026
 - [Reflection template week 1](/assets/documents/26-udenar-big-data/reflection-week-1-template.docx): Deadline 11/06/2026
 - [Project requirements template](/assets/documents/26-udenar-big-data/project-requirements-template.docx): Discussion in group session week 2
-- [OpenStreetMap — Colombia](https://www.openstreetmap.org/relation/120027)
+- [OpenStreetMap — Nariño (departamento)](https://www.openstreetmap.org/relation/1380130)
 - [Overpass API](https://wiki.openstreetmap.org/wiki/Overpass_API)
+- [GEIH 2024 — diccionario de datos (DANE)](https://microdatos.dane.gov.co/index.php/catalog/819/data-dictionary)
 
 ### References
 
