@@ -30,7 +30,7 @@ notebook_description: Cuaderno canónico del grupo para la Lección 1. Descarga 
 
 **Plantillas Word:** descargue desde la [página de la Lección 1](https://cabrerac.github.io/teaching/26-udenar-big-data/l1-introduction/) (sección *Materials*). **Plazos y ZIP:** en **Tarea grupal** más abajo.
 
-**Entrega Moodle (miércoles):** ZIP `l1-introduction-<nombre-grupo>.zip` con este `.ipynb`, `manifest.json` y `project_requirements.pdf`.
+**Entrega Moodle (miércoles 10 jun):** ZIP `l1-introduction-<nombre-grupo>.zip` con este `.ipynb` y `manifest.json`.
 
 ---
 
@@ -220,8 +220,7 @@ ZIP **`l1-introduction-<nombre-grupo>.zip`** hasta el **miércoles 10 de junio d
 |---------|-------------|
 | `l1-introduction-<nombre-grupo>.ipynb` | Este cuaderno ejecutado (o exportado desde el Colab canónico) |
 | `manifest.json` | Un registro por archivo DANE descargado |
-| `project_requirements.pdf` | Requerimientos del proyecto (plantilla Word del curso) |
 
-La **reflexión individual** (`l1-reflexion-<nombre>.pdf`) se entrega **por separado** — no va en este ZIP.
+La **reflexión individual** (`l1-reflexion-<nombre>.pdf`) se entrega **por separado** el jueves 11 jun.
 
 <!-- end NOTEBOOK: -->

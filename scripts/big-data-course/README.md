@@ -13,4 +13,6 @@ Python tools used in **Colabs** and on student laptops for the Udenar Big Data c
 
 **L1 Word templates:** `pip install -r requirements.txt` (includes `python-docx`), then `python scripts/big-data-course/build_l1_docx_templates.py` → `assets/documents/26-udenar-big-data/*.docx`
 
+**Project outline (Spanish PDF + DOCX):** `python scripts/big-data-course/build_project_outline.py` → `assets/documents/26-udenar-big-data/definicion-proyecto-big-data.pdf`
+
 **Usage in notebooks:** students **implement** the same logic in the L1 Colab (no package import). **`geih_build`** is instructor reference / batch verification under `scripts/big-data-course/geih_build/`.

@@ -38,8 +38,9 @@ visible: false
 
 ### Resources
 
-- [Project requirements template](/assets/documents/26-udenar-big-data/plantilla-requerimientos-proyecto.docx): Group deliverable inside the group ZIP. Deadline 10/06/2026.
-- [L1 individual reflection template](/assets/documents/26-udenar-big-data/plantilla-reflexion-l1.docx): Individual deliverable. Deadline 11/06/2026.
+- [Definición del proyecto (PDF, español)](/assets/documents/26-udenar-big-data/definicion-proyecto-big-data.pdf): Escenario compartido, spine GEIH, tres enfoques, fuentes opcionales. Leer antes de la sesión 1.
+- [Plantilla requerimientos del proyecto](/assets/documents/26-udenar-big-data/plantilla-requerimientos-proyecto.docx): Entrega grupal en la semana 2 (ver definición del proyecto).
+- [Plantilla reflexión individual L1](/assets/documents/26-udenar-big-data/plantilla-reflexion-l1.docx): Entrega individual. Plazo 11/06/2026.
 - [DANE microdata portal](https://microdatos.dane.gov.co/)
 - [GEIH 2024 catalog — methodology and documentation](https://microdatos.dane.gov.co/index.php/catalog/819)
 

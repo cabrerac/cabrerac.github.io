@@ -69,43 +69,39 @@ def build_project_requirements() -> Document:
     sections = [
         (
             "1. Metadatos del grupo",
-            "Grupo (G1…), integrantes, arquetipo (asignación de recursos | riesgo / alerta temprana | monitoreo), fecha.",
+            "Id del grupo, integrantes, arquetipo seleccionado (asignación de recursos | riesgo / alerta temprana | monitoreo).",
         ),
         (
             "2. Interesados",
             "¿A quién sirve su equipo de analítica y quién se ve afectado por las decisiones?",
         ),
         (
-            "3. Pregunta de decisión",
-            "Una pregunta específica, respondible con microdatos GEIH, alineada con el arquetipo.",
+            "3. Requerimientos del proyecto",
+            "Liste los requerimientos del proyecto que se deben satisfacer para el éxito del proyecto.",
         ),
         (
-            "4. Subconjunto de datos (GEIH)",
-            "Años (p. ej. 2022–2025), regiones/departamentos, segmento de población, variables principales.",
+            "4. Objetivos",
+            "Liste los objetivos del proyecto y explique por qué son relevantes.",
         ),
         (
-            "5. Criterios de éxito",
-            "Al menos dos criterios comprobables (reproducibilidad, tiempo, incertidumbre, etc.).",
+            "5. Subconjunto de datos (GEIH)",
+            "Describa las variables del dataset GEIH que usted considera utilizar en su proyecto. Por ejemplo, años (p. ej. 2022–2025), regiones/departamentos, segmento de población, variables principales, etc.",
         ),
         (
-            "6. Preocupación ética y lectura",
-            "Un tema concreto del case shell §6 + cite Zuboff cap. 1 u otra lectura de la semana por nombre.",
+            "6. Preocupaciones éticas",
+            "Liste los temas éticos que se relacionan con el proyecto y explique por qué son relevantes.",
         ),
         (
             "7. Roles y plan de contribución",
-            "Una viñeta por integrante (marco, datos, análisis, escritura, presentación).",
+            "Una viñeta por integrante (Marco de trabajo, Datos, Análisis, Escritura, Presentación).",
         ),
         (
             "8. Pipeline del proyecto",
-            "Inserte su figura (architecture.svg) y 3–5 oraciones: fuentes → almacenamiento → procesamiento → decisión.",
+            "Inserte una figura que muestre el pipeline del proyecto y 3–5 oraciones que lo describan. Ejemplo: fuentes → almacenamiento → procesamiento → decisión.",
         ),
         (
-            "9. URL del Colab grupal canónico",
-            "Enlace al Colab/Drive donde el grupo ejecuta l1-introduction-group y consolida tareas.",
-        ),
-        (
-            "10. Rotación de escriba por lección",
-            "L1: … L2: … … L6: … (cada integrante al menos una vez).",
+            "9. Rotación de liderazgo para su grupo por semana",
+            "S1: … S2: … S3: … S4: … (cada integrante debe liderar al menos una vez por semana).",
         ),
     ]
     for title, prompt in sections:
@@ -129,33 +125,27 @@ def build_reflection_l1() -> Document:
     _section(
         doc,
         "R1 Proceso y metodología",
-        "Qué hizo en el cuaderno l1-introduction; qué aprendió sobre Access.",
+        "¿Qué hizo en el cuaderno l1-introduction y qué aprendió sobre la etapa de Access?",
     )
     _section(
         doc,
         "R2 Justificación técnica",
-        "Una decisión técnica (URL, streaming, file_id, carpetas) y por qué.",
+        "Identifique una decisión técnica en el cuaderno individual l1-introduction y explique el por qué de la misma.",
     )
     _section(
         doc,
-        "R3 Enlace con el dominio y la decisión",
-        "Cómo su arquetipo y pregunta de decisión del grupo encajan con GEIH.",
+        "R3 Arquitectura del dataset GEIH",
+        "¿Qué tipo de infraestructura se utilizó para descargar el dataset GEIH y qué limitaciones puede tener?",
     )
     _section(
         doc,
-        "R4 Ética y lecturas",
-        "Cite boyd & Crawford o Zuboff cap. 1; enlace con privacidad o gobernanza.",
+        "R4 Teoría, práctica y lecturas",
+        "¿Cómo se relacionan los conceptos teóricos explorados esta semana, el ejercicio de Access y las lecturas previas?",
     )
     _section(
         doc,
         "R5 Uso de IA e integridad",
-        "Qué herramientas de IA usó en L1 y qué verificó usted mismo.",
-    )
-    _para(
-        doc,
-        "Consigna L1: Si el DANE restringiera mañana las descargas masivas, "
-        "¿qué parte de su configuración de Access cambiaría primero — y qué implicaría "
-        "eso para la rendición de cuentas pública?",
+        "¿Qué herramientas de IA utilizó a lo largo de la semana 1? Explique cómo utilizó la IA en esta semana.",
     )
     return doc
 

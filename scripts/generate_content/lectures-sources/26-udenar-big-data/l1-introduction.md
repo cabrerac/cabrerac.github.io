@@ -26,8 +26,9 @@ notebook_description: Práctica de la Lección 1. Poner a disposición datos de 
 
 ### Resources
 
-- [Project requirements template](/assets/documents/26-udenar-big-data/plantilla-requerimientos-proyecto.docx): Group deliverable inside the group ZIP. Deadline 10/06/2026.
-- [L1 individual reflection template](/assets/documents/26-udenar-big-data/plantilla-reflexion-l1.docx): Individual deliverable. Deadline 11/06/2026.
+- [Definición del proyecto (PDF, español)](/assets/documents/26-udenar-big-data/definicion-proyecto-big-data.pdf): Escenario compartido, spine GEIH, tres enfoques, fuentes opcionales. Leer antes de la sesión 1.
+- [Plantilla requerimientos del proyecto](/assets/documents/26-udenar-big-data/plantilla-requerimientos-proyecto.docx): Entrega grupal en la semana 2 (ver definición del proyecto).
+- [Plantilla reflexión individual L1](/assets/documents/26-udenar-big-data/plantilla-reflexion-l1.docx): Entrega individual. Plazo 11/06/2026.
 - [DANE microdata portal](https://microdatos.dane.gov.co/)
 - [GEIH 2024 catalog — methodology and documentation](https://microdatos.dane.gov.co/index.php/catalog/819)
 
@@ -49,7 +50,7 @@ En producción, los microdatos nacionales de empleo abarcan muchos años a escal
 
 1. **Parte 1 — un mes** (enero): utilizando el respectivo `catalog_id` y `file_id`, descargar un ZIP, extraer, previsualizar y registrar el resultado en `manifest.json`.
 2. **Parte 2 — el año completo**: ver por qué hace falta extraer los `file_id` desde la página get-microdata, automatizar esa lectura y descargar los otros once meses.
-3. **Parte 3 — reflexión (individual)**: clasificar las Vs, mapa de las tres A, boceto de arquitectura y comprobación de Access. El documento de requerimientos del proyecto (PDF grupal) y la reflexión individual (PDF) usan las plantillas del curso. Ver **Tareas**.
+3. **Parte 3 — exploración inicial**: resumir lo descargado, revisar calidad básica y relacionar números con los conceptos de la lección. La reflexión escrita va en el PDF individual. Ver **Tareas**.
 
 **Qué hacer (en orden).**
 
@@ -116,6 +117,73 @@ Las celdas siguientes descargan los datos utilizando la ruta de descarga directa
 
 ---
 
+## Repaso de Python para este cuaderno
+
+Si ya dominó el diagnóstico previo (bandas 1 a 3), puede ejecutar estas celdas rápido. Si no, léalas con calma. Aquí solo aparece lo que usaremos en las Partes 1 a 3. No es un curso de pandas completo.
+
+### Variables y cadenas de texto
+
+Una variable guarda un valor. Las cadenas con **`f"..."`** insertan variables dentro del texto.
+
+```python
+year = 2024
+catalog_id = 819
+print(f"Año {year}, catálogo {catalog_id}")
+```
+
+### Funciones
+
+Una función agrupa pasos reutilizables. **`return`** devuelve un resultado. Los argumentos con nombre (como `skip_if_exists=True`) se pasan al final.
+
+```python
+def suma_mb(bytes_descargados: int) -> float:
+    return bytes_descargados / 1e6
+
+print(suma_mb(50_000_000))
+```
+
+### Diccionarios, listas y bucles
+
+Un **diccionario** guarda pares clave valor. Una **lista** ordena varios elementos. Un **`for`** recorre la lista.
+
+```python
+entrada = {"filename": "Ene_2024.zip", "seconds": 12.5}
+manifest = [entrada]
+for fila in manifest:
+    print(fila["filename"], fila["seconds"])
+```
+
+### Rutas con `Path`
+
+**`Path`** representa carpetas y archivos. El operador **`/`** une rutas. **`mkdir(parents=True, exist_ok=True)`** crea carpetas si faltan.
+
+```python
+from pathlib import Path
+
+carpeta = Path("data/raw") / "2024"
+carpeta.mkdir(parents=True, exist_ok=True)
+print(carpeta.is_dir())
+```
+
+### `json`, `requests` y `zipfile`
+
+- **`json`**: leer y escribir `manifest.json`.
+- **`requests`**: descargar archivos del DANE por HTTP.
+- **`zipfile`**: abrir ZIP y extraer CSV.
+
+Verá estos módulos importados en la celda de configuración de la Parte 1.
+
+### Comprobar con `assert`
+
+**`assert`** detiene la ejecución si una condición es falsa. Las celdas **Comprobar** usan este patrón.
+
+```python
+assert catalog_id == 819
+print("Repaso Python: OK")
+```
+
+---
+
 ## Parte 1 — Descarga de datos para un mes (enero 2024)
 
 ### Paso 1 — Configuración — importaciones, constantes y carpetas
@@ -168,7 +236,7 @@ print("Configuración: OK")
 
 ---
 
-## Paso 2 — Descargar el ZIP mensual
+### Paso 2 — Descargar el ZIP mensual
 
 Construimos la URL con el patrón de la sección anterior (`catalog_id` + `file_id`). Una descarga directa devuelve un ZIP (GEIH nacional de ese mes).
 
@@ -223,11 +291,11 @@ print("Paso 2 — descarga: OK")
 
 ---
 
-## Paso 3 — Extraer los archivos CSV
+### Paso 3 — Extraer los archivos CSV
 
 Cada ZIP mensual trae **varias** tablas CSV (fuerza de trabajo, vivienda, educación, etc.). Access significa tener **todas** disponibles, para ello implementaremos la función **`extract_csvs`**. Esta función escribe cada archivo `.csv` en una carpeta con el nombre base del ZIP del DANE, p. ej. `data/raw/2024/Ene_2024/`.
 
-En algunos meses (p. ej. **abril 2024**) el ZIP exterior no trae `.csv` sueltos sino un **`csv.zip` anidado** (junto con `dta.zip`, `sav.zip`, etc.). La función lo detecta y extrae el ZIP interior — el mismo criterio que usa `geih_build` en `scripts/big-data-course/geih_build/`.
+En algunos meses (p. ej. **abril 2024**) el ZIP exterior no trae `.csv` sueltos sino un **`csv.zip` anidado** (junto con `dta.zip`, `sav.zip`, etc.). La función lo detecta y extrae el ZIP interior.
 
 ```python
 def extract_csvs(zip_path: Path, dest_dir: Path) -> list[Path]:
@@ -285,7 +353,7 @@ print("Paso 3 — extracción: OK")
 
 ---
 
-## Paso 4 — Previsualizar la tabla de fuerza de trabajo
+### Paso 4 — Previsualizar la tabla de fuerza de trabajo
 
 El DANE entrega los CSV GEIH con separador **punto y coma** y codificación **`latin-1`**. Si **`read_csv`** falla, revise esos dos ajustes antes de cambiar otra cosa.
 
@@ -312,12 +380,12 @@ df.info()
 ```python
 assert n_rows > 10_000, "Se espera un mes nacional (decenas de miles de filas)"
 assert "DPTO" in df.columns, "Se espera la columna DPTO (código de departamento)"
-print("Paso 5 — previsualización: OK")
+print("Paso 4 — previsualización: OK")
 ```
 
 ---
 
-## Paso 5 — Registrar el primer mes en `manifest.json`
+### Paso 5 — Registrar el primer mes en `manifest.json`
 
 Con el fin de documentar el proceso de descaraga guardamos **un objeto JSON por archivo descargado** en el archivo `manifest.json`. Para esto creamos la función `write_manifest`.
 
@@ -533,105 +601,181 @@ print("Parte 2 completa — año 2024 completo en disco.")
 
 ---
 
-## Parte 3 — Reflexionar sobre lo descargado
+## Parte 3 — Explorar lo descargado
 
-Use los archivos que ya tiene en disco: **todo 2024** si terminó la Parte 2, o **solo enero** si aún no completó el bucle de meses. Las preguntas siguientes aplican en ambos casos (con menos detalle si solo tiene un mes).
+Esta parte cierra **Access** con una primera mirada a **Assess**. Use lo que ya tiene en disco. Si terminó la Parte 2 trabaja con los doce meses. Si solo completó la Parte 1 basta con enero y una fila en el manifiesto.
 
-### Paso 1 — Clasificar las Vs (Su turno)
+Las Vs, las tres A, la arquitectura y la reflexión escrita van en las diapositivas, el PDF grupal y el PDF individual. Aquí solo medimos y observamos.
 
-Para cada **V** (volumen, velocidad, variedad, veracidad), escriba **una oración** basada en **su descarga** (tamaños en `manifest.json`, tiempos, tablas en disco) — no una definición de libro.
+---
+
+### Paso 1 — Resumen desde `manifest.json`
+
+Cargamos el manifiesto en un dataframe y vemos tamaño y tiempo por archivo.
 
 ```python
-vs_table = {
-    "volume": "",    # e.g. ZIP size, number of CSVs, row count
-    "velocity": "",  # e.g. how often DANE publishes; your download time
-    "variety": "",   # e.g. multiple CSV tables, codes vs labels
-    "veracity": "",  # e.g. official survey, weights, missing codes
-}
-# SU TURNO — reemplace las cadenas vacías con una oración cada una
-vs_table["volume"] = "..."
-vs_table["velocity"] = "..."
-vs_table["variety"] = "..."
-vs_table["veracity"] = "..."
+manifest_rows = json.loads(manifest_path.read_text(encoding="utf-8"))
+manifest_df = pd.DataFrame(manifest_rows)
+manifest_df["mb"] = manifest_df["bytes_downloaded"] / 1e6
+manifest_df["mes"] = manifest_df["filename"].str.replace(".zip", "", regex=False)
 
-for v, sentence in vs_table.items():
-    print(f"{v}: {sentence}")
+cols = ["mes", "seconds", "mb", "notes"]
+print(manifest_df[cols].to_string(index=False))
+
+total_mb = manifest_df["mb"].sum()
+total_seconds = manifest_df["seconds"].sum()
+print(f"\nTotal descargado: {total_mb:.1f} MB")
+print(f"Tiempo registrado en descargas: {total_seconds:.1f} s")
+print(f"Filas en manifiesto: {len(manifest_df)}")
 ```
 
 **Comprobar:**
 
 ```python
-for v, sentence in vs_table.items():
-    assert isinstance(sentence, str) and len(sentence.strip()) >= 20, f"Escriba al menos una oración para {v}"
-print("Parte 3, Paso 1 — tabla Vs: OK")
+assert manifest_path.is_file()
+assert len(manifest_df) >= 1
+assert manifest_df["bytes_downloaded"].sum() > 0
+print("Parte 3, Paso 1 — manifiesto: OK")
 ```
 
 ---
 
-### Paso 2 — Mapa de las tres A (Su turno)
+### Paso 2 — Tamaño en disco
 
-Nuestra metodología tiene tres etapas: **Access → Assess → Address**. En este cuaderno completa **Access** (archivos locales y registrados). **Assess** y **Address** vienen en lecciones posteriores.
-
-Complete la tabla: ¿qué hará su grupo en Assess y Address?
+Comparamos el peso de los ZIP con el de los CSV extraídos para un mes (enero).
 
 ```python
-three_as = """
-| Stage | L1 status | What happens next (your group) |
-|-------|-----------|--------------------------------|
-| Access | HECHO en este cuaderno | … |
-| Assess | Aún no | … |
-| Address | Aún no | … |
+zip_mb = zip_path.stat().st_size / 1e6
+csv_mb = sum(p.stat().st_size for p in csv_files) / 1e6
+
+print(f"ZIP enero: {zip_mb:.1f} MB")
+print(f"CSV extraídos enero: {csv_mb:.1f} MB")
+print(f"Tablas CSV en enero: {len(csv_files)}")
+```
+
+Si completó la Parte 2, sume todos los ZIP de 2024.
+
+```python
+if len(manifest_df) >= 12:
+    all_zips = list(YEAR_DIR.glob("*.zip"))
+    all_zip_mb = sum(p.stat().st_size for p in all_zips) / 1e6
+    print(f"ZIP 2024 (12 meses): {all_zip_mb:.1f} MB")
+else:
+    print("Parte 2 pendiente: solo tiene totales de enero por ahora.")
+```
+
+**Comprobar:**
+
+```python
+assert zip_mb > 1
+assert csv_mb > 1
+assert len(csv_files) >= 1
+print("Parte 3, Paso 2 — tamaño: OK")
+```
+
+---
+
+### Paso 3 — Calidad básica en fuerza de trabajo
+
+En la Parte 1 abrió la tabla con `head` e `info`. Aquí revisamos valores faltantes y un código categórico. Esto es un primer paso de calidad, no una auditoría completa.
+
+```python
+cols_revisar = [c for c in ("PER", "DPTO", "MES") if c in df.columns]
+if cols_revisar:
+    missing = df[cols_revisar].isna().mean().mul(100).round(2)
+    print("Porcentaje de valores faltantes:")
+    print(missing.to_string())
+else:
+    print("Columnas PER, DPTO o MES no encontradas. Use df.columns para elegir tres columnas.")
+```
+
+Si existe una columna de sexo o similar, mire la distribución de códigos.
+
+```python
+sex_col = next((c for c in df.columns if c.upper() in ("SEXO", "P6020")), None)
+if sex_col:
+    print(f"\nConteo en {sex_col} (primeros 5 códigos):")
+    print(df[sex_col].value_counts(dropna=False).head())
+```
+
+**Comprobar:**
+
+```python
+assert n_rows > 10_000
+assert "DPTO" in df.columns
+print("Parte 3, Paso 3 — calidad: OK")
+```
+
+---
+
+### Paso 4 — Gráficos de descarga
+
+Todas las descargas usaron **`stream=True`** (Parte 1). Aún no comparamos en el cuaderno `stream=True` frente a `stream=False`. Eso lo veremos en prácticas posteriores.
+
+Sí podemos **visualizar lo que ya registró**: tiempo y tamaño por mes. Eso ayuda a ver **volumen** y **velocidad** con números propios.
+
+```python
+import matplotlib.pyplot as plt
+
+plot_df = manifest_df[manifest_df["seconds"] > 0].copy()
+if plot_df.empty:
+    print("No hay tiempos de descarga distintos de cero. Ejecute al menos la Parte 1.")
+else:
+    fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+
+    plot_df.plot.bar(x="mes", y="seconds", ax=axes[0], legend=False, color="steelblue")
+    axes[0].set_title("Segundos de descarga por mes")
+    axes[0].set_xlabel("Mes")
+    axes[0].set_ylabel("Segundos")
+    axes[0].tick_params(axis="x", rotation=45)
+
+    axes[1].scatter(plot_df["mb"], plot_df["seconds"])
+    for _, row in plot_df.iterrows():
+        axes[1].annotate(row["mes"], (row["mb"], row["seconds"]), fontsize=8)
+    axes[1].set_title("Tamaño frente a tiempo")
+    axes[1].set_xlabel("MB descargados")
+    axes[1].set_ylabel("Segundos")
+
+    plt.tight_layout()
+    plt.show()
+
+    plot_df["seg_por_mb"] = plot_df["seconds"] / plot_df["mb"]
+    print("Segundos por MB (solo descargas reales):")
+    print(plot_df[["mes", "seg_por_mb"]].sort_values("seg_por_mb").to_string(index=False))
+```
+
+**Comprobar:**
+
+```python
+assert "seconds" in manifest_df.columns
+assert "mb" in manifest_df.columns
+print("Parte 3, Paso 4 — gráficos: OK")
+```
+
+---
+
+### Paso 5 — Enlace con la lección (Su turno)
+
+Use **su experiencia en este cuaderno** (Access en las Partes 1 y 2, exploración en la Parte 3) para la **reflexión individual** en PDF. No la calificamos aquí.
+
+**Pregunta central:** ¿Cómo se relacionan el ejercicio de Access y esta exploración inicial con los conceptos de la primera lección (big data, las Vs, metodología Access Assess Address, ecosistemas)?
+
+Escriba **tres oraciones** en la celda. Incluya **al menos un número** del manifiesto o de la calidad (por ejemplo total en MB, segundos de un mes, filas o faltantes). Esas ideas las desarrollará en el PDF con las secciones R1 a R5 de la plantilla.
+
+```python
+enlace_leccion = """
+SU TEXTO AQUÍ (tres oraciones, al menos un número de este cuaderno)
 """
-# SU TURNO — reemplace los … (2–4 viñetas en total entre Assess y Address)
-print(three_as)
+print(enlace_leccion.strip())
 ```
 
----
-
-### Paso 3 — Diagrama de arquitectura (Su turno)
-
-Bosqueje cómo se mueven los datos del DANE a la decisión de su grupo. Descargue la plantilla del curso, reetiquétela para su **arquetipo de decisión** (ver [case shell](https://github.com/cabrerac/cabrerac.github.io/blob/main/work-space/teaching/big-data/planning/case-shell.md)) y guarde como **`outputs/architecture.svg`**.
-
-Plantilla: [big-data-pipeline-template.svg](https://cabrerac.github.io/assets/media/diagrams/big-data-pipeline-template.svg)
-
-En Colab puede obtener la plantilla con la celda siguiente y editarla en draw.io, Inkscape u otro editor SVG.
+**Comprobar:**
 
 ```python
-template_url = "https://cabrerac.github.io/assets/media/diagrams/big-data-pipeline-template.svg"
-template_path = OUTPUTS_DIR / "big-data-pipeline-template.svg"
-if not template_path.is_file():
-    r = requests.get(template_url, timeout=60)
-    r.raise_for_status()
-    template_path.write_bytes(r.content)
-print("Plantilla guardada en:", template_path)
-print("Su turno: reetiquete el diagrama y guarde como outputs/architecture.svg")
-print("(La figura irá en la sección Pipeline del PDF de requerimientos del proyecto — cuaderno grupal.)")
-```
-
----
-
-### Paso 4 — Párrafo de despliegue (Su turno)
-
-Imagine su pipeline en producción — no solo en Colab. En **3–5 oraciones**, indique si correría en **nube**, **borde (edge)** o **híbrido**, y si el trabajo es por **lotes (batch)** o **interactivo**. Indique **un supuesto** que esté asumiendo.
-
-```python
-deployment_paragraph = """
-SU TEXTO AQUÍ
-"""
-print(deployment_paragraph.strip())
-```
-
----
-
-### Paso 5 — Encaje y límites (Su turno)
-
-Los métodos de big data no siempre son la herramienta correcta. Para **la pregunta de decisión de su proyecto** (la definirán en el PDF de requerimientos), ¿dónde ayudaría un stack distribuido? ¿Dónde sería **exceso** a la escala que accedió hoy?
-
-```python
-fit_and_limits = """
-SU TEXTO AQUÍ
-"""
-print(fit_and_limits.strip())
+texto = enlace_leccion.strip()
+assert len(texto) >= 80, "Escriba al menos tres oraciones"
+assert any(ch.isdigit() for ch in texto), "Incluya al menos un número de sus resultados"
+print("Parte 3, Paso 5 — enlace con la lección: OK")
 ```
 
 ---
@@ -669,28 +813,25 @@ if passed >= 4:
 
 Esta sección define **qué entregar en Moodle**. Las plantillas Word están en la [página de la lección](https://cabrerac.github.io/teaching/26-udenar-big-data/l1-introduction/) (descargas en inglés); complételas en Word y expórtelas a PDF.
 
-### Práctica individual (no calificada)
-
-Cuaderno **`l1-introduction`** (este Colab) — Partes 1–3: Access 2024 + reflexión en el cuaderno. **No** entregue este `.ipynb` en Moodle.
-
 ### Trabajo en grupo (60 % de la formativa L1)
 
-Use el Colab **`l1-introduction-group`**. Entregar un ZIP **`l1-introduction-<nombre-grupo>.zip`** hasta el **miércoles 10 de junio de 2026, 23:59 (Colombia)**:
+Use el Colab **[`l1-introduction-group`](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction-group.ipynb)**. Entregar un ZIP **`l1-introduction-<nombre-grupo>.zip`** hasta el **miércoles 10 de junio de 2026, 23:59 (Colombia)**:
 
 | Archivo en el ZIP | Descripción |
 |-------------------|-------------|
 | `l1-introduction-<nombre-grupo>.ipynb` | Cuaderno grupal ejecutado — descarga GEIH **2022–2025** + registro de contribución |
-| `manifest.json` | Un registro por cada archivo descargado del DANE |
-| `project_requirements.pdf` | Requerimientos del proyecto (desde la plantilla Word del curso) |
+| `manifest.json` | Registro de acceso (una fila por archivo descargado del DANE) |
+
+El **`project_requirements.pdf`** se discute en la **semana 2** (ver [definición del proyecto](/assets/documents/26-udenar-big-data/definicion-proyecto-big-data.pdf)).
 
 ### Reflexión individual (40 % de la formativa L1)
 
-Entregar **un PDF por estudiante** hasta el **jueves 11 de junio de 2026, 23:59 (Colombia)** — **no** va dentro del ZIP grupal.
+Entregar **un PDF por estudiante** hasta el **jueves 11 de junio de 2026, 23:59 (Colombia)**.
 
 | Entregable | Descripción |
 |------------|-------------|
 | `l1-reflexion-<nombre-estudiante>.pdf` | Reflexión semana 1 (plantilla Word del curso) |
 
-**Consigna:** *Si el DANE restringiera mañana las descargas masivas, ¿qué parte de su configuración de Access cambiaría primero — y qué implicaría eso para la rendición de cuentas pública?*
+Use la **Parte 3** de este cuaderno y el trabajo de Access como base del PDF. Desarrolle allí la pregunta central: **¿cómo se relacionan el ejercicio de Access y la exploración inicial con los conceptos de la primera lección y las lecturas?**
 
 <!-- end NOTEBOOK: -->
