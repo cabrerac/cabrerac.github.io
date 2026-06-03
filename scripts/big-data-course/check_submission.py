@@ -36,7 +36,7 @@ PROJECT_REQUIREMENTS_SECTIONS = [
     "Rotación de escriba",
 ]
 
-REFLECTION_L1_SECTIONS = [
+REFLECTION_WEEK_1_SECTIONS = [
     "Metadatos",
     "R1 Proceso",
     "R2 Justificación",
@@ -44,6 +44,9 @@ REFLECTION_L1_SECTIONS = [
     "R4 Ética",
     "R5 Uso de IA",
 ]
+
+REFLECTION_SEMANA_1_SECTIONS = REFLECTION_WEEK_1_SECTIONS
+REFLECTION_L1_SECTIONS = REFLECTION_WEEK_1_SECTIONS
 
 ARCHETYPES = (
     "asignación de recursos",
@@ -92,6 +95,40 @@ def check_project_requirements(text: str) -> tuple[bool, list[str]]:
     return len(issues) == 0, issues
 
 
+def check_reflection_week_1(text: str) -> tuple[bool, list[str]]:
+    issues: list[str] = []
+    missing = _missing_sections(text, REFLECTION_WEEK_1_SECTIONS)
+    if missing:
+        issues.append(f"Missing sections: {', '.join(missing)}")
+    wc = _word_count(text)
+    if wc < 600:
+        issues.append(f"Word count low ({wc}); target 700–1,000 (semana 1 = L1 + L2).")
+    if wc > 1400:
+        issues.append(f"Word count high ({wc}); target 700–1,000.")
+    norm = _normalize(text)
+    if "zuboff" not in norm and "mittelstadt" not in norm:
+        issues.append("No L2 reading cited (Zuboff / Mittelstadt).")
+    if "zuboff" not in norm and "boyd" not in norm:
+        issues.append("No week-1 reading cited (Zuboff / boyd).")
+    if not any(
+        k in norm
+        for k in (
+            "nube",
+            "cloud",
+            "edge",
+            "borde",
+            "batch",
+            "lote",
+            "access",
+            "acceso",
+            "overpass",
+            "osm",
+        )
+    ):
+        issues.append("No technical anchor (Access / architecture / OSM) detected.")
+    return len(issues) == 0, issues
+
+
 def check_reflection_l1(text: str) -> tuple[bool, list[str]]:
     issues: list[str] = []
     missing = _missing_sections(text, REFLECTION_L1_SECTIONS)
@@ -117,7 +154,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Pre-check L1 PDF submissions.")
     parser.add_argument(
         "kind",
-        choices=("project_requirements", "reflection_l1"),
+        choices=("project_requirements", "reflection_l1", "reflection_week_1", "reflection_semana_1"),
         help="Which template rules to apply",
     )
     parser.add_argument("pdf_path", type=Path)
@@ -138,6 +175,9 @@ def main() -> None:
     if args.kind == "project_requirements":
         ok, issues = check_project_requirements(text)
         label = "PROJECT_REQUIREMENTS"
+    elif args.kind in ("reflection_week_1", "reflection_semana_1"):
+        ok, issues = check_reflection_week_1(text)
+        label = "REFLECTION_WEEK_1"
     else:
         ok, issues = check_reflection_l1(text)
         label = "REFLECTION_L1"

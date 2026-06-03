@@ -16,21 +16,23 @@ lecture_code: l1-introduction
 lecture_date: 06/06/2026
 permalink: /teaching/26-udenar-big-data/l1-introduction/
 visible: false
-group_notebook: l1-introduction-group
 notebook_language: es
 notebook_title: Introducción a big data, metodología y ecosistemas
-notebook_description: Práctica de la Lección 1. Poner a disposición datos de la encuesta GEIH del DANE (Access). Instrucciones de entrega en la sección **Tareas** de este cuaderno. Plantillas Word en la página pública de la lección.
+notebook_description: Práctica individual de la Lección 1. Poner a disposición datos GEIH (Access). Entregas de la semana 1 en la página de la Lección 2.
 ---
 
 <!-- RENDER: -->
 
 ### Resources
 
-- [Definición del proyecto](/assets/documents/26-udenar-big-data/definicion-proyecto-big-data.pdf): Leer antes de nuestra primera sesión.
-- [Plantilla requerimientos del proyecto](/assets/documents/26-udenar-big-data/plantilla-requerimientos-proyecto.docx): Entrega grupal en la semana 2 (ver definición del proyecto).
-- [Plantilla reflexión individual L1](/assets/documents/26-udenar-big-data/plantilla-reflexion-l1.docx): Entrega individual. Plazo 11/06/2026.
-- [DANE microdata portal](https://microdatos.dane.gov.co/)
-- [GEIH 2024 catalog — methodology and documentation](https://microdatos.dane.gov.co/index.php/catalog/819)
+Lea estos materiales **antes** de la primera sesión.
+
+- [Definición del proyecto (PDF)](/assets/documents/26-udenar-big-data/project-definition-big-data.pdf)
+- [Cuaderno individual L1 (Colab)](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction.ipynb)
+- [Portal de microdatos DANE](https://microdatos.dane.gov.co/)
+- [Catálogo GEIH 2024 — documentación](https://microdatos.dane.gov.co/index.php/catalog/819)
+
+**Entregas y plantillas de la semana 1** están en la [página de la Lección 2](/teaching/26-udenar-big-data/l2-ethics-governance/) (cierra la semana 1).
 
 ### References
 
@@ -129,8 +131,8 @@ En producción, los microdatos nacionales de empleo abarcan muchos años a escal
 1. Lea **Cómo construir la URL de descarga** más abajo se explica lo que se automatiza en código.
 2. Abra este cuaderno en **Google Colab** o ejecútelo en local con Python 3.10+.
 3. Ejecute las celdas **de arriba hacia abajo** salvo que una celda indique otra cosa.
-4. En celdas **Su turno**, escriba su propio texto o código.
-5. En celdas **Comprobar**, ejecute las pruebas y corrija celdas anteriores si algo falla.
+4. En celdas **Comprobar**, ejecute las pruebas y corrija celdas anteriores si algo falla.
+5. Las **entregas** de la semana 1 están en la [página de la Lección 2](https://cabrerac.github.io/teaching/26-udenar-big-data/l2-ethics-governance/) y en el cuaderno **`week-1-group`**.
 
 **Estructura de carpetas** (la celda de configuración crea estas rutas):
 
@@ -845,27 +847,8 @@ if passed >= 4:
 
 ## Tareas
 
-Esta sección define **qué entregar en Moodle**. Las plantillas Word están en la [página de la lección](https://cabrerac.github.io/teaching/26-udenar-big-data/l1-introduction/), complételas en Word y expórtelas a PDF.
+Este cuaderno es **práctica individual** (Access). No define entregas en Moodle.
 
-### Trabajo en grupo (60 % de la formativa L1)
-
-Use el Colab **[`l1-introduction-group`](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction-group.ipynb)**. Entregar un ZIP **`l1-introduction-<nombre-grupo>.zip`** hasta el **miércoles 10 de junio de 2026, 23:59 (Colombia)**:
-
-| Archivo en el ZIP | Descripción |
-|-------------------|-------------|
-| `l1-introduction-<nombre-grupo>.ipynb` | Cuaderno grupal ejecutado — descarga GEIH **2022–2025** + registro de contribución |
-| `manifest.json` | Registro de acceso (una fila por archivo descargado del DANE) |
-
-Los requerimientos del proyecto se discuten en la **semana 2** (ver [definición del proyecto](/assets/documents/26-udenar-big-data/definicion-proyecto-big-data.pdf)).
-
-### Reflexión individual (40 % de la formativa L1)
-
-Entregar **un PDF por estudiante** hasta el **jueves 11 de junio de 2026, 23:59 (Colombia)**.
-
-| Entregable | Descripción |
-|------------|-------------|
-| `l1-reflexion-<nombre-estudiante>.pdf` | Reflexión semana 1 (plantilla Word del curso) |
-
-Use la **Parte 3** de este cuaderno y el trabajo de Access como base del PDF. Desarrolle allí la lista de preguntas.
+Las entregas de la **semana 1** (L1 + L2) están en la [página de la Lección 2](https://cabrerac.github.io/teaching/26-udenar-big-data/l2-ethics-governance/) y en la sección **Tareas** del cuaderno [L2](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l2-ethics-governance.ipynb) y del cuaderno grupal [week-1-group](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-1-group.ipynb).
 
 <!-- end NOTEBOOK: -->

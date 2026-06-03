@@ -2,12 +2,12 @@
 """Build the Spanish project outline (definition + three archetypes) for the Big Data elective.
 
 Outputs (canonical for the site):
-  assets/documents/26-udenar-big-data/definicion-proyecto-big-data.pdf
-  assets/documents/26-udenar-big-data/definicion-proyecto-big-data.docx
+  assets/documents/26-udenar-big-data/project-definition-big-data.pdf
+  assets/documents/26-udenar-big-data/project-definition-big-data.docx
 
 Mirror:
-  work-space/teaching/big-data/course/definicion-proyecto-big-data.pdf
-  work-space/teaching/big-data/course/definicion-proyecto-big-data.docx
+  work-space/teaching/big-data/course/project-definition-big-data.pdf
+  work-space/teaching/big-data/course/project-definition-big-data.docx
 
 Regenerate:
   python scripts/big-data-course/build_project_outline.py
@@ -28,10 +28,10 @@ COURSE = "26-udenar-big-data"
 ASSETS_DIR = REPO / "assets" / "documents" / COURSE
 COURSE_DIR = REPO / "work-space/teaching/big-data/course"
 
-PDF_ASSETS = ASSETS_DIR / "definicion-proyecto-big-data.pdf"
-DOCX_ASSETS = ASSETS_DIR / "definicion-proyecto-big-data.docx"
-PDF_COURSE = COURSE_DIR / "definicion-proyecto-big-data.pdf"
-DOCX_COURSE = COURSE_DIR / "definicion-proyecto-big-data.docx"
+PDF_ASSETS = ASSETS_DIR / "project-definition-big-data.pdf"
+DOCX_ASSETS = ASSETS_DIR / "project-definition-big-data.docx"
+PDF_COURSE = COURSE_DIR / "project-definition-big-data.pdf"
+DOCX_COURSE = COURSE_DIR / "project-definition-big-data.docx"
 
 TITLE = "Proyecto integrador — Electiva Big Data"
 SUBTITLE = "Maestría en Estadística Aplicada · Universidad de Nariño · A-2026"

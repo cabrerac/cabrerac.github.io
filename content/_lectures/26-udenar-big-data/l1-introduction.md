@@ -8,16 +8,14 @@ description: This lecture introduces the course and how we will work along it. I
   first stage, making data available.
 email: chc79@cam.ac.uk
 end_time: 01:00 pm
-group_notebook: l1-introduction-group
 hours: 5
 institution: University of Cambridge
 layout: lecture
 lecture_code: l1-introduction
 lecture_date: 06/06/2026
-notebook_description: "Pr\xE1ctica de la Lecci\xF3n 1. Poner a disposici\xF3n datos\
-  \ de la encuesta GEIH del DANE (Access). Instrucciones de entrega en la secci\xF3\
-  n **Tareas** de este cuaderno. Plantillas Word en la p\xE1gina p\xFAblica de la\
-  \ lecci\xF3n."
+notebook_description: "Pr\xE1ctica individual de la Lecci\xF3n 1. Poner a disposici\xF3\
+  n datos GEIH (Access). Entregas de la semana 1 en la p\xE1gina de la Lecci\xF3n\
+  \ 2."
 notebook_language: es
 notebook_title: "Introducci\xF3n a big data, metodolog\xEDa y ecosistemas"
 permalink: /teaching/26-udenar-big-data/l1-introduction/
@@ -32,17 +30,20 @@ visible: false
 <link rel="stylesheet" href="/assets/css/lecture-article.css">
 <div class="lecture-resources">
   <p>
-    <a href="/assets/slides/26-udenar-big-data/l1-introduction.html" target="_blank">HTML slides</a> &nbsp;|&nbsp; <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction.ipynb" target="_blank">Notebook - Individual</a> &nbsp;|&nbsp; <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction-group.ipynb" target="_blank">Notebook - Group</a> &nbsp;|&nbsp; <a href="/teaching/26-udenar-big-data/">Back to course</a>
+    <a href="/assets/slides/26-udenar-big-data/l1-introduction.html" target="_blank">HTML slides</a> &nbsp;|&nbsp; <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction.ipynb" target="_blank">Notebook - Individual</a> &nbsp;|&nbsp; <a href="/teaching/26-udenar-big-data/">Back to course</a>
   </p>
 </div>
 
 ### Resources
 
-- [Definición del proyecto](/assets/documents/26-udenar-big-data/definicion-proyecto-big-data.pdf): Leer antes de nuestra primera sesión.
-- [Plantilla requerimientos del proyecto](/assets/documents/26-udenar-big-data/plantilla-requerimientos-proyecto.docx): Entrega grupal en la semana 2 (ver definición del proyecto).
-- [Plantilla reflexión individual L1](/assets/documents/26-udenar-big-data/plantilla-reflexion-l1.docx): Entrega individual. Plazo 11/06/2026.
-- [DANE microdata portal](https://microdatos.dane.gov.co/)
-- [GEIH 2024 catalog — methodology and documentation](https://microdatos.dane.gov.co/index.php/catalog/819)
+Lea estos materiales **antes** de la primera sesión.
+
+- [Definición del proyecto (PDF)](/assets/documents/26-udenar-big-data/project-definition-big-data.pdf)
+- [Cuaderno individual L1 (Colab)](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction.ipynb)
+- [Portal de microdatos DANE](https://microdatos.dane.gov.co/)
+- [Catálogo GEIH 2024 — documentación](https://microdatos.dane.gov.co/index.php/catalog/819)
+
+**Entregas y plantillas de la semana 1** están en la [página de la Lección 2](/teaching/26-udenar-big-data/l2-ethics-governance/) (cierra la semana 1).
 
 ### References
 

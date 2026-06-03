@@ -2,8 +2,8 @@
 """Build L1 student Word templates (Spanish) for download on the lecture website.
 
 Outputs (canonical for the site):
-  assets/documents/26-udenar-big-data/plantilla-requerimientos-proyecto.docx
-  assets/documents/26-udenar-big-data/plantilla-reflexion-l1.docx
+  assets/documents/26-udenar-big-data/project-requirements-template.docx
+  assets/documents/26-udenar-big-data/reflection-week-1-template.docx
 
 Also mirrors to work-space/teaching/big-data/course/week-1/ for instructor editing.
 
@@ -23,10 +23,10 @@ COURSE = "26-udenar-big-data"
 ASSETS_DIR = REPO / "assets" / "documents" / COURSE
 WEEK1_DIR = REPO / "work-space/teaching/big-data/course/week-1"
 
-REQ_ASSETS = ASSETS_DIR / "plantilla-requerimientos-proyecto.docx"
-REF_ASSETS = ASSETS_DIR / "plantilla-reflexion-l1.docx"
-REQ_WEEK1 = WEEK1_DIR / "plantilla-requerimientos-proyecto.docx"
-REF_WEEK1 = WEEK1_DIR / "plantilla-reflexion-l1.docx"
+REQ_ASSETS = ASSETS_DIR / "project-requirements-template.docx"
+REF_ASSETS = ASSETS_DIR / "reflection-week-1-template.docx"
+REQ_WEEK1 = WEEK1_DIR / "project-requirements-template.docx"
+REF_WEEK1 = WEEK1_DIR / "reflection-week-1-template.docx"
 
 
 def _style_body(doc: Document) -> None:
@@ -109,43 +109,53 @@ def build_project_requirements() -> Document:
     return doc
 
 
-def build_reflection_l1() -> Document:
+def build_reflection_week_1() -> Document:
     doc = Document()
     _style_body(doc)
-    _heading(doc, "Reflexión individual — Lección 1", 0)
-    _para(doc, "Entregable: l1-reflexion-<nombre-estudiante>.pdf (exportar desde este Word).")
-    _para(doc, "Extensión orientativa del cuerpo: 500–900 palabras.")
+    _heading(doc, "Reflexión individual — Semana 1 (L1 + L2)", 0)
+    _para(
+        doc,
+        "Entregable: week-1-reflection-<student>.pdf (exportar desde este Word). "
+        "Cubre Lección 1 (Access) y Lección 2 (ética y gobernanza). Reemplace student por su nombre.",
+    )
+    _para(doc, "Extensión orientativa del cuerpo: 700–1,000 palabras.")
     doc.add_paragraph()
 
     _section(
         doc,
         "Metadatos",
-        "Lección: 1 | Estudiante: … | Grupo: G… | Lectura citada: … | Conteo de palabras: ~…",
+        "Semana: 1 (L1 + L2) | Estudiante: … | Grupo: G… | Lecturas citadas: … | Conteo de palabras: ~…",
     )
     _section(
         doc,
         "R1 Proceso y metodología",
-        "¿Qué hizo en el cuaderno l1-introduction y qué aprendió sobre la etapa de Access?",
+        "¿Qué hizo en los cuadernos l1-introduction y l2-ethics-governance? "
+        "¿Qué aprendió sobre Access y sobre auditoría ética?",
     )
     _section(
         doc,
         "R2 Justificación técnica",
-        "Identifique una decisión técnica en el cuaderno individual l1-introduction y explique el por qué de la misma.",
+        "Identifique una decisión técnica (descarga DANE, consulta Overpass u otra) "
+        "y explique el por qué.",
     )
     _section(
         doc,
-        "R3 Arquitectura del dataset GEIH",
-        "¿Qué tipo de infraestructura se utilizó para descargar el dataset GEIH y qué limitaciones puede tener?",
+        "R3 Enlace con el dominio y los datos",
+        "¿Cómo se relacionan GEIH y OSM para la pregunta de su grupo? "
+        "¿Qué limitaciones tiene ese enlace?",
     )
     _section(
         doc,
-        "R4 Teoría, práctica y lecturas",
-        "¿Cómo se relacionan los conceptos teóricos explorados esta semana, el ejercicio de Access y las lecturas previas?",
+        "R4 Ética y lecturas",
+        "Relacione boyd, Zuboff y/o Mittelstadt con lo visto en el cuaderno grupal "
+        "(cuasi-identificadores, divulgación, práctica responsable). "
+        "Cite Zuboff o Mittelstadt por nombre.",
     )
     _section(
         doc,
         "R5 Uso de IA e integridad",
-        "¿Qué herramientas de IA utilizó a lo largo de la semana 1? Explique cómo utilizó la IA en esta semana.",
+        "¿Qué herramientas de IA utilizó en la semana 1? "
+        "¿Cómo influyó en su trabajo y qué aprendió sobre su práctica?",
     )
     return doc
 
@@ -159,7 +169,7 @@ def _save_pair(doc: Document, assets_path: Path, week1_path: Path) -> None:
 
 def build() -> tuple[Path, Path]:
     req = build_project_requirements()
-    ref = build_reflection_l1()
+    ref = build_reflection_week_1()
     _save_pair(req, REQ_ASSETS, REQ_WEEK1)
     _save_pair(ref, REF_ASSETS, REF_WEEK1)
     return REQ_ASSETS, REF_ASSETS
