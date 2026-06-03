@@ -36,12 +36,12 @@ visible: false
 
 ## Resources
 
-- [Project requirements template](/assets/documents/26-udenar-big-data/plantilla-requerimientos-proyecto.docx) (`plantilla-requerimientos-proyecto.docx`) — group deliverable: `project_requirements.pdf` inside the group ZIP.
-- [L1 individual reflection template](/assets/documents/26-udenar-big-data/plantilla-reflexion-l1.docx) (`plantilla-reflexion-l1.docx`) — one PDF per student: `l1-reflexion-<name>.pdf`.
+- [Project requirements template](/assets/documents/26-udenar-big-data/plantilla-requerimientos-proyecto.docx): Group deliverable "project_requirements.pdf" inside the group ZIP. Deadline 10/06/2026.
+- [L1 individual reflection template](/assets/documents/26-udenar-big-data/plantilla-reflexion-l1.docx): Individual deliverable "l1-reflexion-<student-name>.pdf". Deadline 11/06/2026.
 
 ## References
 
-**Week 1 readings (assigned before Saturday 6 June):**
+**Week 1 readings:**
 
 - boyd, d., & Crawford, K. (2012). [Critical questions for big data](https://doi.org/10.1080/1369118X.2012.678878). *Information, Communication & Society*, 15(5), 662–679.
 - Zuboff, S. (2019). *The age of surveillance capitalism* (Chapter 1). PublicAffairs. *(Spanish or English edition — distributed by course email.)*
@@ -50,5 +50,4 @@ visible: false
 **Data source (GEIH):**
 
 - [DANE microdata portal](https://microdatos.dane.gov.co/)
-- [GEIH 2024 catalog — study description, methodology files, and monthly microdata](https://microdatos.dane.gov.co/index.php/catalog/819) (dictionary, methodology PDF, and change log per release)
-- [GEIH labour-market theme (DANE)](https://www.dane.gov.co/index.php/estadisticas-por-tema/mercado-laboral/empleo-y-desempleo)
+- [GEIH 2024 Document](file:///D:/ddi-documentation-spanish-819.pdf)
