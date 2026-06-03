@@ -22,6 +22,86 @@ notebook_title: Ética, privacidad y gobernanza de datos
 notebook_description: Práctica de la Lección 2. Auditoría ética sobre GEIH y primer enlace con OpenStreetMap (escuelas).
 ---
 
+<!-- SLIDES: -->
+
+# Last Time
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l2-ethics-governance/last-time.md %}
+
+<!-- SLIDES: -->
+
+# Ethics as Design
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l2-ethics-governance/ethics-frame.md %}
+
+<!-- SLIDES: -->
+
+# Types of Harm
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l2-ethics-governance/harm-types.md %}
+
+<!-- SLIDES: -->
+
+# Quasi-Identifiers
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l2-ethics-governance/quasi-identifiers.md %}
+
+<!-- SLIDES: -->
+
+# Consent and Governance
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l2-ethics-governance/consent-governance.md %}
+
+<!-- SLIDES: -->
+
+# Readings on Real Data
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l2-ethics-governance/readings-map.md %}
+
+<!-- SLIDES: -->
+
+# Joining Survey and Map Data
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l2-ethics-governance/joining-data.md %}
+
+<!-- SLIDES: -->
+
+# Week 1 Deliverables
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l2-ethics-governance/week1-homework.md %}
+
+<!-- SLIDES: -->
+
+# Conclusions
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l2-ethics-governance/conclusions.md %}
+
+<!-- SLIDES: -->
+
+# This Week
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l2-ethics-governance/practical-slides.md %}
+
 <!-- RENDER: -->
 
 ### Resources

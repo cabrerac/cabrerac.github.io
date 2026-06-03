@@ -21,6 +21,110 @@ notebook_title: Introducción a big data, metodología y ecosistemas
 notebook_description: Práctica individual de la Lección 1. Poner a disposición datos GEIH (Access).
 ---
 
+<!-- SLIDES: -->
+
+# Course Structure
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l1-introduction/course-structure.md %}
+
+<!-- SLIDES: -->
+
+# What is Big Data
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l1-introduction/big-data-definition.md %}
+
+<!-- SLIDES: -->
+
+# Problem First
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l1-introduction/problem-first.md %}
+
+<!-- SLIDES: -->
+
+# The Data Science Process
+
+<!-- end SLIDES: -->
+
+{% include _snippets/data-science-process.md %}
+
+<!-- SLIDES: -->
+
+# Why Access Matters
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l1-introduction/access-motivation.md %}
+
+<!-- SLIDES: -->
+
+# Access in This Course
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l1-introduction/geih-access.md %}
+
+<!-- SLIDES: -->
+
+# Case Shell
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l1-introduction/case-shell.md %}
+
+<!-- SLIDES: -->
+
+# Modern Data Stack
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l1-introduction/modern-stack.md %}
+
+<!-- SLIDES: -->
+
+# In Production vs In This Lab
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l1-introduction/lab-scale.md %}
+
+<!-- SLIDES: -->
+
+# Week 1 Assessment
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l1-introduction/assessment-week1.md %}
+
+<!-- SLIDES: -->
+
+# Readings
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l1-introduction/readings.md %}
+
+<!-- SLIDES: -->
+
+# Conclusions
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l1-introduction/conclusions.md %}
+
+<!-- SLIDES: -->
+
+# This Week
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l1-introduction/practical-slides.md %}
+
 <!-- RENDER: -->
 
 ### Resources

@@ -15,8 +15,7 @@ layout: lecture
 lecture_code: l1-introduction
 lecture_date: 06/06/2026
 notebook_description: "Pr\xE1ctica individual de la Lecci\xF3n 1. Poner a disposici\xF3\
-  n datos GEIH (Access). Entregas de la semana 1 en la p\xE1gina de la Lecci\xF3n\
-  \ 2."
+  n datos GEIH (Access)."
 notebook_language: es
 notebook_title: "Introducci\xF3n a big data, metodolog\xEDa y ecosistemas"
 permalink: /teaching/26-udenar-big-data/l1-introduction/
