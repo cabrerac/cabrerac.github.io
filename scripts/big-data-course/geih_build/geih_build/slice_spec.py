@@ -1,4 +1,4 @@
-"""Slice specifications for charter/harmonise (L3+) — not used by the access layer."""
+"""Slice specifications for project requirements / harmonise (L3+) — not used by the access layer."""
 
 from __future__ import annotations
 
@@ -26,18 +26,23 @@ class SliceSpec:
 # L1 reference ids live in configs/l1_download.json — access uses catalog_id + file_id.
 
 
-def subset_from_charter_json(charter_path: Path) -> list[SliceSpec]:
-    """
-    Build month list from a group charter ``## Subset`` block (best-effort parse).
-
-    For access downloads, expand survey years to DANE files via ``AccessPlan`` instead.
-    """
-    text = charter_path.read_text(encoding="utf-8")
+def subset_from_project_requirements_text(text: str) -> list[SliceSpec]:
+    """Build month list from project requirements subset section (Spanish or English)."""
     years = _parse_year_range(text)
     if not years:
         years = [2024]
     months = _parse_months(text)
     return [SliceSpec(year=y, month=m) for y in years for m in months]
+
+
+def subset_from_project_requirements(path: Path) -> list[SliceSpec]:
+    """Parse subset from extracted markdown or plain text (e.g. after pdf_to_markdown)."""
+    return subset_from_project_requirements_text(path.read_text(encoding="utf-8"))
+
+
+def subset_from_requirements_file(path: Path) -> list[SliceSpec]:
+    """Alias for ``subset_from_project_requirements`` (JSON or markdown text)."""
+    return subset_from_project_requirements(path)
 
 
 def expand_specs(specs: Iterable[SliceSpec]) -> list[SliceSpec]:
@@ -47,10 +52,10 @@ def expand_specs(specs: Iterable[SliceSpec]) -> list[SliceSpec]:
 def _parse_year_range(text: str) -> list[int]:
     import re
 
-    m = re.search(r"Years:\s*(\d{4})\s*[–\-]\s*(\d{4})", text, re.I)
+    m = re.search(r"(?:Years|Años):\s*(\d{4})\s*[–\-]\s*(\d{4})", text, re.I)
     if m:
         return list(range(int(m.group(1)), int(m.group(2)) + 1))
-    m = re.search(r"Years:\s*(\d{4})", text, re.I)
+    m = re.search(r"(?:Years|Años):\s*(\d{4})", text, re.I)
     if m:
         return [int(m.group(1))]
     return []

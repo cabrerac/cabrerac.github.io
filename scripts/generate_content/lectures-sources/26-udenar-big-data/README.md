@@ -9,7 +9,8 @@ One source file per **lecture** → lecture page + slides + Colab notebook via `
 | Source file | Session | Date (CO) | Notes |
 |-------------|---------|-----------|-------|
 | `diagnostic` | 0 — Saturday 0 | Fri 29 May 2026 | Intake baseline (not one of the 8 lectures); async; not OCARA contact |
-| `l1-introduction` | 1 — Sat 1 morning of day | Sat 6 Jun 2026 | Stub |
+| `l1-introduction` | 1 — practice (individual) | Sat 6 Jun 2026 | Spanish practice Colab |
+| `l1-introduction-group` | 1 — homework (group) | Sat 6 Jun 2026 | Spine 2022–2025 + contribution log; **no lecture HTML** (`skip_lecture_page`); linked from `l1-introduction` page |
 | `l2-ethics-governance` | 2 — Sat 1 afternoon of day | Sat 6 Jun 2026 | **New ethics-first lecture (AA-rec)** |
 | `l3-storage` | 3 — Sat 2 morning of day | Sat 13 Jun 2026 | Was `l2-storage`; ethics hook to L2 |
 | `l4-processing` | 4 — Sat 2 afternoon of day | Sat 13 Jun 2026 | Was `l3-processing`; ethics hook to L2 |

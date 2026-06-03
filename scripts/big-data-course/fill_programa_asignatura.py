@@ -50,7 +50,7 @@ METODOLOGIA = """Modalidad híbrida: ~2 h asíncronas por módulo (video de teor
 
 Antes de cada sábado: lecturas guiadas (diario personal), videos asíncronos y cuaderno de práctica individual en Google Colab. En el sábado: discusión de lecturas (~1 h 15 min), comparación de soluciones, clínica de proyecto y consolidación en Colab grupal (rotación de escriba). Después del sábado: tarea grupal con auto-verificaciones; reflexión individual en Markdown (Moodle); plazo miércoles 23:59 (hora Colombia).
 
-Equipos estables (~5 grupos) sobre escenario común (analítica para decisiones de política pública con GEIH) y charter grupal. Recursos: sitio web del curso, Moodle, Microsoft Teams. Stack: Python (pandas, Polars, DuckDB, PySpark local, Prefect, dbt-core, scikit-learn); sin clúster obligatorio."""
+Equipos estables (~5 grupos) sobre escenario común (analítica para decisiones de política pública con GEIH) y documento de requerimientos del proyecto (PDF). Recursos: sitio web del curso, Moodle, Microsoft Teams. Stack: Python (pandas, Polars, DuckDB, PySpark local, Prefect, dbt-core, scikit-learn); sin clúster obligatorio."""
 
 CRITERIOS = """Seis evaluaciones formativas (10 % cada una) + proyecto final integrador (40 %).
 
@@ -84,12 +84,12 @@ DANE — GEIH (microdatos); documentación Parquet, Polars, DuckDB, Spark, Prefe
 MODULOS = [
     (
         "5",
-        "Módulo 1. Introducción a big data, metodología y ecosistemas. Dimensiones V; metodología (tres A); arquitecturas; acceso GEIH; charter grupal.",
+        "Módulo 1. Introducción a big data, metodología y ecosistemas. Dimensiones V; metodología (tres A); arquitecturas; acceso GEIH; requerimientos del proyecto (PDF).",
         "Formativa 10 % (cuaderno grupal + reflexión individual)",
     ),
     (
         "5",
-        "Módulo 2. Ética, privacidad y gobernanza. Marco ético; lecturas; auditoría ética; charter (práctica responsable).",
+        "Módulo 2. Ética, privacidad y gobernanza. Marco ético; lecturas; auditoría ética; actualización de requerimientos (práctica responsable).",
         "Formativa 10 %",
     ),
     (

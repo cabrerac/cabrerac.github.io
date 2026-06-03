@@ -2,7 +2,7 @@
 <svg width="1180" height="320" xmlns="http://www.w3.org/2000/svg">
     <rect width="1180" height="320" fill="#ffffff"/>
 
-    <text x="590" y="36" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="#224466">Big Data Pipeline - course template (customise for your charter)</text>
+    <text x="590" y="36" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="#224466">Big Data Pipeline - course template (customise for your project question)</text>
     <text x="590" y="58" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#666666">Three As: Access / Assess / Address - L1 homework: save as architecture.svg</text>
 
     <!-- Access band -->
@@ -73,7 +73,7 @@
     <text x="860" y="220" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#495057">In production (cloud / lakehouse)</text>
     <text x="860" y="236" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#6c757d">Object storage, scheduler, cluster (conceptual in L1)</text>
 
-    <!-- Charter anchor -->
+    <!-- Project requirements anchor -->
     <rect x="40" y="260" width="1100" height="40" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1"/>
-    <text x="590" y="285" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#2e7d32">Governance thread: charter.md - ethics (L2) - hooks L3-L6 - decision brief</text>
+    <text x="590" y="285" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#2e7d32">Governance thread: project_requirements.pdf - ethics (L2) - hooks L3-L6 - decision brief</text>
 </svg>

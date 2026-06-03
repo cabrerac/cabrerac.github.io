@@ -16,7 +16,65 @@ lecture_code: l1-introduction
 lecture_date: 06/06/2026
 permalink: /teaching/26-udenar-big-data/l1-introduction/
 visible: false
+group_notebook: l1-introduction-group
+notebook_language: es
+notebook_title: Introducción a big data, metodología y ecosistemas
+notebook_description: Práctica de la Lección 1 — poner a disposición datos GEIH (Access). Las tareas, plantillas Word y el Colab grupal están en la página de esta lección (secciones Recursos y Tareas).
 ---
+
+<!-- RENDER: -->
+
+## Recursos
+
+### Cuadernos (Colab)
+
+- [Práctica individual — `l1-introduction`](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction.ipynb)
+- [Trabajo grupal — `l1-introduction-group`](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction-group.ipynb) (sin diapositivas HTML; solo cuaderno)
+
+### Plantillas (Word)
+
+Descargue, complete en Word y exporte a PDF para Moodle:
+
+- [plantilla-requerimientos-proyecto.docx](/assets/documents/26-udenar-big-data/plantilla-requerimientos-proyecto.docx) → entregar como `project_requirements.pdf` (dentro del ZIP grupal)
+- [plantilla-reflexion-l1.docx](/assets/documents/26-udenar-big-data/plantilla-reflexion-l1.docx) → entregar como `l1-reflexion-<nombre-estudiante>.pdf` (individual, jueves)
+
+Regenerar plantillas (instructor): `python scripts/big-data-course/build_l1_docx_templates.py`
+
+### Referencias de planificación (instructor / lectura avanzada)
+
+- [Case shell](https://github.com/cabrerac/cabrerac.github.io/blob/main/work-space/teaching/big-data/planning/case-shell.md)
+- [Especificación del spine GEIH](https://github.com/cabrerac/cabrerac.github.io/blob/main/work-space/teaching/big-data/planning/spine-spec.md)
+- [Plantilla de diagrama de pipeline](/assets/media/diagrams/big-data-pipeline-template.svg)
+
+---
+
+## Tareas
+
+### Práctica individual (no calificada)
+
+Cuaderno **`l1-introduction`** en Colab — Partes 1–3 (Access 2024 + reflexión en el cuaderno). No se entrega el `.ipynb` individual.
+
+### Trabajo en grupo (60 % formativa L1)
+
+Colab **`l1-introduction-group`**. Entregar en Moodle un ZIP **`l1-introduction-<nombre-grupo>.zip`** hasta el **miércoles 10 de junio de 2026**:
+
+| Archivo en el ZIP | Descripción |
+|-------------------|-------------|
+| `l1-introduction-<nombre-grupo>.ipynb` | Cuaderno grupal — descarga GEIH **2022–2025** + registro de contribución |
+| `manifest.json` | Un registro por cada archivo DANE descargado |
+| `project_requirements.pdf` | Requerimientos del proyecto (desde plantilla Word) |
+
+### Reflexión individual (40 % formativa L1)
+
+Entregar en Moodle hasta el **jueves 11 de junio de 2026** (un PDF por estudiante, no dentro del ZIP grupal):
+
+| Entregable | Descripción |
+|------------|-------------|
+| `l1-reflexion-<nombre-estudiante>.pdf` | Reflexión semana 1 (plantilla Word) |
+
+**Consigna:** *Si el DANE restringiera mañana las descargas masivas, ¿qué parte de su configuración de Access cambiaría primero — y qué implicaría eso para la rendición de cuentas pública?*
+
+<!-- end RENDER: -->
 
 <!-- NOTEBOOK: -->
 
@@ -24,21 +82,21 @@ visible: false
 
 **Propósito.** Este cuaderno es su **práctica de la Lección 1**. Va a **poner a disposición datos de la encuesta del DANE "Gran Encuesta Integrada de Hogares (GEIH)"**. Esa es la primera etapa de nuestra metodología: **Access** (tener los datos disponibles antes de evaluarlos o analizarlos).
 
-En producción, los microdatos nacionales de empleo abarcan **muchos años a escala de gigabytes o terabytes**. En este laboratorio aprende en dos pasos sobre el **año de encuesta 2024**:
+En producción, los microdatos nacionales de empleo abarcan **muchos años a escala de gigabytes**. En este laboratorio trabajamos el **año de encuesta 2024** en dos partes:
 
-1. **Parte 1 — un mes** (enero): raspar la página, descargar un ZIP, extraer, previsualizar, registrar el resultado.
-2. **Parte 2 — el año completo**: reutilizar el mismo código en un bucle para los 12 archivos mensuales del catálogo **819**.
+1. **Parte 1 — un mes** (enero): con el `catalog_id` y `file_id` que entrega el instructor (como en el navegador), descargar un ZIP, extraer, previsualizar y registrar el resultado en `manifest.json`.
+2. **Parte 2 — el año completo**: ver **por qué** hace falta **extraer los `file_id` desde la página** get-microdata, automatizar esa lectura y descargar los otros once meses.
+3. **Parte 3 — reflexión (individual)**: clasificar las Vs, mapa de las tres A, boceto de arquitectura y comprobación de Access. El **documento de requerimientos del proyecto** (PDF grupal) y la **reflexión individual** (PDF) usan las **plantillas del curso** — ver **Tareas**.
 
-El **mismo patrón** lo usará su grupo después al descargar **2022–2025** en el cuaderno grupal: id de catálogo → raspar lista de archivos → descargar → extraer → manifiesto.
+El **mismo patrón** de descarga lo usa el **[cuaderno grupal `l1-introduction-group`](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction-group.ipynb)** (**2022–2025**). Enlace también en la [página de la lección](https://cabrerac.github.io/teaching/26-udenar-big-data/l1-introduction/).
 
 **Qué hacer (en orden).**
 
-1. Lea **Cómo construir la URL de descarga** más abajo — explica lo que automatizamos en código.
+1. Lea **Cómo construir la URL de descarga** más abajo se explica lo que se automatiza en código.
 2. Abra este cuaderno en **Google Colab** o ejecútelo en local con Python 3.10+.
 3. Ejecute las celdas **de arriba hacia abajo** salvo que una celda indique otra cosa.
 4. En celdas **Su turno**, escriba su propio texto o código.
 5. En celdas **Comprobar**, ejecute las pruebas y corrija celdas anteriores si algo falla.
-6. Lleve al sábado las preguntas del **diario de lectura**.
 
 **Estructura de carpetas** (la celda de configuración crea estas rutas):
 
@@ -58,7 +116,7 @@ El DANE publica microdatos GEIH en **[microdatos.dane.gov.co](https://microdatos
 
 1. Abra `https://microdatos.dane.gov.co/index.php/catalog/819/get-microdata`
 2. Busque **enero 2024** (`Ene_2024`, `GEIH_2024_ENE`, o similar).
-3. Pulse **Descargar** (o inspeccione el enlace). La URL debe contener **`/download/`**.
+3. Pulse **Descargar**.
 4. Ejemplo para enero 2024:
    `https://microdatos.dane.gov.co/index.php/catalog/819/download/23313`
 
@@ -74,7 +132,7 @@ https://microdatos.dane.gov.co/index.php/catalog/853/
 https://microdatos.dane.gov.co/index.php/catalog/900/
 ```
 
-El DANE asigna un `catalog_id` por año: `819` para 2024, `853` para 2025 y `900` para 2026. Los archivos de cada año se dividen por mes. Por ejemplo, la lista de archivos de 2024 está [aquí](https://microdatos.dane.gov.co/index.php/catalog/819/get-microdata). Así podemos descargar un archivo por mes. Estas URLs son enero y febrero de 2024:
+El DANE asigna un `catalog_id` por año: `819` para 2024, `853` para 2025 y `900` para 2026. Los archivos de cada año se dividen por mes. Por ejemplo, la lista de archivos de 2024 está [aquí](https://microdatos.dane.gov.co/index.php/catalog/819/get-microdata). Así podemos descargar un archivo por mes. Estas URLs corresponden a los meses de enero y febrero de 2024:
 
 ```text
 https://microdatos.dane.gov.co/index.php/catalog/819/download/23313
@@ -88,24 +146,20 @@ También hay un `file_id` por archivo. Por ejemplo, el `file_id` de enero 2024 e
 https://microdatos.dane.gov.co/index.php/catalog/{catalog_id}/download/{file_id}
 ```
 
-| Pieza | Significado | Ejemplo (enero 2024) |
+| Variable | Significado | Ejemplo (enero 2024) |
 |-------|-------------|----------------------|
 | `{catalog_id}` | Id DANE del **año de encuesta** | `819` para 2024 |
-| `{file_id}` | Id interno de **un ZIP subido** | `23313` para enero 2024 |
+| `{file_id}` | Id interno de **un ZIP** | `23313` para enero 2024 |
 
-**No** puede deducir `{file_id}` solo del nombre del archivo sin raspar get-microdata antes — siempre léalo en la página (navegador o código). La página inicial del catálogo (`…/catalog/819/`) **no** es un enlace de descarga. Si pide esa URL obtiene HTML, no un ZIP.
-
-Las celdas siguientes implementan esto en Python. La **Parte 1** recorre **un mes** paso a paso. La **Parte 2** descarga **el resto de 2024**.
+Las celdas siguientes implementan esto en Python. La **Parte 1** usa el enlace de **enero** que ya conoce. La **Parte 2** automatiza la lectura de la página y descarga **el resto de 2024**.
 
 ---
 
-## Parte 1 — Un mes (enero 2024)
+## Parte 1 — Descarga de datos para un mes (enero 2024)
 
-### Configuración — importaciones, constantes y carpetas
+### Paso 1 — Configuración — importaciones, constantes y carpetas
 
-Usamos **`pandas`** y **`requests`**, más la biblioteca estándar de Python. La siguiente celda crea las carpetas. El instructor entrega los valores de **`catalog_id`** (año de encuesta → catálogo). Los **`file_id`** siempre salen de raspar get-microdata en el Paso 2 — nunca van fijos en Configuración.
-
-Ejecute la celda una vez.
+Usamos **`pandas`** y **`requests`**, más la biblioteca estándar de Python. La siguiente celda define las variables que vamos a utilizar y crea las carpetas donde almacenaremos los datos descargados.
 
 ```python
 import json
@@ -117,62 +171,249 @@ from pathlib import Path
 import pandas as pd
 import requests
 
-# Año de práctica L1 — encuesta 2024, catálogo 819 (lo entrega el instructor)
-CATALOG_BY_YEAR = {2022: 771, 2023: 782, 2024: 819, 2025: 853}
+# Año de práctica L1 — encuesta 2024, catalog_id 819
+CATALOG_ID = 819
 YEAR = 2024
-CATALOG_ID = CATALOG_BY_YEAR[YEAR]
 
-# Primer mes lo descargamos a mano (Parte 1); file_id sale del raspado en el Paso 2
-L1_DANE_FILENAME = "Ene_2024.zip"
+# Mes de práctica L1 — enero 2024 (file_id del enlace manual arriba)
+FILE_ID = 23313
+DANE_FILENAME = "Ene_2024.zip"
+EXTRACT_DIR = Path(DANE_FILENAME).stem
 
+# Procesamiento de archivos CSV
 CSV_SEP = ";"
 CSV_ENCODING = "latin-1"
 PRIMARY_TABLE_KEYWORD = "fuerza de trabajo"
 
+# Carpetas para almacenar datos descargados
 RAW_DIR = Path("data/raw")
 YEAR_DIR = RAW_DIR / str(YEAR)
 OUTPUTS_DIR = Path("outputs")
 YEAR_DIR.mkdir(parents=True, exist_ok=True)
 OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 
-print(f"Año: {YEAR}  |  catalog id: {CATALOG_ID}  |  primer archivo: {L1_DANE_FILENAME}")
+print(f"Año: {YEAR}  |  catalog id: {CATALOG_ID}  |  file id: {FILE_ID}  |  archivo: {DANE_FILENAME}")
 ```
 
 **Comprobar:**
 
 ```python
 assert CATALOG_ID == 819
-assert L1_DANE_FILENAME.endswith(".zip")
+assert FILE_ID == 23313
+assert DANE_FILENAME == "Ene_2024.zip"
 assert YEAR_DIR.is_dir() and OUTPUTS_DIR.is_dir()
 print("Configuración: OK")
 ```
 
 ---
 
-## Paso 1 — Confirmar las páginas del catálogo en código
+## Paso 2 — Descargar el ZIP mensual
 
-En la sección anterior abrimos get-microdata en el navegador. Aquí construimos las mismas URLs en Python para que los pasos siguientes las llamen solos. En la Lección 1 usamos el **catálogo 819** y el archivo **`Ene_2024.zip`** — el **`file_id`** se lee de la página raspada en el Paso 2.
+Construimos la URL con el patrón de la sección anterior (`catalog_id` + `file_id`). Una descarga directa devuelve un ZIP (GEIH nacional de ese mes).
 
-La URL de **inicio del catálogo** sirve solo para metadatos. La URL **get-microdata** lista los archivos mensuales. La URL de **descarga** (Paso 2) es la que devuelve el ZIP.
+La función `download_zip` guarda el archivo en **`data/raw/2024/`** y registra tiempo y tamaño para el manifiesto.
+
+### ¿Por qué `stream=True`?
+
+Con **`stream=True`** y `iter_content(...)`, cada trozo se escribe al disco sin cargar todo el ZIP en RAM. Con `stream=False` y `resp.content`, Python puede usar **casi el doble de memoria** un momento. Para **un mes** en Colab el tiempo suele ser similar, la diferencia importa cuando bajan **muchos archivos grandes** o trabajan en un equipo con poca RAM. Esta consideración es importante cuando se piensa en la dimensión **V de volumen**.
 
 ```python
-def get_microdata_page_url(catalog_id: int) -> str:
-    return f"https://microdatos.dane.gov.co/index.php/catalog/{catalog_id}/get-microdata"
+def download_zip(url: str, dest: Path, timeout: int = 600) -> tuple[float, int]:
+    """Descarga url a dest en streaming; devuelve (segundos, bytes). Falla si no es ZIP."""
+    t0 = time.perf_counter()
+    with requests.get(url.strip(), stream=True, timeout=timeout) as resp:
+        resp.raise_for_status()
+        with dest.open("wb") as fh:
+            for chunk in resp.iter_content(chunk_size=1 << 20):
+                if chunk:
+                    fh.write(chunk)
+    elapsed = round(time.perf_counter() - t0, 3)
+    magic = dest.read_bytes()[:2]
+    if magic != b"PK":
+        raise ValueError(
+            f"El archivo descargado no es un ZIP (obtuvo {magic!r}). "
+            "Use la URL /download/ de get-microdata, no la página inicial del catálogo."
+        )
+    return elapsed, dest.stat().st_size
+```
 
-catalog_home = f"https://microdatos.dane.gov.co/index.php/catalog/{CATALOG_ID}"
-microdata_page = get_microdata_page_url(CATALOG_ID)
-print("Inicio del catálogo (solo metadatos):", catalog_home)
-print("Get-microdata (archivos mensuales):", microdata_page)
-print("Forma esperada de descarga:", f".../catalog/{CATALOG_ID}/download/{{file_id}}")
+Ahora creamos la URL de descarga directa para el archivo que deseamos descargar e invocamos a la función `download_zip` con los respectivos parámetros.
+
+```python
+download_url = (
+    f"https://microdatos.dane.gov.co/index.php/catalog/{CATALOG_ID}/download/{FILE_ID}"
+)
+zip_path = YEAR_DIR / DANE_FILENAME
+download_seconds, bytes_downloaded = download_zip(download_url, zip_path)
+
+print(f"Guardado: {zip_path}")
+print(f"Tamaño: {bytes_downloaded / 1e6:.2f} MB")
+print(f"Tiempo: {download_seconds} s")
+```
+
+**Comprobar:**
+
+```python
+assert zip_path.is_file(), "Falta el archivo ZIP"
+assert zip_path.read_bytes()[:2] == b"PK", "No es ZIP — corrija la URL de descarga"
+assert bytes_downloaded > 1_000_000, "El ZIP parece demasiado pequeño"
+print("Paso 2 — descarga: OK")
 ```
 
 ---
 
-## Paso 2 — Resolver la URL de descarga directa
+## Paso 3 — Extraer los archivos CSV
 
-En get-microdata, el DANE incrusta cada enlace en una llamada JavaScript: `mostrarModal('filename', 'url')`. Pedimos esa página con **`requests`**, parseamos cada fila en **`file_id`**, **`filename`** y **`url`**, y elegimos la fila cuyo **filename** coincide con el archivo de práctica de Configuración.
+Cada ZIP mensual trae **varias** tablas CSV (fuerza de trabajo, vivienda, educación, etc.). Access significa tener **todas** disponibles, para ello implementaremos la función **`extract_csvs`**. Esta función escribe cada archivo `.csv` en una carpeta con el nombre base del ZIP del DANE, p. ej. `data/raw/2024/Ene_2024/`.
 
-Implemente las funciones siguientes y resuelva la URL para **`Ene_2024.zip`**.
+```python
+def extract_csvs(zip_path: Path, dest_dir: Path) -> list[Path]:
+    """Extrae cada miembro .csv; devuelve lista ordenada de rutas."""
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    with zipfile.ZipFile(zip_path, "r") as zf:
+        csv_members = [n for n in zf.namelist() if n.lower().endswith(".csv")]
+        if not csv_members:
+            raise ValueError(f"No CSV files inside {zip_path.name}")
+        for name in csv_members:
+            target = dest_dir / Path(name).name
+            with zf.open(name) as src, target.open("wb") as dst:
+                dst.write(src.read())
+    return sorted(dest_dir.glob("*.CSV")) + sorted(dest_dir.glob("*.csv"))
+```
+
+Nuevamente, invocamos la función con los respectivos parámetros.
+
+```python
+extract_dir = YEAR_DIR / EXTRACT_DIR
+csv_files = extract_csvs(zip_path, extract_dir)
+total_csv_bytes = sum(p.stat().st_size for p in csv_files)
+
+print(f"Extraídos {len(csv_files)} archivo(s) CSV → {extract_dir}/\n")
+for p in csv_files:
+    print(f"{p.stat().st_size / 1e6:8.2f} MB  {p.name}")
+print(f"\nTotal extraído: {total_csv_bytes / 1e6:.2f} MB")
+```
+
+**Comprobar:**
+
+```python
+assert len(csv_files) >= 1
+labour_path = next(
+    p for p in csv_files if PRIMARY_TABLE_KEYWORD in p.name.lower().replace("\xa0", " ")
+)
+print("Tabla principal de fuerza de trabajo:", labour_path.name)
+print("Paso 3 — extracción: OK")
+```
+
+---
+
+## Paso 4 — Previsualizar la tabla de fuerza de trabajo
+
+El DANE entrega los CSV GEIH con separador **punto y coma** y codificación **`latin-1`**. Si **`read_csv`** falla, revise esos dos ajustes antes de cambiar otra cosa.
+
+Previsualizamos **`Fuerza de trabajo.CSV`** utilizando la funcion `read_csv` de pandas, la cual retorna un dataframe.
+
+```python
+df = pd.read_csv(labour_path, sep=CSV_SEP, encoding=CSV_ENCODING, low_memory=False)
+n_rows = len(df)
+n_cols = len(df.columns)
+
+print(f"Filas: {n_rows:,}  |  Columnas: {n_cols}")
+print(f"Columnas (primeras 12): {list(df.columns[:12])}")
+df.head()
+```
+
+Podemos inspeccionar la información del dataframe.
+
+```python
+df.info()
+```
+
+**Comprobar:**
+
+```python
+assert n_rows > 10_000, "Se espera un mes nacional (decenas de miles de filas)"
+assert "DPTO" in df.columns, "Se espera la columna DPTO (código de departamento)"
+print("Paso 5 — previsualización: OK")
+```
+
+---
+
+## Paso 5 — Registrar el primer mes en `manifest.json`
+
+Con el fin de documentar el proceso de descaraga guardamos **un objeto JSON por archivo descargado** en el archivo `manifest.json`. Para esto creamos la función `write_manifest`.
+
+```python
+def write_manifest(path: Path, entries: list[dict]) -> None:
+    path.write_text(json.dumps(entries, indent=2), encoding="utf-8")
+```
+
+Ahora utilizamos la función para registrar los datos de la descarga de enero 2024.
+
+```python
+manifest_entry = {
+    "method": "http",
+    "survey_year": YEAR,
+    "catalog_id": CATALOG_ID,
+    "file_id": FILE_ID,
+    "filename": DANE_FILENAME,
+    "extract_dir": str(extract_dir),
+    "seconds": download_seconds,
+    "bytes_downloaded": bytes_downloaded,
+    "notes": f"extracted {len(csv_files)} CSVs ({total_csv_bytes} bytes)",
+    "fallback_used": False,
+}
+manifest_path = Path("manifest.json")
+
+write_manifest(manifest_path, [manifest_entry])
+print(manifest_path.read_text(encoding="utf-8"))
+```
+
+**Comprobar:**
+
+```python
+assert manifest_path.is_file()
+data = json.loads(manifest_path.read_text(encoding="utf-8"))
+assert data[0]["method"] == "http"
+assert data[0]["bytes_downloaded"] > 0
+print("Parte 1 completa — un mes en disco.")
+```
+
+---
+
+## Parte 2 — Automatizar el proceso para todo el año 2024
+
+En la Parte 1 descargamos los datos para el mes de enero porque usamos el **`file_id` conocido** (`23313`). Para descargar los datos de todos los meses de 2024 debemos obtener los `file_id` de todos los archivos. Esta tarea se puede hacer manualmente inspeccionando el HTML de la página del DANE. Sin embargo, esta opción no es escalable:
+
+- Hay **once meses más** en 2024 — no conviene copiar a mano once URLs.
+- El **`file_id` no se deduce** del nombre `Feb_2024.zip`, el DANE lo asigna al publicar el archivo.
+- Si deseamos crear un dataset que incluya más años necesitamos determinar el `file_id` de decenas de archivos por año.
+
+**Solución:** automatizar el proceso de **extraer desde el HTML** cada par `(filename, file_id, url)` y elegir el archivo por **nombre DANE** (`Ene_2024.zip`, `Feb_2024.zip`, …). Eso es lo que hace el navegador al pulsar **Descargar**, aquí lo automatizamos con `requests` y una expresión regular sobre `mostrarModal(...)` que es el objeto HTML que tiene la información que necesitamos.
+
+---
+
+### Paso 1 — URLs del catálogo en código
+
+La URL de **inicio del catálogo** sirve solo para metadatos. **get-microdata** lista los archivos mensuales.
+
+```python
+catalog_home = f"https://microdatos.dane.gov.co/index.php/catalog/{CATALOG_ID}"
+microdata_page = f"https://microdatos.dane.gov.co/index.php/catalog/{CATALOG_ID}/get-microdata"
+print("Inicio del catálogo (solo metadatos):", catalog_home)
+print("Get-microdata (archivos mensuales):", microdata_page)
+```
+
+---
+
+### Paso 2 — Extraer la lista de archivos desde get-microdata
+
+En la página get-microdata, el DANE coloca cada enlace de descarga como una llamada JavaScript: `mostrarModal('filename', 'url')`. Para extraer los datos, descargamos el HTML usando **`requests`** y utilizamos dos expresiones regulares:
+
+- La primera expresión regular busca todas las llamadas a `mostrarModal` y extrae el nombre del archivo (`filename`) y la URL de descarga (`url`). Básicamente, encuentra patrones de la forma `mostrarModal('Ene_2024.zip', 'https://...download/23313')` dentro del HTML, y captura ambos elementos entre comillas.
+- La segunda expresión regular busca, dentro de la URL extraída, el número identificador del archivo (`file_id`). Es decir, detecta el número que aparece después de `/download/` en la ruta como `/download/23313`.
+
+Estas expresiones permiten crear, para cada archivo, una tripleta de datos: nombre del archivo, ID y URL de descarga, de manera automática siguiendo la estructura del HTML de la página.
 
 ```python
 DOWNLOAD_ONCLICK_RE = re.compile(
@@ -181,11 +422,15 @@ DOWNLOAD_ONCLICK_RE = re.compile(
     re.IGNORECASE,
 )
 FILE_ID_RE = re.compile(r"/download/(\d+)")
+```
 
+La función `list_catalog_downloads` utiliza estas expresiones regulares para obtener todas las tripletas (nombre de archivo, file_id, url de descarga) desde el HTML de la página get-microdata del DANE, automatizando la identificación y extracción de los enlaces de descarga para todos los archivos disponibles en el catálogo.
 
+```python
 def list_catalog_downloads(catalog_id: int) -> list[dict]:
     """Obtiene el HTML de get-microdata y parsea tripletas (file_id, filename, url)."""
-    resp = requests.get(get_microdata_page_url(catalog_id), timeout=120)
+    page_url = f"https://microdatos.dane.gov.co/index.php/catalog/{catalog_id}/get-microdata"
+    resp = requests.get(page_url, timeout=120)
     resp.raise_for_status()
     seen: set[int] = set()
     files: list[dict] = []
@@ -206,234 +451,49 @@ def list_catalog_downloads(catalog_id: int) -> list[dict]:
             }
         )
     return sorted(files, key=lambda row: row["filename"].lower())
-
-
-def find_download_by_filename(catalog_id: int, dane_filename: str) -> dict:
-    for item in list_catalog_downloads(catalog_id):
-        if item["filename"] == dane_filename:
-            return item
-    raise ValueError(
-        f"No hay {dane_filename!r} en el catálogo {catalog_id}. "
-        f"Abra {get_microdata_page_url(catalog_id)} y revise la columna de nombres de archivo."
-    )
-
-
-def validate_download_url(url: str) -> None:
-    if "/download/" not in url:
-        raise ValueError(
-            "Esa URL parece una página de catálogo, no un archivo de datos. "
-            "Use el enlace de Descargar que contiene /download/."
-        )
 ```
 
+Ahora podemos listar los archivos a descargar para el año 2024.
+
 ```python
-# Raspar todos los file_id de la página (los mismos que vio en el navegador)
-for row in list_catalog_downloads(CATALOG_ID):
-    print(row["file_id"], row["filename"])
+# Extraer desde la página todos los file_id (los mismos que ve en el navegador)
+all_files = list_catalog_downloads(CATALOG_ID)
+print(f"Archivos en catálogo {CATALOG_ID}: {len(all_files)}")
+for row in all_files:
+    print(f"  {row['file_id']}  {row['filename']}")
 
-download = find_download_by_filename(CATALOG_ID, L1_DANE_FILENAME)
-FILE_ID = download["file_id"]  # descubierto en la página — no fijo en Configuración
-download_url = download["url"]
-DANE_FILENAME = download["filename"]
-EXTRACT_DIR = Path(DANE_FILENAME).stem
-
-validate_download_url(download_url)
-print("file_id descubierto:", FILE_ID)
-print("Nombre DANE:", DANE_FILENAME)
-print("URL de descarga directa:", download_url)
+january = next(r for r in all_files if r["filename"] == DANE_FILENAME)
+print(f"\nEnero en la página: file_id={january['file_id']} (Parte 1 usó {FILE_ID})")
+assert january["file_id"] == FILE_ID
 ```
 
 **Comprobar:**
 
 ```python
-assert "/download/" in download_url, "Necesita un enlace /download/, no la página inicial del catálogo"
-assert str(CATALOG_ID) in download_url
-assert str(FILE_ID) in download_url
-assert DANE_FILENAME == L1_DANE_FILENAME
-print("Paso 2 — URL de descarga: OK")
+assert len(all_files) >= 12, "Se esperan 12 archivos mensuales en el catálogo 819"
+assert any(r["filename"] == DANE_FILENAME for r in all_files)
+print("Paso 2 — lista desde la página: OK")
 ```
 
 ---
 
-## Paso 3 — Descargar el ZIP mensual
+### Paso 3 — Una función: descargar y extraer
 
-Una URL de descarga directa devuelve un ZIP (GEIH nacional de ese mes). Lo guardamos en streaming en `data/raw/` y registramos tiempo y tamaño — usará ambos números en el **manifiesto** y en la discusión de las **Vs**.
-
-Todo ZIP válido empieza con los bytes **`PK`**. Si ve otra cosa, la URL estaba mal — suele ser la página de descripción del catálogo en lugar de `/download/…`.
-
-```python
-def download_zip(url: str, dest: Path, timeout: int = 600) -> tuple[float, int]:
-    """Descarga url a dest en streaming; devuelve (segundos, bytes). Falla si no es ZIP."""
-    t0 = time.perf_counter()
-    with requests.get(url.strip(), stream=True, timeout=timeout) as resp:
-        resp.raise_for_status()
-        with dest.open("wb") as fh:
-            for chunk in resp.iter_content(chunk_size=1 << 20):
-                if chunk:
-                    fh.write(chunk)
-    elapsed = round(time.perf_counter() - t0, 3)
-    magic = dest.read_bytes()[:2]
-    if magic != b"PK":
-        raise ValueError(
-            f"El archivo descargado no es un ZIP (obtuvo {magic!r}). "
-            "Use la URL /download/ de get-microdata, no la página inicial del catálogo."
-        )
-    return elapsed, dest.stat().st_size
-
-
-zip_path = YEAR_DIR / DANE_FILENAME
-download_seconds, bytes_downloaded = download_zip(download_url, zip_path)
-
-print(f"Guardado: {zip_path}")
-print(f"Tamaño: {bytes_downloaded / 1e6:.2f} MB")
-print(f"Tiempo: {download_seconds} s")
-```
-
-**Comprobar:**
-
-```python
-assert zip_path.is_file(), "Falta el archivo ZIP"
-assert zip_path.read_bytes()[:2] == b"PK", "No es ZIP — corrija la URL de descarga"
-assert bytes_downloaded > 1_000_000, "El ZIP parece demasiado pequeño"
-print("Paso 3 — descarga: OK")
-```
-
----
-
-## Paso 4 — Extraer los archivos CSV
-
-Cada ZIP mensual trae **varias** tablas CSV (fuerza de trabajo, vivienda, educación, etc.). Access significa tener **todas** en disco, no solo la que analizamos primero.
-
-Implemente **`extract_csvs`** abajo. Debe escribir cada miembro `.csv` en una carpeta con el nombre base del ZIP del DANE, p. ej. `data/raw/2024/Ene_2024/`.
-
-```python
-def extract_csvs(zip_path: Path, dest_dir: Path) -> list[Path]:
-    """Extrae cada miembro .csv; devuelve lista ordenada de rutas."""
-    dest_dir.mkdir(parents=True, exist_ok=True)
-    with zipfile.ZipFile(zip_path, "r") as zf:
-        csv_members = [n for n in zf.namelist() if n.lower().endswith(".csv")]
-        if not csv_members:
-            raise ValueError(f"No CSV files inside {zip_path.name}")
-        for name in csv_members:
-            target = dest_dir / Path(name).name
-            with zf.open(name) as src, target.open("wb") as dst:
-                dst.write(src.read())
-    return sorted(dest_dir.glob("*.CSV")) + sorted(dest_dir.glob("*.csv"))
-
-
-extract_dir = YEAR_DIR / EXTRACT_DIR
-csv_files = extract_csvs(zip_path, extract_dir)
-total_csv_bytes = sum(p.stat().st_size for p in csv_files)
-
-print(f"Extraídos {len(csv_files)} archivo(s) CSV → {extract_dir}/\n")
-for p in csv_files:
-    print(f"{p.stat().st_size / 1e6:8.2f} MB  {p.name}")
-print(f"\nTotal extraído: {total_csv_bytes / 1e6:.2f} MB")
-```
-
-**Comprobar:**
-
-```python
-assert len(csv_files) >= 1
-labour_path = next(
-    p for p in csv_files if PRIMARY_TABLE_KEYWORD in p.name.lower().replace("\xa0", " ")
-)
-print("Tabla principal de fuerza de trabajo:", labour_path.name)
-print("Paso 4 — extracción: OK")
-```
-
----
-
-## Paso 5 — Previsualizar la tabla de fuerza de trabajo
-
-El DANE entrega los CSV GEIH con separador **punto y coma** y codificación **`latin-1`**. Si **`read_csv`** falla, revise esos dos ajustes antes de cambiar otra cosa.
-
-Previsualizamos **`Fuerza de trabajo.CSV`**. La mayoría de grupos empieza por esta tabla; los demás CSV del Paso 4 quedan en disco para semanas posteriores.
-
-```python
-df = pd.read_csv(labour_path, sep=CSV_SEP, encoding=CSV_ENCODING, low_memory=False)
-n_rows = len(df)
-n_cols = len(df.columns)
-
-print(f"Filas: {n_rows:,}  |  Columnas: {n_cols}")
-print(f"Columnas (primeras 12): {list(df.columns[:12])}")
-df.head()
-```
-
-```python
-df.info()
-```
-
-**Comprobar:**
-
-```python
-assert n_rows > 10_000, "Se espera un mes nacional (decenas de miles de filas)"
-assert "DPTO" in df.columns, "Se espera la columna DPTO (código de departamento)"
-print("Paso 5 — previsualización: OK")
-```
-
----
-
-## Paso 6 — Registrar el primer mes en `manifest.json`
-
-Guardamos **un objeto JSON por archivo descargado**. La Parte 1 añade enero; la Parte 2 agrega los demás meses.
-
-```python
-def write_manifest(path: Path, entries: list[dict]) -> None:
-    path.write_text(json.dumps(entries, indent=2), encoding="utf-8")
-
-
-manifest_entry = {
-    "method": "http",
-    "survey_year": YEAR,
-    "catalog_id": CATALOG_ID,
-    "file_id": FILE_ID,
-    "filename": DANE_FILENAME,
-    "extract_dir": str(extract_dir),
-    "seconds": download_seconds,
-    "bytes_downloaded": bytes_downloaded,
-    "notes": f"extracted {len(csv_files)} CSVs ({total_csv_bytes} bytes)",
-    "fallback_used": False,
-}
-manifest_path = Path("manifest.json")
-write_manifest(manifest_path, [manifest_entry])
-print(manifest_path.read_text(encoding="utf-8"))
-```
-
-**Comprobar:**
-
-```python
-assert manifest_path.is_file()
-data = json.loads(manifest_path.read_text(encoding="utf-8"))
-assert data[0]["method"] == "http"
-assert data[0]["bytes_downloaded"] > 0
-print("Parte 1 completa — un mes en disco.")
-```
-
----
-
-## Parte 2 — Año completo de encuesta 2024
-
-Ya descargó **enero**. Ahora envuelva los Pasos 2–6 en una función y llámela para **cada otro mes** listado en la misma página get-microdata.
-
-### Paso 7 — Una función: raspar, descargar, extraer
+**`access_file`** descarga y extrae los archivos para un item en la lista `all_files`. Cada item tiene `url`, `file_id` y `filename`. Esta función reutiliza las funciones definidas en el paso 1 **`download_zip`** y **`extract_csvs`**. Esta es una lección importante de nuestro ejercicio: debemos diseñar nuestro código de forma modular y reutilizar funciones para crear soluciones más complejas.
 
 ```python
 def access_file(
-    catalog_id: int,
-    dane_filename: str,
+    item: dict,
     year_dir: Path,
     *,
     skip_if_exists: bool = True,
 ) -> dict:
     """
-    Raspar URL → descargar ZIP (nombre DANE) → extraer CSVs → devolver un registro de manifiesto.
+    Usar item de all_files → descargar ZIP → extraer CSVs → registro de manifiesto.
     """
-    item = find_download_by_filename(catalog_id, dane_filename)
     url = item["url"]
     file_id = item["file_id"]
     filename = item["filename"]
-    validate_download_url(url)
     zip_path = year_dir / filename
     out_dir = year_dir / Path(filename).stem
 
@@ -441,7 +501,7 @@ def access_file(
         return {
             "method": "http",
             "survey_year": YEAR,
-            "catalog_id": catalog_id,
+            "catalog_id": CATALOG_ID,
             "file_id": file_id,
             "filename": filename,
             "extract_dir": str(out_dir),
@@ -456,7 +516,7 @@ def access_file(
     return {
         "method": "http",
         "survey_year": YEAR,
-        "catalog_id": catalog_id,
+        "catalog_id": CATALOG_ID,
         "file_id": file_id,
         "filename": filename,
         "extract_dir": str(out_dir),
@@ -467,22 +527,17 @@ def access_file(
     }
 ```
 
-### Paso 8 — Descargar los meses restantes
+### Paso 4 — Descargar los meses restantes
 
-Raspe de nuevo la lista de archivos y recorra en bucle. Omita enero — ya lo tiene de la Parte 1.
+Aquí usamos la lista `all_files` del Paso 2 y omitimos enero porque ya está en disco desde la Parte 1.
 
 ```python
-all_files = list_catalog_downloads(CATALOG_ID)
-print(f"Archivos en catálogo {CATALOG_ID}: {len(all_files)}")
-for row in all_files:
-    print(f"  {row['file_id']}  {row['filename']}")
-
 entries = [manifest_entry]
 for row in all_files:
-    if row["filename"] == L1_DANE_FILENAME:
+    if row["filename"] == DANE_FILENAME:
         continue
     print("Descargando:", row["filename"])
-    entries.append(access_file(CATALOG_ID, row["filename"], YEAR_DIR))
+    entries.append(access_file(row, YEAR_DIR))
 
 write_manifest(manifest_path, entries)
 total_bytes = sum(e["bytes_downloaded"] for e in entries)
@@ -502,11 +557,11 @@ print("Parte 2 completa — año 2024 completo en disco.")
 
 ## Parte 3 — Reflexionar sobre lo descargado
 
-Use **todo 2024** (o solo enero si la Parte 2 sigue en curso) para las preguntas siguientes.
+Use los archivos que ya tiene en disco: **todo 2024** si terminó la Parte 2, o **solo enero** si aún no completó el bucle de meses. Las preguntas siguientes aplican en ambos casos (con menos detalle si solo tiene un mes).
 
-### Paso 9 — Clasificar las Vs (Su turno)
+### Paso 1 — Clasificar las Vs (Su turno)
 
-Ya tiene archivos reales en disco. Para cada **V** (volumen, velocidad, variedad, veracidad), escriba **una oración** basada en **esta descarga** — no una definición genérica. Sus respuestas alimentan el **diario de lectura** (pregunta 8).
+Para cada **V** (volumen, velocidad, variedad, veracidad), escriba **una oración** basada en **su descarga** (tamaños en `manifest.json`, tiempos, tablas en disco) — no una definición de libro.
 
 ```python
 vs_table = {
@@ -530,12 +585,12 @@ for v, sentence in vs_table.items():
 ```python
 for v, sentence in vs_table.items():
     assert isinstance(sentence, str) and len(sentence.strip()) >= 20, f"Escriba al menos una oración para {v}"
-print("Paso 9 — tabla Vs: OK")
+print("Parte 3, Paso 1 — tabla Vs: OK")
 ```
 
 ---
 
-## Paso 10 — Mapa de las tres A (Su turno)
+### Paso 2 — Mapa de las tres A (Su turno)
 
 Nuestra metodología tiene tres etapas: **Access → Assess → Address**. En este cuaderno completa **Access** (archivos locales y registrados). **Assess** y **Address** vienen en lecciones posteriores.
 
@@ -555,7 +610,7 @@ print(three_as)
 
 ---
 
-## Paso 11 — Diagrama de arquitectura (Su turno)
+### Paso 3 — Diagrama de arquitectura (Su turno)
 
 Bosqueje cómo se mueven los datos del DANE a la decisión de su grupo. Descargue la plantilla del curso, reetiquétela para su **arquetipo de decisión** (ver [case shell](https://github.com/cabrerac/cabrerac.github.io/blob/main/work-space/teaching/big-data/planning/case-shell.md)) y guarde como **`outputs/architecture.svg`**.
 
@@ -572,11 +627,12 @@ if not template_path.is_file():
     template_path.write_bytes(r.content)
 print("Plantilla guardada en:", template_path)
 print("Su turno: reetiquete el diagrama y guarde como outputs/architecture.svg")
+print("(La figura irá en la sección Pipeline del PDF de requerimientos del proyecto — cuaderno grupal.)")
 ```
 
 ---
 
-## Paso 12 — Párrafo de despliegue (Su turno)
+### Paso 4 — Párrafo de despliegue (Su turno)
 
 Imagine su pipeline en producción — no solo en Colab. En **3–5 oraciones**, indique si correría en **nube**, **borde (edge)** o **híbrido**, y si el trabajo es por **lotes (batch)** o **interactivo**. Indique **un supuesto** que esté asumiendo.
 
@@ -589,9 +645,9 @@ print(deployment_paragraph.strip())
 
 ---
 
-## Paso 13 — Encaje y límites (Su turno)
+### Paso 5 — Encaje y límites (Su turno)
 
-Los métodos de big data no siempre son la herramienta correcta. Para **su** pregunta del charter, ¿dónde ayudaría un stack distribuido? ¿Dónde sería **exceso** a la escala que accedió hoy?
+Los métodos de big data no siempre son la herramienta correcta. Para **la pregunta de decisión de su proyecto** (la definirán en el PDF de requerimientos), ¿dónde ayudaría un stack distribuido? ¿Dónde sería **exceso** a la escala que accedió hoy?
 
 ```python
 fit_and_limits = """
@@ -602,47 +658,7 @@ print(fit_and_limits.strip())
 
 ---
 
-## Paso 14 — Borrador del charter (Su turno)
-
-Redacte el **`charter.md`** de su grupo en la celda siguiente. Después del **sábado**, fusionen una versión por grupo con la [plantilla de charter](https://github.com/cabrerac/cabrerac.github.io/blob/main/work-space/teaching/big-data/planning/charter-template.md). Los **encabezados** deben coincidir exactamente (en inglés) para la verificación automática.
-
-```python
-charter_draft = """
-# Group G? — Project charter (DRAFT)
-
-## Metadata
-- group: G?
-- members: ...
-- archetype: resource allocation | risk / early warning | monitoring
-- created: YYYY-MM-DD
-
-## Stakeholders
-...
-
-## Decision question
-...
-
-## Subset
-- Years: ...
-- Regions / departments: ...
-- Population segment: ...
-- Variables of primary interest: ...
-
-## Success criteria
-...
-
-## Ethical concern + reading
-(one case-shell section-6 topic + Zuboff Ch. 1)
-
-## Roles and contribution plan
-- Name 1 — ...
-"""
-print(charter_draft)
-```
-
----
-
-## Comprobación de Access completado
+### Paso 6 — Comprobación de Access completado
 
 Ejecute esto después de la **Parte 1** (mínimo) o la **Parte 2** (año completo). Imprime **`ACCESS_OK`** cuando la ruta principal de Access funcionó.
 
@@ -671,42 +687,15 @@ if passed >= 4:
 
 ---
 
-## Tarea (grupo — después del sábado)
+## Tareas
 
-Entregar en Moodle (normalmente el **miércoles** después de L1). El **cuaderno grupal** (aparte de esta práctica individual) descargará **2022–2025** con el mismo patrón y los catalog ids que entregamos allí. Cada grupo ejecuta la descarga.
+Resumen de entregables — detalle, plantillas `.docx` y enlaces Colab en la **[página de la lección](https://cabrerac.github.io/teaching/26-udenar-big-data/l1-introduction/)** (secciones **Recursos** y **Tareas**).
 
-| Entregable | Notas |
-|------------|--------|
-| **`charter.md`** | Plantilla completa; incluya **Ethical concern + reading** (cite **Zuboff Ch. 1** por nombre) |
-| **`architecture.svg`** | Pipeline reetiquetado del Paso 11 |
-| **`manifest.json`** | Un registro por archivo DANE en 2022–2025 |
-| **`data/raw/`** | ZIP y CSV extraídos bajo carpetas por año |
+| Qué | Cuándo | Archivo(s) |
+|-----|--------|------------|
+| Grupo | Miércoles 10 jun 2026 | ZIP `l1-introduction-<grupo>.zip` (cuaderno grupal + `manifest.json` + `project_requirements.pdf`) |
+| Individual | Jueves 11 jun 2026 | `l1-reflexion-<estudiante>.pdf` |
 
-No hay **`L1_output.parquet`** en esta lección. Los artefactos de L1 son el charter, el diagrama y el registro de acceso.
-
----
-
-## Registro de contribución (grupo)
-
-Cada integrante añade una línea. Nombre al **escriba de L1** — quien consolida el Colab canónico de la semana.
-
-```python
-contribution_log = """
-- Name 1 — ...
-- Name 2 — ...
-- Name 3 — ...
-- Name 4 — ...
-L1 scribe: ...
-"""
-print(contribution_log)
-```
-
----
-
-## Reflexión (individual — Moodle después de la tarea)
-
-Entregar en Moodle. Enlace **una decisión de arquitectura** (nube, borde o batch) con **privacidad, daño o gobernanza**, citando **boyd & Crawford** o **Zuboff cap. 1**.
-
-**Consigna:** *Si el DANE restringiera mañana las descargas masivas, ¿qué parte de su configuración de Access cambiaría primero — y qué implicaría eso para la rendición de cuentas pública?*
+Use las plantillas Word de la página de la lección; no entregue el cuaderno individual `l1-introduction.ipynb`.
 
 <!-- end NOTEBOOK: -->

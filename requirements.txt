@@ -15,6 +15,7 @@ jupyter==1.0.0   # For notebook preview
 ipykernel==6.25.1  # For Jupyter kernel support
 PyMuPDF>=1.24.10  # For scripts/pdf_to_markdown; >=1.27.2 when using pymupdf4llm
 pymupdf4llm>=1.0.0  # Optional: use with --llm for tables/lists/better structure
+python-docx>=1.1.0  # Word: build_l1_docx_templates.py, build_week1_learning_journal.py, fill_programa_asignatura.py
 
 # Google Cloud dependencies
 google-api-python-client

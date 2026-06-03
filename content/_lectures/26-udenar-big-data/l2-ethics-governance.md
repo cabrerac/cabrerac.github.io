@@ -3,10 +3,10 @@ author: Christian Cabrera Jojoa
 course_code: 26-udenar-big-data
 department: Department of Computer Science and Technology
 description: "Lecture 2 (ethics-first framing) \u2014 Vs of harm, consent, fairness,\
-  \ Zuboff anchor reading, accountable practice; deepens the L1 group charter before\
-  \ any technical lecture. Async ~2 h video (V1 theory + V2 case-study walkthrough)\
-  \ + ~3 h Saturday sync inside the shared 07:00\u201313:00 CO block. Stub \u2014\
-  \ content to be authored."
+  \ Zuboff anchor reading, accountable practice; deepens the L1 project requirements\
+  \ doc before any technical lecture. Async ~2 h video (V1 theory + V2 case-study\
+  \ walkthrough) + ~3 h Saturday sync inside the shared 07:00\u201313:00 CO block.\
+  \ Stub \u2014 content to be authored."
 email: chc79@cam.ac.uk
 end_time: 01:00 pm
 hours: 5

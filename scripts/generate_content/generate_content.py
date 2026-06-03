@@ -605,6 +605,15 @@ class ContentGenerator:
 
         return content
 
+    def lecture_metadata_from_file(self, lecture_file):
+        """Parse YAML front matter from a lecture source file."""
+        with open(lecture_file, 'r', encoding='utf-8') as f:
+            content = f.read()
+        front_matter = re.match(r'^---\n(.*?)\n---', content, re.DOTALL)
+        if front_matter:
+            return yaml.safe_load(front_matter.group(1)) or {}
+        return {}
+
     def process_lecture(self, lecture_file):
         """Process a lecture file to generate all formats."""
         print(f"Processing {lecture_file}...")
@@ -614,6 +623,7 @@ class ContentGenerator:
 
         # Get course metadata
         course_metadata = self.get_course_metadata(course_code)
+        lecture_meta = self.lecture_metadata_from_file(lecture_file)
 
         # Create course-specific directories
         course_lectures_dir = self.lectures_dir / course_code
@@ -650,8 +660,14 @@ class ContentGenerator:
         content = self.clean_code_blocks(content)
 
         # Generate content with course-specific paths
-        self.generate_rendered_lecture(lecture_file, course_lectures_dir, course_metadata)
-        self.generate_slides(lecture_file, course_slides_dir)
+        if not lecture_meta.get('skip_lecture_page'):
+            self.generate_rendered_lecture(lecture_file, course_lectures_dir, course_metadata)
+        else:
+            print(f"[SKIP] Lecture page skipped for {lecture_file.stem} (skip_lecture_page)")
+        if not lecture_meta.get('skip_slides'):
+            self.generate_slides(lecture_file, course_slides_dir)
+        else:
+            print(f"[SKIP] Slides skipped for {lecture_file.stem} (skip_slides)")
         self.generate_notebook(lecture_file, course_notebooks_dir, course_metadata)
 
     def process_talk(self, talk_file):
@@ -991,19 +1007,15 @@ html[data-theme='dark'] code::before {
         # Preprocess math blocks for correct rendering
         filtered_content = self.preprocess_math_blocks(filtered_content)
 
-        index_url = "{ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/'}"
+        resources_html = self._lecture_resources_html(
+            lecture_file, course_metadata, lecture_metadata
+        )
         # Create rendered content with metadata and resources
         rendered_content = f"""---
 {yaml.dump(metadata, default_flow_style=False)}---
 
 <link rel=\"stylesheet\" href=\"/assets/css/slides.css\">
-<div class=\"lecture-resources\">
-  <p>
-    <a href=\"/assets/slides/{course_metadata.get('course_code', '')}/{lecture_file.stem}.html\" target=\"_blank\">[HTML Slides]</a>
-    <a href=\"https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/{course_metadata.get('course_code', '')}/{lecture_file.stem}.ipynb\" target=\"_blank\">[Colab Notebook]</a>
-    <a href=\"/teaching/{course_metadata.get('course_code', '')}/">[Back to Course]</a>
-  </p>
-</div>
+{resources_html}
 
 {filtered_content}
 """
@@ -1012,6 +1024,37 @@ html[data-theme='dark'] code::before {
         output_file = output_dir / lecture_file.name
         with open(output_file, 'w', encoding='utf-8') as f:
             f.write(rendered_content)
+
+    def _lecture_resources_html(self, lecture_file, course_metadata, lecture_metadata):
+        """Top-of-page links: slides (optional), Colab(s), course home."""
+        course_code = course_metadata.get('course_code', '')
+        stem = lecture_file.stem
+        colab_base = (
+            "https://colab.research.google.com/github/cabrerac/cabrerac.github.io"
+            f"/blob/gh-pages/assets/notebooks/{course_code}"
+        )
+        links = []
+        if not lecture_metadata.get('skip_slides'):
+            links.append(
+                f'<a href="/assets/slides/{course_code}/{stem}.html" target="_blank">'
+                "[Diapositivas HTML]</a>"
+            )
+        links.append(
+            f'<a href="{colab_base}/{stem}.ipynb" target="_blank">'
+            "[Colab — práctica individual]</a>"
+        )
+        group_nb = lecture_metadata.get('group_notebook')
+        if group_nb:
+            links.append(
+                f'<a href="{colab_base}/{group_nb}.ipynb" target="_blank">'
+                "[Colab — trabajo grupal]</a>"
+            )
+        links.append(f'<a href="/teaching/{course_code}/">[Volver al curso]</a>')
+        return (
+            '<div class="lecture-resources">\n  <p>\n    '
+            + "\n    ".join(links)
+            + "\n  </p>\n</div>"
+        )
 
     def generate_slides(self, lecture_file, output_dir):
         """Generate Marp slides from lecture content."""
@@ -2155,10 +2198,29 @@ style: |
         # Create notebook
         nb = nbf.v4.new_notebook()
 
-        # Add title and description cell
-        title_cell = nbf.v4.new_markdown_cell(f"""# Practical Session {lecture_metadata.get('session', '1')}: {lecture_metadata.get('title', lecture_file.stem)}
+        # Add title and description cell (optional Spanish notebook_* overrides)
+        session_num = lecture_metadata.get('session', '1')
+        if lecture_metadata.get('notebook_language') == 'es':
+            session_label = 'Lección'
+        else:
+            session_label = 'Practical Session'
+        nb_title = lecture_metadata.get('notebook_title') or lecture_metadata.get(
+            'title', lecture_file.stem
+        )
+        nb_description = lecture_metadata.get('notebook_description') or lecture_metadata.get(
+            'description', ''
+        )
+        if lecture_metadata.get('notebook_language') == 'es':
+            course_line = '**Curso:**'
+            dept_line = '**Departamento del curso:**'
+            inst_line = '**Institución del curso:**'
+        else:
+            course_line = '**Course:**'
+            dept_line = '**Course Department:**'
+            inst_line = '**Course Institution:**'
+        title_cell = nbf.v4.new_markdown_cell(f"""# {session_label} {session_num}: {nb_title}
 
-{lecture_metadata.get('description', '')}
+{nb_description}
 
 ---
 <font size="3">
@@ -2170,9 +2232,9 @@ style: |
 </font>
 
 ---
-**Course:** {course_metadata.get('title', '')}<br>
-**Course Department:** {course_metadata.get('department', '')}<br>
-**Course Institution:** {course_metadata.get('institution', '')}
+{course_line} {course_metadata.get('title', '')}<br>
+{dept_line} {course_metadata.get('department', '')}<br>
+{inst_line} {course_metadata.get('institution', '')}
 """)
         nb.cells.append(title_cell)
 

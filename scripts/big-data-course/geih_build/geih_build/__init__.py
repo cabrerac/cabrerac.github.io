@@ -15,14 +15,20 @@ from geih_build.access import (
 from geih_build.dane_catalog import CatalogFile, find_catalog_file, list_catalog_downloads
 from geih_build.fetch import CSV_ENCODING, CSV_SEP, fetch_file, is_labour_csv_name
 from geih_build.segment import AccessPlan, SegmentQuery, load_access_plan
-from geih_build.slice_spec import subset_from_charter_json
+from geih_build.slice_spec import (
+    subset_from_project_requirements,
+    subset_from_project_requirements_text,
+    subset_from_requirements_file,
+)
 from geih_build.timing import AccessTiming, Manifest, timing_context
 
 __all__ = [
     "CSV_ENCODING",
     "CSV_SEP",
     "CatalogFile",
-    "subset_from_charter_json",
+    "subset_from_project_requirements",
+    "subset_from_project_requirements_text",
+    "subset_from_requirements_file",
     "AccessTiming",
     "Manifest",
     "timing_context",
