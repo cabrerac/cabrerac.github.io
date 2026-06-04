@@ -34,6 +34,7 @@ PROJECT_REQUIREMENTS_SECTIONS = [
     "Roles y plan de contribución",
     "Pipeline del proyecto",
     "Rotación de liderazgo",
+    "Modelo canvas del proyecto",
 ]
 
 REFLECTION_WEEK_1_SECTIONS = [
@@ -110,10 +111,8 @@ def check_reflection_week_1(text: str) -> tuple[bool, list[str]]:
     if wc > 1400:
         issues.append(f"Word count high ({wc}); target 700–1,000.")
     norm = _normalize(text)
-    if "zuboff" not in norm and "mittelstadt" not in norm:
-        issues.append("No L2 reading cited (Zuboff / Mittelstadt).")
-    if "zuboff" not in norm and "boyd" not in norm:
-        issues.append("No week-1 reading cited (Zuboff / boyd).")
+    if not any(r in norm for r in ("zuboff", "boyd", "mittelstadt", "crawford")):
+        issues.append("No assigned reading cited in R4 (boyd, Zuboff, Mittelstadt).")
     if not any(
         k in norm
         for k in (

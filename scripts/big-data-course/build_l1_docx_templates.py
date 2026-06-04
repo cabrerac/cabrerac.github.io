@@ -61,6 +61,7 @@ def build_project_requirements() -> Document:
     _para(
         doc,
         "Complete en Word, inserte su diagrama de pipeline en la sección 9, "
+        "pegue su modelo canvas en la sección 11, "
         "y entregue project_requirements.pdf en Moodle (semana 2; plazo según calendario del curso). "
         "Mantenga los títulos de sección exactamente como aparecen abajo.",
     )
@@ -109,6 +110,13 @@ def build_project_requirements() -> Document:
             "10. Rotación de liderazgo para su grupo por semana",
             "S1: … S2: … S3: … S4: … (cada integrante debe liderar al menos una vez por semana).",
         ),
+        (
+            "11. Modelo canvas del proyecto",
+            "Elabore un diagrama tipo canvas (recuadros con los elementos clave de su proyecto) "
+            "que muestre visualmente los requerimientos declarados en las secciones 2–8. "
+            "Puede usar la herramienta o formato que prefiera (draw.io, PowerPoint, Miro, Canva, etc.). "
+            "Copie y pegue aquí la imagen del canvas completado.",
+        ),
     ]
     for title, prompt in sections:
         _section(doc, title, prompt)
@@ -148,15 +156,12 @@ def build_reflection_week_1() -> Document:
     _section(
         doc,
         "R3 Enlace con el dominio y los datos",
-        "¿Cómo se relacionan GEIH y OSM para la pregunta de su grupo? "
-        "¿Qué limitaciones tiene ese enlace?",
+        "¿Cómo se relacionan GEIH y OSM con su proyecto grupal?"
     )
     _section(
         doc,
         "R4 Ética y lecturas",
-        "Relacione boyd, Zuboff y/o Mittelstadt con lo visto en el cuaderno grupal "
-        "(cuasi-identificadores, divulgación, práctica responsable). "
-        "Cite Zuboff o Mittelstadt por nombre.",
+        "Relacione las lecturas con los aspectos éticos y de gobernanza en los ejercicios prácticos de los cuadernos.",
     )
     _section(
         doc,

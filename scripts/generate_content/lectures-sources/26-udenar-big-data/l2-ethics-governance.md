@@ -109,9 +109,12 @@ notebook_description: Práctica de la Lección 2. Auditoría ética sobre GEIH y
 - [Individual notebook Lecture 2](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l2-ethics-governance.ipynb)
 - [Group notebook week 1](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-1-group.ipynb): Deadline 08/06/2026
 - [Reflection template week 1](/assets/documents/26-udenar-big-data/reflection-week-1-template.docx): Deadline 09/06/2026
-- [Project requirements template](/assets/documents/26-udenar-big-data/project-requirements-template.docx): Discussion in group session week 2
+- [Project requirements template](/assets/documents/26-udenar-big-data/project-requirements-template.docx): Avance en el sábado 6 jun, discusión en semana 2
+- [Plan de sesión semana 1 (PDF)](/assets/documents/26-udenar-big-data/week-1-session-plan-es.pdf): Cronograma del sábado 6 jun 2026
 - [OpenStreetMap — Nariño (departamento)](https://www.openstreetmap.org/relation/1380130)
 - [Overpass API](https://wiki.openstreetmap.org/wiki/Overpass_API)
+- [**Overpass por ejemplo** — cómo construir consultas](https://dev.overpass-api.de/overpass-doc/es/) (tutorial; inglés: [en](https://dev.overpass-api.de/overpass-doc/en/))
+- [Sintaxis Overpass QL (referencia)](https://wiki.openstreetmap.org/wiki/ES:Overpass_API/Overpass_QL) · [Overpass Turbo](https://wiki.openstreetmap.org/wiki/ES:Overpass_turbo) (probar consultas en el navegador)
 - [GEIH 2024 — diccionario de datos (DANE)](https://microdatos.dane.gov.co/index.php/catalog/819/data-dictionary)
 
 ### References
@@ -160,26 +163,68 @@ print(unido)
 
 ### Peticiones HTTP con `requests`
 
-**`requests.post`** envía solicitudes de datos a un servicio web. OpenStreetMap (OSM) expone la **Overpass API** para consultar mapas. El servidor público exige un **`User-Agent`** que identifique la aplicación que realiza solicitudes. El siguiente código configura el encabezado de la aplicación y realiza una solicitud de prueba al API de OSM.
+**`requests.post`** envía solicitudes de datos a un servicio web. OpenStreetMap (OSM) expone la **Overpass API**; las consultas se escriben en **Overpass QL** (texto en el parámetro `data`). Para aprender a armarlas: [**Overpass por ejemplo**](https://dev.overpass-api.de/overpass-doc/es/), [sintaxis QL](https://wiki.openstreetmap.org/wiki/ES:Overpass_API/Overpass_QL), [Overpass Turbo](https://wiki.openstreetmap.org/wiki/ES:Overpass_turbo) (probar en el navegador). El servidor exige **`User-Agent`**.
+
+A veces el servidor responde **`504 Gateway Timeout`** (saturación): reintente o use el espejo alternativo en el código.
 
 ```python
+import time
+
 import requests
 
-# URL del API de OSM
-OVERPASS_URL = "https://overpass-api.de/api/interpreter"
-# Configuración del encabezado
 OVERPASS_HEADERS = {
     "User-Agent": "UDENAR-BigData-2026/1.0 (Universidad de Narino - Big Data elective)",
     "Accept": "application/json",
 }
+# Espejos públicos (orden: primero suele ser más estable en Colab)
+OVERPASS_ENDPOINTS = [
+    "https://overpass.kumi.systems/api/interpreter",
+    "https://overpass-api.de/api/interpreter",
+]
+OVERPASS_RETRY_PAUSE = 2.0  # segundos entre reintentos
+
+
+def overpass_post(query: str, *, timeout: int = 90) -> requests.Response:
+    """POST a Overpass con espejos y reintentos ante 502/503/504 o timeout."""
+    last_resp = None
+    for url in OVERPASS_ENDPOINTS:
+        for intento in range(2):
+            try:
+                r = requests.post(
+                    url,
+                    data={"data": query},
+                    headers=OVERPASS_HEADERS,
+                    timeout=timeout,
+                )
+                last_resp = r
+                if r.status_code == 200:
+                    return r
+                if r.status_code in (429, 502, 503, 504):
+                    time.sleep(OVERPASS_RETRY_PAUSE + intento)
+                    continue
+                r.raise_for_status()
+            except requests.Timeout:
+                time.sleep(OVERPASS_RETRY_PAUSE + intento)
+                continue
+    if last_resp is not None:
+        last_resp.raise_for_status()
+    raise requests.HTTPError(
+        "Overpass: sin respuesta útil tras reintentos (pruebe de nuevo en 1–2 min)."
+    )
+
+
 print("Overpass listo. User-Agent:", OVERPASS_HEADERS["User-Agent"])
 
-# _smoke contiene la solicitud al servidor
-_smoke = '[out:json][timeout:10];out skel 1;'
-# Prueba de conectividad utilizando request.post, la solicitud va en el parámetro dáta
-r = requests.post(OVERPASS_URL, data={"data": _smoke}, headers=OVERPASS_HEADERS, timeout=30)
-r.raise_for_status()
-print("Overpass OK — HTTP", r.status_code)
+_smoke = "[out:json][timeout:5];out count 1;"
+try:
+    r = overpass_post(_smoke, timeout=25)
+    print("Overpass OK — HTTP", r.status_code)
+except requests.HTTPError as e:
+    print(
+        "AVISO: Overpass saturado o lento (504 es habitual). "
+        "Espere 1–2 minutos y vuelva a ejecutar esta celda antes de la Parte 4."
+    )
+    print(e)
 
 ```
 
@@ -581,14 +626,17 @@ Unir fuentes distintas puede mejorar el análisis y la toma de decisiones, pero 
 
 Documentación de OSM:
 
+- [**Overpass por ejemplo**](https://dev.overpass-api.de/overpass-doc/es/) — guía paso a paso para **construir consultas** (`area`, `node`, filtros `["amenity"=…]`, `out`, etc.). La función `contar_nodos_amenity` de este cuaderno sigue ese patrón.
+- [Sintaxis Overpass QL](https://wiki.openstreetmap.org/wiki/ES:Overpass_API/Overpass_QL) — referencia del lenguaje de consulta.
+- [Overpass Turbo](https://wiki.openstreetmap.org/wiki/ES:Overpass_turbo) — editor web para probar una consulta antes de pegarla en Python.
 - [Acerca de OpenStreetMap](https://www.openstreetmap.org/about): qué es el proyecto y la licencia de datos ([ODbL](https://www.openstreetmap.org/copyright)).
 - [Wiki OSM — etiqueta `amenity`](https://wiki.openstreetmap.org/wiki/Key:amenity) y [`amenity=school`](https://wiki.openstreetmap.org/wiki/Tag:amenity=school): qué cuenta como “escuela” en el mapa.
-- [Overpass API](https://wiki.openstreetmap.org/wiki/Overpass_API): lenguaje de consulta y uso responsable del servidor público.
+- [Overpass API](https://wiki.openstreetmap.org/wiki/Overpass_API): uso responsable del servidor público (pausas, `User-Agent`).
 - [Relaciones y límites administrativos](https://wiki.openstreetmap.org/wiki/Relation): por qué un departamento es una `relation` con `admin_level=4`.
 - [Nariño en OSM (relación 1380130)](https://www.openstreetmap.org/relation/1380130): límite que usamos en código.
 - [Taginfo — `amenity=school`](https://taginfo.openstreetmap.org/tags/amenity=school): frecuencia de la etiqueta en el planeta (contexto, no verdad oficial).
 
-En L1 automatizamos la descarga GEIH consultando la página web directamente. En esta oportunidad consultamos OSM con **`requests.post`** al API Overpass. Reutilice el **`User-Agent` ASCII** de la celda inicial.
+En L1 automatizamos la descarga GEIH consultando la página web directamente. En esta oportunidad consultamos OSM con **`requests.post`** al API Overpass (consultas en [**Overpass QL**](https://dev.overpass-api.de/overpass-doc/es/)). Reutilice el **`User-Agent` ASCII** de la celda inicial.
 
 En este ejercicio vamos a contar nodos con **`amenity=school`** en **Nariño** (código DANE **`52`**) y comparar con el tamaño de la muestra GEIH del mismo departamento.
 
@@ -603,13 +651,8 @@ import json
 import time
 
 import matplotlib.pyplot as plt
-import requests
 
-OVERPASS_URL = "https://overpass-api.de/api/interpreter"
-OVERPASS_HEADERS = {
-    "User-Agent": "UDENAR-BigData-2026/1.0 (Universidad de Narino - Big Data elective)",
-    "Accept": "application/json",
-}
+# overpass_post y OVERPASS_HEADERS definidos en el repaso de Python (arriba)
 OUTPUTS_DIR = Path("outputs")
 OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -620,12 +663,12 @@ OSM_RELATION_NARINO = 1380130
 OSM_AREA_ID_NARINO = 3600000000 + OSM_RELATION_NARINO  # 3601380130
 
 AMENITY_SCHOOL = "school"
-PAUSA_SEG = 1.0  # cortesía con el servidor público Overpass
+PAUSA_SEG = 1.0  # pausa entre consultas (además de los reintentos de overpass_post)
 ```
 
 ### Paso 2 — Función para contar POI
 
-La siguiente función consulta Overpass API para contar los nodos de OpenStreetMap dentro de un área administrativa (por ejemplo, un departamento) que tienen un valor específico de `amenity` (p. ej. "school"). Recibe como argumentos el id de área de Overpass, el tipo de amenity a buscar y un timeout opcional para la consulta Devuelve el número total de nodos encontrados con esa característica en el área especificada.
+La siguiente función consulta Overpass API para contar nodos con un `amenity` dentro de un **área** (`area({area_id})` en Overpass QL). Si modifica la consulta, revise la estructura en [**Overpass por ejemplo**](https://dev.overpass-api.de/overpass-doc/es/). Argumentos: id de área Overpass, valor de `amenity`, timeout opcional.
 
 
 ```python
@@ -638,14 +681,7 @@ area({area_id})->.a;
 node["amenity"="{amenity}"](area.a);
 out;
 """
-    # request to Overpass API
-    resp = requests.post(
-        OVERPASS_URL,
-        data={"data": query},
-        headers=OVERPASS_HEADERS,
-        timeout=timeout,
-    )
-    resp.raise_for_status()
+    resp = overpass_post(query, timeout=timeout)
     data = resp.json()
     return len(data.get("elements", []))
 ```
@@ -772,6 +808,6 @@ PDF **`week-1-reflection-<student>.pdf`** hasta el **martes 9 de junio de 2026**
 
 ### Requerimientos del proyecto
 
-`project_requirements.pdf` (plantilla Word en esta lección) se entrega en la **semana 2**. Complete las **nueve secciones** del Word (metadatos → rotación S1–S4); en L2 priorice **§6** (riesgos éticos) y **§7** (mecanismos de mitigación). Use el Paso 7 del cuaderno **`week-1-group`** en la clínica del sábado.
+`project_requirements.pdf` (plantilla Word en esta lección) se discute en la **semana 2**. En el **sábado 6 jun** avance en la plantilla, ver [plan de sesión semana 1](/assets/documents/26-udenar-big-data/week-1-session-plan-es.pdf).
 
 <!-- end NOTEBOOK: -->
