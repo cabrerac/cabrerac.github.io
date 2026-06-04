@@ -34,22 +34,43 @@ Lea la [definición del proyecto (PDF)](/assets/documents/26-udenar-big-data/pro
 
 **Materiales:** páginas de [L1](https://cabrerac.github.io/teaching/26-udenar-big-data/l1-introduction/) y [L2](https://cabrerac.github.io/teaching/26-udenar-big-data/l2-ethics-governance/) (sección *Resources*).
 
-**Entrega Moodle (miércoles 10 jun):** ZIP `week-1-<group_id>.zip` con `notebook-week-1-group-<group_id>.ipynb` (renombre este cuaderno al exportar), `manifest.json` y `osm_poi_by_dpto.csv`.
+**Entrega Moodle (lunes 9 jun):** ZIP `week-1-<group_id>.zip` con `notebook-week-1-group-<group_id>.ipynb` (renombre este cuaderno al exportar), `manifest.json` y `osm_poi_by_dpto.csv`.
 
 **Catálogos DANE por año:** 2022 → `771`, 2023 → `782`, 2024 → `819`, 2025 → `853`.
+
+**Mapa del cuaderno**
+
+| Bloque | Pasos | Entregable clave |
+|--------|-------|------------------|
+| **Parte A** (L1) | Config → descarga → exploración (3 pasos) | `manifest.json` + exploración en el cuaderno |
+| **Parte B** (L2) | Pasos 1–7 | `outputs/osm_poi_by_dpto.csv` + texto de lecturas y ética |
+| **Cierre** | Registro de contribución | Líneas por integrante + escriba semana 1 |
+
+**Tiempo orientativo:** Parte A puede tardar **horas** (descarga ~48 ZIP). Parte B depende de cuántos departamentos incluya en el bucle OSM (empiece con 5–10 DPTO y amplíe si alcanza).
 
 ---
 
 # Parte A — Access GEIH 2022–2025 (L1)
 
+**Objetivo.** Replicar el pipeline de acceso de L1 para **cuatro años** y dejar un manifiesto auditable.
+
 ## Configuración
 
-Copie del cuaderno individual L1 y adapte:
+Copie del [cuaderno individual L1](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction.ipynb) y adapte (referencias L1):
 
-- `download_zip`, `extract_csvs`, `list_catalog_downloads` (y `access_file` si la usó en Parte 2)
+| Qué copiar | Dónde está en L1 |
+|------------|------------------|
+| `download_zip` | Parte 1, Paso 2 |
+| `extract_csvs` | Parte 1, Paso 3 |
+| `write_manifest` | Parte 1, Paso 5 |
+| `list_catalog_downloads` + bucle `access_file` | Parte 2 (si ya lo tiene) |
+| Constantes `CSV_SEP`, `CSV_ENCODING`, `PRIMARY_TABLE_KEYWORD` | Parte 1, Paso 1 |
+
+Añada en esta celda:
+
 - `CATALOG_BY_YEAR = {2022: 771, 2023: 782, 2024: 819, 2025: 853}`
-- `DATASET_YEARS = [2022, 2023, 2024, 2025]` y carpetas bajo `data/raw/{año}/`
-- En `access_file`, mantenga **`skip_if_exists=True`** si re-ejecuta el cuaderno
+- `DATASET_YEARS = [2022, 2023, 2024, 2025]` y rutas `data/raw/{año}/`
+- En `access_file`, **`skip_if_exists=True`** para no re-descargar al re-ejecutar
 
 ```python
 # SU CÓDIGO — imports, constantes y funciones reutilizadas del cuaderno individual L1
@@ -59,6 +80,8 @@ Copie del cuaderno individual L1 y adapte:
 ---
 
 ## Descargar 2022–2025
+
+**En este paso:** por cada año en `DATASET_YEARS`, obtenga la lista de archivos del catálogo DANE, descargue cada mes, extraiga CSV y añada una fila a `manifest_entries`.
 
 Una petición get-microdata por año. Bucle sobre los archivos mensuales. Puede tomar un tiempo y ocupar **varios GB**.
 
@@ -142,7 +165,13 @@ print("Exploración L1, Paso 3 — gráfico: OK")
 
 # Parte B — Ética y OSM (L2)
 
+**Objetivo.** Completar la auditoría ética y el CSV OSM que el cuaderno individual L2 solo **muestra** en un departamento.
+
+Use el mismo mes de muestra que en la exploración L1 (recomendado: **enero 2024**). Reutilice `contar_nodos_amenity` y `OVERPASS_HEADERS` del [cuaderno L2](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l2-ethics-governance.ipynb) (Parte 4).
+
 ## Paso 1 — Inventario de cuasi-identificadores
+
+**Pista (L2 Parte 2):** parta de `CANDIDATOS_QI` o liste usted mismo columnas con sensibilidad **baja / media / alta** y uso previsto en salidas del proyecto.
 
 Sobre el **mismo CSV de muestra** (o enero 2024), complete una tabla con al menos **cinco** columnas sensibles para su arquetipo de proyecto.
 
@@ -212,17 +241,17 @@ print("L2 — interesados: OK")
 
 ## Paso 4 — Divulgación en su muestra
 
-Repita la lógica de L2 Parte 3: celda mínima **DPTO × banda de edad**. Indique si la celda tiene menos de 5 filas.
+Repita la lógica de **L2 Parte 3**: `groupby` **DPTO × banda_edad**, ordene por `filas`, guarde la celda mínima en **`min_filas`** (entero). Imprima si **`min_filas < 5`** (alerta de divulgación).
 
 ```python
-# SU CÓDIGO — groupby DPTO × banda_edad; imprimir celda mínima
+# SU CÓDIGO — groupby DPTO × banda_edad; asigne min_filas; imprima celda mínima
 
 ```
 
 **Comprobar:**
 
 ```python
-assert min_filas >= 1
+assert min_filas >= 1, "Defina min_filas en la celda anterior"
 print(f"L2 — celda mínima: {min_filas} filas")
 ```
 
@@ -237,6 +266,18 @@ Parta de **`contar_nodos_amenity`** del cuaderno individual L2.
 3. **`poi_servicios_basicos_count`** = suma de escuelas + salud
 
 Complete **`DPTO_TO_OSM_RELATION`**: id de **relación** OSM por código DANE. El id de área Overpass es **`3600000000 + relación`**. Nariño (`52`) → relación **`1380130`** → área **`3601380130`** (no **`120027`**, que es Colombia). Busque otras relaciones en [OpenStreetMap](https://www.openstreetmap.org/) (`admin_level=4`). Reutilice **`OVERPASS_HEADERS`** del cuaderno L2. Use **`skip_if_exists`** o cache si re-ejecuta.
+
+Plantilla mínima (complete más códigos DANE; puede empezar con 5–10 departamentos):
+
+```python
+# Ejemplo — amplíe el diccionario antes del bucle
+DPTO_TO_OSM_RELATION = {
+    52: 1380130,   # Nariño — verificar en OSM
+    # 11: ...,    # Bogotá D.C. — buscar relación admin_level=4
+}
+# area_id = 3600000000 + relation_id
+# osm_path = Path("outputs/osm_poi_by_dpto.csv")
+```
 
 ```python
 # SU CÓDIGO — funciones contar escuelas y contar salud; bucle por DPTO; guardar outputs/osm_poi_by_dpto.csv
@@ -311,15 +352,14 @@ print("L2 — práctica responsable: OK")
 
 ## Registro de contribución (grupo)
 
-Cada integrante añade una línea. Indique el **escriba de semana 1**.
+Cada integrante añade **una línea** con tarea concreta (descarga, OSM, redacción, gráfico). Indique el **escriba de semana 1** (rota cada semana).
 
 ```python
 contribution_log = """
-- Nombre 1 — ...
-- Nombre 2 — ...
-- Nombre 3 — ...
-- Nombre 4 — ...
-Escriba semana 1: ...
+- Ana Pérez — bucle descarga 2023 y manifiesto
+- Luis Gómez — Paso 5 OSM (10 departamentos)
+- ...
+Escriba semana 1: Ana Pérez
 """
 print(contribution_log)
 ```
@@ -328,7 +368,7 @@ print(contribution_log)
 
 ## Tarea grupal (Moodle)
 
-ZIP **`week-1-<group_id>.zip`** hasta el **miércoles 10 de junio de 2026, 23:59 (Colombia)**:
+ZIP **`week-1-<group_id>.zip`** hasta el **lunes 9 de junio de 2026, 23:59 (Colombia)**:
 
 | Archivo | Descripción |
 |---------|-------------|
@@ -336,7 +376,7 @@ ZIP **`week-1-<group_id>.zip`** hasta el **miércoles 10 de junio de 2026, 23:59
 | `manifest.json` | Registro DANE (L1) |
 | `osm_poi_by_dpto.csv` | POI OSM por departamento (L2) |
 
-**Reflexión individual:** `week-1-reflection-<student>.pdf` el **jueves 11 jun** (separado del ZIP).
+**Reflexión individual:** `week-1-reflection-<student>.pdf` el **martes 10 jun** (separado del ZIP).
 
 **Requerimientos del proyecto:** `project_requirements.pdf` en la **semana 2** (use el borrador de práctica responsable de este cuaderno en la clínica del sábado).
 

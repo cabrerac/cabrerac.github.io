@@ -14,7 +14,7 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Group (due Wednesday)</b></p>
+                <p><b>Group (due Monday)</b></p>
                 <ul>
                     <li>Executed group notebook for week 1</li>
                     <li>manifest.json from your access work</li>

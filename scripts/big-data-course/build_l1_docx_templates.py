@@ -61,7 +61,7 @@ def build_project_requirements() -> Document:
     _para(
         doc,
         "Complete en Word, inserte su diagrama de pipeline en la sección 8, "
-        "y entregue project_requirements.pdf en el ZIP grupal (miércoles). "
+        "y entregue project_requirements.pdf en el ZIP grupal (lunes 23:59, hora Colombia). "
         "Mantenga los títulos de sección exactamente como aparecen abajo.",
     )
     doc.add_paragraph()
@@ -116,6 +116,7 @@ def build_reflection_week_1() -> Document:
     _para(
         doc,
         "Entregable: week-1-reflection-<student>.pdf (exportar desde este Word). "
+        "Plazo: martes 10 de junio de 2026, 23:59 (Colombia). "
         "Cubre Lección 1 (Access) y Lección 2 (ética y gobernanza). Reemplace student por su nombre.",
     )
     _para(doc, "Extensión orientativa del cuerpo: 700–1,000 palabras.")

@@ -11,7 +11,7 @@
                 <li>Async theory and lab demo videos each week</li>
                 <li>One shared Saturday block for both lectures of the day</li>
                 <li>Individual practice notebooks before Saturday</li>
-                <li>Group homework due Wednesday</li>
+                <li>Group homework due Monday</li>
                 <li>Five stable project groups</li>
                 <li>Contact: <a href="mailto:chc79@cam.ac.uk">chc79@cam.ac.uk</a></li>
             </ul>

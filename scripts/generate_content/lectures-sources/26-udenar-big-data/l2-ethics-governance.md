@@ -107,8 +107,8 @@ notebook_description: Práctica de la Lección 2. Auditoría ética sobre GEIH y
 ### Resources
 
 - [Individual notebook Lecture 2](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l2-ethics-governance.ipynb)
-- [Group notebook week 1](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-1-group.ipynb): Deadline 10/06/2026
-- [Reflection template week 1](/assets/documents/26-udenar-big-data/reflection-week-1-template.docx): Deadline 11/06/2026
+- [Group notebook week 1](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-1-group.ipynb): Deadline 09/06/2026
+- [Reflection template week 1](/assets/documents/26-udenar-big-data/reflection-week-1-template.docx): Deadline 10/06/2026
 - [Project requirements template](/assets/documents/26-udenar-big-data/project-requirements-template.docx): Discussion in group session week 2
 - [OpenStreetMap — Nariño (departamento)](https://www.openstreetmap.org/relation/1380130)
 - [Overpass API](https://wiki.openstreetmap.org/wiki/Overpass_API)
@@ -194,9 +194,21 @@ No hay celdas abiertas aquí. Los ejercicios de entrega están en el cuaderno gr
 
 **Qué hacer (en orden).**
 
-1. Ejecute las celdas **de arriba hacia abajo**.
+1. Ejecute las celdas **de arriba hacia abajo** (no salte la Parte 1 si ya tiene enero 2024 de L1: el cuaderno reutiliza o vuelve a descargar).
 2. En celdas **Comprobar**, corrija celdas anteriores si algo falla.
 3. Lleve lo aprendido al cuaderno grupal y a la reflexión semana 1.
+
+**Mapa del cuaderno**
+
+| Parte | Tema | Qué obtiene al final |
+|-------|------|----------------------|
+| 1 | Access GEIH (enero 2024) | `df` con fuerza de trabajo + edad (`P6040`) |
+| 2 | Cuasi-identificadores | Tabla de columnas sensibles presentes |
+| 3 | Divulgación (vista previa) | Celda mínima DPTO × banda de edad |
+| 4 | OSM + enlace | Conteo escuelas Nariño + CSV/gráfico demo |
+| 5 | Lecturas | Narrativa boyd / Zuboff / Mittelstadt (sin celdas abiertas) |
+
+Los ejercicios escritos y el bucle OSM por **todos** los departamentos están en **`week-1-group`**.
 
 **Carpetas usadas:**
 
@@ -209,6 +221,8 @@ No hay celdas abiertas aquí. Los ejercicios de entrega están en el cuaderno gr
 ---
 
 ## Parte 1 — Access: un mes GEIH (enero 2024)
+
+**Objetivo.** Tener en disco el mismo mes que L1 y un `DataFrame` listo para ética (fuerza de trabajo + edad unida).
 
 Usamos **enero 2024**, igual que la Parte 1 de L1. URL de descarga directa (patrón del DANE):
 
@@ -414,6 +428,8 @@ print("Parte 1 — Access, carga y edad: OK")
 
 ## Parte 2 — Cuasi-identificadores
 
+**Objetivo.** Ver qué columnas del mes actual podrían re-identificar personas si publica agregados finos.
+
 La GEIH no trae nombre ni cédula, pero sí **cuasi-identificadores**: combinaciones que pueden acercarse a identificar hogares o personas en celdas pequeñas.
 
 Listamos columnas sensibles frecuentes en GEIH. Algunas vienen de **Fuerza de trabajo**; otras (p. ej. **P6040**) de **Características generales** ya unidas en Parte 1.
@@ -468,6 +484,8 @@ print("Parte 2 — cuasi-identificadores: OK")
 ---
 
 ## Parte 3 — Vista previa de divulgación estadística
+
+**Objetivo.** Detectar celdas con muy pocas filas antes de publicar un agregado (regla práctica: alerta si hay menos de 5).
 
 Contamos filas en la celda más pequeña **departamento × banda de edad**. Si hay muy pocas filas, publicar ese agregado puede acercarse a identificar personas.
 
@@ -525,9 +543,11 @@ print("Parte 3 — divulgación (vista previa): OK")
 
 ## Parte 4 — OpenStreetMap: escuelas en un departamento
 
-En el anterior cuaderno automatizamos la descarga del dataset GEIH desde la página web del DANE. En esta ocasión vamos a acceder datos a través del una API de OpenStreetMaps (OSM). OSM es una mapa colaborativo que conforma un dataset que expone información geografica de todo el planeta.
+**Objetivo.** Contar un tipo de punto de interés (POI) en **un** departamento y compararlo con el tamaño de la muestra GEIH del mismo código DANE.
 
-Para acceder datos de OSM consultamos **Overpass API**. En este caso utilizamos el API para contar el número de escualas en el departamento de Nariño. Para ello contamos los nodos con **`amenity=school`** en **un departamento** (Nariño, código DANE **`52`**).
+En L1 automatizamos la descarga GEIH desde el portal del DANE. Aquí usamos **Overpass API** sobre **OpenStreetMap (OSM)**: mapa colaborativo con etiquetas geográficas (`amenity=school`, etc.).
+
+Contamos nodos con **`amenity=school`** en **Nariño** (código DANE **`52`**). Reutilice el **`User-Agent` ASCII** del repaso Python (celda inicial).
 
 ### Paso 1 — Configuración OSM
 
@@ -676,6 +696,8 @@ print("Parte 4 — OSM + enlace GEIH: OK")
 
 ## Parte 5 — Lecturas y el dataset
 
+**Objetivo.** Conectar el código de las Partes 1–4 con boyd & Crawford, Zuboff y Mittelstadt (texto guía; respuestas largas van al cuaderno grupal).
+
 Relacionamos lo visto en código con las lecturas de la semana.
 
 **boyd y Crawford.** Más datos no responden automáticamente la pregunta del proyecto. GEIH informa mercado laboral oficial. OSM aporta contexto geográfico incompleto. Juntos no sustituyen conocimiento cualitativo ni otras fuentes.
@@ -700,7 +722,7 @@ Esta sección define **qué entregar en Moodle** para la semana 1. Plantillas en
 
 ### Trabajo en grupo (60 % de la formativa semana 1)
 
-Use el Colab plantilla **[`week-1-group`](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-1-group.ipynb)**. Consolida **L1 + L2**. Entregar ZIP **`week-1-<group_id>.zip`** hasta el **miércoles 10 de junio de 2026**:
+Use el Colab plantilla **[`week-1-group`](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-1-group.ipynb)**. Consolida **L1 + L2**. Entregar ZIP **`week-1-<group_id>.zip`** hasta el **lunes 9 de junio de 2026**:
 
 | Archivo en el ZIP | Descripción |
 |-------------------|-------------|
@@ -710,7 +732,7 @@ Use el Colab plantilla **[`week-1-group`](https://colab.research.google.com/gith
 
 ### Reflexión individual (40 % de la formativa semana 1)
 
-PDF **`week-1-reflection-<student>.pdf`** hasta el **jueves 11 de junio de 2026**. Cubre L1 y L2 (plantilla semana 1).
+PDF **`week-1-reflection-<student>.pdf`** hasta el **martes 10 de junio de 2026**. Cubre L1 y L2 (plantilla semana 1).
 
 ### Requerimientos del proyecto
 

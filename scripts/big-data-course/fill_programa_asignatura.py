@@ -48,7 +48,7 @@ OBJETIVOS_ESPECIFICOS = """Al finalizar, el estudiante estará en capacidad de:
 
 METODOLOGIA = """Modalidad híbrida: ~2 h asíncronas por módulo (video de teoría + demostración de laboratorio) + bloque presencial los sábados (07:00–13:00, hora Colombia), tres sábados de enseñanza con dos módulos por jornada, más jornada final de presentaciones (27 de junio de 2026).
 
-Antes de cada sábado: lecturas guiadas (diario personal), videos asíncronos y cuaderno de práctica individual en Google Colab. En el sábado: discusión de lecturas (~1 h 15 min), comparación de soluciones, clínica de proyecto y consolidación en Colab grupal (rotación de escriba). Después del sábado: tarea grupal con auto-verificaciones; reflexión individual en Markdown (Moodle); plazo miércoles 23:59 (hora Colombia).
+Antes de cada sábado: lecturas guiadas (diario personal), videos asíncronos y cuaderno de práctica individual en Google Colab. En el sábado: discusión de lecturas (~1 h 15 min), comparación de soluciones, clínica de proyecto y consolidación en Colab grupal (rotación de escriba). Después del sábado: tarea grupal con auto-verificaciones (plazo lunes 23:59); reflexión individual en Markdown (Moodle; plazo martes 23:59); hora Colombia.
 
 Equipos estables (~5 grupos) sobre escenario común (analítica para decisiones de política pública con GEIH) y documento de requerimientos del proyecto (PDF). Recursos: sitio web del curso, Moodle, Microsoft Teams. Stack: Python (pandas, Polars, DuckDB, PySpark local, Prefect, dbt-core, scikit-learn); sin clúster obligatorio."""
 
