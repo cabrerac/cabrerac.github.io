@@ -34,7 +34,7 @@ Lea la [definición del proyecto (PDF)](/assets/documents/26-udenar-big-data/pro
 
 **Materiales:** páginas de [L1](https://cabrerac.github.io/teaching/26-udenar-big-data/l1-introduction/) y [L2](https://cabrerac.github.io/teaching/26-udenar-big-data/l2-ethics-governance/) (sección *Resources*).
 
-**Entrega Moodle (lunes 9 jun):** ZIP `week-1-<group_id>.zip` con `notebook-week-1-group-<group_id>.ipynb` (renombre este cuaderno al exportar), `manifest.json` y `osm_poi_by_dpto.csv`.
+**Entrega Moodle (lunes 8 jun):** ZIP `week-1-<group_id>.zip` con `notebook-week-1-group-<group_id>.ipynb` (renombre este cuaderno al exportar), `manifest.json` y `osm_poi_by_dpto.csv`.
 
 **Catálogos DANE por año:** 2022 → `771`, 2023 → `782`, 2024 → `819`, 2025 → `853`.
 
@@ -327,25 +327,43 @@ print("L2 — enlace GEIH + OSM: OK")
 
 ---
 
-## Paso 7 — Borrador práctica responsable
+## Paso 7 — Borrador para `project_requirements.pdf` (semana 2)
 
-Tres a cinco viñetas para la sección **Preocupaciones éticas** del PDF grupal (semana 2). Deben **limitar** decisiones técnicas en L3–L6 (retención, agregación mínima, documentar fuentes OSM, etc.).
+Prepare dos bloques para la plantilla Word (sección **6** y **7**).
+
+### 7a — Preocupación ética y lectura (§6 del PDF)
+
+Viñetas: **riesgos o temas éticos** concretos y por qué importan para su arquetipo (divulgación, representación, mezcla GEIH–OSM, …). Las lecturas van en la reflexión individual (R4).
 
 ```python
-practica_responsable = """
+preocupacion_etica = """
+- ...
+- ...
+"""
+print(preocupacion_etica)
+```
+
+### 7b — Mecanismos de ética y gobernanza (§7 del PDF)
+
+Viñetas: mecanismos concretos del pipeline que **mitigan** los riesgos de §6 (agregación mínima, no publicar microdatos, documentar OSM, manifiesto, revisión grupal, etc.).
+
+```python
+mecanismos_gobernanza = """
 - ...
 - ...
 - ...
 """
-print(practica_responsable)
+print(mecanismos_gobernanza)
 ```
 
 **Comprobar:**
 
 ```python
-assert practica_responsable.count("-") >= 3
-assert len(practica_responsable.split()) >= 30
-print("L2 — práctica responsable: OK")
+assert preocupacion_etica.count("-") >= 2
+assert len(preocupacion_etica.split()) >= 30
+assert mecanismos_gobernanza.count("-") >= 3
+assert len(mecanismos_gobernanza.split()) >= 30
+print("L2 — borrador secciones 6–7 del PDF de proyecto: OK")
 ```
 
 ---
@@ -368,7 +386,7 @@ print(contribution_log)
 
 ## Tarea grupal (Moodle)
 
-ZIP **`week-1-<group_id>.zip`** hasta el **lunes 9 de junio de 2026, 23:59 (Colombia)**:
+ZIP **`week-1-<group_id>.zip`** hasta el **lunes 8 de junio de 2026, 23:59 (Colombia)**:
 
 | Archivo | Descripción |
 |---------|-------------|
@@ -376,8 +394,8 @@ ZIP **`week-1-<group_id>.zip`** hasta el **lunes 9 de junio de 2026, 23:59 (Colo
 | `manifest.json` | Registro DANE (L1) |
 | `osm_poi_by_dpto.csv` | POI OSM por departamento (L2) |
 
-**Reflexión individual:** `week-1-reflection-<student>.pdf` el **martes 10 jun** (separado del ZIP).
+**Reflexión individual:** `week-1-reflection-<student>.pdf` el **martes 9 jun** (separado del ZIP).
 
-**Requerimientos del proyecto:** `project_requirements.pdf` en la **semana 2** (use el borrador de práctica responsable de este cuaderno en la clínica del sábado).
+**Requerimientos del proyecto:** `project_requirements.pdf` en la **semana 2** (secciones **6–7** de este Paso 7 en la clínica del sábado).
 
 <!-- end NOTEBOOK: -->

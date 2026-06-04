@@ -60,8 +60,8 @@ def build_project_requirements() -> Document:
     _para(doc, "Maestría en Estadística Aplicada · UDENAR · Electiva Big Data · A-2026")
     _para(
         doc,
-        "Complete en Word, inserte su diagrama de pipeline en la sección 8, "
-        "y entregue project_requirements.pdf en el ZIP grupal (lunes 23:59, hora Colombia). "
+        "Complete en Word, inserte su diagrama de pipeline en la sección 9, "
+        "y entregue project_requirements.pdf en Moodle (semana 2; plazo según calendario del curso). "
         "Mantenga los títulos de sección exactamente como aparecen abajo.",
     )
     doc.add_paragraph()
@@ -88,19 +88,25 @@ def build_project_requirements() -> Document:
             "Describa las variables del dataset GEIH que usted considera utilizar en su proyecto. Por ejemplo, años (p. ej. 2022–2025), regiones/departamentos, segmento de población, variables principales, etc.",
         ),
         (
-            "6. Preocupaciones éticas",
-            "Liste los temas éticos que se relacionan con el proyecto y explique por qué son relevantes.",
+            "6. Preocupación ética y lectura",
+            "Liste los riesgos o temas éticos concretos (p. ej. divulgación, representación, mezcla GEIH–OSM) que son relevantes para su proyecto y explique por qué son relevantes. "
         ),
         (
-            "7. Roles y plan de contribución",
+            "7. Mecanismos de ética y gobernanza de datos",
+            "Liste mecanismos concretos que su pipeline aplicará para mitigar los riesgos "
+            "(p. ej. agregación mínima k, no publicar microdatos, documentar cobertura OSM, "
+            "manifiesto de acceso, revisión antes de entregables).",
+        ),
+        (
+            "8. Roles y plan de contribución",
             "Una viñeta por integrante (Marco de trabajo, Datos, Análisis, Escritura, Presentación).",
         ),
         (
-            "8. Pipeline del proyecto",
+            "9. Pipeline del proyecto",
             "Inserte una figura que muestre el pipeline del proyecto y 3–5 oraciones que lo describan. Ejemplo: fuentes → almacenamiento → procesamiento → decisión.",
         ),
         (
-            "9. Rotación de liderazgo para su grupo por semana",
+            "10. Rotación de liderazgo para su grupo por semana",
             "S1: … S2: … S3: … S4: … (cada integrante debe liderar al menos una vez por semana).",
         ),
     ]
@@ -116,7 +122,7 @@ def build_reflection_week_1() -> Document:
     _para(
         doc,
         "Entregable: week-1-reflection-<student>.pdf (exportar desde este Word). "
-        "Plazo: martes 10 de junio de 2026, 23:59 (Colombia). "
+        "Plazo: martes 9 de junio de 2026, 23:59 (Colombia). "
         "Cubre Lección 1 (Access) y Lección 2 (ética y gobernanza). Reemplace student por su nombre.",
     )
     _para(doc, "Extensión orientativa del cuerpo: 700–1,000 palabras.")

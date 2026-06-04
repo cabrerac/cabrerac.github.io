@@ -26,14 +26,14 @@ from pdf_to_markdown import extract_markdown  # noqa: E402
 PROJECT_REQUIREMENTS_SECTIONS = [
     "Metadatos del grupo",
     "Interesados",
-    "Pregunta de decisión",
+    "Requerimientos del proyecto",
+    "Objetivos",
     "Subconjunto de datos",
-    "Criterios de éxito",
     "Preocupación ética",
+    "Mecanismos de ética",
     "Roles y plan de contribución",
     "Pipeline del proyecto",
-    "URL del Colab",
-    "Rotación de escriba",
+    "Rotación de liderazgo",
 ]
 
 REFLECTION_WEEK_1_SECTIONS = [
@@ -83,15 +83,19 @@ def check_project_requirements(text: str) -> tuple[bool, list[str]]:
     norm = _normalize(text)
     if not any(a in norm for a in ARCHETYPES):
         issues.append("Archetype not detected (asignación / riesgo / monitoreo).")
-    if "colab.research.google.com" not in norm and "drive.google.com" not in norm:
-        issues.append("No Colab/Drive URL found.")
-    if not re.search(r"\bl[1-6]\b", norm):
-        issues.append("Scribe rotation (L1–L6) not detected.")
+    if not re.search(r"\bs[1-4]\b", norm):
+        issues.append("Weekly leadership rotation (S1–S4) not detected.")
     wc = _word_count(text)
     if wc < 280:
         issues.append(f"Word count low ({wc}); target ~350–600 plus figure caption.")
-    if "zuboff" not in norm and "boyd" not in norm:
-        issues.append("No reading cited (Zuboff / boyd) in ethical section.")
+    mech = re.search(
+        r"mecanismos de (?:ética|etica) y gobernanza",
+        norm,
+    )
+    if not mech:
+        issues.append("Section 7 (Mecanismos de ética y gobernanza) not detected.")
+    elif _word_count(text[mech.start() : min(mech.start() + 900, len(text))]) < 25:
+        issues.append("Section 7: list concrete mitigation mechanisms (too short).")
     return len(issues) == 0, issues
 
 

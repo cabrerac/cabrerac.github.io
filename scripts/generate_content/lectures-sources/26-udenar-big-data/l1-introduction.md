@@ -244,6 +244,15 @@ En producción, los microdatos nacionales de empleo abarcan muchos años a escal
 | `outputs/` | Diagramas y exportaciones para la tarea |
 | `manifest.json` | Registro de acceso (una fila por archivo descargado) |
 
+### GEIH — documentación oficial (para su proyecto)
+
+La **Gran Encuesta Integrada de Hogares (GEIH)** es la encuesta continua de hogares del DANE. Cada mes publica varios CSV (fuerza de trabajo, características de personas, vivienda, etc.) dentro de un ZIP. Para entender variables, muestreo y uso permitido, use la documentación del DANE (no solo este cuaderno):
+
+- [Catálogo GEIH 2024 (819)](https://microdatos.dane.gov.co/index.php/catalog/819) — descripción, metodología y enlaces del año.
+- [Diccionario de datos 2024](https://microdatos.dane.gov.co/index.php/catalog/819/data-dictionary) — significado de cada columna por tabla.
+- [Portal microdatos DANE](https://microdatos.dane.gov.co/) — otros años y condiciones de acceso.
+- [Definición del proyecto del curso](/assets/documents/26-udenar-big-data/project-definition-big-data.pdf) — escenario común y arquetipos.
+
 ---
 
 ### Cómo construir la URL de descarga
