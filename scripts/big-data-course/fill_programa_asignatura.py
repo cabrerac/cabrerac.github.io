@@ -1,9 +1,18 @@
 #!/usr/bin/env python3
-"""Fill Udenar Programa Asignatura docx from planning content (Spanish)."""
+"""Fill Udenar Programa Asignatura docx from planning content (Spanish).
+
+The *-FILLED.docx* was filed with university administration (2026-06). Do not
+regenerate it during routine course builds. Edit living syllabus text in
+work-space/teaching/big-data/administration/programa-asignatura-contenido-es.md.
+
+To overwrite FILLED after an intentional admin resubmission:
+  python scripts/big-data-course/fill_programa_asignatura.py --force
+"""
 
 from __future__ import annotations
 
-from copy import deepcopy
+import argparse
+import sys
 from pathlib import Path
 
 from docx import Document
@@ -124,7 +133,15 @@ def _set_cell_text(cell, text: str) -> None:
     cell.text = text
 
 
-def fill() -> Path:
+def fill(*, force: bool = False) -> Path:
+    if OUTPUT.exists() and not force:
+        print(
+            f"SKIP: {OUTPUT.name} already exists (submitted to UDENAR admin).\n"
+            "Edit programa-asignatura-contenido-es.md for course changes.\n"
+            "Re-run with --force only if you are intentionally replacing the filed copy.",
+            file=sys.stderr,
+        )
+        sys.exit(0)
     doc = Document(TEMPLATE)
 
     # Header lines (if present after tables in some templates — here before tables)
@@ -177,5 +194,12 @@ def fill() -> Path:
 
 
 if __name__ == "__main__":
-    path = fill()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Overwrite FILLED.docx even if it already exists (admin resubmission only).",
+    )
+    args = parser.parse_args()
+    path = fill(force=args.force)
     print(f"Wrote {path}")
