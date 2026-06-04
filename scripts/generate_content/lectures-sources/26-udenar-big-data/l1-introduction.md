@@ -47,6 +47,14 @@ notebook_description: Práctica individual de la Lección 1. Poner a disposició
 
 <!-- SLIDES: -->
 
+# The Big Data Pipeline and Ecosystem
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l1-introduction/big-data-pipeline.md %}
+
+<!-- SLIDES: -->
+
 # The Data Science Process
 
 <!-- end SLIDES: -->
@@ -76,14 +84,6 @@ notebook_description: Práctica individual de la Lección 1. Poner a disposició
 <!-- end SLIDES: -->
 
 {% include _snippets/26-udenar-big-data/l1-introduction/case-shell.md %}
-
-<!-- SLIDES: -->
-
-# Modern Data Stack
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-big-data/l1-introduction/modern-stack.md %}
 
 <!-- SLIDES: -->
 

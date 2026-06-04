@@ -1,20 +1,11 @@
 <!-- SLIDES: -->
 
-## Modern Data Stack
+## The Big Data Pipeline and Ecosystem
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Patterns you will meet in industry</b></p>
-                <ul>
-                    <li>Object storage for files at scale</li>
-                    <li>Columnar formats such as Parquet</li>
-                    <li>Lake and lakehouse table layers</li>
-                    <li>Batch pipelines and occasional streaming</li>
-                </ul>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <img src="{{ site.url }}/assets/media/diagrams/big-data-pipeline-template.svg" alt="Pipeline template" style="height: 420px">
             </div>
         </div>

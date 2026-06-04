@@ -2,52 +2,45 @@
 <svg width="1180" height="320" xmlns="http://www.w3.org/2000/svg">
     <rect width="1180" height="320" fill="#ffffff"/>
 
-    <text x="590" y="36" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="#224466">Big Data Pipeline - course template (customise for your project question)</text>
-    <text x="590" y="58" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#666666">Three As: Access / Assess / Address - L1 homework: save as architecture.svg</text>
+    <text x="590" y="36" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="#224466">Big Data Pipeline</text>
+    <text x="590" y="58" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#666666">Three As: Access / Assess / Address</text>
 
     <!-- Access band -->
     <rect x="40" y="72" width="300" height="28" fill="#d1e7dd" stroke="#198754" stroke-width="1"/>
-    <text x="190" y="91" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#198754">Access (L1-L2, L5)</text>
+    <text x="190" y="86" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" dominant-baseline="middle" fill="#198754">Access</text>
 
     <!-- Assess band -->
     <rect x="360" y="72" width="420" height="28" fill="#e7f1ff" stroke="#0d6efd" stroke-width="1"/>
-    <text x="570" y="91" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#0d6efd">Assess (L2-L4)</text>
+    <text x="570" y="86" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" dominant-baseline="middle" fill="#0d6efd">Assess</text>
 
     <!-- Address band -->
     <rect x="800" y="72" width="340" height="28" fill="#f8d7da" stroke="#dc3545" stroke-width="1"/>
-    <text x="970" y="91" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#dc3545">Address (L5-L6, project)</text>
+    <text x="970" y="86" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" dominant-baseline="middle" fill="#dc3545">Address</text>
 
     <!-- Stage boxes -->
     <rect x="40" y="118" width="130" height="56" rx="8" fill="#e6f3ff" stroke="#0066cc" stroke-width="2"/>
-    <text x="105" y="142" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#333333">DANE GEIH</text>
-    <text x="105" y="158" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666666">raw ZIP/CSV</text>
+    <text x="105" y="146" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" dominant-baseline="middle" fill="#333333">Data sources</text>
 
     <rect x="190" y="118" width="130" height="56" rx="8" fill="#e6f3ff" stroke="#0066cc" stroke-width="2"/>
-    <text x="255" y="142" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#333333">Harmonise</text>
-    <text x="255" y="158" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666666">Parquet spine</text>
+    <text x="255" y="146" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" dominant-baseline="middle" fill="#333333">Harmonise</text>
 
     <rect x="360" y="118" width="120" height="56" rx="8" fill="#e6f3ff" stroke="#0066cc" stroke-width="2"/>
-    <text x="420" y="142" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#333333">Ethics audit</text>
-    <text x="420" y="158" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666666">L2</text>
+    <text x="420" y="146" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" dominant-baseline="middle" fill="#333333">Ethics audit</text>
 
     <rect x="500" y="118" width="120" height="56" rx="8" fill="#e6f3ff" stroke="#0066cc" stroke-width="2"/>
-    <text x="560" y="142" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#333333">Store</text>
-    <text x="560" y="158" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666666">L3 Parquet</text>
+    <text x="560" y="146" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" dominant-baseline="middle" fill="#333333">Store</text>
 
     <rect x="640" y="118" width="120" height="56" rx="8" fill="#e6f3ff" stroke="#0066cc" stroke-width="2"/>
-    <text x="700" y="142" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#333333">Process</text>
-    <text x="700" y="158" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666666">L4 QA/DP</text>
+    <text x="700" y="146" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" dominant-baseline="middle" fill="#333333">Process</text>
 
     <rect x="800" y="118" width="120" height="56" rx="8" fill="#e6f3ff" stroke="#0066cc" stroke-width="2"/>
-    <text x="860" y="142" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#333333">Ingest</text>
-    <text x="860" y="158" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666666">L5 ETL</text>
+    <text x="860" y="146" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" dominant-baseline="middle" fill="#333333">Ingest</text>
 
     <rect x="940" y="118" width="120" height="56" rx="8" fill="#e6f3ff" stroke="#0066cc" stroke-width="2"/>
-    <text x="1000" y="142" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#333333">Analytics</text>
-    <text x="1000" y="158" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666666">L6 viz</text>
+    <text x="1000" y="146" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" dominant-baseline="middle" fill="#333333">Analytics</text>
 
     <rect x="1080" y="118" width="60" height="56" rx="8" fill="#fff3cd" stroke="#ffc107" stroke-width="2"/>
-    <text x="1110" y="150" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#333333">Brief</text>
+    <text x="1110" y="146" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" dominant-baseline="middle" fill="#333333">Brief</text>
 
     <!-- Arrows (defs must come before lines that reference markers) -->
     <defs>
@@ -66,14 +59,12 @@
 
     <!-- Lab vs production -->
     <rect x="40" y="200" width="520" height="44" rx="6" fill="#f8f9fa" stroke="#adb5bd" stroke-width="1" stroke-dasharray="6,4"/>
-    <text x="300" y="220" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#495057">In this lab (Colab / laptop)</text>
-    <text x="300" y="236" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#6c757d">Edit labels: which boxes run here vs in production?</text>
+    <text x="300" y="222" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="middle" fill="#495057">In this course (Colab / laptop)</text>
 
     <rect x="580" y="200" width="560" height="44" rx="6" fill="#f8f9fa" stroke="#adb5bd" stroke-width="1"/>
-    <text x="860" y="220" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#495057">In production (cloud / lakehouse)</text>
-    <text x="860" y="236" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#6c757d">Object storage, scheduler, cluster (conceptual in L1)</text>
+    <text x="860" y="222" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="middle" fill="#495057">In production (cloud / clusters)</text>
 
     <!-- Project requirements anchor -->
     <rect x="40" y="260" width="1100" height="40" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1"/>
-    <text x="590" y="285" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#2e7d32">Governance thread: project_requirements.pdf - ethics (L2) - hooks L3-L6 - decision brief</text>
+    <text x="590" y="280" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" dominant-baseline="middle" fill="#2e7d32">Governance thread</text>
 </svg>

@@ -33,6 +33,7 @@ generator.process_lecture("course_code/lecture_name.md")
 or from the command line (run from repo root):
 ```
 python scripts/generate_content/generate_content.py course_code/lecture_name
+python scripts/generate_content/generate_content.py --slides-only course_code/lecture_name
 ```
 
 Optional talk front matter for **internal** talks (``type: internal``) title slide:
@@ -614,8 +615,8 @@ class ContentGenerator:
             return yaml.safe_load(front_matter.group(1)) or {}
         return {}
 
-    def process_lecture(self, lecture_file):
-        """Process a lecture file to generate all formats."""
+    def process_lecture(self, lecture_file, *, slides_only=False):
+        """Process a lecture file to generate all formats (or slides only)."""
         print(f"Processing {lecture_file}...")
 
         # Get course code from path
@@ -625,9 +626,19 @@ class ContentGenerator:
         course_metadata = self.get_course_metadata(course_code)
         lecture_meta = self.lecture_metadata_from_file(lecture_file)
 
+        course_slides_dir = self.assets_dir / "slides" / course_code
+        course_slides_dir.mkdir(parents=True, exist_ok=True)
+
+        if slides_only:
+            print("[MODE] Slides only - skipping lecture page and notebook")
+            if lecture_meta.get('skip_slides'):
+                print(f"[SKIP] Slides skipped for {lecture_file.stem} (skip_slides)")
+                return
+            self.generate_slides(lecture_file, course_slides_dir)
+            return
+
         # Create course-specific directories
         course_lectures_dir = self.lectures_dir / course_code
-        course_slides_dir = self.assets_dir / "slides" / course_code
         course_notebooks_dir = self.assets_dir / "notebooks" / course_code
 
         for dir_path in [course_lectures_dir, course_slides_dir, course_notebooks_dir]:
@@ -2271,6 +2282,11 @@ def main():
     parser.add_argument('lectures', nargs='*', help='Lecture files to process (format: course_code/lecture_name)')
     parser.add_argument('--talk', metavar='TALK_ID', help='Process a single talk from scripts/generate_content/talks-sources/<TALK_ID>.md')
     parser.add_argument('--talk-all', action='store_true', help='Process all .md files in scripts/generate_content/talks-sources/')
+    parser.add_argument(
+        '--slides-only',
+        action='store_true',
+        help='Generate Marp HTML slides only (skip lecture page and notebook)',
+    )
     args = parser.parse_args()
 
     generator = ContentGenerator(os.getcwd())
@@ -2296,6 +2312,7 @@ def main():
         parser.print_help()
         print("\nExamples:")
         print("  python scripts/generate_content/generate_content.py 25-udenar-ml-intro/ai-systems")
+        print("  python scripts/generate_content/generate_content.py --slides-only 26-udenar-big-data/l1-introduction")
         print("  python scripts/generate_content/generate_content.py --talk icms-intellectual-debt")
         print("  python scripts/generate_content/generate_content.py --talk-all")
         return
@@ -2310,7 +2327,7 @@ def main():
         if not lecture_file.exists():
             print(f"Error: Lecture file {lecture_file} not found")
             continue
-        generator.process_lecture(lecture_file)
+        generator.process_lecture(lecture_file, slides_only=args.slides_only)
 
 if __name__ == "__main__":
     main()
