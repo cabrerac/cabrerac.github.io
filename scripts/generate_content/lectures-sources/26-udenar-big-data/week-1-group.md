@@ -28,13 +28,13 @@ notebook_description: Cuaderno canónico del grupo para la semana 1 (L1 + L2). D
 
 **Propósito.** Cuaderno **canónico del grupo** para la **semana 1** (Lecciones 1 y 2). Parte A: descargar GEIH **2022–2025** (mismo patrón que el [cuaderno individual L1](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction.ipynb)). Parte B: auditoría ética y enlace GEIH + OSM (adaptando el [cuaderno individual L2](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l2-ethics-governance.ipynb)).
 
-**Requisito.** Complete primero los cuadernos individuales L1 (Partes 1 y 2) y L2 (Partes 1 a 4). Aquí **adaptan** ese código. No copie celdas sin entenderlas.
+**Requisito.** Complete primero los cuadernos individuales **L1** (Partes 1 y 2; la Parte 3 individual es referencia para exploración) y **L2** (Partes 1 a 4, incluido **Parte 1 Paso 5**: unir edad `P6040` con `PERSON_KEYS`). Aquí **adaptan** ese código. No copie celdas sin entenderlas.
 
-Lea la [definición del proyecto (PDF)](/assets/documents/26-udenar-big-data/project-definition-big-data.pdf) con su grupo (también en la [página L1](/teaching/26-udenar-big-data/l1-introduction/)).
+Lea la [definición del proyecto (PDF)](/assets/documents/26-udenar-big-data/project-definition-big-data.pdf) con su grupo (también en la [página L1](/teaching/26-udenar-big-data/l1-introduction/)). Plantilla Word de requerimientos: [`project-requirements-template.docx`](/assets/documents/26-udenar-big-data/project-requirements-template.docx) (PDF en **semana 2**).
 
 **Materiales:** páginas de [L1](https://cabrerac.github.io/teaching/26-udenar-big-data/l1-introduction/) y [L2](https://cabrerac.github.io/teaching/26-udenar-big-data/l2-ethics-governance/) (sección *Resources*).
 
-**Entrega Moodle (lunes 8 jun):** ZIP `week-1-<group_id>.zip` con `notebook-week-1-group-<group_id>.ipynb` (renombre este cuaderno al exportar), `manifest.json` y `osm_poi_by_dpto.csv`.
+**Entrega Moodle (lunes 8 jun 2026, 23:59 Colombia):** ZIP `week-1-<group_id>.zip` con `notebook-week-1-group-<group_id>.ipynb` (renombre este cuaderno al exportar), `manifest.json` (raíz del ZIP) y `outputs/osm_poi_by_dpto.csv` (misma ruta que en el cuaderno L2).
 
 **Catálogos DANE por año:** 2022 → `771`, 2023 → `782`, 2024 → `819`, 2025 → `853`.
 
@@ -43,8 +43,8 @@ Lea la [definición del proyecto (PDF)](/assets/documents/26-udenar-big-data/pro
 | Bloque | Pasos | Entregable clave |
 |--------|-------|------------------|
 | **Parte A** (L1) | Config → descarga → exploración (3 pasos) | `manifest.json` + exploración en el cuaderno |
-| **Parte B** (L2) | Pasos 1–7 | `outputs/osm_poi_by_dpto.csv` + texto de lecturas y ética |
-| **Cierre** | Registro de contribución | Líneas por integrante + escriba semana 1 |
+| **Parte B** (L2) | Pasos 1–7 (2–3 solo en este cuaderno grupal) | `outputs/osm_poi_by_dpto.csv` + lecturas, interesados y ética |
+| **Cierre** | Registro de contribución | Líneas por integrante + escriba de la semana (cuaderno; §10 del PDF = S1–S4) |
 
 **Tiempo orientativo:** Parte A puede tardar **horas** (descarga ~48 ZIP). Parte B depende de cuántos departamentos incluya en el bucle OSM (empiece con 5–10 DPTO y amplíe si alcanza).
 
@@ -63,7 +63,7 @@ Copie del [cuaderno individual L1](https://colab.research.google.com/github/cabr
 | `download_zip` | Parte 1, Paso 2 |
 | `extract_csvs` | Parte 1, Paso 3 |
 | `write_manifest` | Parte 1, Paso 5 |
-| `list_catalog_downloads` + bucle `access_file` | Parte 2 (si ya lo tiene) |
+| `list_catalog_downloads` + bucle `access_file` | Parte 2, Paso 2 y Paso 3 |
 | Constantes `CSV_SEP`, `CSV_ENCODING`, `PRIMARY_TABLE_KEYWORD` | Parte 1, Paso 1 |
 
 Añada en esta celda:
@@ -83,6 +83,8 @@ Añada en esta celda:
 
 **En este paso:** por cada año en `DATASET_YEARS`, obtenga la lista de archivos del catálogo DANE, descargue cada mes, extraiga CSV y añada una fila a `manifest_entries`.
 
+Cada fila del manifiesto debe incluir **`survey_year`** (como en L1 `access_file`), además de `catalog_id`, `file_id`, `filename`, `bytes_downloaded`, etc.
+
 Una petición get-microdata por año. Bucle sobre los archivos mensuales. Puede tomar un tiempo y ocupar **varios GB**.
 
 Al terminar debe existir:
@@ -101,6 +103,7 @@ Al terminar debe existir:
 assert manifest_path.is_file(), "Falta manifest.json"
 assert len(manifest_entries) >= 40, "Se esperan ~48 archivos (12 meses × 4 años)"
 assert manifest_entries[0].get("bytes_downloaded", 0) > 0
+assert "survey_year" in manifest_entries[0], "Cada fila del manifiesto debe tener survey_year"
 print("Descarga 2022–2025: OK")
 ```
 
@@ -108,7 +111,7 @@ print("Descarga 2022–2025: OK")
 
 ## Exploración inicial (L1)
 
-Replique las ideas de la **Parte 3** del cuaderno individual L1. Resuma con el manifiesto y mire **un** CSV de muestra.
+Replique las ideas de la **Parte 3** del cuaderno individual L1 (Pasos 1–3 bastan para este ZIP; Pasos 4–5 del L1 individual son opcionales). Resuma con el manifiesto y mire **un** CSV de muestra (recomendado: **enero 2024** en `data/raw/2024/`).
 
 ### Paso 1 — Resumen desde `manifest.json`
 
@@ -167,13 +170,17 @@ print("Exploración L1, Paso 3 — gráfico: OK")
 
 **Objetivo.** Completar la auditoría ética y el CSV OSM que el cuaderno individual L2 solo **muestra** en un departamento.
 
-Use el mismo mes de muestra que en la exploración L1 (recomendado: **enero 2024**). Reutilice `contar_nodos_amenity` y `OVERPASS_HEADERS` del [cuaderno L2](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l2-ethics-governance.ipynb) (Parte 4).
+**Antes de empezar:** cargue el **mismo mes** que en la exploración (recomendado: **enero 2024**) en un DataFrame `df` con **`P6040` unido** (L2 **Parte 1, Paso 5** — merge `Fuerza de trabajo` + `Características generales` sobre `PERSON_KEYS`). Si ya ejecutó el cuaderno individual L2, reutilice ese `df` o repita el merge aquí.
+
+Reutilice `contar_nodos_amenity`, `OVERPASS_HEADERS` y `PAUSA_SEG` del [cuaderno L2](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l2-ethics-governance.ipynb) (Parte 4).
+
+Los **Pasos 2 y 3** (lecturas e interesados) existen **solo** en este cuaderno grupal; alimentan la discusión del sábado y la reflexión individual (**R4**), no el cuaderno L2 individual.
 
 ## Paso 1 — Inventario de cuasi-identificadores
 
 **Pista (L2 Parte 2):** parta de `CANDIDATOS_QI` o liste usted mismo columnas con sensibilidad **baja / media / alta** y uso previsto en salidas del proyecto.
 
-Sobre el **mismo CSV de muestra** (o enero 2024), complete una tabla con al menos **cinco** columnas sensibles para su arquetipo de proyecto.
+Sobre el **`df` con edad unida** (no solo `Fuerza de trabajo` sin merge), complete una tabla con al menos **cinco** columnas sensibles para su arquetipo de proyecto.
 
 ```python
 # SU CÓDIGO — DataFrame con columnas: columna, sensibilidad (baja/media/alta), uso previsto en salidas
@@ -192,7 +199,7 @@ print("L2 — inventario cuasi-identificadores: OK")
 
 ## Paso 2 — Lecturas (respuestas escritas)
 
-En celdas markdown o strings, respondan **con sus palabras** (cite Zuboff y/o Mittelstadt **por nombre** donde aplique):
+En celdas markdown o strings, respondan **con sus palabras** (cite **boyd**, **Zuboff** y **Mittelstadt** por nombre). La **reflexión individual** (R4) profundiza estas lecturas; aquí prepare el debate grupal del sábado.
 
 1. **boyd:** dos limitaciones de inferir la pregunta de su proyecto **solo** con esta tabla GEIH.
 2. **Zuboff:** contraste encuesta pública GEIH vs datos de comportamiento comercial (un párrafo corto).
@@ -210,9 +217,8 @@ print(respuestas_lecturas)
 **Comprobar:**
 
 ```python
-assert "boyd" in respuestas_lecturas.lower() or "limit" in respuestas_lecturas.lower()
-assert "zuboff" in respuestas_lecturas.lower()
-assert "mittelstadt" in respuestas_lecturas.lower()
+t = respuestas_lecturas.lower()
+assert "boyd" in t and "zuboff" in t and "mittelstadt" in t
 assert len(respuestas_lecturas.split()) >= 80
 print("L2 — lecturas: OK")
 ```
@@ -241,17 +247,19 @@ print("L2 — interesados: OK")
 
 ## Paso 4 — Divulgación en su muestra
 
-Repita la lógica de **L2 Parte 3**: `groupby` **DPTO × banda_edad**, ordene por `filas`, guarde la celda mínima en **`min_filas`** (entero). Imprima si **`min_filas < 5`** (alerta de divulgación).
+Repita **L2 Parte 3** sobre su `df` (requiere **`P6040`**). Misma lógica: bandas con `pd.cut` en `P6040`, `groupby` **DPTO × banda_edad**, ordene por `filas`, guarde la celda mínima en **`min_filas`** (entero). Use **`K_MIN = 5`**; imprima alerta si **`min_filas < K_MIN`**.
 
 ```python
-# SU CÓDIGO — groupby DPTO × banda_edad; asigne min_filas; imprima celda mínima
+# SU CÓDIGO — copie/adapte L2 Parte 3 (work, banda_edad, celdas, min_filas = int(...))
 
 ```
 
 **Comprobar:**
 
 ```python
-assert min_filas >= 1, "Defina min_filas en la celda anterior"
+assert min_filas >= 1, "Defina min_filas en la celda anterior (L2 Parte 3)"
+if min_filas < 5:
+    print("ALERTA: celda con menos de 5 filas — riesgo de divulgación si se publica tal cual.")
 print(f"L2 — celda mínima: {min_filas} filas")
 ```
 
@@ -265,7 +273,9 @@ Parta de **`contar_nodos_amenity`** del cuaderno individual L2.
 2. Nodos con **`amenity`** en `hospital`, `clinic`, `doctors`, `pharmacy`, `health_centre` → `poi_health_count`
 3. **`poi_servicios_basicos_count`** = suma de escuelas + salud
 
-Complete **`DPTO_TO_OSM_RELATION`**: id de **relación** OSM por código DANE. El id de área Overpass es **`3600000000 + relación`**. Nariño (`52`) → relación **`1380130`** → área **`3601380130`** (no **`120027`**, que es Colombia). Busque otras relaciones en [OpenStreetMap](https://www.openstreetmap.org/) (`admin_level=4`). Reutilice **`OVERPASS_HEADERS`** del cuaderno L2. Use **`skip_if_exists`** o cache si re-ejecuta.
+Complete **`DPTO_TO_OSM_RELATION`**: id de **relación** OSM por código DANE. El id de área Overpass es **`3600000000 + relación`**. Nariño (`52`) → relación **`1380130`** → área **`3601380130`** (no **`120027`**, que es Colombia). Busque otras relaciones en [OpenStreetMap](https://www.openstreetmap.org/) (`admin_level=4`). Reutilice **`OVERPASS_HEADERS`** y **`PAUSA_SEG`** del cuaderno L2 entre consultas. Use **`skip_if_exists`** o caché si re-ejecuta.
+
+Cree `outputs/` si no existe (`Path("outputs").mkdir(parents=True, exist_ok=True)`).
 
 Plantilla mínima (complete más códigos DANE; puede empezar con 5–10 departamentos):
 
@@ -307,9 +317,11 @@ print("L2 — osm_poi_by_dpto.csv: OK")
 
 ## Paso 6 — Enlace GEIH + OSM otra vez
 
-Agregue GEIH por **`DPTO`** (personas en muestra del mes elegido). **`merge`** con `osm_poi_by_dpto.csv`. Gráfico departamental (barras o scatter: personas vs `poi_servicios_basicos_count`).
+Agregue GEIH por **`DPTO`** (personas en muestra del mes elegido). **`merge`** con `outputs/osm_poi_by_dpto.csv`. Gráfico departamental (barras o scatter: personas vs `poi_servicios_basicos_count`).
 
-Escriban **tres riesgos éticos** del join para el proyecto final (cobertura OSM, falacia ecológica, definición del POI, etc.).
+**Enlace ilustrativo, no conclusión causal** (igual que L2 Parte 4, Paso 3).
+
+Escriban **al menos tres** riesgos éticos del join (p. ej. cobertura desigual de OSM, falacia ecológica, sesgo urbano, definición del POI — ver cierre de L2 Parte 4).
 
 ```python
 # SU CÓDIGO — merge, gráfico, variable riesgos_eticos_join (string multilínea)
@@ -329,7 +341,7 @@ print("L2 — enlace GEIH + OSM: OK")
 
 ## Paso 7 — Borrador para `project_requirements.pdf` (semana 2)
 
-Prepare dos bloques para la plantilla Word (sección **6** y **7**).
+Prepare dos bloques para copiar a la [plantilla Word](/assets/documents/26-udenar-big-data/project-requirements-template.docx) (**§6** y **§7**; el PDF completo tiene **10** secciones, incluida rotación **S1–S4** en §10).
 
 ### 7a — Preocupación ética y lectura (§6 del PDF)
 
@@ -370,7 +382,7 @@ print("L2 — borrador secciones 6–7 del PDF de proyecto: OK")
 
 ## Registro de contribución (grupo)
 
-Cada integrante añade **una línea** con tarea concreta (descarga, OSM, redacción, gráfico). Indique el **escriba de semana 1** (rota cada semana).
+Cada integrante añade **una línea** con tarea concreta (descarga, OSM, redacción, gráfico). Indique el **escriba de semana 1** en este cuaderno (consolidación del ZIP). La **rotación S1–S4** del liderazgo semanal va en el PDF (**§10**), no aquí.
 
 ```python
 contribution_log = """
@@ -391,11 +403,11 @@ ZIP **`week-1-<group_id>.zip`** hasta el **lunes 8 de junio de 2026, 23:59 (Colo
 | Archivo | Descripción |
 |---------|-------------|
 | `notebook-week-1-group-<group_id>.ipynb` | Este cuaderno ejecutado (plantilla Colab: `week-1-group`) |
-| `manifest.json` | Registro DANE (L1) |
-| `osm_poi_by_dpto.csv` | POI OSM por departamento (L2) |
+| `manifest.json` | Registro DANE (L1), en la raíz del ZIP |
+| `outputs/osm_poi_by_dpto.csv` | POI OSM por departamento (L2; conservar carpeta `outputs/`) |
 
-**Reflexión individual:** `week-1-reflection-<student>.pdf` el **martes 9 jun** (separado del ZIP).
+**Reflexión individual:** `week-1-reflection-<student>.pdf` el **martes 9 de junio de 2026, 23:59 (Colombia)** (separado del ZIP).
 
-**Requerimientos del proyecto:** `project_requirements.pdf` en la **semana 2** (secciones **6–7** de este Paso 7 en la clínica del sábado).
+**Requerimientos del proyecto:** `project_requirements.pdf` en la **semana 2** (use Paso 7 → §6–§7 en la clínica del sábado; plantilla Word arriba).
 
 <!-- end NOTEBOOK: -->

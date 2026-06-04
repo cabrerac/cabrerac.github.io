@@ -764,7 +764,7 @@ Use el Colab plantilla **[`week-1-group`](https://colab.research.google.com/gith
 |-------------------|-------------|
 | `notebook-week-1-group-<group_id>.ipynb` | Cuaderno grupal ejecutado (renombre desde `week-1-group`) |
 | `manifest.json` | Registro de acceso DANE |
-| `osm_poi_by_dpto.csv` | Conteos OSM por departamento |
+| `outputs/osm_poi_by_dpto.csv` | Conteos OSM por departamento (cuaderno `week-1-group`) |
 
 ### Reflexión individual (40 % de la formativa semana 1)
 
