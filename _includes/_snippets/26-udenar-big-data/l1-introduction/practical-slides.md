@@ -1,6 +1,6 @@
 <!-- SLIDES: -->
 
-## This Week
+## This Week Notebooks
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -11,7 +11,8 @@
                     <li><a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction.ipynb">Lecture 1 - access and manifest</a></li>
                     <li><a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l2-ethics-governance.ipynb">Lecture 2 - ethics walkthrough</a></li>
                 </ul>
-                <p><b>Templates and deliverables</b> live on the Lecture 2 course page.</p>
+                <p><b>Templates and deliverables</b> are available on the <a href="https://cabrerac.github.io/teaching/26-udenar-big-data/l2-ethics-governance/" target="_blank">Lecture 2 course page</a>.</p>
+
             </div>
         </div>
     </div>

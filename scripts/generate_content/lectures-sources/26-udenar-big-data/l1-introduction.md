@@ -63,51 +63,11 @@ notebook_description: Práctica individual de la Lección 1. Poner a disposició
 
 <!-- SLIDES: -->
 
-# Why Access Matters
+# Data Access
 
 <!-- end SLIDES: -->
 
-{% include _snippets/26-udenar-big-data/l1-introduction/access-motivation.md %}
-
-<!-- SLIDES: -->
-
-# Access in This Course
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-big-data/l1-introduction/geih-access.md %}
-
-<!-- SLIDES: -->
-
-# Case Shell
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-big-data/l1-introduction/case-shell.md %}
-
-<!-- SLIDES: -->
-
-# In Production vs In This Lab
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-big-data/l1-introduction/lab-scale.md %}
-
-<!-- SLIDES: -->
-
-# Week 1 Assessment
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-big-data/l1-introduction/assessment-week1.md %}
-
-<!-- SLIDES: -->
-
-# Readings
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-big-data/l1-introduction/readings.md %}
+{% include _snippets/26-udenar-big-data/l1-introduction/data-access.md %}
 
 <!-- SLIDES: -->
 
@@ -116,12 +76,6 @@ notebook_description: Práctica individual de la Lección 1. Poner a disposició
 <!-- end SLIDES: -->
 
 {% include _snippets/26-udenar-big-data/l1-introduction/conclusions.md %}
-
-<!-- SLIDES: -->
-
-# This Week
-
-<!-- end SLIDES: -->
 
 {% include _snippets/26-udenar-big-data/l1-introduction/practical-slides.md %}
 
