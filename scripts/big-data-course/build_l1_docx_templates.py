@@ -173,7 +173,7 @@ def build_reflection_week_1() -> Document:
         doc,
         "R6 Retroalimentación sobre la semana",
         "¿Qué mejoraría o qué funcionó bien en esta primera semana del curso? "
-        "No se califica; únicamente ayuda a ajustar el curso.",
+        "No se califica, únicamente ayuda a ajustar el curso.",
     )
     return doc
 

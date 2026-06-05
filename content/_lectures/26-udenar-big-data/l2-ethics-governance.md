@@ -40,13 +40,13 @@ visible: true
 - [Individual notebook Lecture 2](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l2-ethics-governance.ipynb)
 - [Group notebook week 1](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-1-group.ipynb): Deadline 08/06/2026
 - [Reflection template week 1](/assets/documents/26-udenar-big-data/reflection-week-1-template.docx): Deadline 09/06/2026
-- [Project requirements template](/assets/documents/26-udenar-big-data/project-requirements-template.docx): Avance en el sábado 6 jun, discusión en semana 2
-- [Plan de sesión semana 1 (PDF)](/assets/documents/26-udenar-big-data/week-1-session-plan-es.pdf): Cronograma del sábado 6 jun 2026
-- [OpenStreetMap — Nariño (departamento)](https://www.openstreetmap.org/relation/1380130)
+- [Project requirements template](/assets/documents/26-udenar-big-data/project-requirements-template.docx): Saturday 6 Jun draft, week 2 discussion
+- [Week 1 session plan](/assets/documents/26-udenar-big-data/week-1-session-plan-es.pdf): Saturday 6 Jun 2026 timetable
+- [OpenStreetMap — Nariño](https://www.openstreetmap.org/relation/1380130)
 - [Overpass API](https://wiki.openstreetmap.org/wiki/Overpass_API)
-- [**Overpass por ejemplo** — cómo construir consultas](https://dev.overpass-api.de/overpass-doc/es/) (tutorial; inglés: [en](https://dev.overpass-api.de/overpass-doc/en/))
-- [Sintaxis Overpass QL (referencia)](https://wiki.openstreetmap.org/wiki/ES:Overpass_API/Overpass_QL) · [Overpass Turbo](https://wiki.openstreetmap.org/wiki/ES:Overpass_turbo) (probar consultas en el navegador)
-- [GEIH 2024 — diccionario de datos (DANE)](https://microdatos.dane.gov.co/index.php/catalog/819/data-dictionary)
+- [**Overpass by Example** — building queries](https://dev.overpass-api.de/overpass-doc/en/) ([es](https://dev.overpass-api.de/overpass-doc/es/))
+- [Overpass QL syntax (reference)](https://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL) · [Overpass Turbo](https://wiki.openstreetmap.org/wiki/Overpass_turbo) (try queries in the browser)
+- [GEIH 2024 — data dictionary (DANE)](https://microdatos.dane.gov.co/index.php/catalog/819/data-dictionary)
 - [UK Data and AI Ethics Framework](https://www.gov.uk/government/publications/data-ethics-framework/data-and-ai-ethics-framework)
 
 ### References
