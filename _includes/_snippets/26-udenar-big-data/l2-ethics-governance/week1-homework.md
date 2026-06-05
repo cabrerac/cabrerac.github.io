@@ -42,4 +42,21 @@
     </div>
 </div>
 
+## Week 1 Deliverables
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <p><b>Saturday 6 June, 07:00 to 13:00 Colombia time</b></p>
+                <ul>
+                    <li>Shared block for Lecture 1 and Lecture 2</li>
+                    <li>Reading discussion, group notebooks, project clinic, plenary</li>
+                    <li>Full timetable: <a href="{{ site.url }}/assets/documents/26-udenar-big-data/week-1-session-plan-es.pdf" target="_blank" rel="noopener noreferrer">Week 1 session plan (PDF)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- end SLIDES: -->

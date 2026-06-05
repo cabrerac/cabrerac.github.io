@@ -268,12 +268,12 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>GEIH microdata (course spine)</b></p>
+                <p><b>Gran Encuesta Integrada de Hogares (GEIH)</b></p>
                 <ul>
-                    <li>DANE Gran Encuesta Integrada de Hogares</li>
+                    <li>Published by DANE (Departamento Administrativo Nacional de Estadística)</li>
                     <li>Official basis for labour market statistics in Colombia</li>
                     <li>Monthly ZIPs with labour, demographics, housing, and other modules</li>
-                    <li>DANE does not expose an API, we must do web crawling./li>
+                    <li>DANE does not expose an API, we must do web crawling.</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -323,7 +323,7 @@ with requests.get(download_url, stream=True, timeout=600) as resp:
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>OpenStreetMap (optional enrichment)</b></p>
+                <p><b>OpenStreetMap</b></p>
                 <ul>
                     <li>Collaborative map with tagged points of interest</li>
                     <li>Coverage and quality vary by region</li>

@@ -7,7 +7,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                <p>
-                  We are learning to apply <i>the Big Data process end to end</i>, using real data, current tools, and collaborative work. We should continuously relate Big Data concepts to our individual domains and professional practice.
+                  We are learning to apply <i>the Big Data process end to end</i>, prioritising the problem, using real data, current tools, and collaborative work. We should continuously reflect about the learning process with respect to our own domains and professional practice.
                </p>
             </div>
         </div>
@@ -105,8 +105,9 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-               <p><b>A few rules</b></p>
+               <p><b>A few comments</b></p>
                   <ul>
+                     <li>The course follows an active learning approach. <b>Your participation</b> is crucial for everyone to succeed</li>
                      <li>Turn on your camera during Saturday sync sessions unless you have agreed an exception with the instructor</li>
                      <li>Complete async videos and the individual practice notebook before Saturday</li>
                      <li>Bring your learning journal to reading discussions. Reading lists are shared the week before</li>
