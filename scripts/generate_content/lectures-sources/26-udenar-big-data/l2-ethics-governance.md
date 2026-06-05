@@ -32,59 +32,35 @@ notebook_description: Práctica de la Lección 2. Auditoría ética sobre GEIH y
 
 <!-- SLIDES: -->
 
-# Ethics as Design
+# Big Data Requirements
 
 <!-- end SLIDES: -->
 
-{% include _snippets/26-udenar-big-data/l2-ethics-governance/ethics-frame.md %}
+{% include _snippets/26-udenar-big-data/l2-ethics-governance/big-data-requirements.md %}
 
 <!-- SLIDES: -->
 
-# Types of Harm
+# Ethical Requirements
 
 <!-- end SLIDES: -->
 
-{% include _snippets/26-udenar-big-data/l2-ethics-governance/harm-types.md %}
+{% include _snippets/26-udenar-big-data/l2-ethics-governance/ethical-requirements.md %}
 
 <!-- SLIDES: -->
 
-# Quasi-Identifiers
+# Ethics in the Pipeline
 
 <!-- end SLIDES: -->
 
-{% include _snippets/26-udenar-big-data/l2-ethics-governance/quasi-identifiers.md %}
+{% include _snippets/26-udenar-big-data/l2-ethics-governance/pipeline-ethics.md %}
 
 <!-- SLIDES: -->
 
-# Consent and Governance
+# Data Assess
 
 <!-- end SLIDES: -->
 
-{% include _snippets/26-udenar-big-data/l2-ethics-governance/consent-governance.md %}
-
-<!-- SLIDES: -->
-
-# Readings on Real Data
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-big-data/l2-ethics-governance/readings-map.md %}
-
-<!-- SLIDES: -->
-
-# Joining Survey and Map Data
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-big-data/l2-ethics-governance/joining-data.md %}
-
-<!-- SLIDES: -->
-
-# Week 1 Deliverables
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-big-data/l2-ethics-governance/week1-homework.md %}
+{% include _snippets/26-udenar-big-data/l2-ethics-governance/data-assess-ethics.md %}
 
 <!-- SLIDES: -->
 
@@ -101,6 +77,14 @@ notebook_description: Práctica de la Lección 2. Auditoría ética sobre GEIH y
 <!-- end SLIDES: -->
 
 {% include _snippets/26-udenar-big-data/l2-ethics-governance/practical-slides.md %}
+
+<!-- SLIDES: -->
+
+# Week 1 Deliverables
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l2-ethics-governance/week1-homework.md %}
 
 <!-- RENDER: -->
 
@@ -120,7 +104,10 @@ notebook_description: Práctica de la Lección 2. Auditoría ética sobre GEIH y
 ### References
 
 - Zuboff, S. (2019). *The age of surveillance capitalism* (Chapter 1). PublicAffairs.
-- Mittelstadt, B. D., et al. (2016). [The ethics of algorithms](https://doi.org/10.1177/2053951716679679). *Big Data & Society*, 3(2).
+- Mittelstadt, B. D., et al. (2016). [The ethics of algorithms: Mapping the debate](https://doi.org/10.1177/2053951716679679). *Big Data & Society*, 3(2).
+- Prabhakaran, V., et al. (2022). [A human rights-based approach to responsible AI](https://arxiv.org/abs/2210.02667). arXiv:2210.02667.
+- Khatri, V., & Brown, C. V. (2010). [Designing data governance](https://doi.org/10.1145/1795194.1795237). *Communications of the ACM*, 53(1), 148–152.
+- Nissenbaum, H. (2004). [Privacy as contextual integrity](https://doi.org/10.2139/ssrn.3885612). *Washington Law Review*, 79(1), 119–158.
 - boyd, d., & Crawford, K. (2012). [Critical questions for big data](https://doi.org/10.1080/1369118X.2012.678878). *Information, Communication & Society*, 15(5), 662–679.
 
 <!-- end RENDER: -->

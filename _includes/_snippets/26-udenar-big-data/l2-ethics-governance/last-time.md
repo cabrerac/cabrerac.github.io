@@ -6,12 +6,19 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <ul>
-                    <li>Course rhythm, case shell, and problem first</li>
-                    <li>Access stage with household survey microdata</li>
-                    <li>Manifest as a simple access log</li>
-                    <li>Week 1 readings introduced</li>
-                </ul>
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/context-people.png" alt="Context and people" style="height: 480px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Last Time
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/big-data-pipeline-template.svg" alt="Big data pipeline" style="height: 420px">
             </div>
         </div>
     </div>

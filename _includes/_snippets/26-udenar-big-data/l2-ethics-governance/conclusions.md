@@ -8,18 +8,19 @@
             <div class="column vertical-middle text-left" style="width: 50%">
             <h3>Today</h3>
             <ul>
-                <li>Ethics as a design requirement</li>
-                <li>Harm types and quasi-identifiers</li>
-                <li>Governance principles and reading links</li>
-                <li>Survey and map join with explicit limits</li>
+                <li>Big Data requirements include ethics, privacy, and fairness</li>
+                <li>Governance is less mature than the technical stack</li>
+                <li>Ethical terms from multiple perspectives (Prabhakaran, Mittelstadt, Nissenbaum)</li>
+                <li>Requirements are transversal across the pipeline</li>
+                <li>Data Assess embeds quality checks and disclosure risk on GEIH + OSM</li>
             </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
             <h3>Next</h3>
             <ul>
-                <li>Finish week 1 notebooks and reflection</li>
+                <li>Finish L1 and L2 notebooks and week 1 reflection</li>
                 <li>Saturday reading huddle and group compare</li>
-                <li>Lecture 3 - storage and formats</li>
+                <li>Lecture 3 — storage and formats</li>
             </ul>
             </div>
         </div>
