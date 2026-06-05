@@ -44,6 +44,7 @@ REFLECTION_WEEK_1_SECTIONS = [
     "R3 Enlace",
     "R4 Ética",
     "R5 Uso de IA",
+    "R6 Retroalimentación",
 ]
 
 REFLECTION_SEMANA_1_SECTIONS = REFLECTION_WEEK_1_SECTIONS

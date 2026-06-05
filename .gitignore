@@ -36,6 +36,7 @@ work-space/
 # Jupyter Notebook
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
+tmp-notebook-test/
 
 # Generated content
 # Only exclude temporary and system files

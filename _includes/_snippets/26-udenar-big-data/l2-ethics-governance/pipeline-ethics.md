@@ -19,9 +19,21 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Transversal from Access onward</b></p>
-                <p>Ethics, privacy, and fairness apply across the whole pipeline, not only in Analytics or the brief.</p>
+                <p><b>Transversal</b></p>
+                <p>Ethics, privacy, and fairness apply across the whole pipeline, not only in analytics or the brief.</p>
                 <img src="{{ site.url }}/assets/media/diagrams/big-data-pipeline-template.svg" alt="Pipeline with governance thread" style="height: 360px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Ethics in the Pipeline
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/data-science-process.png" alt="Data science process" style="height: 480px">
             </div>
         </div>
     </div>

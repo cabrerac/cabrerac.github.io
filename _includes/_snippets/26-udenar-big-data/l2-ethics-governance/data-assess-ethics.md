@@ -5,8 +5,68 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/data-science-process.png" alt="Data science process" style="height: 480px">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p>After collecting the data (i.e., data access), we need to perform <b>a data assessment process to understand the data</b>, identify and mitigate data quality issues, uncover patterns, and gain insights.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Assess
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 95%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/data-assess-pipeline.svg" alt="Data Assess Pipeline" style="height: 500px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Cleaning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p>Process of <b>detecting and correcting (or removing)</b> corrupt or inaccurate records.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Preprocessing
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p>Process of <b>transforming raw data into a format suitable for machine learning</b> while ensuring data quality and consistency.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Augmentation
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p>Process of <b>increasing the size and diversity</b> of our datasets.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Feature Engineering
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p>Process of <b>creating, transforming, and selecting features in our data</b>, combining domain knowledge and creativity.</p>
             </div>
         </div>
     </div>
@@ -38,36 +98,13 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Data cleaning (assess step)</b></p>
-                <p>Detect and correct corrupt or inaccurate records before you trust aggregates.</p>
-                <ul>
-                    <li>Missing values and definition changes across years</li>
-                    <li>Outliers that distort small regions</li>
-                    <li>Documentation of every transform for accountability</li>
-                </ul>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Data_visualization_icon.svg/280px-Data_visualization_icon.svg.png" alt="Data quality" style="height: 260px">
-                <div class="footnote">Data visualization icon, CC BY-SA 4.0, via Wikimedia Commons</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Data Assess
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 30%">
                 <p><b>Quasi-identifiers in GEIH</b></p>
                 <ul>
                     <li>Department, age, sex, education, occupation combinations</li>
                     <li>List sensitive columns before any publishable aggregate</li>
-                    <li><a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l2-ethics-governance.ipynb" target="_blank" rel="noopener noreferrer">Lecture 2 notebook</a>, Part 2</li>
                 </ul>
             </div>
-            <div class="column vertical-middle text-left" style="width: 70%">
+            <div class="column vertical-middle text-left" style="width: 50%">
 
 ```python
 CANDIDATOS_QI = ["DPTO", "MPIO", "AREA", "P6040", "P6240", "P6160"]
@@ -88,15 +125,14 @@ tabla_qi = pd.DataFrame({
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 30%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Disclosure preview</b></p>
                 <ul>
                     <li>Count rows in small department × age cells</li>
                     <li>Alert when a cell has very few respondents</li>
-                    <li>Part 3 in the notebook</li>
                 </ul>
             </div>
-            <div class="column vertical-middle text-left" style="width: 70%">
+            <div class="column vertical-middle text-left" style="width: 50%">
 
 ```python
 work = df[["DPTO", "P6040"]].copy()
@@ -115,7 +151,7 @@ celda_min = celdas.min()
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 30%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Join survey and map data</b></p>
                 <ul>
                     <li>Overpass query for POIs by department</li>
@@ -123,7 +159,7 @@ celda_min = celdas.min()
                     <li>State limits: coverage, consent, ecological fallacy</li>
                 </ul>
             </div>
-            <div class="column vertical-middle text-left" style="width: 70%">
+            <div class="column vertical-middle text-left" style="width: 50%">
 
 ```python
 query = """
@@ -145,10 +181,19 @@ poi_count = len(overpass_post(query).json()["elements"])
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/data-science-process.png" alt="Data science process" style="height: 420px">
             </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
+        </div>
+    </div>
+</div>
+
+## Data Assess
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <img src="{{ site.url }}/assets/media/diagrams/big-data-pipeline-template.svg" alt="Big data pipeline" style="height: 420px">
             </div>
         </div>

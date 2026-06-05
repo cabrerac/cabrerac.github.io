@@ -47,9 +47,15 @@ visible: true
 - [**Overpass por ejemplo** — cómo construir consultas](https://dev.overpass-api.de/overpass-doc/es/) (tutorial; inglés: [en](https://dev.overpass-api.de/overpass-doc/en/))
 - [Sintaxis Overpass QL (referencia)](https://wiki.openstreetmap.org/wiki/ES:Overpass_API/Overpass_QL) · [Overpass Turbo](https://wiki.openstreetmap.org/wiki/ES:Overpass_turbo) (probar consultas en el navegador)
 - [GEIH 2024 — diccionario de datos (DANE)](https://microdatos.dane.gov.co/index.php/catalog/819/data-dictionary)
+- [UK Data and AI Ethics Framework](https://www.gov.uk/government/publications/data-ethics-framework/data-and-ai-ethics-framework)
 
 ### References
 
 - Zuboff, S. (2019). *The age of surveillance capitalism* (Chapter 1). PublicAffairs.
-- Mittelstadt, B. D., et al. (2016). [The ethics of algorithms](https://doi.org/10.1177/2053951716679679). *Big Data & Society*, 3(2).
+- Mittelstadt, B. D., et al. (2016). [The ethics of algorithms: Mapping the debate](https://doi.org/10.1177/2053951716679679). *Big Data & Society*, 3(2).
+- Prabhakaran, V., et al. (2022). [A human rights-based approach to responsible AI](https://arxiv.org/abs/2210.02667). arXiv:2210.02667.
+- Afroogh, S., et al. (2024). [Embedded ethics for responsible AI systems in disaster management](https://doi.org/10.1007/s43681-023-00309-1). *AI and Ethics*, 4, 1117–1141.
+- UK Government. (2025). [Data and AI Ethics Framework](https://www.gov.uk/government/publications/data-ethics-framework/data-and-ai-ethics-framework).
+- Khatri, V., & Brown, C. V. (2010). [Designing data governance](https://doi.org/10.1145/1795194.1795237). *Communications of the ACM*, 53(1), 148–152.
+- Nissenbaum, H. (2004). [Privacy as contextual integrity](https://doi.org/10.2139/ssrn.3885612). *Washington Law Review*, 79(1), 119–158.
 - boyd, d., & Crawford, K. (2012). [Critical questions for big data](https://doi.org/10.1080/1369118X.2012.678878). *Information, Communication & Society*, 15(5), 662–679.

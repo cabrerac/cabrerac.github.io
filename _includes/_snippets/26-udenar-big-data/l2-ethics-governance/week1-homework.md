@@ -16,26 +16,9 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Individual reflection by Tuesday</b></p>
                 <ul>
-                    <li>Covers Lecture 1 and Lecture 2 prompts</li>
+                    <li>Covers Lecture 1 and Lecture 2 prompts (R1–R5)</li>
+                    <li>Includes ungraded week feedback (R6)</li>
                     <li>Use the week 1 reflection template on the course page</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Week 1 Deliverables
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Group notebook exercises include</b></p>
-                <ul>
-                    <li>Reading responses and stakeholder table</li>
-                    <li>Full map loop for all departments</li>
-                    <li>Merge with survey counts and name join risks</li>
-                    <li>First accountable practice draft for week 2 discussion</li>
                 </ul>
             </div>
         </div>

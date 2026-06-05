@@ -11,7 +11,7 @@ year: 2026
 lectures: 10
 hours: 40
 permalink: /teaching/26-udenar-big-data/
-visible: false
+visible: true
 ---
 
 ---

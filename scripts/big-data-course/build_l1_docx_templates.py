@@ -169,6 +169,12 @@ def build_reflection_week_1() -> Document:
         "¿Qué herramientas de IA utilizó en la semana 1? "
         "¿Cómo influyó en su trabajo y qué aprendió sobre su práctica?",
     )
+    _section(
+        doc,
+        "R6 Retroalimentación sobre la semana",
+        "¿Qué mejoraría o qué funcionó bien en esta primera semana del curso? "
+        "No se califica; únicamente ayuda a ajustar el curso.",
+    )
     return doc
 
 
