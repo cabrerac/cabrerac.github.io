@@ -15,6 +15,12 @@ Python tools used in **Colabs** and on student laptops for the Udenar Big Data c
 
 **Project outline (Spanish PDF + DOCX):** `python scripts/big-data-course/build_project_outline.py` → `assets/documents/26-udenar-big-data/project-definition-big-data.pdf`
 
-**Week 1 session plan (Spanish PDF):** `python scripts/big-data-course/build_week1_session_plan.py` → `assets/documents/26-udenar-big-data/week-1-session-plan-es.pdf` (source: `work-space/teaching/big-data/course/week-1/week-1-session-plan-es.md`)
+**Week 1 learning journal:** `python scripts/big-data-course/build_week1_learning_journal.py` → `work-space/teaching/big-data/course/week-1/learning-journal-week-1.docx`
+
+**Week 2 learning journal:** `python scripts/big-data-course/build_week2_learning_journal.py` → `work-space/teaching/big-data/course/week-2/learning-journal-week-2.docx`
+
+**Week 2 session plan (Spanish PDF):** `python scripts/big-data-course/build_week2_session_plan.py` → `assets/documents/26-udenar-big-data/week-2-session-plan-es.pdf`
+
+**Week 1 session plan (Spanish PDF):** `python scripts/big-data-course/build_week1_session_plan.py` → `assets/documents/26-udenar-big-data/week-1-session-plan-es.pdf`
 
 **Usage in notebooks:** students **implement** the same logic in the L1 Colab (no package import). **`geih_build`** is instructor reference / batch verification under `scripts/big-data-course/geih_build/`.
