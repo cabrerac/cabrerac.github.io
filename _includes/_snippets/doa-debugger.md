@@ -59,11 +59,13 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 95%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <img src="{{ site.url }}/assets/media/images/doa-llm-debugger.png" alt="DOA Debugger" style="height: 500px">
+                <img src="{{ site.url }}/assets/media/diagrams/doa-debugger.svg" alt="DOA Debugger" style="height: 500px">
             </div>
         </div>
     </div>
 </div>
+
+<!-- end SLIDES: -->
 
 ## Data-Oriented Debugger
 
@@ -101,6 +103,8 @@
         </div>
     </div>
 </div>
+
+<!-- SLIDES: -->
 
 ## Data-Oriented Debugger
 
@@ -142,6 +146,8 @@
         </div>
     </div>
 </div>
+
+<!-- end SLIDES: -->
 
 ## Data-Oriented Debugger
 
@@ -208,6 +214,8 @@ return fallback (the diagnosis itself)
     </div>
 </div>
 
+<!-- SLIDES: -->
+
 ## Data-Oriented Debugger
 
 <div class="rows" style="height: 100%">
@@ -219,6 +227,8 @@ return fallback (the diagnosis itself)
         </div>
     </div>
 </div>
+
+<!-- end SLIDES: -->
 
 ## Data-Oriented Debugger
 
@@ -288,6 +298,8 @@ return fallback (the diagnosis itself)
         </div>
     </div>
 </div>
+
+<!-- SLIDES: -->
 
 ## Data-Oriented Debugger
 
