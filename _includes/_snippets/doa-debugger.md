@@ -105,21 +105,28 @@
 ## Data-Oriented Debugger
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 14%">
-        <div class="columns" style="width: 100%">
-            <p style="text-align: left;">The <b>Fault Localisation Engine</b> runs sequential checks over logged MLflow data. The <b>first failure</b> stops the pipeline, triggers <b>graph traversal</b>, then hands off to the repair engine.</p>
-        </div>
-    </div>
-    <div class="row" style="height: 72%">
+    <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/doa-fault-localisation-pipeline.svg" alt="Fault localisation pipeline: MLflow monitoring artefacts feed sequential stage checks; first failure triggers graph traversal to a problematic node, then LLM repair with expandable context." style="max-width: 100%; height: auto; max-height: 520px;">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/doa-fault-localisation-pipeline.svg" alt="Fault localisation pipeline: MLflow monitoring artefacts feed sequential stage checks; first failure triggers graph traversal to a problematic node, then LLM repair with expandable context." style="max-width: auto; height: auto;">
             </div>
         </div>
     </div>
-    <div class="row" style="height: 14%">
+</div>
+
+## Data-Oriented Debugger
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 12%">
         <div class="columns" style="width: 100%">
-            <p style="text-align: left;"><b>Stages 0–3:</b> execution, loss near zero, loss definition, gradient magnitude. Further checks cover update transformation and gradient/update expectations.</p>
+            <p style="text-align: left;"><b>Logged metrics</b> from an MLflow run (<code>stable_cnn</code>, dev profile). Three families match the monitoring slide: model-level, parameters, per-module statistics.</p>
+        </div>
+    </div>
+    <div class="row" style="height: 88%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/doa-stable-cnn-logged-metrics.svg" alt="Logged metrics for stable_cnn: model training loss and accuracy, total parameter distance and update size, and per-module gradient output norms for conv1, conv2, and fc1." style="max-width: 100%; height: auto; max-height: 520px;">
+            </div>
         </div>
     </div>
 </div>
