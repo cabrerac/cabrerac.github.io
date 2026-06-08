@@ -1,3 +1,6 @@
+# Local MLflow artefact copies (canonical store: xlm-estimator/mlruns)
+logs/
+
 # Python
 __pycache__/
 *.py[cod]
