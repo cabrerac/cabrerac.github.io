@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- DOA Debugger fault-localisation pipeline -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 218" width="1060" height="218">
+  <defs>
+    <marker id="fl-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#224466"/>
+    </marker>
+    <marker id="fl-arrow-soft" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0e73b8"/>
+    </marker>
+    <style type="text/css"><![CDATA[
+      .title { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:14px; font-weight:700; fill:#224466; text-anchor:middle; }
+      .sub   { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:10px; fill:#555555; text-anchor:middle; }
+      .box   { fill:#ffffff; stroke:#224466; stroke-width:2; }
+      .box-in{ fill:#f6f8fa; stroke:#0e73b8; stroke-width:1.5; }
+      .box-fail { fill:#fff4f4; stroke:#c0392b; stroke-width:2; }
+      .box-out  { fill:#eef6ff; stroke:#0e73b8; stroke-width:2; }
+      .lbl-sm{ font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:9px; fill:#224466; text-anchor:middle; dominant-baseline:middle; }
+      .edge  { stroke:#224466; stroke-width:2; fill:none; marker-end:url(#fl-arrow); }
+      .edge-soft { stroke:#0e73b8; stroke-width:1.5; fill:none; marker-end:url(#fl-arrow-soft); }
+      .edge-dashed { stroke:#0e73b8; stroke-width:1.5; fill:none; stroke-dasharray:5 4; marker-end:url(#fl-arrow-soft); }
+      .note  { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:9px; font-style:italic; fill:#666666; text-anchor:middle; }
+      .band  { fill:#f6f8fa; stroke:#dde3ea; stroke-width:1; }
+    ]]></style>
+  </defs>
+
+  <!-- row anchors: graph + graph-traversal cy=82; metrics + stages cy=126 -->
+
+  <!-- ===== Monitoring ===== -->
+  <rect x="12" y="12" width="176" height="200" rx="10" ry="10" class="band"/>
+  <text x="100" y="34" class="title">Monitoring</text>
+  <text x="100" y="50" class="sub">MLflow artefacts</text>
+
+  <rect x="28" y="64" width="144" height="36" rx="6" ry="6" class="box-in"/>
+  <text x="100" y="82" class="lbl-sm">graph.json / model_code</text>
+
+  <rect x="28" y="108" width="144" height="36" rx="6" ry="6" class="box-in"/>
+  <text x="100" y="126" class="lbl-sm">layer + parameter metrics</text>
+
+  <rect x="28" y="152" width="144" height="36" rx="6" ry="6" class="box-in"/>
+  <text x="100" y="170" class="lbl-sm">static_attributes</text>
+
+  <!-- ===== Fault Localisation Engine ===== -->
+  <rect x="204" y="12" width="510" height="200" rx="10" ry="10" class="band"/>
+  <text x="459" y="34" class="title">Fault Localisation Engine</text>
+  <text x="459" y="50" class="sub">Sequential checks - stop at first failure</text>
+
+  <!-- stages cy=126 (aligned with metrics) -->
+  <rect x="228" y="104" width="84" height="44" rx="8" ry="8" class="box"/>
+  <text x="270" y="118" class="lbl-sm">Stage 0</text>
+  <text x="270" y="132" class="lbl-sm">Execution</text>
+
+  <rect x="330" y="104" width="84" height="44" rx="8" ry="8" class="box"/>
+  <text x="372" y="118" class="lbl-sm">Stage 1</text>
+  <text x="372" y="132" class="lbl-sm">Loss near 0</text>
+
+  <rect x="432" y="104" width="84" height="44" rx="8" ry="8" class="box"/>
+  <text x="474" y="118" class="lbl-sm">Stage 2</text>
+  <text x="474" y="132" class="lbl-sm">Loss def.</text>
+
+  <rect x="534" y="104" width="84" height="44" rx="8" ry="8" class="box"/>
+  <text x="576" y="118" class="lbl-sm">Stage 3</text>
+  <text x="576" y="132" class="lbl-sm">Grad mag.</text>
+
+  <rect x="636" y="112" width="36" height="28" rx="6" ry="6" class="box"/>
+  <text x="654" y="126" class="lbl-sm">...</text>
+
+  <!-- failure under stage 1 -->
+  <rect x="328" y="168" width="88" height="36" rx="8" ry="8" class="box-fail"/>
+  <text x="372" y="182" class="lbl-sm">First failure</text>
+  <text x="372" y="194" class="lbl-sm">at stage k</text>
+
+  <!-- ===== Localise and repair ===== -->
+  <rect x="730" y="12" width="288" height="200" rx="10" ry="10" class="band"/>
+  <text x="874" y="34" class="title">Localise and repair</text>
+
+  <!-- graph traversal cy=82 (aligned with graph.json) -->
+  <rect x="750" y="64" width="124" height="36" rx="8" ry="8" class="box-out"/>
+  <text x="812" y="76" class="lbl-sm">Graph traversal</text>
+  <text x="812" y="90" class="lbl-sm">problematic node</text>
+
+  <rect x="886" y="64" width="116" height="36" rx="8" ry="8" class="box-out"/>
+  <text x="944" y="76" class="lbl-sm">Repair engine</text>
+  <text x="944" y="90" class="lbl-sm">LLM + context</text>
+
+  <!-- context bottom aligned with first failure (y=204) -->
+  <rect x="886" y="152" width="116" height="52" rx="6" ry="6" class="box-in"/>
+  <text x="944" y="166" class="lbl-sm">Context: node attrs,</text>
+  <text x="944" y="178" class="lbl-sm">neighbours, issues,</text>
+  <text x="944" y="190" class="lbl-sm">traced code</text>
+
+  <!-- ===== Arrows ===== -->
+
+  <!-- logs: straight metrics -> stage 0 -->
+  <path class="edge" d="M 172 126 H 228"/>
+  <text x="215" y="116" class="note">logs</text>
+
+  <!-- stage chain -->
+  <path class="edge" d="M 312 126 H 330"/>
+  <path class="edge" d="M 414 126 H 432"/>
+  <path class="edge" d="M 516 126 H 534"/>
+  <path class="edge" d="M 618 126 H 636"/>
+
+  <!-- stop at stage k -->
+  <path class="edge-soft" d="M 372 148 V 168"/>
+  <text x="398" y="160" class="note">stop here</text>
+
+  <!-- first failure -> graph traversal -->
+  <path class="edge" d="M 416 186 H 710 V 82 H 750"/>
+
+  <!-- graph -> repair -->
+  <path class="edge" d="M 874 82 H 886"/>
+
+  <!-- context -> repair -->
+  <path class="edge-dashed" d="M 944 152 V 100"/>
+
+</svg>

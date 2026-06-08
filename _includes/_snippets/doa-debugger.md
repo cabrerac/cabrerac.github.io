@@ -105,26 +105,21 @@
 ## Data-Oriented Debugger
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 16%">
+    <div class="row" style="height: 14%">
         <div class="columns" style="width: 100%">
-            <p style="text-align: left;">The <b>Fault Localisation Engine</b> runs sequential checks of incremental complexity over the logged data. The first failure stops the pipeline and triggers graph traversal to find the problematic node.</p>
+            <p style="text-align: left;">The <b>Fault Localisation Engine</b> runs sequential checks over logged MLflow data. The <b>first failure</b> stops the pipeline, triggers <b>graph traversal</b>, then hands off to the repair engine.</p>
         </div>
     </div>
-    <div class="row" style="height: 67%">
+    <div class="row" style="height: 72%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <ul>
-                    <li><b>Stage 0 - Model Execution:</b> The run completes without errors and MLflow has the expected logs.</li>
-                    <li><b>Stage 1 - Loss near zero:</b> Final training loss approaches zero (threshold &lt; 1e-3). It is a sanity check that the model can fit the data.</li>
-                    <li><b>Stage 2 - Loss definition:</b> Loss values are well-defined. It flags <i>NaN</i>, <i>Inf</i>, or undefined values.</li>
-                    <li><b>Stage 3 - Gradient magnitude:</b> Gradient norms stay healthy. Vanishing (&lt; 1e-7) or exploding (&gt; 1e3) gradients are flagged.</li>
-                </ul>
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/doa-fault-localisation-pipeline.svg" alt="Fault localisation pipeline: MLflow monitoring artefacts feed sequential stage checks; first failure triggers graph traversal to a problematic node, then LLM repair with expandable context." style="max-width: 100%; height: auto; max-height: 520px;">
             </div>
         </div>
     </div>
-    <div class="row" style="height: 17%">
+    <div class="row" style="height: 14%">
         <div class="columns" style="width: 100%">
-            <p style="text-align: left;">On a fault, the engine traverses the <b>computational graph</b> to identify the problematic node and hands off to the repair engine.</p>
+            <p style="text-align: left;"><b>Stages 0–3:</b> execution, loss near zero, loss definition, gradient magnitude. Further checks cover update transformation and gradient/update expectations.</p>
         </div>
     </div>
 </div>
@@ -221,36 +216,36 @@ return fallback (the diagnosis itself)
 ## Data-Oriented Debugger
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 20%">
+    <div class="row" style="height: 14%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-               We are generating logging data at the moment. Next step is to use the logs for testing and evaluating fault localisation and repair.
-            </div>
-         </div>
+            <p style="text-align: left;"><b>Phase 0 smoke test</b> (not paper evaluation): does the full path <i>train &rarr; log &rarr; stage funnel &rarr; graph node</i> work on a synthetic fault?</p>
+        </div>
     </div>
-    <div class="row" style="height: 80%">
+    <div class="row" style="height: 78%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Data captured per run</b></p>
-                <ul>
-                    <li><b>Model</b>, <b>layer</b> and <b>parameter</b> metrics over training</li>
-                    <li>Computational graph (<i>graph.json</i> / <i>graph.svg</i>), model code and static attributes</li>
-                    <li>Per-orchestration: manifest, run mappings, timing summary, failure summary</li>
-                    <li>Execution profiles for trade-offs: <b>dev</b>, <b>stability</b>, <b>paper</b></li>
-                </ul>
-                <p style="text-align: left;">Two entry points: PyTorch test models and a curated set of <b>real-world and silent DNN bugs</b>.</p>
+            <div class="column vertical-top text-left" style="width: 48%">
+                <p><b>What we measure</b></p>
+                <ol style="font-size: 0.9em; margin-top: 0.4em;">
+                    <li><b>Logging substrate</b> — MLflow run has graph, metrics, and static artefacts (<i>xlm-estimator</i>).</li>
+                    <li><b>Stage funnel</b> — sequential checks stop at the first fault (<i>xlm-interface</i>, no LLM).</li>
+                    <li><b>Localisation</b> — graph traversal names one problematic node.</li>
+                </ol>
+                <p style="margin-top: 0.8em;"><b>Next:</b> full matrix on PyTorch test models, then defect4ml evaluation split.</p>
             </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Bug dataset:</b> <a href="http://defect4aitesting.soccerlab.polymtl.ca/" target="_blank" rel="noopener noreferrer">defect4ml</a> (TensorFlow &amp; Keras)</p>
-                <ul>
-                    <li><b>100</b> real-world DNN bugs</li>
-                    <li>Bug type: <b>silent (59)</b> vs. not silent (41)</li>
-                    <li>Data dependency: <i>0</i> code-inspectable &middot; <i>1</i> not data-specific (testing helps) &middot; <i>2</i> data-specific</li>
-                    <li>Silent groups for evaluation: <b>not data-specific (42)</b> + <b>data-specific (16)</b></li>
-                    <li>Splits: <b>debug 8</b> and <b>evaluation 50</b>. 1 excluded</li>
+            <div class="column vertical-top text-left" style="width: 52%">
+                <p><b>Worked example: <code>high_loss</code></b> (insufficient model capacity)</p>
+                <ul style="font-size: 0.9em; margin-top: 0.4em;">
+                    <li>Train one epoch, <b>dev</b> profile — telemetry <b>complete</b>.</li>
+                    <li>Stage funnel stops at <b>Loss near zero</b> (final loss &gt; 1e-3).</li>
+                    <li>Graph traversal flags <b>output_layer</b>.</li>
                 </ul>
-                <p style="text-align: left;">Running all of them at the moment with different logging levels to measure the impact of DOA. <b>Trade-off between execution time and bugs resolution.</b></p>
+                <p style="margin-top: 0.6em; font-size: 0.85em;"><i>This shows the pipeline runs end-to-end on a known fault. We are not yet reporting resolution rate or baseline comparison.</i></p>
             </div>
+        </div>
+    </div>
+    <div class="row" style="height: 8%">
+        <div class="columns" style="width: 100%">
+            <p style="text-align: left; font-size: 0.85em;">Paper metrics (fault resolution, relevance, latency) need the evaluation split and baselines on the slide before that.</p>
         </div>
     </div>
 </div>

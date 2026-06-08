@@ -138,3 +138,14 @@
   status: past
   visible: false
   slides: https://cabrerac.github.io/assets/slides/2026/internal-doa-debugger-doagent.html
+- talk_id: research-days-interfaces
+  title: The Interfaces Research Programme
+  venue: Internal
+  location: Cambridge
+  year: 2026
+  month: June
+  date: '2026-06-08'
+  type: internal
+  status: upcoming
+  visible: false
+  slides: https://cabrerac.github.io/assets/slides/2026/research-days-interfaces.html

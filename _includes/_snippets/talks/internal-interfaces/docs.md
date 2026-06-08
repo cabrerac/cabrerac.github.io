@@ -1,5 +1,3 @@
-<!-- SLIDES: -->
-
 ## Data-Oriented Computing Systems (DOCS) — Problem and vision
 
 <div class="rows" style="height: 100%">
@@ -26,7 +24,9 @@
     </div>
 </div>
 
-## DOCS — Overview
+<!-- SLIDES: -->
+
+## Data-Oriented Computing Systems (DOCS) — Vision
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -37,6 +37,8 @@
         </div>
     </div>
 </div>
+
+<!-- end SLIDES: -->
 
 ## DOCS — Impact
 
@@ -51,7 +53,7 @@
     </div>
 </div>
 
-<!-- end SLIDES: -->
+
 
 ## DOCS — Key objectives
 
