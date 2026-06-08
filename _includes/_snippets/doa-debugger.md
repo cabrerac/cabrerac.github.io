@@ -112,7 +112,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/doa-fault-localisation-pipeline.svg" alt="Fault localisation pipeline: MLflow monitoring artefacts feed sequential stage checks; first failure triggers graph traversal to a problematic node, then LLM repair with expandable context." style="max-width: auto; height: auto;">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/doa-fault-localisation-pipeline.svg" alt="Fault localisation pipeline: MLflow monitoring artefacts feed sequential stage checks; first failure triggers graph traversal to a problematic node, then LLM repair with expandable context." style="width: 100%; height: auto; max-height: 720px;">
             </div>
         </div>
     </div>
@@ -121,23 +121,23 @@
 ## Data-Oriented Debugger
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 10%">
+    <div class="row" style="height: 8%">
         <div class="columns" style="width: 100%">
             <p style="text-align: left;"><b>Logged metrics</b> for a stable network.</p>
         </div>
     </div>
-    <div class="row" style="height: 90%">
+    <div class="row" style="height: 92%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-center" style="width: 33%">
-                <img src="{{ site.url }}/assets/media/images/doa-metrics/stable_cnn-model.png" alt="stable_cnn model-level metrics: training loss and accuracy vs step." style="max-width: 100%; height: auto; max-height: 380px;">
+            <div class="column vertical-middle text-center" style="width: 33%">
+                <img src="{{ site.url }}/assets/media/images/doa-metrics/stable_cnn-model.png" alt="stable_cnn model-level metrics: training loss and accuracy vs step." style="width: 100%; height: auto; max-height: 500px;">
                 <p style="font-size: 0.8em; margin-top: 0.3em;"><b>Model-level</b> — loss and accuracy</p>
             </div>
-            <div class="column vertical-top text-center" style="width: 33%">
-                <img src="{{ site.url }}/assets/media/images/doa-metrics/stable_cnn-parameters.png" alt="stable_cnn parameter metrics: total L2 distance from initialisation and update size vs step." style="max-width: 100%; height: auto; max-height: 380px;">
+            <div class="column vertical-middle text-center" style="width: 33%">
+                <img src="{{ site.url }}/assets/media/images/doa-metrics/stable_cnn-parameters.png" alt="stable_cnn parameter metrics: total L2 distance from initialisation and update size vs step." style="width: 100%; height: auto; max-height: 500px;">
                 <p style="font-size: 0.8em; margin-top: 0.3em;"><b>Parameters</b> — distance and update size</p>
             </div>
-            <div class="column vertical-top text-center" style="width: 34%">
-                <img src="{{ site.url }}/assets/media/images/doa-metrics/stable_cnn-layers.png" alt="stable_cnn per-module gradient output norms for conv1, conv2, and fc1 vs step." style="max-width: 100%; height: auto; max-height: 380px;">
+            <div class="column vertical-middle text-center" style="width: 34%">
+                <img src="{{ site.url }}/assets/media/images/doa-metrics/stable_cnn-layers.png" alt="stable_cnn per-module gradient output norms for conv1, conv2, and fc1 vs step." style="width: 100%; height: auto; max-height: 500px;">
                 <p style="font-size: 0.8em; margin-top: 0.3em;"><b>Per-module</b> — gradient output norm</p>
             </div>
         </div>
