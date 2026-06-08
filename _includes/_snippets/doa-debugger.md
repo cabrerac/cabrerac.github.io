@@ -109,10 +109,10 @@
 ## Data-Oriented Debugger
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/doa-fault-localisation-pipeline.svg" alt="Fault localisation pipeline: MLflow monitoring artefacts feed sequential stage checks; first failure triggers graph traversal to a problematic node, then LLM repair with expandable context." style="width: 100%; height: auto; max-height: 720px;">
+    <div class="row" style="height: 100%; overflow: hidden;">
+        <div class="columns" style="width: 100%; height: 100%;">
+            <div class="column vertical-middle text-center" style="width: 100%; height: 100%;">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/doa-fault-localisation-pipeline.svg" alt="Fault localisation pipeline: MLflow monitoring artefacts feed sequential stage checks; first failure triggers graph traversal to a problematic node, then LLM repair with expandable context." style="height: 88%; width: auto; max-width: none;">
             </div>
         </div>
     </div>
