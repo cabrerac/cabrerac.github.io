@@ -11,16 +11,33 @@ Python tools used in **Colabs** and on student laptops for the Udenar Big Data c
 
 **Colabs:** `l1-introduction`, `l2-ethics-governance` (individual); **`week-1-group`** (week-1 group homework).
 
-**L1 Word templates:** `pip install -r requirements.txt` (includes `python-docx`), then `python scripts/big-data-course/build_l1_docx_templates.py` → `assets/documents/26-udenar-big-data/*.docx`
+**Course Word documents:** `pip install -r requirements.txt` (includes `python-docx`), then:
+
+```bash
+python scripts/big-data-course/build_course_docx.py --all
+```
+
+Targets: `project_requirements`, `reflection_week_1`, `reflection_week_2`, `learning_journal_week_1`, `learning_journal_week_2`. Shared helpers live in `docx_build.py`.
+
+Outputs:
+
+- `assets/documents/26-udenar-big-data/project-requirements-template.docx`
+- `assets/documents/26-udenar-big-data/reflection-week-1-template.docx`
+- `assets/documents/26-udenar-big-data/reflection-week-2-template.docx`
+- Mirrors under `work-space/teaching/big-data/course/week-1/` and `week-2/`
+- Learning journals: `course/week-1/learning-journal-week-1.docx`, `course/week-2/learning-journal-week-2.docx`
 
 **Project outline (Spanish PDF + DOCX):** `python scripts/big-data-course/build_project_outline.py` → `assets/documents/26-udenar-big-data/project-definition-big-data.pdf`
 
-**Week 1 learning journal:** `python scripts/big-data-course/build_week1_learning_journal.py` → `work-space/teaching/big-data/course/week-1/learning-journal-week-1.docx`
+**Session plans (Spanish PDF):**
 
-**Week 2 learning journal:** `python scripts/big-data-course/build_week2_learning_journal.py` → `work-space/teaching/big-data/course/week-2/learning-journal-week-2.docx`
+```bash
+python scripts/big-data-course/build_course_session_plan.py --all
+```
 
-**Week 2 session plan (Spanish PDF):** `python scripts/big-data-course/build_week2_session_plan.py` → `assets/documents/26-udenar-big-data/week-2-session-plan-es.pdf`
+Targets: `week_1`, `week_2`. Renderer in `session_plan_build.py`. Outputs:
 
-**Week 1 session plan (Spanish PDF):** `python scripts/big-data-course/build_week1_session_plan.py` → `assets/documents/26-udenar-big-data/week-1-session-plan-es.pdf`
+- `assets/documents/26-udenar-big-data/week-1-session-plan-es.pdf` (+ mirror `course/week-1/`)
+- `assets/documents/26-udenar-big-data/week-2-session-plan-es.pdf` (+ mirror `course/week-2/`)
 
 **Usage in notebooks:** students **implement** the same logic in the L1 Colab (no package import). **`geih_build`** is instructor reference / batch verification under `scripts/big-data-course/geih_build/`.

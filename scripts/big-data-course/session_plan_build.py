@@ -1,15 +1,4 @@
-#!/usr/bin/env python3
-"""Build Week 1 session plan PDF from course/week-1/week-1-session-plan-es.md.
-
-Outputs (canonical for the site):
-  assets/documents/26-udenar-big-data/week-1-session-plan-es.pdf
-
-Mirror:
-  work-space/teaching/big-data/course/week-1/week-1-session-plan-es.pdf
-
-Regenerate after editing the markdown source:
-  python scripts/big-data-course/build_week1_session_plan.py
-"""
+"""Markdown session plans → HTML → PDF (PyMuPDF)."""
 
 from __future__ import annotations
 
@@ -19,11 +8,7 @@ from pathlib import Path
 
 import pymupdf as fitz
 
-REPO = Path(__file__).resolve().parents[2]
-COURSE = "26-udenar-big-data"
-SOURCE = REPO / "work-space/teaching/big-data/course/week-1/week-1-session-plan-es.md"
-ASSETS_PDF = REPO / "assets/documents" / COURSE / "week-1-session-plan-es.pdf"
-MIRROR_PDF = SOURCE.with_suffix(".pdf")
+from docx_build import ASSETS_DIR, COURSE_WS
 
 CSS = """
 body { font-family: Helvetica, Arial, sans-serif; font-size: 10.5pt; line-height: 1.35; }
@@ -40,6 +25,8 @@ code { font-family: Consolas, monospace; font-size: 9pt; }
 a { color: #1155cc; }
 hr { border: none; border-top: 1px solid #ccc; margin: 12pt 0; }
 """
+
+INSTRUCTOR_SECTION = "\n## Regenerar este PDF"
 
 
 def _inline(text: str) -> str:
@@ -139,7 +126,7 @@ def markdown_to_html(md: str) -> str:
     return f"<body>{''.join(parts)}</body>"
 
 
-def _write_pdf(path: Path, body_html: str) -> None:
+def write_pdf(path: Path, body_html: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     story = fitz.Story(html=body_html, user_css=CSS)
     mediabox = fitz.paper_rect("a4")
@@ -156,19 +143,24 @@ def _write_pdf(path: Path, body_html: str) -> None:
         writer.close()
 
 
-def build() -> Path:
-    if not SOURCE.is_file():
-        raise FileNotFoundError(SOURCE)
-    md = SOURCE.read_text(encoding="utf-8")
-    # Drop instructor-only "Regenerar este PDF" section from student PDF
-    md = md.split("\n## Regenerar este PDF")[0].strip() + "\n"
+def student_markdown(md: str) -> str:
+    """Drop instructor-only regen section before rendering."""
+    return md.split(INSTRUCTOR_SECTION)[0].strip() + "\n"
+
+
+def write_session_plan(source_md: Path, assets_pdf: Path) -> tuple[Path, Path]:
+    if not source_md.is_file():
+        raise FileNotFoundError(source_md)
+    md = student_markdown(source_md.read_text(encoding="utf-8"))
     body_html = markdown_to_html(md)
-    _write_pdf(ASSETS_PDF, body_html)
-    MIRROR_PDF.write_bytes(ASSETS_PDF.read_bytes())
-    return ASSETS_PDF
+    mirror_pdf = source_md.with_suffix(".pdf")
+    write_pdf(assets_pdf, body_html)
+    mirror_pdf.write_bytes(assets_pdf.read_bytes())
+    return assets_pdf, mirror_pdf
 
 
-if __name__ == "__main__":
-    out = build()
-    print(f"Wrote {out}")
-    print(f"Mirror {MIRROR_PDF}")
+# Week plan sources (markdown in course folder → PDF in assets + mirror)
+WEEK1_SOURCE = COURSE_WS / "week-1" / "week-1-session-plan-es.md"
+WEEK1_ASSETS = ASSETS_DIR / "week-1-session-plan-es.pdf"
+WEEK2_SOURCE = COURSE_WS / "week-2" / "week-2-session-plan-es.md"
+WEEK2_ASSETS = ASSETS_DIR / "week-2-session-plan-es.pdf"
