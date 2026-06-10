@@ -51,7 +51,7 @@ notebook_description: Práctica individual de la Lección 3. Harmonizar GEIH 202
 
 ## Repaso de Python para este cuaderno
 
-Antes del laboratorio repasamos lo que usaremos en las Partes 0 a 5. Si dominó L1 y L2, ejecute rápido. Si no, lea con calma. No es un curso completo de pandas.
+Antes del laboratorio repasamos lo que usaremos en las Partes 0 a 5. Lea con calma, no es un curso completo de pandas.
 
 ### `Path` y carpetas
 
@@ -83,22 +83,45 @@ print("Función mes_desde_periodo: OK")
 
 ### Unir tablas con `merge`
 
-Igual que en L2: **`merge(..., on=PERSON_KEYS, how="left")`** alinea filas de dos CSV del mismo mes.
+Igual que en L2: unimos **Fuerza de trabajo** con **Características generales** sobre las mismas claves de persona.
+
+```python
+import pandas as pd
+
+PERSON_KEYS = ["DIRECTORIO", "HOGAR", "ORDEN"]
+labour = pd.DataFrame(
+    {"DIRECTORIO": [1], "HOGAR": [1], "ORDEN": [1], "P6240": [1]}
+)
+demog = pd.DataFrame(
+    {"DIRECTORIO": [1], "HOGAR": [1], "ORDEN": [1], "P6040": [39]}
+)
+unido = labour.merge(demog, on=PERSON_KEYS, how="left")
+assert unido["P6040"].iloc[0] == 39
+print("merge: OK")
+```
 
 ### Apilar meses con `concat`
 
-**`pd.concat([df1, df2, ...], ignore_index=True)`** pone varios DataFrames uno debajo del otro.
+Después de harmonizar cada mes por separado, a veces apilamos filas con **`concat`**.
+
+```python
+enero = pd.DataFrame({"mes": [1], "dpto": [52]})
+febrero = pd.DataFrame({"mes": [2], "dpto": [11]})
+dos_meses = pd.concat([enero, febrero], ignore_index=True)
+assert len(dos_meses) == 2
+print("concat: OK")
+```
 
 ### Parquet: leer y escribir
 
 **Parquet** es un formato columnar eficiente. Con **pandas** + **pyarrow**:
 
 ```python
-import pandas as pd
+ejemplo_dir = Path("outputs")
+ejemplo_dir.mkdir(parents=True, exist_ok=True)
+ruta = ejemplo_dir / "_ejemplo.parquet"
 
-# Ejemplo mínimo (no usa datos GEIH todavía)
 mini = pd.DataFrame({"dpto": [52, 11], "mes": [1, 1]})
-ruta = Path("outputs/_ejemplo.parquet")
 mini.to_parquet(ruta, index=False)
 recuperado = pd.read_parquet(ruta)
 assert len(recuperado) == 2
@@ -106,9 +129,7 @@ print("Parquet lectura/escritura: OK")
 ruta.unlink(missing_ok=True)
 ```
 
-### Medir tiempo con `%%time`
-
-En una celda de código, **`%%time`** (al inicio de la celda) imprime cuánto tardó la ejecución. Lo usamos en el benchmark de particiones.
+En la **Parte 4** usamos **`%%time`** al inicio de una celda para medir cuánto tarda una lectura grande.
 
 ### Comprobar con `assert`
 
@@ -123,32 +144,32 @@ print("Repaso Python L3: OK")
 
 ## Instrucciones
 
-**Propósito.** Este cuaderno es su práctica de la **Lección 3 (Almacenamiento)**. Ya hicimos **Access** (L1) y ética sobre CSV (L2). Ahora **guardamos** GEIH en un formato analítico: **Parquet particionado** (`year=…/mes=…/`).
-
-En este cuaderno usted **solo ejecuta** celdas preparadas (no hay `# SU CÓDIGO HERE`). El código evaluable de la semana 2 está en el cuaderno grupal **`week-2-group`**.
+**Propósito.** Este cuaderno es su práctica de la **Lección 3 (Almacenamiento)**. Ya hicimos **Access** (L1) y ética sobre CSV (L2). Ahora **guardamos** GEIH en un formato analítico, eficiente y escalable: **Parquet particionado** (`year=…/mes=…/`).
 
 **Qué hace el cuaderno (en orden).**
 
 | Parte | Tema |
 |-------|------|
-| **0** | Solución **compacta** de semana 1 (Access + OSM) — reutilizable en el **proyecto final** |
-| **1** | Guardar y cargar datos desde **Google Drive** (no volver a descargar DANE cada sesión) |
-| **2** | Configuración de rutas y dependencias |
-| **3** | **Harmonizar todo 2024** (12 meses) → Parquet bajo `data/processed/geih-spine/` |
-| **4** | **Benchmark**: leer todo el árbol vs una sola partición |
-| **5** | **Gobernanza** al almacenar (retención, linaje, cuasi-identificadores) |
+| **0** | Access compacto: funciones L1 → **descargar GEIH 2024** en la sesión → OSM mínimo |
+| **1** | Montar **Google Drive** y **copiar** lo descargado (no repetir DANE en cada sesión) |
+| **2** | Función **`harmonize_month`** (mapeo al spine del curso) |
+| **3** | **Harmonizar 12 meses 2024** → Parquet en Drive |
+| **4** | **Benchmark**: leer todo el árbol vs una partición |
+| **5** | **Gobernanza** al almacenar (retención, linaje) |
 
-**Datos necesarios.** CSV de **2024** bajo `data/raw/2024/` (los mismos que descargó en **`week-1-group`**). Si faltan meses, use la Parte 0 o la clínica del sábado.
+**Flujo en Colab (primera vez):** Parte 0 descarga en **`/content`** → Parte 1 guarda en **Drive** → Partes 2–5 leen desde Drive.
+
+**Sesiones siguientes:** ejecute el **Paso 0.2** con **`SKIP_DOWNLOAD = True`** (solo define rutas; no descarga) → **Parte 1** monta Drive → Partes 2–5 leen desde Drive.
 
 **Entregas semana 2:** ver sección **Tareas** al final (ZIP grupal martes · reflexión miércoles).
 
 ---
 
-## Parte 0 — Solución compacta semana 1 (reutilizable)
+## Parte 0 — Solución compacta semana 1 (Access + descarga 2024)
 
-En semana 1 su grupo implementó el cuaderno **`week-1-group`** (descarga 2022–2025, manifiesto, OSM). Aquí dejamos una **versión compacta** con las mismas ideas: funciones que puede **copiar al proyecto final** sin depender de este cuaderno entero.
+En semana 1 su grupo implementó **`week-1-group`** (2022–2025). Aquí hacemos una **versión compacta** para el **proyecto final**: mismas funciones L1, pero descargamos solo **2024 completo** (12 meses), que es lo que harmonizamos en este cuaderno.
 
-**No** volvemos a descargar cuatro años en Colab (toma demasiado tiempo). Asumimos que ya tiene CSV en Drive o disco. Si no, ejecute primero su cuaderno grupal o la Parte 0 de L1 para **enero 2024**.
+**Orden:** primero descargamos en la **carpeta de la sesión** (`/content` en Colab). En la **Parte 1** copiamos a **Google Drive** para no repetir la descarga.
 
 ### Paso 0.1 — Funciones Access (desde L1)
 
@@ -284,39 +305,74 @@ print("Parte 0, Paso 0.1 — funciones Access: OK")
 
 ---
 
-### Paso 0.2 — Verificar manifiesto y datos en disco
+### Paso 0.2 — Descargar GEIH 2024 completo (12 meses)
 
-Si completó **`week-1-group`**, debería existir **`manifest.json`** y carpetas bajo `data/raw/`. Este paso **no descarga de nuevo**: solo comprueba que el pipeline de Access quedó auditable.
+Usamos las funciones del paso anterior para dejar **todo 2024** bajo `data/raw/2024/` en la **carpeta de trabajo de esta sesión**. Cada mes queda en su subcarpeta con CSV extraídos, igual que en [L1 Parte 2](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction.ipynb).
+
+Si ya completó **`week-1-group`** y copió esos archivos a Drive, en la **Parte 1** puede cargar desde Drive y **omitir** este paso (`SKIP_DOWNLOAD = True`).
 
 ```python
-manifest_path = Path("manifest.json")
-if manifest_path.is_file():
-    manifest_df = pd.DataFrame(json.loads(manifest_path.read_text(encoding="utf-8")))
-    n_2024 = (manifest_df["survey_year"] == 2024).sum() if "survey_year" in manifest_df.columns else 0
-    print(f"manifest.json: {len(manifest_df)} filas | meses 2024 registrados: {n_2024}")
-    print(manifest_df.head(3))
-else:
-    print(
-        "AVISO: no hay manifest.json en la carpeta de trabajo. "
-        "Monte Drive (Parte 1) o copie el manifiesto de su cuaderno grupal."
-    )
-    manifest_df = pd.DataFrame()
+YEAR = 2024
+CATALOG_ID = 819
+SKIP_DOWNLOAD = False  # True si ya tiene 12 meses en Drive (después de Parte 1)
 
-month_dirs_2024 = sorted(
-    p for p in Path("data/raw/2024").iterdir()
-    if p.is_dir() and any("fuerza" in f.name.lower() and "trabajo" in f.name.lower() for f in p.glob("*.CSV"))
-) if Path("data/raw/2024").is_dir() else []
-print(f"Carpetas mensuales 2024 con Fuerza de trabajo: {len(month_dirs_2024)}")
-if month_dirs_2024:
-    print("Ejemplo:", month_dirs_2024[0].name)
+SESSION_ROOT = Path(".")
+LOCAL_RAW = SESSION_ROOT / "data" / "raw"
+LOCAL_YEAR_DIR = LOCAL_RAW / str(YEAR)
+LOCAL_MANIFEST = SESSION_ROOT / "manifest.json"
+LOCAL_RAW.mkdir(parents=True, exist_ok=True)
+LOCAL_YEAR_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def count_month_folders(year_dir: Path) -> int:
+    if not year_dir.is_dir():
+        return 0
+    n = 0
+    for p in year_dir.iterdir():
+        if not p.is_dir():
+            continue
+        if any(f.suffix.upper() == ".CSV" for f in p.iterdir()):
+            n += 1
+    return n
+
+
+n_meses_local = count_month_folders(LOCAL_YEAR_DIR)
+
+if SKIP_DOWNLOAD:
+    print("SKIP_DOWNLOAD=True — no se descarga en esta sesión.")
+elif n_meses_local >= 12:
+    print(f"Ya hay {n_meses_local} meses en {LOCAL_YEAR_DIR} — omitiendo descarga DANE.")
+else:
+    print("Listando archivos del catálogo 819...")
+    all_files = list_catalog_downloads(CATALOG_ID)
+    print(f"Archivos en catálogo: {len(all_files)}")
+    manifest_entries: list[dict] = []
+    for item in all_files:
+        print("Procesando:", item["filename"])
+        manifest_entries.append(
+            access_file(item, LOCAL_YEAR_DIR, YEAR, CATALOG_ID, skip_if_exists=True)
+        )
+    write_manifest(LOCAL_MANIFEST, manifest_entries)
+    total_gb = sum(e.get("bytes_downloaded", 0) for e in manifest_entries) / 1e9
+    print(f"Manifiesto escrito: {LOCAL_MANIFEST}")
+    print(f"Bytes descargados (suma ZIP): {total_gb:.3f} GB")
+
+n_meses_local = count_month_folders(LOCAL_YEAR_DIR)
+print(f"Carpetas mensuales 2024 en sesión: {n_meses_local}")
 ```
 
 **Comprobar:**
 
 ```python
-if month_dirs_2024:
-    assert len(month_dirs_2024) >= 1, "Se necesita al menos un mes 2024 para continuar"
-print("Parte 0, Paso 0.2 — manifiesto / carpetas: OK (o AVISO mostrado arriba)")
+assert LOCAL_YEAR_DIR.is_dir()
+assert n_meses_local >= 12, (
+    f"Se esperan 12 meses 2024; hay {n_meses_local}. "
+    "Revise la conexión DANE o use datos ya copiados desde week-1-group."
+)
+if LOCAL_MANIFEST.is_file():
+    manifest_df = pd.DataFrame(json.loads(LOCAL_MANIFEST.read_text(encoding="utf-8")))
+    print(manifest_df[["filename", "bytes_downloaded", "notes"]].head(3))
+print("Parte 0, Paso 0.2 — descarga 2024: OK")
 ```
 
 ---
@@ -364,19 +420,21 @@ assert poi_escuelas >= 0
 print("Parte 0, Paso 0.3 — OSM compacto: OK")
 ```
 
-Guarde este bloque (Access + manifiesto + OSM) en su repositorio de proyecto: es la **espina dorsal** del pipeline que documentará en `project_requirements.pdf` §9.
+Guarde este bloque (funciones Access + descarga + OSM) para el **proyecto final** — es la base del pipeline en `project_requirements.pdf` §9.
 
 ---
 
-## Parte 1 — Google Drive: persistir datos entre sesiones
+## Parte 1 — Google Drive: persistir lo descargado
 
-En Colab la carpeta **`/content`** se borra al cerrar la sesión. Si vuelve a descargar GEIH cada vez, pierde tiempo y ancho de banda. La práctica habitual es guardar **`data/`** y **`manifest.json`** en **Google Drive** del curso.
+En Colab, **`/content`** se borra al cerrar la sesión. Por eso, **después de descargar en la Parte 0**, copiamos `data/raw/2024/` y `manifest.json` a **Google Drive**. En la próxima sesión montamos Drive y continuamos sin volver a pedir los ZIP al DANE.
 
 ### Paso 1.1 — Montar Drive (solo Colab)
 
-Si ejecuta en **local**, deje `USE_GOOGLE_DRIVE = False` y use la carpeta del proyecto en su disco.
+Si trabaja en **local**, deje `USE_GOOGLE_DRIVE = False`: `WORK_ROOT` será la carpeta del proyecto (donde ya descargó en el Paso 0.2).
 
 ```python
+import shutil
+
 USE_GOOGLE_DRIVE = True
 
 try:
@@ -390,17 +448,24 @@ if USE_GOOGLE_DRIVE and IN_COLAB:
 
     drive.mount("/content/drive")
     WORK_ROOT = Path("/content/drive/MyDrive/UDENAR-BigData")
-    print(f"Raíz en Drive: {WORK_ROOT}")
+    print(f"Raíz persistente en Drive: {WORK_ROOT}")
 else:
-    WORK_ROOT = Path(".")
-    print(f"Raíz local: {WORK_ROOT.resolve()}")
+    WORK_ROOT = SESSION_ROOT
+    print(f"Raíz local (misma sesión): {WORK_ROOT.resolve()}")
 
 WORK_ROOT.mkdir(parents=True, exist_ok=True)
 ```
 
-### Paso 1.2 — Rutas bajo `WORK_ROOT`
+### Paso 1.2 — Rutas de trabajo en Drive (o local)
 
-Todas las partes siguientes usan estas rutas. **`data/raw`** = CSV descargados; **`data/processed/geih-spine`** = Parquet harmonizado.
+A partir de aquí, **Partes 2–5** leen y escriben bajo `WORK_ROOT`:
+
+| Ruta | Contenido |
+|------|-----------|
+| `data/raw/2024/` | CSV descargados (Parte 0 → copiados aquí) |
+| `data/processed/geih-spine/` | Parquet harmonizado |
+| `manifest.json` | Registro de acceso DANE |
+| `outputs/` | Exportaciones auxiliares |
 
 ```python
 RAW_DIR = WORK_ROOT / "data" / "raw"
@@ -411,46 +476,56 @@ MANIFEST_PATH = WORK_ROOT / "manifest.json"
 for p in (RAW_DIR, PROCESSED_DIR, OUTPUTS_DIR):
     p.mkdir(parents=True, exist_ok=True)
 
-YEAR = 2024
-CATALOG_ID = 819
 YEAR_DIR = RAW_DIR / str(YEAR)
 YEAR_DIR.mkdir(parents=True, exist_ok=True)
 
-print("RAW:", RAW_DIR)
+print("RAW:", YEAR_DIR)
 print("Parquet:", PROCESSED_DIR)
 print("Manifiesto:", MANIFEST_PATH)
 ```
 
-### Paso 1.3 — Copiar datos locales a Drive (una vez)
+### Paso 1.3 — Copiar la descarga de la sesión → Drive (una vez)
 
-Si acaba de descargar en **`/content`** sin Drive, copie **`data/`** y **`manifest.json`** a `WORK_ROOT` **una vez**. En sesiones siguientes solo monte Drive y siga en Parte 3.
+Si acaba de ejecutar el **Paso 0.2**, los CSV están en `LOCAL_YEAR_DIR` (`/content/data/raw/2024`). Esta celda los **copia a Drive** si allí aún no están los 12 meses.
+
+En **sesiones futuras**, Drive ya tiene los datos: esta celda imprime *omitido* y usted puede poner **`SKIP_DOWNLOAD = True`** en el Paso 0.2.
 
 ```python
-import shutil
+n_drive = count_month_folders(YEAR_DIR)
+n_local = count_month_folders(LOCAL_YEAR_DIR)
 
-LOCAL_DATA = Path("data/raw/2024")
-if IN_COLAB and LOCAL_DATA.is_dir() and not any(YEAR_DIR.iterdir()):
-    print("Copiando data/raw/2024 → Drive (puede tardar unos minutos)...")
-    shutil.copytree(LOCAL_DATA, YEAR_DIR, dirs_exist_ok=True)
-    local_manifest = Path("manifest.json")
-    if local_manifest.is_file() and not MANIFEST_PATH.is_file():
-        shutil.copy2(local_manifest, MANIFEST_PATH)
-    print("Copia terminada.")
+if n_drive >= 12:
+    print(f"Drive ya tiene {n_drive} meses — no hace falta copiar.")
+elif n_local >= 12:
+    print(f"Copiando {n_local} meses de la sesión → Drive (puede tardar)...")
+    for item in LOCAL_YEAR_DIR.iterdir():
+        dest = YEAR_DIR / item.name
+        if item.is_dir():
+            shutil.copytree(item, dest, dirs_exist_ok=True)
+        elif item.is_file():
+            shutil.copy2(item, dest)
+    if LOCAL_MANIFEST.is_file() and not MANIFEST_PATH.is_file():
+        shutil.copy2(LOCAL_MANIFEST, MANIFEST_PATH)
+    print("Copia a Drive terminada.")
 else:
-    print("Omitido: ya hay datos en YEAR_DIR o no aplica copia desde /content.")
+    raise FileNotFoundError(
+        "Faltan meses en local y en Drive. Ejecute el Paso 0.2 (descarga) primero."
+    )
+
+print(f"Meses en Drive al final: {count_month_folders(YEAR_DIR)}")
 ```
 
 **Comprobar:**
 
 ```python
+assert count_month_folders(YEAR_DIR) >= 12
 assert WORK_ROOT.is_dir()
-assert YEAR_DIR.is_dir()
-print("Parte 1 — Drive / rutas: OK")
+print("Parte 1 — Drive / persistencia: OK")
 ```
 
 ---
 
-## Parte 2 — Configuración harmonización 2024
+## Parte 2 — Función `harmonize_month`
 
 **Objetivo.** Definir constantes y la función que convierte **un mes** de CSV DANE en filas con nombres del [spine del curso](https://cabrerac.github.io/work-space/teaching/big-data/planning/spine-spec.md). Harmonizamos **los 12 meses de 2024** en este cuaderno; en **`week-2-group`** su grupo añade **2022, 2023 y 2025** con el mismo mapeo.
 
