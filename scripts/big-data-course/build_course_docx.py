@@ -54,8 +54,9 @@ def build_project_requirements() -> Document:
     para(
         doc,
         "Complete en Word, inserte su diagrama de pipeline en la sección 9, "
-        "pegue su modelo canvas en la sección 11, "
-        "y entregue project_requirements.pdf en Moodle (semana 2; plazo según calendario del curso). "
+        "pegue su modelo canvas en la sección 11. "
+        "Avance el documento en la sesión del sábado 13 de junio (checkpoint: subconjunto GEIH definido en §5). "
+        "Entregue project_requirements.pdf con el proyecto summativo (sábado 27 de junio de 2026). "
         "Mantenga los títulos de sección exactamente como aparecen abajo.",
     )
     doc.add_paragraph()
