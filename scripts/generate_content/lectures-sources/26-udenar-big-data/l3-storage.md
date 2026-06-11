@@ -239,8 +239,10 @@ PRIMARY_TABLE_KEYWORD = "fuerza de trabajo"
 DEMOG_TABLE_KEYWORDS = ("caracter", "generales")
 PERSON_KEYS = ["DIRECTORIO", "HOGAR", "ORDEN"]
 
+# El DANE genera el botón de descarga con onclick="mostrarModal('archivo.zip', 'URL')".
+# Aceptamos también downloadFile(...) por si cambia el nombre de la función.
 DOWNLOAD_ONCLICK_RE = re.compile(
-    r"downloadFile\s*\(\s*['\"]([^'\"]+)['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*\)"
+    r"(?:mostrarModal|downloadFile)\s*\(\s*['\"]([^'\"]+)['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*\)"
 )
 FILE_ID_RE = re.compile(r"/download/(\d+)")
 
