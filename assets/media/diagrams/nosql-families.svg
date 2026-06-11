@@ -19,7 +19,7 @@
     <rect x="40" y="48" width="150" height="110" rx="4" fill="#ffffff" stroke="#548235"/>
     <text x="52" y="70" font-size="12" font-family="monospace" fill="#2f5597">{</text>
     <text x="64" y="90" font-size="12" font-family="monospace" fill="#1f2d3d">"id": 1,</text>
-    <text x="64" y="110" font-size="12" font-family="monospace" fill="#1f2d3d">"hijos":</text>
+    <text x="64" y="110" font-size="12" font-family="monospace" fill="#1f2d3d">"children":</text>
     <text x="76" y="128" font-size="12" font-family="monospace" fill="#c55a11">["a","b"]</text>
     <text x="52" y="148" font-size="12" font-family="monospace" fill="#2f5597">}</text>
     <text x="115" y="180" text-anchor="middle" font-size="12" fill="#5a6b7b">nested JSON</text>

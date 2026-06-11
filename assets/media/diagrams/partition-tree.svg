@@ -9,16 +9,16 @@
 
     <!-- anio -->
     <rect x="120" y="130" width="220" height="34" rx="4" fill="#dbe5f1" stroke="#2f5597"/>
-    <text x="136" y="152" font-family="monospace">anio=2024/</text>
+    <text x="136" y="152" font-family="monospace">year=2024/</text>
 
     <!-- months -->
     <rect x="200" y="190" width="200" height="32" rx="4" fill="#e2efda" stroke="#548235"/>
-    <text x="216" y="211" font-family="monospace">mes=01/</text>
+    <text x="216" y="211" font-family="monospace">month=01/</text>
     <rect x="200" y="232" width="200" height="32" rx="4" fill="#e2efda" stroke="#548235"/>
-    <text x="216" y="253" font-family="monospace">mes=02/</text>
+    <text x="216" y="253" font-family="monospace">month=02/</text>
     <text x="216" y="288" font-family="monospace" font-size="18">...</text>
     <rect x="200" y="300" width="200" height="32" rx="4" fill="#e2efda" stroke="#548235"/>
-    <text x="216" y="321" font-family="monospace">mes=12/</text>
+    <text x="216" y="321" font-family="monospace">month=12/</text>
 
     <!-- parquet files -->
     <rect x="460" y="190" width="260" height="32" rx="4" fill="#fbe5d6" stroke="#c55a11"/>

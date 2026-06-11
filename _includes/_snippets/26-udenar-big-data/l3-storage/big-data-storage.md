@@ -133,7 +133,7 @@
     <div class="row" style="height: 72%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <img src="{{ site.url }}/assets/media/diagrams/etl-vs-elt.svg" alt="ETL versus ELT" style="height: 340px">
+                <img src="{{ site.url }}/assets/media/diagrams/etl-vs-elt.svg" alt="ETL versus ELT" style="height: 100%">
             </div>
         </div>
     </div>
@@ -187,7 +187,7 @@
             <div class="column vertical-middle text-left" style="width: 40%">
                 <p><b>In the notebook</b></p>
                 <ul>
-                    <li>One file per month under anio and mes</li>
+                    <li>One file per month under year and month</li>
                     <li>Written once, read many times</li>
                     <li><a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l3-storage.ipynb" target="_blank" rel="noopener noreferrer">Lecture 3 notebook</a></li>
                 </ul>
@@ -195,7 +195,7 @@
             <div class="column vertical-middle text-left" style="width: 60%">
 
 ```python
-part_dir = PROCESSED_DIR / f"anio={y}" / f"mes={m:02d}"
+part_dir = PROCESSED_DIR / f"year={y}" / f"month={m:02d}"
 part_file = part_dir / "part-000.parquet"
 
 part_dir.mkdir(parents=True, exist_ok=True)
@@ -215,9 +215,9 @@ sample.to_parquet(part_file, index=False)
             <div class="column vertical-middle text-center" style="width: 50%">
                 <table class="table">
                     <tr><td><b>raw code</b></td><td><b>readable</b></td></tr>
-                    <tr><td>P6040</td><td>edad</td></tr>
-                    <tr><td>P3271</td><td>sexo</td></tr>
-                    <tr><td>P6240</td><td>actividad</td></tr>
+                    <tr><td>P6040</td><td>age</td></tr>
+                    <tr><td>P3271</td><td>gender</td></tr>
+                    <tr><td>P6240</td><td>activity</td></tr>
                     <tr><td>FEX_C18</td><td>factor_expansion</td></tr>
                 </table>
             </div>
@@ -243,9 +243,9 @@ sample.to_parquet(part_file, index=False)
             <div class="column vertical-middle text-center" style="width: 50%">
                 <p><b>DANE code</b></p>
                 <table class="table">
-                    <tr><td>P6040</td><td>edad</td></tr>
-                    <tr><td>P3271</td><td>sexo</td></tr>
-                    <tr><td>P6240</td><td>actividad</td></tr>
+                    <tr><td>P6040</td><td>age</td></tr>
+                    <tr><td>P3271</td><td>gender</td></tr>
+                    <tr><td>P6240</td><td>activity</td></tr>
                     <tr><td>FEX_C18</td><td>factor_expansion</td></tr>
                 </table>
             </div>
@@ -257,46 +257,24 @@ sample.to_parquet(part_file, index=False)
     </div>
 </div>
 
-## Harmonisation
+## Lakehouse
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/lake-warehouse-lakehouse.svg" alt="Data lake, warehouse, and lakehouse" style="height: 100%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Lakehouse
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Storage layer or processing layer?</b> We rename and fix types now, at storage time. We do not decide who counts as employed here. That interpretation belongs to processing, so the stored data stays neutral and reusable.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Lakehouse
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 28%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Data lake:</b> dump raw files cheaply, decide structure later. Flexible, but easy to turn into a swamp.</p>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Warehouse:</b> model clean tables first, query them fast. Reliable, but rigid and costly to change.</p>
-            </div>
-        </div>
-    </div>
-    <div class="row" style="height: 72%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <img src="{{ site.url }}/assets/media/diagrams/lake-warehouse-lakehouse.svg" alt="Data lake, warehouse, and lakehouse" style="height: 320px">
-            </div>
-        </div>
-    </div>
-</div>
-
-## Lakehouse
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
                 <p>"A lakehouse is a data management system based on low-cost and directly accessible storage that also provides traditional analytical DBMS management features." <a href="https://www.cidrdb.org/cidr2021/papers/cidr2021_paper17.pdf" target="_blank" rel="noopener noreferrer">(Armbrust et al., 2021)</a></p>
             </div>
         </div>
