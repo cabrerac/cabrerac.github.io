@@ -11,8 +11,8 @@
     <line x1="0" y1="55" x2="240" y2="55" stroke="#9aa7b4"/>
     <line x1="0" y1="82" x2="240" y2="82" stroke="#9aa7b4"/>
     <text x="40" y="19" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2d3d">dpto</text>
-    <text x="120" y="19" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2d3d">edad</text>
-    <text x="200" y="19" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2d3d">sexo</text>
+    <text x="120" y="19" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2d3d">age</text>
+    <text x="200" y="19" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2d3d">gender</text>
     <text x="40" y="46" text-anchor="middle" font-size="14" fill="#2f5597">52</text>
     <text x="120" y="46" text-anchor="middle" font-size="14" fill="#548235">25</text>
     <text x="200" y="46" text-anchor="middle" font-size="14" fill="#c55a11">1</text>

@@ -186,7 +186,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <img src="{{ site.url }}/assets/media/diagrams/row-vs-columnar.svg" alt="Row versus columnar storage layout" style="height: 460px">
+                <img src="{{ site.url }}/assets/media/diagrams/row-vs-columnar.svg" alt="Row versus columnar storage layout" style="height: 640px">
             </div>
         </div>
     </div>
@@ -206,19 +206,7 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>A <b>sexo</b> column of millions of 1s and 2s collapses to almost nothing. Smaller bytes mean faster reads and cheaper storage.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Read VS Write
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Parquet</b> is the columnar format we will use. Next we follow its lineage at web scale, and how a pipeline stores data in that format.</p>
+                <p>A <b>gender</b> column of millions of 1s and 2s collapses to almost nothing. Smaller bytes mean faster reads and cheaper storage.</p>
             </div>
         </div>
     </div>

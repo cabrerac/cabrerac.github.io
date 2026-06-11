@@ -131,7 +131,7 @@
   "lat": 1.2136, "lon": -77.2811,
   "tags": {
     "amenity": "school",
-    "name": "I.E. Nuestra Senora"
+    "name": "School 1"
   }
 }
 ```
