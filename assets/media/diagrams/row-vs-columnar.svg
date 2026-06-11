@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" font-family="Helvetica, Arial, sans-serif">
+  <rect width="960" height="540" fill="#ffffff"/>
+
+  <!-- Source table -->
+  <text x="480" y="40" text-anchor="middle" font-size="22" font-weight="bold" fill="#1f2d3d">Same table, two layouts on disk</text>
+  <g transform="translate(360,60)">
+    <rect x="0" y="0" width="240" height="110" fill="#f6f8fa" stroke="#9aa7b4"/>
+    <line x1="80" y1="0" x2="80" y2="110" stroke="#9aa7b4"/>
+    <line x1="160" y1="0" x2="160" y2="110" stroke="#9aa7b4"/>
+    <line x1="0" y1="28" x2="240" y2="28" stroke="#9aa7b4"/>
+    <line x1="0" y1="55" x2="240" y2="55" stroke="#9aa7b4"/>
+    <line x1="0" y1="82" x2="240" y2="82" stroke="#9aa7b4"/>
+    <text x="40" y="19" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2d3d">dpto</text>
+    <text x="120" y="19" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2d3d">edad</text>
+    <text x="200" y="19" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2d3d">sexo</text>
+    <text x="40" y="46" text-anchor="middle" font-size="14" fill="#2f5597">52</text>
+    <text x="120" y="46" text-anchor="middle" font-size="14" fill="#548235">25</text>
+    <text x="200" y="46" text-anchor="middle" font-size="14" fill="#c55a11">1</text>
+    <text x="40" y="73" text-anchor="middle" font-size="14" fill="#2f5597">11</text>
+    <text x="120" y="73" text-anchor="middle" font-size="14" fill="#548235">40</text>
+    <text x="200" y="73" text-anchor="middle" font-size="14" fill="#c55a11">2</text>
+    <text x="40" y="100" text-anchor="middle" font-size="14" fill="#2f5597">76</text>
+    <text x="120" y="100" text-anchor="middle" font-size="14" fill="#548235">31</text>
+    <text x="200" y="100" text-anchor="middle" font-size="14" fill="#c55a11">1</text>
+  </g>
+
+  <!-- Row-oriented -->
+  <g transform="translate(40,230)">
+    <text x="200" y="0" text-anchor="middle" font-size="18" font-weight="bold" fill="#1f2d3d">Row-oriented (OLTP)</text>
+    <text x="200" y="24" text-anchor="middle" font-size="13" fill="#5a6b7b">store one record at a time</text>
+    <g transform="translate(0,40)">
+      <rect x="0" y="0" width="60" height="34" fill="#dbe5f1" stroke="#2f5597"/><text x="30" y="22" text-anchor="middle" font-size="13">52</text>
+      <rect x="60" y="0" width="60" height="34" fill="#e2efda" stroke="#548235"/><text x="90" y="22" text-anchor="middle" font-size="13">25</text>
+      <rect x="120" y="0" width="60" height="34" fill="#fbe5d6" stroke="#c55a11"/><text x="150" y="22" text-anchor="middle" font-size="13">1</text>
+      <rect x="180" y="0" width="60" height="34" fill="#dbe5f1" stroke="#2f5597"/><text x="210" y="22" text-anchor="middle" font-size="13">11</text>
+      <rect x="240" y="0" width="60" height="34" fill="#e2efda" stroke="#548235"/><text x="270" y="22" text-anchor="middle" font-size="13">40</text>
+      <rect x="300" y="0" width="60" height="34" fill="#fbe5d6" stroke="#c55a11"/><text x="330" y="22" text-anchor="middle" font-size="13">2</text>
+    </g>
+    <text x="200" y="110" text-anchor="middle" font-size="13" fill="#5a6b7b">fast writes, read whole rows</text>
+  </g>
+
+  <!-- Column-oriented -->
+  <g transform="translate(520,230)">
+    <text x="200" y="0" text-anchor="middle" font-size="18" font-weight="bold" fill="#1f2d3d">Column-oriented (OLAP)</text>
+    <text x="200" y="24" text-anchor="middle" font-size="13" fill="#5a6b7b">store one column at a time</text>
+    <g transform="translate(0,40)">
+      <rect x="0" y="0" width="60" height="34" fill="#dbe5f1" stroke="#2f5597"/><text x="30" y="22" text-anchor="middle" font-size="13">52</text>
+      <rect x="60" y="0" width="60" height="34" fill="#dbe5f1" stroke="#2f5597"/><text x="90" y="22" text-anchor="middle" font-size="13">11</text>
+      <rect x="120" y="0" width="60" height="34" fill="#dbe5f1" stroke="#2f5597"/><text x="150" y="22" text-anchor="middle" font-size="13">76</text>
+      <rect x="180" y="0" width="60" height="34" fill="#e2efda" stroke="#548235"/><text x="210" y="22" text-anchor="middle" font-size="13">25</text>
+      <rect x="240" y="0" width="60" height="34" fill="#e2efda" stroke="#548235"/><text x="270" y="22" text-anchor="middle" font-size="13">40</text>
+      <rect x="300" y="0" width="60" height="34" fill="#e2efda" stroke="#548235"/><text x="330" y="22" text-anchor="middle" font-size="13">31</text>
+    </g>
+    <text x="200" y="110" text-anchor="middle" font-size="13" fill="#5a6b7b">read few columns, compress well</text>
+  </g>
+</svg>

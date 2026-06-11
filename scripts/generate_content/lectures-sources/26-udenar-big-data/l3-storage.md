@@ -28,7 +28,97 @@ notebook_description: Práctica individual de la Lección 3. En esta práctica h
 
 <!-- end SLIDES: -->
 
-*Diapositivas Lección 3, por redactar (apertura: nube de palabras semana 1 + puente ETL).*
+{% include _snippets/26-udenar-big-data/l3-storage/last-time.md %}
+
+<!-- SLIDES: -->
+
+# The Need to Store
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l3-storage/storage-need.md %}
+
+<!-- SLIDES: -->
+
+# Systems and the Web Evolve
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l3-storage/systems-web-evolution.md %}
+
+<!-- SLIDES: -->
+
+# Relational Databases
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l3-storage/relational.md %}
+
+<!-- SLIDES: -->
+
+# Non-Relational Databases
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l3-storage/nosql.md %}
+
+<!-- SLIDES: -->
+
+# Read versus Write
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l3-storage/read-write-tradeoff.md %}
+
+<!-- SLIDES: -->
+
+# ETL
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l3-storage/etl.md %}
+
+<!-- SLIDES: -->
+
+# Big Data Storage History
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l3-storage/bigdata-storage-history.md %}
+
+<!-- SLIDES: -->
+
+# Partitioning
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l3-storage/partitioning.md %}
+
+<!-- SLIDES: -->
+
+# Harmonization
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l3-storage/harmonization.md %}
+
+<!-- SLIDES: -->
+
+# Lakehouse
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l3-storage/lakehouse.md %}
+
+<!-- SLIDES: -->
+
+# Conclusions
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l3-storage/conclusions.md %}
+
+{% include _snippets/26-udenar-big-data/l3-storage/practical-slides.md %}
 
 <!-- RENDER: -->
 

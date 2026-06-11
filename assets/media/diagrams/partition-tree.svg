@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" font-family="Helvetica, Arial, sans-serif">
+  <rect width="960" height="540" fill="#ffffff"/>
+  <text x="480" y="40" text-anchor="middle" font-size="22" font-weight="bold" fill="#1f2d3d">Hive-style partitioning: folders are part of the data</text>
+
+  <!-- root -->
+  <g font-size="15" fill="#1f2d3d">
+    <rect x="60" y="70" width="260" height="34" rx="4" fill="#dbe5f1" stroke="#2f5597"/>
+    <text x="76" y="92" font-family="monospace">geih-spine/</text>
+
+    <!-- anio -->
+    <rect x="120" y="130" width="220" height="34" rx="4" fill="#dbe5f1" stroke="#2f5597"/>
+    <text x="136" y="152" font-family="monospace">anio=2024/</text>
+
+    <!-- months -->
+    <rect x="200" y="190" width="200" height="32" rx="4" fill="#e2efda" stroke="#548235"/>
+    <text x="216" y="211" font-family="monospace">mes=01/</text>
+    <rect x="200" y="232" width="200" height="32" rx="4" fill="#e2efda" stroke="#548235"/>
+    <text x="216" y="253" font-family="monospace">mes=02/</text>
+    <text x="216" y="288" font-family="monospace" font-size="18">...</text>
+    <rect x="200" y="300" width="200" height="32" rx="4" fill="#e2efda" stroke="#548235"/>
+    <text x="216" y="321" font-family="monospace">mes=12/</text>
+
+    <!-- parquet files -->
+    <rect x="460" y="190" width="260" height="32" rx="4" fill="#fbe5d6" stroke="#c55a11"/>
+    <text x="476" y="211" font-family="monospace" font-size="13">part-000.parquet</text>
+    <rect x="460" y="232" width="260" height="32" rx="4" fill="#fbe5d6" stroke="#c55a11"/>
+    <text x="476" y="253" font-family="monospace" font-size="13">part-000.parquet</text>
+    <rect x="460" y="300" width="260" height="32" rx="4" fill="#fbe5d6" stroke="#c55a11"/>
+    <text x="476" y="321" font-family="monospace" font-size="13">part-000.parquet</text>
+  </g>
+
+  <!-- connectors -->
+  <g stroke="#9aa7b4" stroke-width="1.5" fill="none">
+    <path d="M90 104 L90 147 L120 147"/>
+    <path d="M150 164 L150 206 L200 206"/>
+    <path d="M150 164 L150 248 L200 248"/>
+    <path d="M150 164 L150 316 L200 316"/>
+    <path d="M400 206 L460 206"/>
+    <path d="M400 248 L460 248"/>
+    <path d="M400 316 L460 316"/>
+  </g>
+
+  <!-- callout -->
+  <g transform="translate(540,380)">
+    <rect x="0" y="0" width="380" height="120" rx="6" fill="#f6f8fa" stroke="#9aa7b4"/>
+    <text x="20" y="32" font-size="15" font-weight="bold" fill="#1f2d3d">Partition pruning</text>
+    <text x="20" y="60" font-size="14" fill="#5a6b7b">A query for January reads only</text>
+    <text x="20" y="82" font-size="14" font-family="monospace" fill="#c55a11">anio=2024/mes=01/</text>
+    <text x="20" y="104" font-size="14" fill="#5a6b7b">and skips the other 11 folders.</text>
+  </g>
+</svg>
