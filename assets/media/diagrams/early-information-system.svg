@@ -30,8 +30,8 @@
     <line x1="0" y1="114" x2="170" y2="114" stroke="#9aa7b4"/>
     <line x1="0" y1="154" x2="170" y2="154" stroke="#9aa7b4"/>
     <line x1="85" y1="0" x2="85" y2="190" stroke="#9aa7b4"/>
-    <text x="42" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2d3d">cuenta</text>
-    <text x="128" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2d3d">saldo</text>
+    <text x="42" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2d3d">account</text>
+    <text x="128" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2d3d">credit</text>
     <text x="42" y="60" text-anchor="middle" font-size="12" fill="#2f5597">001</text>
     <text x="128" y="60" text-anchor="middle" font-size="12" fill="#548235">1200</text>
     <text x="42" y="100" text-anchor="middle" font-size="12" fill="#2f5597">002</text>

@@ -40,75 +40,19 @@ notebook_description: Práctica individual de la Lección 3. En esta práctica h
 
 <!-- SLIDES: -->
 
-# Systems and the Web Evolve
+# Databases
 
 <!-- end SLIDES: -->
 
-{% include _snippets/26-udenar-big-data/l3-storage/systems-web-evolution.md %}
+{% include _snippets/26-udenar-big-data/l3-storage/databases.md %}
 
 <!-- SLIDES: -->
 
-# Relational Databases
+# Big Data Storage
 
 <!-- end SLIDES: -->
 
-{% include _snippets/26-udenar-big-data/l3-storage/relational.md %}
-
-<!-- SLIDES: -->
-
-# Non-Relational Databases
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-big-data/l3-storage/nosql.md %}
-
-<!-- SLIDES: -->
-
-# Read VS Write
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-big-data/l3-storage/read-write-tradeoff.md %}
-
-<!-- SLIDES: -->
-
-# ETL
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-big-data/l3-storage/etl.md %}
-
-<!-- SLIDES: -->
-
-# Big Data Storage History
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-big-data/l3-storage/bigdata-storage-history.md %}
-
-<!-- SLIDES: -->
-
-# Partitioning
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-big-data/l3-storage/partitioning.md %}
-
-<!-- SLIDES: -->
-
-# Harmonisation
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-big-data/l3-storage/harmonization.md %}
-
-<!-- SLIDES: -->
-
-# Lakehouse
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-big-data/l3-storage/lakehouse.md %}
+{% include _snippets/26-udenar-big-data/l3-storage/big-data-storage.md %}
 
 <!-- SLIDES: -->
 
