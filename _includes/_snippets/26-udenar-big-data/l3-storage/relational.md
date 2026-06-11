@@ -5,6 +5,14 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <table class="table">
+                    <tr><td>id_hogar</td><td>orden</td><td>edad</td></tr>
+                    <tr><td>A-1</td><td>1</td><td>40</td></tr>
+                    <tr><td>A-1</td><td>2</td><td>12</td></tr>
+                    <tr><td>B-3</td><td>1</td><td>29</td></tr>
+                </table>
+            </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Rows, tables, and keys</b></p>
                 <ul>
@@ -12,9 +20,7 @@
                     <li>Tables link through keys, no value is repeated needlessly</li>
                     <li>We query with <b>SQL</b>, a declarative language</li>
                 </ul>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p>GEIH is already relational in spirit. A household table and a person table share the keys <b>DIRECTORIO</b>, <b>HOGAR</b>, and <b>ORDEN</b>.</p>
+                <p>As an example, GEIH is relational in spirit. A household table and a person table share the keys <b>DIRECTORIO</b>, <b>HOGAR</b>, and <b>ORDEN</b>.</p>
             </div>
         </div>
     </div>

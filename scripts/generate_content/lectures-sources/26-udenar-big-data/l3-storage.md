@@ -64,7 +64,7 @@ notebook_description: Práctica individual de la Lección 3. En esta práctica h
 
 <!-- SLIDES: -->
 
-# Read versus Write
+# Read VS Write
 
 <!-- end SLIDES: -->
 
@@ -96,7 +96,7 @@ notebook_description: Práctica individual de la Lección 3. En esta práctica h
 
 <!-- SLIDES: -->
 
-# Harmonization
+# Harmonisation
 
 <!-- end SLIDES: -->
 

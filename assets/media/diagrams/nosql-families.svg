@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 460" font-family="Helvetica, Arial, sans-serif">
+  <rect width="520" height="460" fill="#ffffff"/>
+
+  <!-- Key-value -->
+  <g transform="translate(20,20)">
+    <rect x="0" y="0" width="230" height="200" rx="8" fill="#f6f8fa" stroke="#2f5597"/>
+    <text x="115" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2d3d">Key-value</text>
+    <rect x="30" y="50" width="80" height="30" fill="#dbe5f1" stroke="#2f5597"/><text x="70" y="70" text-anchor="middle" font-size="13">user:1</text>
+    <rect x="120" y="50" width="80" height="30" fill="#ffffff" stroke="#2f5597"/><text x="160" y="70" text-anchor="middle" font-size="13">Ana</text>
+    <rect x="30" y="90" width="80" height="30" fill="#dbe5f1" stroke="#2f5597"/><text x="70" y="110" text-anchor="middle" font-size="13">user:2</text>
+    <rect x="120" y="90" width="80" height="30" fill="#ffffff" stroke="#2f5597"/><text x="160" y="110" text-anchor="middle" font-size="13">Beto</text>
+    <text x="115" y="160" text-anchor="middle" font-size="12" fill="#5a6b7b">a giant dictionary</text>
+  </g>
+
+  <!-- Document -->
+  <g transform="translate(270,20)">
+    <rect x="0" y="0" width="230" height="200" rx="8" fill="#f6f8fa" stroke="#548235"/>
+    <text x="115" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2d3d">Document</text>
+    <rect x="40" y="48" width="150" height="110" rx="4" fill="#ffffff" stroke="#548235"/>
+    <text x="52" y="70" font-size="12" font-family="monospace" fill="#2f5597">{</text>
+    <text x="64" y="90" font-size="12" font-family="monospace" fill="#1f2d3d">"id": 1,</text>
+    <text x="64" y="110" font-size="12" font-family="monospace" fill="#1f2d3d">"hijos":</text>
+    <text x="76" y="128" font-size="12" font-family="monospace" fill="#c55a11">["a","b"]</text>
+    <text x="52" y="148" font-size="12" font-family="monospace" fill="#2f5597">}</text>
+    <text x="115" y="180" text-anchor="middle" font-size="12" fill="#5a6b7b">nested JSON</text>
+  </g>
+
+  <!-- Column-family -->
+  <g transform="translate(20,240)">
+    <rect x="0" y="0" width="230" height="200" rx="8" fill="#f6f8fa" stroke="#c55a11"/>
+    <text x="115" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2d3d">Column-family</text>
+    <rect x="40" y="50" width="40" height="100" fill="#fbe5d6" stroke="#c55a11"/>
+    <rect x="90" y="50" width="40" height="100" fill="#fbe5d6" stroke="#c55a11"/>
+    <rect x="140" y="50" width="40" height="100" fill="#fbe5d6" stroke="#c55a11"/>
+    <line x1="40" y1="80" x2="180" y2="80" stroke="#c55a11"/>
+    <line x1="40" y1="110" x2="180" y2="110" stroke="#c55a11"/>
+    <text x="115" y="178" text-anchor="middle" font-size="12" fill="#5a6b7b">wide sparse rows</text>
+  </g>
+
+  <!-- Graph -->
+  <g transform="translate(270,240)">
+    <rect x="0" y="0" width="230" height="200" rx="8" fill="#f6f8fa" stroke="#7030a0"/>
+    <text x="115" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2d3d">Graph</text>
+    <line x1="70" y1="80" x2="160" y2="70" stroke="#7030a0" stroke-width="2"/>
+    <line x1="70" y1="80" x2="120" y2="140" stroke="#7030a0" stroke-width="2"/>
+    <line x1="160" y1="70" x2="120" y2="140" stroke="#7030a0" stroke-width="2"/>
+    <circle cx="70" cy="80" r="16" fill="#e9d7f5" stroke="#7030a0"/>
+    <circle cx="160" cy="70" r="16" fill="#e9d7f5" stroke="#7030a0"/>
+    <circle cx="120" cy="140" r="16" fill="#e9d7f5" stroke="#7030a0"/>
+    <text x="115" y="180" text-anchor="middle" font-size="12" fill="#5a6b7b">nodes and edges</text>
+  </g>
+</svg>

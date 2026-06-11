@@ -80,7 +80,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <p>We will store GEIH in <b>Parquet</b>, the open descendant of this lineage. Two more ideas make it fast and clean, <b>partitioning</b> and <b>harmonization</b>.</p>
+                <p>We will store GEIH in <b>Parquet</b>, the open descendant of this lineage. Two more ideas make it fast and clean, <b>partitioning</b> and <b>harmonisation</b>.</p>
             </div>
         </div>
     </div>

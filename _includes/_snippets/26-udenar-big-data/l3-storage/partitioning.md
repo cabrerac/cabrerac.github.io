@@ -5,6 +5,9 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/partition-tree.svg" alt="Partition tree by key" style="height: 420px">
+            </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Split the dataset by a key</b></p>
                 <ul>
@@ -12,8 +15,6 @@
                     <li>For GEIH we split by <b>year</b> and <b>month</b></li>
                     <li>The folder name is data, not just a label</li>
                 </ul>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
                 <p>A query for one month reads only that folder and skips the rest. This is called <b>partition pruning</b>.</p>
             </div>
         </div>

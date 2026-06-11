@@ -5,6 +5,9 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/early-information-system.svg" alt="Early information system" style="height: 400px">
+            </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Early information systems</b></p>
                 <ul>
@@ -12,8 +15,6 @@
                     <li>Data was structured, repeated, and had to stay consistent</li>
                     <li>One wrong balance or duplicated record was a real problem</li>
                 </ul>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
                 <p>The first need was not scale. It was <b>correctness</b> of structured records that many programs shared.</p>
             </div>
         </div>
@@ -53,9 +54,23 @@
                     <li>But now we also store text, images, clickstreams, and maps</li>
                     <li>This is the <b>variety</b> dimension of big data from lecture 1</li>
                 </ul>
+                <p>"Big Data consists of extensive datasets that require a scalable architecture for efficient storage, manipulation, and analysis because of data volume, variety, velocity, and/or variability." <a href="https://doi.org/10.6028/NIST.SP.1500-1" target="_blank" rel="noopener noreferrer">(NIST, 2015)</a></p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>"Big Data consists of extensive datasets that require a scalable architecture for efficient storage, manipulation, and analysis because of data volume, variety, velocity, and/or variability." <a href="https://doi.org/10.6028/NIST.SP.1500-1" target="_blank" rel="noopener noreferrer">(NIST, 2015)</a></p>
+
+```json
+{
+  "type": "node",
+  "id": 1234567,
+  "lat": 1.2136, "lon": -77.2811,
+  "tags": {
+    "amenity": "school",
+    "name": "I.E. Nuestra Senora"
+  }
+}
+```
+
+<div class="footnote">A semi-structured OpenStreetMap node. No fixed table, just nested keys and values.</div>
             </div>
         </div>
     </div>

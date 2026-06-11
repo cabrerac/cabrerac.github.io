@@ -18,15 +18,16 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Week 1 left us with a pile of files</b></p>
+                <p><b>Raw files pile up fast</b></p>
                 <ul>
-                    <li>One GEIH ZIP per month, many years, hundreds of MB each</li>
-                    <li>Two CSV tables per month that we must join every time</li>
-                    <li>OpenStreetMap responses to keep next to the survey</li>
+                    <li>One data file per period, hundreds of MB each (for GEIH, one ZIP per month)</li>
+                    <li>Several tables to join on every run</li>
+                    <li>Related sources to keep side by side</li>
                 </ul>
+                <p>Reading and joining raw files on every run is slow, fragile, and hard to share with a teammate.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>Reading and joining raw files on every run is slow, fragile, and impossible to share with a teammate.</p>
+                <img src="{{ site.url }}/assets/media/images/data-quality.jpg" alt="Data quality and usability" style="height: 400px">
             </div>
         </div>
     </div>
@@ -59,8 +60,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <p>How we store data has changed with every era of computing. The right choice depends on <b>who writes, who reads, and what they ask</b>.</p>
-                <p>To understand today's formats, we follow the history that produced them.</p>
+                <p>How we store data has changed with every era of computing. The right choice depends on <b>who writes, who reads, and what they ask</b>. To understand today's formats, we follow the history that produced them.</p>
             </div>
         </div>
     </div>

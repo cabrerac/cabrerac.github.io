@@ -1,6 +1,6 @@
 <!-- SLIDES: -->
 
-## Read versus Write
+## Read VS Write
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -20,7 +20,7 @@
     </div>
 </div>
 
-## Read versus Write
+## Read VS Write
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -32,7 +32,7 @@
     </div>
 </div>
 
-## Read versus Write
+## Read VS Write
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -52,7 +52,7 @@
     </div>
 </div>
 
-## Read versus Write
+## Read VS Write
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
