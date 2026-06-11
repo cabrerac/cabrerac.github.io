@@ -19,7 +19,7 @@ notebook_description: "Pr\xE1ctica individual de la Lecci\xF3n 3. En esta pr\xE1
 notebook_language: es
 notebook_title: "Almacenamiento y gesti\xF3n de datos"
 permalink: /teaching/26-udenar-big-data/l3-storage/
-position: Senior Research Associate and Affiliated Lecturer
+position: Assistant Research Professor
 session: 3
 start_time: 07:00 am
 title: Data storage and management

@@ -1123,7 +1123,7 @@ html[data-theme='dark'] .slide-content ol li {
 
 <h1 id="data-storage-and-management">Data storage and management</h1>
 <p style="color: var(--text-color);"><b>Christian Cabrera Jojoa</b></p>
-<p style="color: var(--text-color);">Senior Research Associate and Affiliated Lecturer</p>
+<p style="color: var(--text-color);">Assistant Research Professor</p>
 <p style="color: var(--text-color);">Department of Computer Science and Technology</p>
 <p style="color: var(--text-color);">University of Cambridge</p>
 <p style="color: var(--accent-color);"><a href="mailto:chc79@cam.ac.uk" style="color: var(--accent-color);">chc79@cam.ac.uk</a></p>
@@ -56388,9 +56388,9 @@ html[data-theme='dark'] .slide-content ol li {
 )
 <span class="hljs-keyword">return</span> pd.DataFrame({
     <span class="hljs-string">&quot;anio&quot;</span>: anio, <span class="hljs-string">&quot;mes&quot;</span>: mes,
-    <span class="hljs-string">&quot;dpto&quot;</span>: merged[<span class="hljs-string">&quot;DPTO&quot;</span>].astype(<span class="hljs-built_in">int</span>),
-    <span class="hljs-string">&quot;edad&quot;</span>: pd.to_numeric(merged[<span class="hljs-string">&quot;P6040&quot;</span>], errors=<span class="hljs-string">&quot;coerce&quot;</span>),
-    <span class="hljs-string">&quot;actividad&quot;</span>: pd.to_numeric(merged[<span class="hljs-string">&quot;P6240&quot;</span>], errors=<span class="hljs-string">&quot;coerce&quot;</span>),
+    <span class="hljs-string">&quot;dpto&quot;</span>: a_entero(merged[<span class="hljs-string">&quot;DPTO&quot;</span>]),        <span class="hljs-comment"># Int64, admite faltantes</span>
+    <span class="hljs-string">&quot;edad&quot;</span>: a_entero(merged[<span class="hljs-string">&quot;P6040&quot;</span>]),
+    <span class="hljs-string">&quot;actividad&quot;</span>: pd.to_numeric(merged[<span class="hljs-string">&quot;P6240&quot;</span>], errors=<span class="hljs-string">&quot;coerce&quot;</span>),  <span class="hljs-comment"># float, se compara luego</span>
     <span class="hljs-string">&quot;factor_expansion&quot;</span>: pd.to_numeric(merged[<span class="hljs-string">&quot;FEX_C18&quot;</span>], errors=<span class="hljs-string">&quot;coerce&quot;</span>),
 })
 </code></pre>

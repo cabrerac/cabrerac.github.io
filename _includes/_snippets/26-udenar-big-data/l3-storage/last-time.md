@@ -5,18 +5,6 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <img src="{{ site.url }}/assets/media/diagrams/big-data-pipeline-template.svg" alt="Big data pipeline" style="height: 420px">
-            </div>
-        </div>
-    </div>
-</div>
-
-## Last Time
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Problem first, not tool first</b></p>
                 <ul>
@@ -47,6 +35,18 @@
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p>"Big Data is a cultural, technological, and scholarly phenomenon that rests on the interplay of technology, analysis, and mythology." <a href="https://doi.org/10.1080/1369118X.2012.678878" target="_blank" rel="noopener noreferrer">(boyd &amp; Crawford, 2012)</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Last Time
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/big-data-pipeline-template.svg" alt="Big data pipeline" style="height: 420px">
             </div>
         </div>
     </div>

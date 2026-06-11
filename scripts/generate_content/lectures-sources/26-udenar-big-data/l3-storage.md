@@ -8,7 +8,7 @@ end_time: 01:00 pm
 hours: 5
 author: Christian Cabrera Jojoa
 email: chc79@cam.ac.uk
-position: Senior Research Associate and Affiliated Lecturer
+position: Assistant Research Professor
 department: Department of Computer Science and Technology
 institution: University of Cambridge
 layout: lecture
@@ -523,6 +523,11 @@ print("Parte 0, Paso 0.1, Access 2022–2025: OK")
 
 Solución de la **Parte B** del cuaderno grupal: carga enero **2024** y **2023**, tabla de cuasi-identificadores en ambos años, consulta Overpass en **cinco departamentos**, guarda **`outputs/osm_poi_by_dpto.csv`** y enlaza con la muestra GEIH.
 
+Para contar puntos de interés por departamento tomamos dos decisiones que hacen la consulta **robusta**:
+
+1. **Identificar el área por su código ISO 3166-2** (por ejemplo `CO-NAR` para Nariño) en lugar de un id de relación de OSM. El id puede cambiar y es fácil equivocarse de departamento.
+2. **Contar `nwr` (nodos, vías y relaciones), no solo nodos.** Muchas escuelas y hospitales se mapean como polígonos (vías), así que contar solo nodos los deja por fuera y da ceros enganosos.
+
 Requiere haber ejecutado el **Paso 0.1** (o tener los CSV en `LOCAL_RAW`).
 
 ```python
@@ -553,7 +558,9 @@ CANDIDATOS_QI = [
     "PER",
 ]
 
-# Código DANE → relación OSM (admin_level=4). No use 120027 (Colombia entera).
+# Código DANE del departamento → nombre y código ISO 3166-2 del departamento.
+# Identificar el área por su código ISO es más robusto que usar un id de relación
+# (que puede cambiar) y evita contar solo nodos sueltos.
 DPTO_TO_OSM_RELATION: dict[int, str] = {
     5: "Antioquia",
     8: "Atlántico",
@@ -561,12 +568,12 @@ DPTO_TO_OSM_RELATION: dict[int, str] = {
     52: "Nariño",
     76: "Valle del Cauca",
 }
-DPTO_TO_OSM_RELATION_IDS: dict[int, int] = {
-    5: 119496,
-    8: 1387796,
-    11: 1387966,
-    52: 1380130,
-    76: 119827,
+DPTO_TO_ISO: dict[int, str] = {
+    5: "CO-ANT",
+    8: "CO-ATL",
+    11: "CO-DC",
+    52: "CO-NAR",
+    76: "CO-VAC",
 }
 
 LOCAL_OUTPUTS = SESSION_ROOT / "outputs"
@@ -599,23 +606,25 @@ def overpass_post(query: str, *, timeout: int = 90) -> requests.Response:
     raise requests.HTTPError("Overpass: sin respuesta útil tras reintentos.")
 
 
-def contar_nodos_amenity(area_id: int, amenity: str, timeout: int = 90) -> int:
+def contar_amenity(iso_code: str, amenity_regex: str, timeout: int = 90) -> int:
+    """Cuenta puntos de interés (nodos, vías y relaciones) cuyo 'amenity' casa el patrón,
+    dentro del área del departamento identificada por su código ISO 3166-2.
+    'nwr' incluye los tres tipos (no solo nodos); 'out count' pide solo el total."""
     query = f"""
 [out:json][timeout:60];
-area({area_id})->.a;
-node["amenity"="{amenity}"](area.a);
-out;
+area["ISO3166-2"="{iso_code}"]->.a;
+nwr["amenity"~"^({amenity_regex})$"](area.a);
+out count;
 """
     data = overpass_post(query, timeout=timeout).json()
-    return len(data.get("elements", []))
+    elements = data.get("elements", [])
+    # 'out count' devuelve un único elemento con el total en sus tags
+    return int(elements[0]["tags"]["total"]) if elements else 0
 
 
-def contar_salud(area_id: int) -> int:
-    total = 0
-    for tag in HEALTH_AMENITIES:
-        total += contar_nodos_amenity(area_id, tag)
-        time.sleep(0.5)
-    return total
+def contar_salud(iso_code: str) -> int:
+    # Un solo pedido con todos los tags de salud unidos por | en el regex
+    return contar_amenity(iso_code, "|".join(HEALTH_AMENITIES))
 
 
 def find_enero_dir(survey_year: int) -> Path:
@@ -678,11 +687,11 @@ print("Columnas QI solo en 2023:", sorted(qi_2023 - qi_2024) or "(ninguna)")
 # --- OSM por departamento (L2 Parte 4, ≥ 5 DPTO) ---
 osm_rows: list[dict] = []
 for dpto_code, nombre in DPTO_TO_OSM_RELATION.items():
-    rel_id = DPTO_TO_OSM_RELATION_IDS[dpto_code]
-    area_id = 3600000000 + rel_id
-    print(f"\nConsultando {nombre} (DPTO {dpto_code}, relación {rel_id})...")
-    schools = contar_nodos_amenity(area_id, "school")
-    health = contar_salud(area_id)
+    iso_code = DPTO_TO_ISO[dpto_code]  # área OSM por código ISO del departamento
+    print(f"\nConsultando {nombre} (DPTO {dpto_code}, ISO {iso_code})...")
+    schools = contar_amenity(iso_code, "school")  # escuelas (nodos + vías + relaciones)
+    time.sleep(PAUSA_SEG)
+    health = contar_salud(iso_code)               # salud: hospital, clínica, etc.
     osm_rows.append(
         {
             "dpto": dpto_code,
@@ -984,29 +993,54 @@ print("Periodo de ejemplo:", int(periodo.iloc[0]))
 print("Año:", int(anio.iloc[0]), "| Mes:", int(mes.iloc[0]))
 ```
 
-### Paso 2.5. Renombrar a nombres legibles
+### Paso 2.5. Decidir el tipo de cada columna y renombrar
 
-Construimos el DataFrame harmonizado: una fila por persona, con los **nombres en español** y los tipos correctos (ver la tabla de mapeo arriba). Aquí **no interpretamos** `actividad`, solo la guardamos tal cual; quién está ocupado se decide en la lección 4:
+Harmonizar **no es solo renombrar**. Por **cada columna** decidimos dos cosas: qué **tipo** tendrá y qué hacer con los **valores faltantes o inválidos**. Estas decisiones dependen de **cómo vamos a usar** la columna después.
+
+- `astype(int)` es **estricto**: falla con un solo faltante y lanza `IntCastingNaNError`. Es justo lo que pasa con `AREA` cuando algún mes trae celdas vacías.
+- `pd.to_numeric(..., errors="coerce")` convierte lo no numérico en faltante (`NaN`) en vez de fallar.
+- El entero **anulable** `Int64` de pandas **sí admite faltantes** (`<NA>`), útil para códigos enteros (`dpto`, `area`, `edad`).
+
+Veamos la diferencia con un ejemplo pequeño:
+
+```python
+ejemplo = pd.Series(["52", "11", "", "x"])  # incluye un vacío y un texto no numérico
+print("to_numeric + Int64 (no falla, marca lo inválido como <NA>):")
+print(pd.to_numeric(ejemplo, errors="coerce").astype("Int64").tolist())
+```
+
+Definimos un ayudante para los códigos enteros y lo reutilizamos:
+
+```python
+def a_entero(serie: pd.Series) -> pd.Series:
+    """Entero anulable (Int64): convierte a número y deja <NA> donde no se puede.
+    Para códigos enteros que a veces faltan (dpto, area, orden_persona, edad, sexo)."""
+    return pd.to_numeric(serie, errors="coerce").astype("Int64")
+```
+
+Construimos el DataFrame harmonizado: una fila por persona, con **nombres en español** y el **tipo decidido** por columna. Aquí **no interpretamos** `actividad`, solo la guardamos; quién está ocupado se decide en la lección 4:
 
 ```python
 harmonized_preview = pd.DataFrame(
     {
-        "periodo": (anio * 100 + mes).astype(int),                                  # AAAAMM
+        "periodo": (anio * 100 + mes).astype(int),                                  # AAAAMM, siempre presente
         "anio": anio,
         "mes": mes,
-        "id_hogar": merged["DIRECTORIO"].astype(str) + "-" + merged["HOGAR"].astype(str),  # clave de hogar
-        "orden_persona": merged["ORDEN"].astype(int),
-        "dpto": merged["DPTO"].astype(int),
-        "area": merged["AREA"].astype(int),
-        "edad": pd.to_numeric(merged["P6040"], errors="coerce"),                    # texto -> número
-        "sexo": pd.to_numeric(merged["P3271"], errors="coerce"),
-        "actividad": pd.to_numeric(merged["P6240"], errors="coerce"),               # P6240 sin interpretar
-        "factor_expansion": pd.to_numeric(merged["FEX_C18"], errors="coerce"),      # peso de la encuesta
+        "id_hogar": merged["DIRECTORIO"].astype(str) + "-" + merged["HOGAR"].astype(str),  # clave de texto
+        "orden_persona": a_entero(merged["ORDEN"]),                                 # código entero anulable
+        "dpto": a_entero(merged["DPTO"]),                                           # código de departamento
+        "area": a_entero(merged["AREA"]),                                           # antes fallaba con astype(int)
+        "edad": a_entero(merged["P6040"]),                                          # edad en años (entero)
+        "sexo": a_entero(merged["P3271"]),                                          # código de sexo
+        "actividad": pd.to_numeric(merged["P6240"], errors="coerce"),              # float a propósito (ver nota)
+        "factor_expansion": pd.to_numeric(merged["FEX_C18"], errors="coerce"),      # peso de la encuesta (decimal)
     }
 )
 print("Vista previa harmonizada (5 filas):")
 print(harmonized_preview.head(5))
 ```
+
+**Por qué `actividad` queda como decimal y no `Int64`.** En la lección 4 la compararemos con `actividad == 1` para derivar `ocupado`. Con un decimal, un faltante (`NaN`) se trata como "no ocupado" de forma natural. Con `Int64`, el faltante (`<NA>`) propaga y rompe el filtro booleano. **La forma de harmonizar una columna depende de su uso posterior.**
 
 ### Paso 2.6. Consolidación: función `harmonize_month`
 
@@ -1037,19 +1071,19 @@ def harmonize_month(month_dir: Path) -> pd.DataFrame:
     anio = (periodo // 10000).astype(int)
     mes = ((periodo // 100) % 100).astype(int)
 
-    # 4) Renombrar a español y fijar tipos
+    # 4) Renombrar a español y fijar el tipo decidido por columna (ver Paso 2.5)
     return pd.DataFrame(
         {
             "periodo": (anio * 100 + mes).astype(int),
             "anio": anio,
             "mes": mes,
             "id_hogar": merged["DIRECTORIO"].astype(str) + "-" + merged["HOGAR"].astype(str),
-            "orden_persona": merged["ORDEN"].astype(int),
-            "dpto": merged["DPTO"].astype(int),
-            "area": merged["AREA"].astype(int),
-            "edad": pd.to_numeric(merged["P6040"], errors="coerce"),
-            "sexo": pd.to_numeric(merged["P3271"], errors="coerce"),
-            "actividad": pd.to_numeric(merged["P6240"], errors="coerce"),
+            "orden_persona": a_entero(merged["ORDEN"]),                 # entero anulable
+            "dpto": a_entero(merged["DPTO"]),
+            "area": a_entero(merged["AREA"]),                           # admite faltantes (Int64)
+            "edad": a_entero(merged["P6040"]),
+            "sexo": a_entero(merged["P3271"]),
+            "actividad": pd.to_numeric(merged["P6240"], errors="coerce"),  # float: se compara en lección 4
             "factor_expansion": pd.to_numeric(merged["FEX_C18"], errors="coerce"),
         }
     )

@@ -65,9 +65,9 @@ merged = labour.merge(
 )
 return pd.DataFrame({
     "anio": anio, "mes": mes,
-    "dpto": merged["DPTO"].astype(int),
-    "edad": pd.to_numeric(merged["P6040"], errors="coerce"),
-    "actividad": pd.to_numeric(merged["P6240"], errors="coerce"),
+    "dpto": a_entero(merged["DPTO"]),        # Int64, admite faltantes
+    "edad": a_entero(merged["P6040"]),
+    "actividad": pd.to_numeric(merged["P6240"], errors="coerce"),  # float, se compara luego
     "factor_expansion": pd.to_numeric(merged["FEX_C18"], errors="coerce"),
 })
 ```
