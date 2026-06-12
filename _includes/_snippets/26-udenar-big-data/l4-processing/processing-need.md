@@ -59,6 +59,9 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/warehouse-olap.svg" alt="Operational systems to data warehouse to analytics" style="height: 360px">
+            </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Data warehouses and history</b></p>
                 <ul>
@@ -67,9 +70,6 @@
                     <li>This is <b>OLAP</b>: few big reads that scan and group</li>
                 </ul>
                 <p>Keeping history is what made analysis possible. You cannot study a trend you did not store.</p>
-            </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/diagrams/warehouse-olap.svg" alt="Operational systems to data warehouse to analytics" style="height: 360px">
             </div>
         </div>
     </div>
