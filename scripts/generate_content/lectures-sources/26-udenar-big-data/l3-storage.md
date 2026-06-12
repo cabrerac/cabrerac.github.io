@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-big-data
 title: Data storage and management
-description: Lecture 3. Store GEIH in partitioned Parquet, benchmark layout, and governance at write time. Individual run-only Colab. Assessed code lives in week-2-group.
+description: Lecture 3 follows access and ethics by asking how we persist GEIH responsibly for repeated analysis. We move from relational and non-relational storage concepts to the course standard—a harmonised, partitioned Parquet lakehouse on Drive. The individual run-only notebook builds 2024 national data, benchmarks layout against raw CSV, and documents governance at write time, including differential privacy when publishing counts. All assessed harmonisation, retention, and lineage work lives in week-2-group.
 session: 3
 start_time: 07:00 am
 end_time: 01:00 pm

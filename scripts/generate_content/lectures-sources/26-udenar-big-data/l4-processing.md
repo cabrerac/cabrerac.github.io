@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-big-data
 title: Data processing and analysis
-description: Lecture 4, compute on stored Parquet. MapReduce mental model. DuckDB and Polars benchmarks. Privacy at query time, k=5 suppression vs differential privacy. Individual run-only Colab. Assessed code lives in week-2-group Part B.
+description: Lecture 4 turns stored Parquet into answers. After the layout benchmark in Lecture 3, we need engines that scale on one machine—MapReduce as the mental model, then pandas, DuckDB, and Polars on the same weighted-employment-by-department query over 2024. The individual run-only notebook contrasts k=5 suppression with Laplace noise on finer aggregates. Assessed processing, engine choice, privacy strategy, and manifest updates for the full 2022–2025 spine are in week-2-group.
 session: 4
 start_time: 07:00 am
 end_time: 01:00 pm

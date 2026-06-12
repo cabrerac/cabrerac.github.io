@@ -14,6 +14,8 @@ One source file per **lecture** → lecture page + slides + Colab notebook via `
 | `l2-ethics-governance` | 2 — practice (individual) | Sat 6 Jun 2026 | Ethics audit + OSM demo (`amenity=school`); homework in `week-1-group` |
 | `l3-storage` | 3 — Sat 2 morning of day | Sat 13 Jun 2026 | Was `l2-storage`; ethics hook to L2 |
 | `l4-processing` | 4 — Sat 2 afternoon of day | Sat 13 Jun 2026 | Was `l3-processing`; ethics hook to L2 |
+| `week-2-group` | Week 2 — homework (group) | Sat 13 Jun 2026 | Lakehouse 2022–2025 + MR + engine + privacy; linked from L3/L4 |
+| `week-2-group-solution` | Instructor only | — | Reference solution; **not** for students |
 | `l5-ingestion` | 5 — Sat 3 morning of day | Sat 20 Jun 2026 | Was `l4-ingestion`; ethics hook to L2 |
 | `l6-analytics` | 6 — Sat 3 afternoon of day | Sat 20 Jun 2026 | Was `l5-analytics`; closes governance synthesis |
 | `l7-integration` | 7 — async only | week of 22 Jun 2026 | Short integration video; no Saturday sync; project week 22–26 Jun |
