@@ -24,7 +24,6 @@ visible: false
 
 **Sábado 6 jun 2026 · 07:00–13:00 (Colombia)** · Lecciones **L1** (Introducción) + **L2** (Ética y gobernanza)
 
-**Uso:** página única con todos los enlaces de la semana (async + sábado).
 ---
 
 ### Lecciones y plan del sábado

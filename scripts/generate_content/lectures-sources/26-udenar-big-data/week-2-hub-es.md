@@ -18,7 +18,6 @@ skip_notebook: true
 
 **Sábado 13 jun 2026 · 07:00–13:00 (Colombia)** · Lecciones **L3** (Almacenamiento) + **L4** (Procesamiento)
 
-**Uso:** página única con todos los enlaces de la semana (async + sábado).
 ---
 
 ### Lecciones y plan del sábado

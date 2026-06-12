@@ -383,6 +383,6 @@ ZIP **`week-2-group-<group_id>.zip`** hasta el **martes 16 de junio de 2026, 23:
 
 **Reflexión individual:** `week-2-reflection-<student>.pdf` el **miércoles 17 de junio de 2026** — plantilla [`reflection-week-2-template.docx`](/assets/documents/26-udenar-big-data/reflection-week-2-template.docx).
 
-**Requerimientos del proyecto:** avance en la sesión del **sábado 13 jun** (subconjunto GEIH definido). PDF con el **proyecto summativo (27 jun)**.
+**Requerimientos del proyecto:** avance en la sesión del **sábado 13 jun** (bloque 11:30–12:45 — **arquitectura de datos**: años, departamentos, variables + vínculo con ética en Word). PDF con el **proyecto summativo (27 jun)**.
 
 <!-- end NOTEBOOK: -->

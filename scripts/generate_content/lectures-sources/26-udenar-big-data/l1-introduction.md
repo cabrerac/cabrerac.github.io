@@ -87,7 +87,6 @@ notebook_description: Práctica individual de la Lección 1. Poner a disposició
 
 ### Resources
 
-- [Course project definition](/assets/documents/26-udenar-big-data/project-definition-big-data.pdf)
 - [DANE microdatos website](https://microdatos.dane.gov.co/)
 - [GEIH 2024 — documentation](https://microdatos.dane.gov.co/index.php/catalog/819)
 

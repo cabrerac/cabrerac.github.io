@@ -40,7 +40,6 @@ visible: true
 
 ### Resources
 
-- [Course project definition](/assets/documents/26-udenar-big-data/project-definition-big-data.pdf)
 - [DANE microdatos website](https://microdatos.dane.gov.co/)
 - [GEIH 2024 — documentation](https://microdatos.dane.gov.co/index.php/catalog/819)
 
