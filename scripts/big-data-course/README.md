@@ -17,7 +17,7 @@ Python tools used in **Colabs** and on student laptops for the Udenar Big Data c
 python scripts/big-data-course/build_course_docx.py --all
 ```
 
-Targets: `project_requirements`, `reflection_week_1`, `reflection_week_2`, `learning_journal_week_1`, `learning_journal_week_2`. Shared helpers live in `docx_build.py`.
+Targets: `project_requirements`, `data_architecture`, `reflection_week_1`, `reflection_week_2`, `learning_journal_week_1`, `learning_journal_week_2`. Shared helpers live in `docx_build.py`.
 
 Outputs:
 

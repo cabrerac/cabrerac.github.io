@@ -52,6 +52,7 @@ visible: false
 | Recurso | Enlace |
 |---------|--------|
 | Reflexión semana 2 (Word) | [reflection-week-2-template.docx](/assets/documents/26-udenar-big-data/reflection-week-2-template.docx) |
+| Arquitectura de datos (Word) | [data-architecture-template.docx](/assets/documents/26-udenar-big-data/data-architecture-template.docx) |
 | Definición del proyecto (PDF) | [project-definition-big-data.pdf](/assets/documents/26-udenar-big-data/project-definition-big-data.pdf) |
 
 ---

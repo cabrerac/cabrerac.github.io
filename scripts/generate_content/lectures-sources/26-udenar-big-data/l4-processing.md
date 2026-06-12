@@ -48,11 +48,27 @@ notebook_description: Práctica individual de la Lección 4. Misma consulta GEIH
 
 <!-- SLIDES: -->
 
-# Governance at Query Time
+# Governance
 
 <!-- end SLIDES: -->
 
 {% include _snippets/26-udenar-big-data/l4-processing/governance.md %}
+
+<!-- SLIDES: -->
+
+# Assess and Address
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l4-processing/assess-address.md %}
+
+<!-- SLIDES: -->
+
+# Data Architecture
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l4-processing/data-architecture.md %}
 
 <!-- SLIDES: -->
 

@@ -1,6 +1,6 @@
 <!-- SLIDES: -->
 
-## Governance at Query Time
+## Governance
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -12,7 +12,7 @@
     </div>
 </div>
 
-## Governance at Query Time
+## Governance
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -37,7 +37,7 @@
     </div>
 </div>
 
-## Governance at Query Time
+## Governance
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">

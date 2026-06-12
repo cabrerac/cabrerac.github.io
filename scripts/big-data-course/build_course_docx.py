@@ -41,6 +41,8 @@ REFLECTION_WEEK_2_ASSETS = ASSETS_DIR / "reflection-week-2-template.docx"
 REFLECTION_WEEK_2_WEEK2 = WEEK2_DIR / "reflection-week-2-template.docx"
 LEARNING_JOURNAL_WEEK_1 = WEEK1_DIR / "learning-journal-week-1.docx"
 LEARNING_JOURNAL_WEEK_2 = WEEK2_DIR / "learning-journal-week-2.docx"
+DATA_ARCHITECTURE_ASSETS = ASSETS_DIR / "data-architecture-template.docx"
+DATA_ARCHITECTURE_WEEK2 = WEEK2_DIR / "data-architecture-template.docx"
 
 
 # --- document builders -------------------------------------------------------
@@ -114,6 +116,57 @@ def build_project_requirements() -> Document:
     ]
     for title, prompt in sections_data:
         section(doc, title, prompt)
+    return doc
+
+
+def build_data_architecture() -> Document:
+    doc = Document()
+    style_body(doc)
+    heading(doc, "Arquitectura de datos del proyecto — Semana 2", 0)
+    para(doc, "Maestría en Estadística Aplicada · UDENAR · Electiva Big Data · A-2026")
+    para(
+        doc,
+        "Complete en Word. Pegue su diagrama de arquitectura en la sección 2 y explíquelo en la sección 3. "
+        "Use el ejemplo aICU de la Lección 4 como referencia (no copie literalmente). "
+        "Avance en la sesión del sábado 13 de junio (bloque de arquitectura de datos). "
+        "Entregue data_architecture.pdf con el proyecto summativo (sábado 27 de junio de 2026). "
+        "Mantenga los títulos de sección exactamente como aparecen abajo.",
+    )
+    doc.add_paragraph()
+
+    sections_data = [
+        (
+            "1. Metadatos del grupo",
+            "Id del grupo, integrantes, arquetipo (asignación de recursos | riesgo / alerta temprana | monitoreo).",
+        ),
+        (
+            "2. Diagrama de arquitectura de datos",
+            "Inserte aquí una figura con su arquitectura (fuentes → almacenamiento → procesamiento → consumidores). "
+            "Herramientas sugeridas: draw.io, PowerPoint, Excalidraw, Miro, Canva, etc.",
+        ),
+        (
+            "3. Explicación del diagrama",
+            "Describa cada capa o caja del diagrama: qué datos entran, dónde se almacenan (formato, partición), "
+            "qué procesamiento aplica su grupo (harmonización, consultas, agregados) y quién usa los resultados "
+            "(tareas de assess y address). 400–700 palabras orientativas.",
+        ),
+        (
+            "4. Relación con los requerimientos del proyecto",
+            "Indique cómo esta arquitectura implementa el subconjunto GEIH y el pipeline declarados en "
+            "project_requirements (secciones 5 y 9).",
+        ),
+        (
+            "5. Gobernanza y acceso en la arquitectura",
+            "¿Quién accede a cada capa? ¿Qué no se publica? ¿Qué mecanismos de ética (§6–§7 de requerimientos) "
+            "quedan reflejados en el diseño?",
+        ),
+    ]
+    for title, prompt in sections_data:
+        section(doc, title, prompt)
+        if title.startswith("2."):
+            para(doc, "[Espacio para pegar el diagrama — inserte imagen en Word]")
+            for _ in range(4):
+                doc.add_paragraph()
     return doc
 
 
@@ -510,6 +563,14 @@ def write_project_requirements() -> tuple[Path, Path]:
     )
 
 
+def write_data_architecture() -> tuple[Path, Path]:
+    return save_mirror(
+        build_data_architecture(),
+        DATA_ARCHITECTURE_ASSETS,
+        DATA_ARCHITECTURE_WEEK2,
+    )
+
+
 def write_reflection_week_1() -> tuple[Path, Path]:
     return save_mirror(
         build_reflection_week_1(),
@@ -536,6 +597,7 @@ def write_learning_journal_week_2() -> Path:
 
 DOCUMENT_WRITERS: dict[str, Callable[[], list[Path]]] = {
     "project_requirements": lambda: list(write_project_requirements()),
+    "data_architecture": lambda: list(write_data_architecture()),
     "reflection_week_1": lambda: list(write_reflection_week_1()),
     "reflection_week_2": lambda: list(write_reflection_week_2()),
     "learning_journal_week_1": lambda: [write_learning_journal_week_1()],
