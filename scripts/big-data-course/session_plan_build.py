@@ -104,7 +104,13 @@ def markdown_to_html(md: str) -> str:
             continue
         if stripped.startswith("|"):
             table_lines = []
-            while i < len(lines) and lines[i].strip().startswith("|"):
+            while i < len(lines):
+                row = lines[i].strip()
+                if not row:
+                    i += 1
+                    continue
+                if not row.startswith("|"):
+                    break
                 table_lines.append(lines[i])
                 i += 1
             parts.append(_parse_table(table_lines))

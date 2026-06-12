@@ -626,6 +626,13 @@ class ContentGenerator:
         course_metadata = self.get_course_metadata(course_code)
         lecture_meta = self.lecture_metadata_from_file(lecture_file)
 
+        if lecture_meta.get("instructor_only"):
+            print(
+                f"[SKIP] Instructor-only source {lecture_file.stem} — "
+                "use scripts/big-data-course/build_instructor_notebook.py"
+            )
+            return
+
         course_slides_dir = self.assets_dir / "slides" / course_code
         course_slides_dir.mkdir(parents=True, exist_ok=True)
 
@@ -2266,6 +2273,10 @@ style: |
         output_file = output_dir / f"{lecture_file.stem}.ipynb"
         with open(output_file, 'w', encoding='utf-8') as f:
             nbf.write(nb, f)
+
+        if lecture_metadata.get("instructor_only"):
+            print(f"[INSTRUCTOR] Local notebook only (not for gh-pages): {output_file}")
+            return
 
         # Create Colab link using the current repository and gh-pages branch
         colab_link = f"https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/{course_metadata.get('course_code', '')}/{lecture_file.stem}.ipynb"

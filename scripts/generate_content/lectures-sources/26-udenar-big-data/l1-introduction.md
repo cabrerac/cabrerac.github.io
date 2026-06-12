@@ -83,7 +83,7 @@ notebook_description: Práctica individual de la Lección 1. Poner a disposició
 
 ### Week 1 links
 
-- [Week 1 hub](/teaching/26-udenar-big-data/l2-ethics-governance/) *(deliverables, Colabs, templates)*
+- [Week 1 hub](/teaching/26-udenar-big-data/week-1-hub-es/)
 
 ### Resources
 

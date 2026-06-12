@@ -41,6 +41,10 @@ work-space/
 */.ipynb_checkpoints/*
 tmp-notebook-test/
 
+# Instructor solution notebooks (sources live in work-space/instructor/)
+assets/notebooks/**/*-solution*.ipynb
+scripts/big-data-course/geih_build/*-executed.ipynb
+
 # Generated content
 # Only exclude temporary and system files
 *.tmp

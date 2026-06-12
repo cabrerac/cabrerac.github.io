@@ -4,3 +4,4 @@ build_state.json
 catalog_registry.json
 *.zip
 *.egg-info/
+outputs/
