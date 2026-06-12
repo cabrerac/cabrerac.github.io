@@ -401,10 +401,19 @@ print("Parte 3, MapReduce: OK")
 
 Cargamos **todo el árbol 2024** en memoria y usamos la instrucción **`groupby`**.
 
+```python
+def read_parquet_tree(root: Path, columns=None) -> pd.DataFrame:
+    files = sorted(root.rglob("*.parquet"))
+    if not files:
+        raise FileNotFoundError(f"Sin Parquet bajo {root}")
+    parts = [pd.read_parquet(f, columns=columns) for f in files]
+    return pd.concat(parts, ignore_index=True)
+```
+
 ### Paso 4.1. Paso a paso: leer, filtrar, agrupar
 
 ```python
-df_2024 = pd.read_parquet(PARQUET_2024)
+df_2024 = read_parquet_tree(PARQUET_2024)
 print(f"Filas cargadas (2024 completo): {len(df_2024):,}")
 print("Columnas:", list(df_2024.columns[:8]), "...")
 ```
@@ -436,7 +445,7 @@ print(pandas_result.head())
 
 ```python
 t0 = time.perf_counter()
-_df = pd.read_parquet(PARQUET_2024)
+_df = read_parquet_tree(PARQUET_2024)
 _emp = _df.loc[_df["actividad"] == ACTIVIDAD_OCUPADO]
 _pandas = (
     _emp.groupby("dpto", as_index=False)
@@ -453,7 +462,7 @@ Opcional: ver el tiempo con **`%%time`** (como en la lección 3):
 
 ```python
 %%time
-_ = pd.read_parquet(PARQUET_2024, columns=["dpto", "actividad", "factor_expansion"])
+_ = read_parquet_tree(PARQUET_2024, columns=["dpto", "actividad", "factor_expansion"])
 ```
 
 **Comprobar:**

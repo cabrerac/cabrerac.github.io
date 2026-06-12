@@ -60,6 +60,7 @@ Copie constantes y ayudantes de harmonización del cuaderno individual L3 (Parte
 |------------|------------------|
 | `CSV_SEP`, `CSV_ENCODING`, `PERSON_KEYS`, `PRIMARY_TABLE_KEYWORD`, `DEMOG_TABLE_KEYWORDS` | Parte 0 / Parte 2 |
 | `_labour_csv`, `_demog_csv`, `a_entero`, `harmonize_month` | Parte 2 |
+| `read_geih_csv` (delimitador `;` o `,`) | Parte 0 / Parte 2 |
 | `count_month_folders` | Parte 0 / Parte 1 |
 
 Defina también:

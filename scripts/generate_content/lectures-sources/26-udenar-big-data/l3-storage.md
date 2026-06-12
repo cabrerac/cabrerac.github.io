@@ -285,6 +285,25 @@ PRIMARY_TABLE_KEYWORD = "fuerza de trabajo"
 DEMOG_TABLE_KEYWORDS = ("caracter", "generales")
 PERSON_KEYS = ["DIRECTORIO", "HOGAR", "ORDEN"]
 
+
+def read_geih_csv(path: Path, usecols=None) -> pd.DataFrame:
+    """Lee CSV DANE; prueba ; y , porque algunos meses vienen comma-separated."""
+    for sep in (CSV_SEP, ","):
+        try:
+            df = pd.read_csv(
+                path,
+                sep=sep,
+                encoding=CSV_ENCODING,
+                usecols=usecols,
+                low_memory=False,
+            )
+        except ValueError:
+            continue
+        if len(df.columns) > 1:
+            return df
+    raise ValueError(f"No se pudo parsear {path.name} con ; ni ,")
+
+
 # El DANE genera el botón de descarga con onclick="mostrarModal('archivo.zip', 'URL')".
 # Aceptamos también downloadFile(...) por si cambia el nombre de la función.
 DOWNLOAD_ONCLICK_RE = re.compile(
@@ -465,10 +484,17 @@ assert n_meses_local >= 12, (
     "Ejecute el bloque con SKIP_DOWNLOAD=False o copie datos desde week-1-group / Drive."
 )
 if LOCAL_MANIFEST.is_file():
-    manifest_df = pd.DataFrame(json.loads(LOCAL_MANIFEST.read_text(encoding="utf-8")))
+    manifest_raw = json.loads(LOCAL_MANIFEST.read_text(encoding="utf-8"))
+    manifest_df = pd.DataFrame(manifest_raw)
     print(f"Filas en manifiesto: {len(manifest_df)}")
-    print(manifest_df[["survey_year", "filename", "bytes_downloaded", "notes"]].head(3))
-    assert "survey_year" in manifest_df.columns
+    if "survey_year" in manifest_df.columns:
+        print(manifest_df[["survey_year", "filename", "bytes_downloaded", "notes"]].head(3))
+        assert "survey_year" in manifest_df.columns
+    elif "slice_label" in manifest_df.columns:
+        # Manifiesto de geih-build u otra herramienta de acceso (sin survey_year)
+        print(manifest_df[["slice_label", "bytes_downloaded", "notes"]].head(3))
+    else:
+        print("Columnas del manifiesto:", list(manifest_df.columns)[:6])
     assert len(manifest_df) >= 40, "Se esperan ~48 filas (12 meses × 4 años) en la solución completa."
 print("Parte 0, Paso 0.1, Access 2022–2025: OK")
 ```
@@ -602,14 +628,8 @@ def load_mes_con_edad(survey_year: int) -> pd.DataFrame:
         p for p in csv_files
         if all(kw in p.name.lower().replace("\xa0", " ") for kw in DEMOG_TABLE_KEYWORDS)
     )
-    labour = pd.read_csv(labour_path, sep=CSV_SEP, encoding=CSV_ENCODING, low_memory=False)
-    demog = pd.read_csv(
-        demog_path,
-        sep=CSV_SEP,
-        encoding=CSV_ENCODING,
-        usecols=PERSON_KEYS + ["P6040"],
-        low_memory=False,
-    )
+    labour = read_geih_csv(labour_path)
+    demog = read_geih_csv(demog_path, usecols=PERSON_KEYS + ["P6040"])
     return labour.merge(demog, on=PERSON_KEYS, how="left", validate="many_to_one")
 
 
@@ -906,7 +926,7 @@ Primero leemos **Fuerza de trabajo** (todas las columnas que necesitamos más ad
 
 ```python
 labour_path = _labour_csv(demo_month)
-labour = pd.read_csv(labour_path, sep=CSV_SEP, encoding=CSV_ENCODING, low_memory=False)
+labour = read_geih_csv(labour_path)
 print(f"Filas fuerza de trabajo: {len(labour):,}")
 print("Columnas (muestra):", list(labour.columns[:8]), "...")
 print(labour[["DIRECTORIO", "HOGAR", "ORDEN", "PERIODO", "DPTO", "P6240"]].head(2))
@@ -916,13 +936,7 @@ Después leemos **Características generales**, solo las columnas demográficas 
 
 ```python
 demog_path = _demog_csv(demo_month)
-demog = pd.read_csv(
-    demog_path,
-    sep=CSV_SEP,
-    encoding=CSV_ENCODING,
-    usecols=PERSON_KEYS + ["P6040", "P3271"],
-    low_memory=False,
-)
+demog = read_geih_csv(demog_path, usecols=PERSON_KEYS + ["P6040", "P3271"])
 print(f"Filas características: {len(demog):,}")
 print(demog.head(2))
 ```
@@ -1008,15 +1022,10 @@ def harmonize_month(month_dir: Path) -> pd.DataFrame:
     """Lee un mes (Fuerza de trabajo + Características), une por PERSON_KEYS
     y devuelve una tabla con nombres en español y claves de partición."""
     # 1) Leer las dos tablas del mes
-    labour = pd.read_csv(
-        _labour_csv(month_dir), sep=CSV_SEP, encoding=CSV_ENCODING, low_memory=False
-    )
-    demog = pd.read_csv(
+    labour = read_geih_csv(_labour_csv(month_dir))
+    demog = read_geih_csv(
         _demog_csv(month_dir),
-        sep=CSV_SEP,
-        encoding=CSV_ENCODING,
-        usecols=PERSON_KEYS + ["P6040", "P3271"],  # solo lo que uniremos
-        low_memory=False,
+        usecols=PERSON_KEYS + ["P6040", "P3271"],
     )
     # 2) Unir empleo + demografía por la misma persona
     merged = labour.merge(demog, on=PERSON_KEYS, how="left", validate="many_to_one")
@@ -1029,7 +1038,7 @@ def harmonize_month(month_dir: Path) -> pd.DataFrame:
     mes = ((periodo // 100) % 100).astype(int)
 
     # 4) Renombrar a español y fijar el tipo decidido por columna (ver Paso 2.5)
-    return pd.DataFrame(
+    out = pd.DataFrame(
         {
             "periodo": (anio * 100 + mes).astype(int),
             "anio": anio,
@@ -1044,6 +1053,13 @@ def harmonize_month(month_dir: Path) -> pd.DataFrame:
             "factor_expansion": pd.to_numeric(merged["FEX_C18"], errors="coerce"),
         }
     )
+    # Esquema fijo en todas las particiones (evita ArrowTypeError al leer el árbol)
+    out["periodo"] = out["periodo"].astype("int32")
+    out["anio"] = out["anio"].astype("int32")
+    out["mes"] = out["mes"].astype("int32")
+    out["actividad"] = out["actividad"].astype("float64")
+    out["factor_expansion"] = out["factor_expansion"].astype("float64")
+    return out
 
 
 print("harmonize_month(): consolidada")
@@ -1117,7 +1133,7 @@ for month_dir in month_dirs:
     else:
         part_dir.mkdir(parents=True, exist_ok=True)
         # Cargar partición del lakehouse (archivo Parquet dentro de anio=/mes=)
-        sample.to_parquet(part_file, index=False)
+        sample.to_parquet(part_file, index=False, use_dictionary=False)
         n_rows = len(sample)
         print(f"Escrito {part_file.relative_to(WORK_ROOT)} | filas: {n_rows:,}")
 
@@ -1144,9 +1160,19 @@ print("Parte 3, lakehouse 2024 completo: OK")
 
 ## Parte 4. Benchmark: CSV crudo vs lakehouse
 
-**Objetivo.** Comparar **dos formas de cargar los mismos datos de 2024**: la *forma normal* (leer CSV del DANE y unir tablas, como en la Parte 2) frente a leer el **lakehouse** ya cargado en la Parte 3 (`pd.read_parquet` sobre el árbol `anio=2024/`). Medimos **tiempo**, **memoria** y **tamaño en disco**. El lakehouse gana porque los datos ya están harmonizados, en columnas y particionados; por eso en la lección 4 procesamos sobre el lakehouse y no sobre CSV.
+**Objetivo.** Comparar **dos formas de cargar los mismos datos de 2024**: la *forma normal* (leer CSV del DANE y unir tablas, como en la Parte 2) frente a leer el **lakehouse** ya cargado en la Parte 3 (`read_parquet_tree` sobre el árbol `anio=2024/`). Medimos **tiempo**, **memoria** y **tamaño en disco**. El lakehouse gana porque los datos ya están harmonizados, en columnas y particionados; por eso en la lección 4 procesamos sobre el lakehouse y no sobre CSV.
 
 Para que la comparación sea **justa**, ambas rutas producen el mismo año completo (12 meses) en un DataFrame.
+
+```python
+def read_parquet_tree(root: Path, columns=None) -> pd.DataFrame:
+    """Lee todas las particiones Parquet bajo root (concatena mes a mes)."""
+    files = sorted(root.rglob("*.parquet"))
+    if not files:
+        raise FileNotFoundError(f"Sin Parquet bajo {root}")
+    parts = [pd.read_parquet(f, columns=columns) for f in files]
+    return pd.concat(parts, ignore_index=True)
+```
 
 ### Paso 4.1. Forma normal: leer CSV y unir (12 meses)
 
@@ -1177,7 +1203,7 @@ Ahora cargamos el **mismo** año desde el lakehouse de la Parte 3 (Parquet bajo 
 ```python
 t0 = time.perf_counter()
 # Leer el árbol completo anio=2024/ (todos los meses)
-df_parquet = pd.read_parquet(PROCESSED_DIR / "anio=2024")
+df_parquet = read_parquet_tree(PROCESSED_DIR / "anio=2024")
 parquet_seconds = round(time.perf_counter() - t0, 2)
 
 mem_parquet_mb = df_parquet.memory_usage(deep=True).sum() / 1e6
