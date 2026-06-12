@@ -25,10 +25,11 @@
                     <li>Replicate blocks so failure is normal, not fatal</li>
                     <li>Optimised for large streaming reads, not tiny edits</li>
                 </ul>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
                 <p>"Component failures are the norm rather than the exception." <a href="https://doi.org/10.1145/945445.945450" target="_blank" rel="noopener noreferrer">(Ghemawat et al., 2003)</a></p>
                 <p>The open-source version of this idea became <b>Hadoop HDFS</b>.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/decentralised-deployment.png" alt="Distributed, decentralised storage" style="height: 420px">
             </div>
         </div>
     </div>
@@ -46,9 +47,10 @@
                     <li>Sparse, wide, and sorted by key</li>
                     <li>Inspired Cassandra and HBase</li>
                 </ul>
+                <p>"A Bigtable is a sparse, distributed, persistent multidimensional sorted map." <a href="https://dl.acm.org/doi/10.1145/1365815.1365816" target="_blank" rel="noopener noreferrer">(Chang et al., 2008)</a></p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>"A Bigtable is a sparse, distributed, persistent multidimensional sorted map." <a href="https://dl.acm.org/doi/10.1145/1365815.1365816" target="_blank" rel="noopener noreferrer">(Chang et al., 2008)</a></p>
+                <img src="{{ site.url }}/assets/media/diagrams/nosql-families.svg" alt="Non-relational database families" style="height: 420px">
             </div>
         </div>
     </div>
@@ -66,9 +68,10 @@
                     <li>Scan a few columns over trillions of rows in seconds</li>
                     <li>Its column format inspired <b>Apache Parquet</b>, our format</li>
                 </ul>
+                <p>"Dremel is a scalable, interactive ad-hoc query system for analysis of read-only nested data." <a href="https://doi.org/10.14778/1920841.1920886" target="_blank" rel="noopener noreferrer">(Melnik et al., 2010)</a></p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>"Dremel is a scalable, interactive ad-hoc query system for analysis of read-only nested data." <a href="https://doi.org/10.14778/1920841.1920886" target="_blank" rel="noopener noreferrer">(Melnik et al., 2010)</a></p>
+                <img src="{{ site.url }}/assets/media/diagrams/nosql-families.svg" alt="Non-relational database families" style="height: 420px">
             </div>
         </div>
     </div>
@@ -80,7 +83,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <p>We will store GEIH in <b>Parquet</b>, the open descendant of this lineage. Getting messy sources into that format is an <b>ETL</b> job — extract, transform, load.</p>
+                <p>We will use <b>Parquet</b> in our practical, the open descendant of this lineage. Getting messy sources into that format is an <b>ETL</b> job. Extract, transform, load.</p>
             </div>
         </div>
     </div>
@@ -158,7 +161,7 @@
                 <p><b>Split the dataset by a key</b></p>
                 <ul>
                     <li>Store each slice in its own folder named key=value</li>
-                    <li>For GEIH we split by <b>year</b> and <b>month</b></li>
+                    <li>For example, we can split by <b>year</b> and <b>month</b></li>
                     <li>The folder name is data, not just a label</li>
                 </ul>
                 <p>A query for one month reads only that folder and skips the rest. This is called <b>partition pruning</b>.</p>
