@@ -893,7 +893,7 @@ if USE_GOOGLE_DRIVE and IN_COLAB:
 
     drive.mount("/content/drive")
     # Puede cambiar por la ruta en donde usted quiere guardar los datos
-    WORK_ROOT = Path("/content/drive/MyDrive/udenar/cease/2026/big-data/data/")
+    WORK_ROOT = Path("/content/drive/MyDrive/udenar/cease/2026/big-data/")
     print(f"Raíz persistente en Drive: {WORK_ROOT}")
 else:
     WORK_ROOT = SESSION_ROOT

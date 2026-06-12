@@ -235,7 +235,7 @@ if USE_GOOGLE_DRIVE and IN_COLAB:
     from google.colab import drive
 
     drive.mount("/content/drive")
-    WORK_ROOT = Path("/content/drive/MyDrive/udenar/cease/2026/big-data/data/")
+    WORK_ROOT = Path("/content/drive/MyDrive/udenar/cease/2026/big-data/")
     print(f"Raíz en Drive: {WORK_ROOT}")
 else:
     WORK_ROOT = Path(".")
