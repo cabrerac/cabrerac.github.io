@@ -679,7 +679,10 @@ class ContentGenerator:
             self.generate_slides(lecture_file, course_slides_dir)
         else:
             print(f"[SKIP] Slides skipped for {lecture_file.stem} (skip_slides)")
-        self.generate_notebook(lecture_file, course_notebooks_dir, course_metadata)
+        if lecture_meta.get('skip_notebook'):
+            print(f"[SKIP] Notebook skipped for {lecture_file.stem} (skip_notebook)")
+        else:
+            self.generate_notebook(lecture_file, course_notebooks_dir, course_metadata)
 
     def process_talk(self, talk_file):
         """Process a talk source file: generate slides, optional talk page, and update talks.yml."""
@@ -1051,12 +1054,13 @@ html[data-theme='dark'] code::before {
                 f'<a href="/assets/slides/{course_code}/{stem}.html" target="_blank">'
                 "HTML slides</a>"
             )
-        links.append(
-            f'<a href="{colab_base}/{stem}.ipynb" target="_blank">'
-            "Notebook - Individual</a>"
-        )
+        if not lecture_metadata.get('skip_notebook'):
+            links.append(
+                f'<a href="{colab_base}/{stem}.ipynb" target="_blank">'
+                "Notebook - Individual</a>"
+            )
         group_nb = lecture_metadata.get('group_notebook')
-        if group_nb:
+        if group_nb and not lecture_metadata.get('skip_notebook'):
             links.append(
                 f'<a href="{colab_base}/{group_nb}.ipynb" target="_blank">'
                 "Notebook - Group</a>"

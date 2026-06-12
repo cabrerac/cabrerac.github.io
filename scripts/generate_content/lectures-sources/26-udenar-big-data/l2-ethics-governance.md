@@ -76,13 +76,17 @@ notebook_description: Práctica de la Lección 2. Auditoría ética sobre GEIH y
 
 <!-- RENDER: -->
 
+### Week 1 links
+
+- [Week 1 hub](/teaching/26-udenar-big-data/l2-ethics-governance/)
+- [Session plan (PDF)](/assets/documents/26-udenar-big-data/week-1-session-plan-es.pdf)
+- [Lecture 1](/teaching/26-udenar-big-data/l1-introduction/) · [Lecture 2](/teaching/26-udenar-big-data/l2-ethics-governance/)
+
 ### Resources
 
-- [Individual notebook Lecture 2](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l2-ethics-governance.ipynb)
-- [Group notebook week 1](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-1-group.ipynb): Deadline 08/06/2026
-- [Reflection template week 1](/assets/documents/26-udenar-big-data/reflection-week-1-template.docx): Deadline 09/06/2026
-- [Project requirements template](/assets/documents/26-udenar-big-data/project-requirements-template.docx): Saturday 6 Jun draft, week 2 discussion
-- [Week 1 session plan](/assets/documents/26-udenar-big-data/week-1-session-plan-es.pdf): Saturday 6 Jun 2026 timetable
+- [Group notebook week 1](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-1-group.ipynb): deadline 08/06/2026
+- [Reflection template week 1](/assets/documents/26-udenar-big-data/reflection-week-1-template.docx): deadline 09/06/2026
+- [Project requirements template](/assets/documents/26-udenar-big-data/project-requirements-template.docx)
 - [OpenStreetMap — Nariño](https://www.openstreetmap.org/relation/1380130)
 - [Overpass API](https://wiki.openstreetmap.org/wiki/Overpass_API)
 - [**Overpass by Example** — building queries](https://dev.overpass-api.de/overpass-doc/en/) ([es](https://dev.overpass-api.de/overpass-doc/es/))

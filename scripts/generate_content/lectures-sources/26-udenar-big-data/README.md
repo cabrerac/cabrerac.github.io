@@ -31,6 +31,8 @@ Set `visible: true` in each source front matter when ready to publish.
 
 **Website is the canonical materials hub.** Moodle and email are support channels for announcements and submissions.
 
+**Weekly hub pattern:** Week 1 → **L2 page** (`Week 1 links` on L1 and L2). Week 2+ → dedicated **`week-N-hub-es`** page (`Week N links` on lecture pages; Colabs/templates on hub; lecture **Resources** = supplements only).
+
 **Notebook language:** Student practice notebooks (L1–L8, diagnostic) are authored in **Spanish** in the markdown sources; regenerate `.ipynb` after edits.
 
 **Naming:** `lecture_code` matches the source filename stem (e.g. `l3-storage`). Homework artefacts use `L{n}_output` (see planning docs).

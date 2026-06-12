@@ -2,12 +2,10 @@
 author: Christian Cabrera Jojoa
 course_code: 26-udenar-big-data
 department: Department of Computer Science and Technology
-description: "Lecture 4 turns stored Parquet into answers. After the layout benchmark\
-  \ in Lecture 3, we need engines that scale on one machine\u2014MapReduce as the\
-  \ mental model, then pandas, DuckDB, and Polars on the same weighted-employment-by-department\
-  \ query over 2024. The individual run-only notebook contrasts k=5 suppression with\
-  \ Laplace noise on finer aggregates. Assessed processing, engine choice, privacy\
-  \ strategy, and manifest updates for the full 2022\u20132025 spine are in week-2-group."
+description: Lecture 4 introduces data processing. Once data is stored in a harmonised
+  structure we need methods for efficient access and analysis. This lecture presents
+  big data processing approaches and engines that scale like the MapReduce algorithm
+  working on top of pandas, DuckDB, and Polars.
 email: chc79@cam.ac.uk
 end_time: 01:00 pm
 group_notebook: week-2-group
@@ -37,16 +35,18 @@ visible: false
   </p>
 </div>
 
+### Week 2 links
+
+- [Week 2 hub](/teaching/26-udenar-big-data/week-2-hub-es/)
+
 ### Resources
 
-- [Individual notebook Lecture 4](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l4-processing.ipynb) *(when published)*
-- [Individual notebook Lecture 3](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l3-storage.ipynb), **prerrequisito:** Parquet 2024 en Drive
-- [Group notebook week 2](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-2-group.ipynb) *(when published)*
-- [Week 2 hub](/work-space/teaching/big-data/course/week-2/week-2-hub-es.md) · [Session plan PDF](/assets/documents/26-udenar-big-data/week-2-session-plan-es.pdf)
-- [Reflection template week 2](/assets/documents/26-udenar-big-data/reflection-week-2-template.docx)
+- [Introductory Python course](https://www.youtube.com/watch?v=nKPbfIU442g) (optional video)
+- [Introduction to data management](https://www.youtube.com/watch?v=9P2oNqRbdyI) (optional video)
 
 ### References
 
-- Dean, J., & Ghemawat, S. (2008). MapReduce: Simplified data processing on large clusters. *Communications of the ACM*, 51(1), 107–113.
-- Dwork, C. (2008). Differential privacy: A survey of results. *TAMC* (LNCS 4978).
-- Armbrust, M., et al. (2021). *Lakehouse: A new generation of open platforms*. CIDR.
+- Zuboff, S. (2019). *The age of surveillance capitalism* (Chapter 3). PublicAffairs. *(Course PDF — same as week 1.)*
+- Dwork, C. (2006). [Differential privacy](https://doi.org/10.1007/11787006_1). *ICALP 2006* (LNCS 4052).
+- Dean, J., & Ghemawat, S. (2008). [MapReduce: Simplified data processing on large clusters](https://doi.org/10.1145/1327452.1327492). *Communications of the ACM*, 51(1), 107–113.
+- Armbrust, M., et al. (2021). [Lakehouse: A new generation of open platforms](https://people.eecs.berkeley.edu/~matei/papers/2021/cidr_lakehouse.pdf). *CIDR ’21*.

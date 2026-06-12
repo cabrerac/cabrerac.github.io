@@ -27,6 +27,13 @@ hr { border: none; border-top: 1px solid #ccc; margin: 12pt 0; }
 """
 
 INSTRUCTOR_SECTION = "\n## Regenerar este PDF"
+SITE_BASE = "https://cabrerac.github.io"
+
+
+def _resolve_href(href: str) -> str:
+    if href.startswith("/"):
+        return SITE_BASE + href
+    return href
 
 
 def _inline(text: str) -> str:
@@ -34,7 +41,7 @@ def _inline(text: str) -> str:
     text = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", text)
     text = re.sub(
         r"\[([^\]]+)\]\(([^)]+)\)",
-        r'<a href="\2">\1</a>',
+        lambda m: f'<a href="{_resolve_href(m.group(2))}">{m.group(1)}</a>',
         text,
     )
     text = re.sub(r"`([^`]+)`", r"<code>\1</code>", text)
@@ -126,21 +133,32 @@ def markdown_to_html(md: str) -> str:
     return f"<body>{''.join(parts)}</body>"
 
 
+def _story_rectfn(mediabox: fitz.Rect, where: fitz.Rect):
+    """Place story content in ``where``; new page when the column is full."""
+
+    def rectfn(rect_num: int, filled) -> tuple:
+        if isinstance(filled, fitz.Rect):
+            filled_rect = filled
+        else:
+            filled_rect = fitz.Rect(filled)
+        if rect_num == 0 or filled_rect.y1 >= where.y1 - 1:
+            return mediabox, where, None
+        remain = fitz.Rect(where.x0, filled_rect.y1, where.x1, where.y1)
+        return None, remain, None
+
+    return rectfn
+
+
 def write_pdf(path: Path, body_html: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     story = fitz.Story(html=body_html, user_css=CSS)
     mediabox = fitz.paper_rect("a4")
     where = mediabox + (45, 45, -45, -45)
-    writer = fitz.DocumentWriter(str(path))
+    doc = story.write_with_links(rectfn=_story_rectfn(mediabox, where))
     try:
-        more = 1
-        while more:
-            device = writer.begin_page(mediabox)
-            more, _filled = story.place(where)
-            story.draw(device, None)
-            writer.end_page()
+        doc.save(str(path))
     finally:
-        writer.close()
+        doc.close()
 
 
 def student_markdown(md: str) -> str:

@@ -2,13 +2,10 @@
 author: Christian Cabrera Jojoa
 course_code: 26-udenar-big-data
 department: Department of Computer Science and Technology
-description: "Lecture 3 follows access and ethics by asking how we persist GEIH responsibly\
-  \ for repeated analysis. We move from relational and non-relational storage concepts\
-  \ to the course standard\u2014a harmonised, partitioned Parquet lakehouse on Drive.\
-  \ The individual run-only notebook builds 2024 national data, benchmarks layout\
-  \ against raw CSV, and documents governance at write time, including differential\
-  \ privacy when publishing counts. All assessed harmonisation, retention, and lineage\
-  \ work lives in week-2-group."
+description: Lecture 3 introduces data storage and its evolution. We reflect about
+  the storage need and move from relational and non-relational storage concepts to
+  current data architectures that support big data processing. We present the lakehouse
+  concept and how to build it.
 email: chc79@cam.ac.uk
 end_time: 01:00 pm
 group_notebook: week-2-group
@@ -38,14 +35,18 @@ visible: false
   </p>
 </div>
 
+### Week 2 links
+
+- [Week 2 hub](/teaching/26-udenar-big-data/week-2-hub-es/)
+
 ### Resources
 
-- [Individual notebook Lecture 3](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l3-storage.ipynb) *(when published)*
-- [Group notebook week 2](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-2-group.ipynb) *(when published)*
-- [Week 2 hub](/work-space/teaching/big-data/course/week-2/week-2-hub-es.md) · [Session plan PDF](/assets/documents/26-udenar-big-data/week-2-session-plan-es.pdf)
-- [Reflection template week 2](/assets/documents/26-udenar-big-data/reflection-week-2-template.docx)
+- [Introductory Python course](https://www.youtube.com/watch?v=nKPbfIU442g) (optional video)
+- [Introduction to data management](https://www.youtube.com/watch?v=9P2oNqRbdyI) (optional video)
 
 ### References
 
-- Armbrust, M., et al. (2021). *Lakehouse: A new generation of open platforms*. CIDR.
-- Stonebraker, M., & Çetintemel, U. (2010). “One size fits all”: An idea whose time has come and gone. *DEABS*.
+- Zuboff, S. (2019). *The age of surveillance capitalism* (Chapter 3). PublicAffairs. *(Course PDF — same as week 1.)*
+- Dwork, C. (2006). [Differential privacy](https://doi.org/10.1007/11787006_1). *ICALP 2006* (LNCS 4052).
+- Armbrust, M., et al. (2021). [Lakehouse: A new generation of open platforms](https://people.eecs.berkeley.edu/~matei/papers/2021/cidr_lakehouse.pdf). *CIDR ’21*.
+- Stonebraker, M., & Çetintemel, U. (2010). [“One size fits all”: An idea whose time has come and gone](https://doi.org/10.1145/1661412.1661413). *DEABS*.

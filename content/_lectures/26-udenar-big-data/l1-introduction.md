@@ -34,14 +34,15 @@ visible: true
   </p>
 </div>
 
+### Week 1 links
+
+- [Week 1 hub](/teaching/26-udenar-big-data/l2-ethics-governance/) *(deliverables, Colabs, templates)*
+
 ### Resources
 
-- [Individual notebook Lecture 1](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction.ipynb)
 - [Course project definition](/assets/documents/26-udenar-big-data/project-definition-big-data.pdf)
 - [DANE microdatos website](https://microdatos.dane.gov.co/)
 - [GEIH 2024 — documentation](https://microdatos.dane.gov.co/index.php/catalog/819)
-
-**Templates and deliverables for week 1** are in [Lecture 2 webpage](/teaching/26-udenar-big-data/l2-ethics-governance/)
 
 ### References
 
