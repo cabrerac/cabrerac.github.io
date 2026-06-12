@@ -24,7 +24,7 @@
                     <li><b>Aggregate:</b> count, sum, and average over groups</li>
                     <li><b>Derive:</b> compute new facts the raw data did not state</li>
                 </ul>
-                <p>As an example, the lakehouse stores <b>actividad</b> as a raw code. Deciding who counts as <b>employed</b> happens here, when we process.</p>
+                <p>As an example, the lakehouse stores <b>activity</b> as a raw code. Deciding who counts as <b>employed</b> happens here, when we process.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/diagrams/big-data-pipeline-template.svg" alt="Pipeline template, process stage" style="height: 380px">

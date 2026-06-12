@@ -46,7 +46,7 @@
     <path d="M660 150 v90 l60 30 v-90 z" fill="#dcc4ef"/>
     <path d="M780 150 v90 l-60 30 v-90 z" fill="#cdb0e6"/>
   </g>
-  <text x="720" y="300" text-anchor="middle" font-size="13" fill="#5a6b7b">cube by dpto x time</text>
+  <text x="720" y="300" text-anchor="middle" font-size="13" fill="#5a6b7b">cube by dept x time</text>
 
   <defs>
     <marker id="arr2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">

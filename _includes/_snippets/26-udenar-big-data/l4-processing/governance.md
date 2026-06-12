@@ -6,7 +6,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <p>Aggregating by department is safe: each cell holds thousands of people. But <b>finer</b> results leak. A table of <b>dpto x edad</b> can leave cells with just a few people, and those few can be re-identified.</p>
+                <p>Aggregating by department is safe: each cell holds thousands of people. But <b>finer</b> results leak. A table of <b>department x age</b> can leave cells with just a few people, and those few can be re-identified.</p>
             </div>
         </div>
     </div>
