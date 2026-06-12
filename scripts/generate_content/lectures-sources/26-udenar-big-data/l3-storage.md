@@ -19,7 +19,7 @@ visible: false
 group_notebook: week-2-group
 notebook_language: es
 notebook_title: Almacenamiento y gestión de datos
-notebook_description: Práctica individual de la Lección 3. En esta práctica harmonizamos el dataset GEIH para el año 2024 en formato Parquet particionado para hacer su acceso más eficiente. Comparamos el impacto de dicha harmonización y realizamos un chequeo de gobernanza al almacenar los datos.
+notebook_description: Práctica individual de la Lección 3. Construimos un lakehouse GEIH para 2024 (tabla harmonizada particionada en Parquet bajo data/processed/geih-spine/). Comparamos leer el lakehouse frente a CSV crudo y documentamos gobernanza al almacenar.
 ---
 
 <!-- SLIDES: -->
@@ -191,9 +191,21 @@ assert len(dos_meses) == 2
 print("concat: OK")
 ```
 
-### Parquet: leer y escribir
+### Lakehouse y Parquet: tres niveles
 
-**Parquet** es un formato basado en columnas que se utiliza para almacenar datos y hacer su consulta más eficiente. Podemos manipular archivos **Parquet** con **pandas** y **pyarrow**:
+En la lección hablamos de **lakehouse**: almacenamiento barato y accesible, organizado como **tablas analíticas**, con gobernanza. En este cuaderno **no montamos un servidor**, construimos un **lakehouse pequeño** en Drive con tres niveles:
+
+| Nivel | Qué es | En este cuaderno |
+|-------|--------|------------------|
+| **Lakehouse** | Conjunto de datos procesados listos para analizar (no solo un montón de archivos crudos) | Carpeta `data/processed/geih-spine/` |
+| **Tabla particionada** | Organización tipo Hive: carpetas `clave=valor/` que el motor puede omitir al leer | `anio=2024/mes=01/`, `anio=2024/mes=02/`, … |
+| **Archivo Parquet** | Formato **columnar** dentro de cada partición (compresión, tipos, lectura rápida) | `part-000.parquet` |
+
+Los CSV del DANE en `data/raw/` son la **entrada cruda** (como en un data lake). La **Parte 2** harmoniza; la **Parte 3** **carga** el resultado en el lakehouse como Parquet particionado.
+
+### Parquet: leer y escribir (formato de archivo)
+
+**Parquet** es el **formato de archivo** del último nivel de la tabla anterior, no el lakehouse completo. Podemos manipular archivos **Parquet** con **pandas** y **pyarrow**:
 
 Preparamos la carpeta y el DataFrame de ejemplo:
 
@@ -223,7 +235,7 @@ ruta.unlink(missing_ok=True)
 
 ## Instrucciones
 
-**Propósito.** Este cuaderno es su práctica de la **Lección 3 (Almacenamiento)**. Ya hicimos **Access** en la lección 1 y evaluamos aspectos éticos y de privacidad de datos en la lección 2. Ahora **guardamos** GEIH en un formato eficiente y escalable: **Parquet particionado** (`anio=…/mes=…/`).
+**Propósito.** Este cuaderno es su práctica de la **Lección 3 (Almacenamiento)**. Ya hicimos **Access** en la lección 1 y evaluamos aspectos éticos y de privacidad de datos en la lección 2. Ahora **construimos un lakehouse GEIH**: una tabla harmonizada y particionada bajo `data/processed/geih-spine/`, implementada con archivos **Parquet** en carpetas `anio=…/mes=…/`.
 
 **Qué hace el cuaderno (en orden).**
 
@@ -231,10 +243,10 @@ ruta.unlink(missing_ok=True)
 |-------|------|
 | **0** | **Solución** del deber grupal semana 1 (`week-1-group`): Parte A (Access **2022–2025**) + Parte B (ética + OSM) |
 | **1** | Montar **Google Drive** y **copiar** lo descargado (no repetir DANE en cada sesión) |
-| **2** | Función **`harmonize_month`** (unir tablas + nombres legibles + claves de partición) |
-| **3** | **Harmonizar 12 meses 2024** → Parquet en Drive |
-| **4** | **Benchmark**: leer todo el árbol vs una partición |
-| **5** | **Gobernanza** al almacenar (retención, linaje) |
+| **2** | Función **`harmonize_month`** (transformar: unir tablas + nombres legibles + claves de partición) |
+| **3** | **Cargar el lakehouse**: harmonizar 12 meses 2024 → Parquet particionado en Drive |
+| **4** | **Benchmark**: leer CSV crudo vs leer el lakehouse |
+| **5** | **Gobernanza** del lakehouse (retención, linaje) |
 
 La Parte 0 puede ser ejecutada con **`SKIP_DOWNLOAD = True`** (solo rutas, sin descarga del dataset de DANE) → Parte 1 monta Drive → Partes 2–5 continúan.
 
@@ -743,15 +755,16 @@ A partir de aquí, **Partes 2–5** leen y escriben bajo `WORK_ROOT`:
 
 | Ruta | Contenido |
 |------|-----------|
-| `data/raw/2022/` … `data/raw/2025/` | CSV descargados (Parte 0, copiados aquí) |
-| `data/processed/geih-spine/` | Parquet harmonizado (2024 en este cuaderno) |
-| `manifest.json` | Registro de acceso DANE |
+| `data/raw/2022/` … `data/raw/2025/` | CSV crudos del DANE (entrada al pipeline; Parte 0, copiados aquí) |
+| `data/processed/geih-spine/` | **Lakehouse GEIH** — tabla harmonizada en Parquet particionado (2024 en este cuaderno) |
+| `manifest.json` | Registro de acceso, linaje del lakehouse y gobernanza |
 | `outputs/` | Exportaciones auxiliares |
 
 Empezamos configurando las rutas para que utilicen las carpetas y archivos en Google Drive.
 
 ```python
 RAW_DIR = WORK_ROOT / "data" / "raw"
+# Raíz del lakehouse GEIH del curso (tabla particionada en Parquet)
 PROCESSED_DIR = WORK_ROOT / "data" / "processed" / "geih-spine"
 OUTPUTS_DIR = WORK_ROOT / "outputs"
 MANIFEST_PATH = WORK_ROOT / "manifest.json"
@@ -762,8 +775,8 @@ for p in (RAW_DIR, PROCESSED_DIR, OUTPUTS_DIR):
 YEAR_DIR = RAW_DIR / str(YEAR)
 YEAR_DIR.mkdir(parents=True, exist_ok=True)
 
-print("RAW:", YEAR_DIR)
-print("Parquet:", PROCESSED_DIR)
+print("RAW (entrada cruda):", YEAR_DIR)
+print("Lakehouse (geih-spine):", PROCESSED_DIR)
 print("Manifiesto:", MANIFEST_PATH)
 ```
 
@@ -846,7 +859,7 @@ Los significados oficiales de cada código están en el [diccionario de datos GE
 
 Harmonizamos **los 12 meses de 2024** en este cuaderno. En **`week-2-group`** su grupo reutiliza la misma función para **2022, 2023 y 2025**.
 
-Antes de escribir Parquet necesitamos un **motor** que sepa leer y escribir ese formato. **PyArrow** es la librería que pandas usa por debajo para Parquet (lectura/escritura en columnas, compresión, tipos). En Colab no viene instalada, por eso la instalamos a continuación:
+La **Parte 2** es el paso **Transform** del ETL: deja cada mes listo para cargar al lakehouse. Antes de escribir archivos **Parquet** (formato de cada partición) necesitamos un **motor** que pandas use por debajo. **PyArrow** lee y escribe Parquet (columnas, compresión, tipos). En Colab no viene instalada, por eso la instalamos a continuación:
 
 ```python
 # pyarrow: motor que pandas usa para leer/escribir archivos Parquet
@@ -1057,16 +1070,24 @@ print("Parte 2, harmonize_month: OK")
 
 ---
 
-## Parte 3. Escribir Parquet particionado
+## Parte 3. Cargar el lakehouse (Parquet particionado)
 
-Ya tenemos cada mes como una tabla limpia y comparable. Ahora la **guardamos** en **Parquet**, un formato en columnas que se lee rápido, comprime bien y permite **partir** el dataset en carpetas `anio=2024/mes=MM/`. Así se puede leer un solo mes sin cargar el año entero. Esta estructura de árbol sirve para la lección 4 y para el trabajo grupal.
+Ya tenemos cada mes como una tabla limpia y comparable. Ahora hacemos el paso **Load** del ETL: **cargamos el lakehouse** `geih-spine`.
 
-**Objetivo.** Recorrer cada carpeta mensual en `data/raw/2024/`, harmonizar y escribir **`anio=2024/mes=MM/part-000.parquet`**. Si ya existe el árbol en Drive, puede **omitir** la re-escritura (`SKIP_IF_PARQUET_EXISTS`).
+Recuerde la jerarquía:
+
+1. **Lakehouse** → `data/processed/geih-spine/`
+2. **Particiones** → carpetas `anio=2024/mes=MM/` (solo se lee el mes que necesitamos)
+3. **Archivos Parquet** → `part-000.parquet` dentro de cada partición (formato columnar, comprimido)
+
+Así no es “guardar un Parquet”, sino **publicar una tabla analítica** en almacenamiento barato. El árbol sirve para la lección 4 y para el trabajo grupal.
+
+**Objetivo.** Recorrer cada carpeta mensual en `data/raw/2024/`, harmonizar y escribir **`anio=2024/mes=MM/part-000.parquet`** dentro del lakehouse. Si ya existe la partición en Drive, puede **omitir** la re-escritura (`SKIP_IF_PARQUET_EXISTS`).
 
 **Ejecución a escala.** Con **`harmonize_month`** ya consolidada, aplicamos el mismo flujo a los 12 meses:
 
 ```python
-SKIP_IF_PARQUET_EXISTS = True  # no reescribir si la partición ya existe en Drive
+SKIP_IF_PARQUET_EXISTS = True  # no reescribir si la partición del lakehouse ya existe en Drive
 
 # Carpetas de meses con CSV listos
 month_dirs = sorted(
@@ -1095,7 +1116,7 @@ for month_dir in month_dirs:
         n_rows = len(pd.read_parquet(part_file, columns=["dpto"]))
     else:
         part_dir.mkdir(parents=True, exist_ok=True)
-        # Almacenando el DataFrame como un archivo Parquet
+        # Cargar partición del lakehouse (archivo Parquet dentro de anio=/mes=)
         sample.to_parquet(part_file, index=False)
         n_rows = len(sample)
         print(f"Escrito {part_file.relative_to(WORK_ROOT)} | filas: {n_rows:,}")
@@ -1116,20 +1137,20 @@ print(f"Total filas: {stats_df['filas'].sum():,}")
 assert len(stats_df) >= 12, f"Se esperan 12 meses 2024. Hay {len(stats_df)}"
 assert stats_df["filas"].sum() > 100_000
 assert (PROCESSED_DIR / "anio=2024" / "mes=01" / "part-000.parquet").is_file()
-print("Parte 3, Parquet 2024 completo: OK")
+print("Parte 3, lakehouse 2024 completo: OK")
 ```
 
 ---
 
-## Parte 4. Benchmark: CSV crudo vs Parquet
+## Parte 4. Benchmark: CSV crudo vs lakehouse
 
-**Objetivo.** Comparar **las dos formas de cargar los mismos datos de 2024**: la *forma normal* (leer los CSV del DANE y unir tablas, como en la Parte 2) frente a leer el **Parquet** ya harmonizado de la Parte 3. Medimos **tiempo**, **memoria** y **tamaño en disco**. Esto muestra por qué guardamos en Parquet antes de procesar en la lección 4.
+**Objetivo.** Comparar **dos formas de cargar los mismos datos de 2024**: la *forma normal* (leer CSV del DANE y unir tablas, como en la Parte 2) frente a leer el **lakehouse** ya cargado en la Parte 3 (`pd.read_parquet` sobre el árbol `anio=2024/`). Medimos **tiempo**, **memoria** y **tamaño en disco**. El lakehouse gana porque los datos ya están harmonizados, en columnas y particionados; por eso en la lección 4 procesamos sobre el lakehouse y no sobre CSV.
 
 Para que la comparación sea **justa**, ambas rutas producen el mismo año completo (12 meses) en un DataFrame.
 
 ### Paso 4.1. Forma normal: leer CSV y unir (12 meses)
 
-Recorremos las carpetas de 2024 y aplicamos `harmonize_month` (lee dos CSV por mes y los une). Es lo que tendría que hacer **cada vez** si no guardara Parquet:
+Recorremos las carpetas de 2024 y aplicamos `harmonize_month` (lee dos CSV por mes y los une). Es lo que tendría que hacer **cada vez** si no hubiera lakehouse:
 
 ```python
 import time
@@ -1149,9 +1170,9 @@ print(f"CSV crudo  -> filas: {len(df_csv):,} | tiempo: {csv_seconds} s | memoria
 del df_csv
 ```
 
-### Paso 4.2. Forma Parquet: leer el árbol harmonizado (12 meses)
+### Paso 4.2. Lakehouse: leer el árbol particionado (12 meses)
 
-Ahora cargamos el **mismo** año, pero desde el Parquet de la Parte 3:
+Ahora cargamos el **mismo** año desde el lakehouse de la Parte 3 (Parquet bajo `anio=2024/`):
 
 ```python
 t0 = time.perf_counter()
@@ -1160,12 +1181,12 @@ df_parquet = pd.read_parquet(PROCESSED_DIR / "anio=2024")
 parquet_seconds = round(time.perf_counter() - t0, 2)
 
 mem_parquet_mb = df_parquet.memory_usage(deep=True).sum() / 1e6
-print(f"Parquet    -> filas: {len(df_parquet):,} | tiempo: {parquet_seconds} s | memoria: {mem_parquet_mb:.1f} MB")
+print(f"Lakehouse  -> filas: {len(df_parquet):,} | tiempo: {parquet_seconds} s | memoria: {mem_parquet_mb:.1f} MB")
 ```
 
 ### Paso 4.3. Tamaño en disco
 
-Parquet comprime por columnas, así que ocupa **mucho menos** que los CSV del DANE:
+Los archivos Parquet del lakehouse comprimen por columnas, así que ocupan **mucho menos** que los CSV del DANE:
 
 ```python
 def dir_size_mb(folder: Path, pattern: str) -> float:
@@ -1177,7 +1198,7 @@ parquet_mb = dir_size_mb(PROCESSED_DIR / "anio=2024", "*.parquet")
 
 resumen = pd.DataFrame(
     {
-        "formato": ["CSV crudo", "Parquet"],
+        "formato": ["CSV crudo", "Lakehouse (Parquet)"],
         "tiempo_seg": [csv_seconds, parquet_seconds],
         "memoria_mb": [round(mem_csv_mb, 1), round(mem_parquet_mb, 1)],
         "disco_mb": [round(csv_mb, 1), round(parquet_mb, 1)],
@@ -1186,24 +1207,24 @@ resumen = pd.DataFrame(
 print(resumen.to_string(index=False))
 ```
 
-**Interpretación.** Leer desde CSV obliga a **re-parsear y re-unir** todo cada vez; Parquet ya está harmonizado, en columnas y comprimido, así que se lee más rápido y ocupa menos disco. Por eso, en la lección 4, procesamos sobre el Parquet y no sobre los CSV.
+**Interpretación.** Leer desde CSV obliga a **re-parsear y re-unir** todo cada vez. El lakehouse ya trae la tabla harmonizada, particionada y en Parquet, así que se lee más rápido y ocupa menos disco.
 
 **Comprobar:**
 
 ```python
-print(f"CSV: {csv_seconds}s / {csv_mb:.0f}MB | Parquet: {parquet_seconds}s / {parquet_mb:.0f}MB")
+print(f"CSV: {csv_seconds}s / {csv_mb:.0f}MB | Lakehouse: {parquet_seconds}s / {parquet_mb:.0f}MB")
 assert len(df_parquet) > 100_000
-assert parquet_mb < csv_mb  # Parquet pesa menos en disco
-print("Parte 4, benchmark CSV vs Parquet: OK")
+assert parquet_mb < csv_mb  # archivos Parquet del lakehouse pesan menos en disco
+print("Parte 4, benchmark CSV vs lakehouse: OK")
 ```
 
 ---
 
-## Parte 5. Gobernanza al almacenar
+## Parte 5. Gobernanza del lakehouse
 
-**Objetivo.** Documentar qué **persistimos** en Parquet, mostrar cómo **publicar con privacidad diferencial**, fijar una **regla de retención** y dejar todo registrado en `manifest.json`.
+**Objetivo.** Documentar qué **persistimos** en el lakehouse, mostrar cómo **publicar con privacidad diferencial**, fijar una **regla de retención** y dejar linaje y políticas en `manifest.json`.
 
-### Paso 5.1. Cuasi-identificadores en el archivo harmonizado
+### Paso 5.1. Cuasi-identificadores en el lakehouse
 
 ```python
 sample_path = PROCESSED_DIR / "anio=2024" / "mes=01" / "part-000.parquet"
@@ -1272,17 +1293,18 @@ for eps in (0.1, 1.0, 5.0):
 
 ### Paso 5.3. Linaje y regla de retención
 
-El **linaje** dice de dónde salió el Parquet (catálogo del DANE, versión de harmonización). Es un dato **constante** del dataset, así que lo guardamos **una sola vez** como metadato, no repetido en cada fila. La **retención** fija por cuánto tiempo conservamos los datos.
+El **linaje** dice de dónde salió el lakehouse (catálogo DANE, versión de harmonización, rutas raw/processed). Es metadato **del conjunto**, no repetido en cada fila Parquet. La **retención** fija cuánto tiempo conservamos el lakehouse.
 
 ```python
 LINEAGE = {
+    "lakehouse": "geih-spine",
     "source_catalog": str(SPINE_CATALOGS[YEAR]),  # catálogo DANE del año (2024 -> 819)
     "harmonisation_version": "2026-06-l3-demo",   # versión del mapeo de la Parte 2
     "raw_path": str(YEAR_DIR),
-    "processed_path": str(PROCESSED_DIR),
+    "lakehouse_path": str(PROCESSED_DIR),
 }
 RETENTION_RULE = (
-    "Conservar el Parquet harmonizado solo durante el curso (retención: 6 meses) "
+    "Conservar el lakehouse GEIH (Parquet particionado) solo durante el curso (retención: 6 meses) "
     "y ELIMINARLO al terminar el curso, a más tardar el 11 de julio de 2026. "
     "No publicar microfilas ni particiones crudas. Agregados externos solo con k >= 5 ocupados."
 )
@@ -1334,7 +1356,7 @@ print("Claves:", list(manifest.keys()))
 
 ```python
 guardado = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
-print("Columnas en Parquet:", schema_cols[:6], "...")
+print("Columnas en el lakehouse:", schema_cols[:6], "...")
 print("Manifiesto, total filas:", guardado["total_filas"])
 assert {"linaje", "particiones", "benchmark"}.issubset(guardado.keys())
 assert guardado["linaje"]["source_catalog"] == "819"
@@ -1349,7 +1371,7 @@ print("Parte 5, gobernanza al almacenar: OK")
 En el cuaderno **`week-2-group`** (Parte A) su grupo:
 
 1. Harmoniza **2022–2025** reutilizando **`harmonize_month`** (mismo mapeo).
-2. Repite el benchmark de la Parte 4 sobre el árbol completo.
+2. Repite el benchmark de la Parte 4 sobre el lakehouse completo (2022–2025).
 3. Documenta **elección de partición** y ética de retención.
 4. Continúa en Parte B (procesamiento, lección 4).
 

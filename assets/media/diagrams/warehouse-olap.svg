@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" font-family="Helvetica, Arial, sans-serif">
+  <rect width="880" height="420" fill="#ffffff"/>
+
+  <!-- operational databases (OLTP) -->
+  <text x="120" y="40" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2d3d">Operational systems</text>
+  <text x="120" y="60" text-anchor="middle" font-size="13" fill="#5a6b7b">many small writes (OLTP)</text>
+  <g fill="#dbe5f1" stroke="#2f5597" stroke-width="2">
+    <ellipse cx="120" cy="110" rx="55" ry="16"/>
+    <path d="M65 110 v60 a55 16 0 0 0 110 0 v-60" fill="#dbe5f1"/>
+    <ellipse cx="120" cy="170" rx="55" ry="16" fill="#c9d8ec"/>
+  </g>
+  <g fill="#dbe5f1" stroke="#2f5597" stroke-width="2">
+    <ellipse cx="120" cy="250" rx="55" ry="16"/>
+    <path d="M65 250 v60 a55 16 0 0 0 110 0 v-60" fill="#dbe5f1"/>
+    <ellipse cx="120" cy="310" rx="55" ry="16" fill="#c9d8ec"/>
+  </g>
+
+  <!-- ETL arrow -->
+  <g stroke="#9aa7b4" stroke-width="2" fill="none" marker-end="url(#arr2)">
+    <path d="M180 150 L300 200"/>
+    <path d="M180 280 L300 230"/>
+  </g>
+  <text x="245" y="195" text-anchor="middle" font-size="13" font-weight="bold" fill="#c55a11">ETL</text>
+
+  <!-- warehouse -->
+  <text x="430" y="40" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2d3d">Data warehouse</text>
+  <text x="430" y="60" text-anchor="middle" font-size="13" fill="#5a6b7b">historical, integrated, read-heavy (OLAP)</text>
+  <g fill="#e2efda" stroke="#548235" stroke-width="2">
+    <ellipse cx="430" cy="120" rx="80" ry="22"/>
+    <path d="M350 120 v140 a80 22 0 0 0 160 0 v-140" fill="#e2efda"/>
+    <ellipse cx="430" cy="260" rx="80" ry="22" fill="#d4e6c2"/>
+  </g>
+  <text x="430" y="195" text-anchor="middle" font-size="13" fill="#548235">years of clean</text>
+  <text x="430" y="215" text-anchor="middle" font-size="13" fill="#548235">history by time</text>
+
+  <!-- arrow to OLAP cube -->
+  <g stroke="#9aa7b4" stroke-width="2" fill="none" marker-end="url(#arr2)">
+    <path d="M512 190 L600 190"/>
+  </g>
+
+  <!-- OLAP cube -->
+  <text x="720" y="40" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2d3d">Analytics</text>
+  <text x="720" y="60" text-anchor="middle" font-size="13" fill="#5a6b7b">slice, group, aggregate</text>
+  <g stroke="#7030a0" stroke-width="2" fill="#e9d7f5">
+    <path d="M660 150 l60 -30 l60 30 l-60 30 z"/>
+    <path d="M660 150 v90 l60 30 v-90 z" fill="#dcc4ef"/>
+    <path d="M780 150 v90 l-60 30 v-90 z" fill="#cdb0e6"/>
+  </g>
+  <text x="720" y="300" text-anchor="middle" font-size="13" fill="#5a6b7b">cube by dpto x time</text>
+
+  <defs>
+    <marker id="arr2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#9aa7b4"/>
+    </marker>
+  </defs>
+
+  <text x="440" y="395" text-anchor="middle" font-size="15" fill="#5a6b7b">Keeping history turned data into something we could analyse, not just record</text>
+</svg>

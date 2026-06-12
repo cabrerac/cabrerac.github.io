@@ -12,10 +12,9 @@ institution: University of Cambridge
 layout: lecture
 lecture_code: l3-storage
 lecture_date: 13/06/2026
-notebook_description: "Pr\xE1ctica individual de la Lecci\xF3n 3. En esta pr\xE1ctica\
-  \ harmonizamos el dataset GEIH para el a\xF1o 2024 en formato Parquet particionado\
-  \ para hacer su acceso m\xE1s eficiente. Comparamos el impacto de dicha harmonizaci\xF3\
-  n y realizamos un chequeo de gobernanza al almacenar los datos."
+notebook_description: "Pr\xE1ctica individual de la Lecci\xF3n 3. Construimos un lakehouse\
+  \ GEIH para 2024 (tabla harmonizada particionada en Parquet bajo data/processed/geih-spine/).\
+  \ Comparamos leer el lakehouse frente a CSV crudo y documentamos gobernanza al almacenar."
 notebook_language: es
 notebook_title: "Almacenamiento y gesti\xF3n de datos"
 permalink: /teaching/26-udenar-big-data/l3-storage/

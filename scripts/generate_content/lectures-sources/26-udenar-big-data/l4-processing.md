@@ -28,7 +28,41 @@ notebook_description: Práctica individual de la Lección 4. Misma consulta GEIH
 
 <!-- end SLIDES: -->
 
-*Diapositivas Lección 4, por redactar (puente desde lección 3: almacenamiento → consulta).*
+{% include _snippets/26-udenar-big-data/l4-processing/last-time.md %}
+
+<!-- SLIDES: -->
+
+# The Need to Process
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l4-processing/processing-need.md %}
+
+<!-- SLIDES: -->
+
+# Big Data Processing
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l4-processing/big-data-processing.md %}
+
+<!-- SLIDES: -->
+
+# Governance at Query Time
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l4-processing/governance.md %}
+
+<!-- SLIDES: -->
+
+# Conclusions
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l4-processing/conclusions.md %}
+
+{% include _snippets/26-udenar-big-data/l4-processing/practical-slides.md %}
 
 <!-- RENDER: -->
 
