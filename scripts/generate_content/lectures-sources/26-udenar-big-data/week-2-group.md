@@ -28,13 +28,15 @@ notebook_description: Cuaderno canónico del grupo para la semana 2 (L3 + L4). H
 
 **Propósito.** Cuaderno grupal para la semana 2 (Lecciones 3 y 4). Aquí está **todo el código evaluable** de la semana: construir el **lakehouse GEIH completo (2022–2025)**, consultarlo con **MapReduce** y **un motor moderno**, y **publicar agregados** con gobernanza.
 
-**Requisito.** Ejecute primero los cuadernos individuales **`l3-storage`** y **`l4-processing`** (run-only). Aquí **adaptan** y **escriben** código — no copie sin entender. Desarrolle el cuaderno en grupo (bloque de 2 h el **sábado 13 jun**).
+**Requisito.** Ejecute primero los cuadernos individuales **`l3-storage`** y **`l4-processing`** (run-only). Aquí **adaptan** y **escriben** código — copie funciones de L3/L4 y extiéndalas; no pegue sin entender. Desarrolle el cuaderno en grupo (bloque de 2 h el **sábado 13 jun**).
 
 **Datos de entrada.** CSV crudos **2022–2025** de **`week-1-group`** (o la misma copia en Google Drive). Catálogos DANE: 2022 → `771`, 2023 → `782`, 2024 → `819`, 2025 → `853`.
 
+**Colab:** `/content` se borra al reiniciar. Monte **Google Drive** (`USE_GOOGLE_DRIVE = True`) o vuelva a copiar CSV desde week-1. Use `find_raw_dir` de L3 para localizar `data/raw`.
+
 **Materiales:** [L3 Almacenamiento](https://cabrerac.github.io/teaching/26-udenar-big-data/l3-storage/) · [L4 Procesamiento](https://cabrerac.github.io/teaching/26-udenar-big-data/l4-processing/).
 
-**Pregunta analítica (igual que L4).** Por departamento (`dpto`): **conteo sin ponderar** de ocupados y **suma ponderada** (Σ `factor_expansion`). Regla de ocupado: `actividad == 1` (derivar `ocupado` antes de agregar).
+**Pregunta analítica (igual que L4).** Por departamento (`dpto`): **conteo sin ponderar** de ocupados y **suma ponderada** (Σ `factor_expansion`). Regla de ocupado: `actividad == 1`. **Importante:** cada Parquet es **un mes**; promedie estimaciones mensuales por `dpto` (L4 Parte 3.4–3.5). **No** sume 48 meses crudos (~48× inflado).
 
 **Entrega Moodle (martes 16 jun 2026, 23:59 Colombia):** ZIP `week-2-group-<group_id>.zip` con `week-2-group-<group_id>.ipynb` (renombre este cuaderno al exportar) y `manifest.json` en la **raíz del ZIP**. **Sin** archivos Parquet ni CSV en el ZIP.
 
@@ -46,7 +48,9 @@ notebook_description: Cuaderno canónico del grupo para la semana 2 (L3 + L4). H
 | **2** | MapReduce + **un** motor (DuckDB **o** Polars) | Tabla de tiempos + markdown de elección de motor |
 | **3** | Publicar con gobernanza | Agregado por `dpto` + **k = 5** **o** Laplace (justificado) + `manifest.json` |
 
-Use `SKIP_IF_PARQUET_EXISTS` si ya tiene los datos en Drive. El ejercicio 2 sobre el árbol completo es pesado, explore y empiece con un subconjunto si el Colab se queda sin memoria y documente la limitación en markdown.
+Use `SKIP_IF_PARQUET_EXISTS` si ya tiene los datos en Drive. El ejercicio 2 sobre el árbol completo es pesado; empiece con un subconjunto si Colab se queda sin memoria y documente la limitación en markdown.
+
+**Celdas Comprobar:** ejecute **de arriba abajo**. Si una celda de código falla, las Comprobar siguientes pueden marcar error hasta que corrija y re-ejecute desde ahí.
 
 ---
 
@@ -54,14 +58,21 @@ Use `SKIP_IF_PARQUET_EXISTS` si ya tiene los datos en Drive. El ejercicio 2 sobr
 
 Monte **Google Drive** igual que en [`l3-storage`](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l3-storage.ipynb) (Parte 1). Si trabaja en **local** con el mismo layout, ponga `USE_GOOGLE_DRIVE = False`.
 
-Copie constantes y ayudantes de harmonización del cuaderno individual L3 (Parte 2):
+Copie constantes y ayudantes de harmonización del cuaderno individual **L3**:
 
 | Qué copiar | Dónde está en L3 |
 |------------|------------------|
 | `CSV_SEP`, `CSV_ENCODING`, `PERSON_KEYS`, `PRIMARY_TABLE_KEYWORD`, `DEMOG_TABLE_KEYWORDS` | Parte 0 / Parte 2 |
-| `_labour_csv`, `_demog_csv`, `a_entero`, `harmonize_month` | Parte 2 |
-| `read_geih_csv` (delimitador `;` o `,`) | Parte 0 / Parte 2 |
-| `count_month_folders` | Parte 0 / Parte 1 |
+| `_csv_files`, `_labour_csv`, `_demog_csv`, `month_dirs_for_year` | Parte 2, Paso 2.1 |
+| `a_entero`, `harmonize_month`, `read_geih_csv` | Parte 0 / Parte 2 |
+| `count_month_folders`, `find_raw_dir` | Parte 0 / Parte 1 |
+
+Copie de **L4** (Parte 3) para el ejercicio 2:
+
+| Qué copiar | Dónde está en L4 |
+|------------|------------------|
+| `map_partition`, `shuffle`, `reduce_buckets` | Parte 3, Paso 3.1 |
+| `anio_mes_from_path`, `annual_avg_from_monthly` | Parte 3, Paso 3.1 |
 
 Defina también:
 
@@ -71,11 +82,16 @@ SPINE_YEARS = [2022, 2023, 2024, 2025]
 ENGINE = "duckdb"  # cambie a "polars" si su grupo prefiere Polars
 # Estrategia de privacidad para el ejercicio 3: "k_suppression" o "laplace"
 PRIVACY_STRATEGY = "k_suppression"  # o "laplace"
+ACTIVIDAD_OCUPADO = 1
+K_MIN = 5
+EPSILON = 1.0
+SENSIBILIDAD = 1.0
 ```
 
 ```python
-# SU CÓDIGO — montar Drive, WORK_ROOT, RAW_DIR, PROCESSED_DIR, MANIFEST_PATH, OUTPUTS_DIR
-# + constantes y funciones copiadas de l3-storage
+# SU CÓDIGO — montar Drive, WORK_ROOT, find_raw_dir → RAW_DIR,
+# PROCESSED_DIR, MANIFEST_PATH, OUTPUTS_DIR
+# + constantes y funciones copiadas de l3-storage y l4-processing
 
 ```
 
@@ -98,10 +114,10 @@ print("Configuración: OK")
 
 ## Paso 1.1 — Confirmar datos crudos
 
-Verifique que cada año tiene **12 carpetas mensuales** con CSV bajo `data/raw/<año>/`. Si falta algo, verifique la descarga del dataset en cuadernos previos.
+Verifique que cada año tiene **12 carpetas mensuales** con CSV bajo `data/raw/<año>/`. Si todos los conteos son 0, revise `RAW_DIR` (Drive montado, `find_raw_dir`) o re-ejecute week-1.
 
 ```python
-# SU CÓDIGO — contar meses por año e imprimir resumen
+# SU CÓDIGO — meses_por_anio con count_month_folders
 
 ```
 
@@ -118,9 +134,9 @@ print("Paso 1.1, datos crudos: OK")
 
 ## Paso 1.2 — Harmonizar y escribir particiones
 
-Recorra **cada año** y **cada carpeta mensual**, aplique `harmonize_month` y escriba Parquet. Use `SKIP_IF_PARQUET_EXISTS = True` para no reescribir particiones ya cargadas.
+Recorra **cada año** con `month_dirs_for_year` (solo meses con labour + demog), aplique `harmonize_month` y escriba Parquet. Use `SKIP_IF_PARQUET_EXISTS = True` para no reescribir particiones ya cargadas.
 
-**Pista:** el bucle de L3 Parte 3 escribe un año. En este caso extiéndalo a cuatro años y acumule `partition_stats`.
+**Pista:** extienda el bucle de L3 Parte 3 (un año) a cuatro años y acumule `partition_stats`.
 
 ```python
 # SU CÓDIGO
@@ -144,10 +160,10 @@ print("Paso 1.2, lakehouse escrito: OK")
 
 Compare tiempo (y memoria si es posible) de:
 
-1. `pd.read_parquet(PROCESSED_DIR)` — **todo el spine**
+1. Leer **todo** el spine bajo `PROCESSED_DIR` (p. ej. `read_parquet_tree` de L4)
 2. `pd.read_parquet(PROCESSED_DIR / "anio=2024" / "mes=01")` — **una partición**
 
-Guarde números en variables `bench_full_seconds`, `bench_one_seconds` (y memoria si las calcula).
+Guarde números en `bench_full_seconds`, `bench_one_seconds`.
 
 ```python
 # SU CÓDIGO
@@ -185,18 +201,19 @@ Vincule con su **`project_requirements.pdf`** §6–§7 cuando aplique.
 
 **Tarea.** Sobre el lakehouse **2022–2025**, implemente la consulta de ocupados por `dpto` con:
 
-1. **MapReduce desde cero** (map → shuffle → reduce), con **benchmark**.
-2. **Un motor moderno:** DuckDB **o** Polars (el que eligió en `ENGINE`), misma consulta, **benchmark**.
+1. **MapReduce desde cero** — **mensual** (map → shuffle → reduce por partición) → **`annual_avg_from_monthly`** (o equivalente sobre ~48 meses).
+2. **Un motor moderno:** DuckDB **o** Polars, misma lógica de **dos pasos** (`GROUP BY dpto, anio, mes` → promedio por `dpto`).
 
 No hace falta repetir pandas si ya lo vieron en L4; puede citar tiempos del cuaderno individual en el markdown.
 
 ## Paso 2.1 — MapReduce desde cero
 
-Copie la **idea** de L4 Parte 3 (`map_partition`, `shuffle`, `reduce_buckets`) pero:
+Copie de L4 Parte 3 (`map_partition`, `shuffle`, `reduce_buckets`, `anio_mes_from_path`, `annual_avg_from_monthly`):
 
-- Liste **todos** los `.parquet` bajo `PROCESSED_DIR` (48+ archivos).
-- Emita `(dpto, factor_expansion)` solo para `actividad == 1`.
-- Guarde resultado en `mr_result` y tiempo en `mr_seconds`.
+- Liste **todos** los `.parquet` bajo `PROCESSED_DIR`.
+- Por partición: map → shuffle → reduce; guarde `anio` y `mes` con `anio_mes_from_path`.
+- Concatene en `mr_monthly`; promedie en `mr_result`; tiempo en `mr_seconds`.
+- Imprima `promedio_nacional = mr_result["suma_ponderada"].sum()` (debe estar ~15–30 millones, no ~200M).
 
 ```python
 # SU CÓDIGO
@@ -207,9 +224,12 @@ Copie la **idea** de L4 Parte 3 (`map_partition`, `shuffle`, `reduce_buckets`) p
 
 ```python
 assert len(mr_result) >= 30
-assert mr_result["suma_ponderada"].sum() > 1_000_000
+promedio_nacional = mr_result["suma_ponderada"].sum()
+assert 15_000_000 < promedio_nacional < 30_000_000, (
+    f"¿Sumó meses crudos? Promedio nacional: {promedio_nacional:,.0f}"
+)
 assert mr_seconds > 0
-print(f"MapReduce: {len(mr_result)} dptos | {mr_seconds:.3f}s")
+print(f"MapReduce: {len(mr_result)} dptos | {mr_seconds:.3f}s | nacional: {promedio_nacional:,.0f}")
 print("Paso 2.1, MapReduce: OK")
 ```
 
@@ -217,12 +237,7 @@ print("Paso 2.1, MapReduce: OK")
 
 ## Paso 2.2 — Motor elegido (DuckDB o Polars)
 
-Implemente la **misma consulta** con el motor indicado en `ENGINE`.
-
-| Motor | Referencia en L4 |
-|-------|------------------|
-| `duckdb` | Parte 5 — `read_parquet` + SQL `GROUP BY dpto` |
-| `polars` | Parte 6 — `scan_parquet` lazy + `group_by` |
+Implemente la **misma consulta** con el motor indicado en `ENGINE` (L4 Parte 5 o 6: subconsulta mensual + promedio exterior; incluya **`anio`** en el `GROUP BY` mensual).
 
 Guarde resultado en `engine_result` y tiempo en `engine_seconds`.
 
@@ -246,7 +261,7 @@ print("Paso 2.2, motor moderno: OK")
 
 ## Paso 2.3 — Tabla de tiempos y elección de motor
 
-Arme `timing_df` con al menos MapReduce y su motor. En markdown (**≥ 80 palabras**): por qué eligió DuckDB **o** Polars; trade-offs vs MapReduce y vs el otro motor; cite **sus** tiempos.
+Arme `timing_df` con al menos MapReduce y su motor. En markdown (**≥ 80 palabras**): por qué eligió DuckDB **o** Polars; trade-offs vs MapReduce; cite **sus** tiempos.
 
 ```python
 # SU CÓDIGO — timing_df + opcional gráfico en outputs/
@@ -269,7 +284,7 @@ print("Paso 2.3, benchmark motores: OK")
 
 # Ejercicio 3 — Publicar con gobernanza (k = 5 o Laplace)
 
-**Tarea.** Construya el agregado departamental (`dpto`, `conteo_ocupados`, `suma_ponderada`) sobre el spine completo. **Elija UNA estrategia** (`PRIVACY_STRATEGY`):
+**Tarea.** Construya el agregado departamental (`dpto`, `conteo_ocupados`, `suma_ponderada`) desde `mr_result`. **Elija UNA estrategia** (`PRIVACY_STRATEGY`):
 
 | Estrategia | Qué implementar | Referencia |
 |------------|-----------------|------------|
@@ -280,10 +295,10 @@ En markdown (**≥ 100 palabras**): **justifique** por qué su grupo eligió k-a
 
 ## Paso 3.1 — Agregado departamental
 
-Guarde la tabla en Drive, p. ej. `outputs/agg_ocupados_dpto_spine.csv` (ruta documentada en el cuaderno).
+Guarde la tabla en Drive, p. ej. `outputs/agg_ocupados_dpto_spine.csv`.
 
 ```python
-# SU CÓDIGO — dept_agg desde mr_result o recomputando; guardar CSV
+# SU CÓDIGO — dept_agg desde mr_result; guardar CSV
 
 ```
 
@@ -302,7 +317,6 @@ print("Paso 3.1, agregado departamental: OK")
 
 ```python
 # SU CÓDIGO — k_suppression O laplace según PRIVACY_STRATEGY
-# Guarde pub_table (tabla publicable) y métricas (n_suprimidas, epsilon, etc.)
 
 ```
 
@@ -342,7 +356,7 @@ Amplíe el manifiesto de week 1 con metadatos del lakehouse y la publicación (s
 - `lakehouse_path` (ruta en Drive)
 
 ```python
-# SU CÓDIGO — leer manifest existente, actualizar, write_manifest o json.dump
+# SU CÓDIGO — leer manifest existente, actualizar, json.dump
 
 ```
 

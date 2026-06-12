@@ -356,16 +356,26 @@ def reduce_buckets(buckets: dict[int, list[float]]) -> pd.DataFrame:
     return pd.DataFrame(rows).sort_values("dpto").reset_index(drop=True)
 
 
-def mes_from_path(path: Path) -> int:
-    """Extrae el mes de una ruta hive `.../mes=MM/...`."""
+def anio_mes_from_path(path: Path) -> tuple[int, int]:
+    """Extrae año y mes de una ruta hive `.../anio=AAAA/mes=MM/...`."""
+    anio = mes = None
     for part in path.parts:
+        if part.startswith("anio="):
+            anio = int(part.split("=", 1)[1])
         if part.startswith("mes="):
-            return int(part.split("=", 1)[1])
-    raise ValueError(f"No encontré mes= en {path}")
+            mes = int(part.split("=", 1)[1])
+    if anio is None or mes is None:
+        raise ValueError(f"No encontré anio=/mes= en {path}")
+    return anio, mes
+
+
+def mes_from_path(path: Path) -> int:
+    """Atajo: solo el mes (basta en L4 con un año)."""
+    return anio_mes_from_path(path)[1]
 
 
 def annual_avg_from_monthly(monthly: pd.DataFrame) -> pd.DataFrame:
-    """Promedio anual simple: media de las estimaciones mensuales por departamento."""
+    """Promedio simple: media de estimaciones mensuales por departamento."""
     return (
         monthly.groupby("dpto", as_index=False)
         .agg(
@@ -417,12 +427,13 @@ Cada archivo Parquet es **un mes**. Ejecutamos map → shuffle → reduce **por 
 t0 = time.perf_counter()
 monthly_rows: list[pd.DataFrame] = []
 for path in part_files:
-    mes = mes_from_path(path)
+    anio, mes = anio_mes_from_path(path)
     dept = reduce_buckets(shuffle(map_partition(path)))
+    dept["anio"] = anio
     dept["mes"] = mes
     monthly_rows.append(dept)
 
-mr_monthly = pd.concat(monthly_rows, ignore_index=True).sort_values(["dpto", "mes"])
+mr_monthly = pd.concat(monthly_rows, ignore_index=True).sort_values(["dpto", "anio", "mes"])
 mr_seconds = round(time.perf_counter() - t0, 3)
 print(f"Filas mensuales (dpto × mes): {len(mr_monthly):,}")
 print(f"MapReduce mensual, tiempo: {mr_seconds} s")
@@ -494,7 +505,7 @@ Agrupamos por **departamento y mes**, luego **promedio anual** (mismo método qu
 
 ```python
 monthly_pd = (
-    employed.groupby(["dpto", "mes"], as_index=False)
+    employed.groupby(["dpto", "anio", "mes"], as_index=False)
     .agg(conteo_ocupados=("ocupado", "count"), suma_ponderada=("factor_expansion", "sum"))
 )
 pandas_result = annual_avg_from_monthly(monthly_pd)
@@ -508,7 +519,7 @@ print(pandas_result.head())
 t0 = time.perf_counter()
 _df = read_parquet_tree(PARQUET_2024)
 _emp = _df.loc[_df["actividad"] == ACTIVIDAD_OCUPADO]
-_monthly = _emp.groupby(["dpto", "mes"], as_index=False).agg(
+_monthly = _emp.groupby(["dpto", "anio", "mes"], as_index=False).agg(
     conteo_ocupados=("factor_expansion", "count"),
     suma_ponderada=("factor_expansion", "sum"),
 )
@@ -546,7 +557,7 @@ DuckDB lee el árbol **sin** cargar todo en un DataFrame de pandas primero. Se c
 - **`SELECT ... FROM`**: qué columnas devolver y de dónde (aquí, los Parquet vía `read_parquet`).
 - **`WHERE`**: filtra filas (nuestra regla de ocupado, `actividad = 1`).
 - **`COUNT(*)`** y **`SUM(col)`**: agregaciones (contar filas, sumar una columna).
-- **`GROUP BY dpto, mes`**: agrega **por mes**; la consulta exterior promedia → **promedio anual**.
+- **`GROUP BY dpto, anio, mes`**: agrega **por mes** (incluya `anio` si hay varios años en el árbol); la consulta exterior promedia → **promedio anual** (o promedio sobre todas las particiones mensuales en `week-2-group`).
 
 ```python
 # Patrón de rutas para que DuckDB lea todos los Parquet del árbol
@@ -559,12 +570,13 @@ SELECT
 FROM (
     SELECT
         dpto,
+        anio,
         mes,
         COUNT(*)::BIGINT AS conteo_ocupados,
         SUM(factor_expansion) AS suma_ponderada
     FROM read_parquet('{parquet_glob}', hive_partitioning=false)
     WHERE actividad = {ACTIVIDAD_OCUPADO}
-    GROUP BY dpto, mes
+    GROUP BY dpto, anio, mes
 ) monthly
 GROUP BY dpto
 ORDER BY dpto
@@ -605,13 +617,13 @@ print("Parte 5, DuckDB: OK")
 
 - **`scan_parquet(...)`**: abre el árbol en modo **perezoso** (aún no lee nada).
 - **`.filter(pl.col("actividad") == 1)`**: el `WHERE` (solo ocupados).
-- **`.group_by("dpto", "mes").agg(...)`** luego **`.group_by("dpto").agg(pl.mean(...))`**: promedio anual.
+- **`.group_by("dpto", "anio", "mes").agg(...)`** luego **`.group_by("dpto").agg(pl.mean(...))`**: promedio sobre estimaciones mensuales.
 
 ```python
 # scan_parquet NO lee aún: solo describe la consulta (lazy)
 lazy_scan = pl.scan_parquet(str(PARQUET_2024 / "**" / "*.parquet"))
 lazy_employed = lazy_scan.filter(pl.col("actividad") == ACTIVIDAD_OCUPADO)
-lazy_monthly = lazy_employed.group_by("dpto", "mes").agg(
+lazy_monthly = lazy_employed.group_by("dpto", "anio", "mes").agg(
     pl.len().alias("conteo_ocupados"),
     pl.col("factor_expansion").sum().alias("suma_ponderada"),
 )
@@ -796,12 +808,14 @@ print("Parte 8, gobernanza (k=5 y privacidad diferencial): OK")
 
 ## Puente al cuaderno grupal
 
-En **`week-2-group` Parte B** su grupo:
+En **`week-2-group`** su grupo **reutiliza** las funciones de este cuaderno (`map_partition`, `shuffle`, `reduce_buckets`, `anio_mes_from_path`, `annual_avg_from_monthly`) sobre el spine **2022–2025** (~48 particiones):
 
-1. Reimplementa **MapReduce desde cero** sobre el spine **2022–2025** (misma consulta).
-2. **Selecciona UN motor** (DuckDB **o** Polars) y lo aplica sobre **2022–2025**, justificando la elección.
-3. **Decide la estrategia de privacidad**: continuar con **supresión k = 5** (lección 4) o aplicar **privacidad diferencial** (ruido de Laplace, lección 3). Justifica la decisión.
+1. **MapReduce mensual → promedio** por `dpto` (no sume 48 meses crudos: inflaría ~48× el empleo nacional).
+2. **Selecciona UN motor** (DuckDB **o** Polars) con la misma lógica de dos pasos (`GROUP BY dpto, anio, mes` → promedio).
+3. **Decide la estrategia de privacidad**: **supresión k = 5** o **privacidad diferencial** (Laplace). Justifica.
 4. Actualiza **`manifest.json`** (conteos y metadatos, no Parquet en el ZIP).
+
+Copie también de **L3** los helpers de harmonización (`find_raw_dir`, `_labour_csv`, `month_dirs_for_year`, `harmonize_month`).
 
 Entrega Moodle **martes 16 jun 2026**: ZIP con cuaderno ejecutado + `manifest.json` (sin archivos de datos).
 

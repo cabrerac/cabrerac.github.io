@@ -430,13 +430,14 @@ def access_file(item: dict, year_dir: Path, survey_year: int, catalog_id: int, *
 
 
 def count_month_folders(year_dir: Path) -> int:
+    """Cuenta carpetas mensuales con al menos un CSV (.csv o .CSV)."""
     if not year_dir.is_dir():
         return 0
     n = 0
     for p in year_dir.iterdir():
         if not p.is_dir():
             continue
-        if any(f.suffix.upper() == ".CSV" for f in p.iterdir()):
+        if any(f.is_file() and f.suffix.lower() == ".csv" for f in p.iterdir()):
             n += 1
     return n
 
@@ -786,8 +787,24 @@ A partir de aquí, **Partes 2–5** leen y escriben bajo `WORK_ROOT`:
 
 Empezamos configurando las rutas para que utilicen las carpetas y archivos en Google Drive.
 
+En Colab, **`/content/data/raw`** se borra al reiniciar la sesión. Si montó Drive en el Paso 1.1, `find_raw_dir` busca CSV bajo `WORK_ROOT/data/raw` o, si está vacío, bajo `data/raw` del cuaderno (donde quedó la Parte 0).
+
 ```python
-RAW_DIR = WORK_ROOT / "data" / "raw"
+def find_raw_dir(work_root: Path) -> Path:
+    """Detecta dónde están los CSV crudos (local, Drive o copia en /content)."""
+    candidates = [
+        work_root / "data" / "raw",
+        work_root / "raw",
+        Path("data/raw"),
+    ]
+    for c in candidates:
+        year_probe = c / str(YEAR)
+        if year_probe.is_dir() and any(year_probe.iterdir()):
+            return c
+    return work_root / "data" / "raw"
+
+
+RAW_DIR = find_raw_dir(WORK_ROOT)
 # Raíz del lakehouse GEIH del curso (tabla particionada en Parquet)
 PROCESSED_DIR = WORK_ROOT / "data" / "processed" / "geih-spine"
 OUTPUTS_DIR = WORK_ROOT / "outputs"
@@ -799,7 +816,7 @@ for p in (RAW_DIR, PROCESSED_DIR, OUTPUTS_DIR):
 YEAR_DIR = RAW_DIR / str(YEAR)
 YEAR_DIR.mkdir(parents=True, exist_ok=True)
 
-print("RAW (entrada cruda):", YEAR_DIR)
+print("RAW detectado:", RAW_DIR.resolve())
 print("Lakehouse (geih-spine):", PROCESSED_DIR)
 print("Manifiesto:", MANIFEST_PATH)
 ```
@@ -894,30 +911,54 @@ La **Parte 2** es el paso **Transform** del ETL: deja cada mes listo para cargar
 
 Cada carpeta mensual trae **varios** CSV. Necesitamos dos: **Fuerza de trabajo** (empleo) y **Características generales** (edad, sexo). Como el nombre exacto del archivo cambia entre meses, en vez de escribirlo a mano buscamos por **palabra clave** dentro del nombre.
 
-Estos dos *helpers* recorren los `.CSV` de la carpeta y devuelven el primero cuyo nombre contiene la palabra esperada. El `.replace("\xa0", " ")` arregla un espacio especial que el DANE a veces mete en los nombres:
+Estos *helpers* buscan en **`.CSV` y `.csv`** (en Linux/Colab la extensión importa). Normalizan espacios raros del DANE (`\xa0`, dobles espacios) y devuelven un error claro si falta alguna tabla:
 
 ```python
+def _csv_files(month_dir: Path) -> list[Path]:
+    return sorted({*month_dir.glob("*.CSV"), *month_dir.glob("*.csv")})
+
+
+def _norm_csv_name(path: Path) -> str:
+    return re.sub(r"\s+", " ", path.name.lower().replace("\xa0", " "))
+
+
 def _labour_csv(month_dir: Path) -> Path:
-    # Devuelve el CSV cuyo nombre contiene "fuerza de trabajo"
-    return next(
-        p for p in month_dir.glob("*.CSV")
-        if PRIMARY_TABLE_KEYWORD in p.name.lower().replace("\xa0", " ")
+    for p in _csv_files(month_dir):
+        if PRIMARY_TABLE_KEYWORD in _norm_csv_name(p):
+            return p
+    names = [p.name for p in _csv_files(month_dir)]
+    raise FileNotFoundError(
+        f"Sin 'fuerza de trabajo' en {month_dir.name}. Archivos: {names or '(vacío)'}"
     )
 
 
 def _demog_csv(month_dir: Path) -> Path:
-    # Devuelve el CSV que contiene las palabras de "características generales"
-    return next(
-        p for p in month_dir.glob("*.CSV")
-        if all(kw in p.name.lower().replace("\xa0", " ") for kw in DEMOG_TABLE_KEYWORDS)
+    for p in _csv_files(month_dir):
+        if all(kw in _norm_csv_name(p) for kw in DEMOG_TABLE_KEYWORDS):
+            return p
+    names = [p.name for p in _csv_files(month_dir)]
+    raise FileNotFoundError(
+        f"Sin características generales en {month_dir.name}. Archivos: {names}"
     )
 
 
+def month_dirs_for_year(year_dir: Path) -> list[Path]:
+    """Carpetas mensuales listas para harmonize (labour + demog)."""
+    dirs = []
+    for p in sorted(year_dir.iterdir()):
+        if not p.is_dir():
+            continue
+        try:
+            _labour_csv(p)
+            _demog_csv(p)
+            dirs.append(p)
+        except FileNotFoundError as e:
+            print(f"Advertencia — omitido {p.name}: {e}")
+    return dirs
+
+
 # Carpetas de meses que ya tienen CSV extraídos (de la Parte 0 / Drive)
-month_dirs_demo = sorted(
-    p for p in YEAR_DIR.iterdir()
-    if p.is_dir() and list(p.glob("*.CSV"))
-)
+month_dirs_demo = month_dirs_for_year(YEAR_DIR)
 demo_month = month_dirs_demo[0]  # usamos el primer mes como ejemplo
 print("Mes de ejemplo:", demo_month.name)
 print("Fuerza de trabajo:", _labour_csv(demo_month).name)
@@ -1109,11 +1150,8 @@ Así no es “guardar un Parquet”, sino **publicar una tabla analítica** en a
 ```python
 SKIP_IF_PARQUET_EXISTS = True  # no reescribir si la partición del lakehouse ya existe en Drive
 
-# Carpetas de meses con CSV listos
-month_dirs = sorted(
-    p for p in YEAR_DIR.iterdir()
-    if p.is_dir() and list(p.glob("*.CSV"))
-)
+# Carpetas de meses con CSV listos (labour + demog)
+month_dirs = month_dirs_for_year(YEAR_DIR)
 if not month_dirs:
     raise FileNotFoundError(
         f"No hay CSV bajo {YEAR_DIR}. Monte Drive (Parte 1) o complete week-1-group."
@@ -1185,10 +1223,7 @@ Recorremos las carpetas de 2024 y aplicamos `harmonize_month` (lee dos CSV por m
 ```python
 import time
 
-month_dirs = sorted(
-    p for p in YEAR_DIR.iterdir()
-    if p.is_dir() and list(p.glob("*.CSV"))
-)
+month_dirs = month_dirs_for_year(YEAR_DIR)
 
 t0 = time.perf_counter()
 # Leer + unir los 12 meses desde CSV (forma "cruda")
