@@ -915,32 +915,42 @@ A partir de aquí, **Partes 2–5** leen y escriben bajo `WORK_ROOT`:
 
 Empezamos configurando las rutas para que utilicen las carpetas y archivos en Google Drive.
 
-En Colab, **`/content/data/raw`** se borra al reiniciar la sesión. Si montó Drive en el Paso 1.1, `find_raw_dir` busca CSV bajo `WORK_ROOT/data/raw` o, si está vacío, bajo `data/raw` del cuaderno (donde quedó la Parte 0).
+En Colab, **`/content/data/raw`** se borra al reiniciar. **`DRIVE_RAW`** es la copia persistente bajo `WORK_ROOT`; **`SESSION_RAW`** es donde la Parte 0 escribe (`LOCAL_RAW`). Solo contamos meses si la carpeta mensual trae **CSV**, no carpetas vacías.
 
 ```python
-def find_raw_dir(work_root: Path) -> Path:
-    """Detecta dónde están los CSV crudos (Drive, sesión Colab o local).
+SESSION_RAW = LOCAL_RAW  # Parte 0: típicamente /content/data/raw
+DRIVE_RAW = WORK_ROOT / "data" / "raw"
+
+
+def spine_has_full_raw(raw_root: Path) -> bool:
+    """True si raw_root tiene ≥12 carpetas mensuales con CSV por cada año del spine.
 
     Parámetros:
-        work_root: raíz del curso (WORK_ROOT tras montar Drive o '.').
+        raw_root: raíz data/raw (sesión o Drive).
 
     Retorna:
-        Path a data/raw con al menos un año poblado; si no encuentra,
-        devuelve work_root/data/raw por defecto.
+        False si falta el directorio o algún año tiene menos de 12 meses con CSV.
     """
-    candidates = [
-        work_root / "data" / "raw",
-        work_root / "raw",
-        Path("data/raw"),
-    ]
-    for c in candidates:
-        year_probe = c / str(YEAR)
-        if year_probe.is_dir() and any(year_probe.iterdir()):
-            return c
-    return work_root / "data" / "raw"
+    if not raw_root.is_dir():
+        return False
+    # Reutiliza count_month_folders (Parte 0.1) — exige .csv dentro de cada mes
+    return all(count_month_folders(raw_root / str(y)) >= 12 for y in SPINE_CATALOGS)
 
 
-RAW_DIR = find_raw_dir(WORK_ROOT)
+def resolve_raw_dir() -> Path:
+    """Elige de dónde leer CSV: Drive completo, si no sesión, si no Drive por defecto.
+
+    Retorna:
+        Path a data/raw con datos listos, o DRIVE_RAW como destino de escritura.
+    """
+    if spine_has_full_raw(DRIVE_RAW):
+        return DRIVE_RAW
+    if spine_has_full_raw(SESSION_RAW):
+        return SESSION_RAW
+    return DRIVE_RAW
+
+
+RAW_DIR = resolve_raw_dir()
 # Raíz del lakehouse GEIH del curso (tabla particionada en Parquet)
 PROCESSED_DIR = WORK_ROOT / "data" / "processed" / "geih-spine"
 OUTPUTS_DIR = WORK_ROOT / "outputs"
@@ -952,7 +962,9 @@ for p in (RAW_DIR, PROCESSED_DIR, OUTPUTS_DIR):
 YEAR_DIR = RAW_DIR / str(YEAR)
 YEAR_DIR.mkdir(parents=True, exist_ok=True)
 
-print("RAW detectado:", RAW_DIR.resolve())
+print("RAW activo (Partes 2–5):", RAW_DIR.resolve())
+print("  sesión:", SESSION_RAW.resolve(), "→", {y: count_month_folders(SESSION_RAW / str(y)) for y in SPINE_CATALOGS})
+print("  Drive: ", DRIVE_RAW.resolve(), "→", {y: count_month_folders(DRIVE_RAW / str(y)) for y in SPINE_CATALOGS})
 print("Lakehouse (geih-spine):", PROCESSED_DIR)
 print("Manifiesto:", MANIFEST_PATH)
 ```
@@ -964,26 +976,19 @@ Si acaba de ejecutar el **Paso 0.1**, los CSV están bajo `LOCAL_RAW` (`/content
 En **sesiones futuras**, Drive ya tiene los datos. Esta celda imprime *omitido* y puede poner **`SKIP_DOWNLOAD = True`** en el Paso 0.1.
 
 ```python
-def spine_ready_on_drive(raw_dir: Path) -> bool:
-    """Comprueba si el spine 2022–2025 está completo en raw_dir.
+meses_sesion = {y: count_month_folders(SESSION_RAW / str(y)) for y in SPINE_CATALOGS}
+meses_drive = {y: count_month_folders(DRIVE_RAW / str(y)) for y in SPINE_CATALOGS}
+print("Meses con CSV — sesión:", meses_sesion)
+print("Meses con CSV — Drive: ", meses_drive)
 
-    Parámetros:
-        raw_dir: carpeta data/raw (local o Drive).
-
-    Retorna:
-        True si cada año en SPINE_CATALOGS tiene ≥ 12 carpetas mensuales.
-    """
-    # Reutiliza count_month_folders (Parte 0.1)
-    return all(count_month_folders(raw_dir / str(y)) >= 12 for y in SPINE_CATALOGS)
-
-
-if spine_ready_on_drive(RAW_DIR):
-    print("Drive ya tiene 2022–2025 completos, no hace falta copiar.")
-elif spine_ready_on_drive(LOCAL_RAW):
-    print("Copiando data/raw/2022–2025 de la sesión → Drive (puede tardar)...")
+if spine_has_full_raw(DRIVE_RAW):
+    print("Drive ya tiene 2022–2025 con CSV; no hace falta copiar.")
+elif spine_has_full_raw(SESSION_RAW):
+    print(f"Copiando {SESSION_RAW.resolve()} → {DRIVE_RAW.resolve()} (puede tardar)...")
+    DRIVE_RAW.mkdir(parents=True, exist_ok=True)
     for survey_year in SPINE_CATALOGS:
-        local_y = LOCAL_RAW / str(survey_year)
-        drive_y = RAW_DIR / str(survey_year)
+        local_y = SESSION_RAW / str(survey_year)
+        drive_y = DRIVE_RAW / str(survey_year)
         if count_month_folders(local_y) >= 12:
             drive_y.mkdir(parents=True, exist_ok=True)
             for item in local_y.iterdir():
@@ -997,18 +1002,26 @@ elif spine_ready_on_drive(LOCAL_RAW):
     print("Copia a Drive terminada.")
 else:
     raise FileNotFoundError(
-        "Faltan años en local y en Drive. Ejecute el Paso 0.1 (bloque compacto) primero."
+        "No hay 12 meses con CSV ni en sesión ni en Drive. "
+        "Ejecute el Paso 0.1 (SKIP_DOWNLOAD=False) o copie week-1-group a Drive."
     )
 
-print("Meses por año en Drive:", {y: count_month_folders(RAW_DIR / str(y)) for y in SPINE_CATALOGS})
+# Tras copiar (o si Drive ya estaba listo), apuntar RAW_DIR al origen con CSV
+RAW_DIR = DRIVE_RAW if spine_has_full_raw(DRIVE_RAW) else resolve_raw_dir()
+YEAR_DIR = RAW_DIR / str(YEAR)
+print("RAW activo tras Paso 1.3:", RAW_DIR.resolve())
+print("Meses por año en RAW activo:", {y: count_month_folders(RAW_DIR / str(y)) for y in SPINE_CATALOGS})
 ```
 
 **Comprobar:**
 
 ```python
-n_drive_final = count_month_folders(YEAR_DIR)
-print(f"Meses en Drive: {n_drive_final}")
-assert n_drive_final >= 12
+n_raw_final = count_month_folders(YEAR_DIR)
+print(f"Meses 2024 en RAW activo ({RAW_DIR}): {n_raw_final}")
+assert n_raw_final >= 12, (
+    f"Solo {n_raw_final} meses con CSV en {YEAR_DIR}. "
+    "Revise las líneas 'sesión' vs 'Drive' del Paso 1.2/1.3."
+)
 assert WORK_ROOT.is_dir()
 print("Parte 1, Drive / persistencia: OK")
 ```

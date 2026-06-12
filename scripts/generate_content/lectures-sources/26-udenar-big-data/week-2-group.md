@@ -32,7 +32,7 @@ notebook_description: Cuaderno canónico del grupo para la semana 2 (L3 + L4). H
 
 **Datos de entrada.** CSV crudos **2022–2025** de **`week-1-group`** (o la misma copia en Google Drive). Catálogos DANE: 2022 → `771`, 2023 → `782`, 2024 → `819`, 2025 → `853`.
 
-**Colab:** `/content` se borra al reiniciar. Monte **Google Drive** (`USE_GOOGLE_DRIVE = True`) o vuelva a copiar CSV desde week-1. Use `find_raw_dir` de L3 para localizar `data/raw`.
+**Colab:** `/content` se borra al reiniciar. Monte **Google Drive** (`USE_GOOGLE_DRIVE = True`) o vuelva a copiar CSV desde week-1. Use `spine_has_full_raw` / `resolve_raw_dir` de L3 para separar sesión y Drive.
 
 **Materiales:** [L3 Almacenamiento](https://cabrerac.github.io/teaching/26-udenar-big-data/l3-storage/) · [L4 Procesamiento](https://cabrerac.github.io/teaching/26-udenar-big-data/l4-processing/).
 
@@ -65,7 +65,7 @@ Copie constantes y ayudantes de harmonización del cuaderno individual **L3**:
 | `CSV_SEP`, `CSV_ENCODING`, `PERSON_KEYS`, `PRIMARY_TABLE_KEYWORD`, `DEMOG_TABLE_KEYWORDS` | Parte 0 / Parte 2 |
 | `_csv_files`, `_labour_csv`, `_demog_csv`, `month_dirs_for_year` | Parte 2, Paso 2.1 |
 | `a_entero`, `harmonize_month`, `read_geih_csv` | Parte 0 / Parte 2 |
-| `count_month_folders`, `find_raw_dir` | Parte 0 / Parte 1 |
+| `count_month_folders`, `spine_has_full_raw`, `resolve_raw_dir` | Parte 0 / Parte 1 |
 
 Copie de **L4** (Parte 3) para el ejercicio 2:
 
@@ -89,7 +89,7 @@ SENSIBILIDAD = 1.0
 ```
 
 ```python
-# SU CÓDIGO — montar Drive, WORK_ROOT, find_raw_dir → RAW_DIR,
+# SU CÓDIGO — montar Drive, WORK_ROOT, SESSION_RAW, DRIVE_RAW, resolve_raw_dir → RAW_DIR,
 # PROCESSED_DIR, MANIFEST_PATH, OUTPUTS_DIR
 # + constantes y funciones copiadas de l3-storage y l4-processing
 
@@ -114,7 +114,7 @@ print("Configuración: OK")
 
 ## Paso 1.1 — Confirmar datos crudos
 
-Verifique que cada año tiene **12 carpetas mensuales** con CSV bajo `data/raw/<año>/`. Si todos los conteos son 0, revise `RAW_DIR` (Drive montado, `find_raw_dir`) o re-ejecute week-1.
+Verifique que cada año tiene **12 carpetas mensuales** con CSV bajo `data/raw/<año>/`. Si todos los conteos son 0, revise las líneas sesión vs Drive del Paso 1.2/1.3 en L3 o re-ejecute week-1.
 
 ```python
 # SU CÓDIGO — meses_por_anio con count_month_folders

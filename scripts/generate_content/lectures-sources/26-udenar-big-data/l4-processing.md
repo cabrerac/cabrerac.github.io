@@ -901,7 +901,7 @@ En **`week-2-group`** su grupo **reutiliza** las funciones de este cuaderno (`ma
 3. **Decide la estrategia de privacidad**: **supresión k = 5** o **privacidad diferencial** (Laplace). Justifica.
 4. Actualiza **`manifest.json`** (conteos y metadatos, no Parquet en el ZIP).
 
-Copie también de **L3** los helpers de harmonización (`find_raw_dir`, `_labour_csv`, `month_dirs_for_year`, `harmonize_month`).
+Copie también de **L3** los helpers de harmonización (`spine_has_full_raw`, `resolve_raw_dir`, `_labour_csv`, `month_dirs_for_year`, `harmonize_month`).
 
 Entrega Moodle **martes 16 jun 2026**: ZIP con cuaderno ejecutado + `manifest.json` (sin archivos de datos).
 
