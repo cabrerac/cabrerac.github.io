@@ -24,7 +24,7 @@ position: Senior Research Associate and Affiliated Lecturer
 session: 4
 start_time: 07:00 am
 title: Data processing and analysis
-visible: false
+visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">

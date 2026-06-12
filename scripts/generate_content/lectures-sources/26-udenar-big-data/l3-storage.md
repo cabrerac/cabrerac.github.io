@@ -15,7 +15,7 @@ layout: lecture
 lecture_code: l3-storage
 lecture_date: 13/06/2026
 permalink: /teaching/26-udenar-big-data/l3-storage/
-visible: false
+visible: true
 group_notebook: week-2-group
 notebook_language: es
 notebook_title: Almacenamiento y gestión de datos
@@ -120,7 +120,14 @@ A continuacion definimos una función que convierte el código **`PERIODO`** de 
 
 ```python
 def mes_desde_periodo(periodo: int) -> tuple[int, int]:
-    """PERIODO GEIH (20240101) → (año, mes)."""
+    """Convierte PERIODO GEIH (AAAAMMDD) en año y mes.
+
+    Parámetros:
+        periodo: entero DANE, p. ej. 20240101 (enero 2024).
+
+    Retorna:
+        Tupla (año, mes), p. ej. (2024, 1).
+    """
     s = str(int(periodo))
     year = int(s[:4])
     mes = int(s[4:6])
@@ -291,7 +298,18 @@ PERSON_KEYS = ["DIRECTORIO", "HOGAR", "ORDEN"]
 
 
 def read_geih_csv(path: Path, usecols=None) -> pd.DataFrame:
-    """Lee CSV DANE; prueba ; y , porque algunos meses vienen comma-separated."""
+    """Lee un CSV del DANE con pandas.
+
+    Parámetros:
+        path: ruta al archivo (.csv o .CSV).
+        usecols: columnas a cargar (None = todas).
+
+    Retorna:
+        DataFrame parseado (intenta separador ; y luego ,).
+
+    Lanza:
+        ValueError si ningún delimitador produce más de una columna.
+    """
     for sep in (CSV_SEP, ","):
         try:
             df = pd.read_csv(
@@ -334,7 +352,19 @@ LOCAL_RAW.mkdir(parents=True, exist_ok=True)
 
 
 def download_zip(url: str, dest: Path, timeout: int = 600) -> tuple[float, int]:
-    """Descarga url a dest. Devuelve (segundos, bytes)."""
+    """Descarga un ZIP del catálogo microdatos DANE.
+
+    Parámetros:
+        url: enlace HTTP(S) al archivo ZIP.
+        dest: ruta local donde guardar el ZIP.
+        timeout: segundos máximos de espera por la red.
+
+    Retorna:
+        Tupla (segundos_empleados, bytes_descargados).
+
+    Lanza:
+        ValueError si el archivo descargado no empieza con PK (no es ZIP).
+    """
     t0 = time.perf_counter()
     with requests.get(url.strip(), stream=True, timeout=timeout) as resp:
         resp.raise_for_status()
@@ -349,7 +379,18 @@ def download_zip(url: str, dest: Path, timeout: int = 600) -> tuple[float, int]:
 
 
 def extract_csvs(zip_path: Path, dest_dir: Path) -> list[Path]:
-    """Extrae CSV del ZIP mensual DANE (incluye csv.zip anidado si aplica)."""
+    """Extrae archivos CSV de un ZIP mensual del DANE.
+
+    Parámetros:
+        zip_path: ruta al ZIP descargado (p. ej. Ene_2024.zip).
+        dest_dir: carpeta destino (p. ej. data/raw/2024/Ene_2024/).
+
+    Retorna:
+        Lista de rutas a los .csv/.CSV extraídos (ordenadas).
+
+    Nota:
+        Si el ZIP solo trae csv.zip anidado, lo abre y extrae recursivamente.
+    """
     dest_dir.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(zip_path, "r") as zf:
         names = zf.namelist()
@@ -375,11 +416,24 @@ def extract_csvs(zip_path: Path, dest_dir: Path) -> list[Path]:
 
 
 def write_manifest(path: Path, entries: list[dict]) -> None:
+    """Escribe el manifiesto de acceso (descargas) en JSON.
+
+    Parámetros:
+        path: ruta del archivo manifest.json.
+        entries: lista de dicts con metadatos por archivo descargado.
+    """
     path.write_text(json.dumps(entries, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 def list_catalog_downloads(catalog_id: int) -> list[dict]:
-    """Lee get-microdata y devuelve file_id, filename, url por mes."""
+    """Lista los ZIP mensuales disponibles en un catálogo DANE.
+
+    Parámetros:
+        catalog_id: id del catálogo (p. ej. 819 para GEIH 2024).
+
+    Retorna:
+        Lista de dicts con file_id, filename y url por mes, ordenada por nombre.
+    """
     page_url = f"https://microdatos.dane.gov.co/index.php/catalog/{catalog_id}/get-microdata"
     resp = requests.get(page_url, timeout=120)
     resp.raise_for_status()
@@ -398,7 +452,18 @@ def list_catalog_downloads(catalog_id: int) -> list[dict]:
 
 
 def access_file(item: dict, year_dir: Path, survey_year: int, catalog_id: int, *, skip_if_exists: bool = True) -> dict:
-    """Descarga un mes si falta. Si la carpeta CSV ya existe, omite la descarga."""
+    """Descarga y extrae un mes GEIH si aún no está en disco.
+
+    Parámetros:
+        item: dict de list_catalog_downloads (filename, url, file_id).
+        year_dir: carpeta del año (p. ej. data/raw/2024/).
+        survey_year: año de la encuesta (2022–2025).
+        catalog_id: id del catálogo DANE.
+        skip_if_exists: si True, omite descarga si la carpeta CSV ya existe.
+
+    Retorna:
+        Dict con metadatos para manifest (seconds, bytes_downloaded, extract_dir, …).
+    """
     filename = item["filename"]
     zip_path = year_dir / filename
     out_dir = year_dir / Path(filename).stem
@@ -414,6 +479,7 @@ def access_file(item: dict, year_dir: Path, survey_year: int, catalog_id: int, *
             "bytes_downloaded": zip_path.stat().st_size if zip_path.is_file() else 0,
             "notes": "omitido (ya extraído)",
         }
+    # Reutiliza download_zip y extract_csvs (definidas arriba en este bloque)
     seconds, nbytes = download_zip(item["url"], zip_path)
     n_csv = len(extract_csvs(zip_path, out_dir))
     return {
@@ -430,7 +496,14 @@ def access_file(item: dict, year_dir: Path, survey_year: int, catalog_id: int, *
 
 
 def count_month_folders(year_dir: Path) -> int:
-    """Cuenta carpetas mensuales con al menos un CSV (.csv o .CSV)."""
+    """Cuenta carpetas mensuales con al menos un CSV.
+
+    Parámetros:
+        year_dir: ruta al año (p. ej. data/raw/2024/).
+
+    Retorna:
+        Número de subcarpetas con algún .csv o .CSV (0 si no existe year_dir).
+    """
     if not year_dir.is_dir():
         return 0
     n = 0
@@ -568,6 +641,18 @@ LOCAL_OUTPUTS.mkdir(parents=True, exist_ok=True)
 
 
 def overpass_post(query: str, *, timeout: int = 90) -> requests.Response:
+    """Envía una consulta Overpass API con reintentos entre espejos.
+
+    Parámetros:
+        query: texto Overpass QL (p. ej. contar amenity= en un área ISO).
+        timeout: segundos máximos por intento HTTP.
+
+    Retorna:
+        Response HTTP con status 200 y cuerpo JSON.
+
+    Lanza:
+        requests.HTTPError si todos los espejos fallan.
+    """
     last_resp = None
     for url in OVERPASS_ENDPOINTS:
         for intento in range(2):
@@ -594,9 +679,16 @@ def overpass_post(query: str, *, timeout: int = 90) -> requests.Response:
 
 
 def contar_amenity(iso_code: str, amenity_regex: str, timeout: int = 90) -> int:
-    """Cuenta puntos de interés (nodos, vías y relaciones) cuyo 'amenity' casa el patrón,
-    dentro del área del departamento identificada por su código ISO 3166-2.
-    'nwr' incluye los tres tipos (no solo nodos); 'out count' pide solo el total."""
+    """Cuenta POI OpenStreetMap por tipo de amenity en un departamento.
+
+    Parámetros:
+        iso_code: código ISO 3166-2 del departamento (p. ej. CO-N).
+        amenity_regex: patrón regex de tags amenity (p. ej. 'school').
+        timeout: segundos para overpass_post.
+
+    Retorna:
+        Total de nodos, vías y relaciones que coinciden (0 si vacío).
+    """
     query = f"""
 [out:json][timeout:60];
 area["ISO3166-2"="{iso_code}"]->.a;
@@ -610,11 +702,30 @@ out count;
 
 
 def contar_salud(iso_code: str) -> int:
-    # Un solo pedido con todos los tags de salud unidos por | en el regex
+    """Cuenta POI de salud (hospital, clínica, …) en un departamento.
+
+    Parámetros:
+        iso_code: código ISO 3166-2 del departamento.
+
+    Retorna:
+        Total OSM de amenity de salud (reutiliza contar_amenity).
+    """
+    # Reutiliza contar_amenity con regex unión de HEALTH_AMENITIES
     return contar_amenity(iso_code, "|".join(HEALTH_AMENITIES))
 
 
 def find_enero_dir(survey_year: int) -> Path:
+    """Localiza la carpeta de enero bajo data/raw/<año>/.
+
+    Parámetros:
+        survey_year: año de la encuesta (p. ej. 2024).
+
+    Retorna:
+        Path a la primera carpeta cuyo nombre empieza por 'ene'.
+
+    Lanza:
+        FileNotFoundError si no hay carpeta de enero.
+    """
     year_dir = LOCAL_RAW / str(survey_year)
     for p in sorted(year_dir.iterdir()):
         if p.is_dir() and p.name.lower().startswith("ene"):
@@ -623,6 +734,14 @@ def find_enero_dir(survey_year: int) -> Path:
 
 
 def load_mes_con_edad(survey_year: int) -> pd.DataFrame:
+    """Carga enero: Fuerza de trabajo + edad (P6040) unidas por PERSON_KEYS.
+
+    Parámetros:
+        survey_year: año GEIH (2023, 2024, …).
+
+    Retorna:
+        DataFrame con columnas de empleo y P6040 (edad) por persona.
+    """
     month_dir = find_enero_dir(survey_year)
     csv_files = list(month_dir.glob("*.CSV")) + list(month_dir.glob("*.csv"))
     labour_path = next(
@@ -633,12 +752,21 @@ def load_mes_con_edad(survey_year: int) -> pd.DataFrame:
         p for p in csv_files
         if all(kw in p.name.lower().replace("\xa0", " ") for kw in DEMOG_TABLE_KEYWORDS)
     )
+    # Reutiliza read_geih_csv (Parte 0.1)
     labour = read_geih_csv(labour_path)
     demog = read_geih_csv(demog_path, usecols=PERSON_KEYS + ["P6040"])
     return labour.merge(demog, on=PERSON_KEYS, how="left", validate="many_to_one")
 
 
 def tabla_cuasi_identificadores(frame: pd.DataFrame) -> pd.DataFrame:
+    """Resume columnas sensibles presentes y su cardinalidad.
+
+    Parámetros:
+        frame: DataFrame GEIH (crudo o harmonizado).
+
+    Retorna:
+        DataFrame con columnas: columna, tipo, valores_unicos.
+    """
     presentes = [c for c in CANDIDATOS_QI if c in frame.columns]
     return pd.DataFrame(
         {
@@ -791,7 +919,15 @@ En Colab, **`/content/data/raw`** se borra al reiniciar la sesión. Si montó Dr
 
 ```python
 def find_raw_dir(work_root: Path) -> Path:
-    """Detecta dónde están los CSV crudos (local, Drive o copia en /content)."""
+    """Detecta dónde están los CSV crudos (Drive, sesión Colab o local).
+
+    Parámetros:
+        work_root: raíz del curso (WORK_ROOT tras montar Drive o '.').
+
+    Retorna:
+        Path a data/raw con al menos un año poblado; si no encuentra,
+        devuelve work_root/data/raw por defecto.
+    """
     candidates = [
         work_root / "data" / "raw",
         work_root / "raw",
@@ -829,6 +965,15 @@ En **sesiones futuras**, Drive ya tiene los datos. Esta celda imprime *omitido* 
 
 ```python
 def spine_ready_on_drive(raw_dir: Path) -> bool:
+    """Comprueba si el spine 2022–2025 está completo en raw_dir.
+
+    Parámetros:
+        raw_dir: carpeta data/raw (local o Drive).
+
+    Retorna:
+        True si cada año en SPINE_CATALOGS tiene ≥ 12 carpetas mensuales.
+    """
+    # Reutiliza count_month_folders (Parte 0.1)
     return all(count_month_folders(raw_dir / str(y)) >= 12 for y in SPINE_CATALOGS)
 
 
@@ -911,18 +1056,45 @@ La **Parte 2** es el paso **Transform** del ETL: deja cada mes listo para cargar
 
 Cada carpeta mensual trae **varios** CSV. Necesitamos dos: **Fuerza de trabajo** (empleo) y **Características generales** (edad, sexo). Como el nombre exacto del archivo cambia entre meses, en vez de escribirlo a mano buscamos por **palabra clave** dentro del nombre.
 
-Estos *helpers* buscan en **`.CSV` y `.csv`** (en Linux/Colab la extensión importa). Normalizan espacios raros del DANE (`\xa0`, dobles espacios) y devuelven un error claro si falta alguna tabla:
+Estos *helpers* buscan en **`.CSV` y `.csv`** (en Linux/Colab la extensión importa). Cada función lleva **docstring** en español (qué hace, parámetros, retorno). Más adelante verá comentarios **`# Reutiliza …`** cuando llamamos una función ya definida.
 
 ```python
 def _csv_files(month_dir: Path) -> list[Path]:
+    """Lista CSV de una carpeta mensual (.CSV y .csv, sin duplicados).
+
+    Parámetros:
+        month_dir: carpeta del mes (p. ej. Ene_2024/).
+
+    Retorna:
+        Lista ordenada de rutas a archivos CSV.
+    """
     return sorted({*month_dir.glob("*.CSV"), *month_dir.glob("*.csv")})
 
 
 def _norm_csv_name(path: Path) -> str:
+    """Normaliza el nombre de archivo para búsqueda por palabra clave.
+
+    Parámetros:
+        path: ruta al CSV.
+
+    Retorna:
+        Nombre en minúsculas, sin espacios raros del DANE (\\xa0).
+    """
     return re.sub(r"\s+", " ", path.name.lower().replace("\xa0", " "))
 
 
 def _labour_csv(month_dir: Path) -> Path:
+    """Devuelve el CSV de Fuerza de trabajo en una carpeta mensual.
+
+    Parámetros:
+        month_dir: carpeta del mes extraído del DANE.
+
+    Retorna:
+        Path al primer CSV cuyo nombre contiene PRIMARY_TABLE_KEYWORD.
+
+    Lanza:
+        FileNotFoundError con lista de archivos si no hay coincidencia.
+    """
     for p in _csv_files(month_dir):
         if PRIMARY_TABLE_KEYWORD in _norm_csv_name(p):
             return p
@@ -933,6 +1105,17 @@ def _labour_csv(month_dir: Path) -> Path:
 
 
 def _demog_csv(month_dir: Path) -> Path:
+    """Devuelve el CSV de Características generales en una carpeta mensual.
+
+    Parámetros:
+        month_dir: carpeta del mes extraído del DANE.
+
+    Retorna:
+        Path al CSV cuyo nombre contiene todas las DEMOG_TABLE_KEYWORDS.
+
+    Lanza:
+        FileNotFoundError con lista de archivos si no hay coincidencia.
+    """
     for p in _csv_files(month_dir):
         if all(kw in _norm_csv_name(p) for kw in DEMOG_TABLE_KEYWORDS):
             return p
@@ -943,7 +1126,14 @@ def _demog_csv(month_dir: Path) -> Path:
 
 
 def month_dirs_for_year(year_dir: Path) -> list[Path]:
-    """Carpetas mensuales listas para harmonize (labour + demog)."""
+    """Lista carpetas mensuales listas para harmonize_month.
+
+    Parámetros:
+        year_dir: ruta al año (p. ej. data/raw/2024/).
+
+    Retorna:
+        Subcarpetas donde existen labour + demog (omite incompletas con aviso).
+    """
     dirs = []
     for p in sorted(year_dir.iterdir()):
         if not p.is_dir():
@@ -970,6 +1160,7 @@ print("Características:", _demog_csv(demo_month).name)
 Primero leemos **Fuerza de trabajo** (todas las columnas que necesitamos más adelante):
 
 ```python
+# Reutiliza _labour_csv y read_geih_csv (Parte 2.1 / Parte 0.1)
 labour_path = _labour_csv(demo_month)
 labour = read_geih_csv(labour_path)
 print(f"Filas fuerza de trabajo: {len(labour):,}")
@@ -980,6 +1171,7 @@ print(labour[["DIRECTORIO", "HOGAR", "ORDEN", "PERIODO", "DPTO", "P6240"]].head(
 Después leemos **Características generales**, solo las columnas demográficas que uniremos:
 
 ```python
+# Reutiliza _demog_csv y read_geih_csv
 demog_path = _demog_csv(demo_month)
 demog = read_geih_csv(demog_path, usecols=PERSON_KEYS + ["P6040", "P3271"])
 print(f"Filas características: {len(demog):,}")
@@ -1029,8 +1221,14 @@ Definimos un ayudante para los códigos enteros y lo reutilizamos:
 
 ```python
 def a_entero(serie: pd.Series) -> pd.Series:
-    """Entero anulable (Int64): convierte a número y deja <NA> donde no se puede.
-    Para códigos enteros que a veces faltan (dpto, area, orden_persona, edad, sexo)."""
+    """Convierte a entero anulable pandas (Int64), tolerando faltantes.
+
+    Parámetros:
+        serie: columna con códigos numéricos (dpto, area, edad, …).
+
+    Retorna:
+        Serie Int64; valores no numéricos → <NA>.
+    """
     return pd.to_numeric(serie, errors="coerce").astype("Int64")
 ```
 
@@ -1064,15 +1262,22 @@ Reunimos los pasos 2.1 a 2.5 en **una función reutilizable**. Recibe la carpeta
 
 ```python
 def harmonize_month(month_dir: Path) -> pd.DataFrame:
-    """Lee un mes (Fuerza de trabajo + Características), une por PERSON_KEYS
-    y devuelve una tabla con nombres en español y claves de partición."""
-    # 1) Leer las dos tablas del mes
+    """Harmoniza un mes GEIH: une tablas, renombra columnas y fija tipos.
+
+    Parámetros:
+        month_dir: carpeta con CSV del mes (Fuerza de trabajo + Características).
+
+    Retorna:
+        DataFrame una fila/persona con columnas en español (dpto, anio, mes, …)
+        y esquema fijo para Parquet (int32/float64 donde corresponde).
+    """
+    # Reutiliza read_geih_csv, _labour_csv, _demog_csv (Parte 2.1)
     labour = read_geih_csv(_labour_csv(month_dir))
     demog = read_geih_csv(
         _demog_csv(month_dir),
         usecols=PERSON_KEYS + ["P6040", "P3271"],
     )
-    # 2) Unir empleo + demografía por la misma persona
+    # Reutiliza merge por PERSON_KEYS (repaso / L2)
     merged = labour.merge(demog, on=PERSON_KEYS, how="left", validate="many_to_one")
     if "PERIODO" not in merged.columns:
         raise KeyError(f"Falta PERIODO en {month_dir.name}")
@@ -1089,7 +1294,7 @@ def harmonize_month(month_dir: Path) -> pd.DataFrame:
             "anio": anio,
             "mes": mes,
             "id_hogar": merged["DIRECTORIO"].astype(str) + "-" + merged["HOGAR"].astype(str),
-            "orden_persona": a_entero(merged["ORDEN"]),                 # entero anulable
+            "orden_persona": a_entero(merged["ORDEN"]),                 # Reutiliza a_entero
             "dpto": a_entero(merged["DPTO"]),
             "area": a_entero(merged["AREA"]),                           # admite faltantes (Int64)
             "edad": a_entero(merged["P6040"]),
@@ -1113,6 +1318,7 @@ print("harmonize_month(): consolidada")
 Probamos la función sobre el mes de ejemplo y mostramos las **primeras 5 filas**:
 
 ```python
+# Reutiliza harmonize_month (Parte 2.6)
 demo_harmonized = harmonize_month(demo_month)
 print(f"Filas harmonizadas ({demo_month.name}): {len(demo_harmonized):,}")
 print("Columnas:", list(demo_harmonized.columns))
@@ -1150,7 +1356,7 @@ Así no es “guardar un Parquet”, sino **publicar una tabla analítica** en a
 ```python
 SKIP_IF_PARQUET_EXISTS = True  # no reescribir si la partición del lakehouse ya existe en Drive
 
-# Carpetas de meses con CSV listos (labour + demog)
+# Reutiliza month_dirs_for_year y harmonize_month (Partes 2.1 y 2.6)
 month_dirs = month_dirs_for_year(YEAR_DIR)
 if not month_dirs:
     raise FileNotFoundError(
@@ -1161,7 +1367,7 @@ print(f"Carpetas mensuales a procesar: {len(month_dirs)}")
 partition_stats: list[dict] = []
 
 for month_dir in month_dirs:
-    sample = harmonize_month(month_dir)         # transformar el mes
+    sample = harmonize_month(month_dir)  # Reutiliza harmonize_month
     y = int(sample["anio"].iloc[0])
     m = int(sample["mes"].iloc[0])
     # Una carpeta por año y mes: anio=2024/mes=01/
@@ -1208,7 +1414,18 @@ Para que la comparación sea **justa**, ambas rutas producen el mismo año compl
 
 ```python
 def read_parquet_tree(root: Path, columns=None) -> pd.DataFrame:
-    """Lee todas las particiones Parquet bajo root (concatena mes a mes)."""
+    """Lee y concatena todas las particiones Parquet bajo root.
+
+    Parámetros:
+        root: carpeta del lakehouse o subárbol (p. ej. geih-spine/ o anio=2024/).
+        columns: lista opcional de columnas (None = todas).
+
+    Retorna:
+        DataFrame con todas las filas de los .parquet encontrados (rglob).
+
+    Lanza:
+        FileNotFoundError si no hay archivos .parquet bajo root.
+    """
     files = sorted(root.rglob("*.parquet"))
     if not files:
         raise FileNotFoundError(f"Sin Parquet bajo {root}")
@@ -1223,10 +1440,10 @@ Recorremos las carpetas de 2024 y aplicamos `harmonize_month` (lee dos CSV por m
 ```python
 import time
 
-month_dirs = month_dirs_for_year(YEAR_DIR)
+month_dirs = month_dirs_for_year(YEAR_DIR)  # Reutiliza month_dirs_for_year
 
 t0 = time.perf_counter()
-# Leer + unir los 12 meses desde CSV (forma "cruda")
+# Reutiliza harmonize_month en bucle (forma cruda sin lakehouse)
 df_csv = pd.concat([harmonize_month(m) for m in month_dirs], ignore_index=True)
 csv_seconds = round(time.perf_counter() - t0, 2)
 
@@ -1241,7 +1458,7 @@ Ahora cargamos el **mismo** año desde el lakehouse de la Parte 3 (Parquet bajo 
 
 ```python
 t0 = time.perf_counter()
-# Leer el árbol completo anio=2024/ (todos los meses)
+# Reutiliza read_parquet_tree sobre el subárbol anio=2024/
 df_parquet = read_parquet_tree(PROCESSED_DIR / "anio=2024")
 parquet_seconds = round(time.perf_counter() - t0, 2)
 
@@ -1255,7 +1472,15 @@ Los archivos Parquet del lakehouse comprimen por columnas, así que ocupan **muc
 
 ```python
 def dir_size_mb(folder: Path, pattern: str) -> float:
-    # Suma el tamaño (MB) de los archivos que coinciden con el patrón
+    """Suma tamaño en disco (MB) de archivos que coinciden con un glob.
+
+    Parámetros:
+        folder: carpeta raíz para rglob.
+        pattern: patrón glob (p. ej. '*.CSV', '*.parquet').
+
+    Retorna:
+        Megabytes totales (float).
+    """
     return sum(f.stat().st_size for f in folder.rglob(pattern)) / 1e6
 
 csv_mb = dir_size_mb(YEAR_DIR, "*.CSV")
@@ -1333,6 +1558,16 @@ DP_SENSIBILIDAD = 1.0   # un conteo cambia en 1 si entra/sale una persona
 DP_EPSILON = 1.0        # presupuesto de privacidad (más bajo = más ruido)
 
 def laplace_count(valor_real: int, epsilon: float, sensibilidad: float = 1.0) -> float:
+    """Aplica mecanismo de Laplace a un conteo (privacidad diferencial).
+
+    Parámetros:
+        valor_real: conteo verdadero antes de publicar.
+        epsilon: presupuesto de privacidad (menor → más ruido).
+        sensibilidad: cambio máximo del conteo si entra/sale una persona (1).
+
+    Retorna:
+        Conteo con ruido Laplace sumado (float; redondear al publicar).
+    """
     # Ruido Laplace centrado en 0, escala = sensibilidad / epsilon
     ruido = rng.laplace(loc=0.0, scale=sensibilidad / epsilon)
     return valor_real + ruido

@@ -15,7 +15,7 @@ layout: lecture
 lecture_code: l4-processing
 lecture_date: 13/06/2026
 permalink: /teaching/26-udenar-big-data/l4-processing/
-visible: false
+visible: true
 group_notebook: week-2-group
 notebook_language: es
 notebook_title: Procesamiento y análisis de datos
@@ -329,8 +329,14 @@ print("Parte 2, consulta definida: OK")
 
 ```python
 def map_partition(path: Path) -> list[tuple[int, float]]:
-    """Lee una partición, deriva ocupado y devuelve pares (dpto, factor_expansion)."""
-    # Leer solo las 3 columnas que necesita el map
+    """Fase Map: emite (dpto, factor_expansion) por cada ocupado en una partición.
+
+    Parámetros:
+        path: ruta a un part-000.parquet (un mes del lakehouse).
+
+    Retorna:
+        Lista de tuplas (código departamento, peso de expansión).
+    """
     df = pd.read_parquet(path, columns=["dpto", "actividad", "factor_expansion"])
     # Derivar ocupado (actividad == 1) y quedarnos con esas filas
     emp = df.loc[df["actividad"] == ACTIVIDAD_OCUPADO, ["dpto", "factor_expansion"]]
@@ -339,7 +345,14 @@ def map_partition(path: Path) -> list[tuple[int, float]]:
 
 
 def shuffle(pairs: list[tuple[int, float]]) -> dict[int, list[float]]:
-    """Reúne valores por clave dpto."""
+    """Fase Shuffle: agrupa pesos por clave dpto.
+
+    Parámetros:
+        pairs: salida de map_partition (lista de tuplas).
+
+    Retorna:
+        Dict {dpto: [lista de factor_expansion]}.
+    """
     buckets: dict[int, list[float]] = defaultdict(list)
     for dpto, weight in pairs:
         buckets[dpto].append(weight)  # agrupar todos los pesos del mismo dpto
@@ -347,7 +360,14 @@ def shuffle(pairs: list[tuple[int, float]]) -> dict[int, list[float]]:
 
 
 def reduce_buckets(buckets: dict[int, list[float]]) -> pd.DataFrame:
-    """Agrega conteo sin ponderar y suma ponderada por departamento."""
+    """Fase Reduce: conteo y suma ponderada por departamento.
+
+    Parámetros:
+        buckets: salida de shuffle ({dpto: [pesos]}).
+
+    Retorna:
+        DataFrame con columnas dpto, conteo_ocupados, suma_ponderada.
+    """
     rows = [
         # Por cada dpto: número de ocupados y suma de sus pesos
         {"dpto": dpto, "conteo_ocupados": len(weights), "suma_ponderada": sum(weights)}
@@ -357,7 +377,17 @@ def reduce_buckets(buckets: dict[int, list[float]]) -> pd.DataFrame:
 
 
 def anio_mes_from_path(path: Path) -> tuple[int, int]:
-    """Extrae año y mes de una ruta hive `.../anio=AAAA/mes=MM/...`."""
+    """Extrae año y mes de una ruta con partición Hive.
+
+    Parámetros:
+        path: ruta con segmentos anio=AAAA y mes=MM (p. ej. …/anio=2024/mes=01/…).
+
+    Retorna:
+        Tupla (anio, mes) como enteros.
+
+    Lanza:
+        ValueError si falta anio= o mes= en la ruta.
+    """
     anio = mes = None
     for part in path.parts:
         if part.startswith("anio="):
@@ -370,12 +400,27 @@ def anio_mes_from_path(path: Path) -> tuple[int, int]:
 
 
 def mes_from_path(path: Path) -> int:
-    """Atajo: solo el mes (basta en L4 con un año)."""
+    """Atajo: devuelve solo el mes desde una ruta Hive.
+
+    Parámetros:
+        path: ruta con mes=MM (y anio=AAAA).
+
+    Retorna:
+        Entero mes (1–12). Reutiliza anio_mes_from_path.
+    """
     return anio_mes_from_path(path)[1]
 
 
 def annual_avg_from_monthly(monthly: pd.DataFrame) -> pd.DataFrame:
-    """Promedio simple: media de estimaciones mensuales por departamento."""
+    """Promedio anual por departamento a partir de estimaciones mensuales.
+
+    Parámetros:
+        monthly: tabla con dpto, mes y columnas conteo_ocupados, suma_ponderada
+                 (una fila por dpto × mes).
+
+    Retorna:
+        DataFrame por dpto con medias de conteo y suma_ponderada (columna meses).
+    """
     return (
         monthly.groupby("dpto", as_index=False)
         .agg(
@@ -399,6 +444,7 @@ Tomamos enero como ejemplo y vemos qué emite la fase **map**:
 
 ```python
 demo_path = part_files[0]
+# Reutiliza map_partition (definida arriba)
 demo_pairs = map_partition(demo_path)
 print(f"Partición demo: {demo_path.name}")
 print(f"Pares emitidos (map): {len(demo_pairs):,}")
@@ -410,6 +456,7 @@ print("Primeros 5 pares (dpto, peso):", demo_pairs[:5])
 Agrupamos esos pares y reducimos, solo para entender el patrón:
 
 ```python
+# Reutiliza shuffle y reduce_buckets
 demo_buckets = shuffle(demo_pairs)
 print("Departamentos en enero (shuffle):", len(demo_buckets))
 print("Ejemplo bucket dpto 11:", demo_buckets.get(11, [])[:3], "...")
@@ -427,7 +474,8 @@ Cada archivo Parquet es **un mes**. Ejecutamos map → shuffle → reduce **por 
 t0 = time.perf_counter()
 monthly_rows: list[pd.DataFrame] = []
 for path in part_files:
-    anio, mes = anio_mes_from_path(path)
+    anio, mes = anio_mes_from_path(path)  # Reutiliza anio_mes_from_path
+    # Reutiliza map → shuffle → reduce
     dept = reduce_buckets(shuffle(map_partition(path)))
     dept["anio"] = anio
     dept["mes"] = mes
@@ -445,6 +493,7 @@ print(mr_monthly.head(8))
 **Método:** para cada `dpto`, promediamos las 12 `suma_ponderada` mensuales. Eso estima el **empleo ocupado promedio del año** (nivel nacional ≈ suma de promedios departamentales).
 
 ```python
+# Reutiliza annual_avg_from_monthly (no sumar meses crudos)
 mr_result = annual_avg_from_monthly(mr_monthly)
 
 promedio_nacional = mr_result["suma_ponderada"].sum()
@@ -476,6 +525,18 @@ Cargamos **todo el árbol 2024** en memoria y usamos la instrucción **`groupby`
 
 ```python
 def read_parquet_tree(root: Path, columns=None) -> pd.DataFrame:
+    """Lee y concatena particiones Parquet bajo root (misma función que L3 Parte 4).
+
+    Parámetros:
+        root: carpeta del lakehouse o subárbol (p. ej. PARQUET_2024).
+        columns: columnas opcionales a cargar.
+
+    Retorna:
+        DataFrame con todas las filas concatenadas.
+
+    Lanza:
+        FileNotFoundError si no hay .parquet bajo root.
+    """
     files = sorted(root.rglob("*.parquet"))
     if not files:
         raise FileNotFoundError(f"Sin Parquet bajo {root}")
@@ -486,6 +547,7 @@ def read_parquet_tree(root: Path, columns=None) -> pd.DataFrame:
 ### Paso 4.1. Paso a paso: leer, filtrar, agrupar
 
 ```python
+# Reutiliza read_parquet_tree
 df_2024 = read_parquet_tree(PARQUET_2024)
 print(f"Filas cargadas (2024 completo): {len(df_2024):,}")
 print("Columnas:", list(df_2024.columns[:8]), "...")
@@ -508,6 +570,7 @@ monthly_pd = (
     employed.groupby(["dpto", "anio", "mes"], as_index=False)
     .agg(conteo_ocupados=("ocupado", "count"), suma_ponderada=("factor_expansion", "sum"))
 )
+# Reutiliza annual_avg_from_monthly (misma semántica que MapReduce)
 pandas_result = annual_avg_from_monthly(monthly_pd)
 print("Promedio anual pandas (primeras filas):")
 print(pandas_result.head())
@@ -517,6 +580,7 @@ print(pandas_result.head())
 
 ```python
 t0 = time.perf_counter()
+# Reutiliza read_parquet_tree y annual_avg_from_monthly
 _df = read_parquet_tree(PARQUET_2024)
 _emp = _df.loc[_df["actividad"] == ACTIVIDAD_OCUPADO]
 _monthly = _emp.groupby(["dpto", "anio", "mes"], as_index=False).agg(
@@ -602,7 +666,7 @@ print(duckdb_result.head())
 **Comprobar:**
 
 ```python
-cmp = mr_result.merge(duckdb_result, on="dpto", suffixes=("_mr", "_dk"))
+cmp = mr_result.merge(duckdb_result, on="dpto", suffixes=("_mr", "_dk"))  # comparar con MapReduce
 max_diff = (cmp["suma_ponderada_mr"] - cmp["suma_ponderada_dk"]).abs().max()
 print(f"Diferencia máxima MR vs DuckDB: {max_diff:.4f}")
 assert max_diff < 1.0
@@ -735,14 +799,22 @@ print(fino.head())
 
 ```python
 def apply_k_suppression(agg: pd.DataFrame, k: int = K_MIN) -> pd.DataFrame:
-    """Marca celdas suprimidas. Publica suma_ponderada solo si conteo_ocupados >= k."""
+    """Suprime celdas con conteo menor que k antes de publicar agregados.
+
+    Parámetros:
+        agg: tabla agregada con conteo_ocupados y suma_ponderada.
+        k: umbral mínimo de personas en celda (curso: 5).
+
+    Retorna:
+        Copia de agg con columnas suprimido (bool) y suma_publica (NaN si suprimido).
+    """
     out = agg.copy()
     out["suprimido"] = out["conteo_ocupados"] < k                       # celda pequeña → ocultar
     out["suma_publica"] = out["suma_ponderada"].where(~out["suprimido"])  # NaN si se suprime
     return out
 
 
-pub_k = apply_k_suppression(fino)
+pub_k = apply_k_suppression(fino)  # Reutiliza apply_k_suppression
 n_suprimido = int(pub_k["suprimido"].sum())
 print(f"k = {K_MIN} → celdas suprimidas: {n_suprimido:,} de {len(pub_k):,}")
 print(pub_k.head(8).to_string(index=False))
@@ -762,12 +834,26 @@ EPSILON = 1.0        # presupuesto de privacidad (menor = más privacidad)
 SENSIBILIDAD = 1.0   # un conteo cambia como máximo 1 con una persona
 
 def laplace_count(valor: float, epsilon: float, sensibilidad: float, rng) -> int:
-    ruido = rng.laplace(0.0, sensibilidad / epsilon)  # escala = sensibilidad/epsilon
+    """Añade ruido Laplace a un conteo (privacidad diferencial).
+
+    Parámetros:
+        valor: conteo real.
+        epsilon: presupuesto de privacidad (menor → más ruido).
+        sensibilidad: cambio máximo si entra/sale una persona (1 para conteos).
+        rng: generador numpy (p. ej. np.random.default_rng(42)).
+
+    Retorna:
+        Entero ≥ 0 con ruido aplicado (redondeado).
+    """
+    ruido = rng.laplace(0.0, sensibilidad / epsilon)
     return max(0, round(valor + ruido))               # conteos no negativos
 
 rng = np.random.default_rng(42)  # semilla fija para reproducir
 pub_dp = fino.copy()
-pub_dp["conteo_dp"] = [laplace_count(c, EPSILON, SENSIBILIDAD, rng) for c in pub_dp["conteo_ocupados"]]
+pub_dp["conteo_dp"] = [
+    laplace_count(c, EPSILON, SENSIBILIDAD, rng)  # Reutiliza laplace_count (L3 Parte 5.2)
+    for c in pub_dp["conteo_ocupados"]
+]
 
 print(f"Privacidad diferencial (ε = {EPSILON}): ruido agregado a cada conteo")
 print(pub_dp[["dpto", "edad", "conteo_ocupados", "conteo_dp"]].head(8).to_string(index=False))

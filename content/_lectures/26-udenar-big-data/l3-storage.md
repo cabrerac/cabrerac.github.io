@@ -24,7 +24,7 @@ position: Assistant Research Professor
 session: 3
 start_time: 07:00 am
 title: Data storage and management
-visible: false
+visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
