@@ -7,7 +7,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 50%">
                 <table class="table">
-                    <tr><td>id_hogar</td><td>orden</td><td>edad</td></tr>
+                    <tr><td>id_household</td><td>order</td><td>age</td></tr>
                     <tr><td>A-1</td><td>1</td><td>40</td></tr>
                     <tr><td>A-1</td><td>2</td><td>12</td></tr>
                     <tr><td>B-3</td><td>1</td><td>29</td></tr>
@@ -34,7 +34,7 @@
             <div class="column vertical-middle text-center" style="width: 50%">
                 <p><b>Labour table</b></p>
                 <table class="table">
-                    <tr><td>id_hogar</td><td>orden</td><td>actividad</td></tr>
+                    <tr><td>id_household</td><td>order</td><td>activity</td></tr>
                     <tr><td>A-1</td><td>1</td><td>1</td></tr>
                     <tr><td>A-1</td><td>2</td><td>2</td></tr>
                 </table>
@@ -42,7 +42,7 @@
             <div class="column vertical-middle text-center" style="width: 50%">
                 <p><b>Demographics table</b></p>
                 <table class="table">
-                    <tr><td>id_hogar</td><td>orden</td><td>edad</td></tr>
+                    <tr><td>id_household</td><td>order</td><td>age</td></tr>
                     <tr><td>A-1</td><td>1</td><td>40</td></tr>
                     <tr><td>A-1</td><td>2</td><td>12</td></tr>
                 </table>

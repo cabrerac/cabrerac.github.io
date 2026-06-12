@@ -285,7 +285,7 @@ df = df.filter(pl.col("weight").is_not_null())         # Delete
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>One question, four engines, one answer.</b> MapReduce shows the pattern; pandas, DuckDB, and Polars implement it for us. Which is fastest depends on the data and the machine, so we <b>measure</b> it in the notebook, not on a slide.</p>
+                <p><b>One question, four engines, one answer.</b> MapReduce shows the pattern. Pandas, DuckDB, and Polars implement it for us. Which is fastest depends on the data and the machine, so we <b>measure</b> it in the notebook, not on a slide.</p>
             </div>
         </div>
     </div>

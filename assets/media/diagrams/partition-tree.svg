@@ -45,7 +45,7 @@
     <rect x="0" y="0" width="380" height="120" rx="6" fill="#f6f8fa" stroke="#9aa7b4"/>
     <text x="20" y="32" font-size="15" font-weight="bold" fill="#1f2d3d">Partition pruning</text>
     <text x="20" y="60" font-size="14" fill="#5a6b7b">A query for January reads only</text>
-    <text x="20" y="82" font-size="14" font-family="monospace" fill="#c55a11">anio=2024/mes=01/</text>
+    <text x="20" y="82" font-size="14" font-family="monospace" fill="#c55a11">year=2024/month=01/</text>
     <text x="20" y="104" font-size="14" fill="#5a6b7b">and skips the other 11 folders.</text>
   </g>
 </svg>

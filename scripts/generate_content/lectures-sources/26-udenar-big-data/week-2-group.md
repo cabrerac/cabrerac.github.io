@@ -32,7 +32,7 @@ notebook_description: Cuaderno canónico del grupo para la semana 2 (L3 + L4). H
 
 **Datos de entrada.** CSV crudos **2022–2025** de **`week-1-group`** (o la misma copia en Google Drive). Catálogos DANE: 2022 → `771`, 2023 → `782`, 2024 → `819`, 2025 → `853`.
 
-**Materiales:** [L3 Almacenamiento](https://cabrerac.github.io/teaching/26-udenar-big-data/l3-storage/) · [L4 Procesamiento](https://cabrerac.github.io/teaching/26-udenar-big-data/l4-processing/) · [definición del proyecto (PDF)](/assets/documents/26-udenar-big-data/project-definition-big-data.pdf) · plantilla [requerimientos (Word)](/assets/documents/26-udenar-big-data/project-requirements-template.docx).
+**Materiales:** [L3 Almacenamiento](https://cabrerac.github.io/teaching/26-udenar-big-data/l3-storage/) · [L4 Procesamiento](https://cabrerac.github.io/teaching/26-udenar-big-data/l4-processing/).
 
 **Pregunta analítica (igual que L4).** Por departamento (`dpto`): **conteo sin ponderar** de ocupados y **suma ponderada** (Σ `factor_expansion`). Regla de ocupado: `actividad == 1` (derivar `ocupado` antes de agregar).
 
@@ -46,7 +46,7 @@ notebook_description: Cuaderno canónico del grupo para la semana 2 (L3 + L4). H
 | **2** | MapReduce + **un** motor (DuckDB **o** Polars) | Tabla de tiempos + markdown de elección de motor |
 | **3** | Publicar con gobernanza | Agregado por `dpto` + **k = 5** **o** Laplace (justificado) + `manifest.json` |
 
-**Tiempo orientativo:** el ejercicio 1 puede tardar varias horas (48 meses). Use `SKIP_IF_PARQUET_EXISTS` y datos ya en Drive. El ejercicio 2 sobre el árbol completo es pesado; empiece con un subconjunto si el Colab se queda sin memoria y documente la limitación en markdown.
+Use `SKIP_IF_PARQUET_EXISTS` si ya tiene los datos en Drive. El ejercicio 2 sobre el árbol completo es pesado, explore y empiece con un subconjunto si el Colab se queda sin memoria y documente la limitación en markdown.
 
 ---
 
@@ -98,10 +98,10 @@ print("Configuración: OK")
 
 ## Paso 1.1 — Confirmar datos crudos
 
-Verifique que cada año tiene **12 carpetas mensuales** con CSV bajo `data/raw/<año>/`. Si falta algo, use el cuaderno `week-1-group` o copie desde Drive (clínica Colab en la sesión).
+Verifique que cada año tiene **12 carpetas mensuales** con CSV bajo `data/raw/<año>/`. Si falta algo, verifique la descarga del dataset en cuadernos previos.
 
 ```python
-# SU CÓDIGO — contar meses por año; imprimir resumen
+# SU CÓDIGO — contar meses por año e imprimir resumen
 
 ```
 
@@ -120,7 +120,7 @@ print("Paso 1.1, datos crudos: OK")
 
 Recorra **cada año** y **cada carpeta mensual**, aplique `harmonize_month` y escriba Parquet. Use `SKIP_IF_PARQUET_EXISTS = True` para no reescribir particiones ya cargadas.
 
-**Pista:** el bucle de L3 Parte 3 escribe un año; aquí extiéndalo a cuatro años y acumule `partition_stats`.
+**Pista:** el bucle de L3 Parte 3 escribe un año. En este caso extiéndalo a cuatro años y acumule `partition_stats`.
 
 ```python
 # SU CÓDIGO
@@ -142,7 +142,7 @@ print("Paso 1.2, lakehouse escrito: OK")
 
 ## Paso 1.3 — Benchmark: árbol completo vs una partición
 
-Compare tiempo (y memoria si puede) de:
+Compare tiempo (y memoria si es posible) de:
 
 1. `pd.read_parquet(PROCESSED_DIR)` — **todo el spine**
 2. `pd.read_parquet(PROCESSED_DIR / "anio=2024" / "mes=01")` — **una partición**

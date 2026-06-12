@@ -188,10 +188,13 @@ print("groupby: OK")
 
 | Métrica | Definición |
 |---------|------------|
-| **Conteo sin ponderar** | Número de personas ocupadas (filas con `ocupado == True`) |
-| **Suma ponderada** | Σ `factor_expansion` sobre ocupados |
+| **Conteo sin ponderar (mensual)** | Filas ocupadas en **un mes** |
+| **Suma ponderada (mensual)** | Σ `factor_expansion` sobre ocupados **en ese mes** → estimación DANE del empleo ese mes |
+| **Promedio anual por dpto** | **Media** de las 12 sumas mensuales por departamento (no sumar los 12 meses) |
 
-**¿Qué es `factor_expansion`?** La GEIH es una **muestra**: no encuesta a todo el país. Cada persona trae un **factor de expansión** (`FEX_C18` en el DANE) que indica **a cuántas personas de la población representa**. Por eso, para estimar un total poblacional no contamos filas, sino que **sumamos el factor de expansión** (la "suma ponderada").
+**¿Qué es `factor_expansion`?** La GEIH es una **muestra**: no encuesta a todo el país. Cada persona trae un **factor de expansión** (`FEX_C18` en el DANE) que indica **a cuántas personas de la población representa**. Por eso, para estimar un total poblacional no contamos filas, sino que **sumamos el factor de expansión** (la "suma ponderada") **en un mes dado**.
+
+**Promedio anual (método del curso).** Cada mes es una **foto distinta** de la población ocupada. **No** sumamos enero+diciembre (eso infla ~12×). Primero calculamos la suma ponderada **por `(dpto, mes)`**, luego **`promedio_anual = media de esos 12 valores`**. Es un **promedio anual simple**, alineado con la idea DANE de *promedio del año* (no es panel longitudinal de las mismas personas).
 
 **Regla de ocupado.** La lección 3 guardó `actividad` (código `P6240` del DANE) **sin interpretar**. En esta lección **derivamos** `ocupado = (actividad == 1)` antes de agregar.
 
@@ -353,6 +356,28 @@ def reduce_buckets(buckets: dict[int, list[float]]) -> pd.DataFrame:
     return pd.DataFrame(rows).sort_values("dpto").reset_index(drop=True)
 
 
+def mes_from_path(path: Path) -> int:
+    """Extrae el mes de una ruta hive `.../mes=MM/...`."""
+    for part in path.parts:
+        if part.startswith("mes="):
+            return int(part.split("=", 1)[1])
+    raise ValueError(f"No encontré mes= en {path}")
+
+
+def annual_avg_from_monthly(monthly: pd.DataFrame) -> pd.DataFrame:
+    """Promedio anual simple: media de las estimaciones mensuales por departamento."""
+    return (
+        monthly.groupby("dpto", as_index=False)
+        .agg(
+            meses=("mes", "count"),
+            conteo_ocupados=("conteo_ocupados", "mean"),
+            suma_ponderada=("suma_ponderada", "mean"),
+        )
+        .sort_values("dpto")
+        .reset_index(drop=True)
+    )
+
+
 print("Funciones MapReduce: definidas")
 ```
 
@@ -384,33 +409,52 @@ print("Reduce en enero (primeras filas):")
 print(demo_reduce.head())
 ```
 
-### Paso 3.4. Consolidación: MapReduce sobre todo 2024
+### Paso 3.4. MapReduce **mensual** (12 particiones)
 
-Reunimos map → shuffle → reduce en un solo flujo sobre **las 12 particiones** (bloque de diapositivas):
+Cada archivo Parquet es **un mes**. Ejecutamos map → shuffle → reduce **por partición** y guardamos el mes:
 
 ```python
 t0 = time.perf_counter()
-all_pairs: list[tuple[int, float]] = []
+monthly_rows: list[pd.DataFrame] = []
 for path in part_files:
-    all_pairs.extend(map_partition(path))
-buckets = shuffle(all_pairs)
-mr_result = reduce_buckets(buckets)
-mr_seconds = round(time.perf_counter() - t0, 3)
+    mes = mes_from_path(path)
+    dept = reduce_buckets(shuffle(map_partition(path)))
+    dept["mes"] = mes
+    monthly_rows.append(dept)
 
-print(f"Pares totales (map): {len(all_pairs):,}")
+mr_monthly = pd.concat(monthly_rows, ignore_index=True).sort_values(["dpto", "mes"])
+mr_seconds = round(time.perf_counter() - t0, 3)
+print(f"Filas mensuales (dpto × mes): {len(mr_monthly):,}")
+print(f"MapReduce mensual, tiempo: {mr_seconds} s")
+print(mr_monthly.head(8))
+```
+
+### Paso 3.5. **Promedio anual** por departamento
+
+**Método:** para cada `dpto`, promediamos las 12 `suma_ponderada` mensuales. Eso estima el **empleo ocupado promedio del año** (nivel nacional ≈ suma de promedios departamentales).
+
+```python
+mr_result = annual_avg_from_monthly(mr_monthly)
+
+promedio_nacional = mr_result["suma_ponderada"].sum()
+suma_doce_meses = mr_monthly.groupby("dpto")["suma_ponderada"].sum().sum()  # trampa: ~12× inflado
+
 print(f"MapReduce, departamentos: {len(mr_result)}")
-print(f"MapReduce, tiempo: {mr_seconds} s")
+print(f"Promedio nacional anual (ocupados ponderados): {promedio_nacional:,.0f}")
+print(f"(Contraste — NO usar) suma cruda 12 meses: {suma_doce_meses:,.0f}")
 print(mr_result.head())
 ```
 
 **Comprobar:**
 
 ```python
-print(f"Departamentos: {len(mr_result)} | Suma ponderada total: {mr_result['suma_ponderada'].sum():,.0f}")
-assert len(mr_result) >= 30, f"Pocos departamentos: {len(mr_result)}"
-assert mr_result["suma_ponderada"].sum() > 1_000_000
-assert mr_result["conteo_ocupados"].sum() > 10_000
-print("Parte 3, MapReduce: OK")
+assert mr_monthly["mes"].nunique() >= 12, "Faltan meses en mr_monthly"
+assert (mr_monthly.groupby("dpto")["mes"].count() >= 10).all(), "Algún dpto con pocos meses"
+assert 15_000_000 < promedio_nacional < 30_000_000, (
+    f"Promedio nacional fuera de rango plausible: {promedio_nacional:,.0f}"
+)
+assert promedio_nacional * 10 < suma_doce_meses, "La suma 12-meses debería ser mucho mayor que el promedio anual"
+print("Parte 3, MapReduce mensual + promedio anual: OK")
 ```
 
 ---
@@ -446,16 +490,15 @@ print(f"Filas ocupadas: {len(employed):,}")
 print(employed[["dpto", "factor_expansion"]].head(5))
 ```
 
-Agrupamos por departamento:
+Agrupamos por **departamento y mes**, luego **promedio anual** (mismo método que MapReduce):
 
 ```python
-pandas_result = (
-    employed.groupby("dpto", as_index=False)
+monthly_pd = (
+    employed.groupby(["dpto", "mes"], as_index=False)
     .agg(conteo_ocupados=("ocupado", "count"), suma_ponderada=("factor_expansion", "sum"))
-    .sort_values("dpto")
-    .reset_index(drop=True)
 )
-print("Agregado pandas (primeras filas):")
+pandas_result = annual_avg_from_monthly(monthly_pd)
+print("Promedio anual pandas (primeras filas):")
 print(pandas_result.head())
 ```
 
@@ -465,10 +508,11 @@ print(pandas_result.head())
 t0 = time.perf_counter()
 _df = read_parquet_tree(PARQUET_2024)
 _emp = _df.loc[_df["actividad"] == ACTIVIDAD_OCUPADO]
-_pandas = (
-    _emp.groupby("dpto", as_index=False)
-    .agg(conteo_ocupados=("factor_expansion", "count"), suma_ponderada=("factor_expansion", "sum"))
+_monthly = _emp.groupby(["dpto", "mes"], as_index=False).agg(
+    conteo_ocupados=("factor_expansion", "count"),
+    suma_ponderada=("factor_expansion", "sum"),
 )
+_pandas = annual_avg_from_monthly(_monthly)
 pandas_seconds = round(time.perf_counter() - t0, 3)
 del _df, _emp, _pandas
 
@@ -502,8 +546,7 @@ DuckDB lee el árbol **sin** cargar todo en un DataFrame de pandas primero. Se c
 - **`SELECT ... FROM`**: qué columnas devolver y de dónde (aquí, los Parquet vía `read_parquet`).
 - **`WHERE`**: filtra filas (nuestra regla de ocupado, `actividad = 1`).
 - **`COUNT(*)`** y **`SUM(col)`**: agregaciones (contar filas, sumar una columna).
-- **`GROUP BY dpto`**: aplica esas agregaciones **por departamento** (el "reduce" de SQL).
-- **`ORDER BY`**: ordena el resultado.
+- **`GROUP BY dpto, mes`**: agrega **por mes**; la consulta exterior promedia → **promedio anual**.
 
 ```python
 # Patrón de rutas para que DuckDB lea todos los Parquet del árbol
@@ -511,10 +554,18 @@ parquet_glob = str(PARQUET_2024 / "**" / "*.parquet").replace("\\", "/")
 sql_query = f"""
 SELECT
     dpto,
-    COUNT(*)::BIGINT AS conteo_ocupados,      -- contar ocupados por dpto
-    SUM(factor_expansion) AS suma_ponderada   -- sumar sus pesos
-FROM read_parquet('{parquet_glob}', hive_partitioning=false)
-WHERE actividad = {ACTIVIDAD_OCUPADO}         -- solo ocupados
+    AVG(conteo_ocupados) AS conteo_ocupados,
+    AVG(suma_ponderada) AS suma_ponderada
+FROM (
+    SELECT
+        dpto,
+        mes,
+        COUNT(*)::BIGINT AS conteo_ocupados,
+        SUM(factor_expansion) AS suma_ponderada
+    FROM read_parquet('{parquet_glob}', hive_partitioning=false)
+    WHERE actividad = {ACTIVIDAD_OCUPADO}
+    GROUP BY dpto, mes
+) monthly
 GROUP BY dpto
 ORDER BY dpto
 """
@@ -554,18 +605,21 @@ print("Parte 5, DuckDB: OK")
 
 - **`scan_parquet(...)`**: abre el árbol en modo **perezoso** (aún no lee nada).
 - **`.filter(pl.col("actividad") == 1)`**: el `WHERE` (solo ocupados).
-- **`.group_by("dpto").agg(...)`**: el `GROUP BY` + agregaciones (`pl.len()` cuenta, `.sum()` suma).
-- **`.collect()`**: ejecuta el plan completo (recién aquí se leen los datos).
+- **`.group_by("dpto", "mes").agg(...)`** luego **`.group_by("dpto").agg(pl.mean(...))`**: promedio anual.
 
 ```python
 # scan_parquet NO lee aún: solo describe la consulta (lazy)
 lazy_scan = pl.scan_parquet(str(PARQUET_2024 / "**" / "*.parquet"))
-lazy_employed = lazy_scan.filter(pl.col("actividad") == ACTIVIDAD_OCUPADO)   # WHERE ocupado
-lazy_agg = lazy_employed.group_by("dpto").agg(
-    pl.len().alias("conteo_ocupados"),                       # contar
-    pl.col("factor_expansion").sum().alias("suma_ponderada"),  # sumar pesos
+lazy_employed = lazy_scan.filter(pl.col("actividad") == ACTIVIDAD_OCUPADO)
+lazy_monthly = lazy_employed.group_by("dpto", "mes").agg(
+    pl.len().alias("conteo_ocupados"),
+    pl.col("factor_expansion").sum().alias("suma_ponderada"),
 )
-print("Plan lazy Polars definido (sin ejecutar aún)")
+lazy_agg = lazy_monthly.group_by("dpto").agg(
+    pl.col("conteo_ocupados").mean().alias("conteo_ocupados"),
+    pl.col("suma_ponderada").mean().alias("suma_ponderada"),
+)
+print("Plan lazy Polars definido (promedio anual, sin ejecutar aún)")
 ```
 
 **Consolidación**, `collect()` ejecuta el plan y medimos tiempo:
