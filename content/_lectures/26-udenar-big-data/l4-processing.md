@@ -20,7 +20,7 @@ notebook_description: "Pr\xE1ctica individual de la Lecci\xF3n 4. Misma consulta
 notebook_language: es
 notebook_title: "Procesamiento y an\xE1lisis de datos"
 permalink: /teaching/26-udenar-big-data/l4-processing/
-position: Senior Research Associate and Affiliated Lecturer
+position: Assistant Research Professor
 session: 4
 start_time: 07:00 am
 title: Data processing and analysis

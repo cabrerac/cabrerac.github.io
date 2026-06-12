@@ -8,7 +8,7 @@ end_time: 01:00 pm
 hours: 5
 author: Christian Cabrera Jojoa
 email: chc79@cam.ac.uk
-position: Senior Research Associate and Affiliated Lecturer
+position: Assistant Research Professor
 department: Department of Computer Science and Technology
 institution: University of Cambridge
 layout: lecture
