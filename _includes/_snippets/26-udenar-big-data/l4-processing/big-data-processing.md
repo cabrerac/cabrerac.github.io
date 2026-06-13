@@ -73,6 +73,77 @@ def reduce(key, values):                  # one group at a time
     </div>
 </div>
 
+## MapReduce in R
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 42%">
+                <p><b>The usual method first</b></p>
+                <ul>
+                    <li>Load the table, then <b>group by</b> a key</li>
+                    <li><b>group_by(...) %>% summarise(...)</b> is the reduce</li>
+                    <li>Fine while the data fits in memory</li>
+                </ul>
+                <p>Most of you already write this with <b>dplyr</b>.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 58%">
+
+```r
+library(arrow); library(dplyr)
+
+open_dataset("geih-spine/") %>%
+  filter(actividad == 1) %>%          # filter: employed
+  collect() %>%
+  group_by(dpto) %>%                  # group by key
+  summarise(
+    employed     = n(),
+    weighted_sum = sum(factor_expansion)
+  )
+```
+
+</div>
+        </div>
+    </div>
+</div>
+
+## MapReduce in R
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 42%">
+                <p><b>By hand: one file at a time</b></p>
+                <ul>
+                    <li><b>Map:</b> read one partition, keep employed</li>
+                    <li><b>Reduce:</b> group_by per file</li>
+                    <li><b>lapply</b> over files is the map step</li>
+                </ul>
+                <p>Same pattern as the Python notebook, in R syntax.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 58%">
+
+```r
+map_partition <- function(path) {
+  df <- read_parquet(path,
+    col_select = c("dpto", "actividad", "factor_expansion"))
+  df[df$actividad == 1, c("dpto", "factor_expansion")]  # emit
+}
+
+reduce_part <- function(emp) {
+  emp %>% group_by(dpto) %>%
+    summarise(count = n(), sum = sum(factor_expansion))
+}
+
+parts  <- lapply(files, \(f) reduce_part(map_partition(f)))
+result <- bind_rows(parts)   # then average by dpto
+```
+
+</div>
+        </div>
+    </div>
+</div>
+
 ## MapReduce
 
 <div class="rows" style="height: 100%">
