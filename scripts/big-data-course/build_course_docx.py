@@ -29,6 +29,7 @@ from docx_build import (
     style_body,
     WEEK1_DIR,
     WEEK2_DIR,
+    WEEK3_DIR,
 )
 
 # --- paths -----------------------------------------------------------------
@@ -41,6 +42,7 @@ REFLECTION_WEEK_2_ASSETS = ASSETS_DIR / "reflection-week-2-template.docx"
 REFLECTION_WEEK_2_WEEK2 = WEEK2_DIR / "reflection-week-2-template.docx"
 LEARNING_JOURNAL_WEEK_1 = WEEK1_DIR / "learning-journal-week-1.docx"
 LEARNING_JOURNAL_WEEK_2 = WEEK2_DIR / "learning-journal-week-2.docx"
+LEARNING_JOURNAL_WEEK_3 = WEEK3_DIR / "learning-journal-week-3.docx"
 DATA_ARCHITECTURE_ASSETS = ASSETS_DIR / "data-architecture-template.docx"
 DATA_ARCHITECTURE_WEEK2 = WEEK2_DIR / "data-architecture-template.docx"
 
@@ -552,6 +554,101 @@ def build_learning_journal_week_2() -> Document:
     return doc
 
 
+def build_learning_journal_week_3() -> Document:
+    doc = Document()
+    style_body(doc)
+
+    heading(doc, "Diario de aprendizaje — Semana 3", 0)
+    para(doc, "Maestría en Estadística Aplicada · UDENAR · A-2026")
+    para(doc, "Electiva I · Big Data")
+    para(doc, "Lecturas previas al sábado 20 de junio de 2026 (L5 + L6)")
+
+    doc.add_paragraph()
+    heading(doc, "Instrucciones", 1)
+    bullet_list(
+        doc,
+        [
+            "Este cuaderno es personal.",
+            "Guía la lectura de los textos antes del sábado. "
+            "Lleve sus notas a la discusión grupal de lecturas y a la plenaria.",
+            "Extensión orientativa: ~500–700 palabras en total.",
+            "Las lecturas se comparten a través del correo electrónico del curso.",
+        ],
+    )
+
+    heading(doc, "Lecturas (semana 3)", 1)
+    for title, detail in [
+        (
+            "Zaharia et al. (2016)",
+            "“Apache Spark: a unified engine for big data processing”. "
+            "Archivo: zaharia-2016.pdf (adjunto al correo).",
+        ),
+        (
+            "Jarrahi et al. (2023)",
+            "“The Principles of Data-Centric AI”. "
+            "Archivo: jarrahi-2023.pdf (adjunto al correo).",
+        ),
+    ]:
+        reading_bullet(doc, title, detail)
+
+    heading(doc, "Parte A — Zaharia et al. (2016), Apache Spark", 1)
+    para(
+        doc,
+        "Esta lectura apoya las lecciones 5 (ingestión y flujo de trabajo) y 6 "
+        "(analítica avanzada y visualización): procesamiento distribuido y ML sobre "
+        "datos grandes.",
+    )
+    question(
+        doc,
+        "A1",
+        "En dos o tres oraciones: ¿qué problema intenta resolver Spark frente a "
+        "herramientas separadas para batch, consultas interactivas, streaming y ML?",
+    )
+    question(
+        doc,
+        "A2",
+        "¿Qué ventajas describe el artículo al unificar estos workloads en un solo "
+        "motor?",
+    )
+    question(
+        doc,
+        "A3",
+        "¿Qué limitación o coste de operar a escala (infraestructura, complejidad, "
+        "latencia, debugging) menciona o implica el artículo?",
+    )
+
+    heading(doc, "Parte B — Jarrahi et al. (2023), IA centrada en los datos (DCAI)", 1)
+    para(
+        doc,
+        "Hacia dónde va la práctica con datos e IA, más allá del hype de “solo mejorar el modelo”.",
+    )
+    question(
+        doc,
+        "B1",
+        "¿Qué critica el artículo del enfoque centrado en el modelo (model-centric AI)? "
+        "¿Qué propone en su lugar el enfoque centrado en los datos (DCAI)? ",
+    )
+    question(
+        doc,
+        "B2",
+        "El artículo formula seis principios de DCAI. Elija dos y explíquelos con un "
+        "ejemplo concreto de su proyecto.",
+    )
+    question(
+        doc,
+        "B3",
+        "¿Qué significa que los datos son un constructo sociotécnico y "
+        "que el trabajo con datos es centrado en las personas? ",
+    )
+
+    heading(doc, "Notas libres", 1)
+    para(doc, "Espacio para citas, dudas o conexiones con su proyecto grupal:")
+    for _ in range(6):
+        doc.add_paragraph()
+
+    return doc
+
+
 # --- write targets -----------------------------------------------------------
 
 
@@ -590,9 +687,11 @@ def write_reflection_week_2() -> tuple[Path, Path]:
 def write_learning_journal_week_1() -> Path:
     return save_doc(build_learning_journal_week_1(), LEARNING_JOURNAL_WEEK_1)
 
-
 def write_learning_journal_week_2() -> Path:
     return save_doc(build_learning_journal_week_2(), LEARNING_JOURNAL_WEEK_2)
+
+def write_learning_journal_week_3() -> Path:
+    return save_doc(build_learning_journal_week_3(), LEARNING_JOURNAL_WEEK_3)
 
 
 DOCUMENT_WRITERS: dict[str, Callable[[], list[Path]]] = {
@@ -602,6 +701,7 @@ DOCUMENT_WRITERS: dict[str, Callable[[], list[Path]]] = {
     "reflection_week_2": lambda: list(write_reflection_week_2()),
     "learning_journal_week_1": lambda: [write_learning_journal_week_1()],
     "learning_journal_week_2": lambda: [write_learning_journal_week_2()],
+    "learning_journal_week_3": lambda: [write_learning_journal_week_3()],
 }
 
 
