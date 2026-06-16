@@ -19,68 +19,74 @@ skip_slides: true
 skip_lecture_page: true
 notebook_language: es
 notebook_title: Semana 3 — ingesta, flujos y analítica (grupo)
-notebook_description: Cuaderno canónico del grupo para la semana 3 (L5 + L6). Parte A — capa curated, audit, Prefect, Kafka RSS; Parte B — modelo supervisado, gráficos y gobernanza L6.3. Entrega ZIP martes 23 jun 2026.
+notebook_description: Cuaderno canónico del grupo para la semana 3 (Lecciones 5 y 6). Ejercicio 1 — ingesta batch y stream sobre el lakehouse de la semana 2 (curated, bitácora, Prefect, Kafka). Ejercicio 2 — modelo, gráficos y gobernanza al presentar evidencia. Entrega ZIP martes 23 jun 2026.
 ---
 
 <!-- NOTEBOOK: -->
 
 ## Instrucciones
 
-**Propósito.** Cuaderno grupal para la semana 3 (Lecciones 5 y 6). Aquí está **todo el código evaluable**: ingesta batch/stream sobre el lakehouse de **`week-2-group`** y analítica con gobernanza sobre **agregados GEIH**.
+**Propósito.** Este es el cuaderno **grupal** de la semana 3, donde está **todo el código que se evalúa**. Reúne las dos lecciones: la **ingesta** de la Lección 5 (traer datos batch y stream) y la **analítica** de la Lección 6 (convertir datos en evidencia para una decisión).
 
-**Requisito.** Ejecute primero **`l5-ingestion`** y **`l6-analytics`** (run-only). Copie patrones de esos cuadernos y de L4 (`audit`, agregados); **escriba** su propia implementación en grupo (bloque del **sábado 20 jun**).
+**Antes de empezar.** Ejecuten primero los cuadernos individuales **`l5-ingestion`** y **`l6-analytics`** (solo lectura). Allí cada concepto está explicado paso a paso; aquí ustedes **escriben** su propia versión sobre **sus** datos. Pueden copiar funciones de esos cuadernos y de la Lección 4, pero **entiéndanlas** antes de pegarlas.
 
-**Datos de entrada.** Parquet particionado **`data/processed/geih-spine/`** (2022–2025) de week 2 en Google Drive. **No** re-harmonice CSV.
+**Datos de entrada.** El lakehouse particionado **`data/processed/geih-spine/`** (2022–2025) que construyeron en `week-2-group`, en Google Drive. **No** vuelvan a harmonizar CSV.
 
-**Kafka.** Broker compartido (URL + SASL en Secrets de Colab o `.env`). Tópico sugerido: `udenar.{group_id}.news.raw`. Si Kafka no está disponible, documente fallback JSONL local (A5/A6).
+**Kafka.** Usaremos un servidor compartido (credenciales en *Secrets* de Colab). Si no está disponible, el cuaderno cae a un **modo sin servidor** que guarda los eventos en un archivo local; documenten en markdown si trabajaron así.
 
-**Recorrido de Vs (A7):** etapas batch = **GEIH**; etapas stream = **sin GEIH** (noticias). Debe quedar explícito en markdown.
-
-**Entrega Moodle (martes 23 jun 2026, 23:59 Colombia):** ZIP `week-3-group-<group_id>.zip` con `week-3-group-<group_id>.ipynb` y `manifest.json` en la **raíz del ZIP**. **Sin** Parquet/CSV en el ZIP.
+**Entrega Moodle (martes 23 jun 2026, 23:59 Colombia):** un ZIP `week-3-group-<group_id>.zip` con el cuaderno ejecutado `week-3-group-<group_id>.ipynb` y `manifest.json` en la **raíz del ZIP**. **Sin** archivos Parquet ni CSV.
 
 **Mapa del cuaderno (dos ejercicios)**
 
 | Ejercicio | Tema | Entregable clave |
 |-----------|------|------------------|
-| **1** | Ingesta L5 (Parte A) | `curated/`, `audit.jsonl`, `schema_contract.json`, Kafka, A7 Vs tour |
-| **2** | Analítica L6 (Parte B) | Modelo (lineal **o** MLP), ≥2 gráficos, gobernanza B6 |
+| **1** | Ingesta (Lección 5) | `curated/`, `audit.jsonl`, `schema_contract.json`, productor/consumidor de noticias, markdown de *V* |
+| **2** | Analítica (Lección 6) | Modelo (lineal **o** red neuronal), **2 gráficos**, reflexión de gobernanza |
 
-Copie de **`l5-ingestion`** y **`l6-analytics`**:
+**De dónde copiar cada pieza** (ya las vieron explicadas):
 
-| Qué copiar | Dónde está |
-|------------|------------|
-| `append_audit`, rutas Drive, Prefect `@flow` | L5 Partes 1–4 |
-| `poll_rss_events`, productor/consumidor Kafka | L5 Partes 5–6 |
-| `LinearRegression` / `MLPRegressor`, Plotly | L6 Partes 2–4 |
-| Plantilla gobernanza L6.3 | L6 Parte 5 |
+| Qué necesitan | Dónde está explicado |
+|---------------|----------------------|
+| Montar Drive, rutas, `append_audit`, capa curated | `l5-ingestion`, Partes 1 y 3 |
+| Flujo Prefect (`@task` / `@flow`) | `l5-ingestion`, Parte 4 |
+| Productor y consumidor de noticias | `l5-ingestion`, Partes 5 y 6 |
+| `train_test_split`, modelo lineal / MLP, métricas | `l6-analytics`, Partes 2 y 3 |
+| Gráficos y reflexión de gobernanza | `l6-analytics`, Partes 4 y 5 |
 
-Use celdas **Comprobar:** de arriba abajo.
+Ejecuten las celdas **de arriba abajo** y revisen cada **Comprobar:**.
 
 ---
 
-## Configuración — Drive, Kafka y rutas
+## Configuración: Drive, Kafka y rutas
 
-Monte **Google Drive** igual que en [`l3-storage`](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l3-storage.ipynb) (Parte 1). Si trabaja en **local**, ponga `USE_GOOGLE_DRIVE = False`.
+Monten **Google Drive** igual que en [`l3-storage`](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l3-storage.ipynb) (Parte 1). Si trabajan en **local**, pongan `USE_GOOGLE_DRIVE = False`.
 
-Defina constantes del grupo:
+Primero, las constantes del grupo. Cambien `GROUP_ID` por el de su grupo y elijan **un** modelo para el Ejercicio 2:
 
 ```python
-GROUP_ID = "G1"  # cambie al id de su grupo
+GROUP_ID = "G1"          # cambie al id de su grupo
 USE_GOOGLE_DRIVE = True
-MODEL_CHOICE = "linear"  # "linear" o "mlp" — elija UNO para el ejercicio 2
-TOPIC_RAW = f"udenar.{GROUP_ID}.news.raw"
+MODEL_CHOICE = "linear"  # "linear" o "mlp" — elijan UNO para el Ejercicio 2
+
+# Tópico de noticias propio del grupo (evita mezclar mensajes entre grupos)
+TOPIC_NEWS = f"udenar.{GROUP_ID}.news.raw"
+
 RSS_FEEDS = [
     "https://www.portafolio.co/rss/economia.xml",
     "https://www.eltiempo.com/rss/economia.xml",
 ]
 KEYWORDS = ("empleo", "desempleo", "mercado laboral", "trabajo", "geih")
-ACTIVIDAD_OCUPADO = 1
+ACTIVIDAD_OCUPADO = 1    # en GEIH, actividad == 1 = ocupado (como en L4)
 ```
 
+Ahora monten Drive y definan rutas y la función de bitácora. Copien el patrón de `l5-ingestion` (Partes 1 y 3):
+
 ```python
-# SU CÓDIGO — montar Drive (IN_COLAB), WORK_ROOT, PROCESSED_DIR, CURATED_DIR,
-# STAGING_DIR, AUDIT_PATH, SCHEMA_PATH, MANIFEST_PATH, OUTPUTS_DIR,
-# append_audit() — copie de l5-ingestion Parte 1 y 3
+# SU CÓDIGO — definan, copiando de l5-ingestion:
+#   IN_COLAB, WORK_ROOT, PROCESSED_DIR, CURATED_DIR, STAGING_DIR,
+#   AUDIT_PATH, SCHEMA_PATH, MANIFEST_PATH, OUTPUTS_DIR
+#   la función append_audit(evento)
+#   instalen e importen las librerías que usen (polars, prefect, kafka-python, sklearn, plotly)
 
 ```
 
@@ -88,23 +94,23 @@ ACTIVIDAD_OCUPADO = 1
 
 ```python
 assert WORK_ROOT.is_dir()
-assert PROCESSED_DIR.is_dir()
+assert PROCESSED_DIR.is_dir(), "No encuentro el lakehouse de la semana 2."
 assert MODEL_CHOICE in ("linear", "mlp")
 print("Configuración: OK")
 ```
 
 ---
 
-# Ejercicio 1 — Ingesta y flujos (L5, Parte A)
+# Ejercicio 1 — Ingesta y flujos (Lección 5)
 
-**Tarea.** Capa **curated** batch, **audit**, **Prefect**, productor/consumidor **Kafka** (o fallback), markdown **Vs tour**.
+**Meta.** Construir una capa **curated** gobernada sobre su lakehouse, dejar **bitácora** y **contrato de esquema**, orquestar con **Prefect**, y traer una fuente **stream** (noticias) con productor y consumidor.
 
-## Paso 1.1 — Puente week-2 (A0)
+## Paso 1.1 — Puente con el lakehouse de la semana 2
 
-Documente en markdown las rutas a su spine 2022–2025 y campos clave de `manifest.json` de week 2.
+Confirmen que el lakehouse está en Drive y describan en markdown sus rutas y los campos de `manifest.json` de la semana 2.
 
 ```python
-# SU CÓDIGO — listar particiones; mostrar claves del manifest
+# SU CÓDIGO — listar particiones del lakehouse y mostrar claves del manifest
 
 ```
 
@@ -112,18 +118,18 @@ Documente en markdown las rutas a su spine 2022–2025 y campos clave de `manife
 
 ```python
 partitions = sorted(PROCESSED_DIR.glob("anio=*/mes=*/part-*.parquet"))
-assert len(partitions) >= 12, "¿Falta el lakehouse week-2?"
-print("Paso 1.1, puente week-2: OK")
+assert len(partitions) >= 12, "Falta el lakehouse de la semana 2 (esperamos ≥12 meses)."
+print("Paso 1.1, puente con el lakehouse: OK")
 ```
 
 ---
 
-## Paso 1.2 — Capa curated batch (A1)
+## Paso 1.2 — Capa curated gobernada
 
-Construya agregado mensual (o alineado a su charter) desde particiones → `curated/geih_*.parquet`. Registre cada paso en **`audit.jsonl`**.
+Construyan un agregado (por departamento y mes, o el que pida su pregunta de decisión) desde las particiones → `curated/geih_*.parquet`. **Registren cada operación** en `audit.jsonl` con `append_audit`.
 
 ```python
-# SU CÓDIGO — Polars/DuckDB; append_audit por operación
+# SU CÓDIGO — agregado con Polars o DuckDB + append_audit por operación
 
 ```
 
@@ -131,19 +137,19 @@ Construya agregado mensual (o alineado a su charter) desde particiones → `cura
 
 ```python
 curated_files = list(CURATED_DIR.glob("geih_*.parquet"))
-assert len(curated_files) >= 1
-assert AUDIT_PATH.is_file() and AUDIT_PATH.stat().st_size > 0
-print("Paso 1.2, curated batch: OK")
+assert len(curated_files) >= 1, "No se escribió ningún agregado en curated/."
+assert AUDIT_PATH.is_file() and AUDIT_PATH.stat().st_size > 0, "La bitácora está vacía."
+print("Paso 1.2, capa curated: OK")
 ```
 
 ---
 
-## Paso 1.3 — Contrato de esquema (A2)
+## Paso 1.3 — Contrato de esquema
 
-Escriba **`schema_contract.json`** (columnas, dtypes, fuente, nota de retención).
+Escriban **`schema_contract.json`** con las columnas del curated, sus tipos, la fuente y una nota de retención (recuerden: agregados, no microdatos).
 
 ```python
-# SU CÓDIGO
+# SU CÓDIGO — construir el dict del contrato y guardarlo como JSON
 
 ```
 
@@ -152,17 +158,17 @@ Escriba **`schema_contract.json`** (columnas, dtypes, fuente, nota de retención
 ```python
 contract = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
 assert "columns" in contract and len(contract["columns"]) >= 3
-print("Paso 1.3, schema_contract: OK")
+print("Paso 1.3, contrato de esquema: OK")
 ```
 
 ---
 
-## Paso 1.4 — Orquestación Prefect (A3)
+## Paso 1.4 — Orquestación con Prefect
 
-Envuelva A1 + validación en un `@flow` Prefect (o script documentado si Prefect falla en Colab).
+Envuelvan el agregado + su validación en un **flujo Prefect** (`@task` / `@flow`). Si Prefect falla en Colab, documenten en markdown y dejen los pasos como funciones encadenadas.
 
 ```python
-# SU CÓDIGO — @task / @flow
+# SU CÓDIGO — @task para construir/validar, @flow que los encadene
 
 ```
 
@@ -171,14 +177,14 @@ Envuelva A1 + validación en un `@flow` Prefect (o script documentado si Prefect
 ```python
 audit_text = AUDIT_PATH.read_text(encoding="utf-8")
 assert "prefect" in audit_text.lower() or "batch" in audit_text.lower()
-print("Paso 1.4, Prefect: OK — verifique audit.jsonl")
+print("Paso 1.4, orquestación: OK — revisen audit.jsonl")
 ```
 
 ---
 
-## Paso 1.5 — Macro Banrep (A4, opcional)
+## Paso 1.5 — Contexto macro (opcional)
 
-Pull SDMX TRM (+ COLCAP si hay tiempo) → `staging/macro_daily.parquet` + audit.
+Si tienen tiempo, traigan una serie macro del Banco de la República (la TRM, vía su servicio SDMX) → `staging/macro_daily.parquet` + bitácora. Es contexto, no GEIH.
 
 ```python
 # SU CÓDIGO — opcional
@@ -187,12 +193,12 @@ Pull SDMX TRM (+ COLCAP si hay tiempo) → `staging/macro_daily.parquet` + audit
 
 ---
 
-## Paso 1.6 — Productor Kafka RSS (A5)
+## Paso 1.6 — Productor de noticias
 
-Poll **acotado** (p. ej. ≤2 min) → publique JSON a `{group_id}.news.raw`. Marque `"geih": false` en cada evento.
+Sondeen los feeds RSS, filtren por palabras clave de empleo y **publiquen** los eventos al tópico `TOPIC_NEWS` (o al archivo local si no hay servidor). Marquen `geih=False` en cada evento.
 
 ```python
-# SU CÓDIGO — kafka-python o fallback JSONL
+# SU CÓDIGO — poll_rss_events + envío al tópico (o fallback local)
 
 ```
 
@@ -200,17 +206,17 @@ Poll **acotado** (p. ej. ≤2 min) → publique JSON a `{group_id}.news.raw`. Ma
 
 ```python
 assert STAGING_DIR.is_dir()
-print("Paso 1.6, productor: OK — revise audit")
+print("Paso 1.6, productor de noticias: OK — revisen audit.jsonl")
 ```
 
 ---
 
-## Paso 1.7 — Consumidor y staging stream (A6)
+## Paso 1.7 — Consumidor y staging
 
-Dedupe por URL; ventana o conteo → `staging/news_labor.parquet` + audit.
+Lean el tópico (o el archivo local), **deduplican por URL** y guarden el resultado en `staging/news_labor.parquet` + bitácora.
 
 ```python
-# SU CÓDIGO
+# SU CÓDIGO — consumidor + deduplicado + escritura de staging
 
 ```
 
@@ -219,35 +225,39 @@ Dedupe por URL; ventana o conteo → `staging/news_labor.parquet` + audit.
 ```python
 news_path = STAGING_DIR / "news_labor.parquet"
 if news_path.is_file():
-    import polars as pl
     assert pl.read_parquet(news_path).height >= 0
-print("Paso 1.7, consumidor: OK")
+print("Paso 1.7, consumidor y staging: OK")
 ```
 
 ---
 
-## Paso 1.8 — Markdown: batch vs stream y Vs tour (A7)
+## Paso 1.8 — Markdown: ¿qué *V* ejercita cada fuente?
 
-Tabla **obligatoria** (etapas 0–5): V ejercitada, ¿GEIH sí/no?, ¿sirve para la pregunta del charter?
+Escriban una tabla y un texto (≈120 palabras) que comparen **GEIH** (volumen, veracidad; lenta, estructurada) con las **noticias** (velocidad, variedad; no oficial). Expliquen **qué fuente encaja con su pregunta de decisión** y por qué.
 
 ```markdown
-# SU TABLA Y TEXTO (≥ 120 palabras) — L5.2, Jarrahi source-fit
+# SU TABLA Y TEXTO — compare GEIH vs noticias por cada V; relacione con su pregunta
 ```
 
 ---
 
-## Paso 1.9 — Stretch replay (A8, opcional)
+## Paso 1.9 — Reproducción a alta tasa (opcional)
 
-Throughput con `news_events_replay.jsonl` — documente si lo intentó.
+Si quieren explorar **velocidad**, reproduzcan muchos eventos desde `news_events_replay.jsonl` y midan el tiempo. Documenten lo que observaron.
+
+```python
+# SU CÓDIGO — opcional
+
+```
 
 ---
 
-## Paso 1.10 — Actualizar manifest Parte A (A9)
+## Paso 1.10 — Actualizar el manifiesto (Ejercicio 1)
 
-Amplíe `manifest.json`: conteos audit, tópicos Kafka, filas batch vs stream.
+Amplíen `manifest.json` con metadatos de la ingesta: número de líneas en la bitácora, tópico usado, filas en batch vs. stream.
 
 ```python
-# SU CÓDIGO
+# SU CÓDIGO — leer manifest, actualizar y volver a guardar
 
 ```
 
@@ -256,27 +266,31 @@ Amplíe `manifest.json`: conteos audit, tópicos Kafka, filas batch vs stream.
 ```python
 data = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
 assert any(k in data for k in ("audit", "kafka", "ingesta", "lakehouse"))
-print("Paso 1.10, manifest Parte A: OK")
+print("Paso 1.10, manifiesto (Ejercicio 1): OK")
 ```
 
 ---
 
-# Ejercicio 2 — Analítica y gobernanza (L6, Parte B)
+# Ejercicio 2 — Analítica y gobernanza (Lección 6)
 
-**Tarea.** Modelo supervisado sobre **agregados GEIH**, ≥2 gráficos, gobernanza L6.3 con **dos capas de evidencia**.
+**Meta.** Convertir los agregados en **evidencia para una decisión**: un modelo, al menos dos gráficos rotulados por fuente, y una reflexión sobre cómo presentar todo con responsabilidad. **Modelen solo sobre agregados**, nunca sobre microdatos ni texto.
 
-## Paso 2.1 — Pregunta de decisión (B0)
+## Paso 2.1 — La pregunta de decisión
+
+Escriban en markdown la pregunta que van a responder (la del curso por defecto, o una de su proyecto).
 
 ```markdown
-# SU PREGUNTA (default del curso o del PDF de proyecto §3)
+# SU PREGUNTA DE DECISIÓN
 ```
 
 ---
 
-## Paso 2.2 — Cargar curated y validar esquema (B1)
+## Paso 2.2 — Cargar curated y validar contra el contrato
+
+Lean los agregados del Ejercicio 1 y verifiquen que sus columnas y tipos coinciden con `schema_contract.json`.
 
 ```python
-# SU CÓDIGO — pl.read_parquet; compare dtypes con schema_contract.json
+# SU CÓDIGO — leer curated y comparar con el contrato
 
 ```
 
@@ -284,40 +298,40 @@ print("Paso 1.10, manifest Parte A: OK")
 
 ```python
 assert len(curated_files) >= 1
-print("Paso 2.2, carga curated: OK")
+print("Paso 2.2, carga de agregados: OK")
 ```
 
 ---
 
-## Paso 2.3 — Modelo supervisado (B2)
+## Paso 2.3 — Entrenar el modelo elegido
 
-| Elección | Clase sklearn |
-|----------|----------------|
-| `MODEL_CHOICE == "linear"` | `LinearRegression` o `LogisticRegression` |
-| `MODEL_CHOICE == "mlp"` | `MLPRegressor` o `MLPClassifier` (1 capa oculta, pocas unidades) |
+Según `MODEL_CHOICE`, entrenen y evalúen. Expliquen en markdown si el resultado **apoya o no** la decisión, y por qué eligieron ese modelo.
 
-**Solo agregados GEIH** — no microdatos ni texto de noticias. Markdown: ¿**apoya / no apoya** la decisión? Justifique lineal vs MLP si aplica.
+| Si `MODEL_CHOICE` es… | Usen |
+|------------------------|------|
+| `"linear"` | `LinearRegression` o `LogisticRegression` |
+| `"mlp"` | `MLPRegressor` o `MLPClassifier` (1 capa oculta, pocas neuronas) |
 
 ```python
-# SU CÓDIGO
+# SU CÓDIGO — train_test_split, fit, predict, R²/MAE (o accuracy)
 
 ```
 
 **Comprobar:**
 
 ```python
-assert "model" in dir() or "lin" in dir() or "mlp" in dir()
-print("Paso 2.3, modelo: OK — complete markdown")
+assert any(name in dir() for name in ("model", "lin", "mlp"))
+print("Paso 2.3, modelo: OK — completen el markdown")
 ```
 
 ---
 
-## Paso 2.4 — Gráfico 1: capa oficial GEIH (B3)
+## Paso 2.4 — Gráfico 1: capa oficial GEIH
 
-Plotly o matplotlib con **pie de figura** ligado a la pregunta de decisión. Guarde en `outputs/`.
+Hagan un gráfico (Plotly o matplotlib) sobre los agregados, con un **título que nombre la fuente** y un pie ligado a la pregunta de decisión. Guárdenlo en `outputs/`.
 
 ```python
-# SU CÓDIGO
+# SU CÓDIGO — guardar la figura en chart1_path dentro de OUTPUTS_DIR
 
 ```
 
@@ -330,12 +344,12 @@ print("Paso 2.4, gráfico 1: OK")
 
 ---
 
-## Paso 2.5 — Gráfico 2: macro o diagnóstico (B4)
+## Paso 2.5 — Gráfico 2: contexto o diagnóstico
 
-Segundo gráfico: TRM/COLCAP **o** diagnóstico del modelo.
+Un segundo gráfico: contexto macro (TRM) **o** un diagnóstico del modelo (p. ej. observado vs. predicho).
 
 ```python
-# SU CÓDIGO
+# SU CÓDIGO — guardar la figura en chart2_path
 
 ```
 
@@ -348,9 +362,9 @@ print("Paso 2.5, gráfico 2: OK")
 
 ---
 
-## Paso 2.6 — Gráfico stream (B5, opcional)
+## Paso 2.6 — Gráfico de noticias (opcional)
 
-Tasa de palabras clave en `news_labor.parquet`. Título: **“discurso mediático, no dato oficial”**.
+Si trajeron noticias, grafiquen su conteo. El título **debe** decir que es discurso mediático, **no** dato oficial.
 
 ```python
 # SU CÓDIGO — opcional
@@ -359,22 +373,22 @@ Tasa de palabras clave en `news_labor.parquet`. Título: **“discurso mediátic
 
 ---
 
-## Paso 2.7 — Gobernanza L6.3 (B6)
+## Paso 2.7 — Reflexión de gobernanza
 
-Markdown **obligatorio**: dos capas (oficial GEIH + opcional macro/stream); audiencias; controles; nota lineal vs MLP. Enlace §6–§7 del PDF de requerimientos si aplica.
+Escriban un markdown que cubra: las **capas de evidencia** (oficial GEIH + opcional macro/noticias, siempre rotuladas), las **audiencias** (quien decide / analista / público) y los **controles** (supresión k=5, frecuencia de actualización, elección de modelo).
 
 ```markdown
-# SU TEXTO
+# SU TEXTO — capas, audiencias y controles
 ```
 
 ---
 
-## Paso 2.8 — Manifest final (B7)
+## Paso 2.8 — Manifiesto final
 
-Añada: tipo de modelo, rutas de gráficos, resumen gobernanza (una línea).
+Añadan a `manifest.json`: tipo de modelo elegido, rutas de los gráficos y un resumen de una línea de la reflexión de gobernanza.
 
 ```python
-# SU CÓDIGO
+# SU CÓDIGO — actualizar el manifiesto
 
 ```
 
@@ -383,19 +397,19 @@ Añada: tipo de modelo, rutas de gráficos, resumen gobernanza (una línea).
 ```python
 data = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
 assert any(k in data for k in ("modelo", "analitica", "governance", "graficos"))
-print("Paso 2.8, manifest final: OK")
+print("Paso 2.8, manifiesto final: OK")
 ```
 
 ---
 
 ## Registro de contribución (grupo)
 
-Cada integrante añade **una línea** con tarea concreta. Indique el **escriba de semana 3** (consolidación del ZIP).
+Cada integrante añade **una línea** con la tarea concreta que hizo. Indiquen quién fue el **escriba de la semana** (quien consolida y sube el ZIP).
 
 ```python
 contribution_log = """
 - ...
-Escriba semana 3: ...
+Escriba de la semana 3: ...
 """
 print(contribution_log)
 ```
@@ -404,15 +418,15 @@ print(contribution_log)
 
 ## Tarea grupal (Moodle)
 
-ZIP **`week-3-group-<group_id>.zip`** hasta el **martes 23 de junio de 2026, 23:59 (Colombia)**:
+Suban el ZIP **`week-3-group-<group_id>.zip`** hasta el **martes 23 de junio de 2026, 23:59 (Colombia)**:
 
 | Archivo | Descripción |
 |---------|-------------|
-| `week-3-group-<group_id>.ipynb` | Este cuaderno ejecutado (plantilla Colab: `week-3-group`) |
-| `manifest.json` | Metadatos Partes A + B (raíz del ZIP) |
+| `week-3-group-<group_id>.ipynb` | Este cuaderno ejecutado (renómbrenlo al exportar) |
+| `manifest.json` | Metadatos de los Ejercicios 1 y 2 (en la raíz del ZIP) |
 
-**Reflexión individual:** `week-3-reflection-<student>.pdf` el **miércoles 24 de junio de 2026** — plantilla *(cuando se publique)*.
+**Reflexión individual:** `week-3-reflection-<student>.pdf` el **miércoles 24 de junio de 2026** *(plantilla cuando se publique)*.
 
-**Requerimientos del proyecto:** avance en la sesión del **sábado 20 jun** (bloque analítica + gobernanza de capas).
+**Proyecto:** avancen en la sesión del **sábado 20 jun** (bloque de analítica y gobernanza de capas de evidencia).
 
 <!-- end NOTEBOOK: -->
