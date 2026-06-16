@@ -2,32 +2,47 @@
 author: Christian Cabrera Jojoa
 course_code: 26-udenar-big-data
 department: Department of Computer Science and Technology
-description: "Lecture 6 \u2014 analytics, decision-focused viz; closing governance-in-practice\
-  \ synthesis tying L3\u2013L5 hooks back to the L2 ethics framing. Async ~2 h video\
-  \ (V1 theory + V2 lab demo) + ~3 h Saturday sync inside the shared 07:00\u201313:00\
-  \ CO block. Stub \u2014 content to be authored."
+description: "Lecture 6 \u2014 supervised models on GEIH aggregates, decision-focused\
+  \ charts, optional stream monitor, and dashboards-as-governance synthesis."
 email: chc79@cam.ac.uk
 end_time: 01:00 pm
+group_notebook: week-3-group
 hours: 5
 institution: University of Cambridge
 layout: lecture
 lecture_code: l6-analytics
 lecture_date: 20/06/2026
+notebook_description: "Pr\xE1ctica individual de la Lecci\xF3n 6 (run-only). Modelo\
+  \ lineal vs MLP peque\xF1o sobre agregados GEIH, gr\xE1ficos con pregunta de decisi\xF3\
+  n y capa opcional de noticias. C\xF3digo evaluable en week-3-group Parte B."
+notebook_language: es
+notebook_title: "Anal\xEDtica y visualizaci\xF3n"
 permalink: /teaching/26-udenar-big-data/l6-analytics/
-position: Senior Research Associate and Affiliated Lecturer
+position: Assistant Research Professor
 session: 6
 start_time: 07:00 am
-title: Advanced analytics and visualisation
+title: Analytics and visualisation
 visible: false
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
+<link rel="stylesheet" href="/assets/css/lecture-article.css">
 <div class="lecture-resources">
   <p>
-    <a href="/assets/slides/26-udenar-big-data/l6-analytics.html" target="_blank">[HTML Slides]</a>
-    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l6-analytics.ipynb" target="_blank">[Colab Notebook]</a>
-    <a href="/teaching/26-udenar-big-data/">[Back to Course]</a>
+    <a href="/assets/slides/26-udenar-big-data/l6-analytics.html" target="_blank">HTML slides</a> &nbsp;|&nbsp; <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l6-analytics.ipynb" target="_blank">Notebook - Individual</a> &nbsp;|&nbsp; <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-3-group.ipynb" target="_blank">Notebook - Group</a> &nbsp;|&nbsp; <a href="/teaching/26-udenar-big-data/">Back to course</a>
   </p>
 </div>
 
+### Week 3 links
 
+- [Week 3 hub](/teaching/26-udenar-big-data/week-3-hub-es/) *(when published)*
+
+### Resources
+
+- [Introductory Python course](https://www.youtube.com/watch?v=nKPbfIU442g) (optional video)
+- [scikit-learn user guide](https://scikit-learn.org/stable/user_guide.html) (reference)
+
+### References
+
+- Zaharia, M., et al. (2016). [Apache Spark: a unified engine for big data processing](https://doi.org/10.1145/2934664). *CACM*, 59(11), 56–65.
+- Jarrahi, M. H., et al. (2023). *The Principles of Data-Centric AI*. *(Course PDF.)*
