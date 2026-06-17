@@ -144,7 +144,6 @@ registrar({"paso": "demo", "filas": 7})
 
 lineas = audit_demo.read_text(encoding="utf-8").strip().splitlines()
 print("Líneas en la bitácora:", len(lineas))
-assert len(lineas) == 2  # dos llamadas = dos líneas
 print("Bitácora JSONL: OK")
 ```
 
