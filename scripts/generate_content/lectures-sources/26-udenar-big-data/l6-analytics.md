@@ -19,7 +19,7 @@ visible: false
 group_notebook: week-3-group
 notebook_language: es
 notebook_title: Analítica y visualización
-notebook_description: Práctica individual de la Lección 6 (run-only). Modelamos sobre agregados GEIH (lineal y un MLP pequeño), hacemos gráficos ligados a una pregunta de decisión y discutimos la gobernanza al presentar evidencia. Código evaluable en week-3-group Parte B.
+notebook_description: Práctica individual de la Lección 6. Modelamos sobre agregados GEIH (lineal y un MLP pequeño), hacemos gráficos ligados a una pregunta de decisión y discutimos la gobernanza al presentar evidencia.
 ---
 
 <!-- SLIDES: -->
@@ -143,17 +143,17 @@ print("Métricas: OK")
 
 ## Instrucciones
 
-En la Lección 5 trajimos datos: una capa **`curated/`** de agregados GEIH (oficial) y, opcionalmente, un `staging/news_labor.parquet` de noticias (no oficial). Ya tenemos evidencia falta **convertirla en una respuesta para quien decide**.
+En la Lección 5 trajimos datos: una capa **`curated/`** de agregados GEIH (oficial) y, opcionalmente, un `staging/news_labor.jsonl` de noticias (no oficial). Ya tenemos evidencia; falta **convertirla en una respuesta para quien decide**.
 
 **Qué hacemos en esta lección.** Pasamos de *tener datos* a *informar una decisión*. La pregunta guía es:
 
 > *Como analista del mercado laboral, ¿qué evidencia le mostraría esta semana a quien toma decisiones?*
 
-Para responderla: (1) ajustamos un **modelo** sobre los agregados GEIH, (2) lo comparamos con un **modelo más flexible** (una red neuronal pequeña) y analizamos un dilema real: **precisión vs. poder explicar**, (3) graficamos la **tasa del stream** como contexto, y (4) reunimos todo en un **tablero** rotulado por capa.
+Para responderla: (1) ajustamos un **modelo** sobre los agregados GEIH, (2) lo comparamos con un **modelo más flexible** (una red neuronal pequeña) y analizamos un dilema real: **precisión vs. poder explicar**, (3) montamos un **monitor en vivo** de titulares RSS (contexto, no estadística), y (4) reunimos la evidencia oficial en un **tablero** rotulado.
 
-**Una regla de gobernanza, desde el inicio.** Modelamos **solo sobre agregados** (departamento × mes), nunca sobre datos de personas individuales ni sobre el texto de las noticias. Las noticias podrían ser un **monitor de discurso**, no una estadística.
+**Una regla de gobernanza, desde el inicio.** Modelamos **solo sobre agregados** (departamento × mes), nunca sobre datos de personas individuales ni sobre el texto de las noticias. Las noticias son un **monitor de discurso**, no una estadística.
 
-Antes de esta práctica se debe ejecutar **`l5-ingestion`** y tener (o simular) `data/curated/` y, opcional, `staging/news_labor.parquet`.
+Antes de esta práctica se debe ejecutar **`l5-ingestion`** y tener (o simular) `data/curated/` y, opcional, `staging/news_labor.jsonl`.
 
 Las tres capas de evidencia que aparecen en esta lección:
 
@@ -161,7 +161,7 @@ Las tres capas de evidencia que aparecen en esta lección:
 |------|--------|--------------------|
 | **Oficial** | Agregados GEIH en `curated/` | Modelo y gráfico principal |
 | **Macro (opcional)** | TRM / COLCAP en `staging/` | Gráfico de contexto |
-| **Medios (opcional)** | `news_labor.parquet` | Monitor — **no es dato oficial** |
+| **Medios (opcional)** | `news_labor.jsonl` + RSS en vivo | Monitor — **no es dato oficial** |
 
 **Qué hace el cuaderno (en orden).**
 
@@ -170,7 +170,7 @@ Las tres capas de evidencia que aparecen en esta lección:
 | **1** | Montar Drive, rutas a `curated/` e instalar librerías |
 | **2** | Modelo **lineal** sobre agregados + gráfico (capa oficial) |
 | **3** | **Red neuronal pequeña**: comparar y **elegir** modelo (validación → prueba) |
-| **4** | **Monitor del stream**: tasa de titulares en el tiempo (capa no oficial) |
+| **4** | **Monitor en vivo** de RSS + consulta a MongoDB (capa no oficial) |
 | **5** | **Tablero** que reúne las capas de evidencia |
 
 Ver **Tareas** al final.
@@ -219,19 +219,25 @@ curated_files = sorted(CURATED_DIR.glob("geih_*.parquet"))
 print("Archivos curated encontrados:", len(curated_files))
 ```
 
-Instalamos analítica y visualización. **scikit-learn** para los modelos; **Plotly** y **matplotlib** para graficar.
+Instalamos analítica, visualización y el monitor en vivo. **scikit-learn** para los modelos, **Plotly** para graficar, **feedparser** + **ipywidgets** para sondear RSS y refrescar el widget.
 
 ```python
-%pip install -q polars pyarrow scikit-learn plotly matplotlib
+%pip install -q polars pyarrow scikit-learn plotly feedparser mongomock ipywidgets
 ```
 
 ```python
 import json
-from datetime import datetime, timedelta, timezone
+import threading
+import time
+import uuid
 
+import feedparser
+import ipywidgets as widgets
+import mongomock
 import plotly.express as px
 import plotly.graph_objects as go
 import polars as pl
+from IPython.display import clear_output, display
 from plotly.subplots import make_subplots
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, r2_score
@@ -387,91 +393,151 @@ print("Parte 3, comparación y elección de modelo: OK")
 
 ---
 
-## Parte 4. Monitor del stream: tasa de titulares en el tiempo
+## Parte 4. Monitor en vivo: RSS y MongoDB
 
-Una visualización de stream **en tiempo real** muestra cómo **cambia una métrica a medida que llegan los datos**. En un cuaderno no tenemos un flujo en vivo, pero podemos aproximarlo: tomamos los titulares que dejó la Lección 5 y graficamos su **tasa de llegada por ventana de tiempo** (una *ventana móvil*). Es una señal de **velocidad y variedad**, útil como contexto, pero **no es una medición de empleo**.
+Un monitor de stream **en tiempo real** muestra titulares **a medida que llegan**. En producción leeríamos de Kafka o MongoDB; aquí combinamos dos ideas:
+
+1. **Widget en vivo:** sondeamos feeds RSS de **economía**, el monitor se **actualiza solo** cada pocos segundos.
+2. **MongoDB:** cargamos `news_labor.jsonl` (lo que dejó la Lección 5) y consultamos cuántos documentos hay almacenados.
+
+Los feeds ya son de economía; ampliamos las **palabras clave** respecto a la Lección 5 (solo empleo) para que el monitor suela mostrar titulares: inflación, TRM, tasas, etc. Sigue siendo **contexto mediático**, no estadística oficial — pero encaja con la pregunta de decisión sobre el mercado laboral.
+
+### Paso 4.1. Cargar los documentos de la Lección 5
 
 ```python
-news_path = STAGING_DIR / "news_labor.parquet"
+news_path = STAGING_DIR / "news_labor.jsonl"
+mongo = mongomock.MongoClient()
+news_col = mongo["udenar"]["news_raw"]
 
 if news_path.is_file():
-    news = pl.read_parquet(news_path)
+    with news_path.open(encoding="utf-8") as f:
+        docs = [json.loads(ln) for ln in f if ln.strip()]
+    if docs:
+        news_col.insert_many(docs)
 
-    # Necesitamos una marca de tiempo. Intentamos parsear 'published';
-    # si no se puede, fabricamos una (un minuto entre titulares) para ilustrar el flujo.
-    ts = None
-    if "published" in news.columns:
-        ts = news.get_column("published").str.to_datetime(strict=False)
-    if ts is None or ts.null_count() == news.height:
-        base = datetime(2026, 6, 20, 7, 0, tzinfo=timezone.utc)
-        ts = pl.Series([base + timedelta(minutes=i) for i in range(news.height)])
+news_stored = news_col.count_documents({})
+print("Documentos cargados desde L5:", news_stored)
+```
 
-    news = news.with_columns(ts.alias("ts")).drop_nulls("ts").sort("ts")
+### Paso 4.2. Monitor RSS con actualización automática
 
-    # Ventana móvil: número de titulares por hora (tasa del stream)
-    serie = (
-        news.group_by_dynamic("ts", every="1h")
-        .agg(pl.len().alias("titulares"))
-        .sort("ts")
-    )
+Usamos dos grupos de palabras clave: **empleo** (como en L5) y **macro/economía** (más titulares en los feeds de economía). Revisamos más entradas por feed para no quedarnos en cero.
 
-    fig_stream = px.line(
-        serie.to_pandas(),
-        x="ts",
-        y="titulares",
-        markers=True,
-        labels={"ts": "Tiempo", "titulares": "Titulares por hora"},
-        title="Discurso mediático — tasa de titulares (NO es dato oficial DANE/GEIH)",
-    )
-    fig_stream.write_html(str(OUTPUTS_DIR / "l6_stream_rate.html"))
-    fig_stream.show()
-    print("Ventanas de tiempo graficadas:", serie.height)
-else:
-    fig_stream = None
-    print("Sin news_labor.parquet — esta capa es opcional; continúe con la Parte 5.")
+El monitor se **actualiza solo** cada `POLL_SECONDS` segundos (hilo en segundo plano). No hace falta pulsar un botón; interrumpan el runtime (■) cuando quieran detenerlo.
+
+```python
+RSS_FEEDS = [
+    "https://www.portafolio.co/rss/economia.xml",
+    "https://www.eltiempo.com/rss/economia.xml",
+]
+# Empleo directo + contexto macro (feeds de economía)
+KEYWORDS_LABOR = ("empleo", "desempleo", "mercado laboral", "trabajo", "geih", "salario", "nómina", "nomina")
+KEYWORDS_MACRO = (
+    "inflación", "inflacion", "trm", "dólar", "dolar", "tasas", "banrep", "banco de la república",
+    "crecimiento", "pib", "colcap", "finanzas", "economía", "economia", "ipc", "remesas",
+)
+KEYWORDS = KEYWORDS_LABOR + KEYWORDS_MACRO
+ENTRIES_PER_FEED = 20  # más entradas por feed que en L5
+POLL_SECONDS = 30      # actualización automática cada 30 s
+MAX_TICKS = 12         # tope ≈ 6 min; evita un bucle infinito en Colab
+
+
+def keyword_hit(text: str) -> bool:
+    t = (text or "").lower()
+    return any(k in t for k in KEYWORDS)
+
+
+def poll_rss_events(max_items: int = 15) -> list[dict]:
+    events: list[dict] = []
+    for url in RSS_FEEDS:
+        feed = feedparser.parse(url)
+        for entry in feed.entries[:ENTRIES_PER_FEED]:
+            title = entry.get("title", "")
+            summary = entry.get("summary", "")
+            if keyword_hit(title + " " + summary):
+                events.append(
+                    {
+                        "id": str(uuid.uuid4()),
+                        "url": entry.get("link", ""),
+                        "title": title,
+                        "feed": url,
+                        "geih": False,
+                    }
+                )
+            if len(events) >= max_items:
+                return events
+    return events
+
+
+monitor_out = widgets.Output()
+header = widgets.HTML(value="Monitor de discurso mediático — NO es dato oficial DANE/GEIH")
+
+
+def refresh_monitor(tick: int | None = None) -> None:
+    with monitor_out:
+        clear_output(wait=True)
+        live = poll_rss_events(max_items=15)
+        stamp = time.strftime("%H:%M:%S")
+        label = f"actualización {tick}" if tick is not None else "inicio"
+        print(f"[{stamp}] Titulares recientes ({label}) — {len(live)} coincidencias:")
+        if live:
+            for e in live:
+                print(" -", e["title"], f"({e.get('feed', '')})")
+        else:
+            print(" (ninguno en esta consulta — pruebe de nuevo en unos segundos)")
+        print(f"En almacén (L5): {news_stored} documentos")
+
+
+def auto_poll_loop() -> None:
+    for tick in range(1, MAX_TICKS + 1):
+        refresh_monitor(tick=tick)
+        if tick < MAX_TICKS:
+            time.sleep(POLL_SECONDS)
+
+
+threading.Thread(target=auto_poll_loop, daemon=True).start()
+refresh_monitor()
+
+display(widgets.VBox([header, monitor_out]))
+print(f"Monitor en marcha: actualiza cada {POLL_SECONDS} s (máx. {MAX_TICKS} veces). Detenga con ■ si hace falta.")
 ```
 
 **Comprobar:**
 
 ```python
-# Si había noticias, el gráfico debe existir
-if news_path.is_file():
-    assert (OUTPUTS_DIR / "l6_stream_rate.html").is_file()
-print("Parte 4, monitor del stream: OK")
+print("Parte 4, monitor en vivo: OK")
 ```
 
 ---
 
 ## Parte 5. Un tablero que reúne las capas de evidencia
 
-Tener un buen modelo no basta: hay que **presentar la evidencia junta y bien rotulada**. Un **tablero** (*dashboard*) combina varias vistas en una sola figura: la **capa oficial** (el modelo sobre GEIH) y, si existe, la **capa de contexto** (la tasa del stream). Cada panel dice de dónde viene su dato — eso es gobernanza aplicada a la comunicación.
-
-Aquí construimos un tablero con **`make_subplots`**: un panel por capa.
+Tener un buen modelo no basta: hay que **presentar la evidencia junta y bien rotulada**. Un **tablero** (*dashboard*) combina la **capa oficial** (modelo GEIH) con un **resumen del contexto** (titulares almacenados). Cada panel dice de dónde viene su dato.
 
 ```python
-# Un panel si no hay stream; dos si tenemos el monitor de noticias
 titulos = ["Oficial GEIH: observado vs. predicho (validación)"]
-if fig_stream is not None:
-    titulos.append("Contexto: tasa de titulares (no oficial)")
+if news_stored > 0:
+    titulos.append("Contexto: titulares almacenados (no oficial)")
 
 dash = make_subplots(rows=len(titulos), cols=1, subplot_titles=titulos)
 
-# Panel 1 — capa oficial: dispersión observado vs. predicho del modelo lineal
 dash.add_trace(
     go.Scatter(x=y_val, y=y_val_lin, mode="markers", name="lineal"),
     row=1,
     col=1,
 )
 
-# Panel 2 — capa de contexto: reusamos las trazas del gráfico del stream
-if fig_stream is not None:
-    for traza in fig_stream.data:
-        dash.add_trace(traza, row=2, col=1)
+if news_stored > 0:
+    dash.add_trace(
+        go.Bar(x=["Titulares en almacén (L5)"], y=[news_stored], name="noticias"),
+        row=2,
+        col=1,
+    )
 
 dash.update_layout(
     height=350 * len(titulos),
     showlegend=False,
-    title_text="Tablero de evidencia — capa oficial (GEIH) y capa de contexto (noticias)",
+    title_text="Tablero de evidencia — capa oficial (GEIH) y contexto mediático",
 )
 dash.write_html(str(OUTPUTS_DIR / "l6_dashboard.html"))
 dash.show()

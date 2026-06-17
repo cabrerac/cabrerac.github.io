@@ -12,10 +12,9 @@ institution: University of Cambridge
 layout: lecture
 lecture_code: l6-analytics
 lecture_date: 20/06/2026
-notebook_description: "Pr\xE1ctica individual de la Lecci\xF3n 6 (run-only). Modelamos\
-  \ sobre agregados GEIH (lineal y un MLP peque\xF1o), hacemos gr\xE1ficos ligados\
-  \ a una pregunta de decisi\xF3n y discutimos la gobernanza al presentar evidencia.\
-  \ C\xF3digo evaluable en week-3-group Parte B."
+notebook_description: "Pr\xE1ctica individual de la Lecci\xF3n 6. Modelamos sobre\
+  \ agregados GEIH (lineal y un MLP peque\xF1o), hacemos gr\xE1ficos ligados a una\
+  \ pregunta de decisi\xF3n y discutimos la gobernanza al presentar evidencia."
 notebook_language: es
 notebook_title: "Anal\xEDtica y visualizaci\xF3n"
 permalink: /teaching/26-udenar-big-data/l6-analytics/

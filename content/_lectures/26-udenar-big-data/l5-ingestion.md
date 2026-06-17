@@ -13,10 +13,9 @@ institution: University of Cambridge
 layout: lecture
 lecture_code: l5-ingestion
 lecture_date: 20/06/2026
-notebook_description: "Pr\xE1ctica individual de la Lecci\xF3n 5 (run-only). Pasamos\
-  \ de la ingesta batch sobre el lakehouse GEIH de la semana 2 a una fuente en streaming\
-  \ (noticias) con Kafka. Registramos auditor\xEDa y contrato de esquema. El c\xF3\
-  digo evaluable est\xE1 en week-3-group Parte A."
+notebook_description: "Pr\xE1ctica individual de la Lecci\xF3n 5. Pasamos de la ingesta\
+  \ batch sobre el lakehouse GEIH de la semana 2 a una fuente en streaming con Kafka.\
+  \ Registramos auditor\xEDa y contrato de esquema."
 notebook_language: es
 notebook_title: Ingesta y flujos de trabajo
 permalink: /teaching/26-udenar-big-data/l5-ingestion/

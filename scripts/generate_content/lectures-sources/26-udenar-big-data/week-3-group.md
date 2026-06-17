@@ -48,7 +48,7 @@ Este es el cuaderno **grupal** de la semana 3. Tiene dos ejercicios sobre **su**
 | Qué necesitan | Dónde está explicado |
 |---------------|----------------------|
 | Montar Drive, rutas, `append_audit`, capa curated | `l5-ingestion`, Partes 1 y 3 |
-| Flujo Prefect ETL (`@task` / `@flow`) | `l5-ingestion`, Parte 4 |
+| Flujo Prefect ETL de **un año** (`batch_flow_year`) | `l5-ingestion`, Parte 4 |
 | Split train/val/prueba, modelo lineal / MLP, métricas | `l6-analytics`, Partes 2 y 3 |
 | Gráficos y tablero (`make_subplots`) | `l6-analytics`, Partes 2, 4 y 5 |
 
@@ -118,7 +118,7 @@ print("Particiones encontradas:", len(partitions))
 
 ## Paso 1.2 — Curated de todos los años
 
-A diferencia del cuaderno individual (que usó **una** partición), aquí agregan **todas**: recorran las particiones de 2022–2025, calculen el agregado por departamento y mes, y **únanlo** en una sola tabla → `curated/geih_dept_month.parquet`. Con `scan_parquet` y una lista de rutas, Polars lee todo de una vez. **Registren la operación** en `audit.jsonl` con `append_audit`.
+En `l5-ingestion`, la Parte 3 hace el ETL **a mano** para **un mes**, la Parte 4 lo **orquesta con Prefect** para **un año** (p. ej. 2022). Aquí **extienden** ese patrón: recorran **todas** las particiones de 2022–2025, calculen el agregado por departamento y mes, y **únanlo** en una sola tabla → `curated/geih_dept_month.parquet`. Con `scan_parquet` y una lista de rutas, Polars lee todo de una vez. **Registren la operación** en `audit.jsonl` con `append_audit`.
 
 ```python
 # SU CÓDIGO — agregar TODAS las particiones (2022–2025) en un curated + append_audit
@@ -158,9 +158,9 @@ print("Paso 1.3, contrato de esquema: OK")
 
 ---
 
-## Paso 1.4 — Orquestación con Prefect (ETL real)
+## Paso 1.4 — Orquestación con Prefect (ETL de todo el lakehouse)
 
-Envuelvan el ETL en un **flujo Prefect** que **haga el trabajo**, no solo valide: un `@task` que **extrae** (lee particiones), otro que **agrega y escribe** el curated, y otro que **valida**. Encadénenlos en un `@flow`. Si Prefect falla en Colab, documenten en markdown y dejen los pasos como funciones encadenadas.
+Partan del flujo **`batch_flow_year`** de `l5-ingestion` (Parte 4) y **extiéndanlo** para que reciba **todas** las particiones 2022–2025 (no solo un año). Misma estructura: `@task` extract → `@task` aggregate+write → `@task` validate, unidos en un `@flow`. Si Prefect falla en Colab, documenten en markdown y dejen los pasos como funciones encadenadas.
 
 ```python
 # SU CÓDIGO — @task extract / @task aggregate+write / @task validate, unidos en un @flow

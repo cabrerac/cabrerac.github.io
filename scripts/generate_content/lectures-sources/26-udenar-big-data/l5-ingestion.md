@@ -19,7 +19,7 @@ visible: false
 group_notebook: week-3-group
 notebook_language: es
 notebook_title: Ingesta y flujos de trabajo
-notebook_description: Práctica individual de la Lección 5 (run-only). Pasamos de la ingesta batch sobre el lakehouse GEIH de la semana 2 a una fuente en streaming (noticias) con Kafka. Registramos auditoría y contrato de esquema. El código evaluable está en week-3-group Parte A.
+notebook_description: Práctica individual de la Lección 5. Pasamos de la ingesta batch sobre el lakehouse GEIH de la semana 2 a una fuente en streaming con Kafka. Registramos auditoría y contrato de esquema.
 ---
 
 <!-- SLIDES: -->
@@ -188,6 +188,14 @@ Kafka hace esto mismo, pero **distribuido y persistente**: el productor y el con
 
 Los eventos del stream son **semi-estructurados** (JSON con campos que pueden variar). Para almacenarlos no usamos tablas rígidas (como Parquet o SQL), sino una **base de datos documental**: guarda **documentos** tipo JSON, sin esquema fijo. En producción la herramienta típica es **MongoDB**. Aquí usamos **`mongomock`**, que **emula la misma API de MongoDB en memoria**, sin instalar servidor.
 
+Para usar **`mongomock`** primero debemos instalar la librería.
+
+```python
+%pip install -q mongomock
+```
+
+Después podemos importarlo y utilizarlo como cualquier otra dependencia.
+
 ```python
 import mongomock
 
@@ -218,14 +226,14 @@ La misma API (`insert_many`, `find`, `count_documents`) funciona contra un Mongo
 
 ## Instrucciones
 
-**De dónde venimos.** En las lecciones 3 y 4 **guardamos** GEIH en un lakehouse (Parquet particionado) y lo **consultamos** con varios motores. Ya tenemos datos confiables, pero **estáticos**: una foto mensual de una encuesta oficial.
+En las lecciones 3 y 4 **guardamos** GEIH en un lakehouse (Parquet particionado) y lo **consultamos** con varios motores. Ya tenemos datos confiables, pero **estáticos**: una foto mensual de una encuesta oficial.
 
-**Qué añade esta lección.** La **ingesta** es la capa que *trae* datos al lakehouse y los deja listos para analizar. Veremos dos modos:
+La **ingesta** es la capa que *trae* datos al lakehouse y los deja listos para analizar. Veremos dos modos:
 
-- **Batch** (por lotes): procesamos un conjunto **acotado** que ya existe — las particiones GEIH. Lo hacemos de forma **gobernada**: dejamos bitácora y contrato de esquema.
+- **Batch** (por lotes): procesamos un conjunto **acotado** que ya existe, las particiones GEIH. Lo hacemos de forma **gobernada**: dejamos bitácora y contrato de esquema.
 - **Streaming** (flujo): leemos datos que **llegan poco a poco y no terminan** en este caso usando **Kafka**. Por ejemplo, titulares de noticias que se producen todo el tiempo.
 
-**Por qué cambiamos de fuente.** GEIH es fuerte en **volumen** y **veracidad** (es oficial), pero **lenta** (mensual) y **estructurada**. Para ver las otras *V* del big data (i.e., **velocidad** y **variedad**) necesitamos una fuente distinta. Las noticias llegan a toda hora (velocidad) y son texto libre (variedad), pero **no son estadística oficial** (veracidad baja). Por eso al final del cuaderno trabajamos **sin GEIH**: no para reemplazarla, sino para **experimentar** una *V* que la encuesta no permite.
+GEIH es fuerte en **volumen** y **veracidad** (es oficial), pero **lenta** (mensual) y **estructurada**. Para experimentar las otras *V* del big data (i.e., **velocidad** y **variedad**) necesitamos una fuente distinta. Las noticias llegan a toda hora (velocidad) y son texto libre (variedad), pero **no son estadística oficial** (veracidad baja). Al final del cuaderno trabajamos **sin GEIH** no para reemplazarla, sino para **experimentar** una *V* que la encuesta no permite.
 
 **Prerrequisito.** Haber ejecutado **`week-2-group`** y tener `data/processed/geih-spine/` con particiones 2022–2025 en Google Drive.
 
@@ -246,7 +254,7 @@ Las herramientas de ingesta requiren gran cantidad de computo a nivel industrial
 | **1** | Montar Drive, rutas e instalar librerías |
 | **2** | Puente: leer el lakehouse de la semana 2 |
 | **3** | Ingesta **batch gobernada**: capa `curated/` + bitácora + contrato |
-| **4** | Orquestar el batch (ETL real) con **Prefect** |
+| **4** | Orquestar el ETL de **un año completo** con **Prefect** |
 | **5** | Levantar un **broker Kafka local** y un **productor** de noticias |
 | **6** | **Consumidor Kafka** → deduplicar → guardar en **MongoDB** (documental) |
 | **7** | **Velocidad a escala**: reproducir muchos eventos |
@@ -296,6 +304,7 @@ MANIFEST_PATH = WORK_ROOT / "manifest.json"                      # metadatos (de
 
 # Nombre del tópico de noticias. En el cuaderno grupal cada grupo usa su propio id.
 TOPIC_NEWS = "udenar.news.raw"
+TOPIC_REPLAY = "udenar.news.replay"  # Parte 7: solo eventos sintéticos de velocidad
 
 # Creamos las carpetas de salida si no existen
 for d in (CURATED_DIR, STAGING_DIR):
@@ -314,7 +323,7 @@ Instalamos las librerías que **no** vienen en Colab. Cada una cubre una parte d
 - **Polars / PyArrow:** leen Parquet y agregan, como en las lecciones 3 y 4.
 
 ```python
-%pip install -q polars pyarrow prefect kafka-python feedparser mongomock requests
+%pip install -q polars pyarrow "prefect>=2.20,<3" kafka-python feedparser mongomock requests
 ```
 
 Importamos todas las librerías que necesitamos. El cliente de Kafka (`KafkaProducer`/`KafkaConsumer`) lo usaremos contra el broker local que levantamos en la Parte 5.
@@ -416,18 +425,18 @@ Calculamos un agregado por **departamento y mes**: cuántos ocupados hay (`conte
 ```python
 sample_part = partitions[0]  # una partición = un mes de ejemplo
 
-# scan_parquet NO lee aún: define un plan de consulta perezoso
+# scan_parquet no lee aún: define un plan de consulta perezoso
 lf = pl.scan_parquet(str(sample_part))
 
 agg = (
     lf
-    .filter(pl.col("actividad") == ACTIVIDAD_OCUPADO)  # quedarnos con ocupados
+    .filter(pl.col("actividad") == ACTIVIDAD_OCUPADO)  # filtrar los ocupados
     .group_by(["dpto", "anio", "mes"])                 # una fila por dpto/mes
-    .agg(
+    .agg(                                              # agregaciones
         pl.len().alias("conteo"),                      # número de ocupados
         pl.col("factor_expansion").sum().alias("ponderado"),  # estimación poblacional
     )
-    .collect()                                          # AQUÍ se ejecuta y se lee el Parquet
+    .collect()                                          # Se ejecuta y se lee el Parquet
 )
 
 # Guardamos el agregado en la capa curated
@@ -483,37 +492,51 @@ print("Parte 3, ingesta batch gobernada: OK")
 
 ---
 
-## Parte 4. Orquestar el batch (ETL real) con Prefect
+## Parte 4. Orquestar el ETL de un año con Prefect
 
-En la Parte 3 hicimos los pasos a mano. Un pipeline real tiene **varios pasos** que deben correr en orden y, si algo falla, queremos saber **dónde**. Un **orquestador** como **Prefect** nos deja declarar pasos (`@task`) y encadenarlos en un **flujo** (`@flow`). Prefect registra cada ejecución, reintenta si pedimos, y muestra qué paso falló.
+En la Parte 3 hicimos el ETL **a mano** para **un mes**. Aquí subimos de escala: el mismo patrón, pero **orquestado** para **todas las particiones de un año** (p. ej. los 12 meses de 2022).
 
-Aquí el flujo **ejecuta el ETL completo**, no solo valida: cada tarea hace una operación real. Es el patrón clásico **Extract → Transform → Load → Validate**:
+Un pipeline real tiene **varios pasos** que deben correr en orden y, si algo falla, queremos saber **dónde**. Un **orquestador** como **Prefect** nos deja declarar pasos (`@task`) y encadenarlos en un **flujo** (`@flow`). Prefect registra cada ejecución, reintenta si pedimos, y muestra qué paso falló.
 
-- **`task_extract`** lee una partición (Extract),
+El flujo **ejecuta el ETL completo** sobre un año: cada tarea hace una operación real. Es el patrón **Extract → Transform → Load → Validate**:
+
+- **`task_extract`** abre todas las particiones del año (Extract),
 - **`task_aggregate`** agrega y escribe la capa curated (Transform + Load),
 - **`task_validate`** comprueba el resultado (Validate).
+
+Primero elegimos el año y listamos sus particiones:
+
+```python
+TARGET_YEAR = 2022  # un año completo; en el grupo extienden a 2022–2025
+year_partitions = sorted(PROCESSED_DIR.glob(f"anio={TARGET_YEAR}/mes=*/part-*.parquet"))
+print(f"Año {TARGET_YEAR}: {len(year_partitions)} particiones mensuales")
+assert len(year_partitions) >= 1, f"No hay particiones para anio={TARGET_YEAR}"
+```
+
+Ahora definimos las tareas y el flujo del orquestador de la ETL.
 
 ```python
 from prefect import flow, task
 
 
 @task
-def task_extract(partition_path: str) -> pl.DataFrame:
-    """Extract: lee una partición del lakehouse (un mes)."""
-    return pl.read_parquet(partition_path)
+def task_extract(paths: list[str]) -> pl.LazyFrame:
+    """Extract: abre todas las particiones de un año (plan perezoso)."""
+    return pl.scan_parquet(paths)
 
 
 @task
-def task_aggregate(df: pl.DataFrame, salida: str) -> str:
+def task_aggregate(lf: pl.LazyFrame, salida: str) -> str:
     """Transform + Load: agrega ocupados por dpto/mes y escribe la capa curated."""
     agg = (
-        df
+        lf
         .filter(pl.col("actividad") == ACTIVIDAD_OCUPADO)
         .group_by(["dpto", "anio", "mes"])
         .agg(
             pl.len().alias("conteo"),
             pl.col("factor_expansion").sum().alias("ponderado"),
         )
+        .collect()
     )
     agg.write_parquet(salida)
     return salida
@@ -527,42 +550,47 @@ def task_validate(path_str: str) -> int:
     return df.height
 
 
-@flow(name="geih_batch_ingest")
-def batch_flow(partition_path: str, salida: str) -> int:
-    """Flujo ETL: extrae → agrega/escribe → valida, y deja rastro en la bitácora."""
-    df = task_extract(partition_path)      # Prefect ejecuta el paso 1
-    ruta = task_aggregate(df, salida)      # … luego el 2 (usa el resultado del 1)
-    n = task_validate(ruta)                # … y por último el 3
-    append_audit({"stage": "prefect_flow", "rows": n, "path": ruta})
+@flow(name="geih_batch_ingest_year")
+def batch_flow_year(paths: list[str], salida: str) -> int:
+    """Flujo ETL: extrae un año → agrega/escribe → valida, y deja rastro en la bitácora."""
+    lf = task_extract(paths)
+    ruta = task_aggregate(lf, salida)
+    n = task_validate(ruta)
+    append_audit({"stage": "prefect_flow", "year": TARGET_YEAR, "rows": n, "path": ruta})
     return n
-
-
-flow_out = CURATED_DIR / "geih_dept_month_flow.parquet"
-rows = batch_flow(str(sample_part), str(flow_out))
-print("El flujo Prefect construyó y validó filas:", rows)
 ```
 
-A diferencia de la Parte 3, aquí **el orquestador hace el trabajo**: si mañana añadimos un paso (p. ej. traer la TRM), lo agregamos como otra `@task` en el flujo. En producción este mismo patrón se ejecuta **programado** (p. ej. cada noche).
+Una vez definidas las tareas y el flujo, podemos ejecutar el flujo Prefect.
+
+```python
+flow_out = CURATED_DIR / f"geih_dept_month_{TARGET_YEAR}.parquet"
+rows = batch_flow_year([str(p) for p in year_partitions], str(flow_out))
+print(f"El flujo Prefect construyó {rows} filas para el año {TARGET_YEAR}")
+```
+
+A diferencia de la Parte 3 (un mes, a mano), aquí **el orquestador recorre todo el año**. En el cuaderno grupal ustedes **extienden** el mismo flujo a **todos los años** del lakehouse (2022–2025). En producción este patrón se ejecuta **programado** (p. ej. cada noche).
 
 **Comprobar:**
 
 ```python
 assert rows > 0, "El flujo debería haber construido al menos una fila"
 assert flow_out.is_file(), "El flujo debería haber escrito el curated"
-print("Parte 4, orquestación con Prefect: OK")
+flow_df = pl.read_parquet(flow_out)
+assert flow_df["anio"].unique().to_list() == [TARGET_YEAR]
+print("Parte 4, orquestación de un año con Prefect: OK — meses:", flow_df["mes"].n_unique())
 ```
 
 ---
 
-## Parte 5. Levantar un broker Kafka local y un productor de noticias
+## Parte 5. Levantar un broker Kafka
 
-Ahora pasamos al **streaming**: una fuente que llega **a lo largo del tiempo**. Tomamos **titulares de noticias** sobre empleo. El patrón Kafka tiene dos lados (i.e., productor y consumidor). En esta parte levantamos un **broker local** y hacemos el **productor** (quien escribe al tópico).
+Ahora pasamos al **streaming** sobre datos que llegan **a lo largo del tiempo**. En este caso utilizamos **titulares de noticias** sobre empleo como el flujo de información. El patrón Kafka tiene dos lados (i.e., productor y consumidor). En esta parte levantamos un **broker local** y hacemos el **productor** (quien escribe al tópico).
 
 Recuerden del Repaso: un **tópico** es una lista a la que solo se agrega. El productor publica mensajes. El consumidor (Parte 6) los lee.
 
-### Paso 5.0. Levantar un broker Kafka en este runtime
+### Paso 5.0. Levantar un broker Kafka
 
-En la industria Kafka corre en un **clúster** aparte. Para aprender, levantamos **un broker de un solo nodo dentro de este mismo runtime de Colab**, usando el modo **KRaft** (sin Zookeeper). Cada estudiante arranca el suyo; es **efímero** (desaparece al cerrar la sesión). Estos pasos descargan Kafka, formatean su almacenamiento y arrancan el servidor **en segundo plano**.
+En la industria Kafka corre en un **clúster** aparte (i.e., un grupo de servidores distribuidos). Para aprender, levantamos **un broker de un solo nodo dentro de este mismo runtime de Colab**, usando el modo **KRaft**. Cada cuaderno instancia su propio broker **efímero** (desaparece al cerrar la sesión). Estos pasos descargan Kafka, formatean su almacenamiento y arrancan el servidor **en segundo plano**.
 
 ```python
 import socket
@@ -570,13 +598,13 @@ import subprocess
 import tarfile
 import urllib.request
 
-# Kafka necesita Java; en Colab suele estar, pero lo aseguramos en silencio
+# Kafka necesita Java. En Colab suele estar, pero verificamos su instalación
 subprocess.run("apt-get -qq install -y openjdk-11-jdk-headless", shell=True, check=False)
 
 KAFKA_PKG = "kafka_2.13-3.7.1"
 KAFKA_HOME = Path(KAFKA_PKG).resolve()
 
-# 1) Descargar y descomprimir Kafka (solo si no está)
+# 1) Descargar y descomprimir Kafka (si no existe)
 if not KAFKA_HOME.is_dir():
     url = f"https://archive.apache.org/dist/kafka/3.7.1/{KAFKA_PKG}.tgz"
     urllib.request.urlretrieve(url, "kafka.tgz")
@@ -768,19 +796,20 @@ for doc in news_col.find({}, {"_id": 0, "title": 1, "feed": 1}).limit(5):
     print(doc)
 ```
 
-### Paso 6.3. Exportar una vista tabular para la Lección 6
+### Paso 6.3. Exportar los documentos para la Lección 6
 
-MongoDB es ideal para **aterrizar** documentos del stream, pero la analítica (Lección 6) prefiere una tabla. Exportamos la colección a `staging/news_labor.parquet` como **artefacto** para el siguiente cuaderno.
+MongoDB es ideal para **aterrizar** documentos del stream, pero el cuaderno de la Lección 6 corre en **otra sesión**. Exportamos la colección a `staging/news_labor.jsonl` (un JSON por línea): el mismo formato que la bitácora y los mensajes de Kafka. MongoDB almacena documentos (i.e., diccionarios) en collecciones (i.e., listas), los cuales se transforman facilmente a el formato semiestructurado de los archivos `JSON`.
 
 ```python
-news_path = STAGING_DIR / "news_labor.parquet"
+news_path = STAGING_DIR / "news_labor.jsonl"
 docs = list(news_col.find({}, {"_id": 0}))
 
 if docs:
-    news_df = pl.DataFrame(docs)
-    news_df.write_parquet(news_path)
-    append_audit({"stage": "stream_export", "path": str(news_path), "rows": news_df.height})
-    print("Exportado a:", news_path)
+    with news_path.open("w", encoding="utf-8") as f:
+        for doc in docs:
+            f.write(json.dumps(doc, ensure_ascii=False) + "\n")
+    append_audit({"stage": "stream_export", "path": str(news_path), "docs": len(docs)})
+    print("Exportado a:", news_path, "| documentos:", len(docs))
 else:
     print("Sin noticias en esta corrida — no se exporta (la capa es opcional en L6).")
 ```
@@ -801,7 +830,7 @@ print("Parte 6, consumidor y MongoDB: OK")
 
 Las arquitecturas de streaming se destacan cuando los datos llegan **rápido y en gran cantidad**. Para *experimentar* esa **velocidad** sin depender del ritmo real de las noticias, **reproducimos** muchos eventos sintéticos medimos cuánto tarda.
 
-Estos datos son **sintétcos** para **experimentar la V de velocidad**.
+Estos datos son **sintéticos** para **experimentar la V de velocidad**. Cerramos el ciclo **productor → consumidor → MongoDB** como en las Partes 5 y 6.
 
 ### Paso 7.1. Preparar el archivo de reproducción
 
@@ -831,39 +860,83 @@ replay_events = [json.loads(ln) for ln in REPLAY_PATH.read_text(encoding="utf-8"
 print("Eventos a reproducir:", len(replay_events))
 ```
 
-### Paso 7.2. Reproducir y medir la velocidad
+### Paso 7.2. Publicar la reproducción (productor)
 
-Enviamos todos los eventos al broker (si está activo) y, además, los **insertamos en MongoDB** para ver el almacén documental recibiendo a alto ritmo. Medimos cuánto tarda.
+Solo el **productor** envía los eventos al tópico lo más rápido posible. Medimos cuánto tarda el envío.
 
 ```python
 t0 = time.perf_counter()
 
 if KAFKA_ENABLED:
-    # Enviar todos los eventos lo más rápido posible al tópico
     for ev in replay_events:
-        producer.send(TOPIC_NEWS, ev)
+        producer.send(TOPIC_REPLAY, ev)  # tópico aparte: no compite con RSS ni offsets viejos
     producer.flush()
 else:
-    # Sin broker, simulamos el tiempo de envío para poder medir
     time.sleep(0.05 * len(replay_events) / 50)
 
-# El almacén documental también ingiere el lote
-news_col.insert_many(replay_events)
+produce_elapsed = time.perf_counter() - t0
+produce_rate = len(replay_events) / produce_elapsed if produce_elapsed > 0 else 0
+print(f"Publicados {len(replay_events)} eventos en {produce_elapsed:.2f} s (~{produce_rate:,.0f} eventos/s)")
+```
 
-elapsed = time.perf_counter() - t0
+### Paso 7.3. Consumir la reproducción y ver los titulares
+
+Sin **consumidor**, los mensajes quedan en el tópico pero **no los vemos**. Publicamos la reproducción en un **tópico propio** (`TOPIC_REPLAY`) para no mezclarla con el RSS de las Partes 5–6 ni con *offsets* de ejecuciones anteriores. Cada corrida usa un **grupo de consumidor nuevo** (`uuid`) para leer desde el inicio.
+
+```python
+replay_rows: list[dict] = []
+
+if KAFKA_ENABLED:
+    # Grupo nuevo en cada corrida → siempre lee el tópico replay desde el principio
+    replay_consumer = KafkaConsumer(
+        TOPIC_REPLAY,
+        bootstrap_servers=KAFKA_BOOTSTRAP,
+        auto_offset_reset="earliest",
+        consumer_timeout_ms=12000,
+        value_deserializer=lambda m: json.loads(m.decode("utf-8")),
+        group_id=f"l5-replay-{uuid.uuid4().hex[:8]}",
+    )
+    for msg in replay_consumer:
+        ev = msg.value
+        url = ev.get("url", "")
+        if url and url not in seen_urls:
+            seen_urls.add(url)
+            replay_rows.append(ev)
+    replay_consumer.close()
+
+# Si Kafka no devolvió nada (re-ejecución rara), usamos el lote que acabamos de publicar
+if KAFKA_ENABLED and not replay_rows:
+    print("Aviso: el consumidor no leyó mensajes — mostramos el lote publicado en 7.2.")
+    replay_rows = list(replay_events)
+elif not KAFKA_ENABLED:
+    replay_rows = list(replay_events)
+
+if replay_rows:
+    news_col.insert_many(replay_rows)
+    with news_path.open("a", encoding="utf-8") as f:
+        for doc in replay_rows:
+            f.write(json.dumps(doc, ensure_ascii=False) + "\n")
 
 append_audit(
     {
         "stage": "replay_throughput",
-        "events": len(replay_events),
-        "seconds": round(elapsed, 3),
+        "topic": TOPIC_REPLAY,
+        "produced": len(replay_events),
+        "consumed": len(replay_rows),
+        "produce_seconds": round(produce_elapsed, 3),
         "geih": False,
     }
 )
 
-tasa = len(replay_events) / elapsed if elapsed > 0 else 0
-print(f"Reproducidos {len(replay_events)} eventos en {elapsed:.2f} s (~{tasa:,.0f} eventos/s)")
+print("Eventos de reproducción consumidos:", len(replay_rows))
 print("Documentos totales en MongoDB:", news_col.count_documents({}))
+print("\nMuestra de titulares reproducidos:")
+for ev in replay_rows[:5]:
+    print(" -", ev.get("title", "(sin título)"))
+if not replay_rows:
+    print(" (ninguno — muestre titulares RSS ya en Mongo:)")
+    for doc in news_col.find({}, {"_id": 0, "title": 1}).limit(5):
+        print(" -", doc.get("title", "(sin título)"))
 print("Capa NO oficial: esto mide velocidad, no empleo.")
 ```
 
@@ -871,7 +944,8 @@ print("Capa NO oficial: esto mide velocidad, no empleo.")
 
 ```python
 assert len(replay_events) >= 1
-print("Parte 7, reproducción de eventos: OK")
+assert len(replay_rows) >= 1, "Deberíamos ver al menos un titular de reproducción"
+print("Parte 7, reproducción productor + consumidor: OK")
 ```
 
 ---
@@ -882,8 +956,10 @@ Esta lección es **individual y conceptual**: aquí *ven* el camino completo de 
 
 Lo que practicaron aquí y reutilizan en el grupo:
 
-1. Capa **curated** + **bitácora** + **contrato de esquema** (Parte 3).
-2. Un **flujo Prefect** que extraiga, agregue y valide (Parte 4).
+1. Capa **curated** + **bitácora** + **contrato de esquema** para **un mes** (Parte 3).
+2. Un **flujo Prefect** que orquesta el ETL de **un año completo** (Parte 4).
+
+**Tarea grupal (`week-3-group`, Ejercicio 1):** extiendan el flujo de la Parte 4 para cubrir **todos los años** del lakehouse (2022–2025) en **un solo** `curated/geih_dept_month.parquet`.
 
 La mitad de streaming (Partes 5–7) es para **entender** la *velocidad* y la *variedad* que GEIH no ejercita; **no** va en el ZIP grupal.
 
