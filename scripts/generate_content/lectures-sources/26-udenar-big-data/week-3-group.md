@@ -34,13 +34,13 @@ Este es el cuaderno **grupal** de la semana 3. Tiene dos ejercicios sobre **su**
 
 **Sobre el streaming.** La parte de Kafka y noticias de la Lección 5 es **individual** (para entender *velocidad* y *variedad*); **no** va en este cuaderno grupal. Aquí el foco es el **camino batch GEIH**: de las particiones a una capa curada y de ahí a los modelos.
 
-**Entrega Moodle (martes 23 jun 2026, 23:59 Colombia):** un ZIP `week-3-group-<group_id>.zip` con el cuaderno ejecutado `week-3-group-<group_id>.ipynb` y `manifest.json` en la **raíz del ZIP**. **Sin** archivos Parquet ni CSV.
+**Entrega Moodle (martes 23 jun 2026, 23:59 Colombia):** un ZIP `week-3-group-<group_id>.zip` con **solo dos archivos** en la raíz: el cuaderno ejecutado `week-3-group-<group_id>.ipynb` y `manifest.json`. **Sin** Parquet, CSV ni copias de `audit.jsonl` / `schema_contract.json` en el ZIP — esos archivos viven en **Drive** junto al lakehouse; el **manifiesto** resume la bitácora y el contrato para que el instructor pueda calificar sin abrir Drive.
 
 **Mapa del cuaderno (dos ejercicios)**
 
 | Ejercicio | Tema | Entregable clave |
 |-----------|------|------------------|
-| **1** | Curated de todos los años (Lección 5) | `curated/`, `audit.jsonl`, `schema_contract.json`, flujo Prefect (ETL) |
+| **1** | Curated de todos los años (Lección 5) | En **Drive:** `curated/`, `audit.jsonl`, `schema_contract.json`, flujo Prefect; resumen en `manifest.json` |
 | **2** | Modelos y gráficos (Lección 6) | Modelo (lineal **o** red neuronal) con train/val/prueba, **2 gráficos** y un **tablero** |
 
 **De dónde copiar cada pieza** (ya las vieron explicadas):
@@ -179,7 +179,16 @@ print("Paso 1.4, orquestación ETL: OK — revisen audit.jsonl")
 
 ## Paso 1.5 — Actualizar el manifiesto (Ejercicio 1)
 
-Amplíen `manifest.json` con metadatos de la ingesta: años cubiertos, número de líneas en la bitácora y filas del curated.
+Amplíen `manifest.json` con metadatos de la ingesta. **Mínimo** (nombres sugeridos; pueden anidar bajo `ingesta` o `gobernanza`):
+
+| Campo | Contenido |
+|-------|-----------|
+| Años cubiertos | p. ej. `[2022, 2023, 2024, 2025]` |
+| `bitacora_lineas` | Número de líneas en `audit.jsonl` |
+| `bitacora_muestra` | Una línea de ejemplo (JSON) del último evento |
+| `contrato_columnas` | Lista de nombres de columna del `schema_contract.json` |
+| `curated_filas` | Filas del agregado curated |
+| Rutas en Drive | p. ej. `audit_path`, `schema_contract_path`, `curated_path` |
 
 ```python
 # SU CÓDIGO — leer manifest, actualizar y volver a guardar
@@ -190,8 +199,13 @@ Amplíen `manifest.json` con metadatos de la ingesta: años cubiertos, número d
 
 ```python
 data = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
-assert any(k in data for k in ("audit", "ingesta", "lakehouse", "curated"))
+flat = json.dumps(data, ensure_ascii=False).lower()
+assert "bitacora" in flat or "audit" in flat, "Falta resumen de la bitácora en manifest.json"
+assert "contrato" in flat or "schema" in flat, "Falta resumen del contrato en manifest.json"
+assert "curated" in flat or "curada" in flat or "ingesta" in flat
+assert AUDIT_PATH.is_file() and SCHEMA_PATH.is_file()
 print("Paso 1.5, manifiesto (Ejercicio 1): OK")
+print("Bitácora (líneas):", sum(1 for _ in AUDIT_PATH.open(encoding='utf-8')))
 ```
 
 ---
@@ -307,7 +321,7 @@ print("Paso 2.6, tablero: OK")
 
 ## Paso 2.7 — Manifiesto final
 
-Añadan a `manifest.json`: tipo de modelo elegido, métricas de prueba y rutas de los gráficos y del tablero.
+Añadan a `manifest.json`: tipo de modelo elegido, métricas de prueba y rutas de los gráficos y del tablero. **Conserven** los campos de gobernanza del Paso 1.5.
 
 ```python
 # SU CÓDIGO — actualizar el manifiesto
@@ -318,7 +332,10 @@ Añadan a `manifest.json`: tipo de modelo elegido, métricas de prueba y rutas d
 
 ```python
 data = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
-assert any(k in data for k in ("modelo", "analitica", "graficos", "tablero"))
+flat = json.dumps(data, ensure_ascii=False).lower()
+assert any(k in flat for k in ("modelo", "analitica", "graficos", "tablero", "metric"))
+assert "bitacora" in flat or "audit" in flat
+assert "contrato" in flat or "schema" in flat
 print("Paso 2.7, manifiesto final: OK")
 ```
 
@@ -340,14 +357,16 @@ print(contribution_log)
 
 ## Tarea grupal (Moodle)
 
-Suban el ZIP **`week-3-group-<group_id>.zip`** hasta el **martes 23 de junio de 2026, 23:59 (Colombia)**:
+Suban el ZIP **`week-3-group-<group_id>.zip`** hasta el **martes 23 de junio de 2026, 23:59 (Colombia)**. **Solo dos archivos** en la raíz del ZIP:
 
 | Archivo | Descripción |
 |---------|-------------|
 | `week-3-group-<group_id>.ipynb` | Este cuaderno ejecutado (renómbrenlo al exportar) |
-| `manifest.json` | Metadatos de los Ejercicios 1 y 2 (en la raíz del ZIP) |
+| `manifest.json` | Metadatos de ingesta **y** analítica: resumen de bitácora y contrato (Ejercicio 1) + modelo y gráficos (Ejercicio 2). Descarguen la copia actualizada desde Drive. |
 
-**Reflexión individual:** `week-3-reflection-<student>.pdf` el **miércoles 24 de junio de 2026** *(plantilla cuando se publique)*.
+`audit.jsonl` y `schema_contract.json` quedan en **Drive** (no en el ZIP). El cuaderno debe mostrar en las celdas **Comprobar** que existen y que el manifiesto los resume.
+
+**Reflexión individual:** `week-3-reflection-<student>.pdf` el **miércoles 24 de junio de 2026** — plantilla en el [hub semana 3](/teaching/26-udenar-big-data/week-3-hub-es/).
 
 **Proyecto:** avancen en la sesión del **sábado 20 jun** (bloque de analítica y gobernanza de capas de evidencia).
 

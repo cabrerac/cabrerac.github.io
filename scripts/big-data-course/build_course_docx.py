@@ -40,6 +40,8 @@ REFLECTION_WEEK_1_ASSETS = ASSETS_DIR / "reflection-week-1-template.docx"
 REFLECTION_WEEK_1_WEEK1 = WEEK1_DIR / "reflection-week-1-template.docx"
 REFLECTION_WEEK_2_ASSETS = ASSETS_DIR / "reflection-week-2-template.docx"
 REFLECTION_WEEK_2_WEEK2 = WEEK2_DIR / "reflection-week-2-template.docx"
+REFLECTION_WEEK_3_ASSETS = ASSETS_DIR / "reflection-week-3-template.docx"
+REFLECTION_WEEK_3_WEEK3 = WEEK3_DIR / "reflection-week-3-template.docx"
 LEARNING_JOURNAL_WEEK_1 = WEEK1_DIR / "learning-journal-week-1.docx"
 LEARNING_JOURNAL_WEEK_2 = WEEK2_DIR / "learning-journal-week-2.docx"
 LEARNING_JOURNAL_WEEK_3 = WEEK3_DIR / "learning-journal-week-3.docx"
@@ -273,6 +275,60 @@ def build_reflection_week_2() -> Document:
         doc,
         "R5 Uso de IA e integridad",
         "¿Qué herramientas de IA utilizó en la semana 2? "
+        "¿Cómo influyó en su trabajo y qué aprendió sobre su práctica?",
+    )
+    section(
+        doc,
+        "R6 Retroalimentación sobre la semana",
+        "¿Qué mejoraría o qué funcionó bien en esta semana del curso? "
+        "No se califica, únicamente ayuda a ajustar el curso.",
+    )
+    return doc
+
+
+def build_reflection_week_3() -> Document:
+    doc = Document()
+    style_body(doc)
+    heading(doc, "Reflexión individual — Semana 3 (L5 + L6)", 0)
+    para(
+        doc,
+        "Entregable: week-3-reflection-<student>.pdf (exportar desde este Word). "
+        "Plazo: miércoles 24 de junio de 2026, 23:59 (Colombia). "
+        "Cubre Lección 5 (ingesta y flujos) y Lección 6 (analítica y visualización). Reemplace student por su nombre.",
+    )
+    para(doc, "Extensión orientativa del cuerpo (R1–R5): 700–1.000 palabras. R6: 100–200 palabras (sin nota).")
+    doc.add_paragraph()
+
+    section(
+        doc,
+        "Metadatos",
+        "Semana: 3 (L5 + L6) | Estudiante: … | Grupo: G… | Lecturas citadas: … | Conteo de palabras: ~… (R1–R5)",
+    )
+    section(
+        doc,
+        "R1 Proceso y metodología",
+        "¿Qué hizo en los cuadernos l5-ingestion y l6-analytics y en week-3-group (curated, Prefect, modelo, gráficos, tablero)?",
+    )
+    section(
+        doc,
+        "R2 Justificación técnica",
+        "Explique su flujo Prefect (extract → aggregate → validate) y los modelos lineal y MLP con train/validación/prueba. Incluya métricas (R², MAE) y trade-offs.",
+    )
+    section(
+        doc,
+        "R3 Enlace con el dominio y los datos",
+        "¿Cómo apoyan los agregados curated GEIH su pregunta de decisión? "
+        "¿Qué papel tiene (si aplica) el monitor de noticias frente a la capa oficial?",
+    )
+    section(
+        doc,
+        "R4 Ética y lecturas",
+        "Relacione Zaharia (escala/unificación) y Jarrahi (DCAI) con bitácora, contrato de esquema y rotulado de capas en el tablero.",
+    )
+    section(
+        doc,
+        "R5 Uso de IA e integridad",
+        "¿Qué herramientas de IA utilizó en la semana 3? "
         "¿Cómo influyó en su trabajo y qué aprendió sobre su práctica?",
     )
     section(
@@ -684,6 +740,14 @@ def write_reflection_week_2() -> tuple[Path, Path]:
     )
 
 
+def write_reflection_week_3() -> tuple[Path, Path]:
+    return save_mirror(
+        build_reflection_week_3(),
+        REFLECTION_WEEK_3_ASSETS,
+        REFLECTION_WEEK_3_WEEK3,
+    )
+
+
 def write_learning_journal_week_1() -> Path:
     return save_doc(build_learning_journal_week_1(), LEARNING_JOURNAL_WEEK_1)
 
@@ -699,6 +763,7 @@ DOCUMENT_WRITERS: dict[str, Callable[[], list[Path]]] = {
     "data_architecture": lambda: list(write_data_architecture()),
     "reflection_week_1": lambda: list(write_reflection_week_1()),
     "reflection_week_2": lambda: list(write_reflection_week_2()),
+    "reflection_week_3": lambda: list(write_reflection_week_3()),
     "learning_journal_week_1": lambda: [write_learning_journal_week_1()],
     "learning_journal_week_2": lambda: [write_learning_journal_week_2()],
     "learning_journal_week_3": lambda: [write_learning_journal_week_3()],

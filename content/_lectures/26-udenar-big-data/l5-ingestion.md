@@ -36,7 +36,7 @@ visible: false
 
 ### Week 3 links
 
-- [Week 3 hub](/teaching/26-udenar-big-data/week-3-hub-es/) *(when published)*
+- [Week 3 hub](/teaching/26-udenar-big-data/week-3-hub-es/)
 
 ### Resources
 

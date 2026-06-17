@@ -8,7 +8,7 @@
             <ul>
                 <li>Journey: <b>GEIH batch</b> → orchestration → <b>Kafka stream</b></li>
                 <li>Audit log + schema contract tie back to <b>L2 ethics</b></li>
-                <li>Group homework: <b>week-3-group</b> Part A — due Tue 23 Jun</li>
+                <li>Group homework: <b>week-3-group</b> Ejercicio 1 — due Tue 23 Jun</li>
             </ul>
         </div>
     </div>

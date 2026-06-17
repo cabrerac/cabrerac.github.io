@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-big-data
 title: Data ingestion and workflow
-description: Lecture 5 — batch to stream ingestion journey on the GEIH lakehouse plus Kafka news feeds. Audit logging and schema contracts hook back to L2 ethics framing.
+description: Lecture 5 introduces batch and stream ingestion approaches. Once our data is harmonised on a lakehouse, we need to create data artefacts and views to feed our analytic tasks. These artefacts can be created and processed offline following a schedule (i.e., batch) or in real-time (i.e., streaming depending on the data nature.
 session: 5
 start_time: 07:00 am
 end_time: 01:00 pm
@@ -68,7 +68,7 @@ notebook_description: Práctica individual de la Lección 5. Pasamos de la inges
 
 ### Week 3 links
 
-- [Week 3 hub](/teaching/26-udenar-big-data/week-3-hub-es/) *(when published)*
+- [Week 3 hub](/teaching/26-udenar-big-data/week-3-hub-es/)
 
 ### Resources
 

@@ -60,7 +60,7 @@ notebook_description: Práctica individual de la Lección 6. Modelamos sobre agr
 
 ### Week 3 links
 
-- [Week 3 hub](/teaching/26-udenar-big-data/week-3-hub-es/) *(when published)*
+- [Week 3 hub](/teaching/26-udenar-big-data/week-3-hub-es/)
 
 ### Resources
 

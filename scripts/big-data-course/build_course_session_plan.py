@@ -17,12 +17,15 @@ from session_plan_build import (
     WEEK1_SOURCE,
     WEEK2_ASSETS,
     WEEK2_SOURCE,
+    WEEK3_ASSETS,
+    WEEK3_SOURCE,
     write_session_plan,
 )
 
 PLAN_WRITERS: dict[str, Callable[[], list[Path]]] = {
     "week_1": lambda: list(write_session_plan(WEEK1_SOURCE, WEEK1_ASSETS)),
     "week_2": lambda: list(write_session_plan(WEEK2_SOURCE, WEEK2_ASSETS)),
+    "week_3": lambda: list(write_session_plan(WEEK3_SOURCE, WEEK3_ASSETS)),
 }
 
 
