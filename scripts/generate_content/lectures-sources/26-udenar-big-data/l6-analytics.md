@@ -80,22 +80,31 @@ notebook_description: Práctica individual de la Lección 6 (run-only). Modelamo
 
 En esta lección **modelamos y visualizamos** para responder una pregunta de decisión. Lo nuevo frente a las lecciones anteriores son tres ideas de aprendizaje automático con **`scikit-learn`**: separar datos, entrenar un modelo y medir qué tan bien predice. Trabajamos **siempre sobre agregados** (departamento × mes), **nunca** sobre microdatos de personas ni texto de noticias.
 
-### Separar datos en entrenamiento y prueba
+### Separar datos en entrenamiento, validación y prueba
 
-Para saber si un modelo **generaliza** (no solo memoriza), entrenamos con una parte de los datos y evaluamos con otra que el modelo **no vio**. **`train_test_split`** hace esa separación al azar.
+Para saber si un modelo **generaliza** (no solo memoriza) usamos **tres** subconjuntos:
+
+- **Entrenamiento** (*train*): el modelo **aprende** con estos datos.
+- **Validación** (*validation*): comparamos modelos y **elegimos** el mejor (sin tocar la prueba).
+- **Prueba** (*test*): la evaluación **final e imparcial**, con datos que nunca se usaron para decidir.
+
+`train_test_split` separa en dos; para obtener tres, lo aplicamos **dos veces**: primero apartamos la prueba, luego dividimos el resto en entrenamiento y validación.
 
 ```python
 from sklearn.model_selection import train_test_split
 
-# Datos de juguete: x va de 1 a 6, y es 10 veces x
-X = [[1], [2], [3], [4], [5], [6]]
-y = [10, 20, 30, 40, 50, 60]
+# Datos de juguete: x va de 1 a 8, y es 10 veces x
+X = [[1], [2], [3], [4], [5], [6], [7], [8]]
+y = [10, 20, 30, 40, 50, 60, 70, 80]
 
-# test_size=0.33 → un tercio para prueba; random_state fija el azar (reproducible)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
-print("Entrenamiento:", len(X_train), "| Prueba:", len(X_test))
-assert len(X_test) == 2
-print("train_test_split: OK")
+# 1) Apartamos el 25 % para la prueba final
+X_tmp, X_test, y_tmp, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+# 2) Del resto, apartamos un tercio para validación
+X_train, X_val, y_train, y_val = train_test_split(X_tmp, y_tmp, test_size=0.33, random_state=42)
+
+print("Entrenamiento:", len(X_train), "| Validación:", len(X_val), "| Prueba:", len(X_test))
+assert len(X_test) == 2 and len(X_val) >= 1
+print("train/val/test: OK")
 ```
 
 ### Entrenar una regresión lineal
@@ -134,19 +143,19 @@ print("Métricas: OK")
 
 ## Instrucciones
 
-**De dónde venimos.** En la Lección 5 trajimos datos: una capa **`curated/`** de agregados GEIH (oficial) y, opcionalmente, un `staging/news_labor.parquet` de noticias (no oficial). Ya tenemos evidencia; falta **convertirla en una respuesta para quien decide**.
+En la Lección 5 trajimos datos: una capa **`curated/`** de agregados GEIH (oficial) y, opcionalmente, un `staging/news_labor.parquet` de noticias (no oficial). Ya tenemos evidencia falta **convertirla en una respuesta para quien decide**.
 
 **Qué hacemos en esta lección.** Pasamos de *tener datos* a *informar una decisión*. La pregunta guía es:
 
 > *Como analista del mercado laboral, ¿qué evidencia le mostraría esta semana a quien toma decisiones?*
 
-Para responderla: (1) ajustamos un **modelo** sobre los agregados GEIH, (2) lo comparamos con un **modelo más flexible** (una red neuronal pequeña) para discutir un dilema real —**precisión vs. poder explicar**—, (3) hacemos **gráficos** ligados a la pregunta, y (4) reflexionamos sobre **cómo presentar evidencia con responsabilidad**: qué capa es oficial y cuál no, y a quién le mostramos qué.
+Para responderla: (1) ajustamos un **modelo** sobre los agregados GEIH, (2) lo comparamos con un **modelo más flexible** (una red neuronal pequeña) y analizamos un dilema real: **precisión vs. poder explicar**, (3) graficamos la **tasa del stream** como contexto, y (4) reunimos todo en un **tablero** rotulado por capa.
 
-**Una regla de gobernanza, desde el inicio.** Modelamos **solo sobre agregados** (departamento × mes), nunca sobre datos de personas individuales ni sobre el texto de las noticias. Las noticias, si aparecen, son un **monitor de discurso**, no una estadística.
+**Una regla de gobernanza, desde el inicio.** Modelamos **solo sobre agregados** (departamento × mes), nunca sobre datos de personas individuales ni sobre el texto de las noticias. Las noticias podrían ser un **monitor de discurso**, no una estadística.
 
-**Prerrequisito.** Haber ejecutado **`l5-ingestion`** y tener (o simular) `data/curated/` y, opcional, `staging/news_labor.parquet`.
+Antes de esta práctica se debe ejecutar **`l5-ingestion`** y tener (o simular) `data/curated/` y, opcional, `staging/news_labor.parquet`.
 
-**Las tres capas de evidencia** que aparecen en esta lección:
+Las tres capas de evidencia que aparecen en esta lección:
 
 | Capa | Fuente | Para qué la usamos |
 |------|--------|--------------------|
@@ -154,19 +163,17 @@ Para responderla: (1) ajustamos un **modelo** sobre los agregados GEIH, (2) lo c
 | **Macro (opcional)** | TRM / COLCAP en `staging/` | Gráfico de contexto |
 | **Medios (opcional)** | `news_labor.parquet` | Monitor — **no es dato oficial** |
 
-**Este cuaderno es individual y solo para ejecutar** (run-only). El código evaluable está en **`week-3-group` Parte B**.
-
 **Qué hace el cuaderno (en orden).**
 
 | Parte | Tema |
 |-------|------|
 | **1** | Montar Drive, rutas a `curated/` e instalar librerías |
 | **2** | Modelo **lineal** sobre agregados + gráfico (capa oficial) |
-| **3** | **Red neuronal pequeña** sobre la misma tabla — precisión vs. explicabilidad |
-| **4** | **Monitor** opcional de noticias (capa no oficial) |
-| **5** | Cómo presentar la evidencia: audiencias y controles |
+| **3** | **Red neuronal pequeña**: comparar y **elegir** modelo (validación → prueba) |
+| **4** | **Monitor del stream**: tasa de titulares en el tiempo (capa no oficial) |
+| **5** | **Tablero** que reúne las capas de evidencia |
 
-**Entrega de la semana:** el código evaluable va en **`week-3-group`**. Ver **Tareas** al final.
+Ver **Tareas** al final.
 
 ---
 
@@ -220,10 +227,12 @@ Instalamos analítica y visualización. **scikit-learn** para los modelos; **Plo
 
 ```python
 import json
+from datetime import datetime, timedelta, timezone
 
-import matplotlib.pyplot as plt
 import plotly.express as px
+import plotly.graph_objects as go
 import polars as pl
+from plotly.subplots import make_subplots
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, r2_score
 from sklearn.model_selection import train_test_split
@@ -245,9 +254,9 @@ print("Parte 1, configuración: OK")
 
 ---
 
-## Parte 2. Modelar sobre agregados oficiales (regresión lineal)
+## Parte 2. Modelar sobre agregados oficiales
 
-**Idea.** Tomamos los agregados GEIH y ajustamos un modelo simple: predecir el empleo ponderado a partir del **mes** y el **año**. Es un ejemplo **didáctico** (no causal): sirve para ver el flujo entrenar → predecir → medir, y para tener una primera lectura de tendencia.
+Tomamos los agregados GEIH y ajustamos un modelo simple: predecir el empleo ponderado a partir del **mes** y el **año**. Este es un ejemplo **didáctico** y no causal, sirve para ver el flujo entrenar → predecir → medir, y para tener una primera lectura de tendencia.
 
 ### Paso 2.1. Cargar y preparar la tabla
 
@@ -268,33 +277,40 @@ print("Variables de entrada:", feature_cols)
 print("Filas para modelar:", len(y))
 ```
 
-### Paso 2.2. Entrenar y evaluar
+### Paso 2.2. Separar en entrenamiento, validación y prueba
 
-Separamos en entrenamiento/prueba (como en el Repaso), ajustamos la regresión lineal y medimos con R² y MAE.
+Como en el Repaso, hacemos la división en tres. Reservamos la **prueba** para el final (Parte 3) y usamos la **validación** para evaluar cada modelo.
 
 ```python
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.25, random_state=42
-)
+# 1) apartamos la prueba (20 %); 2) del resto, una parte para validación (25 %)
+X_tmp, X_test, y_tmp, y_test = train_test_split(X, y, test_size=0.20, random_state=42)
+X_train, X_val, y_train, y_val = train_test_split(X_tmp, y_tmp, test_size=0.25, random_state=42)
 
-lin = LinearRegression()
-lin.fit(X_train, y_train)        # aprende con el 75 %
-y_pred = lin.predict(X_test)     # predice el 25 % reservado
-
-print("Lineal — R²:", round(r2_score(y_test, y_pred), 3))
-print("Lineal — MAE:", round(mean_absolute_error(y_test, y_pred), 2))
+print("Entrenamiento:", len(y_train), "| Validación:", len(y_val), "| Prueba:", len(y_test))
 ```
 
-### Paso 2.3. Graficar observado vs. predicho
+### Paso 2.3. Entrenar la regresión lineal y evaluar en validación
 
-Un gráfico de dispersión observado-contra-predicho muestra de un vistazo qué tan bien predice: cuanto más cerca de la diagonal, mejor. **El título dice de qué capa viene** el dato (oficial GEIH): rotular la fuente es parte de la gobernanza.
+```python
+lin = LinearRegression()
+lin.fit(X_train, y_train)         # aprende con el entrenamiento
+y_val_lin = lin.predict(X_val)    # predice sobre validación
+
+r2_lin = r2_score(y_val, y_val_lin)
+mae_lin = mean_absolute_error(y_val, y_val_lin)
+print("Lineal (validación) — R²:", round(r2_lin, 3), "| MAE:", round(mae_lin, 2))
+```
+
+### Paso 2.4. Graficar observado vs. predicho
+
+Un gráfico observado-contra-predicho muestra de un vistazo qué tan bien predice: cuanto más cerca de la diagonal, mejor. **El título dice de qué capa viene** el dato (oficial GEIH): rotular la fuente es parte de la gobernanza.
 
 ```python
 fig = px.scatter(
-    x=y_test,
-    y=y_pred,
+    x=y_val,
+    y=y_val_lin,
     labels={"x": "Observado (empleo ponderado)", "y": "Predicho (lineal)"},
-    title="Capa oficial GEIH — modelo lineal",
+    title="Capa oficial GEIH — modelo lineal (validación)",
 )
 fig.write_html(str(OUTPUTS_DIR / "l6_lineal_obs_pred.html"))  # guardamos la figura
 fig.show()
@@ -303,7 +319,7 @@ fig.show()
 **Comprobar:**
 
 ```python
-assert len(y_pred) == len(y_test)
+assert len(y_val_lin) == len(y_val)
 assert (OUTPUTS_DIR / "l6_lineal_obs_pred.html").is_file()
 print("Parte 2, modelo lineal: OK")
 ```
@@ -312,11 +328,11 @@ print("Parte 2, modelo lineal: OK")
 
 ## Parte 3. Un modelo más flexible: red neuronal pequeña
 
-**Idea.** ¿Por qué no usar siempre el modelo más potente? Entrenamos una **red neuronal pequeña** (un *MLP*: perceptrón multicapa) sobre **la misma tabla** y la comparamos con la lineal. El objetivo no es ganar precisión, sino **vivir el dilema**: un modelo más flexible puede ajustar mejor, pero es **más difícil de explicar** a quien decide. Esa tensión —**precisión vs. explicabilidad**— es central en la gobernanza de datos.
+Entrenamos una **red neuronal pequeña** (un *MLP*: perceptrón multicapa) sobre **la misma tabla** y la comparamos con la lineal. Un modelo más flexible puede ajustar mejor, pero es **más difícil de explicar** a quien decide. Esa tensión entre **precisión y explicabilidad** es central en la gobernanza de datos y a la **interpretabilidad** de los sistemas de Inteligencia Artificial.
 
 ### Paso 3.1. Escalar las entradas
 
-Las redes neuronales aprenden mejor cuando las entradas están en una escala parecida. **`StandardScaler`** las centra y normaliza. Ajustamos el escalador **solo con el entrenamiento** (para no "mirar" la prueba).
+Las redes neuronales aprenden mejor cuando las entradas están en una escala parecida. **`StandardScaler`** las centra y normaliza. Ajustamos el escalador **solo con el entrenamiento** (para no "mirar" la prueba). Esta acción de preprocesamiento prepara los datos para los algoritmos de aprendizaje. Una vez más estamos mejorando la calidad de nuestros datos (i.e., Assess).
 
 ```python
 scaler = StandardScaler()
@@ -325,98 +341,161 @@ X_test_s = scaler.transform(X_test)        # aplica la misma transformación a t
 print("Entradas escaladas.")
 ```
 
-### Paso 3.2. Entrenar el MLP y comparar
+### Paso 3.2. Entrenar el MLP y evaluar en validación
 
-Usamos **una** capa oculta con pocas neuronas: suficiente para ilustrar, sin sobreajustar una tabla pequeña.
+Usamos **una** capa oculta con pocas neuronas: suficiente para ilustrar, sin sobreajustar una tabla pequeña. Para escalar la validación reutilizamos el `scaler` ajustado con el entrenamiento.
 
 ```python
+X_val_s = scaler.transform(X_val)
+
 mlp = MLPRegressor(hidden_layer_sizes=(8,), max_iter=500, random_state=42)
 mlp.fit(X_train_s, y_train)
-y_mlp = mlp.predict(X_test_s)
+y_val_mlp = mlp.predict(X_val_s)
 
-print("MLP — R²:", round(r2_score(y_test, y_mlp), 3))
-print("MLP — MAE:", round(mean_absolute_error(y_test, y_mlp), 2))
-print()
-print("Lineal  → R²:", round(r2_score(y_test, y_pred), 3),
-      "| MAE:", round(mean_absolute_error(y_test, y_pred), 2))
-print("MLP     → R²:", round(r2_score(y_test, y_mlp), 3),
-      "| MAE:", round(mean_absolute_error(y_test, y_mlp), 2))
+r2_mlp = r2_score(y_val, y_val_mlp)
+mae_mlp = mean_absolute_error(y_val, y_val_mlp)
+print("MLP (validación) — R²:", round(r2_mlp, 3), "| MAE:", round(mae_mlp, 2))
 ```
 
-**Lectura.** Comparen las métricas. Aunque el MLP iguale o supere a la lineal, con la lineal podemos decir *"el empleo sube/baja tanto por mes"*; con el MLP no hay un coeficiente así de claro. Para hablarle a un ministerio, **la explicabilidad suele pesar más** que un decimal de R². Eso lo discutiremos en la Parte 5.
+### Paso 3.3. Elegir el modelo (en validación) y evaluar en prueba
+
+Usamos la **validación** para decidir y la **prueba** solo para la evaluación final del modelo elegido.
+
+```python
+# Elegimos por menor MAE en validación
+if mae_lin <= mae_mlp:
+    modelo_elegido, nombre = lin, "lineal"
+    y_test_pred = modelo_elegido.predict(X_test)
+else:
+    modelo_elegido, nombre = mlp, "mlp"
+    y_test_pred = modelo_elegido.predict(scaler.transform(X_test))
+
+print(f"Modelo elegido (mejor en validación): {nombre}")
+print("Prueba final — R²:", round(r2_score(y_test, y_test_pred), 3),
+      "| MAE:", round(mean_absolute_error(y_test, y_test_pred), 2))
+```
+
+Aunque el MLP iguale o supere a la lineal, con la lineal podemos decir *"el empleo sube/baja tanto por mes"*; con el MLP no hay un coeficiente así de claro. Para hablarle a un ministerio, **la explicabilidad suele pesar más** que un decimal de R². Por eso elegir el modelo no es solo una cuestión de métricas.
 
 **Comprobar:**
 
 ```python
-assert len(y_mlp) == len(y_test)
-print("Parte 3, red neuronal pequeña: OK")
+assert len(y_test_pred) == len(y_test)
+assert nombre in ("lineal", "mlp")
+print("Parte 3, comparación y elección de modelo: OK")
 ```
 
 ---
 
-## Parte 4. Monitor de noticias (capa opcional, no oficial)
+## Parte 4. Monitor del stream: tasa de titulares en el tiempo
 
-**Idea.** Si la Lección 5 dejó `news_labor.parquet`, podemos **monitorear el discurso** sobre empleo: cuántos titulares capturamos. Es una señal de **velocidad y variedad**, útil como contexto, pero **no es una medición de empleo**. Por eso el gráfico lo dice explícitamente en el título.
+Una visualización de stream **en tiempo real** muestra cómo **cambia una métrica a medida que llegan los datos**. En un cuaderno no tenemos un flujo en vivo, pero podemos aproximarlo: tomamos los titulares que dejó la Lección 5 y graficamos su **tasa de llegada por ventana de tiempo** (una *ventana móvil*). Es una señal de **velocidad y variedad**, útil como contexto, pero **no es una medición de empleo**.
 
 ```python
 news_path = STAGING_DIR / "news_labor.parquet"
 
 if news_path.is_file():
     news = pl.read_parquet(news_path)
-    n = news.height
-    fig2 = px.bar(
-        x=["Titulares de empleo capturados"],
-        y=[n],
-        labels={"x": "", "y": "Conteo"},
-        title="Discurso mediático — NO es dato oficial DANE/GEIH",
+
+    # Necesitamos una marca de tiempo. Intentamos parsear 'published';
+    # si no se puede, fabricamos una (un minuto entre titulares) para ilustrar el flujo.
+    ts = None
+    if "published" in news.columns:
+        ts = news.get_column("published").str.to_datetime(strict=False)
+    if ts is None or ts.null_count() == news.height:
+        base = datetime(2026, 6, 20, 7, 0, tzinfo=timezone.utc)
+        ts = pl.Series([base + timedelta(minutes=i) for i in range(news.height)])
+
+    news = news.with_columns(ts.alias("ts")).drop_nulls("ts").sort("ts")
+
+    # Ventana móvil: número de titulares por hora (tasa del stream)
+    serie = (
+        news.group_by_dynamic("ts", every="1h")
+        .agg(pl.len().alias("titulares"))
+        .sort("ts")
     )
-    fig2.write_html(str(OUTPUTS_DIR / "l6_monitor_noticias.html"))
-    fig2.show()
-    print("Titulares en el monitor:", n)
+
+    fig_stream = px.line(
+        serie.to_pandas(),
+        x="ts",
+        y="titulares",
+        markers=True,
+        labels={"ts": "Tiempo", "titulares": "Titulares por hora"},
+        title="Discurso mediático — tasa de titulares (NO es dato oficial DANE/GEIH)",
+    )
+    fig_stream.write_html(str(OUTPUTS_DIR / "l6_stream_rate.html"))
+    fig_stream.show()
+    print("Ventanas de tiempo graficadas:", serie.height)
 else:
+    fig_stream = None
     print("Sin news_labor.parquet — esta capa es opcional; continúe con la Parte 5.")
 ```
 
 **Comprobar:**
 
 ```python
-print("Parte 4, monitor de noticias: OK")
+# Si había noticias, el gráfico debe existir
+if news_path.is_file():
+    assert (OUTPUTS_DIR / "l6_stream_rate.html").is_file()
+print("Parte 4, monitor del stream: OK")
 ```
 
 ---
 
-## Parte 5. Cómo presentar la evidencia: audiencias y controles
+## Parte 5. Un tablero que reúne las capas de evidencia
 
-**Idea.** Tener un buen modelo no basta: hay que **decidir qué mostrar, a quién y con qué advertencias**. Un mismo resultado se comunica distinto a un ministro, a un analista o al público. Esta es la síntesis ética de la semana: el **tablero como acto de gobernanza**.
+Tener un buen modelo no basta: hay que **presentar la evidencia junta y bien rotulada**. Un **tablero** (*dashboard*) combina varias vistas en una sola figura: la **capa oficial** (el modelo sobre GEIH) y, si existe, la **capa de contexto** (la tasa del stream). Cada panel dice de dónde viene su dato — eso es gobernanza aplicada a la comunicación.
 
-La siguiente plantilla es la que ustedes **completan y razonan** en el cuaderno grupal (Parte B). Aquí queda como guía:
+Aquí construimos un tablero con **`make_subplots`**: un panel por capa.
 
-### Capas de evidencia
+```python
+# Un panel si no hay stream; dos si tenemos el monitor de noticias
+titulos = ["Oficial GEIH: observado vs. predicho (validación)"]
+if fig_stream is not None:
+    titulos.append("Contexto: tasa de titulares (no oficial)")
 
-1. **Oficial:** el modelo y el gráfico sobre agregados GEIH (`curated/`) — la base de cualquier afirmación.
-2. **Secundaria (opcional):** macro (TRM/COLCAP) o el conteo de noticias — siempre **rotulada** como contexto, nunca mezclada con lo oficial sin avisar.
+dash = make_subplots(rows=len(titulos), cols=1, subplot_titles=titulos)
 
-### Audiencias
+# Panel 1 — capa oficial: dispersión observado vs. predicho del modelo lineal
+dash.add_trace(
+    go.Scatter(x=y_val, y=y_val_lin, mode="markers", name="lineal"),
+    row=1,
+    col=1,
+)
 
-- **Quien decide (ministro):** una cifra oficial con su incertidumbre; sin titulares fuera de contexto.
-- **Analista:** las series completas y el diagnóstico del modelo (incluida la comparación lineal vs. MLP).
-- **Público:** agregados con **supresión k=5** (como en la Lección 4), para no exponer celdas pequeñas.
+# Panel 2 — capa de contexto: reusamos las trazas del gráfico del stream
+if fig_stream is not None:
+    for traza in fig_stream.data:
+        dash.add_trace(traza, row=2, col=1)
 
-### Controles
+dash.update_layout(
+    height=350 * len(titulos),
+    showlegend=False,
+    title_text="Tablero de evidencia — capa oficial (GEIH) y capa de contexto (noticias)",
+)
+dash.write_html(str(OUTPUTS_DIR / "l6_dashboard.html"))
+dash.show()
+print("Tablero guardado en:", OUTPUTS_DIR / "l6_dashboard.html")
+```
 
-- Distinta **frecuencia de actualización**: GEIH es mensual; el stream, casi en vivo. No los presentemos como si tuvieran el mismo respaldo.
-- La **elección de modelo** (lineal vs. MLP) se justifica en texto: por qué priorizamos explicabilidad o precisión.
+**Cómo leerlo.** El panel oficial sostiene cualquier afirmación de empleo; el de contexto solo acompaña, y su título avisa que **no** es estadística oficial. A distintas audiencias mostraríamos distintos paneles (a quien decide, solo el oficial con su incertidumbre; a un analista, ambos).
+
+**Comprobar:**
+
+```python
+assert (OUTPUTS_DIR / "l6_dashboard.html").is_file()
+print("Parte 5, tablero de evidencia: OK")
+```
 
 ---
 
 ## Tareas
 
-Lo que practicaron aquí lo **implementan ustedes** en el cuaderno grupal **`week-3-group` (Parte B)**, sobre **sus** agregados de la Parte A:
+Lo que practicaron aquí lo **implementan ustedes** en el cuaderno grupal **`week-3-group` (Ejercicio 2)**, sobre los agregados que construyan en el Ejercicio 1:
 
-1. **Elijan un modelo** (lineal o MLP) y justifiquen la elección pensando en quién decide.
+1. Dividan en **entrenamiento/validación/prueba** y entrenen el modelo elegido (lineal o MLP).
 2. Hagan al menos **dos gráficos** ligados a la pregunta de decisión, con la fuente rotulada.
-3. (Opcional) Añadan el **monitor de noticias** como capa no oficial.
-4. Escriban la **reflexión de gobernanza**: capas, audiencias y controles.
+3. Armen un **tablero** que reúna las vistas.
 
 **Entrega grupal:** martes **23 jun 2026** — ZIP con `week-3-group-<group_id>.ipynb` + `manifest.json`.
 
