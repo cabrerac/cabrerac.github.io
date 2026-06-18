@@ -32,19 +32,67 @@ notebook_description: Práctica individual de la Lección 6. Modelamos sobre agr
 
 <!-- SLIDES: -->
 
-# ML on aggregates
+# Visualisation
 
 <!-- end SLIDES: -->
 
-{% include _snippets/26-udenar-big-data/l6-analytics/ml-aggregates.md %}
+{% include _snippets/26-udenar-big-data/l6-analytics/visualisation.md %}
 
 <!-- SLIDES: -->
 
-# Governance dashboard
+# Dashboards
 
 <!-- end SLIDES: -->
 
-{% include _snippets/26-udenar-big-data/l6-analytics/governance-dashboard.md %}
+{% include _snippets/26-udenar-big-data/l6-analytics/dashboards.md %}
+
+<!-- SLIDES: -->
+
+# Supervised Learning
+
+<!-- end SLIDES: -->
+
+{% include _snippets/supervised-learning.md %}
+
+<!-- SLIDES: -->
+
+# Regression
+
+<!-- end SLIDES: -->
+
+{% include _snippets/regression.md %}
+
+<!-- SLIDES: -->
+
+# Linear Classifiers
+
+<!-- end SLIDES: -->
+
+{% include _snippets/linear-classifiers.md %}
+
+<!-- SLIDES: -->
+
+# The Perceptron
+
+<!-- end SLIDES: -->
+
+{% include _snippets/perceptron.md %}
+
+<!-- SLIDES: -->
+
+# Neural Networks
+
+<!-- end SLIDES: -->
+
+{% include _snippets/neural-networks.md %}
+
+<!-- SLIDES: -->
+
+# Models in Practice
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l6-analytics/models-in-practice.md %}
 
 <!-- SLIDES: -->
 

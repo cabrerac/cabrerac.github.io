@@ -1,15 +1,52 @@
 <!-- SLIDES: -->
 
-## Conclusions — L5
+## Conclusions
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
-        <div class="column vertical-middle text-left" style="width: 100%">
-            <ul>
-                <li>Journey: <b>GEIH batch</b> → orchestration → <b>Kafka stream</b></li>
-                <li>Audit log + schema contract tie back to <b>L2 ethics</b></li>
-                <li>Group homework: <b>week-3-group</b> Ejercicio 1 — due Tue 23 Jun</li>
-            </ul>
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <p><b>Ingestion connects storage and processing</b></p>
+                <ul>
+                    <li>The source's <b>volume</b> and <b>velocity</b> choose batch or stream</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Conclusions
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <p><b>Ingestion connects storage and processing</b></p>
+                <ul>
+                    <li>The source's <b>volume</b> and <b>velocity</b> choose batch or stream</li>
+                    <li><b>Batch:</b> orchestrated ETL, scheduled, governed (Airflow / Prefect / Dagster)</li>
+                    <li><b>Stream:</b> publish / subscribe over a distributed, partitioned log</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Conclusions
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <p><b>Ingestion connects storage and processing</b></p>
+                <ul>
+                    <li>The source's <b>volume</b> and <b>velocity</b> choose batch or stream</li>
+                    <li><b>Batch:</b> orchestrated ETL, scheduled, governed (Airflow / Prefect / Dagster)</li>
+                    <li><b>Stream:</b> publish / subscribe over a distributed, partitioned log</li>
+                    <li><b>Governance</b> travels with the data: audit log, schema contract, lineage</li>
+                </ul>
+                <p>Next we turn ingested data into <b>evidence</b> — analytics and visualisation (L6).</p>
+            </div>
         </div>
     </div>
 </div>

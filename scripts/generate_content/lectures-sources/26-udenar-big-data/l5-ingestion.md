@@ -32,27 +32,51 @@ notebook_description: Práctica individual de la Lección 5. Pasamos de la inges
 
 <!-- SLIDES: -->
 
-# Vs tour
+# Data Ingestion
 
 <!-- end SLIDES: -->
 
-{% include _snippets/26-udenar-big-data/l5-ingestion/vs-tour.md %}
+{% include _snippets/26-udenar-big-data/l5-ingestion/ingestion.md %}
 
 <!-- SLIDES: -->
 
-# Batch vs stream
+# Batch and ETL
 
 <!-- end SLIDES: -->
 
-{% include _snippets/26-udenar-big-data/l5-ingestion/batch-stream.md %}
+{% include _snippets/26-udenar-big-data/l5-ingestion/batch-etl.md %}
 
 <!-- SLIDES: -->
 
-# Kafka
+# Orchestration and Governance
 
 <!-- end SLIDES: -->
 
-{% include _snippets/26-udenar-big-data/l5-ingestion/kafka-ingest.md %}
+{% include _snippets/26-udenar-big-data/l5-ingestion/orchestration.md %}
+
+<!-- SLIDES: -->
+
+# Streams
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l5-ingestion/streams.md %}
+
+<!-- SLIDES: -->
+
+# Publish / Subscribe
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l5-ingestion/pubsub.md %}
+
+<!-- SLIDES: -->
+
+# Streaming at Scale
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l5-ingestion/streaming-tools.md %}
 
 <!-- SLIDES: -->
 

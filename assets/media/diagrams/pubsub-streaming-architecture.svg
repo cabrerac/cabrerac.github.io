@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" font-family="Helvetica, Arial, sans-serif">
+  <rect width="960" height="540" fill="#ffffff"/>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 z" fill="#5a6b7b"/>
+    </marker>
+  </defs>
+
+  <!-- Producers -->
+  <text x="20" y="70" font-size="16" font-weight="bold" fill="#1f2d3d">Producers</text>
+  <text x="20" y="90" font-size="11" fill="#5a6b7b">publish events</text>
+  <g>
+    <rect x="20" y="110" width="140" height="56" rx="6" fill="#dbe5f1" stroke="#2f5597"/><text x="90" y="143" text-anchor="middle" font-size="14">Producer 1</text>
+    <rect x="20" y="240" width="140" height="56" rx="6" fill="#dbe5f1" stroke="#2f5597"/><text x="90" y="273" text-anchor="middle" font-size="14">Producer 2</text>
+    <rect x="20" y="370" width="140" height="56" rx="6" fill="#dbe5f1" stroke="#2f5597"/><text x="90" y="403" text-anchor="middle" font-size="14">Producer 3</text>
+  </g>
+  <g stroke="#5a6b7b" stroke-width="2" marker-end="url(#arrow)">
+    <line x1="160" y1="138" x2="296" y2="210"/>
+    <line x1="160" y1="268" x2="296" y2="268"/>
+    <line x1="160" y1="398" x2="296" y2="326"/>
+  </g>
+
+  <!-- Cluster -->
+  <rect x="300" y="70" width="360" height="410" rx="10" fill="#f3f7ec" stroke="#548235"/>
+  <text x="480" y="96" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2d3d">Distributed broker cluster</text>
+  <g>
+    <rect x="318" y="110" width="100" height="34" rx="5" fill="#e2efda" stroke="#548235"/><text x="368" y="132" text-anchor="middle" font-size="12">Broker 1</text>
+    <rect x="430" y="110" width="100" height="34" rx="5" fill="#e2efda" stroke="#548235"/><text x="480" y="132" text-anchor="middle" font-size="12">Broker 2</text>
+    <rect x="542" y="110" width="100" height="34" rx="5" fill="#e2efda" stroke="#548235"/><text x="592" y="132" text-anchor="middle" font-size="12">Broker 3</text>
+  </g>
+  <text x="318" y="176" font-size="13" font-weight="bold" fill="#1f2d3d">Topic  partitioned, append-only log</text>
+
+  <!-- Partitions: append-only logs with offsets -->
+  <g font-size="11">
+    <rect x="318" y="188" width="324" height="44" rx="5" fill="#fbe5d6" stroke="#c55a11"/>
+    <text x="326" y="205" font-size="11" fill="#5a6b7b">Partition 0</text>
+    <rect x="392" y="198" width="26" height="26" fill="#ffffff" stroke="#c55a11"/>
+    <rect x="422" y="198" width="26" height="26" fill="#ffffff" stroke="#c55a11"/>
+    <rect x="452" y="198" width="26" height="26" fill="#ffffff" stroke="#c55a11"/>
+    <rect x="482" y="198" width="26" height="26" fill="#ffffff" stroke="#c55a11"/>
+    <line x1="514" y1="211" x2="636" y2="211" stroke="#c55a11" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <rect x="318" y="248" width="324" height="44" rx="5" fill="#fbe5d6" stroke="#c55a11"/>
+    <text x="326" y="265" font-size="11" fill="#5a6b7b">Partition 1</text>
+    <rect x="392" y="258" width="26" height="26" fill="#ffffff" stroke="#c55a11"/>
+    <rect x="422" y="258" width="26" height="26" fill="#ffffff" stroke="#c55a11"/>
+    <rect x="452" y="258" width="26" height="26" fill="#ffffff" stroke="#c55a11"/>
+    <line x1="484" y1="271" x2="636" y2="271" stroke="#c55a11" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <rect x="318" y="308" width="324" height="44" rx="5" fill="#fbe5d6" stroke="#c55a11"/>
+    <text x="326" y="325" font-size="11" fill="#5a6b7b">Partition 2</text>
+    <rect x="392" y="318" width="26" height="26" fill="#ffffff" stroke="#c55a11"/>
+    <rect x="422" y="318" width="26" height="26" fill="#ffffff" stroke="#c55a11"/>
+    <rect x="452" y="318" width="26" height="26" fill="#ffffff" stroke="#c55a11"/>
+    <rect x="482" y="318" width="26" height="26" fill="#ffffff" stroke="#c55a11"/>
+    <rect x="512" y="318" width="26" height="26" fill="#ffffff" stroke="#c55a11"/>
+    <line x1="544" y1="331" x2="636" y2="331" stroke="#c55a11" stroke-width="1.5" marker-end="url(#arrow)"/>
+  </g>
+  <text x="318" y="372" font-size="11" fill="#5a6b7b">old offsets ............................ new offsets</text>
+  <text x="318" y="404" font-size="12" fill="#1f2d3d">Replication across brokers &#8594; fault tolerance</text>
+  <text x="318" y="426" font-size="12" fill="#1f2d3d">Messages are retained, not deleted on read</text>
+
+  <!-- Consumer group -->
+  <rect x="720" y="120" width="220" height="300" rx="10" fill="#efe8f5" stroke="#7030a0"/>
+  <text x="830" y="146" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f2d3d">Consumer group</text>
+  <g>
+    <rect x="740" y="160" width="180" height="56" rx="6" fill="#e6d8f0" stroke="#7030a0"/><text x="830" y="193" text-anchor="middle" font-size="13">Consumer A</text>
+    <rect x="740" y="236" width="180" height="56" rx="6" fill="#e6d8f0" stroke="#7030a0"/><text x="830" y="269" text-anchor="middle" font-size="13">Consumer B</text>
+    <rect x="740" y="312" width="180" height="56" rx="6" fill="#e6d8f0" stroke="#7030a0"/><text x="830" y="345" text-anchor="middle" font-size="13">Consumer C</text>
+  </g>
+  <g stroke="#5a6b7b" stroke-width="2" marker-end="url(#arrow)">
+    <line x1="642" y1="210" x2="736" y2="188"/>
+    <line x1="642" y1="270" x2="736" y2="264"/>
+    <line x1="642" y1="330" x2="736" y2="340"/>
+  </g>
+
+  <!-- Bottom caption -->
+  <text x="20" y="510" font-size="13" fill="#1f2d3d"><tspan font-weight="bold">Decoupling:</tspan> producers and consumers never talk directly.</text>
+  <text x="20" y="530" font-size="13" fill="#1f2d3d"><tspan font-weight="bold">Partitions:</tspan> one per consumer &#8594; horizontal parallelism and scale.</text>
+</svg>
