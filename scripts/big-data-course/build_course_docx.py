@@ -370,36 +370,28 @@ def build_project_report() -> Document:
         ),
         (
             "2. Requerimientos del proyecto y modelo canvas",
-            "Interesados, requerimientos, objetivos, subconjunto GEIH. "
-            "Incluya el **canvas** (imagen) y liste los **requisitos de ética y gobernanza** "
-            "(p. ej. k-anon, no publicar microdatos, bitácora, contrato de esquema, capas de evidencia).",
+            "Interesados, requerimientos, objetivos, conjunto de datos. "
+            "Incluya el **canvas** (imagen), describalo y liste los requerimientos del proyecto incluyendo los aspectos éticos y de gobernanza.",
         ),
         (
             "3. Pipeline de big data",
             "Figura y narrativa del recorrido completo (fuentes → almacenamiento → procesamiento → "
-            "ingesta → analítica → decisión). Indique qué etapas implementaron en los cuadernos del curso.",
+            "ingesta → analítica → decisión). Indique como se implementaron las diferentes etapas y como dicha implementación cumple con los requerimientos del proyecto.",
         ),
         (
             "4. Arquitectura de datos",
-            "Diagrama y explicación: harmonización, partición del lakehouse, ingesta gobernada "
-            "(Prefect, audit.jsonl, schema_contract.json) y capa curated/analítica.",
+            "Diagrama y explicación: harmonización, partición del lakehouse, ingesta gobernada y herramientas utilizadas.",
         ),
         (
             "5. Analítica y respuesta a la pregunta de decisión",
-            "Modelos, métricas, gráficos/tablero; qué apoyan o no la decisión. Solo agregados oficiales "
-            "para inferencia sobre GEIH.",
+            "Modelos, métricas, gráficos/tablero; qué apoyan o no la decisión. Indique como se implementaron los modelos y como dicha implementación cumple con los requerimientos del proyecto.",
         ),
         (
-            "6. Cumplimiento de requisitos éticos y de gobernanza",
-            "Explique **cómo** el pipeline y la analítica satisfacen cada requisito listado en la sección 2. "
-            "No repita la lista — trace la implementación.",
-        ),
-        (
-            "7. Limitaciones y recomendación",
+            "6. Limitaciones y recomendación",
             "Límites del dato y del modelo; recomendación concreta para el interesado que decide.",
         ),
         (
-            "8. Contribución del grupo y uso de IA",
+            "7. Contribución del grupo y uso de IA",
             "Rol de cada integrante; herramientas de IA usadas en el proyecto y cómo influyeron; "
             "declaración de integridad. Si optan por publicación web, confirmen autorización aquí.",
         ),

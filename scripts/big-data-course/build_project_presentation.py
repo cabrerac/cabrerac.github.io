@@ -41,7 +41,7 @@ def build_presentation() -> Path:
         ),
         (
             "Conclusiones",
-            "Retos del grupo, reflexión breve, recomendación. Sin diapositiva final solo de ética.",
+            "Retos del grupo, reflexión breve, recomendación.",
         ),
     ]
 
