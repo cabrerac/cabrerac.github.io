@@ -28205,51 +28205,28 @@ html[data-theme='dark'] .slide-content ol li {
 </ul>
 </div>
 <div class="column vertical-middle text-left" style="width: 62%">
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python">
-<span class="hljs-keyword">from</span> prefect <span class="hljs-keyword">import</span> flow, task
-
-
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> prefect <span class="hljs-keyword">import</span> flow, task
 
 <span class="hljs-meta">@task</span>
-
 <span class="hljs-keyword">def</span> <span class="hljs-title function_">extract</span>(<span class="hljs-params">paths</span>):              <span class="hljs-comment"># Extract: open partitions (lazy)</span>
-
     <span class="hljs-keyword">return</span> scan_parquet(paths)
 
-
-
 <span class="hljs-meta">@task</span>
-
 <span class="hljs-keyword">def</span> <span class="hljs-title function_">aggregate</span>(<span class="hljs-params">frame, output</span>):    <span class="hljs-comment"># Transform + Load: write curated layer</span>
-
     result = (frame.<span class="hljs-built_in">filter</span>(...)
-
                    .group_by(keys).agg(...).collect())
-
     result.write_parquet(output)
-
     <span class="hljs-keyword">return</span> output
 
-
-
 <span class="hljs-meta">@task</span>
-
 <span class="hljs-keyword">def</span> <span class="hljs-title function_">validate</span>(<span class="hljs-params">path</span>):              <span class="hljs-comment"># Validate: the output must have rows</span>
-
     <span class="hljs-keyword">assert</span> read_parquet(path).height &gt; <span class="hljs-number">0</span>
-
     <span class="hljs-keyword">return</span> path
 
-
-
 <span class="hljs-meta">@flow(<span class="hljs-params">name=<span class="hljs-string">&quot;batch_ingest&quot;</span></span>)</span>
-
 <span class="hljs-keyword">def</span> <span class="hljs-title function_">batch_flow</span>(<span class="hljs-params">paths, output</span>):   <span class="hljs-comment"># one flow chains the steps</span>
-
     path = aggregate(extract(paths), output)
-
     <span class="hljs-keyword">return</span> validate(path)
-
 </code></pre>
 </div>
 </div>
@@ -30508,31 +30485,18 @@ html[data-theme='dark'] .slide-content ol li {
 </ul>
 </div>
 <div class="column vertical-middle text-left" style="width: 50%">
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python">
-<span class="hljs-keyword">def</span> <span class="hljs-title function_">append_audit</span>(<span class="hljs-params">event</span>):
-
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">append_audit</span>(<span class="hljs-params">event</span>):
     <span class="hljs-string">&quot;&quot;&quot;One provenance record per pipeline step.&quot;&quot;&quot;</span>
-
     record = {**event, <span class="hljs-string">&quot;ts&quot;</span>: now_iso()}
-
     <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(AUDIT_LOG, <span class="hljs-string">&quot;a&quot;</span>) <span class="hljs-keyword">as</span> f:
-
         f.write(json.dumps(record) + <span class="hljs-string">&quot;\n&quot;</span>)
 
-
-
 contract = {
-
     <span class="hljs-string">&quot;columns&quot;</span>: {<span class="hljs-string">&quot;key&quot;</span>: <span class="hljs-string">&quot;str&quot;</span>, <span class="hljs-string">&quot;count&quot;</span>: <span class="hljs-string">&quot;int&quot;</span>},
-
     <span class="hljs-string">&quot;source&quot;</span>: <span class="hljs-string">&quot;curated/aggregate.parquet&quot;</span>,
-
     <span class="hljs-string">&quot;schema_version&quot;</span>: <span class="hljs-number">1</span>,
-
     <span class="hljs-string">&quot;retention_days&quot;</span>: <span class="hljs-number">365</span>,
-
 }
-
 </code></pre>
 </div>
 </div>
@@ -41828,27 +41792,16 @@ html[data-theme='dark'] .slide-content ol li {
 </ul>
 </div>
 <div class="column vertical-middle text-left" style="width: 62%">
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python">
-<span class="hljs-keyword">from</span> kafka <span class="hljs-keyword">import</span> KafkaProducer
-
-
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> kafka <span class="hljs-keyword">import</span> KafkaProducer
 
 producer = KafkaProducer(
-
     bootstrap_servers=<span class="hljs-string">&quot;localhost:9092&quot;</span>,
-
     value_serializer=<span class="hljs-keyword">lambda</span> v: json.dumps(v).encode(<span class="hljs-string">&quot;utf-8&quot;</span>),
-
 )
 
-
-
 <span class="hljs-keyword">for</span> event <span class="hljs-keyword">in</span> events:
-
     producer.send(<span class="hljs-string">&quot;events&quot;</span>, event)   <span class="hljs-comment"># publish to the topic</span>
-
 producer.flush()                     <span class="hljs-comment"># make sure everything left</span>
-
 </code></pre>
 </div>
 </div>
@@ -42982,37 +42935,21 @@ html[data-theme='dark'] .slide-content ol li {
 </ul>
 </div>
 <div class="column vertical-middle text-left" style="width: 62%">
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python">
-<span class="hljs-keyword">from</span> kafka <span class="hljs-keyword">import</span> KafkaConsumer
-
-
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> kafka <span class="hljs-keyword">import</span> KafkaConsumer
 
 consumer = KafkaConsumer(
-
     <span class="hljs-string">&quot;events&quot;</span>,
-
     bootstrap_servers=<span class="hljs-string">&quot;localhost:9092&quot;</span>,
-
     auto_offset_reset=<span class="hljs-string">&quot;earliest&quot;</span>,    <span class="hljs-comment"># from the start of the log</span>
-
     value_deserializer=<span class="hljs-keyword">lambda</span> m: json.loads(m.decode(<span class="hljs-string">&quot;utf-8&quot;</span>)),
-
 )
 
-
-
 seen = <span class="hljs-built_in">set</span>()
-
 <span class="hljs-keyword">for</span> message <span class="hljs-keyword">in</span> consumer:             <span class="hljs-comment"># events as they arrive</span>
-
     event = message.value
-
     <span class="hljs-keyword">if</span> event[<span class="hljs-string">&quot;id&quot;</span>] <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> seen:      <span class="hljs-comment"># de-duplicate</span>
-
         seen.add(event[<span class="hljs-string">&quot;id&quot;</span>])
-
         store.insert_one(event)      <span class="hljs-comment"># land in a document store</span>
-
 </code></pre>
 </div>
 </div>
