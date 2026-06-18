@@ -602,7 +602,7 @@ Lo que practicaron aquí lo **implementan ustedes** en el cuaderno grupal **`wee
 
 Sin microdatos ni material re-identificable. El instructor publica título + abstract en [L8](/teaching/26-udenar-big-data/l8-final-project/) tras revisar la entrega.
 
-**Diapositivas (sábado 27):** canvas (con requisitos éticos), pipeline, arquitectura, analítica, conclusiones. La ética es transversal en cada diapositiva.
+**Diapositivas (sábado 27):** siga la plantilla [project-presentation-template.pptx](/assets/documents/26-udenar-big-data/project-presentation-template.pptx) — **6 diapositivas:** título → canvas (requerimientos + ética) → pipeline → arquitectura → analítica → conclusiones. La ética se integra en canvas, pipeline, arquitectura y analítica (sin diapositiva final solo de ética).
 
 **Sábado 27:** charla del instructor (L7) → presentaciones (L8). La charla puede ser versión en curso; el **informe en el ZIP** es la entrega escrita final.
 
