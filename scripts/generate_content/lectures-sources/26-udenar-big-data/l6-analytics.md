@@ -563,6 +563,47 @@ Lo que practicaron aquí lo **implementan ustedes** en el cuaderno grupal **`wee
 2. Hagan al menos **dos gráficos** ligados a la pregunta de decisión, con la fuente rotulada.
 3. Armen un **tablero** que reúna las vistas.
 
-**Entrega grupal:** martes **23 jun 2026** — ZIP con `week-3-group-<group_id>.ipynb` + `manifest.json`.
+**Entrega grupal (semana 3):** martes **23 jun 2026** — ZIP con `week-3-group-<group_id>.ipynb` + `manifest.json` (detalle en `week-3-group`).
+
+---
+
+## Entregables del proyecto (resumen)
+
+**Sábado 20 jun** — el instructor explica esto en el bloque de proyecto (11:30–12:45).
+
+| Recurso | Enlace |
+|---------|--------|
+| Informe (Word) | [project-report-template.docx](/assets/documents/26-udenar-big-data/project-report-template.docx) |
+| Diapositivas (plantilla) | [project-presentation-template.pptx](/assets/documents/26-udenar-big-data/project-presentation-template.pptx) |
+| Reflexión final (Word) | [project-reflection-template.docx](/assets/documents/26-udenar-big-data/project-reflection-template.docx) |
+| Catálogo público (L8) | [l8-final-project](/teaching/26-udenar-big-data/l8-final-project/) |
+
+| Qué | Cuándo (Colombia) |
+|-----|-------------------|
+| **Presentación en vivo** (diapositivas; no van en el ZIP) | **Sábado 27 jun 2026** — tras charla L7 (~1 h) |
+| **Un solo ZIP** `project-<group_id>.zip` | **Martes 30 jun 2026, 23:59** |
+| **Reflexión individual** `project-reflection-<student>.pdf` | **Miércoles 1 jul 2026, 23:59** |
+
+**Contenido obligatorio del ZIP** (raíz; sin Parquet ni CSV):
+
+| Archivo | Descripción |
+|---------|-------------|
+| `project-report-<group_id>.pdf` | Informe consolidado (secciones 1–8 en la plantilla) |
+| Cuaderno(s) ejecutado(s) | Código reproducible del pipeline y la analítica |
+| `manifest.json` | Manifiesto final (`publish_on_web: true` si publican en L8) |
+| `audit.jsonl` + `schema_contract.json` | Linaje y contrato |
+
+**Publicación opcional en el sitio (L8)** — solo si `publish_on_web: true` en `manifest.json`:
+
+| Archivo | Descripción |
+|---------|-------------|
+| `project-title-en.txt` | Un título en **inglés** (una línea) |
+| `project-abstract-en.txt` | **~200 palabras en inglés**: problema, proceso seguido y resultados |
+
+Sin microdatos ni material re-identificable. El instructor publica título + abstract en [L8](/teaching/26-udenar-big-data/l8-final-project/) tras revisar la entrega.
+
+**Diapositivas (sábado 27):** canvas (con requisitos éticos), pipeline, arquitectura, analítica, conclusiones. La ética es transversal en cada diapositiva.
+
+**Sábado 27:** charla del instructor (L7) → presentaciones (L8). La charla puede ser versión en curso; el **informe en el ZIP** es la entrega escrita final.
 
 <!-- end NOTEBOOK: -->

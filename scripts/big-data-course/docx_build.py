@@ -15,6 +15,7 @@ COURSE_WS = REPO / "work-space/teaching/big-data/course"
 WEEK1_DIR = COURSE_WS / "week-1"
 WEEK2_DIR = COURSE_WS / "week-2"
 WEEK3_DIR = COURSE_WS / "week-3"
+PROJECT_DIR = COURSE_WS / "project"
 
 
 def style_body(doc: Document) -> None:

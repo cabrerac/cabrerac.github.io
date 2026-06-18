@@ -23,6 +23,7 @@ from docx_build import (
     para,
     question,
     reading_bullet,
+    PROJECT_DIR,
     save_doc,
     save_mirror,
     section,
@@ -43,8 +44,15 @@ REFLECTION_WEEK_2_WEEK2 = WEEK2_DIR / "reflection-week-2-template.docx"
 REFLECTION_WEEK_3_ASSETS = ASSETS_DIR / "reflection-week-3-template.docx"
 REFLECTION_WEEK_3_WEEK3 = WEEK3_DIR / "reflection-week-3-template.docx"
 LEARNING_JOURNAL_WEEK_1 = WEEK1_DIR / "learning-journal-week-1.docx"
+LEARNING_JOURNAL_WEEK_1_ASSETS = ASSETS_DIR / "learning-journal-week-1.docx"
 LEARNING_JOURNAL_WEEK_2 = WEEK2_DIR / "learning-journal-week-2.docx"
+LEARNING_JOURNAL_WEEK_2_ASSETS = ASSETS_DIR / "learning-journal-week-2.docx"
 LEARNING_JOURNAL_WEEK_3 = WEEK3_DIR / "learning-journal-week-3.docx"
+LEARNING_JOURNAL_WEEK_3_ASSETS = ASSETS_DIR / "learning-journal-week-3.docx"
+PROJECT_REPORT_ASSETS = ASSETS_DIR / "project-report-template.docx"
+PROJECT_REPORT_PROJECT = PROJECT_DIR / "project-report-template.docx"
+PROJECT_REFLECTION_ASSETS = ASSETS_DIR / "project-reflection-template.docx"
+PROJECT_REFLECTION_PROJECT = PROJECT_DIR / "project-reflection-template.docx"
 DATA_ARCHITECTURE_ASSETS = ASSETS_DIR / "data-architecture-template.docx"
 DATA_ARCHITECTURE_WEEK2 = WEEK2_DIR / "data-architecture-template.docx"
 
@@ -336,6 +344,131 @@ def build_reflection_week_3() -> Document:
         "R6 Retroalimentación sobre la semana",
         "¿Qué mejoraría o qué funcionó bien en esta semana del curso? "
         "No se califica, únicamente ayuda a ajustar el curso.",
+    )
+    return doc
+
+
+def build_project_report() -> Document:
+    doc = Document()
+    style_body(doc)
+    heading(doc, "Informe del proyecto — Electiva Big Data", 0)
+    para(doc, "Maestría en Estadística Aplicada · UDENAR · A-2026")
+    para(
+        doc,
+        "Consolide el trabajo de las semanas 1–3 (puede reutilizar texto e imágenes de "
+        "project_requirements y data_architecture). Exporte a PDF como "
+        "project-report-<group_id>.pdf e inclúyalo en el ZIP project-<group_id>.zip. "
+        "Plazo del ZIP: martes 30 de junio de 2026, 23:59 (Colombia). "
+        "Mantenga los títulos de sección exactamente como aparecen abajo.",
+    )
+    doc.add_paragraph()
+
+    sections_data = [
+        (
+            "1. Metadatos del grupo",
+            "Id del grupo, integrantes, arquetipo, pregunta de decisión en una oración.",
+        ),
+        (
+            "2. Requerimientos del proyecto y modelo canvas",
+            "Interesados, requerimientos, objetivos, subconjunto GEIH. "
+            "Incluya el **canvas** (imagen) y liste los **requisitos de ética y gobernanza** "
+            "(p. ej. k-anon, no publicar microdatos, bitácora, contrato de esquema, capas de evidencia).",
+        ),
+        (
+            "3. Pipeline de big data",
+            "Figura y narrativa del recorrido completo (fuentes → almacenamiento → procesamiento → "
+            "ingesta → analítica → decisión). Indique qué etapas implementaron en los cuadernos del curso.",
+        ),
+        (
+            "4. Arquitectura de datos",
+            "Diagrama y explicación: harmonización, partición del lakehouse, ingesta gobernada "
+            "(Prefect, audit.jsonl, schema_contract.json) y capa curated/analítica.",
+        ),
+        (
+            "5. Analítica y respuesta a la pregunta de decisión",
+            "Modelos, métricas, gráficos/tablero; qué apoyan o no la decisión. Solo agregados oficiales "
+            "para inferencia sobre GEIH.",
+        ),
+        (
+            "6. Cumplimiento de requisitos éticos y de gobernanza",
+            "Explique **cómo** el pipeline y la analítica satisfacen cada requisito listado en la sección 2. "
+            "No repita la lista — trace la implementación.",
+        ),
+        (
+            "7. Limitaciones y recomendación",
+            "Límites del dato y del modelo; recomendación concreta para el interesado que decide.",
+        ),
+        (
+            "8. Contribución del grupo y uso de IA",
+            "Rol de cada integrante; herramientas de IA usadas en el proyecto y cómo influyeron; "
+            "declaración de integridad. Si optan por publicación web, confirmen autorización aquí.",
+        ),
+    ]
+    for title, prompt in sections_data:
+        section(doc, title, prompt)
+        if title.startswith("2."):
+            para(doc, "[Espacio para pegar el canvas — inserte imagen en Word]")
+            for _ in range(3):
+                doc.add_paragraph()
+        if title.startswith("4."):
+            para(doc, "[Espacio para pegar el diagrama de arquitectura]")
+            for _ in range(3):
+                doc.add_paragraph()
+    return doc
+
+
+def build_project_reflection() -> Document:
+    doc = Document()
+    style_body(doc)
+    heading(doc, "Reflexión individual — Proyecto final", 0)
+    para(
+        doc,
+        "Entregable: project-reflection-<student>.pdf (exportar desde este Word). "
+        "Plazo: miércoles 1 de julio de 2026, 23:59 (Colombia). "
+        "Cubre el proyecto integrador (semanas 1–3 y entrega final). Reemplace student por su nombre.",
+    )
+    para(doc, "Extensión orientativa del cuerpo (R1–R5): 800–1.200 palabras. R6: 100–200 palabras (sin nota).")
+    doc.add_paragraph()
+
+    section(
+        doc,
+        "Metadatos",
+        "Proyecto final | Estudiante: … | Grupo: G… | Lecturas citadas: … | Conteo de palabras: ~… (R1–R5)",
+    )
+    section(
+        doc,
+        "R1 Proceso y metodología",
+        "¿Qué hizo su grupo en el pipeline completo (lakehouse, curated, Prefect, modelos, tablero) "
+        "y cuál fue su aporte personal?",
+    )
+    section(
+        doc,
+        "R2 Justificación técnica",
+        "Defienda dos decisiones técnicas del proyecto (partición, motor, modelo lineal vs MLP, "
+        "ingesta, etc.) con trade-offs y evidencia de los cuadernos.",
+    )
+    section(
+        doc,
+        "R3 Enlace con el dominio y los datos",
+        "¿Cómo los agregados y el análisis responden a la pregunta de decisión? "
+        "¿Qué capa de evidencia mostraría a quien decide?",
+    )
+    section(
+        doc,
+        "R4 Ética y lecturas",
+        "Relacione el marco del curso (Zuboff, Dwork, gobernanza L2–L6) con los mecanismos "
+        "que aplicó su grupo (bitácora, contrato, k-anon, capas en el tablero).",
+    )
+    section(
+        doc,
+        "R5 Uso de IA e integridad",
+        "¿Qué herramientas de IA utilizó en el proyecto? "
+        "¿Cómo influyó en su trabajo y qué aprendió sobre su práctica?",
+    )
+    section(
+        doc,
+        "R6 Retroalimentación sobre el curso",
+        "¿Qué mejoraría o qué funcionó bien en el curso? No se califica.",
     )
     return doc
 
@@ -748,14 +881,44 @@ def write_reflection_week_3() -> tuple[Path, Path]:
     )
 
 
-def write_learning_journal_week_1() -> Path:
-    return save_doc(build_learning_journal_week_1(), LEARNING_JOURNAL_WEEK_1)
+def write_project_report() -> tuple[Path, Path]:
+    return save_mirror(
+        build_project_report(),
+        PROJECT_REPORT_ASSETS,
+        PROJECT_REPORT_PROJECT,
+    )
 
-def write_learning_journal_week_2() -> Path:
-    return save_doc(build_learning_journal_week_2(), LEARNING_JOURNAL_WEEK_2)
 
-def write_learning_journal_week_3() -> Path:
-    return save_doc(build_learning_journal_week_3(), LEARNING_JOURNAL_WEEK_3)
+def write_project_reflection() -> tuple[Path, Path]:
+    return save_mirror(
+        build_project_reflection(),
+        PROJECT_REFLECTION_ASSETS,
+        PROJECT_REFLECTION_PROJECT,
+    )
+
+
+def write_learning_journal_week_1() -> tuple[Path, Path]:
+    return save_mirror(
+        build_learning_journal_week_1(),
+        LEARNING_JOURNAL_WEEK_1_ASSETS,
+        LEARNING_JOURNAL_WEEK_1,
+    )
+
+
+def write_learning_journal_week_2() -> tuple[Path, Path]:
+    return save_mirror(
+        build_learning_journal_week_2(),
+        LEARNING_JOURNAL_WEEK_2_ASSETS,
+        LEARNING_JOURNAL_WEEK_2,
+    )
+
+
+def write_learning_journal_week_3() -> tuple[Path, Path]:
+    return save_mirror(
+        build_learning_journal_week_3(),
+        LEARNING_JOURNAL_WEEK_3_ASSETS,
+        LEARNING_JOURNAL_WEEK_3,
+    )
 
 
 DOCUMENT_WRITERS: dict[str, Callable[[], list[Path]]] = {
@@ -764,9 +927,11 @@ DOCUMENT_WRITERS: dict[str, Callable[[], list[Path]]] = {
     "reflection_week_1": lambda: list(write_reflection_week_1()),
     "reflection_week_2": lambda: list(write_reflection_week_2()),
     "reflection_week_3": lambda: list(write_reflection_week_3()),
-    "learning_journal_week_1": lambda: [write_learning_journal_week_1()],
-    "learning_journal_week_2": lambda: [write_learning_journal_week_2()],
-    "learning_journal_week_3": lambda: [write_learning_journal_week_3()],
+    "project_report": lambda: list(write_project_report()),
+    "project_reflection": lambda: list(write_project_reflection()),
+    "learning_journal_week_1": lambda: list(write_learning_journal_week_1()),
+    "learning_journal_week_2": lambda: list(write_learning_journal_week_2()),
+    "learning_journal_week_3": lambda: list(write_learning_journal_week_3()),
 }
 
 

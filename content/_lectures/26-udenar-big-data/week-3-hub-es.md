@@ -55,7 +55,29 @@ visible: false
 |---------|--------|
 | Diario semana 3 (Word) | [learning-journal-week-3.docx](/assets/documents/26-udenar-big-data/learning-journal-week-3.docx) |
 | Reflexión semana 3 (Word) | [reflection-week-3-template.docx](/assets/documents/26-udenar-big-data/reflection-week-3-template.docx) |
-| Requerimientos del proyecto (PDF) | [project-requirements-template.pdf](/assets/documents/26-udenar-big-data/project-requirements-template.pdf) |
+| Requerimientos del proyecto (Word) | [project-requirements-template.docx](/assets/documents/26-udenar-big-data/project-requirements-template.docx) |
+| Arquitectura de datos (Word) | [data-architecture-template.docx](/assets/documents/26-udenar-big-data/data-architecture-template.docx) |
+
+---
+
+### Proyecto final (plantillas — se explican el sábado 20)
+
+| Recurso | Enlace |
+|---------|--------|
+| Informe del proyecto (Word) | [project-report-template.docx](/assets/documents/26-udenar-big-data/project-report-template.docx) |
+| Diapositivas (plantilla) | [project-presentation-template.pptx](/assets/documents/26-udenar-big-data/project-presentation-template.pptx) |
+| Reflexión proyecto final (Word) | [project-reflection-template.docx](/assets/documents/26-udenar-big-data/project-reflection-template.docx) |
+| Ejemplo título (inglés, opt-in web) | [project-title-en.example.txt](/assets/documents/26-udenar-big-data/project-title-en.example.txt) |
+| Ejemplo abstract (~200 palabras, inglés) | [project-abstract-en.example.txt](/assets/documents/26-udenar-big-data/project-abstract-en.example.txt) |
+| Catálogo público (L8) | [l8-final-project](/teaching/26-udenar-big-data/l8-final-project/) |
+
+Detalle en la sección **Entregables del proyecto** del cuaderno [L6](/teaching/26-udenar-big-data/l6-analytics/).
+
+| Entrega | Plazo (Colombia) |
+|---------|------------------|
+| Presentación en vivo (sin ZIP) | **Sábado 27 jun 2026** |
+| ZIP `project-<group_id>.zip` (informe PDF + código + manifiesto + linaje) | **Martes 30 jun 2026, 23:59** |
+| Reflexión `project-reflection-<student>.pdf` | **Miércoles 1 jul 2026, 23:59** |
 
 ---
 

@@ -1,34 +1,29 @@
 ---
 course_code: 26-udenar-big-data
-title: Project integration (async)
-description: Async-only integration video (~30–45 min) released after Sat 3. Walks through project brief, rubric, integration checklist, presentation format. No Saturday sync — project week 22–26 Jun is for group finalisation. Stub — content to be authored.
+title: Charla — investigación y big data
+description: Sábado 27 Jun 2026 — sesión en vivo (~1 h). Charla del instructor sobre investigación y vínculo con big data y proyectos del curso. Sin cuaderno.
 session: 7
-start_time: async
-end_time: async
-hours: 0.75
+start_time: 07:00 am
+end_time: 01:00 pm
+hours: 1
 author: Christian Cabrera Jojoa
 email: chc79@cam.ac.uk
-position: Senior Research Associate and Affiliated Lecturer
-department: Department of Computer Science and Technology
-institution: University of Cambridge
+position: Assistant Research Professor
 layout: lecture
 lecture_code: l7-integration
-lecture_date: 22/06/2026
+lecture_date: 27/06/2026
 permalink: /teaching/26-udenar-big-data/l7-integration/
 visible: false
+skip_slides: true
+skip_notebook: true
 ---
 
-<!-- NOTEBOOK: -->
+<!-- RENDER: -->
 
-*Lección 7 — video async de integración del proyecto — por redactar.*
+**Sábado 27 jun 2026** · Bloque en vivo antes de las presentaciones finales (L8)
 
-Contenido previsto:
+Charla del instructor (~1 h): investigación actual y cómo se conecta con big data y con los proyectos del curso.
 
-- Alcance y estructura del proyecto final (`project-brief.md`).
-- Recorrido de la rúbrica (G1–G4; P1–P5).
-- **Lista de verificación de integración** que los grupos deben ejecutar antes de las presentaciones del Sat 4.
-- Formato y tiempos de las presentaciones en vivo (5 grupos, Sat 27 Jun 07:00–13:00 CO).
+A continuación: presentaciones de grupos — ver [L8 — Proyectos finales](/teaching/26-udenar-big-data/l8-final-project/).
 
-Sin bloque de sincronía del sábado — el rol de clínica de proyecto pasa a la semana de proyecto (horas abiertas del instructor por Teams, a solicitud).
-
-<!-- end NOTEBOOK: -->
+<!-- end RENDER: -->

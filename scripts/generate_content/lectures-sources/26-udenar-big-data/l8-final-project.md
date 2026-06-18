@@ -1,30 +1,46 @@
 ---
 course_code: 26-udenar-big-data
-title: Final project presentations and course close
-description: Sat 4 (27 Jun 2026) — live group presentations only. 07:00–13:00 CO inside the same 6 h Saturday rhythm used in Sat 1–3. Stub — content to be authored.
+title: Proyectos finales y cierre del curso
+description: Sat 27 Jun 2026 — charla L7 + presentaciones L8. Catálogo público de proyectos (título + abstract en inglés, opt-in). Entrega final ZIP martes 30 jun; reflexión miércoles 1 jul.
 session: 8
 start_time: 07:00 am
 end_time: 01:00 pm
 hours: 6
 author: Christian Cabrera Jojoa
 email: chc79@cam.ac.uk
-position: Senior Research Associate and Affiliated Lecturer
-department: Department of Computer Science and Technology
-institution: University of Cambridge
+position: Assistant Research Professor
 layout: lecture
 lecture_code: l8-final-project
 lecture_date: 27/06/2026
 permalink: /teaching/26-udenar-big-data/l8-final-project/
 visible: false
+skip_slides: true
+skip_notebook: true
 ---
 
-<!-- NOTEBOOK: -->
+<!-- RENDER: -->
 
-*Lección 8 — guión de presentaciones finales — por redactar.*
+**Sábado 27 jun 2026** · Presentaciones finales + cierre del curso
 
-Contenido previsto:
+---
 
-- **Guión** para 5 grupos × ~12–15 min presentación + ~15–20 min preguntas (ver `session-plan.md` § Sat 4 schedule).
-- Cierre del curso: reflexión entre grupos, retroalimentación del instructor, encuesta en Moodle.
+### Entregas finales (Moodle)
 
-<!-- end NOTEBOOK: -->
+| Entrega | Plazo (Colombia) |
+|---------|------------------|
+| ZIP `project-<group_id>.zip` (informe PDF + código + manifiesto + linaje) | **Martes 30 jun 2026, 23:59** |
+| Reflexión `project-reflection-<student>.pdf` | **Miércoles 1 jul 2026, 23:59** |
+
+Plantillas: [informe](/assets/documents/26-udenar-big-data/project-report-template.docx) · [diapositivas](/assets/documents/26-udenar-big-data/project-presentation-template.pptx) · [reflexión](/assets/documents/26-udenar-big-data/project-reflection-template.docx)
+
+Detalle de la entrega: sección **Entregables del proyecto** en [L6](/teaching/26-udenar-big-data/l6-analytics/).
+
+---
+
+### Catálogo de proyectos
+
+{% include 26-udenar-big-data/project_catalog.html %}
+
+---
+
+<!-- end RENDER: -->

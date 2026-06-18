@@ -1,33 +1,34 @@
 ---
 author: Christian Cabrera Jojoa
 course_code: 26-udenar-big-data
-department: Department of Computer Science and Technology
-description: "Async-only integration video (~30\u201345 min) released after Sat 3.\
-  \ Walks through project brief, rubric, integration checklist, presentation format.\
-  \ No Saturday sync \u2014 project week 22\u201326 Jun is for group finalisation.\
-  \ Stub \u2014 content to be authored."
+description: "S\xE1bado 27 Jun 2026 \u2014 sesi\xF3n en vivo (~1 h). Charla del instructor\
+  \ sobre investigaci\xF3n y v\xEDnculo con big data y proyectos del curso. Sin cuaderno."
 email: chc79@cam.ac.uk
-end_time: async
-hours: 0.75
-institution: University of Cambridge
+end_time: 01:00 pm
+hours: 1
 layout: lecture
 lecture_code: l7-integration
-lecture_date: 22/06/2026
+lecture_date: 27/06/2026
 permalink: /teaching/26-udenar-big-data/l7-integration/
-position: Senior Research Associate and Affiliated Lecturer
+position: Assistant Research Professor
 session: 7
-start_time: async
-title: Project integration (async)
+skip_notebook: true
+skip_slides: true
+start_time: 07:00 am
+title: "Charla \u2014 investigaci\xF3n y big data"
 visible: false
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
+<link rel="stylesheet" href="/assets/css/lecture-article.css">
 <div class="lecture-resources">
   <p>
-    <a href="/assets/slides/26-udenar-big-data/l7-integration.html" target="_blank">[HTML Slides]</a>
-    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l7-integration.ipynb" target="_blank">[Colab Notebook]</a>
-    <a href="/teaching/26-udenar-big-data/">[Back to Course]</a>
+    <a href="/teaching/26-udenar-big-data/">Back to course</a>
   </p>
 </div>
 
+**Sábado 27 jun 2026** · Bloque en vivo antes de las presentaciones finales (L8)
 
+Charla del instructor (~1 h): investigación actual y cómo se conecta con big data y con los proyectos del curso.
+
+A continuación: presentaciones de grupos — ver [L8 — Proyectos finales](/teaching/26-udenar-big-data/l8-final-project/).
