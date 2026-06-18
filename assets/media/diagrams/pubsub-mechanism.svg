@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 420" font-family="Helvetica, Arial, sans-serif">
+  <rect width="920" height="420" fill="#ffffff"/>
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#5a6b7b"/>
+    </marker>
+  </defs>
+
+  <text x="460" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1f2d3d">Publish / subscribe mechanism</text>
+
+  <!-- Producers -->
+  <text x="110" y="72" text-anchor="middle" font-size="14" font-weight="bold" fill="#2f5597">Producers</text>
+  <rect x="40" y="88" width="140" height="48" rx="6" fill="#dbe5f1" stroke="#2f5597"/>
+  <text x="110" y="118" text-anchor="middle" font-size="13" fill="#1f2d3d">RSS poller</text>
+  <rect x="40" y="150" width="140" height="48" rx="6" fill="#dbe5f1" stroke="#2f5597"/>
+  <text x="110" y="180" text-anchor="middle" font-size="13" fill="#1f2d3d">App logs</text>
+  <rect x="40" y="212" width="140" height="48" rx="6" fill="#dbe5f1" stroke="#2f5597"/>
+  <text x="110" y="242" text-anchor="middle" font-size="13" fill="#1f2d3d">Sensors</text>
+
+  <!-- Topic log -->
+  <rect x="280" y="70" width="360" height="220" rx="10" fill="#fbe5d6" stroke="#c55a11" stroke-width="2"/>
+  <text x="460" y="98" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f2d3d">Topic: append-only log</text>
+  <text x="300" y="124" font-size="11" fill="#5a6b7b">offset 0</text>
+  <text x="580" y="124" font-size="11" fill="#5a6b7b">new offsets</text>
+
+  <rect x="300" y="138" width="320" height="36" rx="4" fill="#ffffff" stroke="#c55a11"/>
+  <rect x="308" y="146" width="28" height="20" fill="#dbe5f1" stroke="#2f5597"/>
+  <rect x="340" y="146" width="28" height="20" fill="#dbe5f1" stroke="#2f5597"/>
+  <rect x="372" y="146" width="28" height="20" fill="#dbe5f1" stroke="#2f5597"/>
+  <rect x="404" y="146" width="28" height="20" fill="#dbe5f1" stroke="#2f5597"/>
+  <rect x="436" y="146" width="28" height="20" fill="#dbe5f1" stroke="#2f5597"/>
+  <rect x="468" y="146" width="28" height="20" fill="#dbe5f1" stroke="#2f5597"/>
+  <rect x="500" y="146" width="28" height="20" fill="#dbe5f1" stroke="#2f5597"/>
+  <rect x="532" y="146" width="28" height="20" fill="#dbe5f1" stroke="#2f5597"/>
+  <line x1="568" y1="156" x2="610" y2="156" stroke="#c55a11" stroke-width="2" marker-end="url(#arr)"/>
+
+  <text x="300" y="200" font-size="12" fill="#1f2d3d">Events are retained, not deleted on read</text>
+  <text x="300" y="222" font-size="12" fill="#1f2d3d">Consumers track their offset in the log</text>
+  <text x="300" y="244" font-size="12" fill="#1f2d3d">Replay is possible from any offset</text>
+  <text x="300" y="272" font-size="12" fill="#5a6b7b">Broker stores and serves the log (Kafka)</text>
+
+  <!-- Consumers -->
+  <text x="810" y="72" text-anchor="middle" font-size="14" font-weight="bold" fill="#7030a0">Consumers</text>
+  <rect x="740" y="88" width="140" height="48" rx="6" fill="#e6d8f0" stroke="#7030a0"/>
+  <text x="810" y="118" text-anchor="middle" font-size="13" fill="#1f2d3d">Deduplicator</text>
+  <rect x="740" y="150" width="140" height="48" rx="6" fill="#e6d8f0" stroke="#7030a0"/>
+  <text x="810" y="180" text-anchor="middle" font-size="13" fill="#1f2d3d">MongoDB sink</text>
+  <rect x="740" y="212" width="140" height="48" rx="6" fill="#e6d8f0" stroke="#7030a0"/>
+  <text x="810" y="242" text-anchor="middle" font-size="13" fill="#1f2d3d">Dashboard</text>
+
+  <g stroke="#5a6b7b" stroke-width="2" fill="none" marker-end="url(#arr)">
+    <line x1="180" y1="112" x2="276" y2="156"/>
+    <line x1="180" y1="174" x2="276" y2="156"/>
+    <line x1="180" y1="236" x2="276" y2="180"/>
+    <line x1="640" y1="156" x2="736" y2="112"/>
+    <line x1="640" y1="170" x2="736" y2="174"/>
+    <line x1="640" y1="184" x2="736" y2="236"/>
+  </g>
+
+  <text x="460" y="330" text-anchor="middle" font-size="14" fill="#1f2d3d"><tspan font-weight="bold">Decoupling:</tspan> producers and consumers never talk directly</text>
+  <text x="460" y="356" text-anchor="middle" font-size="14" fill="#1f2d3d">Add a consumer without changing producers</text>
+  <text x="460" y="396" text-anchor="middle" font-size="13" fill="#5a6b7b">Course lab: local Kafka broker + mongomock document store</text>
+</svg>

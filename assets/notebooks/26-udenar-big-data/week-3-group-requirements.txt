@@ -1,0 +1,12 @@
+polars
+pyarrow
+prefect>=2.20,<3
+kafka-python
+feedparser
+mongomock
+requests
+nest-asyncio
+anyio==4.4.0
+scikit-learn
+plotly
+ipywidgets

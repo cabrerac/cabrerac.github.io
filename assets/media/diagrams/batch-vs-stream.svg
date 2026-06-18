@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 480" font-family="Helvetica, Arial, sans-serif">
+  <rect width="920" height="480" fill="#ffffff"/>
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#5a6b7b"/>
+    </marker>
+  </defs>
+
+  <text x="460" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1f2d3d">Batch and stream in production</text>
+
+  <!-- Batch column -->
+  <rect x="40" y="56" width="400" height="360" rx="10" fill="#f6f8fa" stroke="#2f5597" stroke-width="2"/>
+  <text x="240" y="86" text-anchor="middle" font-size="16" font-weight="bold" fill="#2f5597">Batch ingestion</text>
+
+  <rect x="70" y="110" width="340" height="70" rx="6" fill="#dbe5f1" stroke="#2f5597"/>
+  <text x="240" y="140" text-anchor="middle" font-size="13" fill="#1f2d3d">Bounded GEIH partitions</text>
+  <text x="240" y="162" text-anchor="middle" font-size="11" fill="#5a6b7b">lakehouse snapshot</text>
+
+  <text x="240" y="200" text-anchor="middle" font-size="20" fill="#c55a11">&#8595;</text>
+  <text x="240" y="218" text-anchor="middle" font-size="11" fill="#c55a11">scheduled ETL</text>
+
+  <rect x="70" y="230" width="340" height="70" rx="6" fill="#e2efda" stroke="#548235"/>
+  <text x="240" y="260" text-anchor="middle" font-size="13" fill="#1f2d3d">Curated aggregates + governance</text>
+  <text x="240" y="282" text-anchor="middle" font-size="11" fill="#5a6b7b">audit log, schema contract</text>
+
+  <text x="70" y="330" font-size="12" fill="#1f2d3d">High throughput</text>
+  <text x="70" y="352" font-size="12" fill="#1f2d3d">Latency: hours / days OK</text>
+  <text x="70" y="374" font-size="12" fill="#1f2d3d">Strong consistency on snapshot</text>
+  <text x="70" y="396" font-size="12" fill="#5a6b7b">Orchestrator: Prefect / Airflow</text>
+
+  <!-- Stream column -->
+  <rect x="480" y="56" width="400" height="360" rx="10" fill="#f6f8fa" stroke="#7030a0" stroke-width="2"/>
+  <text x="680" y="86" text-anchor="middle" font-size="16" font-weight="bold" fill="#7030a0">Stream ingestion</text>
+
+  <rect x="510" y="110" width="340" height="70" rx="6" fill="#e6d8f0" stroke="#7030a0"/>
+  <text x="680" y="140" text-anchor="middle" font-size="13" fill="#1f2d3d">Unbounded events (RSS, logs)</text>
+  <text x="680" y="162" text-anchor="middle" font-size="11" fill="#5a6b7b">velocity + variety</text>
+
+  <text x="680" y="200" text-anchor="middle" font-size="20" fill="#c55a11">&#8595;</text>
+  <text x="680" y="218" text-anchor="middle" font-size="11" fill="#c55a11">pub/sub log (Kafka)</text>
+
+  <rect x="510" y="230" width="340" height="70" rx="6" fill="#fbe5d6" stroke="#c55a11"/>
+  <text x="680" y="260" text-anchor="middle" font-size="13" fill="#1f2d3d">Live monitors + document store</text>
+  <text x="680" y="282" text-anchor="middle" font-size="11" fill="#5a6b7b">not official statistics</text>
+
+  <text x="510" y="330" font-size="12" fill="#1f2d3d">Low latency over windows</text>
+  <text x="510" y="352" font-size="12" fill="#1f2d3d">Eventual consistency</text>
+  <text x="510" y="374" font-size="12" fill="#1f2d3d">Replay from retained log</text>
+  <text x="510" y="396" font-size="12" fill="#5a6b7b">Broker: Kafka + stream processor</text>
+
+  <!-- Bridge -->
+  <rect x="200" y="430" width="520" height="36" rx="6" fill="#f3f7ec" stroke="#548235"/>
+  <text x="460" y="453" text-anchor="middle" font-size="13" fill="#1f2d3d">Real systems run both: batch for governed history, stream for fresh signal</text>
+</svg>

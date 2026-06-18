@@ -28,9 +28,9 @@
     <rect x="430" y="110" width="100" height="34" rx="5" fill="#e2efda" stroke="#548235"/><text x="480" y="132" text-anchor="middle" font-size="12">Broker 2</text>
     <rect x="542" y="110" width="100" height="34" rx="5" fill="#e2efda" stroke="#548235"/><text x="592" y="132" text-anchor="middle" font-size="12">Broker 3</text>
   </g>
-  <text x="318" y="176" font-size="13" font-weight="bold" fill="#1f2d3d">Topic  partitioned, append-only log</text>
+  <text x="318" y="176" font-size="13" font-weight="bold" fill="#1f2d3d">Topic: partitioned, append-only log</text>
 
-  <!-- Partitions: append-only logs with offsets -->
+  <!-- Partitions -->
   <g font-size="11">
     <rect x="318" y="188" width="324" height="44" rx="5" fill="#fbe5d6" stroke="#c55a11"/>
     <text x="326" y="205" font-size="11" fill="#5a6b7b">Partition 0</text>
@@ -57,7 +57,7 @@
     <line x1="544" y1="331" x2="636" y2="331" stroke="#c55a11" stroke-width="1.5" marker-end="url(#arrow)"/>
   </g>
   <text x="318" y="372" font-size="11" fill="#5a6b7b">old offsets ............................ new offsets</text>
-  <text x="318" y="404" font-size="12" fill="#1f2d3d">Replication across brokers &#8594; fault tolerance</text>
+  <text x="318" y="404" font-size="12" fill="#1f2d3d">Replication across brokers: fault tolerance</text>
   <text x="318" y="426" font-size="12" fill="#1f2d3d">Messages are retained, not deleted on read</text>
 
   <!-- Consumer group -->
@@ -74,7 +74,6 @@
     <line x1="642" y1="330" x2="736" y2="340"/>
   </g>
 
-  <!-- Bottom caption -->
   <text x="20" y="510" font-size="13" fill="#1f2d3d"><tspan font-weight="bold">Decoupling:</tspan> producers and consumers never talk directly.</text>
-  <text x="20" y="530" font-size="13" fill="#1f2d3d"><tspan font-weight="bold">Partitions:</tspan> one per consumer &#8594; horizontal parallelism and scale.</text>
+  <text x="20" y="530" font-size="13" fill="#1f2d3d"><tspan font-weight="bold">Partitions:</tspan> one per consumer in the group: horizontal parallelism.</text>
 </svg>

@@ -64,22 +64,6 @@ notebook_description: Práctica individual de la Lección 5. Pasamos de la inges
 
 <!-- SLIDES: -->
 
-# Publish / Subscribe
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-big-data/l5-ingestion/pubsub.md %}
-
-<!-- SLIDES: -->
-
-# Streaming at Scale
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-big-data/l5-ingestion/streaming-tools.md %}
-
-<!-- SLIDES: -->
-
 # Conclusions
 
 <!-- end SLIDES: -->
@@ -346,7 +330,7 @@ Instalamos las librerías que **no** vienen en Colab. Cada una cubre una parte d
 - **Polars / PyArrow:** leen Parquet y agregan, como en las lecciones 3 y 4.
 
 ```python
-%pip install -q polars pyarrow "prefect>=2.20,<3" kafka-python feedparser mongomock requests
+%pip install -q polars pyarrow "prefect>=2.20,<3" kafka-python feedparser mongomock requests nest-asyncio
 ```
 
 Importamos todas las librerías que necesitamos. El cliente de Kafka (`KafkaProducer`/`KafkaConsumer`) lo usaremos contra el broker local que levantamos en la Parte 5.
@@ -363,6 +347,12 @@ import mongomock    # base de datos documental (MongoDB) en memoria
 import polars as pl # procesamiento eficiente de datos tabulares (como pandas, pero más rápido)
 import requests     # realizar peticiones HTTP (descargar datos, interactuar con APIs)
 from kafka import KafkaConsumer, KafkaProducer  # cliente Kafka (productor/consumidor)
+
+try:
+    import nest_asyncio  # permite ejecutar Prefect dentro de Jupyter/Colab
+    nest_asyncio.apply()
+except ImportError:
+    pass
 
 print("Dependencias: OK")
 ```
@@ -540,6 +530,7 @@ Ahora definimos las tareas y el flujo del orquestador de la ETL.
 
 ```python
 from prefect import flow, task
+from prefect.task_runners import SequentialTaskRunner
 
 
 @task
@@ -573,7 +564,7 @@ def task_validate(path_str: str) -> int:
     return df.height
 
 
-@flow(name="geih_batch_ingest_year")
+@flow(name="geih_batch_ingest_year", task_runner=SequentialTaskRunner())
 def batch_flow_year(paths: list[str], salida: str) -> int:
     """Flujo ETL: extrae un año → agrega/escribe → valida, y deja rastro en la bitácora."""
     lf = task_extract(paths)
@@ -810,7 +801,7 @@ mongo = mongomock.MongoClient()
 news_col = mongo["udenar"]["news_raw"]  # base "udenar", colección "news_raw"
 
 if news_rows:
-    news_col.insert_many(news_rows)
+    news_col.insert_many([dict(ev) for ev in news_rows])
     append_audit({"stage": "stream_staging_mongo", "collection": "news_raw", "docs": news_col.count_documents({})})
 
 print("Documentos en MongoDB:", news_col.count_documents({}))
@@ -935,7 +926,7 @@ elif not KAFKA_ENABLED:
     replay_rows = list(replay_events)
 
 if replay_rows:
-    news_col.insert_many(replay_rows)
+    news_col.insert_many([dict(ev) for ev in replay_rows])
     with news_path.open("a", encoding="utf-8") as f:
         for doc in replay_rows:
             f.write(json.dumps(doc, ensure_ascii=False) + "\n")

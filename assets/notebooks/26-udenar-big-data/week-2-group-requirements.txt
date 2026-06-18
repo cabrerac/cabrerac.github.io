@@ -1,0 +1,3 @@
+duckdb
+polars
+pyarrow

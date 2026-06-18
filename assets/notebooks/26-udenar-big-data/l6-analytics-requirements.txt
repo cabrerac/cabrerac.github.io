@@ -1,0 +1,7 @@
+polars
+pyarrow
+scikit-learn
+plotly
+feedparser
+mongomock
+ipywidgets

@@ -35,11 +35,13 @@ skip_notebook: true
 
 ### Colabs
 
-| Cuaderno | Enlace |
-|----------|--------|
-| L5 individual | [l5-ingestion](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l5-ingestion.ipynb) |
-| L6 individual | [l6-analytics](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l6-analytics.ipynb) |
-| Semana 3 grupal | [week-3-group](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-3-group.ipynb) |
+Para reproducir **fuera de Colab**: `pip install -r` el archivo de requisitos de cada cuaderno (misma carpeta que el `.ipynb` en el sitio).
+
+| Cuaderno | Colab | Requisitos (local) |
+|----------|-------|--------------------|
+| L5 individual | [l5-ingestion](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l5-ingestion.ipynb) | [l5-ingestion-requirements.txt](/assets/notebooks/26-udenar-big-data/l5-ingestion-requirements.txt) |
+| L6 individual | [l6-analytics](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l6-analytics.ipynb) | [l6-analytics-requirements.txt](/assets/notebooks/26-udenar-big-data/l6-analytics-requirements.txt) |
+| Semana 3 grupal | [week-3-group](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-3-group.ipynb) | [week-3-group-requirements.txt](/assets/notebooks/26-udenar-big-data/week-3-group-requirements.txt) |
 
 ---
 

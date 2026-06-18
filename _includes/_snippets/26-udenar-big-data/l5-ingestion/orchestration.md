@@ -32,6 +32,25 @@
 ## Orchestration
 
 <div class="rows" style="height: 100%">
+    <div class="row" style="height: 86%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/orchestrator-workflow.svg" alt="Orchestrated workflow: scheduler, Extract Transform Load Validate, governance sidecar" style="height: 100%">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 14%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p>Declare steps once. Run locally today, on schedule in production.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Orchestration
+
+<div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -100,7 +119,7 @@ def batch_flow(paths, output):   # one flow chains the steps
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <p>Automating a pipeline raises a question from Lecture 2: <b>can we trust and reproduce</b> what it produced? Governance is built <b>into</b> ingestion, not bolted on later.</p>
+                <p>Automating a pipeline raises a question from Lecture 2: <b>can we trust and reproduce</b> what it produced? Governance is built <b>into</b> ingestion.</p>
             </div>
         </div>
     </div>

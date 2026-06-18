@@ -2,9 +2,11 @@
 author: Christian Cabrera Jojoa
 course_code: 26-udenar-big-data
 department: Department of Computer Science and Technology
-description: "Lecture 5 \u2014 batch to stream ingestion journey on the GEIH lakehouse\
-  \ plus Kafka news feeds. Audit logging and schema contracts hook back to L2 ethics\
-  \ framing."
+description: Lecture 5 introduces batch and stream ingestion approaches. Once our
+  data is harmonised on a lakehouse, we need to create data artefacts and views to
+  feed our analytic tasks. These artefacts can be created and processed offline following
+  a schedule (i.e., batch) or in real-time (i.e., streaming depending on the data
+  nature.
 email: chc79@cam.ac.uk
 end_time: 01:00 pm
 group_notebook: week-3-group

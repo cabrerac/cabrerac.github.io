@@ -5,47 +5,19 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Ingestion connects storage and processing</b></p>
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <ul>
-                    <li>The source's <b>volume</b> and <b>velocity</b> choose batch or stream</li>
+                    <li>Ingestion connects storage and processing</li>
+                    <li>Volume and velocity choose batch or stream</li>
+                    <li>Batch: orchestrated ETL on a schedule</li>
+                    <li>Stream: publish/subscribe over a retained log</li>
+                    <li>Governance travels with the data</li>
+                    <li>Production systems run both modes</li>
+                    <li>Next: analytics and visualisation (L6)</li>
                 </ul>
             </div>
-        </div>
-    </div>
-</div>
-
-## Conclusions
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Ingestion connects storage and processing</b></p>
-                <ul>
-                    <li>The source's <b>volume</b> and <b>velocity</b> choose batch or stream</li>
-                    <li><b>Batch:</b> orchestrated ETL, scheduled, governed (Airflow / Prefect / Dagster)</li>
-                    <li><b>Stream:</b> publish / subscribe over a distributed, partitioned log</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Conclusions
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Ingestion connects storage and processing</b></p>
-                <ul>
-                    <li>The source's <b>volume</b> and <b>velocity</b> choose batch or stream</li>
-                    <li><b>Batch:</b> orchestrated ETL, scheduled, governed (Airflow / Prefect / Dagster)</li>
-                    <li><b>Stream:</b> publish / subscribe over a distributed, partitioned log</li>
-                    <li><b>Governance</b> travels with the data: audit log, schema contract, lineage</li>
-                </ul>
-                <p>Next we turn ingested data into <b>evidence</b> — analytics and visualisation (L6).</p>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/batch-vs-stream.svg" alt="Batch and stream ingestion compared side by side" style="height: 100%">
             </div>
         </div>
     </div>
