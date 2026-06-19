@@ -40,16 +40,4 @@
     </div>
 </div>
 
-## Last Time
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <p>We can now move data in and store it. Today we turn it into <b>evidence</b>: visualisation, dashboards, and machine learning.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- end SLIDES: -->

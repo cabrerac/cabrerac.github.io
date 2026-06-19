@@ -32,6 +32,14 @@ notebook_description: Práctica individual de la Lección 6. Armamos un tablero 
 
 <!-- SLIDES: -->
 
+# Analytics
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-big-data/l6-analytics/analytics.md %}
+
+<!-- SLIDES: -->
+
 # Visualisation
 
 <!-- end SLIDES: -->
