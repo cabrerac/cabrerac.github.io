@@ -31,4 +31,4 @@ visible: false
 
 Charla del instructor (~1 h): investigación actual y cómo se conecta con big data y con los proyectos del curso.
 
-A continuación: presentaciones de grupos — ver [L8 — Proyectos finales](/teaching/26-udenar-big-data/l8-final-project/).
+A continuación: presentaciones de grupos (~20 min slides + live demo + ~10 min Q&A each) — ver [L8 — Proyectos finales](/teaching/26-udenar-big-data/l8-final-project/).

@@ -71,7 +71,7 @@ Detalle en la sección **Entregables del proyecto** del cuaderno [L6](/teaching/
 
 | Entrega | Plazo (Colombia) |
 |---------|------------------|
-| Presentación en vivo (sin ZIP) | **Sábado 27 jun 2026** |
+| Presentación en vivo (~20 min slides + live demo + ~10 min Q&A; sin ZIP) | **Sábado 27 jun 2026** |
 | ZIP `project-<group_id>.zip` (informe PDF + código + manifiesto + linaje) | **Martes 30 jun 2026, 23:59** |
 | Reflexión `project-reflection-<student>.pdf` | **Miércoles 1 jul 2026, 23:59** |
 

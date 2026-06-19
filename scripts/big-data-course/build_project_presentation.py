@@ -37,7 +37,7 @@ def build_presentation() -> Path:
         ),
         (
             "Analítica y resultados",
-            "Respuesta a la pregunta de decisión; cómo cumplen los requisitos (incl. éticos).",
+            "Respuesta a la pregunta de decisión; demo en vivo (tablero, pipeline o celdas clave).",
         ),
         (
             "Conclusiones",

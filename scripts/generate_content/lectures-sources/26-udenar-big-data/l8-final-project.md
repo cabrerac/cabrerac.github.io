@@ -22,6 +22,8 @@ skip_notebook: true
 
 **Sábado 27 jun 2026** · Presentaciones finales + cierre del curso
 
+Cada grupo: **~20 min** (6 diapositivas + **demo en vivo** del pipeline / tablero) + **~10 min** de preguntas. Plantilla: [project-presentation-template.pptx](/assets/documents/26-udenar-big-data/project-presentation-template.pptx).
+
 ---
 
 ### Entregas finales (Moodle)

@@ -884,7 +884,7 @@ Lo que practicaron aquí lo **implementan ustedes** en el cuaderno grupal **`wee
 
 | Qué | Cuándo (Colombia) |
 |-----|-------------------|
-| **Presentación en vivo** (diapositivas; no van en el ZIP) | **Sábado 27 jun 2026** — tras charla L7 (~1 h) |
+| **Presentación en vivo** (~20 min slides + live demo + ~10 min Q&A; slides not in ZIP) | **Sábado 27 jun 2026** — tras charla L7 (~1 h) |
 | **Un solo ZIP** `project-<group_id>.zip` | **Martes 30 jun 2026, 23:59** |
 | **Reflexión individual** `project-reflection-<student>.pdf` | **Miércoles 1 jul 2026, 23:59** |
 
@@ -906,7 +906,7 @@ Lo que practicaron aquí lo **implementan ustedes** en el cuaderno grupal **`wee
 
 Sin microdatos ni material re-identificable. El instructor publica título + abstract en [L8](/teaching/26-udenar-big-data/l8-final-project/) tras revisar la entrega.
 
-**Diapositivas (sábado 27):** siga la plantilla [project-presentation-template.pptx](/assets/documents/26-udenar-big-data/project-presentation-template.pptx) — **6 diapositivas:** título → canvas (requerimientos + ética) → pipeline → arquitectura → analítica → conclusiones. La ética se integra en canvas, pipeline, arquitectura y analítica (sin diapositiva final solo de ética).
+**Diapositivas (sábado 27):** siga la plantilla [project-presentation-template.pptx](/assets/documents/26-udenar-big-data/project-presentation-template.pptx) — **6 diapositivas:** título → canvas (requerimientos + ética) → pipeline → arquitectura → analítica → conclusiones. **~20 min** en total (incluya **demo en vivo** del pipeline, tablero o salidas clave) + **~10 min** de preguntas. La ética se integra en canvas, pipeline, arquitectura y analítica (sin diapositiva final solo de ética).
 
 **Sábado 27:** charla del instructor (L7) → presentaciones (L8). La charla puede ser versión en curso; el **informe en el ZIP** es la entrega escrita final.
 
