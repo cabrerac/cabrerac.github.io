@@ -513,11 +513,15 @@ print("Parte 2, tablero descriptivo: OK")
 
 ## Parte 3. Modelar el empleo: regresión lineal
 
-El tablero **describe**; un **modelo** intenta **predecir**. Predecimos el **empleo ponderado** de un departamento en un mes. La idea clave (que faltaba en una primera versión de esta lección) es **incluir el departamento como entrada**: cada departamento tiene su propia escala (Bogotá no se parece a Vaupés), así que lo convertimos en columnas **one-hot**. Sin eso, el modelo no puede más que adivinar el promedio.
+El tablero **describe**; un **modelo** intenta **predecir**. Aquí predecimos el **empleo ponderado** (la variable objetivo) de un departamento en un mes a partir de tres entradas que ya están en los agregados: el **departamento**, el **mes** y, si hay varios años, el **año**.
+
+El departamento es una variable **categórica** (un código, no una cantidad), así que no se puede usar tal cual: lo convertimos en columnas **one-hot** (una columna 0/1 por departamento). Esto le da al modelo el contexto de que cada departamento tiene su propia escala —Bogotá no se parece a Vaupés—; sin ese contexto, el modelo solo podría predecir el promedio nacional. El **mes** y el **año** entran como números porque capturan estacionalidad y tendencia.
 
 Con tablas **pequeñas y agregadas** (pocas filas dpto×mes), usamos una **regresión lineal**: es sencilla, **explicable** y adecuada para mostrar evidencia a quien decide. La **explicabilidad** — poder decir *por qué* el modelo predice más empleo en un departamento — es central en la gobernanza de la IA.
 
 ### Paso 3.1. Preparar las variables (one-hot del departamento)
+
+Seleccionamos las entradas (`mes`, `anio` si aplica, y el one-hot de `dpto`) y separamos la variable objetivo (`ponderado`). El año solo entra cuando el `curated/` cubre más de un año.
 
 ```python
 feat = cur_pd.copy()
@@ -536,6 +540,8 @@ print("Filas para modelar:", len(y))
 
 ### Paso 3.2. Separar en entrenamiento, validación y prueba
 
+Apartamos la **prueba** antes de entrenar y no la tocamos hasta el final: así medimos el modelo sobre datos que **nunca** vio. La **validación** sirve para ajustar decisiones durante el desarrollo; el **entrenamiento** es lo que el modelo usa para aprender.
+
 ```python
 # 1) apartamos la prueba (20 %); 2) del resto, una parte para validación (25 %)
 X_tmp, X_test, y_tmp, y_test = train_test_split(X.to_numpy(), y, test_size=0.20, random_state=42)
@@ -544,6 +550,8 @@ print("Entrenamiento:", len(y_train), "| Validación:", len(y_val), "| Prueba:",
 ```
 
 ### Paso 3.3. Regresión lineal
+
+Entrenamos la regresión lineal con `fit` (aprende los coeficientes) y la evaluamos en **validación** con dos medidas: **R²** (qué parte de la variación explica, más cerca de 1 es mejor) y **MAE** (error promedio en las mismas unidades del empleo ponderado).
 
 ```python
 lin = LinearRegression()
@@ -555,6 +563,8 @@ print("Lineal (validación) — R²:", round(r2_lin, 3), "| MAE:", round(mae_lin
 ```
 
 ### Paso 3.4. Evaluar en validación y prueba
+
+Ahora sí usamos la **prueba** (reservada en el Paso 3.2) una sola vez, para reportar cómo se comporta el modelo con datos nuevos. Comparar validación y prueba nos dice si el resultado se sostiene o si solo funcionaba en los datos de ajuste.
 
 ```python
 nombre = "lineal"

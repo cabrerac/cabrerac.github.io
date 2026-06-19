@@ -320,7 +320,10 @@ def build_reflection_week_3() -> Document:
     section(
         doc,
         "R2 Justificación técnica",
-        "Explique su flujo Prefect (extract → aggregate → validate) y los modelos lineal y MLP con train/validación/prueba. Incluya métricas (R², MAE) y trade-offs.",
+        "Explique su flujo Prefect (extract → aggregate → validate) y la regresión lineal "
+        "que implementó con train/validación/prueba (R², MAE, coeficientes). "
+        "Relacione con el contraste lineal vs red pequeña visto en las diapositivas L6 "
+        "(explicabilidad vs caja negra).",
     )
     section(
         doc,
@@ -436,7 +439,7 @@ def build_project_reflection() -> Document:
     section(
         doc,
         "R2 Justificación técnica",
-        "Defienda dos decisiones técnicas del proyecto (partición, motor, modelo lineal vs MLP, "
+        "Defienda dos decisiones técnicas del proyecto (partición, motor, modelo lineal y explicabilidad, "
         "ingesta, etc.) con trade-offs y evidencia de los cuadernos.",
     )
     section(
