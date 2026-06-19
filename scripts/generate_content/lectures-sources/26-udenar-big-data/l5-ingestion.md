@@ -197,6 +197,8 @@ Después podemos importarlo y utilizarlo como cualquier otra dependencia.
 
 ```python
 import mongomock
+# Servidor real (pip install pymongo): from pymongo import MongoClient
+# cliente = MongoClient("mongodb://host:27017/")  # URI del clúster; en producción suele leerse de una variable de entorno
 
 # Un cliente en memoria → una base → una colección de documentos
 cliente = mongomock.MongoClient()
@@ -316,7 +318,7 @@ print("Salidas en:", CURATED_DIR, "y", STAGING_DIR)
 Instalamos las librerías que **no** vienen en Colab. Cada una cubre una parte del pipeline:
 
 - **Prefect:** orquesta el batch (encadena pasos en un *flujo*).
-- **kafka-python-ng:** cliente para **publicar** y **leer** mensajes de Kafka (i.e., streams). Es un fork mantenido de `kafka-python` que **sí habla con brokers nuevos** (Kafka 3.x); se importa igual (`from kafka import ...`).
+- **kafka-python-ng:** cliente para **publicar** y **leer** mensajes de Kafka (i.e., streams).
 - **feedparser:** descarga y lee **feeds RSS** de noticias.
 - **mongomock:** una base de datos documental (estilo MongoDB) **en memoria**.
 - **Polars / PyArrow:** leen Parquet y agregan, como en las lecciones 3 y 4.
@@ -325,7 +327,24 @@ Instalamos las librerías que **no** vienen en Colab. Cada una cubre una parte d
 %pip install -q polars pyarrow "prefect>=2.20,<3" kafka-python-ng feedparser mongomock requests nest-asyncio
 ```
 
-Al instalar, **pip puede mostrar avisos** de incompatibilidad de versiones (por ejemplo de `websockets`, `click` o `typer` que otras librerías de Colab esperan). En este cuaderno son **inofensivos**: las librerías que usamos aquí funcionan igual. Puede ignorarlos y continuar.
+### Si pip muestra ERROR de dependencias (Colab)
+
+Colab **ya trae instaladas** muchas librerías (Google ADK, Hugging Face, W&B, Spark Connect, etc.). Cuando `%pip install` añade las nuestras, el resolvedor compara versiones con **todo** el entorno. A veces imprime en rojo:
+
+`ERROR: pip's dependency resolver does not currently take into account all the packages that are installed.`
+
+**Eso no significa que la instalación falló.** Significa: *algún paquete que Colab trae de fábrica y que **este cuaderno no usa** preferiría otra versión de `websockets`, `click` o `typer`.*
+
+También puede aparecer `Building wheel for sgmllib3k (setup.py) ... done`: pip **compila** una dependencia pequeña de `feedparser`; es **normal**.
+
+| Mensaje típico | Qué significa | ¿Preocuparse? |
+|----------------|---------------|---------------|
+| `dependency conflicts` + `google-adk`, `langgraph-sdk`, `langsmith` | Colab trae esas herramientas de IA; **no las usamos** en este cuaderno | No |
+| `dataproc-spark-connect` + `websockets` | Entorno Spark de Colab; **no lo usamos** aquí | No |
+| `wandb` / `huggingface-hub` + `click` o `typer` | Herramientas de experimentos/modelos; **no las usamos** aquí | No |
+| `websockets 13.1` incompatible | Desfase con el runtime global de Colab, no con Prefect/Kafka/Polars de esta lección | No |
+
+**Qué hacer:** continúe con la celda de importaciones. Si `import polars`, `from kafka import ...` y el flujo Prefect funcionan, **ignore** esos avisos. Solo investigue si una importación **de este cuaderno** falla de verdad.
 
 Importamos todas las librerías que necesitamos. El cliente de Kafka (`KafkaProducer`/`KafkaConsumer`) lo usaremos contra el broker local que levantamos en la Parte 5.
 
@@ -466,12 +485,13 @@ print("Curated escrito en:", curated_path)
 
 ### Paso 3.3. El contrato de esquema
 
-Un **contrato de esquema** define las columnas, tipos y fuente de una tabla además de su forma de uso. Sirve para que quien consuma los datos sepa qué esperar, y para detectar si algo cambió sin avisar.
+Un **contrato de esquema** define las columnas, tipos y fuente de una tabla además de su forma de uso. Sirve para que quien consuma los datos sepa qué esperar, y para detectar si algo cambió sin avisar. El campo **`artifacts`** lista los archivos Parquet publicados que **comparten** ese esquema (p. ej. la muestra de un mes y, más adelante, el agregado de un año completo).
 
 ```python
 schema_contract = {
     "name": "geih_dept_month_curated",
     "source": "geih-spine",
+    "artifacts": [curated_path.name],  # Parquet(s) gobernados por este contrato
     "columns": [
         {"name": "dpto", "dtype": "Int64"},
         {"name": "anio", "dtype": "Int64"},
@@ -514,7 +534,7 @@ El flujo **ejecuta el ETL completo** sobre un año: cada tarea hace una operaci�
 Primero elegimos el año y listamos sus particiones:
 
 ```python
-TARGET_YEAR = 2022  # un año completo; en el grupo extienden a 2022–2025
+TARGET_YEAR = 2022  # un año completo, en el grupo extienden a 2022–2025
 year_partitions = sorted(PROCESSED_DIR.glob(f"anio={TARGET_YEAR}/mes=*/part-*.parquet"))
 print(f"Año {TARGET_YEAR}: {len(year_partitions)} particiones mensuales")
 assert len(year_partitions) >= 1, f"No hay particiones para anio={TARGET_YEAR}"
@@ -576,6 +596,21 @@ rows = batch_flow_year([str(p) for p in year_partitions], str(flow_out))
 print(f"El flujo Prefect construyó {rows} filas para el año {TARGET_YEAR}")
 ```
 
+### Paso 4.1. Registrar el Parquet del año en el contrato
+
+El contrato de la Parte 3 ya fijó el **esquema** (columnas y tipos). El flujo Prefect publicó **otro archivo** con el mismo esquema pero más filas (todo el año). Lo añadimos a `artifacts` para que quien consuma los datos sepa que `geih_dept_month_2022.parquet` está gobernado por el mismo contrato.
+
+```python
+contract = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
+year_artifact = flow_out.name  # p. ej. geih_dept_month_2022.parquet
+artifacts = contract.setdefault("artifacts", [])
+if year_artifact not in artifacts:
+    artifacts.append(year_artifact)
+SCHEMA_PATH.write_text(json.dumps(contract, indent=2, ensure_ascii=False), encoding="utf-8")
+append_audit({"stage": "schema_contract", "artifact": year_artifact, "path": str(SCHEMA_PATH)})
+print("Contrato actualizado — artifacts:", artifacts)
+```
+
 A diferencia de la Parte 3 (un mes, a mano), aquí **el orquestador recorre todo el año**. En el cuaderno grupal ustedes **extienden** el mismo flujo a **todos los años** del lakehouse (2022–2025). En producción este patrón se ejecuta **programado** (p. ej. cada noche).
 
 **Comprobar:**
@@ -583,6 +618,8 @@ A diferencia de la Parte 3 (un mes, a mano), aquí **el orquestador recorre todo
 ```python
 assert rows > 0, "El flujo debería haber construido al menos una fila"
 assert flow_out.is_file(), "El flujo debería haber escrito el curated"
+contract = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
+assert flow_out.name in contract.get("artifacts", []), "El Parquet del año debe estar en schema_contract.json"
 flow_df = pl.read_parquet(flow_out)
 assert flow_df["anio"].unique().to_list() == [TARGET_YEAR]
 print("Parte 4, orquestación de un año con Prefect: OK — meses:", flow_df["mes"].n_unique())
@@ -595,6 +632,19 @@ print("Parte 4, orquestación de un año con Prefect: OK — meses:", flow_df["m
 Ahora pasamos al **streaming** sobre datos que llegan **a lo largo del tiempo**. En este caso utilizamos **titulares de noticias** sobre empleo como el flujo de información. El patrón Kafka tiene dos lados (i.e., productor y consumidor). En esta parte levantamos un **broker local** y hacemos el **productor** (quien escribe al tópico).
 
 Recuerden del Repaso: un **tópico** es una lista a la que solo se agrega. El productor publica mensajes. El consumidor (Parte 6) los lee.
+
+### Mensajes de log de Kafka que puede ignorar (Colab)
+
+Levantamos un broker **local y efímero** dentro del runtime. Los clientes Python (`kafka-python-ng`) escriben trazas muy verbosas; algunas líneas dicen `ERROR` o `WARNING` aunque el ejercicio **sí funcionó**. Use como prueba los **recuentos finales** (`Eventos publicados…`, `Eventos únicos tras deduplicar…`, `Eventos de reproducción consumidos…`).
+
+| Mensaje en el log | Qué significa | ¿Preocuparse? |
+|-------------------|---------------|---------------|
+| `group_id is None: disabling auto-commit` | El consumidor no tiene grupo de consumidor; Kafka avisa que no guardará *offsets* automáticamente | No en esta demo (leemos una vez desde `earliest`) |
+| `Fetch to node … failed: Cancelled` | El consumidor se cerró por `consumer_timeout_ms` mientras aún había una lectura abierta al broker | No, si ya apareció el recuento de eventos leídos |
+| `Topic udenar.news.replay not found in cluster metadata` | El productor envió mensajes **antes** de que el broker registrara el tópico recién creado | No, si al final publicó/consumió los 200 eventos de reproducción |
+| `Building wheel…` / otros WARNING de red | Ruido del entorno Colab o del broker recién arrancado | No, salvo que `KAFKA_ENABLED` sea `False` sin explicación |
+
+Si los números cuadran pero el log se ve alarmante, **confíe en el resultado**, no solo en la línea roja de fondo.
 
 ### Paso 5.0. Levantar un broker Kafka
 
@@ -690,6 +740,32 @@ El broker quedó en `localhost:9092` sin autenticación (es local y temporal). S
 ```python
 KAFKA_BOOTSTRAP = "localhost:9092"
 print("Bootstrap:", KAFKA_BOOTSTRAP, "| Kafka activo:", KAFKA_ENABLED)
+
+
+def esperar_metadata_topico(producer, topic: str, timeout: float = 10) -> None:
+    """Tras auto-crear un tópico, el broker tarda un instante en publicar su metadata."""
+    t0 = time.time()
+    while time.time() - t0 < timeout:
+        if producer.partitions_for(topic):
+            return
+        time.sleep(0.25)
+
+
+def publicar_eventos(producer, topic: str, eventos: list[dict]) -> None:
+    """Publica eventos JSON en un tópico (lo crea si no existe).
+
+    El primer envío auto-crea el tópico; esperamos metadata antes del resto
+    para evitar el error 'Topic ... not found in cluster metadata' en Colab.
+    """
+    if not eventos:
+        return
+    fut = producer.send(topic, eventos[0])
+    fut.get(timeout=10)
+    producer.flush()
+    esperar_metadata_topico(producer, topic)
+    for ev in eventos[1:]:
+        producer.send(topic, ev)
+    producer.flush()
 ```
 
 ### Paso 5.2. Leer noticias por RSS y filtrar por tema
@@ -766,13 +842,8 @@ if KAFKA_ENABLED:
         retries=3,
         request_timeout_ms=10000,
     )
-    # send() devuelve un "futuro"; guardamos los futuros para revisar el resultado
-    futuros = [producer.send(TOPIC_NEWS, ev) for ev in rss_events]
-    producer.flush()  # asegura que todo salió
-    # Revisamos el primer envío: si el broker lo rechazó, esto lanza el error
-    # (antes pasaba desapercibido y el tópico quedaba vacío)
-    if futuros:
-        futuros[0].get(timeout=10)
+    # send() devuelve un "futuro"; publicar_eventos confirma el primero y espera metadata
+    publicar_eventos(producer, TOPIC_NEWS, rss_events)
     append_audit({"stage": "kafka_produce", "topic": TOPIC_NEWS, "count": len(rss_events)})
     print("Eventos publicados al tópico:", len(rss_events))
 else:
@@ -800,6 +871,8 @@ El otro lado de Kafka es el **consumidor**. Lee del tópico y procesa. Aquí apl
 - **Deduplicar:** el mismo titular puede llegar varias veces; lo identificamos por su `url`.
 - **Guardar como documentos:** las noticias son semi-estructuradas, así que su sitio natural es **MongoDB** (aquí, `mongomock`), no una tabla rígida.
 
+*(Recuerde la tabla **“Mensajes de log de Kafka que puede ignorar”** al inicio de la Parte 5 si ve `Fetch … Cancelled` u otros ERROR en rojo.)*
+
 ### Paso 6.1. Leer del tópico y deduplicar
 
 ```python
@@ -807,22 +880,27 @@ news_rows: list[dict] = []
 seen_urls: set[str] = set()  # urls ya vistas, para no repetir
 
 if KAFKA_ENABLED:
-    # Consumidor: lee desde el inicio del tópico y se detiene tras 8 s sin mensajes
+    # Consumidor: lee desde el inicio del tópico y se detiene tras 10 s sin mensajes.
+    # group_id fijo + enable_auto_commit=False evita el aviso "group_id is None".
     consumer = KafkaConsumer(
         TOPIC_NEWS,
         bootstrap_servers=KAFKA_BOOTSTRAP,
         auto_offset_reset="earliest",   # empezar desde el primer mensaje
-        consumer_timeout_ms=8000,       # cortar si no llega nada en 8 s
+        consumer_timeout_ms=10000,      # cortar si no llega nada en 10 s
         api_version=(3, 7, 1),          # misma versión fija que el productor
+        group_id=f"l5-news-{uuid.uuid4().hex[:8]}",  # grupo nuevo → lee desde earliest
+        enable_auto_commit=False,       # leemos una vez; no necesitamos commit de offset
         value_deserializer=lambda m: json.loads(m.decode("utf-8")),
     )
-    for msg in consumer:
-        ev = msg.value
-        url = ev.get("url", "")
-        if url and url not in seen_urls:  # deduplicar por url
-            seen_urls.add(url)
-            news_rows.append(ev)
-    consumer.close()
+    try:
+        for msg in consumer:
+            ev = msg.value
+            url = ev.get("url", "")
+            if url and url not in seen_urls:  # deduplicar por url
+                seen_urls.add(url)
+                news_rows.append(ev)
+    finally:
+        consumer.close()  # cierre ordenado (reduce avisos "Fetch ... Cancelled")
 else:
     # Sin broker: usamos los eventos en memoria de la Parte 5
     for ev in rss_events:
@@ -839,6 +917,7 @@ print("Eventos únicos tras deduplicar:", len(news_rows))
 Creamos una colección y **insertamos los eventos como documentos**. Luego podemos **consultarla** con la misma API de MongoDB (`find`, `count_documents`).
 
 ```python
+# Servidor real: mongo = MongoClient("mongodb://host:27017/")  # pymongo — misma API de bases/colecciones
 mongo = mongomock.MongoClient()
 news_col = mongo["udenar"]["news_raw"]  # base "udenar", colección "news_raw"
 
@@ -886,7 +965,7 @@ print("Parte 6, consumidor y MongoDB: OK")
 
 Las arquitecturas de streaming se destacan cuando los datos llegan **rápido y en gran cantidad**. Para *experimentar* esa **velocidad** sin depender del ritmo real de las noticias, **reproducimos** muchos eventos sintéticos medimos cuánto tarda.
 
-Estos datos son **sintéticos** para **experimentar la V de velocidad**. Cerramos el ciclo **productor → consumidor → MongoDB** como en las Partes 5 y 6.
+Estos datos son **sintéticos** para **experimentar la V de velocidad**. Cerramos el ciclo **productor → consumidor → MongoDB** como en las Partes 5 y 6. Si durante la publicación o lectura aparecen ERROR de Kafka en el log, consulte la tabla de la **Parte 5**; lo importante es que los **200 eventos** creados en 7.1 coincidan con los consumidos en 7.3.
 
 ### Paso 7.1. Preparar el archivo de reproducción
 
@@ -914,6 +993,9 @@ if not REPLAY_PATH.is_file():
 # Cargamos todos los eventos a reproducir
 replay_events = [json.loads(ln) for ln in REPLAY_PATH.read_text(encoding="utf-8").splitlines()]
 print("Eventos a reproducir:", len(replay_events))
+print("Muestra creada (primeros 5 — compare con lo consumido en 7.3):")
+for ev in replay_events[:5]:
+    print(" -", ev.get("title", "(sin título)"))
 ```
 
 ### Paso 7.2. Publicar la reproducción (productor)
@@ -924,9 +1006,7 @@ Solo el **productor** envía los eventos al tópico lo más rápido posible. Med
 t0 = time.perf_counter()
 
 if KAFKA_ENABLED:
-    for ev in replay_events:
-        producer.send(TOPIC_REPLAY, ev)  # tópico aparte: no compite con RSS ni offsets viejos
-    producer.flush()
+    publicar_eventos(producer, TOPIC_REPLAY, replay_events)  # tópico aparte: no compite con RSS
 else:
     time.sleep(0.05 * len(replay_events) / 50)
 
@@ -952,14 +1032,17 @@ if KAFKA_ENABLED:
         api_version=(3, 7, 1),          # misma versión fija que el productor
         value_deserializer=lambda m: json.loads(m.decode("utf-8")),
         group_id=f"l5-replay-{uuid.uuid4().hex[:8]}",
+        enable_auto_commit=False,
     )
-    for msg in replay_consumer:
-        ev = msg.value
-        url = ev.get("url", "")
-        if url and url not in seen_urls:
-            seen_urls.add(url)
-            replay_rows.append(ev)
-    replay_consumer.close()
+    try:
+        for msg in replay_consumer:
+            ev = msg.value
+            url = ev.get("url", "")
+            if url and url not in seen_urls:
+                seen_urls.add(url)
+                replay_rows.append(ev)
+    finally:
+        replay_consumer.close()
 
 # Si Kafka no devolvió nada (re-ejecución rara), usamos el lote que acabamos de publicar
 if KAFKA_ENABLED and not replay_rows:
@@ -987,7 +1070,7 @@ append_audit(
 
 print("Eventos de reproducción consumidos:", len(replay_rows))
 print("Documentos totales en MongoDB:", news_col.count_documents({}))
-print("\nMuestra de titulares reproducidos:")
+print("\nMuestra consumida (primeros 5 — deben coincidir con 7.1):")
 for ev in replay_rows[:5]:
     print(" -", ev.get("title", "(sin título)"))
 if not replay_rows:
