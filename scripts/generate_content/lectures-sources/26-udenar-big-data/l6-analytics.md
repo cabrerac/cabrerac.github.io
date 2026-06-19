@@ -19,7 +19,7 @@ visible: false
 group_notebook: week-3-group
 notebook_language: es
 notebook_title: Analítica y visualización
-notebook_description: Práctica individual de la Lección 6. Armamos un tablero con varias vistas del territorio (mapa del indicador laboral por departamento, burbujas sobre OpenStreetMap, tendencia mensual y servicios OSM vs. empleo), luego modelamos los agregados GEIH (lineal vs. red neuronal) y discutimos precisión vs. explicabilidad al presentar evidencia.
+notebook_description: Práctica individual de la Lección 6. Armamos un tablero con varias vistas del territorio (mapa del indicador laboral por departamento, burbujas sobre OpenStreetMap, tendencia mensual y servicios OSM vs. empleo), luego modelamos los agregados GEIH con regresión lineal explicable y discutimos cómo presentar evidencia a quien decide.
 ---
 
 <!-- SLIDES: -->
@@ -220,9 +220,9 @@ Los dos archivos de **referencia** (mapa y servicios) los **descargamos una vez*
 |-------|------|
 | **1** | Montar Drive, rutas, **descargar referencias** (mapa + OSM), instalar librerías y cargar `curated/` |
 | **2** | **Tablero**: indicador por departamento (mapa), burbujas sobre OSM, tendencia mensual y servicios vs. empleo |
-| **3** | **Modelar** el empleo (lineal vs. red neuronal) y discutir **precisión vs. explicabilidad** |
+| **3** | **Modelar** el empleo con **regresión lineal** y discutir **explicabilidad** |
 | **4** | **Monitor en vivo** de RSS (contexto, no oficial) |
-| **5** | **Tablero final**: mapa + modelo lineal + comparación + contexto RSS |
+| **5** | **Tablero final**: mapa + modelo lineal + contexto RSS |
 
 Ver **Tareas** al final.
 
@@ -296,12 +296,9 @@ import plotly.express as px   # mapas y gráficos rápidos
 import plotly.graph_objects as go  # figuras compuestas (tablero, tablas)
 import polars as pl  # leer Parquet curated
 from IPython.display import clear_output, display  # monitor RSS
-from plotly.subplots import make_subplots  # tablero con varios paneles Plotly
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, r2_score
 from sklearn.model_selection import train_test_split
-from sklearn.neural_network import MLPRegressor
-from sklearn.preprocessing import StandardScaler
 
 print("Dependencias: OK")
 
@@ -514,11 +511,11 @@ print("Parte 2, tablero descriptivo: OK")
 
 ---
 
-## Parte 3. Modelar el empleo: lineal vs. red neuronal
+## Parte 3. Modelar el empleo: regresión lineal
 
 El tablero **describe**; un **modelo** intenta **predecir**. Predecimos el **empleo ponderado** de un departamento en un mes. La idea clave (que faltaba en una primera versión de esta lección) es **incluir el departamento como entrada**: cada departamento tiene su propia escala (Bogotá no se parece a Vaupés), así que lo convertimos en columnas **one-hot**. Sin eso, el modelo no puede más que adivinar el promedio.
 
-Comparamos dos modelos sobre **las mismas** entradas: una **regresión lineal** (sencilla y **explicable**) y una **red neuronal pequeña** (*MLP*, más flexible). La tensión **precisión vs. explicabilidad** es central en la gobernanza de la IA.
+Con tablas **pequeñas y agregadas** (pocas filas dpto×mes), usamos una **regresión lineal**: es sencilla, **explicable** y adecuada para mostrar evidencia a quien decide. La **explicabilidad** — poder decir *por qué* el modelo predice más empleo en un departamento — es central en la gobernanza de la IA.
 
 ### Paso 3.1. Preparar las variables (one-hot del departamento)
 
@@ -557,55 +554,22 @@ mae_lin = mean_absolute_error(y_val, y_val_lin)
 print("Lineal (validación) — R²:", round(r2_lin, 3), "| MAE:", round(mae_lin, 2))
 ```
 
-### Paso 3.4. Red neuronal pequeña (MLP)
-
-Las redes aprenden mejor cuando las entradas **continuas** (`mes`, `anio`) están en escala parecida. **`StandardScaler`** no debe aplicarse a columnas **one-hot** de `dpto` (son 0/1; escalarlas distorsiona su significado). Escalamos **solo** las columnas continuas.
+### Paso 3.4. Evaluar en validación y prueba
 
 ```python
-n_cont = len(base_cols)
-scaler = StandardScaler()
+nombre = "lineal"
+y_val_pred = y_val_lin
+y_test_pred = lin.predict(X_test)
 
-X_train_s = X_train.copy()
-X_val_s = X_val.copy()
-X_test_s = X_test.copy()
-X_train_s[:, :n_cont] = scaler.fit_transform(X_train[:, :n_cont])
-X_val_s[:, :n_cont] = scaler.transform(X_val[:, :n_cont])
-X_test_s[:, :n_cont] = scaler.transform(X_test[:, :n_cont])
-
-mlp = MLPRegressor(
-    hidden_layer_sizes=(12,),
-    max_iter=1000,
-    early_stopping=True,
-    validation_fraction=0.15,
-    alpha=0.01,
-    random_state=42,
-)
-mlp.fit(X_train_s, y_train)
-y_val_mlp = mlp.predict(X_val_s)
-r2_mlp = r2_score(y_val, y_val_mlp)
-mae_mlp = mean_absolute_error(y_val, y_val_mlp)
-print("MLP (validación) — R²:", round(r2_mlp, 3), "| MAE:", round(mae_mlp, 2))
-```
-
-En tablas **pequeñas y estructuradas** (como agregados dpto×mes), un MLP **no** suele superar a la lineal con one-hot: hay pocos datos y muchas columnas categóricas. Si el MLP queda peor, es una lección útil: **más flexibilidad no siempre ayuda**.
-
-### Paso 3.5. Elegir el modelo (validación) y evaluar en prueba
-
-```python
-# Elegimos por menor MAE en validación; la prueba se usa solo al final
-if mae_lin <= mae_mlp:
-    nombre, y_val_pred, y_test_pred = "lineal", y_val_lin, lin.predict(X_test)
-else:
-    nombre, y_val_pred, y_test_pred = "mlp", y_val_mlp, mlp.predict(X_test_s)
-
-print(f"Modelo elegido por MAE (validación): {nombre}")
+print(f"Modelo: {nombre}")
+print("Validación — R²:", round(r2_lin, 3), "| MAE:", round(mae_lin, 2))
 print("Prueba final — R²:", round(r2_score(y_test, y_test_pred), 3),
       "| MAE:", round(mean_absolute_error(y_test, y_test_pred), 2))
 ```
 
-### Paso 3.6. Precisión vs. explicabilidad (comparación explícita)
+### Paso 3.5. Explicabilidad: leer el modelo lineal
 
-Comparar modelos **no es solo** mirar R². Necesitamos **dos ejes**: error numérico y **capacidad de explicar** a quien decide.
+Evaluar un modelo **no es solo** mirar R². También importa **explicar** a quien decide qué entradas empujan la predicción.
 
 ```python
 def fig_obs_pred(y_true, y_pred, titulo: str) -> go.Figure:
@@ -622,13 +586,6 @@ def fig_obs_pred(y_true, y_pred, titulo: str) -> go.Figure:
 
 
 fig_model_lin = fig_obs_pred(y_val, y_val_lin, "GEIH — lineal (validación)")
-fig_model_mlp = fig_obs_pred(y_val, y_val_mlp, "GEIH — MLP (validación)")
-
-fig_compare = make_subplots(rows=1, cols=2, subplot_titles=("R² (validación)", "MAE (validación)"))
-fig_compare.add_trace(go.Bar(x=["lineal", "MLP"], y=[r2_lin, r2_mlp], name="R²"), row=1, col=1)
-fig_compare.add_trace(go.Bar(x=["lineal", "MLP"], y=[mae_lin, mae_mlp], name="MAE"), row=1, col=2)
-fig_compare.update_layout(title_text="Comparación numérica — capa oficial GEIH",
-                          showlegend=False, height=380)
 
 # Coeficientes lineales de los 8 departamentos con mayor efecto (explicabilidad)
 coef = pd.Series(lin.coef_, index=feature_names)
@@ -642,30 +599,23 @@ fig_coef = px.bar(
 fig_coef.update_layout(height=380)
 
 guardar_fig(fig_model_lin, "l6_modelo_lineal_obs_pred.html")
-guardar_fig(fig_model_mlp, "l6_modelo_mlp_obs_pred.html")
-guardar_fig(fig_compare, "l6_modelo_comparacion.html")
 guardar_fig(fig_coef, "l6_modelo_coeficientes.html")
 
-print("\n--- Tabla de decisión ---")
-print(f"{'Modelo':<10} {'R² val':>8} {'MAE val':>12} {'¿Explicable?':>14}")
-print(f"{'lineal':<10} {r2_lin:>8.3f} {mae_lin:>12.0f} {'sí (coef.)':>14}")
-print(f"{'MLP':<10} {r2_mlp:>8.3f} {mae_mlp:>12.0f} {'no (caja negra)':>14}")
-print(f"\nElegido por MAE: {nombre}")
-if nombre == "lineal":
-    print("Además, el lineal permite decir *por qué* predice más empleo en un dpto (coeficientes arriba).")
-else:
-    print("Aunque el MLP gane en MAE, para un ministerio suele preferirse el lineal por explicabilidad.")
+print("\n--- Métricas (validación) ---")
+print(f"{'Modelo':<10} {'R² val':>8} {'MAE val':>12}")
+print(f"{'lineal':<10} {r2_lin:>8.3f} {mae_lin:>12.0f}")
+print("\nEl lineal permite decir *por qué* predice más empleo en un dpto (coeficientes arriba).")
 ```
 
-El modelo **lineal** se puede **leer**: cada **`dpto_*`** es el nivel base de empleo de ese departamento; **`mes`** / **`anio`** capturan estacionalidad y tendencia. La **red neuronal** reparte la decisión entre pesos internos: aunque a veces baje el error, **no** entrega una frase del tipo *"Antioquia aporta X más que la base"*. Por eso, en gobernanza de datos, **precisión y explicabilidad compiten** — y no siempre gana el más complejo.
+El modelo **lineal** se puede **leer**: cada **`dpto_*`** es el nivel base de empleo de ese departamento; **`mes`** / **`anio`** capturan estacionalidad y tendencia. Eso ayuda a sostener afirmaciones ante quien decide — no solo a reportar un número de error.
 
 **Comprobar:**
 
 ```python
 assert len(y_test_pred) == len(y_test)
-assert nombre in ("lineal", "mlp")
+assert nombre == "lineal"
 assert (OUTPUTS_DIR / "l6_modelo_lineal_obs_pred.html").is_file()
-assert (OUTPUTS_DIR / "l6_modelo_comparacion.html").is_file()
+assert (OUTPUTS_DIR / "l6_modelo_coeficientes.html").is_file()
 print("Parte 3, modelo y explicabilidad: OK")
 ```
 
@@ -822,31 +772,28 @@ print("Parte 4, monitor en vivo: OK")
 
 ## Parte 5. Tablero final: mapa + modelo lineal + contexto RSS
 
-Cerramos reuniendo **toda** la evidencia para la pregunta de decisión: **mapa** (oficial), **modelo lineal** (oficial + explicable), **comparación** lineal vs MLP (precisión vs caja negra) y **RSS** (contexto, no oficial). Cada panel se muestra **inline** en Colab con `fig.show()`.
+Cerramos reuniendo **toda** la evidencia para la pregunta de decisión: **mapa** (oficial), **modelo lineal** (oficial + explicable) y **RSS** (contexto, no oficial). Cada panel se muestra **inline** en Colab con `fig.show()`.
 
 ```python
 print("=== Tablero final — evidencia para la decisión ===\n")
-print("1/4 — Mapa del indicador laboral (GEIH, oficial)")
+print("1/3 — Mapa del indicador laboral (GEIH, oficial)")
 fig_mapa.show()
-print("\n2/4 — Modelo lineal: observado vs. predicho (GEIH, oficial)")
+print("\n2/3 — Modelo lineal: observado vs. predicho (GEIH, oficial)")
 fig_model_lin.show()
-print("\n3/4 — Comparación numérica lineal vs. MLP (precisión vs. explicabilidad)")
-fig_compare.show()
-print("\n4/4 — Contexto mediático (NO oficial)")
+print("\n3/3 — Contexto mediático (NO oficial)")
 fig_rss.show()
 
 # Resumen HTML por panel (por si abren outputs/ en Drive)
 for nombre in (
     "l6_mapa_indicador.html",
     "l6_modelo_lineal_obs_pred.html",
-    "l6_modelo_comparacion.html",
     "l6_rss_contexto.html",
 ):
     assert (OUTPUTS_DIR / nombre).is_file()
 print("\nPaneles guardados en:", OUTPUTS_DIR)
 ```
 
-**Cómo leerlo.** El **mapa** y el **modelo lineal** sostienen afirmaciones sobre empleo con fuente DANE. La **comparación** muestra que el lineal gana en error *y* se puede explicar; el MLP ilustra el costo de la caja negra. El panel **RSS** acompaña el discurso público, pero **no** reemplaza a GEIH. A quien decide: mapa + tendencia (Parte 2) + lineal; al equipo técnico: comparación completa.
+**Cómo leerlo.** El **mapa** y el **modelo lineal** sostienen afirmaciones sobre empleo con fuente DANE. El panel **RSS** acompaña el discurso público, pero **no** reemplaza a GEIH. A quien decide: mapa + tendencia (Parte 2) + lineal con coeficientes legibles.
 
 **Comprobar:**
 
@@ -863,7 +810,7 @@ print("Parte 5, tablero final: OK")
 
 Lo que practicaron aquí lo **implementan ustedes** en el cuaderno grupal **`week-3-group` (Ejercicio 2)**, sobre los agregados que construyan en el Ejercicio 1:
 
-1. Dividan en **entrenamiento/validación/prueba** y entrenen el modelo elegido (lineal o MLP).
+1. Dividan en **entrenamiento/validación/prueba** y entrenen una **regresión lineal** explicable.
 2. Hagan al menos **dos gráficos** ligados a la pregunta de decisión, con la fuente rotulada.
 3. Armen un **tablero** que reúna las vistas.
 

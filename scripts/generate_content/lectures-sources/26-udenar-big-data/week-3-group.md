@@ -41,7 +41,7 @@ Este es el cuaderno **grupal** de la semana 3. Tiene dos ejercicios sobre **su**
 | Ejercicio | Tema | Entregable clave |
 |-----------|------|------------------|
 | **1** | Curated de todos los años (Lección 5) | En **Drive:** `curated/`, `audit.jsonl`, `schema_contract.json`, flujo Prefect; resumen en `manifest.json` |
-| **2** | Modelos y gráficos (Lección 6) | Modelo (lineal **o** red neuronal) con train/val/prueba, **2 gráficos** y un **tablero** |
+| **2** | Modelos y gráficos (Lección 6) | Modelo lineal con train/val/prueba, **2 gráficos** y un **tablero** |
 
 **De dónde copiar cada pieza** (ya las vieron explicadas):
 
@@ -49,7 +49,7 @@ Este es el cuaderno **grupal** de la semana 3. Tiene dos ejercicios sobre **su**
 |---------------|----------------------|
 | Montar Drive, rutas, `append_audit`, capa curated | `l5-ingestion`, Partes 1 y 3 |
 | Flujo Prefect ETL de **un año** (`batch_flow_year`) | `l5-ingestion`, Parte 4 |
-| One-hot de `dpto`, split train/val/prueba, lineal vs MLP, explicabilidad | `l6-analytics`, Repaso y Parte 3 |
+| One-hot de `dpto`, split train/val/prueba, regresión lineal y explicabilidad | `l6-analytics`, Repaso y Parte 3 |
 | Referencias (mapa GeoJSON + servicios OSM) y carga de `curated/` | `l6-analytics`, Parte 1 |
 | Tablero con varias vistas (mapa, tendencia, modelo) | `l6-analytics`, Partes 2 y 5 |
 
@@ -61,12 +61,11 @@ Ejecuten las celdas **de arriba abajo** y revisen cada **Comprobar:**.
 
 Monten **Google Drive** igual que en [`l3-storage`](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l3-storage.ipynb) (Parte 1). Si trabajan en **local**, pongan `USE_GOOGLE_DRIVE = False`.
 
-Primero, las constantes del grupo. Cambien `GROUP_ID` por el de su grupo y elijan **un** modelo para el Ejercicio 2:
+Primero, las constantes del grupo. Cambien `GROUP_ID` por el de su grupo:
 
 ```python
 GROUP_ID = "G1"          # cambie al id de su grupo
 USE_GOOGLE_DRIVE = True
-MODEL_CHOICE = "linear"  # "linear" o "mlp" — elijan UNO para el Ejercicio 2
 
 ACTIVIDAD_OCUPADO = 1    # en GEIH, actividad == 1 = ocupado (como en L4)
 ```
@@ -87,7 +86,6 @@ Ahora monten Drive y definan rutas y la función de bitácora. Copien el patrón
 ```python
 assert WORK_ROOT.is_dir()
 assert PROCESSED_DIR.is_dir(), "No encuentro el lakehouse de la semana 2."
-assert MODEL_CHOICE in ("linear", "mlp")
 print("Configuración: OK")
 ```
 
@@ -243,16 +241,13 @@ print("Paso 2.2, carga de agregados: OK")
 
 ---
 
-## Paso 2.3 — Entrenar el modelo elegido (train/val/prueba)
+## Paso 2.3 — Entrenar el modelo lineal (train/val/prueba)
 
-Dividan en **entrenamiento, validación y prueba** (como en `l6-analytics`, Repaso y Parte 3). Entrenen `MODEL_CHOICE`, evalúen en validación y reporten la **prueba** final. Expliquen en markdown si el resultado **apoya o no** la decisión, y por qué eligieron ese modelo.
+Dividan en **entrenamiento, validación y prueba** (como en `l6-analytics`, Repaso y Parte 3). Entrenen una **regresión lineal**, evalúen en validación y reporten la **prueba** final. Expliquen en markdown si el resultado **apoya o no** la decisión.
 
 **Importante (igual que en `l6-analytics`, Parte 3).** Para que el modelo tenga **señal real**, incluyan el **departamento como entrada one-hot** (`pd.get_dummies(dpto)`), además de `mes` (y `anio` si tienen varios años). Cada departamento tiene su propia escala; sin one-hot, el modelo solo predice el promedio y el R² queda cerca de 0 (o negativo).
 
-| Si `MODEL_CHOICE` es… | Usen |
-|------------------------|------|
-| `"linear"` | `LinearRegression` (lean sus **coeficientes**: son explicables) |
-| `"mlp"` | `MLPRegressor` (1 capa oculta; escalen con `StandardScaler`) — más flexible, **menos explicable** |
+Usen `LinearRegression` y lean sus **coeficientes**: son explicables ante quien decide.
 
 ```python
 # SU CÓDIGO — one-hot de dpto (+mes/anio), split train/val/test, fit, predict, R²/MAE
@@ -261,12 +256,12 @@ Dividan en **entrenamiento, validación y prueba** (como en `l6-analytics`, Repa
 
 ```
 
-Si eligieron lineal, muestren en markdown qué **dicen los coeficientes**; si eligieron MLP, expliquen por qué **no** hay coeficientes así de claros (tensión **precisión vs. explicabilidad**).
+Muestren en markdown qué **dicen los coeficientes** de los departamentos con mayor efecto.
 
 **Comprobar:**
 
 ```python
-assert any(name in dir() for name in ("model", "lin", "mlp"))
+assert any(name in dir() for name in ("model", "lin"))
 print("Paso 2.3, modelo: OK — completen el markdown")
 ```
 

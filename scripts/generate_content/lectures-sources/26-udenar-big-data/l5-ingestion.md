@@ -440,7 +440,7 @@ print("¿Lakehouse completo (≥12 meses/año)?", spine_is_complete(PROCESSED_DI
 print("CSV en raw por año:", {y: count_month_folders(RAW_DIR / str(y)) for y in SPINE_YEARS})
 ```
 
-### Paso 0.2. Harmonización (desde `l3-storage`)
+### Paso 0.2. Harmonización
 
 Reutilizamos la misma **`harmonize_month`** que en L3 y en **`week-2-group`**: une Fuerza de trabajo + Características generales, renombra columnas y fija tipos para Parquet.
 
@@ -542,7 +542,7 @@ def harmonize_month(month_dir: Path) -> pd.DataFrame:
 print("harmonize_month: OK")
 ```
 
-### Paso 0.3. Construir el lakehouse 2022–2025 (si falta)
+### Paso 0.3. Construir el lakehouse 2022–2025
 
 Recorremos **todos los años** y escribimos una partición Parquet por mes, igual que en **`week-2-group`**, Paso 1.2.
 
