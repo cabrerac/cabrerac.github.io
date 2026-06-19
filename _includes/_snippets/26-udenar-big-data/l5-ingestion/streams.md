@@ -17,7 +17,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Where it comes from</b></p>
                 <ul>
                     <li>Web and mobile <b>logs</b>, clickstreams, application events</li>
@@ -25,6 +25,9 @@
                     <li>Financial <b>ticks</b>, messages, and news feeds</li>
                 </ul>
                 <p>These systems produce data faster than batch windows can absorb, and decisions need it <b>soon</b> (i.e., real time).</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/stream-processing.svg" alt="Stream processing: unbounded timeline, time windows, stream processor, outputs" style="height: 100%">
             </div>
         </div>
     </div>
@@ -86,7 +89,7 @@
     </div>
 </div>
 
-## Publish / Subscribe
+## Streams
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -98,7 +101,7 @@
     </div>
 </div>
 
-## Publish / Subscribe
+## Streams
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 86%">
@@ -117,7 +120,7 @@
     </div>
 </div>
 
-## Publish / Subscribe
+## Streams
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -131,6 +134,18 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/pubsub-mechanism.svg" alt="Publish subscribe: producers, append-only topic log, consumers" style="height: 100%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Streams
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Why decouple?</b></p>
                 <ul>
                     <li>Producers and consumers scale and fail <b>independently</b></li>
@@ -138,11 +153,14 @@
                     <li>A buffer absorbs bursts of traffic</li>
                 </ul>
             </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+               <img src="{{ site.url }}/assets/media/diagrams/pubsub-mechanism.svg" alt="Publish subscribe: producers, append-only topic log, consumers" style="height: 100%">
+            </div>
         </div>
     </div>
 </div>
 
-## Publish / Subscribe
+## Streams
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -175,7 +193,7 @@ producer.flush()                     # make sure everything left
     </div>
 </div>
 
-## Publish / Subscribe
+## Streams
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -213,23 +231,39 @@ for message in consumer:             # events as they arrive
     </div>
 </div>
 
-## Publish / Subscribe
+## Streams
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Stream events are semi-structured</b></p>
                 <ul>
                     <li>Each event is a JSON document whose fields may vary</li>
                     <li>Their natural home is a <b>document store</b> (e.g. MongoDB), not a rigid table</li>
                 </ul>
             </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <pre><code class="language-json">
+{
+  "id": "f3c7a12d-8d65-4132-b2a1-ef83dbcb7171",
+  "type": "temperature_reading",
+  "timestamp": "2023-11-07T15:03:21Z",
+  "device_id": "sensor-001",
+  "temperature_c": 22.8,
+  "humidity_percent": 41.3,
+  "location": {
+      "room": "lab-3A",
+      "building": "north-wing"
+  }
+}
+                </code></pre>
+            </div>
         </div>
     </div>
 </div>
 
-## Streaming at Scale
+## Streams
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -241,7 +275,7 @@ for message in consumer:             # events as they arrive
     </div>
 </div>
 
-## Streaming at Scale
+## Streams
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 14%">
@@ -260,12 +294,12 @@ for message in consumer:             # events as they arrive
     </div>
 </div>
 
-## Streaming at Scale
+## Streams
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>How the architecture scales</b></p>
                 <ul>
                     <li>A topic is split into <b>partitions</b> spread across <b>brokers</b></li>
@@ -273,11 +307,14 @@ for message in consumer:             # events as they arrive
                     <li>Partitions are <b>replicated</b>: a broker can fail without data loss</li>
                 </ul>
             </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/pubsub-streaming-architecture.svg" alt="Publish subscribe streaming architecture: producers, partitioned topic across brokers, consumer group" style="height: 100%">
+            </div>
         </div>
     </div>
 </div>
 
-## Streaming at Scale
+## Streams
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -292,13 +329,7 @@ for message in consumer:             # events as they arrive
                 <p>"Kafka is a distributed messaging system ... for collecting and delivering high volumes of log data with low latency." <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2017/09/Kafka.pdf" target="_blank" rel="noopener noreferrer">(Kreps et al., 2011)</a></p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Production vs our lab</b></p>
-                <ul>
-                    <li>Cluster of brokers + Flink: <b>one local broker</b> in the notebook</li>
-                    <li>Managed MongoDB: an <b>in-memory</b> document store</li>
-                    <li>Always-on service: an <b>ephemeral</b> session</li>
-                </ul>
-                <p>Same API and same ideas, no cluster to run.</p>
+                <img src="{{ site.url }}/assets/media/diagrams/pubsub-streaming-architecture.svg" alt="Publish subscribe streaming architecture: producers, partitioned topic across brokers, consumer group" style="height: 100%">
             </div>
         </div>
     </div>

@@ -48,14 +48,6 @@ notebook_description: Práctica individual de la Lección 5. Pasamos de la inges
 
 <!-- SLIDES: -->
 
-# Orchestration and Governance
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-big-data/l5-ingestion/orchestration.md %}
-
-<!-- SLIDES: -->
-
 # Streams
 
 <!-- end SLIDES: -->
