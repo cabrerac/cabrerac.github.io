@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-big-data
 title: Data ingestion and workflow
-description: Lecture 5 introduces batch and stream ingestion approaches. Once our data is harmonised on a lakehouse, we need to create data artefacts and views to feed our analytic tasks. These artefacts can be created and processed offline following a schedule (i.e., batch) or in real-time (i.e., streaming depending on the data nature.
+description: Lecture 5 introduces batch and stream ingestion approaches. Once our data is harmonised on a lakehouse, we need to create data artefacts and views to feed our analytic tasks. These artefacts can be created and processed offline following a schedule (i.e., batch) or in real-time (i.e., streaming) depending on the data nature. This lecture introduces both concepts and the production platforms and tools that support them.
 session: 5
 start_time: 07:00 am
 end_time: 01:00 pm
@@ -15,7 +15,7 @@ layout: lecture
 lecture_code: l5-ingestion
 lecture_date: 20/06/2026
 permalink: /teaching/26-udenar-big-data/l5-ingestion/
-visible: false
+visible: true
 group_notebook: week-3-group
 notebook_language: es
 notebook_title: Ingesta y flujos de trabajo

@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-big-data
 title: Analytics and visualisation
-description: Lecture 6 — supervised models on GEIH aggregates, decision-focused charts, optional stream monitor, and dashboards-as-governance synthesis.
+description: Lecture 6 presents analytics and visualisation techniques. Once we have processed, harmonised, and ingested our data, the next step is to use to solve the data problems at hand (i.e., address). Visualisation tools support decision makers by presenting data in formats that are easier to understand and analyse in context (e.g., dashboards). More advanced analytics are possible when probabilistic models support prediction or classification processes.
 session: 6
 start_time: 07:00 am
 end_time: 01:00 pm
@@ -15,7 +15,7 @@ layout: lecture
 lecture_code: l6-analytics
 lecture_date: 20/06/2026
 permalink: /teaching/26-udenar-big-data/l6-analytics/
-visible: false
+visible: true
 group_notebook: week-3-group
 notebook_language: es
 notebook_title: Analítica y visualización
@@ -864,7 +864,5 @@ Lo que practicaron aquí lo **implementan ustedes** en el cuaderno grupal **`wee
 Sin microdatos ni material re-identificable. El instructor publica título + abstract en [L8](/teaching/26-udenar-big-data/l8-final-project/) tras revisar la entrega.
 
 **Diapositivas (sábado 27):** siga la plantilla [project-presentation-template.pptx](/assets/documents/26-udenar-big-data/project-presentation-template.pptx) — **6 diapositivas:** título → canvas (requerimientos + ética) → pipeline → arquitectura → analítica → conclusiones. **~20 min** en total (incluya **demo en vivo** del pipeline, tablero o salidas clave) + **~10 min** de preguntas. La ética se integra en canvas, pipeline, arquitectura y analítica (sin diapositiva final solo de ética).
-
-**Sábado 27:** charla del instructor (L7) → presentaciones (L8). La charla puede ser versión en curso; el **informe en el ZIP** es la entrega escrita final.
 
 <!-- end NOTEBOOK: -->

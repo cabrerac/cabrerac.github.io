@@ -2,8 +2,12 @@
 author: Christian Cabrera Jojoa
 course_code: 26-udenar-big-data
 department: Department of Computer Science and Technology
-description: "Lecture 6 \u2014 supervised models on GEIH aggregates, decision-focused\
-  \ charts, optional stream monitor, and dashboards-as-governance synthesis."
+description: Lecture 6 presents analytics and visualisation techniques. Once we have
+  processed, harmonised, and ingested our data, the next step is to use to solve the
+  data problems at hand (i.e., address). Visualisation tools support decision makers
+  by presenting data in formats that are easier to understand and analyse in context
+  (e.g., dashboards). More advanced analytics are possible when probabilistic models
+  support prediction or classification processes.
 email: chc79@cam.ac.uk
 end_time: 01:00 pm
 group_notebook: week-3-group
@@ -24,7 +28,7 @@ position: Assistant Research Professor
 session: 6
 start_time: 07:00 am
 title: Analytics and visualisation
-visible: false
+visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">

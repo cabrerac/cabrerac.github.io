@@ -5,8 +5,9 @@ department: Department of Computer Science and Technology
 description: Lecture 5 introduces batch and stream ingestion approaches. Once our
   data is harmonised on a lakehouse, we need to create data artefacts and views to
   feed our analytic tasks. These artefacts can be created and processed offline following
-  a schedule (i.e., batch) or in real-time (i.e., streaming depending on the data
-  nature.
+  a schedule (i.e., batch) or in real-time (i.e., streaming) depending on the data
+  nature. This lecture introduces both concepts and the production platforms and tools
+  that support them.
 email: chc79@cam.ac.uk
 end_time: 01:00 pm
 group_notebook: week-3-group
@@ -25,7 +26,7 @@ position: Assistant Research Professor
 session: 5
 start_time: 07:00 am
 title: Data ingestion and workflow
-visible: false
+visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
