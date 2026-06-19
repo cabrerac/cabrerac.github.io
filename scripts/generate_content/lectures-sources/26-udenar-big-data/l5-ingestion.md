@@ -236,7 +236,7 @@ La **ingesta** es la capa que *trae* datos al lakehouse y los deja listos para a
 
 GEIH es fuerte en **volumen** y **veracidad** (es oficial), pero **lenta** (mensual) y **estructurada**. Para experimentar las otras *V* del big data (i.e., **velocidad** y **variedad**) necesitamos una fuente distinta. Las noticias llegan a toda hora (velocidad) y son texto libre (variedad), pero **no son estadística oficial** (veracidad baja). Al final del cuaderno trabajamos **sin GEIH** no para reemplazarla, sino para **experimentar** una *V* que la encuesta no permite.
 
-**Prerrequisito.** Haber ejecutado **`week-2-group`** y tener `data/processed/geih-spine/` con particiones 2022–2025 en Google Drive.
+**Prerrequisito.** Tener `data/processed/geih-spine/` con particiones **2022–2025** en Google Drive (entregable del **`week-2-group`**, Ejercicio 1). Si su grupo aún no terminó, la **Parte 0** de este cuaderno incluye una **solución compacta** del mismo ejercicio (solo lakehouse; sin MapReduce ni privacidad).
 
 Las herramientas de ingesta requiren gran cantidad de computo a nivel industrial. Aquí usamos versiones en ambientes ligeros que enseñan la misma idea:
 
@@ -253,6 +253,7 @@ Las herramientas de ingesta requiren gran cantidad de computo a nivel industrial
 | Parte | Tema |
 |-------|------|
 | **1** | Montar Drive, rutas e instalar librerías |
+| **0** | **Solución compacta** `week-2-group` Ej. 1 — lakehouse 2022–2025 si falta *(ejecute la Parte 1 antes)* |
 | **2** | Puente: leer el lakehouse de la semana 2 |
 | **3** | Ingesta **batch gobernada**: capa `curated/` + bitácora + contrato |
 | **4** | Orquestar el ETL de **un año completo** con **Prefect** |
@@ -324,7 +325,7 @@ Instalamos las librerías que **no** vienen en Colab. Cada una cubre una parte d
 - **Polars / PyArrow:** leen Parquet y agregan, como en las lecciones 3 y 4.
 
 ```python
-%pip install -q polars pyarrow "prefect>=2.20,<3" kafka-python-ng feedparser mongomock requests nest-asyncio
+%pip install -q polars pyarrow pandas "prefect>=2.20,<3" kafka-python-ng feedparser mongomock requests nest-asyncio
 ```
 
 ### Si pip muestra ERROR de dependencias (Colab)
@@ -374,10 +375,225 @@ print("Dependencias: OK")
 
 ```python
 assert WORK_ROOT.is_dir()
-assert PROCESSED_DIR.is_dir(), (
-    f"No encuentro {PROCESSED_DIR}. Ejecute week-2-group (lakehouse 2022–2025) primero."
+print("Parte 1, configuración: OK — siga con la Parte 0 si el lakehouse aún no está completo")
+```
+
+---
+
+## Parte 0. Solución compacta del lakehouse (`week-2-group`, Ejercicio 1)
+
+Este bloque es la **referencia compacta** del **Ejercicio 1** del cuaderno grupal de la semana 2: harmonizar **2022–2025** y publicar el lakehouse `data/processed/geih-spine/` (Parquet particionado). **No** incluye MapReduce, benchmark de motores ni publicación con k=5/Laplace (Ejercicios 2–3 del grupal): eso sigue siendo trabajo del grupo.
+
+Sirve para **comparar** su entrega grupal y para **desbloquear** esta lección si el lakehouse aún no está en Drive. Las funciones vienen de **`l3-storage`** (Partes 0 y 2).
+
+**Ejecute la Parte 1 antes** (Drive montado y rutas definidas). Con **`SKIP_SPINE_BUILD = True`** (por defecto) solo **comprueba** particiones; con **`False`** construye el árbol (puede tardar en Colab).
+
+| Paso | Qué hace |
+|------|----------|
+| **0.1** | Comprobar cuántas particiones hay por año |
+| **0.2** | Funciones `harmonize_month` (copiadas de L3) |
+| **0.3** | Escribir `anio=…/mes=…/part-000.parquet` para 2022–2025 |
+
+### Paso 0.1. Comprobar el lakehouse
+
+```python
+SPINE_YEARS = [2022, 2023, 2024, 2025]
+SKIP_SPINE_BUILD = True       # False → construye geih-spine aquí (como week-2 Ej. 1)
+SKIP_IF_PARQUET_EXISTS = True  # True → no reescribe particiones que ya existen
+
+RAW_DIR = WORK_ROOT / "data" / "raw"
+
+
+def count_spine_months(spine_dir: Path, year: int) -> int:
+    """Cuenta particiones mensuales con Parquet para un año."""
+    return len(list(spine_dir.glob(f"anio={year}/mes=*/part-*.parquet")))
+
+
+def spine_is_complete(spine_dir: Path, years: list[int], min_months: int = 12) -> bool:
+    """True si cada año tiene al menos min_months particiones mensuales."""
+    if not spine_dir.is_dir():
+        return False
+    return all(count_spine_months(spine_dir, y) >= min_months for y in years)
+
+
+def count_month_folders(year_dir: Path) -> int:
+    """Cuenta carpetas mensuales con al menos un CSV."""
+    if not year_dir.is_dir():
+        return 0
+    n = 0
+    for p in year_dir.iterdir():
+        if not p.is_dir():
+            continue
+        if any(f.is_file() and f.suffix.lower() == ".csv" for f in p.iterdir()):
+            n += 1
+    return n
+
+
+def raw_is_complete(raw_root: Path, years: list[int]) -> bool:
+    """True si data/raw tiene ≥12 meses con CSV por cada año."""
+    return all(count_month_folders(raw_root / str(y)) >= 12 for y in years)
+
+
+particiones_por_anio = {y: count_spine_months(PROCESSED_DIR, y) for y in SPINE_YEARS}
+print("Particiones en geih-spine:", particiones_por_anio)
+print("¿Lakehouse completo (≥12 meses/año)?", spine_is_complete(PROCESSED_DIR, SPINE_YEARS))
+print("CSV en raw por año:", {y: count_month_folders(RAW_DIR / str(y)) for y in SPINE_YEARS})
+```
+
+### Paso 0.2. Harmonización (desde `l3-storage`)
+
+Reutilizamos la misma **`harmonize_month`** que en L3 y en **`week-2-group`**: une Fuerza de trabajo + Características generales, renombra columnas y fija tipos para Parquet.
+
+```python
+import re
+
+import pandas as pd
+
+CSV_SEP = ";"
+CSV_ENCODING = "latin-1"
+PRIMARY_TABLE_KEYWORD = "fuerza de trabajo"
+DEMOG_TABLE_KEYWORDS = ("caracter", "generales")
+PERSON_KEYS = ["DIRECTORIO", "HOGAR", "ORDEN"]
+
+
+def read_geih_csv(path: Path, usecols=None) -> pd.DataFrame:
+    """Lee un CSV del DANE (; o ,, encoding latin-1)."""
+    for sep in (CSV_SEP, ","):
+        try:
+            df = pd.read_csv(path, sep=sep, encoding=CSV_ENCODING, usecols=usecols, low_memory=False)
+        except ValueError:
+            continue
+        if len(df.columns) > 1:
+            return df
+    raise ValueError(f"No se pudo parsear {path.name}")
+
+
+def _csv_files(month_dir: Path) -> list[Path]:
+    return sorted({*month_dir.glob("*.CSV"), *month_dir.glob("*.csv")})
+
+
+def _norm_csv_name(path: Path) -> str:
+    return re.sub(r"\s+", " ", path.name.lower().replace("\xa0", " "))
+
+
+def _labour_csv(month_dir: Path) -> Path:
+    for p in _csv_files(month_dir):
+        if PRIMARY_TABLE_KEYWORD in _norm_csv_name(p):
+            return p
+    raise FileNotFoundError(f"Sin fuerza de trabajo en {month_dir.name}")
+
+
+def _demog_csv(month_dir: Path) -> Path:
+    for p in _csv_files(month_dir):
+        if all(kw in _norm_csv_name(p) for kw in DEMOG_TABLE_KEYWORDS):
+            return p
+    raise FileNotFoundError(f"Sin características generales en {month_dir.name}")
+
+
+def month_dirs_for_year(year_dir: Path) -> list[Path]:
+    dirs = []
+    for p in sorted(year_dir.iterdir()):
+        if not p.is_dir():
+            continue
+        try:
+            _labour_csv(p)
+            _demog_csv(p)
+            dirs.append(p)
+        except FileNotFoundError as e:
+            print(f"Advertencia — omitido {p.name}: {e}")
+    return dirs
+
+
+def a_entero(serie: pd.Series) -> pd.Series:
+    return pd.to_numeric(serie, errors="coerce").astype("Int64")
+
+
+def harmonize_month(month_dir: Path) -> pd.DataFrame:
+    """Harmoniza un mes GEIH → una fila/persona, columnas en español."""
+    labour = read_geih_csv(_labour_csv(month_dir))
+    demog = read_geih_csv(_demog_csv(month_dir), usecols=PERSON_KEYS + ["P6040", "P3271"])
+    merged = labour.merge(demog, on=PERSON_KEYS, how="left", validate="many_to_one")
+    periodo = merged["PERIODO"].astype(int)
+    anio = (periodo // 10000).astype(int)
+    mes = ((periodo // 100) % 100).astype(int)
+    out = pd.DataFrame(
+        {
+            "periodo": (anio * 100 + mes).astype(int),
+            "anio": anio,
+            "mes": mes,
+            "id_hogar": merged["DIRECTORIO"].astype(str) + "-" + merged["HOGAR"].astype(str),
+            "orden_persona": a_entero(merged["ORDEN"]),
+            "dpto": a_entero(merged["DPTO"]),
+            "area": a_entero(merged["AREA"]),
+            "edad": a_entero(merged["P6040"]),
+            "sexo": a_entero(merged["P3271"]),
+            "actividad": pd.to_numeric(merged["P6240"], errors="coerce"),
+            "factor_expansion": pd.to_numeric(merged["FEX_C18"], errors="coerce"),
+        }
+    )
+    out["periodo"] = out["periodo"].astype("int32")
+    out["anio"] = out["anio"].astype("int32")
+    out["mes"] = out["mes"].astype("int32")
+    out["actividad"] = out["actividad"].astype("float64")
+    out["factor_expansion"] = out["factor_expansion"].astype("float64")
+    return out
+
+
+print("harmonize_month: OK")
+```
+
+### Paso 0.3. Construir el lakehouse 2022–2025 (si falta)
+
+Recorremos **todos los años** y escribimos una partición Parquet por mes, igual que en **`week-2-group`**, Paso 1.2.
+
+```python
+if spine_is_complete(PROCESSED_DIR, SPINE_YEARS):
+    print("Lakehouse ya completo — omitimos construcción (compare con su week-2-group).")
+elif SKIP_SPINE_BUILD:
+    print(
+        "AVISO: lakehouse incompleto. Complete week-2-group Ej. 1 "
+        "o ponga SKIP_SPINE_BUILD = False y vuelva a ejecutar esta celda."
+    )
+else:
+    if not raw_is_complete(RAW_DIR, SPINE_YEARS):
+        raise FileNotFoundError(
+            "Faltan CSV 2022–2025 en data/raw/. "
+            "Ejecute l3-storage Parte 0 o week-1-group primero."
+        )
+    PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
+    spine_stats: list[dict] = []
+    for survey_year in SPINE_YEARS:
+        year_dir = RAW_DIR / str(survey_year)
+        for month_dir in month_dirs_for_year(year_dir):
+            sample = harmonize_month(month_dir)
+            y = int(sample["anio"].iloc[0])
+            m = int(sample["mes"].iloc[0])
+            part_dir = PROCESSED_DIR / f"anio={y}" / f"mes={m:02d}"
+            part_file = part_dir / "part-000.parquet"
+            if SKIP_IF_PARQUET_EXISTS and part_file.is_file():
+                n_rows = len(pd.read_parquet(part_file, columns=["dpto"]))
+                print(f"Omitido (ya existe): {part_file.relative_to(WORK_ROOT)}")
+            else:
+                part_dir.mkdir(parents=True, exist_ok=True)
+                sample.to_parquet(part_file, index=False, use_dictionary=False)
+                n_rows = len(sample)
+                print(f"Escrito {part_file.relative_to(WORK_ROOT)} | filas: {n_rows:,}")
+            spine_stats.append({"anio": y, "mes": m, "filas": n_rows})
+    resumen = pd.DataFrame(spine_stats).sort_values(["anio", "mes"])
+    print("\nResumen construcción lakehouse:")
+    print(resumen.groupby("anio")["mes"].count().to_string())
+    print("Total filas:", f"{resumen['filas'].sum():,}")
+```
+
+**Comprobar:**
+
+```python
+particiones_por_anio = {y: count_spine_months(PROCESSED_DIR, y) for y in SPINE_YEARS}
+print("Particiones finales:", particiones_por_anio)
+assert sum(particiones_por_anio.values()) >= 12, (
+    "Faltan particiones en geih-spine. Ejecute week-2-group o Parte 0 con SKIP_SPINE_BUILD = False."
 )
-print("Parte 1, configuración: OK")
+print("Parte 0, lakehouse week-2 Ej. 1: OK")
 ```
 
 ---
@@ -409,7 +625,9 @@ if partitions:
 **Comprobar:**
 
 ```python
-assert len(partitions) >= 1, "No hay particiones. Monte Drive y complete week-2-group."
+assert len(partitions) >= 12, (
+    "Esperamos ≥12 particiones mensuales. Complete week-2-group Ej. 1 o la Parte 0 de este cuaderno."
+)
 print("Parte 2, puente con el lakehouse: OK")
 ```
 
@@ -1096,7 +1314,7 @@ Esta lección es **individual y conceptual**: aquí *ven* el camino completo de 
 
 Lo que practicaron aquí y reutilizan en el grupo:
 
-1. Capa **curated** + **bitácora** + **contrato de esquema** para **un mes** (Parte 3).
+1. Capa **curated** + **bitácora** + **contrato de esquema** para **un mes** (Parte 3). El lakehouse de entrada viene de **`week-2-group`** o de la **Parte 0** (solución compacta Ej. 1).
 2. Un **flujo Prefect** que orquesta el ETL de **un año completo** (Parte 4).
 
 **Tarea grupal (`week-3-group`, Ejercicio 1):** extiendan el flujo de la Parte 4 para cubrir **todos los años** del lakehouse (2022–2025) en **un solo** `curated/geih_dept_month.parquet`.

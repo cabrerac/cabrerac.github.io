@@ -1,5 +1,6 @@
 polars
 pyarrow
+pandas
 prefect>=2.20,<3
 kafka-python-ng
 feedparser
