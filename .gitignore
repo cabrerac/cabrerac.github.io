@@ -44,6 +44,7 @@ tmp-notebook-test/
 # Instructor solution notebooks (sources live in work-space/instructor/)
 assets/notebooks/**/*-solution*.ipynb
 scripts/big-data-course/geih_build/*-executed.ipynb
+scripts/big-data-course/.cache/
 
 # Generated content
 # Only exclude temporary and system files
