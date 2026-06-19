@@ -48,51 +48,19 @@ notebook_description: Práctica individual de la Lección 6. Armamos un tablero 
 
 <!-- SLIDES: -->
 
+# Data Address
+
+<!-- end SLIDES: -->
+
+{% include _snippets/data-address.md %}
+
+<!-- SLIDES: -->
+
 # Supervised Learning
 
 <!-- end SLIDES: -->
 
-{% include _snippets/supervised-learning.md %}
-
-<!-- SLIDES: -->
-
-# Regression
-
-<!-- end SLIDES: -->
-
-{% include _snippets/regression.md %}
-
-<!-- SLIDES: -->
-
-# Linear Classifiers
-
-<!-- end SLIDES: -->
-
-{% include _snippets/linear-classifiers.md %}
-
-<!-- SLIDES: -->
-
-# The Perceptron
-
-<!-- end SLIDES: -->
-
-{% include _snippets/perceptron.md %}
-
-<!-- SLIDES: -->
-
-# Neural Networks
-
-<!-- end SLIDES: -->
-
-{% include _snippets/neural-networks.md %}
-
-<!-- SLIDES: -->
-
-# Models in Practice
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-big-data/l6-analytics/models-in-practice.md %}
+{% include _snippets/26-udenar-big-data/l6-analytics/supervised-learning.md %}
 
 <!-- SLIDES: -->
 

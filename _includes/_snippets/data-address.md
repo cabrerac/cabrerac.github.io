@@ -5,6 +5,18 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/images/data-science-process.png" alt="Data science methodology: Access, Assess, Address" style="height: 500px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Data Address
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
                 <p>After assessing the data (i.e., data assess), we need to <b>use the data to address the problem in question</b>. This process includes implementing a <b>Machine Learning algorithm</b> that creates a <b>Machine Learning model</b>.</p>
             </div>

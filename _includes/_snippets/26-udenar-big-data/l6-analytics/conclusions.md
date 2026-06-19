@@ -5,47 +5,26 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Analytics turns ingested data into evidence</b></p>
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <ul>
-                    <li>Charts are arguments; choose them for the <b>question</b></li>
+                    <li>Analytics turns ingested data into evidence</li>
+                    <li>Dashboards are governance: layers, audiences, suppression</li>
+                    <li>Data address can include prediction models</li>
+                    <li>Supervised learning</li>
                 </ul>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/data-science-process.png" alt="Data science methodology: Access, Assess, Address" style="height: 100%">
             </div>
         </div>
     </div>
 </div>
 
-## Conclusions
-
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Analytics turns ingested data into evidence</b></p>
-                <ul>
-                    <li>Charts are arguments; choose them for the <b>question</b></li>
-                    <li>Dashboards are <b>governance</b>: layers, audiences, suppression</li>
-                    <li>Models run on <b>aggregates</b>; train / validate / test</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Conclusions
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Analytics turns ingested data into evidence</b></p>
-                <ul>
-                    <li>Charts are arguments; choose them for the <b>question</b></li>
-                    <li>Dashboards are <b>governance</b>: layers, audiences, suppression</li>
-                    <li>Models run on <b>aggregates</b>; train / validate / test</li>
-                    <li><b>Precision vs explainability</b> — and uncertainty never disappears</li>
-                </ul>
-                <p>You now have the full pipeline. Next comes your <b>project</b>: a decision, end to end.</p>
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/big-data-pipeline-template.svg" alt="Big data pipeline, analytics stage" style="height: 380px">
             </div>
         </div>
     </div>
