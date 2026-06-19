@@ -48,14 +48,6 @@ notebook_description: Práctica individual de la Lección 6. Armamos un tablero 
 
 <!-- SLIDES: -->
 
-# Dashboards
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-big-data/l6-analytics/dashboards.md %}
-
-<!-- SLIDES: -->
-
 # Supervised Learning
 
 <!-- end SLIDES: -->
