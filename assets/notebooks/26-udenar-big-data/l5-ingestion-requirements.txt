@@ -1,7 +1,7 @@
 polars
 pyarrow
 prefect>=2.20,<3
-kafka-python
+kafka-python-ng
 feedparser
 mongomock
 requests

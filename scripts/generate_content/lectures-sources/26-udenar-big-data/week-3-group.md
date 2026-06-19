@@ -49,8 +49,9 @@ Este es el cuaderno **grupal** de la semana 3. Tiene dos ejercicios sobre **su**
 |---------------|----------------------|
 | Montar Drive, rutas, `append_audit`, capa curated | `l5-ingestion`, Partes 1 y 3 |
 | Flujo Prefect ETL de **un año** (`batch_flow_year`) | `l5-ingestion`, Parte 4 |
-| Split train/val/prueba, modelo lineal / MLP, métricas | `l6-analytics`, Partes 2 y 3 |
-| Gráficos y tablero (`make_subplots`) | `l6-analytics`, Partes 2, 4 y 5 |
+| One-hot de `dpto`, split train/val/prueba, lineal vs MLP, explicabilidad | `l6-analytics`, Repaso y Parte 3 |
+| Referencias (mapa GeoJSON + servicios OSM) y carga de `curated/` | `l6-analytics`, Parte 1 |
+| Tablero con varias vistas (mapa, tendencia, modelo) | `l6-analytics`, Partes 2 y 5 |
 
 Ejecuten las celdas **de arriba abajo** y revisen cada **Comprobar:**.
 
@@ -244,17 +245,23 @@ print("Paso 2.2, carga de agregados: OK")
 
 ## Paso 2.3 — Entrenar el modelo elegido (train/val/prueba)
 
-Dividan en **entrenamiento, validación y prueba** (como en `l6-analytics`, Repaso y Partes 2–3). Entrenen `MODEL_CHOICE`, evalúen en validación y reporten la **prueba** final. Expliquen en markdown si el resultado **apoya o no** la decisión, y por qué eligieron ese modelo.
+Dividan en **entrenamiento, validación y prueba** (como en `l6-analytics`, Repaso y Parte 3). Entrenen `MODEL_CHOICE`, evalúen en validación y reporten la **prueba** final. Expliquen en markdown si el resultado **apoya o no** la decisión, y por qué eligieron ese modelo.
+
+**Importante (igual que en `l6-analytics`, Parte 3).** Para que el modelo tenga **señal real**, incluyan el **departamento como entrada one-hot** (`pd.get_dummies(dpto)`), además de `mes` (y `anio` si tienen varios años). Cada departamento tiene su propia escala; sin one-hot, el modelo solo predice el promedio y el R² queda cerca de 0 (o negativo).
 
 | Si `MODEL_CHOICE` es… | Usen |
 |------------------------|------|
-| `"linear"` | `LinearRegression` |
-| `"mlp"` | `MLPRegressor` (1 capa oculta, pocas neuronas; escalen con `StandardScaler`) |
+| `"linear"` | `LinearRegression` (lean sus **coeficientes**: son explicables) |
+| `"mlp"` | `MLPRegressor` (1 capa oculta; escalen con `StandardScaler`) — más flexible, **menos explicable** |
 
 ```python
-# SU CÓDIGO — split train/val/test, fit, predict, R²/MAE en validación y prueba
+# SU CÓDIGO — one-hot de dpto (+mes/anio), split train/val/test, fit, predict, R²/MAE
+#   pista: X_cat = pd.get_dummies(df["dpto"].astype(str), prefix="dpto")
+#          X = pd.concat([df[["mes"]], X_cat], axis=1).astype(float)
 
 ```
+
+Si eligieron lineal, muestren en markdown qué **dicen los coeficientes**; si eligieron MLP, expliquen por qué **no** hay coeficientes así de claros (tensión **precisión vs. explicabilidad**).
 
 **Comprobar:**
 
@@ -303,10 +310,13 @@ print("Paso 2.5, gráfico 2: OK")
 
 ## Paso 2.6 — Tablero
 
-Reúnan los dos gráficos en un solo **tablero** con `make_subplots` (como en `l6-analytics`, Parte 5) y guárdenlo en `outputs/`.
+Reúnan sus vistas en un solo **tablero** y guárdenlo en `outputs/` (`dashboard_path`). Tienen dos opciones (como en `l6-analytics`):
+
+- **Sencillo:** `make_subplots` con los dos gráficos en una figura → `write_html`.
+- **Enriquecido (opcional):** una rejilla `widgets.GridBox` con varias vistas (p. ej. el **mapa del indicador** y el **observado vs. predicho**). Para el mapa, descarguen las **referencias** (GeoJSON + OSM) como en `l6-analytics`, Parte 1; igual guarden al menos una figura en `dashboard_path`.
 
 ```python
-# SU CÓDIGO — make_subplots con los dos paneles → dashboard_path
+# SU CÓDIGO — componer el tablero (make_subplots o GridBox) y guardar en dashboard_path
 
 ```
 

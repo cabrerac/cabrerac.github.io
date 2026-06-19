@@ -316,14 +316,16 @@ print("Salidas en:", CURATED_DIR, "y", STAGING_DIR)
 Instalamos las librerías que **no** vienen en Colab. Cada una cubre una parte del pipeline:
 
 - **Prefect:** orquesta el batch (encadena pasos en un *flujo*).
-- **kafka-python:** cliente para **publicar** y **leer** mensajes de Kafka (i.e., streams).
+- **kafka-python-ng:** cliente para **publicar** y **leer** mensajes de Kafka (i.e., streams). Es un fork mantenido de `kafka-python` que **sí habla con brokers nuevos** (Kafka 3.x); se importa igual (`from kafka import ...`).
 - **feedparser:** descarga y lee **feeds RSS** de noticias.
 - **mongomock:** una base de datos documental (estilo MongoDB) **en memoria**.
 - **Polars / PyArrow:** leen Parquet y agregan, como en las lecciones 3 y 4.
 
 ```python
-%pip install -q polars pyarrow "prefect>=2.20,<3" kafka-python feedparser mongomock requests nest-asyncio
+%pip install -q polars pyarrow "prefect>=2.20,<3" kafka-python-ng feedparser mongomock requests nest-asyncio
 ```
+
+Al instalar, **pip puede mostrar avisos** de incompatibilidad de versiones (por ejemplo de `websockets`, `click` o `typer` que otras librerías de Colab esperan). En este cuaderno son **inofensivos**: las librerías que usamos aquí funcionan igual. Puede ignorarlos y continuar.
 
 Importamos todas las librerías que necesitamos. El cliente de Kafka (`KafkaProducer`/`KafkaConsumer`) lo usaremos contra el broker local que levantamos en la Parte 5.
 
@@ -644,7 +646,40 @@ def esperar_puerto(host: str = "localhost", port: int = 9092, timeout: int = 90)
     return False
 
 
-KAFKA_ENABLED = esperar_puerto()
+def broker_responde(bootstrap: str = "localhost:9092", timeout: int = 30) -> bool:
+    """Confirma que el broker **responde como Kafka**, no solo que abrió el puerto.
+
+    Abrir el puerto (TCP) es necesario pero **no** suficiente: el broker tarda unos
+    segundos más en atender peticiones. Creamos un productor de prueba y le pedimos
+    la metadata de un tópico; si responde, el cliente ya puede publicar y leer.
+    Fijamos `api_version` para **evitar la auto-negociación**, que es justo lo que
+    falla (en silencio) entre `kafka-python` y los brokers Kafka 3.x.
+
+    Parámetros:
+        bootstrap: dirección del broker (host:puerto).
+        timeout: segundos máximos de espera total.
+
+    Retorna:
+        True si el broker contestó; False si se agotó el tiempo.
+    """
+    t0 = time.time()
+    while time.time() - t0 < timeout:
+        try:
+            sonda = KafkaProducer(
+                bootstrap_servers=bootstrap,
+                api_version=(3, 7, 1),
+                request_timeout_ms=5000,
+            )
+            sonda.partitions_for(TOPIC_NEWS)  # fuerza un ida y vuelta real con el broker
+            sonda.close()
+            return True
+        except Exception:
+            time.sleep(2)
+    return False
+
+
+# El broker está listo solo si el puerto abrió Y responde como Kafka
+KAFKA_ENABLED = esperar_puerto() and broker_responde()
 print("¿Broker Kafka local listo?", KAFKA_ENABLED)
 ```
 
@@ -666,7 +701,11 @@ RSS_FEEDS = [
     "https://www.portafolio.co/rss/economia.xml",
     "https://www.eltiempo.com/rss/economia.xml",
 ]
-KEYWORDS = ("empleo", "desempleo", "mercado laboral", "trabajo", "geih")
+# Palabras clave de empleo (con sinónimos para que el sondeo en vivo suela traer algo).
+KEYWORDS = (
+    "empleo", "desempleo", "mercado laboral", "trabajo", "trabajador", "geih",
+    "ocupación", "ocupacion", "informalidad", "salario", "nómina", "nomina", "vacante",
+)
 
 
 def keyword_hit(text: str) -> bool:
@@ -675,7 +714,7 @@ def keyword_hit(text: str) -> bool:
     return any(k in t for k in KEYWORDS)
 
 
-def poll_rss_events(max_items: int = 20) -> list[dict]:
+def poll_rss_events(max_items: int = 40) -> list[dict]:
     """Sondea los feeds RSS y devuelve eventos de noticias sobre empleo.
 
     Parámetros:
@@ -716,14 +755,24 @@ Con Kafka, **publicar** es enviar cada evento como JSON al tópico. El tópico s
 rss_events = poll_rss_events()  # noticias de empleo capturadas por RSS
 
 if KAFKA_ENABLED:
-    # Productor: serializa cada evento a JSON y lo envía al tópico local
+    # Productor: serializa cada evento a JSON y lo envía al tópico local.
+    # api_version fija evita la auto-negociación (causa de envíos que fallan en silencio);
+    # acks="all" pide confirmación del broker de que recibió cada mensaje.
     producer = KafkaProducer(
         bootstrap_servers=KAFKA_BOOTSTRAP,
         value_serializer=lambda v: json.dumps(v).encode("utf-8"),
+        api_version=(3, 7, 1),
+        acks="all",
+        retries=3,
+        request_timeout_ms=10000,
     )
-    for ev in rss_events:
-        producer.send(TOPIC_NEWS, ev)
+    # send() devuelve un "futuro"; guardamos los futuros para revisar el resultado
+    futuros = [producer.send(TOPIC_NEWS, ev) for ev in rss_events]
     producer.flush()  # asegura que todo salió
+    # Revisamos el primer envío: si el broker lo rechazó, esto lanza el error
+    # (antes pasaba desapercibido y el tópico quedaba vacío)
+    if futuros:
+        futuros[0].get(timeout=10)
     append_audit({"stage": "kafka_produce", "topic": TOPIC_NEWS, "count": len(rss_events)})
     print("Eventos publicados al tópico:", len(rss_events))
 else:
@@ -764,6 +813,7 @@ if KAFKA_ENABLED:
         bootstrap_servers=KAFKA_BOOTSTRAP,
         auto_offset_reset="earliest",   # empezar desde el primer mensaje
         consumer_timeout_ms=8000,       # cortar si no llega nada en 8 s
+        api_version=(3, 7, 1),          # misma versión fija que el productor
         value_deserializer=lambda m: json.loads(m.decode("utf-8")),
     )
     for msg in consumer:
@@ -899,6 +949,7 @@ if KAFKA_ENABLED:
         bootstrap_servers=KAFKA_BOOTSTRAP,
         auto_offset_reset="earliest",
         consumer_timeout_ms=12000,
+        api_version=(3, 7, 1),          # misma versión fija que el productor
         value_deserializer=lambda m: json.loads(m.decode("utf-8")),
         group_id=f"l5-replay-{uuid.uuid4().hex[:8]}",
     )
