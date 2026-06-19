@@ -469,14 +469,44 @@ def read_geih_csv(path: Path, usecols=None) -> pd.DataFrame:
 
 
 def _csv_files(month_dir: Path) -> list[Path]:
+    """Lista los CSV de una carpeta de mes (acepta extensión .CSV y .csv).
+
+    Parámetros:
+        month_dir: carpeta de un mes con los archivos del DANE.
+
+    Retorna:
+        Rutas de los CSV, ordenadas y sin duplicados.
+    """
     return sorted({*month_dir.glob("*.CSV"), *month_dir.glob("*.csv")})
 
 
 def _norm_csv_name(path: Path) -> str:
+    """Normaliza el nombre de archivo para comparar: minúsculas y espacios simples.
+
+    Reemplaza el espacio especial \xa0 por uno normal y colapsa espacios repetidos,
+    para que la búsqueda por palabra clave funcione aunque el nombre venga irregular.
+
+    Parámetros:
+        path: ruta del archivo.
+
+    Retorna:
+        El nombre del archivo normalizado.
+    """
     return re.sub(r"\s+", " ", path.name.lower().replace("\xa0", " "))
 
 
 def _labour_csv(month_dir: Path) -> Path:
+    """Encuentra el CSV de 'fuerza de trabajo' en la carpeta del mes.
+
+    Parámetros:
+        month_dir: carpeta de un mes.
+
+    Retorna:
+        La ruta del CSV de fuerza de trabajo.
+
+    Lanza:
+        FileNotFoundError: si no hay ningún archivo que coincida.
+    """
     for p in _csv_files(month_dir):
         if PRIMARY_TABLE_KEYWORD in _norm_csv_name(p):
             return p
@@ -484,6 +514,17 @@ def _labour_csv(month_dir: Path) -> Path:
 
 
 def _demog_csv(month_dir: Path) -> Path:
+    """Encuentra el CSV de 'características generales' en la carpeta del mes.
+
+    Parámetros:
+        month_dir: carpeta de un mes.
+
+    Retorna:
+        La ruta del CSV de características generales.
+
+    Lanza:
+        FileNotFoundError: si no hay ningún archivo que coincida.
+    """
     for p in _csv_files(month_dir):
         if all(kw in _norm_csv_name(p) for kw in DEMOG_TABLE_KEYWORDS):
             return p
@@ -491,13 +532,24 @@ def _demog_csv(month_dir: Path) -> Path:
 
 
 def month_dirs_for_year(year_dir: Path) -> list[Path]:
+    """Lista las carpetas de mes que tienen las DOS tablas necesarias.
+
+    Recorre las subcarpetas de un año y conserva solo las que tienen tanto el CSV
+    de fuerza de trabajo como el de características generales; avisa y omite las demás.
+
+    Parámetros:
+        year_dir: carpeta de un año (con subcarpetas por mes).
+
+    Retorna:
+        Rutas de las carpetas de mes utilizables, ordenadas.
+    """
     dirs = []
     for p in sorted(year_dir.iterdir()):
         if not p.is_dir():
             continue
         try:
-            _labour_csv(p)
-            _demog_csv(p)
+            _labour_csv(p)   # ¿existe fuerza de trabajo?
+            _demog_csv(p)    # ¿existe características generales?
             dirs.append(p)
         except FileNotFoundError as e:
             print(f"Advertencia — omitido {p.name}: {e}")
@@ -505,6 +557,17 @@ def month_dirs_for_year(year_dir: Path) -> list[Path]:
 
 
 def a_entero(serie: pd.Series) -> pd.Series:
+    """Convierte una columna a entero que admite nulos (Int64 de pandas).
+
+    to_numeric(errors='coerce') vuelve NaN lo que no sea número; Int64 (con I mayúscula)
+    es el entero de pandas que permite valores faltantes.
+
+    Parámetros:
+        serie: columna a convertir.
+
+    Retorna:
+        La columna como Int64.
+    """
     return pd.to_numeric(serie, errors="coerce").astype("Int64")
 
 

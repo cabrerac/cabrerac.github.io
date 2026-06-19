@@ -132,24 +132,31 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 
-# Datos de juguete con un poco de ruido (no caen exactamente en y = 2x)
+# Datos de juguete con un poco de ruido (no caen exactamente en y = 2x).
+# sklearn espera X como matriz 2D (una fila por ejemplo, una columna por variable):
+# por eso cada x va dentro de su propia lista [[1.0], [2.0], ...].
 X_demo = np.array([[1.0], [2.0], [3.0], [4.0]])
-y_demo = np.array([2.0, 4.1, 5.9, 8.2])
+y_demo = np.array([2.0, 4.1, 5.9, 8.2])  # y es un vector 1D (un valor por ejemplo)
 
-modelo = LinearRegression()
-modelo.fit(X_demo, y_demo)
+modelo = LinearRegression()   # crea el modelo (aún sin entrenar)
+modelo.fit(X_demo, y_demo)    # fit = aprende la recta (pendiente e intercepto)
+
+# linspace(0.5, 4.5, 100): 100 valores igualmente espaciados entre 0.5 y 4.5.
+# reshape(-1, 1): los reorganiza en matriz de 1 columna (formato que pide predict);
+# el -1 significa "calcula tú el número de filas" (aquí, 100).
 x_line = np.linspace(0.5, 4.5, 100).reshape(-1, 1)
 
-plt.figure(figsize=(5, 3))
-plt.scatter(X_demo, y_demo, color="steelblue", label="datos")
-plt.plot(x_line, modelo.predict(x_line), "r--", label="ajuste lineal")
+plt.figure(figsize=(5, 3))                                   # lienzo de 5x3 pulgadas
+plt.scatter(X_demo, y_demo, color="steelblue", label="datos")  # puntos observados
+plt.plot(x_line, modelo.predict(x_line), "r--", label="ajuste lineal")  # recta aprendida ("r--" = roja punteada)
 plt.xlabel("x")
 plt.ylabel("y")
 plt.title("Repaso: la recta que mejor ajusta los puntos")
-plt.legend()
-plt.tight_layout()
-plt.show()
+plt.legend()           # muestra la leyenda con las etiquetas (label=...)
+plt.tight_layout()     # ajusta márgenes para que no se corten los textos
+plt.show()             # dibuja la figura inline en Colab
 
+# predict espera una matriz 2D; [[4.0]] es "un ejemplo con x=4". Tomamos [0] = primer (único) resultado.
 pred = modelo.predict([[4.0]])[0]
 print("Predicción para x=4:", round(pred, 2))
 assert abs(pred - 8.0) < 0.5
@@ -378,27 +385,31 @@ Antes de cualquier modelo, **miramos los datos**. Un **tablero** (*dashboard*) r
 Necesitamos **un número por departamento** para pintar el mapa. Si el `curated/` tiene **varios años**, usamos el **crecimiento del empleo** (cuánto cambió entre el primer y el último año): un "mejor/peor" con sentido. Si solo hay **un año**, usamos el **nivel promedio** de empleo y lo rotulamos como tal (es tamaño, no calidad).
 
 ```python
-# Empleo promedio por departamento y año (base para el indicador)
+# groupby(["dpto","anio"]) agrupa las filas por departamento y año;
+# ["ponderado"].mean() promedia el empleo de cada grupo;
+# reset_index() vuelve a poner dpto y anio como columnas normales (groupby los deja como índice).
 por_dpto_anio = cur_pd.groupby(["dpto", "anio"])["ponderado"].mean().reset_index()
 
-if len(anios) >= 2:
-    primero, ultimo = anios[0], anios[-1]
+if len(anios) >= 2:                       # hay varios años → medimos crecimiento
+    primero, ultimo = anios[0], anios[-1]  # primer y último año disponibles
     piv = (
+        # pivot: una fila por dpto, una columna por año, valores = empleo promedio
         por_dpto_anio.pivot(index="dpto", columns="anio", values="ponderado")
-        .dropna(subset=[primero, ultimo])
+        .dropna(subset=[primero, ultimo])  # descarta dptos sin dato en alguno de esos dos años
     )
     ind_df = pd.DataFrame(
+        # crecimiento porcentual entre el primer y el último año
         {"dpto": piv.index, "indicador": (piv[ultimo] - piv[primero]) / piv[primero] * 100.0}
-    ).reset_index(drop=True)
+    ).reset_index(drop=True)              # drop=True: descarta el índice viejo, no lo guarda como columna
     indicador_label = f"Crecimiento del empleo {primero}->{ultimo} (%)"
     indicador_tipo = "crecimiento"
-else:
+else:                                      # solo un año → usamos el nivel promedio
     ind_df = cur_pd.groupby("dpto")["ponderado"].mean().reset_index()
-    ind_df.columns = ["dpto", "indicador"]
+    ind_df.columns = ["dpto", "indicador"]  # renombramos las dos columnas resultantes
     indicador_label = "Empleo ponderado promedio (nivel)"
     indicador_tipo = "nivel"
 
-ind_df["dpto"] = ind_df["dpto"].astype(int)
+ind_df["dpto"] = ind_df["dpto"].astype(int)  # el código de dpto debe ser entero para cruzar con el mapa
 print(indicador_label, "—", len(ind_df), "departamentos")
 ```
 
@@ -407,30 +418,44 @@ print(indicador_label, "—", len(ind_df), "departamentos")
 El **GeoJSON** trae los límites de cada departamento (con su código DANE en `dpto`). De cada polígono sacamos un **centro aproximado** (promedio de sus puntos) para colocar las burbujas. Del CSV de **OSM** calculamos la **proporción** de cada servicio (salud / educación / comercio) sobre el total mapeado: comparar **proporciones** es más justo que comparar conteos, porque un departamento grande tiene más de todo.
 
 ```python
+# Abrimos el GeoJSON (texto) y lo convertimos en diccionario de Python con json.load
 with open(GEOJSON_PATH, encoding="utf-8") as f:
     geojson = json.load(f)
 
 
 def _coords(geom):
-    """Recorre todos los pares (lon, lat) de un polígono o multipolígono."""
-    if geom["type"] == "Polygon":
-        for ring in geom["coordinates"]:
-            yield from ring
-    elif geom["type"] == "MultiPolygon":
+    """Recorre todos los pares (lon, lat) de un polígono o multipolígono.
+
+    Un departamento puede ser un solo polígono o varios (islas, enclaves).
+    `yield from` va entregando cada punto uno a uno (es un generador), para
+    poder recorrerlos sin construir una lista enorme en memoria.
+
+    Parámetros:
+        geom: el campo "geometry" de un feature GeoJSON (con "type" y "coordinates").
+
+    Entrega:
+        Pares (lon, lat) de todos los vértices de la geometría.
+    """
+    if geom["type"] == "Polygon":              # un solo polígono
+        for ring in geom["coordinates"]:        # cada anillo (borde exterior o huecos)
+            yield from ring                      # entrega cada punto del anillo
+    elif geom["type"] == "MultiPolygon":       # varios polígonos
         for poly in geom["coordinates"]:
             for ring in poly:
                 yield from ring
 
 
-centroides, nombres = {}, {}
-for feat in geojson["features"]:
-    code = int(feat["properties"]["dpto"])
-    nombres[code] = feat["properties"].get("dpto_nombre", str(code))
-    pts = list(_coords(feat["geometry"]))
+centroides, nombres = {}, {}                    # dpto -> (lon, lat) centro; dpto -> nombre
+for feat in geojson["features"]:                # cada feature = un departamento
+    code = int(feat["properties"]["dpto"])      # código DANE del dpto
+    nombres[code] = feat["properties"].get("dpto_nombre", str(code))  # nombre (o el código si falta)
+    pts = list(_coords(feat["geometry"]))       # todos los vértices del dpto
+    # centro aproximado = promedio de longitudes y de latitudes (suficiente para ubicar una burbuja)
     centroides[code] = (sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts))
 
-osm = pd.read_csv(OSM_PATH)
+osm = pd.read_csv(OSM_PATH)                     # tabla de servicios OSM por dpto
 for c in ("health", "education", "commerce"):
+    # proporción de cada servicio sobre el total mapeado (más justo que el conteo crudo)
     osm[c + "_share"] = osm[c] / osm["total"]   # proporción, no conteo crudo
 
 print("Departamentos en el mapa:", len(centroides), "| filas OSM:", len(osm))
@@ -443,43 +468,51 @@ Cada figura usa **Plotly**. Los dos mapas se dibujan **sobre teselas reales de O
 ```python
 # (1) Mapa del indicador por departamento (capa oficial GEIH sobre límites DANE)
 fig_mapa = px.choropleth_mapbox(
-    ind_df, geojson=geojson, locations="dpto", featureidkey="properties.dpto",
-    color="indicador", color_continuous_scale="YlGnBu",
-    mapbox_style="open-street-map", zoom=3.7, center={"lat": 4.6, "lon": -73.5},
-    opacity=0.75, labels={"indicador": indicador_label},
+    ind_df, geojson=geojson,            # tabla de datos + geometrías de los dptos
+    locations="dpto",                   # columna de ind_df que identifica cada zona
+    featureidkey="properties.dpto",     # dónde está ese mismo id dentro del GeoJSON
+    color="indicador",                  # columna que define el color de cada dpto
+    color_continuous_scale="YlGnBu",    # paleta amarillo→azul
+    mapbox_style="open-street-map", zoom=3.7, center={"lat": 4.6, "lon": -73.5},  # mapa base de Colombia
+    opacity=0.75, labels={"indicador": indicador_label},  # transparencia y etiqueta legible
 )
 fig_mapa.update_layout(title=f"GEIH (oficial) — {indicador_label}",
-                       margin=dict(l=0, r=0, t=40, b=0), height=420)
+                       margin=dict(l=0, r=0, t=40, b=0), height=420)  # márgenes y alto en píxeles
 
 # (2) Burbujas: empleo promedio por departamento, ubicado por su centro
-emp_dpto = cur_pd.groupby("dpto")["ponderado"].mean().reset_index()
+emp_dpto = cur_pd.groupby("dpto")["ponderado"].mean().reset_index()  # empleo promedio por dpto
 emp_dpto["dpto"] = emp_dpto["dpto"].astype(int)
+# .map(...) busca cada dpto en el diccionario de centroides; [0]=lon, [1]=lat. Si falta, (None, None).
 emp_dpto["lon"] = emp_dpto["dpto"].map(lambda d: centroides.get(d, (None, None))[0])
 emp_dpto["lat"] = emp_dpto["dpto"].map(lambda d: centroides.get(d, (None, None))[1])
-emp_dpto["nombre"] = emp_dpto["dpto"].map(nombres)
-emp_dpto = emp_dpto.dropna(subset=["lon", "lat"])
+emp_dpto["nombre"] = emp_dpto["dpto"].map(nombres)         # nombre legible para el hover
+emp_dpto = emp_dpto.dropna(subset=["lon", "lat"])          # quita dptos sin coordenadas
 fig_burbujas = px.scatter_mapbox(
-    emp_dpto, lat="lat", lon="lon", size="ponderado", color="ponderado",
+    emp_dpto, lat="lat", lon="lon",     # posición de cada burbuja
+    size="ponderado", color="ponderado",  # tamaño y color proporcionales al empleo
     color_continuous_scale="YlOrRd", size_max=38, zoom=3.7,
     center={"lat": 4.6, "lon": -73.5}, mapbox_style="open-street-map",
-    hover_name="nombre", labels={"ponderado": "Empleo ponderado"},
+    hover_name="nombre", labels={"ponderado": "Empleo ponderado"},  # texto al pasar el cursor
 )
 fig_burbujas.update_layout(title="GEIH (oficial) — empleo por departamento (sobre OSM)",
                            margin=dict(l=0, r=0, t=40, b=0), height=420)
 
 # (3) Tendencia mensual del empleo total
+# Agrupamos por (año, mes), sumamos el empleo y ordenamos cronológicamente.
 serie = cur_pd.groupby(["anio", "mes"])["ponderado"].sum().reset_index().sort_values(["anio", "mes"])
+# Etiqueta "AAAA-MM"; zfill(2) rellena el mes con cero a la izquierda (3 -> "03") para que ordene bien.
 serie["periodo"] = serie["anio"].astype(str) + "-" + serie["mes"].astype(str).str.zfill(2)
-fig_tendencia = px.line(serie, x="periodo", y="ponderado", markers=True,
+fig_tendencia = px.line(serie, x="periodo", y="ponderado", markers=True,  # línea con puntos
                         title="GEIH (oficial) — empleo ponderado total por mes",
                         labels={"periodo": "Periodo (año-mes)", "ponderado": "Empleo ponderado"})
 fig_tendencia.update_layout(margin=dict(l=10, r=10, t=40, b=10), height=420)
 
 # (4) Servicios OSM vs. indicador laboral: correlación de cada proporción
-comp = ind_df.merge(osm, on="dpto", how="inner")
+comp = ind_df.merge(osm, on="dpto", how="inner")  # cruza indicador con servicios por dpto (solo dptos en ambos)
+# .corr(...) da la correlación (-1 a 1) entre el indicador y la proporción de cada servicio.
 correls = {c: comp["indicador"].corr(comp[c + "_share"]) for c in ("health", "education", "commerce")}
-srv_es = {"health": "salud", "education": "educación", "commerce": "comercio"}
-fig_osm = px.bar(x=[srv_es[c] for c in correls], y=[round(v, 2) for v in correls.values()],
+srv_es = {"health": "salud", "education": "educación", "commerce": "comercio"}  # nombres en español
+fig_osm = px.bar(x=[srv_es[c] for c in correls], y=[round(v, 2) for v in correls.values()],  # barra por servicio
                  labels={"x": "servicio (OSM)", "y": f"correlación con {indicador_tipo}"},
                  title="Servicios OSM vs. indicador laboral (por departamento)")
 fig_osm.update_layout(margin=dict(l=10, r=10, t=40, b=10), height=420)
@@ -524,15 +557,21 @@ Con tablas **pequeñas y agregadas** (pocas filas dpto×mes), usamos una **regre
 Seleccionamos las entradas (`mes`, `anio` si aplica, y el one-hot de `dpto`) y separamos la variable objetivo (`ponderado`). El año solo entra cuando el `curated/` cubre más de un año.
 
 ```python
-feat = cur_pd.copy()
+feat = cur_pd.copy()                  # copia para no modificar la tabla original
 feat["dpto"] = feat["dpto"].astype(int)
 
-# Entrada: one-hot del departamento + mes (+ año si hay varios). Objetivo: empleo ponderado.
+# base_cols: variables numéricas de entrada. Siempre "mes"; añadimos "anio" solo si hay
+# más de un año (nunique() > 1 = número de valores distintos mayor que 1).
 base_cols = ["mes"] + (["anio"] if feat["anio"].nunique() > 1 else [])
+# get_dummies = one-hot: convierte el código de dpto en una columna 0/1 por departamento.
+# prefix="dpto" nombra esas columnas dpto_5, dpto_11, ... (lo pasamos a str para tratarlo como categoría).
 X_cat = pd.get_dummies(feat["dpto"].astype(str), prefix="dpto")
+# concat(axis=1) pega columnas lado a lado: las numéricas + las one-hot.
+# reset_index(drop=True) alinea ambas por posición (descarta el índice viejo para que no se descuadren).
+# astype(float) deja todo numérico, como espera scikit-learn.
 X = pd.concat([feat[base_cols].reset_index(drop=True), X_cat.reset_index(drop=True)], axis=1).astype(float)
-y = feat["ponderado"].to_numpy()
-feature_names = list(X.columns)
+y = feat["ponderado"].to_numpy()      # objetivo como arreglo NumPy
+feature_names = list(X.columns)       # guardamos los nombres para leer los coeficientes después
 
 print("Variables de entrada:", len(feature_names), "(mes/año +", X_cat.shape[1], "departamentos)")
 print("Filas para modelar:", len(y))
@@ -554,11 +593,11 @@ print("Entrenamiento:", len(y_train), "| Validación:", len(y_val), "| Prueba:",
 Entrenamos la regresión lineal con `fit` (aprende los coeficientes) y la evaluamos en **validación** con dos medidas: **R²** (qué parte de la variación explica, más cerca de 1 es mejor) y **MAE** (error promedio en las mismas unidades del empleo ponderado).
 
 ```python
-lin = LinearRegression()
-lin.fit(X_train, y_train)
-y_val_lin = lin.predict(X_val)
-r2_lin = r2_score(y_val, y_val_lin)
-mae_lin = mean_absolute_error(y_val, y_val_lin)
+lin = LinearRegression()              # modelo lineal vacío
+lin.fit(X_train, y_train)             # aprende los coeficientes con el set de entrenamiento
+y_val_lin = lin.predict(X_val)        # predice el empleo en validación
+r2_lin = r2_score(y_val, y_val_lin)   # R²: 1 = perfecto, 0 = no mejor que el promedio
+mae_lin = mean_absolute_error(y_val, y_val_lin)  # MAE: error promedio en unidades de empleo
 print("Lineal (validación) — R²:", round(r2_lin, 3), "| MAE:", round(mae_lin, 2))
 ```
 
@@ -583,11 +622,25 @@ Evaluar un modelo **no es solo** mirar R². También importa **explicar** a quie
 
 ```python
 def fig_obs_pred(y_true, y_pred, titulo: str) -> go.Figure:
-    """Gráfico observado vs. predicho con diagonal ideal y = x."""
-    lo = float(min(y_true.min(), y_pred.min()))
-    hi = float(max(y_true.max(), y_pred.max()))
+    """Dibuja observado vs. predicho con la diagonal ideal y = x.
+
+    Si el modelo fuera perfecto, todos los puntos caerían sobre la línea y = x.
+    Cuanto más se alejan, mayor es el error.
+
+    Parámetros:
+        y_true: valores reales de empleo.
+        y_pred: valores que predijo el modelo.
+        titulo: título del gráfico.
+
+    Retorna:
+        Una figura de Plotly lista para mostrar o guardar.
+    """
+    lo = float(min(y_true.min(), y_pred.min()))   # extremo bajo (para dibujar la diagonal)
+    hi = float(max(y_true.max(), y_pred.max()))   # extremo alto
     fig = go.Figure()
+    # nube de puntos: x = real, y = predicho
     fig.add_trace(go.Scatter(x=y_true, y=y_pred, mode="markers", name="validación"))
+    # línea diagonal ideal y = x (de esquina a esquina)
     fig.add_trace(go.Scatter(x=[lo, hi], y=[lo, hi], mode="lines",
                              name="ideal (y = x)", line=dict(dash="dash")))
     fig.update_layout(title=titulo, xaxis_title="Observado (empleo ponderado)",
@@ -597,12 +650,14 @@ def fig_obs_pred(y_true, y_pred, titulo: str) -> go.Figure:
 
 fig_model_lin = fig_obs_pred(y_val, y_val_lin, "GEIH — lineal (validación)")
 
-# Coeficientes lineales de los 8 departamentos con mayor efecto (explicabilidad)
+# Coeficientes lineales de los 8 departamentos con mayor efecto (explicabilidad).
+# lin.coef_ son los pesos aprendidos; los emparejamos con su nombre de columna en una Serie.
 coef = pd.Series(lin.coef_, index=feature_names)
+# Nos quedamos solo con las columnas dpto_*, ordenamos de mayor a menor y tomamos las 8 primeras.
 coef_dpto = coef[coef.index.str.startswith("dpto_")].sort_values(ascending=False).head(8)
 fig_coef = px.bar(
-    x=coef_dpto.index.str.replace("dpto_", "dpto "),
-    y=coef_dpto.values,
+    x=coef_dpto.index.str.replace("dpto_", "dpto "),  # etiqueta más legible en el eje x
+    y=coef_dpto.values,                               # tamaño del coeficiente
     labels={"x": "departamento (one-hot)", "y": "coeficiente lineal"},
     title="Explicabilidad — efecto por departamento (modelo lineal)",
 )
@@ -674,48 +729,70 @@ KEYWORDS_MACRO = (
     "inflación", "inflacion", "trm", "dólar", "dolar", "tasas", "banrep", "banco de la república",
     "crecimiento", "pib", "colcap", "finanzas", "economía", "economia", "ipc", "remesas",
 )
-KEYWORDS = KEYWORDS_LABOR + KEYWORDS_MACRO
+KEYWORDS = KEYWORDS_LABOR + KEYWORDS_MACRO  # unimos ambas tuplas en una sola lista de palabras
 ENTRIES_PER_FEED = 20  # más entradas por feed que en L5
 POLL_SECONDS = 20      # actualización automática cada 20 s
 MAX_TICKS = 3          # corto a propósito (≈ 40 s): no recarga Colab
 
 
 def keyword_hit(text: str) -> bool:
-    t = (text or "").lower()
-    return any(k in t for k in KEYWORDS)
+    """True si el texto menciona alguna palabra clave (empleo o macro).
+
+    Parámetros:
+        text: título o resumen del titular.
+
+    Retorna:
+        True si encuentra al menos una palabra clave; False si no.
+    """
+    t = (text or "").lower()              # minúsculas; "" evita error si text es None
+    return any(k in t for k in KEYWORDS)  # any(...) = True en cuanto una palabra aparezca
 
 
 def poll_rss_events(max_items: int = 15) -> list[dict]:
+    """Sondea los feeds RSS y devuelve titulares que mencionan empleo o macro.
+
+    Parámetros:
+        max_items: tope de titulares a devolver (corta apenas lo alcanza).
+
+    Retorna:
+        Lista de eventos (dicts) con id, url, título y fuente. geih=False marca
+        que NO es estadística oficial.
+    """
     events: list[dict] = []
     for url in RSS_FEEDS:
-        feed = feedparser.parse(url)
-        for entry in feed.entries[:ENTRIES_PER_FEED]:
-            title = entry.get("title", "")
+        feed = feedparser.parse(url)            # descarga y parsea un feed RSS
+        for entry in feed.entries[:ENTRIES_PER_FEED]:  # revisa las primeras N entradas
+            title = entry.get("title", "")       # .get evita error si falta la clave
             summary = entry.get("summary", "")
-            if keyword_hit(title + " " + summary):
+            if keyword_hit(title + " " + summary):  # ¿menciona el tema?
                 events.append(
                     {
-                        "id": str(uuid.uuid4()),
-                        "url": entry.get("link", ""),
+                        "id": str(uuid.uuid4()),       # id único del evento
+                        "url": entry.get("link", ""),  # enlace al titular
                         "title": title,
-                        "feed": url,
-                        "geih": False,
+                        "feed": url,                   # de qué feed vino
+                        "geih": False,                 # marca: fuente NO oficial
                     }
                 )
-            if len(events) >= max_items:
+            if len(events) >= max_items:  # ya tenemos suficientes → salimos
                 return events
     return events
 
 
-monitor_out = widgets.Output()
+monitor_out = widgets.Output()  # área de salida que podemos limpiar y reescribir
 header = widgets.HTML(value="Monitor de discurso mediático — NO es dato oficial DANE/GEIH")
 
 
 def refresh_monitor(tick: int | None = None) -> None:
-    with monitor_out:
-        clear_output(wait=True)
-        live = poll_rss_events(max_items=15)
-        stamp = time.strftime("%H:%M:%S")
+    """Vuelve a sondear y reescribe el panel del monitor en pantalla.
+
+    Parámetros:
+        tick: número de actualización (None = primer dibujado al iniciar).
+    """
+    with monitor_out:                         # todo lo que se imprima va al área del widget
+        clear_output(wait=True)               # borra el contenido anterior (sin parpadeo)
+        live = poll_rss_events(max_items=15)  # titulares de este instante
+        stamp = time.strftime("%H:%M:%S")     # hora actual para la marca de tiempo
         label = f"actualización {tick}" if tick is not None else "inicio"
         print(f"[{stamp}] Titulares recientes ({label}) — {len(live)} coincidencias:")
         if live:
@@ -727,16 +804,19 @@ def refresh_monitor(tick: int | None = None) -> None:
 
 
 def auto_poll_loop() -> None:
+    """Llama a refresh_monitor MAX_TICKS veces, esperando POLL_SECONDS entre cada una."""
     for tick in range(1, MAX_TICKS + 1):
         refresh_monitor(tick=tick)
-        if tick < MAX_TICKS:
+        if tick < MAX_TICKS:        # no esperamos después de la última actualización
             time.sleep(POLL_SECONDS)
 
 
+# Thread(..., daemon=True): corre el bucle en segundo plano sin bloquear el cuaderno;
+# daemon=True hace que el hilo muera solo al cerrar la sesión.
 threading.Thread(target=auto_poll_loop, daemon=True).start()
-refresh_monitor()
+refresh_monitor()  # primer dibujado inmediato (no esperamos al primer tick)
 
-display(widgets.VBox([header, monitor_out]))
+display(widgets.VBox([header, monitor_out]))  # apila encabezado + panel en vertical
 print(f"Monitor en marcha: actualiza cada {POLL_SECONDS} s (máx. {MAX_TICKS} veces). Detenga con ■ si hace falta.")
 ```
 
