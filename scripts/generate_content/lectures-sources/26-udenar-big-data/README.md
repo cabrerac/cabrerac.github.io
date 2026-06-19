@@ -29,11 +29,18 @@ Generate one lecture (from repo root):
 python scripts/generate_content/generate_content.py 26-udenar-big-data/l2-ethics-governance
 ```
 
-Set `visible: true` in each source front matter when ready to publish.
+Set `visible: true` in lecture source front matter when the page should appear on the **course index** (`lectures_list.html`). The page is still published at its `permalink` whenever it exists on `gh-pages`.
+
+| Kind | Typical `visible` | Student access |
+|------|-------------------|----------------|
+| **Lecture** (L1–L8) | `true` when live | Course index + permalink + links |
+| **Weekly hub** (`week-N-hub-es`) | **`false`** (by design) | Permalink + **Week N hub** link on lecture pages (Colabs, templates, deadlines) |
+| **Group homework** (`week-N-group`) | `false` | Colab URL from hub / lecture; not a course-index row |
+| **Diagnostic** | `false` | Direct link only (intake) |
 
 **Website is the canonical materials hub.** Moodle and email are support channels for announcements and submissions.
 
-**Weekly hub pattern:** **`week-N-hub-es`** page per week (`Week N links` on lecture pages; Colabs/templates on hub; lecture **Resources** = supplements only).
+**Weekly hub pattern:** **`week-N-hub-es`** page per week (`Week N links` on lecture pages; Colabs/templates on hub; lecture **Resources** = supplements only). Keep hubs at `visible: false` so the index lists lessons only, not duplicate link pages.
 
 **Notebook language:** Student practice notebooks (L1–L8, diagnostic) are authored in **Spanish** in the markdown sources; regenerate `.ipynb` after edits.
 
