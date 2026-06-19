@@ -62,7 +62,16 @@ Para reproducir **fuera de Colab**: `pip install -r` el archivo de requisitos de
 
 ---
 
-### Proyecto final (plantillas — se explican el sábado 20)
+### Entregas semana 3 (Moodle)
+
+| Entrega | Plazo (Colombia) |
+|---------|------------------|
+| ZIP grupal `week-3-group-<group_id>.zip` (cuaderno + `manifest.json`) | **Martes 23 jun 2026, 23:59** |
+| Reflexión individual `week-3-reflection-<student>.pdf` | **Miércoles 24 jun 2026, 23:59** |
+
+---
+
+### Proyecto final (plantillas)
 
 | Recurso | Enlace |
 |---------|--------|
@@ -80,14 +89,5 @@ Detalle en la sección **Entregables del proyecto** del cuaderno [L6](/teaching/
 | Presentación en vivo (~20 min slides + live demo + ~10 min Q&A; sin ZIP) | **Sábado 27 jun 2026** |
 | ZIP `project-<group_id>.zip` (informe PDF + código + manifiesto + linaje) | **Martes 30 jun 2026, 23:59** |
 | Reflexión `project-reflection-<student>.pdf` | **Miércoles 1 jul 2026, 23:59** |
-
----
-
-### Entregas semana 3 (Moodle)
-
-| Entrega | Plazo (Colombia) |
-|---------|------------------|
-| ZIP grupal `week-3-group-<group_id>.zip` (cuaderno + `manifest.json`) | **Martes 23 jun 2026, 23:59** |
-| Reflexión individual `week-3-reflection-<student>.pdf` | **Miércoles 24 jun 2026, 23:59** |
 
 ---
