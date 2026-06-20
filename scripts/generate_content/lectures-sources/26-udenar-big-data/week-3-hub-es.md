@@ -29,19 +29,23 @@ skip_notebook: true
 | Plan de sesión (PDF) | [week-3-session-plan-es.pdf](/assets/documents/26-udenar-big-data/week-3-session-plan-es.pdf) |
 | Página del curso | [/teaching/26-udenar-big-data/](/teaching/26-udenar-big-data/) |
 
-**Antes del sábado:** ejecute los cuadernos individuales **L5** y **L6** (solo lectura). El cuaderno grupal concentra el entregable evaluable.
-
 ---
 
 ### Colabs
 
-Para reproducir **fuera de Colab**: `pip install -r` el archivo de requisitos de cada cuaderno (misma carpeta que el `.ipynb` en el sitio).
+| Cuaderno | Colab |
+|----------|-------|
+| L5 individual | [l5-ingestion](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l5-ingestion.ipynb) |
+| L6 individual | [l6-analytics](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l6-analytics.ipynb) |
+| Semana 3 grupal | [week-3-group](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-3-group.ipynb) |
 
-| Cuaderno | Colab | Requisitos (local) |
-|----------|-------|--------------------|
-| L5 individual | [l5-ingestion](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l5-ingestion.ipynb) | [l5-ingestion-requirements.txt](/assets/notebooks/26-udenar-big-data/l5-ingestion-requirements.txt) |
-| L6 individual | [l6-analytics](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l6-analytics.ipynb) | [l6-analytics-requirements.txt](/assets/notebooks/26-udenar-big-data/l6-analytics-requirements.txt) |
-| Semana 3 grupal | [week-3-group](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-3-group.ipynb) | [week-3-group-requirements.txt](/assets/notebooks/26-udenar-big-data/week-3-group-requirements.txt) |
+Para reproducir localmente se pueden installar las dependencias de cada cuaderno utilizando los siguientes archivos:
+
+| Cuaderno | Requisitos (local) |
+|----------|--------------------|
+| L5 individual | [l5-ingestion-requirements.txt](/assets/notebooks/26-udenar-big-data/l5-ingestion-requirements.txt) |
+| L6 individual | [l6-analytics-requirements.txt](/assets/notebooks/26-udenar-big-data/l6-analytics-requirements.txt) |
+| Semana 3 grupal | [week-3-group-requirements.txt](/assets/notebooks/26-udenar-big-data/week-3-group-requirements.txt) |
 
 ---
 
@@ -56,15 +60,6 @@ Para reproducir **fuera de Colab**: `pip install -r` el archivo de requisitos de
 
 ---
 
-### Entregas semana 3 (Moodle)
-
-| Entrega | Plazo (Colombia) |
-|---------|------------------|
-| ZIP grupal `week-3-group-<group_id>.zip` (cuaderno + `manifest.json`) | **Martes 23 jun 2026, 23:59** |
-| Reflexión individual `week-3-reflection-<student>.pdf` | **Miércoles 24 jun 2026, 23:59** |
-
----
-
 ### Proyecto final (plantillas)
 
 | Recurso | Enlace |
@@ -75,14 +70,6 @@ Para reproducir **fuera de Colab**: `pip install -r` el archivo de requisitos de
 | Ejemplo título (inglés, opt-in web) | [project-title-en.example.txt](/assets/documents/26-udenar-big-data/project-title-en.example.txt) |
 | Ejemplo abstract (~200 palabras, inglés) | [project-abstract-en.example.txt](/assets/documents/26-udenar-big-data/project-abstract-en.example.txt) |
 | Catálogo público (L8) | [l8-final-project](/teaching/26-udenar-big-data/l8-final-project/) |
-
-Detalle en la sección **Entregables del proyecto** del cuaderno [L6](/teaching/26-udenar-big-data/l6-analytics/).
-
-| Entrega | Plazo (Colombia) |
-|---------|------------------|
-| Presentación en vivo (~20 min slides + live demo + ~10 min Q&A; sin ZIP) | **Sábado 27 jun 2026** |
-| ZIP `project-<group_id>.zip` (informe PDF + código + manifiesto + linaje) | **Martes 30 jun 2026, 23:59** |
-| Reflexión `project-reflection-<student>.pdf` | **Miércoles 1 jul 2026, 23:59** |
 
 ---
 

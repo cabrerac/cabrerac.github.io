@@ -33,13 +33,19 @@ skip_notebook: true
 
 ### Colabs
 
-Para reproducir **fuera de Colab**: `pip install -r` el archivo de requisitos de cada cuaderno.
+| Cuaderno | Colab |
+|----------|-------|
+| L1 individual | [l1-introduction](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction.ipynb) |
+| L2 individual | [l2-ethics-governance](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l2-ethics-governance.ipynb) |
+| Semana 1 grupal | [week-1-group](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-1-group.ipynb) |
 
-| Cuaderno | Colab | Requisitos (local) |
-|----------|-------|--------------------|
-| L1 individual | [l1-introduction](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction.ipynb) | [l1-introduction-requirements.txt](/assets/notebooks/26-udenar-big-data/l1-introduction-requirements.txt) |
-| L2 individual | [l2-ethics-governance](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l2-ethics-governance.ipynb) | [l2-ethics-governance-requirements.txt](/assets/notebooks/26-udenar-big-data/l2-ethics-governance-requirements.txt) |
-| Semana 1 grupal | [week-1-group](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-1-group.ipynb) | [week-1-group-requirements.txt](/assets/notebooks/26-udenar-big-data/week-1-group-requirements.txt) |
+Para reproducir localmente se pueden installar las dependencias de cada cuaderno utilizando los siguientes archivos:
+
+| Cuaderno | Requisitos (local) |
+|----------|--------------------|
+| L1 individual | [l1-introduction-requirements.txt](/assets/notebooks/26-udenar-big-data/l1-introduction-requirements.txt) |
+| L2 individual | [l2-ethics-governance-requirements.txt](/assets/notebooks/26-udenar-big-data/l2-ethics-governance-requirements.txt) |
+| Semana 1 grupal | [week-1-group-requirements.txt](/assets/notebooks/26-udenar-big-data/week-1-group-requirements.txt) |
 
 ---
 

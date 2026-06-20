@@ -33,13 +33,19 @@ skip_notebook: true
 
 ### Colabs
 
-Para reproducir **fuera de Colab**: `pip install -r` el archivo de requisitos de cada cuaderno.
+| Cuaderno         | Colab |
+|------------------|-------|
+| L3 individual    | [l3-storage](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l3-storage.ipynb) |
+| L4 individual    | [l4-processing](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l4-processing.ipynb) |
+| Semana 2 grupal  | [week-2-group](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-2-group.ipynb) |
 
-| Cuaderno | Colab | Requisitos (local) |
-|----------|-------|--------------------|
-| L3 individual | [l3-storage](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l3-storage.ipynb) | [l3-storage-requirements.txt](/assets/notebooks/26-udenar-big-data/l3-storage-requirements.txt) |
-| L4 individual | [l4-processing](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l4-processing.ipynb) | [l4-processing-requirements.txt](/assets/notebooks/26-udenar-big-data/l4-processing-requirements.txt) |
-| Semana 2 grupal | [week-2-group](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-2-group.ipynb) | [week-2-group-requirements.txt](/assets/notebooks/26-udenar-big-data/week-2-group-requirements.txt) |
+Para reproducir localmente se pueden installar las dependencias de cada cuaderno utilizando los siguientes archivos:
+
+| Cuaderno         | Requisitos (local) |
+|------------------|--------------------|
+| L3 individual    | [l3-storage-requirements.txt](/assets/notebooks/26-udenar-big-data/l3-storage-requirements.txt) |
+| L4 individual    | [l4-processing-requirements.txt](/assets/notebooks/26-udenar-big-data/l4-processing-requirements.txt) |
+| Semana 2 grupal  | [week-2-group-requirements.txt](/assets/notebooks/26-udenar-big-data/week-2-group-requirements.txt) |
 
 ---
 
