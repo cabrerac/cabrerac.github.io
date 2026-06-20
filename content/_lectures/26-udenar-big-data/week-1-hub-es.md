@@ -44,7 +44,7 @@ visible: false
 | L1 individual | [l1-introduction](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction.ipynb) |
 | L2 individual | [l2-ethics-governance](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l2-ethics-governance.ipynb) |
 | Semana 1 grupal | [week-1-group](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-1-group.ipynb) |
-
+<br>
 Para reproducir localmente se pueden installar las dependencias de cada cuaderno utilizando los siguientes archivos:
 
 | Cuaderno | Requisitos (local) |
