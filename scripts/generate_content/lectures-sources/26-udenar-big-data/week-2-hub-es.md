@@ -39,7 +39,9 @@ skip_notebook: true
 | L4 individual    | [l4-processing](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l4-processing.ipynb) |
 | Semana 2 grupal  | [week-2-group](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-2-group.ipynb) |
 
-<div></div>
+---
+
+### Instalaciónn Local
 
 Para reproducir localmente se pueden installar las dependencias de cada cuaderno utilizando los siguientes archivos:
 

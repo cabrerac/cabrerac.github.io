@@ -39,7 +39,9 @@ skip_notebook: true
 | L6 individual | [l6-analytics](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l6-analytics.ipynb) |
 | Semana 3 grupal | [week-3-group](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-3-group.ipynb) |
 
-<div></div>
+---
+
+### Instalaciónn Local
 
 Para reproducir localmente se pueden installar las dependencias de cada cuaderno utilizando los siguientes archivos:
 
