@@ -49,6 +49,7 @@ visible: true
 - [The Ascent of Gradient Descent](https://blog.clairvoyantsoft.com/the-ascent-of-gradient-descent-23356390836f)
 - [Introductory Python course](https://www.youtube.com/watch?v=nKPbfIU442g) (optional video)
 - [scikit-learn user guide](https://scikit-learn.org/stable/user_guide.html) (reference)
+- [Plotly Python documentation](https://plotly.com/python/) (reference)
 
 ### References
 
