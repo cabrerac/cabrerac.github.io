@@ -362,6 +362,8 @@ def build_project_report() -> Document:
         "project_requirements y data_architecture). Exporte a PDF como "
         "project-report-<group_id>.pdf e inclúyalo en el ZIP project-<group_id>.zip. "
         "Plazo del ZIP: martes 30 de junio de 2026, 23:59 (Colombia). "
+        "Extensión orientativa del cuerpo (secciones 1–7): 2.000–3.000 palabras "
+        "(sin contar figuras, canvas, diagramas ni tablas). "
         "Mantenga los títulos de sección exactamente como aparecen abajo.",
     )
     doc.add_paragraph()
@@ -369,7 +371,7 @@ def build_project_report() -> Document:
     sections_data = [
         (
             "1. Metadatos del grupo",
-            "Id del grupo, integrantes, arquetipo, pregunta de decisión en una oración.",
+            "Id del grupo, integrantes, arquetipo, pregunta de decisión en una oración, conteo aproximado de palabras (secciones 1–7).",
         ),
         (
             "2. Requerimientos del proyecto y modelo canvas",

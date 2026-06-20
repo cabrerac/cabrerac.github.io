@@ -939,7 +939,7 @@ Lo que practicaron aquí lo **implementan ustedes** en el cuaderno grupal **`wee
 
 | Archivo | Descripción |
 |---------|-------------|
-| `project-report-<group_id>.pdf` | Informe consolidado (secciones 1–7 en la plantilla) |
+| `project-report-<group_id>.pdf` | Informe consolidado (secciones 1–7; **1.500–2.500 palabras** en el cuerpo, sin figuras) |
 | Cuaderno(s) ejecutado(s) | Código reproducible del pipeline y la analítica |
 | `manifest.json` | Manifiesto final (`publish_on_web: true` si publican en L8) |
 | `audit.jsonl` + `schema_contract.json` | Linaje y contrato |

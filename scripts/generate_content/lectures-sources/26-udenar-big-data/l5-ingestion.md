@@ -669,7 +669,20 @@ La ingesta batch **no parte de cero**: se apoya en lo que ya existe. Aquí confi
 # Si existe el manifiesto de la semana 2, mostramos algunas de sus claves
 if MANIFEST_PATH.is_file():
     manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
-    print("manifest.json (primeras claves):", list(manifest.keys())[:8])
+    if isinstance(manifest, dict):
+        # Formato week-2-group: objeto con linaje, lakehouse, particiones, ...
+        print("manifest.json (primeras claves):", list(manifest.keys())[:8])
+    elif isinstance(manifest, list):
+        # Formato week-1-group: lista de descargas DANE (aún no actualizado en sem. 2)
+        print(
+            "manifest.json (formato semana 1 — lista):",
+            len(manifest),
+            "entradas; ejemplo:",
+            manifest[0].get("filename", manifest[0]) if manifest else "vacía",
+        )
+        print("→ Actualice con week-2-group (Paso 3.4) para el objeto con linaje/lakehouse.")
+    else:
+        print("manifest.json: tipo inesperado", type(manifest).__name__)
 else:
     manifest = {}
     print("Sin manifest.json — use el de su week-2-group cuando lo tenga.")
