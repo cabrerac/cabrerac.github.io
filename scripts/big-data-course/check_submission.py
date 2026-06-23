@@ -47,6 +47,7 @@ REFLECTION_WEEK_1_SECTIONS = [
     "R6 Retroalimentación",
 ]
 
+REFLECTION_WEEK_2_SECTIONS = REFLECTION_WEEK_1_SECTIONS
 REFLECTION_SEMANA_1_SECTIONS = REFLECTION_WEEK_1_SECTIONS
 REFLECTION_L1_SECTIONS = REFLECTION_WEEK_1_SECTIONS
 
@@ -133,6 +134,41 @@ def check_reflection_week_1(text: str) -> tuple[bool, list[str]]:
     return len(issues) == 0, issues
 
 
+def check_reflection_week_2(text: str) -> tuple[bool, list[str]]:
+    issues: list[str] = []
+    missing = _missing_sections(text, REFLECTION_WEEK_2_SECTIONS)
+    if missing:
+        issues.append(f"Missing sections: {', '.join(missing)}")
+    wc = _word_count(text)
+    if wc < 600:
+        issues.append(f"Word count low ({wc}); target 700–1,000 (R1–R5).")
+    if wc > 1500:
+        issues.append(f"Word count high ({wc}); target 700–1,000 (R1–R5).")
+    norm = _normalize(text)
+    if not any(r in norm for r in ("dwork", "zuboff", "armbrust")):
+        issues.append("No assigned reading cited in R4 (Dwork / Zuboff / Armbrust).")
+    if not any(
+        k in norm
+        for k in (
+            "parquet",
+            "particion",
+            "partition",
+            "mapreduce",
+            "duckdb",
+            "polars",
+            "lakehouse",
+            "harmon",
+            "motor",
+            "engine",
+            "almacen",
+            "storage",
+            "proces",
+        )
+    ):
+        issues.append("No L3/L4 technical anchor (storage / processing / engine) detected.")
+    return len(issues) == 0, issues
+
+
 def check_reflection_l1(text: str) -> tuple[bool, list[str]]:
     issues: list[str] = []
     missing = _missing_sections(text, REFLECTION_L1_SECTIONS)
@@ -158,7 +194,13 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Pre-check L1 PDF submissions.")
     parser.add_argument(
         "kind",
-        choices=("project_requirements", "reflection_l1", "reflection_week_1", "reflection_semana_1"),
+        choices=(
+            "project_requirements",
+            "reflection_l1",
+            "reflection_week_1",
+            "reflection_week_2",
+            "reflection_semana_1",
+        ),
         help="Which template rules to apply",
     )
     parser.add_argument("pdf_path", type=Path)
@@ -182,6 +224,9 @@ def main() -> None:
     elif args.kind in ("reflection_week_1", "reflection_semana_1"):
         ok, issues = check_reflection_week_1(text)
         label = "REFLECTION_WEEK_1"
+    elif args.kind == "reflection_week_2":
+        ok, issues = check_reflection_week_2(text)
+        label = "REFLECTION_WEEK_2"
     else:
         ok, issues = check_reflection_l1(text)
         label = "REFLECTION_L1"
