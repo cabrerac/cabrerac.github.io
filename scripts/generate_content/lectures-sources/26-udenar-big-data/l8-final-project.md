@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-big-data
 title: Proyectos finales y cierre del curso
-description: Sat 27 Jun 2026 — charla L7 + presentaciones L8. Catálogo público de proyectos (título + abstract en inglés, opt-in). Entrega final ZIP martes 30 jun; reflexión miércoles 1 jul.
+description: Sat 27 Jun 2026 — final group presentations (L8), then research talk L7. Public project catalog (English title + abstract, opt-in). Final ZIP Tue 30 Jun; reflection Wed 1 Jul.
 session: 8
 start_time: 07:00 am
 end_time: 01:00 pm
@@ -20,9 +20,11 @@ skip_notebook: true
 
 <!-- RENDER: -->
 
-**Sábado 27 jun 2026** · Presentaciones finales + cierre del curso
+**Saturday 27 Jun 2026** · Final group presentations, then research talk
 
-Cada grupo: **~20 min** (6 diapositivas + **demo en vivo** del pipeline / tablero) + **~10 min** de preguntas. Plantilla: [project-presentation-template.pptx](/assets/documents/26-udenar-big-data/project-presentation-template.pptx).
+Each group: **~20 min** (6 slides + **live demo** of pipeline / dashboard) + **~10 min** Q&A. Template: [project-presentation-template.pptx](/assets/documents/26-udenar-big-data/project-presentation-template.pptx).
+
+After all presentations: [L7 — Research lines and masters projects](/teaching/26-udenar-big-data/l7-research/) (~1 h).
 
 ---
 

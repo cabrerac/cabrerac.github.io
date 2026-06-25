@@ -1,9 +1,9 @@
 ---
 author: Christian Cabrera Jojoa
 course_code: 26-udenar-big-data
-description: "Sat 27 Jun 2026 \u2014 charla L7 + presentaciones L8. Cat\xE1logo p\xFA\
-  blico de proyectos (t\xEDtulo + abstract en ingl\xE9s, opt-in). Entrega final ZIP\
-  \ martes 30 jun; reflexi\xF3n mi\xE9rcoles 1 jul."
+description: "Sat 27 Jun 2026 \u2014 final group presentations (L8), then research\
+  \ talk L7. Public project catalog (English title + abstract, opt-in). Final ZIP\
+  \ Tue 30 Jun; reflection Wed 1 Jul."
 email: chc79@cam.ac.uk
 end_time: 01:00 pm
 hours: 6
@@ -28,9 +28,11 @@ visible: false
   </p>
 </div>
 
-**Sábado 27 jun 2026** · Presentaciones finales + cierre del curso
+**Saturday 27 Jun 2026** · Final group presentations, then research talk
 
-Cada grupo: **~20 min** (6 diapositivas + **demo en vivo** del pipeline / tablero) + **~10 min** de preguntas. Plantilla: [project-presentation-template.pptx](/assets/documents/26-udenar-big-data/project-presentation-template.pptx).
+Each group: **~20 min** (6 slides + **live demo** of pipeline / dashboard) + **~10 min** Q&A. Template: [project-presentation-template.pptx](/assets/documents/26-udenar-big-data/project-presentation-template.pptx).
+
+After all presentations: [L7 — Research lines and masters projects](/teaching/26-udenar-big-data/l7-research/) (~1 h).
 
 ---
 

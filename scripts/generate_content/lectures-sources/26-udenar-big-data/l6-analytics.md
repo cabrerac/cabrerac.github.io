@@ -931,7 +931,7 @@ Lo que practicaron aquí lo **implementan ustedes** en el cuaderno grupal **`wee
 
 | Qué | Cuándo (Colombia) |
 |-----|-------------------|
-| **Presentación en vivo** (~20 min slides + live demo + ~10 min Q&A; slides not in ZIP) | **Sábado 27 jun 2026** — tras charla L7 (~1 h) |
+| **Presentación en vivo** (~20 min slides + live demo + ~10 min Q&A; slides not in ZIP) | **Sábado 27 jun 2026** — before charla L7 (~1 h research talk) |
 | **Un solo ZIP** `project-<group_id>.zip` | **Martes 30 jun 2026, 23:59** |
 | **Reflexión individual** `project-reflection-<student>.pdf` | **Miércoles 1 jul 2026, 23:59** |
 

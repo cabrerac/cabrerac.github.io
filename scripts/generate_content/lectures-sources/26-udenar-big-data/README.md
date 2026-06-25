@@ -18,8 +18,8 @@ One source file per **lecture** → lecture page + slides + Colab notebook via `
 | `week-2-group` | Week 2 — homework (group) | Sat 13 Jun 2026 | Lakehouse 2022–2025 + MR + engine + privacy; linked from L3/L4 |
 | `l5-ingestion` | 5 — Sat 3 morning of day | Sat 20 Jun 2026 | Was `l4-ingestion`; ethics hook to L2 |
 | `l6-analytics` | 6 — Sat 3 afternoon of day | Sat 20 Jun 2026 | Was `l5-analytics`; closes governance synthesis |
-| `l7-integration` | 7 — async only | week of 22 Jun 2026 | Short integration video; no Saturday sync; project week 22–26 Jun |
-| `l8-final-project` | 8 — Sat 4 (single 6 h block) | Sat 27 Jun 2026 | Live presentations only (07:00–13:00 CO) |
+| `l7-research` | 7 — sync (after L8 talks) | Sat 27 Jun 2026 | Research lines + masters project links (~1 h); slides in English |
+| `l8-final-project` | 8 — Sat 4 (single 6 h block) | Sat 27 Jun 2026 | Live group presentations (07:00–13:00 CO), then L7 research talk |
 
 **Instructor solutions** (not in `lectures-sources/`): `work-space/teaching/big-data/instructor/*.md` → `python scripts/big-data-course/build_instructor_notebook.py`. Output: `instructor/notebooks/*.ipynb` (local only; never `assets/notebooks/`).
 
