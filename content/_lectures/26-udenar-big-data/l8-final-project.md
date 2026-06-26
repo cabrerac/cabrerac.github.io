@@ -1,7 +1,7 @@
 ---
 author: Christian Cabrera Jojoa
 course_code: 26-udenar-big-data
-description: In this lecture, students will present their big-data projects.
+description: In this lecture, students will present their big-data final projects.
 email: chc79@cam.ac.uk
 end_time: 600
 hours: 3
@@ -12,7 +12,7 @@ permalink: /teaching/26-udenar-big-data/l8-final-project/
 position: Assistant Research Professor
 skip_notebook: true
 skip_slides: true
-title: Proyectos finales y cierre del curso
+title: Final Projects
 visible: false
 ---
 

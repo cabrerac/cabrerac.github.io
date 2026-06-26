@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-big-data
-title: Proyectos finales y cierre del curso
-description: In this lecture, students will present their big-data projects.
+title: Final Projects
+description: In this lecture, students will present their big-data final projects.
 end_time: 10:00
 hours: 3
 author: Christian Cabrera Jojoa
