@@ -13,7 +13,7 @@ position: Assistant Research Professor
 session: 8
 skip_notebook: true
 skip_slides: true
-start_time: 7:00 am
+start_time: 07:00 am
 title: Final Projects
 visible: false
 ---
