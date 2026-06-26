@@ -5,8 +5,8 @@ description: This lecture introduces the Interfaces research programme. We intro
   research projects like the DOA Debugger, DOAgent, and aICU with links to AI-systems,
   big data and statistics.
 email: chc79@cam.ac.uk
-end_time: 01:00 pm
-hours: 3
+end_time: 11:30 am
+hours: 1
 layout: lecture
 lecture_code: l7-research
 lecture_date: 27/06/2026
@@ -15,7 +15,7 @@ position: Assistant Research Professor
 session: 7
 skip_notebook: true
 skip_slides: false
-start_time: 10:00 am
+start_time: 10:30 am
 title: The Interfaces Research Programme
 visible: false
 ---
@@ -28,8 +28,18 @@ visible: false
   </p>
 </div>
 
-**Saturday 27 Jun 2026** · After final group presentations
+### Resources
 
-Live session (~1 h): The Interfaces programme from the [ML@CL](https://mlatcl.github.io/) research group, introducing concrete projects (**DOA Debugger**, **DOAgent**, **aICU**) with links to **AI-systems**, **big data**, and **applied statistics**.
+- [ML@CL — Machine Learning @ Cambridge](https://mlatcl.github.io/)
+- [DOAgent](https://github.com/cabrerac/doagent) — data-oriented multi-agent library (public GitHub)
+- [aICU](https://ki.se/en/research/research-areas-centres-and-networks/research-groups/anaesthesia-and-intensive-care-rebecka-rubenson-wahlinanna-schandls-research-group/the-aicu-project-developing-next-generation-decision-support-tools-for-intensive-care)
 
-Final presentations: [L8 — Final projects](/teaching/26-udenar-big-data/l8-final-project/)
+### References
+
+- Stopford, B. (2016). [The Data Dichotomy: Rethinking the way we treat data and services](https://www.confluent.io/blog/data-dichotomy-rethinking-the-way-we-treat-data-and-services/). *Confluent blog.*
+- Zittrain, J. (2022). [Intellectual debt](https://www.cambridge.org/core/books/cambridge-handbook-of-responsible-artificial-intelligence/intellectual-debt/F5D4CF05857D072ABED383AE7A3222E4). In *The Cambridge Handbook of Responsible Artificial Intelligence*. Cambridge University Press.
+- Wei, Y., et al. (2026). [Policy factorisation in agentic systems](https://arxiv.org/abs/2601.12538). *arXiv:2601.12538*.
+- Cabrera, C., Paleyes, A., Thodoroff, P., & Lawrence, N. D. (2025). [Machine learning systems: A survey from a data-oriented perspective](https://doi.org/10.1145/3769292). *ACM Computing Surveys*.
+- Cabrera, C., Bastidas, V., Schooling, J., & Lawrence, N. D. (2025). [The systems engineering approach in times of large language models](https://scholarspace.manoa.hawaii.edu/items/ccd98c8b-bb61-4a86-9cd4-4719078d028f). HICSS Conference.
+- Cabrera, C., Paleyes, A., & Lawrence, N. D. (2024). [Self-sustaining software systems (S4): Towards improved interpretability and adaptation](https://doi.org/10.1145/3643657.3643910). *SATrends '24*.
+- Robinson, D., Cabrera, C., Gordon, A. D., Lawrence, N. D., & Mennen, L. (2025). [Requirements are all you need: The final frontier for end-user software engineering](https://doi.org/10.1145/3708524). *ACM Transactions on Software Engineering and Methodology*.
