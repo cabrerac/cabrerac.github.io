@@ -5,7 +5,7 @@ description: This lecture introduces the Interfaces research programme. We intro
   research projects like the DOA Debugger, DOAgent, and aICU with links to AI-systems,
   big data and statistics.
 email: chc79@cam.ac.uk
-end_time: 810
+end_time: 13:00 pm
 hours: 1
 layout: lecture
 lecture_code: l7-research
@@ -15,7 +15,7 @@ position: Assistant Research Professor
 session: 7
 skip_notebook: true
 skip_slides: false
-start_time: 630
+start_time: 10:30 am
 title: The Interfaces Research Programme
 visible: false
 ---
@@ -31,7 +31,7 @@ visible: false
 ### Resources
 
 - [ML@CL — Machine Learning @ Cambridge](https://mlatcl.github.io/)
-- [DOAgent](https://github.com/cabrerac/doagent) — data-oriented multi-agent library (public GitHub)
+- [DOAgent](https://github.com/cabrerac/doagent)
 - [aICU](https://ki.se/en/research/research-areas-centres-and-networks/research-groups/anaesthesia-and-intensive-care-rebecka-rubenson-wahlinanna-schandls-research-group/the-aicu-project-developing-next-generation-decision-support-tools-for-intensive-care)
 
 ### References
@@ -42,4 +42,3 @@ visible: false
 - Cabrera, C., Paleyes, A., Thodoroff, P., & Lawrence, N. D. (2025). [Machine learning systems: A survey from a data-oriented perspective](https://doi.org/10.1145/3769292). *ACM Computing Surveys*.
 - Cabrera, C., Bastidas, V., Schooling, J., & Lawrence, N. D. (2025). [The systems engineering approach in times of large language models](https://scholarspace.manoa.hawaii.edu/items/ccd98c8b-bb61-4a86-9cd4-4719078d028f). HICSS Conference.
 - Cabrera, C., Paleyes, A., & Lawrence, N. D. (2024). [Self-sustaining software systems (S4): Towards improved interpretability and adaptation](https://doi.org/10.1145/3643657.3643910). *SATrends '24*.
-- Robinson, D., Cabrera, C., Gordon, A. D., Lawrence, N. D., & Mennen, L. (2025). [Requirements are all you need: The final frontier for end-user software engineering](https://doi.org/10.1145/3708524). *ACM Transactions on Software Engineering and Methodology*.
