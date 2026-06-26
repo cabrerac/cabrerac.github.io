@@ -3,8 +3,8 @@ course_code: 26-udenar-big-data
 title: The Interfaces Research Programme
 description: This lecture introduces the Interfaces research programme. We introduce research projects like the DOA Debugger, DOAgent, and aICU with links to AI-systems, big data and statistics.
 session: 7
-start_time: 10:30 am
-end_time: 11:30 am
+start_time: 10:30
+end_time: 13:30
 hours: 1
 author: Christian Cabrera Jojoa
 email: chc79@cam.ac.uk
