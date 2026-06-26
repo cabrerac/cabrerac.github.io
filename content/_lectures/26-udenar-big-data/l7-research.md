@@ -5,7 +5,7 @@ description: This lecture introduces the Interfaces research programme. We intro
   research projects like the DOA Debugger, DOAgent, and aICU with links to AI-systems,
   big data and statistics.
 email: chc79@cam.ac.uk
-end_time: 11:30 am
+end_time: 810
 hours: 1
 layout: lecture
 lecture_code: l7-research
@@ -15,7 +15,7 @@ position: Assistant Research Professor
 session: 7
 skip_notebook: true
 skip_slides: false
-start_time: 10:30 am
+start_time: 630
 title: The Interfaces Research Programme
 visible: false
 ---
