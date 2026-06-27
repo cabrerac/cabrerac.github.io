@@ -63,18 +63,15 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>Public API (stable contract for downstream analytics and ML):</p>
-                <br>
-
+                <p>Public API</p>
+                <p>Consumers: data quality, analytics, and ML models.</p>
+                <p>Adding a dataset = config + ingest script, not re-platforming.</p>
+</div>
+            <div class="column vertical-middle text-left" style="width: 50%">
 ```python
 from aicu_access import load_concept
 df = load_concept("hr", source="miiv")
 ```
-
-</div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p>Consumers: data quality, analytics, and ML models.</p>
-                <p>Adding a dataset = config + ingest script, not re-platforming.</p>
             </div>
         </div>
     </div>
