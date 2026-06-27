@@ -104,10 +104,12 @@ skip_notebook: true
 
 {% include _snippets/aicu.md %}
 
+{% include _snippets/26-udenar-big-data/l7-research/bridge-aicu.md %}
+
 <!-- SLIDES: -->
 
-# Link to this course
+# Conclusions
 
 <!-- end SLIDES: -->
 
-{% include _snippets/26-udenar-big-data/l7-research/bridge-aicu.md %}
+{% include _snippets/26-udenar-big-data/l7-research/conclusions.md %}
