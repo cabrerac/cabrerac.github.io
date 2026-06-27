@@ -108,7 +108,7 @@ skip_notebook: true
 
 <!-- end SLIDES: -->
 
-{% include _snippets/26-udenar-big-data/l7-research/aicu.md %}
+{% include _snippets/26-udenar-big-data/aicu.md %}
 
 <!-- SLIDES: -->
 
