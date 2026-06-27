@@ -44,7 +44,10 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/aicu-acces-architecture.svg" alt="aICU access architecture" style="height: 520px">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Uniform access</b> to harmonised ICU data across heterogeneous sources (aICU, MIMIC, eICU, HiRID, …).</p>
                 <ul>
                     <li><b>Federated deployment:</b> same library locally and on hospital servers.</li>
@@ -63,9 +66,9 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>Public API</p>
-                <p>Consumers: data quality, analytics, and ML models.</p>
-                <p>Adding a dataset = config + ingest script, not re-platforming.</p>
+                <div class="column vertical-middle text-center" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/aicu-acces-architecture.svg" alt="aICU access architecture" style="height: 520px">
+            </div>
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
 
