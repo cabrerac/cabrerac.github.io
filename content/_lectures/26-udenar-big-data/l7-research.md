@@ -17,7 +17,7 @@ skip_notebook: true
 skip_slides: false
 start_time: 10:30 am
 title: The Interfaces Research Programme
-visible: false
+visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">

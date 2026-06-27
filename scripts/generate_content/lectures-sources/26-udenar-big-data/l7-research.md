@@ -13,7 +13,7 @@ layout: lecture
 lecture_code: l7-research
 lecture_date: 27/06/2026
 permalink: /teaching/26-udenar-big-data/l7-research/
-visible: false
+visible: true
 skip_slides: false
 skip_notebook: true
 ---

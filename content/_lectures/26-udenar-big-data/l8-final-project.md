@@ -15,7 +15,7 @@ skip_notebook: true
 skip_slides: true
 start_time: 07:00 am
 title: Final Projects
-visible: false
+visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
