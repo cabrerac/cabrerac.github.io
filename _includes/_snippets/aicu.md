@@ -6,11 +6,10 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>Deploying ML in the <b>Intensive Care Unit</b> to support practitioners — collaboration with clinicians at the <b>Karolinska Institute</b>.</p>
-                <p>Team: doctors, data scientists, ML engineers, and HCI researchers. Problem-first, not model-first.</p>
+                <p>Deploying ML in the <b>Intensive Care Unit</b> to support practitioners in collaboration with clinicians at the <b>Karolinska Institute</b>.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/aicu-workshop.jpg" alt="aICU workshop" style="height: 400px">
+               <img src="{{ site.url }}/assets/media/diagrams/aicu-acces-architecture.svg" alt="aICU access architecture" style="height: 520px">
             </div>
         </div>
     </div>
@@ -21,17 +20,8 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p>Interdisciplinary work requires:</p>
-                <ul>
-                    <li>A <b>common vocabulary</b> across clinical and technical roles</li>
-                    <li>Openness to unfamiliar domains</li>
-                    <li>Clear arguments when methods or ethics matter</li>
-                    <li><b>Problem first</b> as the shared anchor</li>
-                </ul>
-            </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/aicu-workshop.jpg" alt="aICU workshop" style="height: 400px">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/big-data-pipeline-template.svg" alt="Big data pipeline, analytics stage" style="height: 380px">
             </div>
         </div>
     </div>
@@ -57,7 +47,7 @@
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Uniform access</b> to harmonised ICU data across heterogeneous sources (aICU, MIMIC, eICU, HiRID, …).</p>
                 <ul>
-                    <li><b>Federated deployment:</b> code goes to the data; same library locally and on hospital servers.</li>
+                    <li><b>Federated deployment:</b> same library locally and on hospital servers.</li>
                     <li><b>Harmonisation layer:</b> clinical concepts mapped to per-source extraction rules.</li>
                     <li><b>Query engine:</b> DuckDB with <code>delta_scan</code> on versioned Delta Lake tables.</li>
                     <li><b>Privacy by design:</b> least-privilege reads, auditable lineage, no unnecessary export.</li>
@@ -83,7 +73,7 @@ df = load_concept("hr", source="miiv")
 
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>Consumers — data quality, analytics, ML models — see <b>concepts</b>, not storage quirks.</p>
+                <p>Consumers: data quality, analytics, and ML models.</p>
                 <p>Adding a dataset = config + ingest script, not re-platforming.</p>
             </div>
         </div>
