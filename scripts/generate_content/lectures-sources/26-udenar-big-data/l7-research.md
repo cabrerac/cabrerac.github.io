@@ -94,12 +94,6 @@ skip_notebook: true
 
 {% include _snippets/doagent.md %}
 
-<!-- SLIDES: -->
-
-# Link to this course
-
-<!-- end SLIDES: -->
-
 {% include _snippets/26-udenar-big-data/l7-research/bridge-doagent.md %}
 
 <!-- SLIDES: -->

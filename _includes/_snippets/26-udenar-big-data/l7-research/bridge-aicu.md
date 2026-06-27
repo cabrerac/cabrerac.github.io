@@ -14,7 +14,7 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/aicu-workshop.jpg" alt="aICU workshop" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/diagrams/aicu-acces-architecture.svg" alt="aICU access architecture" style="height: 520px">
             </div>
         </div>
     </div>
