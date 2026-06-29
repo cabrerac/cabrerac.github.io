@@ -60,7 +60,7 @@ past:
     graduation_year: 2025
     publications:
       - title: "iFogSim-Placement: A Simulation Framework for Edge Service Placement"
-        url: "https://cabrerac.github.io/assets/slides/2026/2026-ifogsim-placement-seams.pdf"
+        url: "https://github.com/DawnSpider96/iFogSim-Placement"
     status: "graduated"
 
   - name: "Arvind Raghu"
