@@ -1,4 +1,18 @@
 # Conference Organisation
+- title: "The Fourth UK AI Conference 2026"
+  role: "Co-organiser"
+  organisation: "UK-AI community"
+  year: 2026
+  type: "conference_organisation"
+  url: "https://uk-ai.org/ukai2026/"
+
+- title: "The Sorrento Meeting 2026"
+  role: "General Chair"
+  organisation: "University of Cambridge"
+  year: 2026
+  type: "conference_organisation"
+  url: "https://inverseprobability.com/sorrento2026/"
+
 - title: "The Third UK AI Conference 2025"
   role: "Co-organiser"
   organisation: "UK-AI community"
@@ -7,7 +21,7 @@
   note: "Leader and creator of the UK-AI community"
   url: "https://uk-ai.org/ukai2025/"
 
-- title: "The 7th Workshop on Data, Learning and Inference 2025"
+- title: "The 7th Workshop on Data, Learning and Inference (DALI 2025)"
   role: "Co-organiser"
   organisation: "DALI Sorrento 2025"
   year: 2025

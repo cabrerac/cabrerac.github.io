@@ -5,7 +5,7 @@ description: "My research interests and publications"
 permalink: /research/
 ---
 
-This page presents the outputs of my research and its impact on the scientific community worldwide. My past research focused on developing resilient system architectures to cope with requirements from dynamic and constrained environments (e.g., smart cities). My current research explores systems engineering approaches to safely adopt AI technologies as part of larger software systems that remain under human control and steer.
+This page presents the outputs of my research and its impact on the scientific community worldwide. I lead the **Interfaces** research programme at ML@CL on interpretable, self-sustaining multi-agent AI systems, building on data-oriented systems engineering and the AutoAI project. Earlier work addressed resilient service-oriented architectures for dynamic urban environments; current validation includes healthcare collaboration with the Karolinska Institute.
 
 ## Publications
 

@@ -8,18 +8,34 @@ current:
     role: "PhD Supervisor (Together with Neil Lawrence)"
     start_year: 2025
     status: "current"
-    
+
+  - name: "Emily Kelt"
+    degree: "Undergraduate Student"
+    institution: "University of Cambridge"
+    project: "aICU: healthcare AI systems"
+    role: "Undergrad Project Supervisor (Together with Neil Lawrence)"
+    start_year: 2025
+    status: "current"
+
+  - name: "Preesha Digee"
+    degree: "Undergraduate Student"
+    institution: "University of Cambridge"
+    project: "Multi-agent systems and DOAgent"
+    role: "Undergrad Project Supervisor (Together with Neil Lawrence)"
+    start_year: 2025
+    status: "current"
+
+past:
   - name: "Ilai Shraga"
     degree: "Master's Student"
     program: "MPhil in Advanced Computer Science"
     program_url: "https://www.cst.cam.ac.uk/admissions/acs"
     institution: "University of Cambridge"
-    project: "Interpretable Self-Sustaining Systems"
+    project: "SAGE-LOOP: A Reproducible Benchmarking Platform for GenAI-Augmented Self-Adaptive Systems"
     role: "Master's Supervisor (Together with Neil Lawrence)"
-    start_year: 2025
-    status: "current"
+    graduation_year: 2026
+    status: "graduated"
 
-past:
   - name: "Elizabeth Rojas Noguera"
     degree: "Undergraduate Student"
     institution: "Universidad de Nariño"
@@ -35,19 +51,22 @@ past:
       - name: "cities-board-plugin"
         url: "https://github.com/cabrerac/cities-board-plugin"
     status: "graduated"
-    
+
   - name: "Joseph Poon"
     degree: "Undergraduate Student"
     institution: "University of Cambridge"
     project: "Adapting Service Placement Algorithms for Edge Computing: Implementing a Decentralized Approach in iFogSim"
     role: "Undergrad Project Supervisor (Together with Neil Lawrence)"
     graduation_year: 2025
+    publications:
+      - title: "iFogSim-Placement: A Simulation Framework for Edge Service Placement"
+        url: "https://cabrerac.github.io/assets/slides/2026/2026-ifogsim-placement-seams.pdf"
     status: "graduated"
-    
+
   - name: "Arvind Raghu"
     degree: "Undergraduate Student"
     institution: "University of Cambridge"
-    project: "Adapting CDN Simulator for Benchmarking Self-Adaptive System Approaches"
+    project: "CDN Simulator for Benchmarking Self-Adaptive System Approaches"
     role: "Undergrad Project Supervisor (Together with Neil Lawrence)"
     graduation_year: 2025
     status: "graduated"
