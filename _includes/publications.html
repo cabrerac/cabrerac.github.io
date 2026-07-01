@@ -1,4 +1,5 @@
-{% assign publications = site.data.publications | sort: 'year' | reverse %}
+{% assign all_pubs = site.data.publications.publications | default: site.data.publications %}
+{% assign publications = all_pubs | where_exp: "item", "item.show != false" | sort: 'year' | reverse %}
 {% assign journals = publications | where: "type", "journal" %}
 {% assign conferences = publications | where: "type", "conf" %}
 {% assign preprints = publications | where: "type", "preprint" %}
@@ -8,7 +9,14 @@
 <div class="collapsible-content">
 {% for pub in journals %}
 <div class="publication">
-<p><strong>{{ pub.title }}</strong> <a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.bibkey }}" class="bibtex-link" data-bibkey="{{ pub.bibkey }}">[bibtex]</a>{% if pub.paper_url %} <a href="{{ pub.paper_url }}" target="_blank" rel="noopener noreferrer">[paper]</a>{% endif %}</p>
+{% assign paper_link = pub.url %}
+{% if paper_link == nil or paper_link == '' %}
+  {% if pub.doi %}{% assign paper_link = pub.doi | prepend: 'https://doi.org/' %}{% endif %}
+  {% if paper_link == nil or paper_link == '' %}
+    {% if pub.arxiv %}{% assign paper_link = pub.arxiv | prepend: 'https://arxiv.org/abs/' %}{% endif %}
+  {% endif %}
+{% endif %}
+<p><strong>{{ pub.title }}</strong> <a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.id }}" class="bibtex-link" data-bibkey="{{ pub.id }}">[bibtex]</a>{% if paper_link %} <a href="{{ paper_link }}" target="_blank" rel="noopener noreferrer">[paper]</a>{% endif %}</p>
 <p>{{ pub.authors }}</p>
 <p><em>{{ pub.journal }}</em>, {{ pub.year }}</p>
 </div>
@@ -21,7 +29,14 @@
 <div class="collapsible-content">
 {% for pub in conferences %}
 <div class="publication">
-<p><strong>{{ pub.title }}</strong> <a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.bibkey }}" class="bibtex-link" data-bibkey="{{ pub.bibkey }}">[bibtex]</a>{% if pub.paper_url %} <a href="{{ pub.paper_url }}" target="_blank" rel="noopener noreferrer">[paper]</a>{% endif %}</p>
+{% assign paper_link = pub.url %}
+{% if paper_link == nil or paper_link == '' %}
+  {% if pub.doi %}{% assign paper_link = pub.doi | prepend: 'https://doi.org/' %}{% endif %}
+  {% if paper_link == nil or paper_link == '' %}
+    {% if pub.arxiv %}{% assign paper_link = pub.arxiv | prepend: 'https://arxiv.org/abs/' %}{% endif %}
+  {% endif %}
+{% endif %}
+<p><strong>{{ pub.title }}</strong> <a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.id }}" class="bibtex-link" data-bibkey="{{ pub.id }}">[bibtex]</a>{% if paper_link %} <a href="{{ paper_link }}" target="_blank" rel="noopener noreferrer">[paper]</a>{% endif %}</p>
 <p>{{ pub.authors }}</p>
 <p><em>{{ pub.journal }}</em>, {{ pub.year }}</p>
 </div>
@@ -34,7 +49,14 @@
 <div class="collapsible-content">
 {% for pub in preprints %}
 <div class="publication">
-<p><strong>{{ pub.title }}</strong> <a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.bibkey }}" class="bibtex-link" data-bibkey="{{ pub.bibkey }}">[bibtex]</a>{% if pub.paper_url %} <a href="{{ pub.paper_url }}" target="_blank" rel="noopener noreferrer">[paper]</a>{% endif %}</p>
+{% assign paper_link = pub.url %}
+{% if paper_link == nil or paper_link == '' %}
+  {% if pub.doi %}{% assign paper_link = pub.doi | prepend: 'https://doi.org/' %}{% endif %}
+  {% if paper_link == nil or paper_link == '' %}
+    {% if pub.arxiv %}{% assign paper_link = pub.arxiv | prepend: 'https://arxiv.org/abs/' %}{% endif %}
+  {% endif %}
+{% endif %}
+<p><strong>{{ pub.title }}</strong> <a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.id }}" class="bibtex-link" data-bibkey="{{ pub.id }}">[bibtex]</a>{% if paper_link %} <a href="{{ paper_link }}" target="_blank" rel="noopener noreferrer">[paper]</a>{% endif %}</p>
 <p>{{ pub.authors }}</p>
 <p><em>{{ pub.journal }}</em>, {{ pub.year }}</p>
 </div>
@@ -48,7 +70,14 @@
 <div class="collapsible-content">
 {% for pub in theses %}
 <div class="publication">
-<p><strong>{{ pub.title }}</strong> <a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.bibkey }}" class="bibtex-link" data-bibkey="{{ pub.bibkey }}">[bibtex]</a>{% if pub.paper_url %} <a href="{{ pub.paper_url }}" target="_blank" rel="noopener noreferrer">[thesis]</a>{% endif %}</p>
+{% assign paper_link = pub.url %}
+{% if paper_link == nil or paper_link == '' %}
+  {% if pub.doi %}{% assign paper_link = pub.doi | prepend: 'https://doi.org/' %}{% endif %}
+  {% if paper_link == nil or paper_link == '' %}
+    {% if pub.arxiv %}{% assign paper_link = pub.arxiv | prepend: 'https://arxiv.org/abs/' %}{% endif %}
+  {% endif %}
+{% endif %}
+<p><strong>{{ pub.title }}</strong> <a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.id }}" class="bibtex-link" data-bibkey="{{ pub.id }}">[bibtex]</a>{% if paper_link %} <a href="{{ paper_link }}" target="_blank" rel="noopener noreferrer">[thesis]</a>{% endif %}</p>
 <p>{{ pub.authors }}</p>
 <p><em>{{ pub.journal }}</em>, {{ pub.year }}</p>
 </div>

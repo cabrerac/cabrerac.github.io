@@ -1,280 +1,352 @@
+orcid: 0000-0002-6954-6859
+publications:
 - title: Prompt Variability Effects on LLM Code Generation
   authors: Andrei Paleyes, Radzim Sendyka, Diana Robinson, Christian Cabrera, Neil D. Lawrence
   journal: Third International Workshop on Large Language Models for Code (LLM4Code 2026), co-located with ICSE 2026
   year: '2026'
-  bibkey: paleyes2026prompt
   topic: ml_systems
   type: conf
-  paper_url: https://arxiv.org/abs/2506.10204
+  id: paleyes2026prompt
+  arxiv: '2506.10204'
+  source: manual
+  show: true
 - title: LLM Performance for Code Generation on Noisy Tasks
   authors: Radzim Sendyka, Christian Cabrera, Andrei Paleyes, Diana Robinson, Neil D. Lawrence
   journal: arXiv preprint arXiv:2505.23598
   year: '2025'
-  bibkey: sendyka2025noisy
   topic: ml_systems
   type: preprint
-  paper_url: https://arxiv.org/abs/2505.23598
+  id: sendyka2025noisy
+  arxiv: '2505.23598'
+  source: manual
+  show: true
 - title: 'iFogSim-Placement: A Simulation Framework for Edge Service Placement'
   authors: Joseph Poon, Christian Cabrera, Neil D. Lawrence
   journal: Proceedings of the 21st International Conference on Software Engineering for Adaptive and Self-Managing Systems (SEAMS 2026), co-located with ICSE 2026
   year: '2026'
-  bibkey: poon2026ifogsim
   topic: soc
   type: conf
-  paper_url: https://github.com/DawnSpider96/iFogSim-Placement
+  id: poon2026ifogsim
+  url: https://github.com/DawnSpider96/iFogSim-Placement
+  source: manual
+  show: true
 - title: 'Machine Learning Systems: A Survey from a Data-Oriented Perspective'
   authors: Christian Cabrera, Andrei Paleyes, Pierre Thodoroff, Neil D. Lawrence
   journal: ACM Computing Surveys
   year: '2025'
-  bibkey: cabrera2025mlsystems
   topic: ml_systems
   type: journal
-  paper_url: https://doi.org/10.1145/3769292
+  id: cabrera2025mlsystems
+  doi: 10.1145/3769292
+  source: manual
+  show: true
 - title: 'Requirements are All You Need: The Final Frontier for End-User Software Engineering'
   authors: Diana Robinson, Christian Cabrera, Andrew D. Gordon, Neil D. Lawrence, Luke Mennen
   journal: ACM Transactions on Software Engineering and Methodology
   year: '2025'
-  bibkey: robinson2025requirements
   topic: ml_systems
   type: journal
-  paper_url: https://doi.org/10.1145/3708524
+  id: robinson2025requirements
+  doi: 10.1145/3708524
+  source: manual
+  show: true
 - title: The Systems Engineering Approach in Times of Large Language Models
   authors: Christian Cabrera, Viviana Bastidas, Jennifer Schooling, Neil D. Lawrence
   journal: Proceedings of the 58th Hawaii International Conference on System Sciences (HICSS)
   year: '2025'
-  bibkey: cabrera2025hicss
   topic: ml_systems
   type: conf
-  paper_url: https://doi.org/10.24251/HICSS.2025.666
+  id: cabrera2025hicss
+  doi: 10.24251/HICSS.2025.666
+  source: manual
+  show: true
 - title: 'Self-sustaining Software Systems (S4): Towards Improved Interpretability and Adaptation'
   authors: Christian Cabrera, Andrei Paleyes, Neil D. Lawrence
   journal: Proceedings of the International Workshop New Trends in Software Architecture (SATrends 24)
   year: '2024'
-  bibkey: cabrera2024s4
   topic: ml_systems
   type: conf
-  paper_url: https://doi.org/10.1145/3643657.3643910
+  id: cabrera2024s4
+  doi: 10.1145/3643657.3643910
+  source: manual
+  show: true
 - title: 'Dynamic Service Placement in Edge Computing: A Comparative Evaluation of Nature-Inspired Algorithms'
   authors: Aqeel Kazmi, Alessandro Staffolani, Tianyi Zhang, Christian Cabrera, Siobhán Clarke
   journal: IEEE Access
   year: '2024'
-  bibkey: '10810420'
   topic: soc
   type: journal
-  paper_url: https://doi.org/10.1109/ACCESS.2024.3381042
+  id: '10810420'
+  doi: 10.1109/ACCESS.2024.3381042
+  source: manual
+  show: true
 - title: Prevalence of Code Smells in Reinforcement Learning Projects
   authors: Nicolás Cardozo, Ivana Dusparic, Christian Cabrera
   journal: 'Proceedings of the 2nd International Conference on AI Engineering: Software Engineering for AI'
   year: '2023'
-  bibkey: cardozo2023prevalence
   topic: ml_systems
   type: conf
-  paper_url: https://arxiv.org/abs/2303.10236
+  id: cardozo2023prevalence
+  arxiv: '2303.10236'
+  source: manual
+  show: true
 - title: 'MAACO: A Dynamic Service Placement Model for Smart Cities'
   authors: Christian Cabrera, Sergej Svorobej, Andrei Palade, Aqeel Kazmi, Siobhán Clarke
   journal: IEEE Transactions on Services Computing
   year: '2023'
-  bibkey: '9681330'
   topic: soc
   type: journal
-  paper_url: https://doi.org/10.1109/TSC.2022.3143029
+  id: '9681330'
+  doi: 10.1109/TSC.2022.3143029
+  source: manual
+  show: true
 - title: An Empirical Evaluation of Flow Based Programming in the Machine Learning Deployment Context
   authors: Andrei Paleyes, Christian Cabrera, Neil D. Lawrence
   journal: 'Proceedings of the 1st International Conference on AI Engineering: Software Engineering for AI'
   year: '2022'
-  bibkey: 10.1145/3522664.3528601
   topic: ml_systems
   type: conf
-  paper_url: https://doi.org/10.1145/3522664.3528601
+  id: 10.1145/3522664.3528601
+  doi: 10.1145/3522664.3528601
+  source: manual
+  show: true
 - title: 'Dynamic Service Placement in Multi-Access Edge Computing: A Systematic Literature Review'
   authors: Hadi Tabatabaee Malazi, Saqib Rasool Chaudhry, Aqeel Kazmi, Andrei Palade, Christian Cabrera, Gary White, Siobhán Clarke
   journal: IEEE Access
   year: '2022'
-  bibkey: '9738624'
   topic: soc
   type: journal
-  paper_url: https://doi.org/10.1109/ACCESS.2022.3160738
+  id: '9738624'
+  doi: 10.1109/ACCESS.2022.3160738
+  source: manual
+  show: true
 - title: A Self-Adaptive Service Discovery Model for Smart Cities
   authors: Christian Cabrera, Siobhán Clarke
   journal: IEEE Transactions on Services Computing
   year: '2022'
-  bibkey: '8851303'
   topic: soc
   type: journal
-  paper_url: https://doi.org/10.1109/TSC.2019.2944356
+  id: '8851303'
+  doi: 10.1109/TSC.2019.2944356
+  source: manual
+  show: true
 - title: Towards better data discovery and collection with flow-based programming
   authors: Andrei Paleyes, Christian Cabrera, Neil D. Lawrence
   journal: arXiv
   year: '2021'
-  bibkey: paleyes2021better
   topic: ml_systems
   type: preprint
-  paper_url: https://arxiv.org/abs/2108.04105
+  id: paleyes2021better
+  arxiv: '2108.04105'
+  source: manual
+  show: true
 - title: A Reinforcement Learning-Based Service Model for the Internet of Things
   authors: Christian Cabrera, Siobhán Clarke
   journal: 'Service-Oriented Computing: 19th International Conference, ICSOC 2021, Virtual Event, November 22–25, 2021, Proceedings'
   year: '2021'
-  bibkey: 10.1007/978-3-030-91431-8_56
   topic: soc
   type: conf
-  paper_url: https://doi.org/10.1007/978-3-030-91431-8_56
+  id: 10.1007/978-3-030-91431-8_56
+  doi: 10.1007/978-3-030-91431-8_56
+  source: manual
+  show: true
 - title: 'Cities-Board: A Framework to Automate the Development of Smart Cities Dashboards'
   authors: Elizabeth Rojas, Viviana Bastidas, Christian Cabrera
   journal: IEEE Internet of Things Journal
   year: '2020'
-  bibkey: '9119074'
   topic: smart_cities
   type: journal
-  paper_url: https://doi.org/10.1109/JIOT.2020.3002581
+  id: '9119074'
+  doi: 10.1109/JIOT.2020.3002581
+  source: manual
+  show: true
 - title: 'WasteNet: Waste Classification at the Edge for Smart Bins'
   authors: Gary White, Christian Cabrera, Andrei Palade, Fan Li, Siobhan Clarke
   journal: arXiv
   year: '2020'
-  bibkey: white2020wastenet
   topic: smart_cities
   type: preprint
-  paper_url: https://arxiv.org/abs/2006.05873
+  id: white2020wastenet
+  arxiv: '2006.05873'
+  source: manual
+  show: true
 - title: 'uDiscovery: An Urban-Centric Model for Service Discovery in Smart Cities'
   authors: Christian Cabrera
   journal: Trinity College Dublin
   year: '2020'
-  bibkey: cabrera2020udiscovery
   topic: soc
   type: thesis
-  paper_url: https://www.tara.tcd.ie/handle/2262/91854
+  id: cabrera2020udiscovery
+  url: https://www.tara.tcd.ie/handle/2262/91854
+  source: manual
+  show: true
 - title: A Swarm-based Approach for Function Placement in Federated Edges
   authors: Andrei Palade, Atri Mukhopadhyay, Aqeel Kazmi, Christian Cabrera, Evelyn Nomayo, Georgios Iosifidis, and Marco Ruffini, Siobhán Clarke
   journal: 'Service-Oriented Computing: 19th International Conference, ICSOC 2021, Virtual Event, November 22–25, 2021, Proceedings'
   year: '2020'
-  bibkey: '9284644'
   topic: soc
   type: conf
-  paper_url: https://doi.org/10.1109/SCC49832.2020.00013
+  id: '9284644'
+  doi: 10.1109/SCC49832.2020.00013
+  source: manual
+  show: true
 - title: An Urban-driven Service Request Management Model
   authors: Christian Cabrera, Andrei Palade, Gary White, Siobhán Clarke
   journal: 2020 IEEE International Conference on Pervasive Computing and Communications (PerCom)
   year: '2020'
-  bibkey: '9127371'
   topic: soc
   type: conf
-  paper_url: https://doi.org/10.1109/PerCom45495.2020.9127371
+  id: '9127371'
+  doi: 10.1109/PerCom45495.2020.9127371
+  source: manual
+  show: true
 - title: A WS-Agreement Based SLA Ontology for IoT Services
   authors: Fan Li, Christian Cabrera, Siobhán Clarke
   journal: 'Internet of Things – ICIOT 2019: 4th International Conference, Held as Part of the Services Conference Federation, SCF 2019, San Diego, CA, USA, June 25–30, 2019, Proceedings'
   year: '2019'
-  bibkey: 10.1007/978-3-030-23357-0_5
   topic: soc
   type: conf
-  paper_url: https://doi.org/10.1007/978-3-030-23357-0_5
+  id: 10.1007/978-3-030-23357-0_5
+  doi: 10.1007/978-3-030-23357-0_5
+  source: manual
+  show: true
 - title: Autoencoders for QoS Prediction at the Edge
   authors: Gary White, Andrei Palade, Christian Cabrera, Siobhán Clarke
   journal: 2019 IEEE International Conference on Pervasive Computing and Communications (PerCom)
   year: '2019'
-  bibkey: '8767397'
   topic: soc
   type: conf
-  paper_url: https://doi.org/10.1109/PERCOM.2019.8767397
+  id: '8767397'
+  doi: 10.1109/PERCOM.2019.8767397
+  source: manual
+  show: true
 - title: Augmented reality in IoT
   authors: Gary White, Christian Cabrera, Andrei Palade, Siobhán Clarke
   journal: 'Service-Oriented Computing--ICSOC 2018 Workshops: ADMS, ASOCA, ISYyCC, CloTS, DDBS, and NLS4IoT, Hangzhou, China, November 12--15, 2018, Revised Selected Papers 16'
   year: '2019'
-  bibkey: white2019augmented
   topic: soc
   type: conf
-  paper_url: https://doi.org/10.1007/978-3-030-17642-6_13
+  id: white2019augmented
+  doi: 10.1007/978-3-030-17642-6_13
+  source: manual
+  show: true
 - title: 'Middleware for internet of things: an evaluation in a small-scale IoT environment'
   authors: Andrei Palade, Christian Cabrera, Fan Li, Gary White, Siobhán Clarke
   journal: Journal of Reliable Intelligent Environments
   year: '2018'
-  bibkey: palade2018middleware
   topic: soc
   type: journal
-  paper_url: https://doi.org/10.1007/s40860-018-0055-4
+  id: palade2018middleware
+  doi: 10.1007/s40860-018-0055-4
+  source: manual
+  show: true
 - title: 'The Right Service at the Right Place: A Service Model for Smart Cities'
   authors: Christian Cabrera, Gary White, Andrei Palade, Siobhán Clarke
   journal: 2018 IEEE International Conference on Pervasive Computing and Communications (PerCom)
   year: '2018'
-  bibkey: '8444606'
   topic: soc
   type: conf
-  paper_url: https://doi.org/10.1109/PERCOM.2018.8444606
+  id: '8444606'
+  doi: 10.1109/PERCOM.2018.8444606
+  source: manual
+  show: true
 - title: 'Services in IoT: A service planning model based on consumer feedback'
   authors: Christian Cabrera, Andrei Palade, Gary White, Siobhán Clarke
   journal: 'Service-Oriented Computing: 16th International Conference, ICSOC 2018, Hangzhou, China, November 12-15, 2018, Proceedings 16'
   year: '2018'
-  bibkey: cabrera2018services
   topic: soc
   type: conf
-  paper_url: https://doi.org/10.1007/978-3-030-03596-9_21
+  id: cabrera2018services
+  doi: 10.1007/978-3-030-03596-9_21
+  source: manual
+  show: true
 - title: Stigmergic service composition and adaptation in mobile environments
   authors: Andrei Palade, Christian Cabrera, Gary White, Siobhán Clarke
   journal: 'Service-Oriented Computing: 16th International Conference, ICSOC 2018, Hangzhou, China, November 12-15, 2018, Proceedings 16'
   year: '2018'
-  bibkey: palade2018stigmergic
   topic: soc
   type: conf
-  paper_url: https://doi.org/10.1007/978-3-030-03596-9_45
+  id: palade2018stigmergic
+  doi: 10.1007/978-3-030-03596-9_45
+  source: manual
+  show: true
 - title: 'IoTPredict: Collaborative QoS Prediction in IoT'
   authors: Gary White, Andrei Palade, Christian Cabrera, Siobhán Clarke
   journal: 2018 IEEE International Conference on Pervasive Computing and Communications (PerCom)
   year: '2018'
-  bibkey: '8444598'
   topic: soc
   type: conf
-  paper_url: https://doi.org/10.1109/PERCOM.2018.8444598
+  id: '8444598'
+  doi: 10.1109/PERCOM.2018.8444598
+  source: manual
+  show: true
 - title: Quantitative Evaluation of QoS Prediction in IoT
   authors: Gary White, Andrei Palade, Christian Cabrera, Siobhán Clarke
   journal: 2017 47th Annual IEEE/IFIP International Conference on Dependable Systems and Networks Workshops (DSN-W)
   year: '2017'
-  bibkey: '8023699'
   topic: soc
   type: conf
-  paper_url: https://doi.org/10.1109/DSN-W.2017.26
+  id: '8023699'
+  doi: 10.1109/DSN-W.2017.26
+  source: manual
+  show: true
 - title: 'Middleware for Internet of Things: A quantitative evaluation in small scale'
   authors: Andrei Palade, Christian Cabrera, Gary White, M.A. Razzaque, Siobhán Clarke
   journal: 2017 IEEE 18th International Symposium on A World of Wireless, Mobile and Multimedia Networks (WoWMoM)
   year: '2017'
-  bibkey: '7974340'
   topic: soc
   type: conf
-  paper_url: https://doi.org/10.1109/WoWMoM.2017.7974340
+  id: '7974340'
+  doi: 10.1109/WoWMoM.2017.7974340
+  source: manual
+  show: true
 - title: 'Implementing heterogeneous, autonomous, and resilient services in IoT: An experience report'
   authors: Christian Cabrera, Fan Li, Vivek Nallur, Andrei Palade, M.A. Razzaque, Gary White, Siobhán Clarke
   journal: 2017 IEEE 18th International Symposium on A World of Wireless, Mobile and Multimedia Networks (WoWMoM)
   year: '2017'
-  bibkey: '7974341'
   topic: soc
   type: conf
-  paper_url: https://doi.org/10.1109/WoWMoM.2017.7974341
+  id: '7974341'
+  doi: 10.1109/WoWMoM.2017.7974341
+  source: manual
+  show: true
 - title: An Evaluation of Service Discovery Protocols in the Internet of Things
   authors: Christian Cabrera, Andrei Palade, Siobhán Clarke
   journal: Proceedings of the Symposium on Applied Computing
   year: '2017'
-  bibkey: 10.1145/3019612.3019698
   topic: soc
   type: conf
-  paper_url: https://doi.org/10.1145/3019612.3019698
+  id: 10.1145/3019612.3019698
+  doi: 10.1145/3019612.3019698
+  source: manual
+  show: true
 - title: 'Sedea: Prototipo de sistema experto para el diagnóstico de enfermedades autoinmunes de órgano basado en internist'
   authors: Christian Cabrera
   journal: Revista Universidad y Salud
   year: '2014'
-  bibkey: cabrera2014sedea
   topic: knowledge
   type: journal
-  paper_url: http://www.scielo.org.co/scielo.php?pid=S0124-71072014000200008&script=sci_arttext
+  id: cabrera2014sedea
+  url: http://www.scielo.org.co/scielo.php?pid=S0124-71072014000200008&script=sci_arttext
+  source: manual
+  show: true
 - title: Domain Specific Language for Handling Modular Ontologies
   authors: Christian Cabrera, Olga Mariño
   journal: 2014 9th Computing Colombian Conference (9CCC)
   year: '2014'
-  bibkey: '6955332'
   topic: knowledge
   type: conf
-  paper_url: https://doi.org/10.1109/ColumbianCC.2014.6955332
+  id: '6955332'
+  doi: 10.1109/ColumbianCC.2014.6955332
+  source: manual
+  show: true
 - title: 'MOWL: lenguaje de dominio específico para la manipulación de ontologías modulares'
   authors: Christian Cabrera
   journal: Uniandes
   year: '2014'
-  bibkey: cabrera2014mowl
   topic: knowledge
   type: thesis
-  paper_url: https://repositorio.uniandes.edu.co/server/api/core/bitstreams/fb368a77-e8a0-4017-afb9-d4a3c24db237/content
+  id: cabrera2014mowl
+  url: https://repositorio.uniandes.edu.co/server/api/core/bitstreams/fb368a77-e8a0-4017-afb9-d4a3c24db237/content
+  source: manual
+  show: true

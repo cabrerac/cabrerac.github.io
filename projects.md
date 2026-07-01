@@ -11,25 +11,13 @@ I lead the **[Interfaces research programme](https://mlatcl.github.io/projects/i
 
 {% include interfaces-programme-agenda.html %}
 
-### Programme objectives
-
-**Autonomous AI-based systems:** paradigms to design, develop, deploy, and decommission autonomous AI-based systems.
-
-**Interpret AI-based systems:** techniques and tools for interpretable autonomous behaviour, with humans steering.
-
-### Research lines
-
-**DOCS (Data-Oriented Computing Systems):** data-oriented architectures (DOAs) that prioritise data over control flow.
-
-**S4 (Self-Sustaining Software Systems):** building blocks for autonomous systems that self-sustain while keeping humans in control.
-
-## Public software
+### Public software
 
 **[DOAgent](https://github.com/cabrerac/doagent)** - observable multi-agent systems
 
 **[iFogSim-Placement](https://github.com/DawnSpider96/iFogSim-Placement)** - edge service placement simulation (with Joseph Poon, SEAMS 2026 artifact)
 
-## Student projects
+### Student projects
 
 Part III and Masters project topics at Cambridge are listed in the [ML@CL project catalogue](https://mlatcl.github.io/internal/projects/).
 
