@@ -5,15 +5,14 @@ description: "Get in touch with me"
 permalink: /contact/
 ---
 
-**Dr. Christian Cabrera-Jojoa**  
-Assistant Research Professor and Affiliated Lecturer  
-Department of Computer Science and Technology  
-University of Cambridge  
+**Dr. Christian Cabrera-Jojoa**
+Assistant Research Professor and Affiliated Lecturer
+Department of Computer Science and Technology
+University of Cambridge
 
 **Email**: chc79[at]cam[dot]ac[dot]uk
 
-**Research Interests**: Data-Oriented Architectures, Machine Learning Systems, Self-Adaptive AI Systems, Edge Computing
-
+**Research Interests**: Data-Oriented Architectures, Machine Learning Systems, Self-Adaptive AI Systems, Interpretability.
 ---
 
-*For research collaborations, student supervision inquiries, or media requests, please use the email above.*
+If you are interested in Part III or Masters project supervision at Cambridge, see the [ML@CL available projects](https://mlatcl.github.io/internal/projects/).

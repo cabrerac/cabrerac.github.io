@@ -13,8 +13,8 @@ I lead the **[Interfaces research programme](https://mlatcl.github.io/projects/i
 
 ### Programme objectives
 
-- **Design, architect, and build:** paradigms to design, develop, deploy, and decommission AI-based systems.
-- **Interpret AI-based systems:** techniques and tools for interpretable autonomous behaviour, with humans steering.
+**Autonomous AI-based systems:** paradigms to design, develop, deploy, and decommission autonomous AI-based systems.
+**Interpret AI-based systems:** techniques and tools for interpretable autonomous behaviour, with humans steering.
 
 ### Research lines
 
@@ -25,5 +25,9 @@ I lead the **[Interfaces research programme](https://mlatcl.github.io/projects/i
 
 **[DOAgent](https://github.com/cabrerac/doagent)** - observable multi-agent systems
 **[iFogSim-Placement](https://github.com/DawnSpider96/iFogSim-Placement)** - edge service placement simulation (with Joseph Poon, SEAMS 2026 artifact)
+
+## Student projects
+
+Part III and Masters project topics at Cambridge are listed in the [ML@CL project catalogue](https://mlatcl.github.io/internal/projects/).
 
 Full publication list: [Google Scholar](https://scholar.google.com/citations?user=NITUwmcAAAAJ&hl=en).
