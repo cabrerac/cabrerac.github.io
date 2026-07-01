@@ -7,7 +7,7 @@
       <div class="list-item">
         <div class="list-row">
           <div class="list-main">
-            <p class="list-primary"><a href="{{ lecture.permalink }}">{{ lecture.title }}</a></p>
+            <p class="list-primary"><a href="{{ lecture.permalink }}" class="course-nav__internal">{{ lecture.title }}</a></p>
           </div>
         </div>
         <p class="list-secondary">{{ lecture.lecture_date | date: "%B %d, %Y" }}{% if lecture.description %} · {{ lecture.description }}{% endif %}</p>

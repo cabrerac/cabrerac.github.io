@@ -252,6 +252,27 @@ p {
   color: inherit;
 }
 
+.course-nav {
+  margin: 0 0 1rem;
+}
+
+.course-nav__path {
+  margin: 0 0 0.75rem;
+}
+
+.lecture-resources {
+  margin: 0 0 1.25rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  background: var(--code-bg);
+}
+
+.lecture-resources p {
+  margin: 0;
+  font-size: 0.92rem;
+}
+
 .collapsible-title {
   display: inline;
   margin: 0;

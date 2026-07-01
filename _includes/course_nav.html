@@ -1,0 +1,24 @@
+{% if page.course_code %}
+{% assign course = site.courses | where: "course_code", page.course_code | first %}
+{% if course and course.url %}
+{% assign course_url = course.url | relative_url %}
+{% else %}
+{% assign course_url = '/teaching/' | append: page.course_code | append: '/' | relative_url %}
+{% endif %}
+<nav class="course-nav" aria-label="Course navigation">
+  <p class="course-nav__path list-secondary">
+    <a href="{{ '/teaching/' | relative_url }}" class="course-nav__internal">Teaching</a>
+    · <a href="{{ course_url }}" class="course-nav__internal">{{ course.title | default: page.course_code }}</a>
+    {% if page.layout == 'lecture' and page.title %}
+    · <span aria-current="page">{{ page.title }}</span>
+    {% endif %}
+  </p>
+</nav>
+{% elsif page.layout == 'course' %}
+<nav class="course-nav" aria-label="Course navigation">
+  <p class="course-nav__path list-secondary">
+    <a href="{{ '/teaching/' | relative_url }}" class="course-nav__internal">Teaching</a>
+    · <span aria-current="page">{{ page.title }}</span>
+  </p>
+</nav>
+{% endif %}

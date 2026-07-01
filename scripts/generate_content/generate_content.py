@@ -1055,24 +1055,27 @@ html[data-theme='dark'] code::before {
             "https://colab.research.google.com/github/cabrerac/cabrerac.github.io"
             f"/blob/gh-pages/assets/notebooks/{course_code}"
         )
+        ext = ' target="_blank" rel="noopener noreferrer"'
         links = []
         if not lecture_metadata.get('skip_slides'):
             links.append(
-                f'<a href="/assets/slides/{course_code}/{stem}.html" target="_blank">'
+                f'<a href="/assets/slides/{course_code}/{stem}.html"{ext}>'
                 "HTML slides</a>"
             )
         if not lecture_metadata.get('skip_notebook'):
             links.append(
-                f'<a href="{colab_base}/{stem}.ipynb" target="_blank">'
+                f'<a href="{colab_base}/{stem}.ipynb"{ext}>'
                 "Notebook - Individual</a>"
             )
         group_nb = lecture_metadata.get('group_notebook')
         if group_nb and not lecture_metadata.get('skip_notebook'):
             links.append(
-                f'<a href="{colab_base}/{group_nb}.ipynb" target="_blank">'
+                f'<a href="{colab_base}/{group_nb}.ipynb"{ext}>'
                 "Notebook - Group</a>"
             )
-        links.append(f'<a href="/teaching/{course_code}/">Back to course</a>')
+        links.append(
+            f'<a href="/teaching/{course_code}/" class="course-nav__internal">Back to course</a>'
+        )
         return (
             '<div class="lecture-resources">\n  <p>\n    '
             + " &nbsp;|&nbsp; ".join(links)
