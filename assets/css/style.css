@@ -121,7 +121,7 @@ nav a.active {
 }
 
 main {
-  max-width: 42rem;
+  max-width: 46rem;
   margin: 0 auto;
   font-size: 1rem;
   padding: 1.75rem 1.25rem 2rem;
@@ -348,6 +348,43 @@ p {
   border-bottom: 1px solid var(--border-color);
 }
 
+.list-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1.25rem;
+}
+
+.list-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.list-main > p,
+.list-main > a {
+  margin: 0;
+}
+
+.list-actions {
+  flex-shrink: 0;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.list-action {
+  font-size: 0.92rem;
+  font-weight: 400;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.list-secondary a {
+  color: var(--link-color);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  font-weight: 400;
+}
+
 .list-item:last-child {
   border-bottom: none;
   padding-bottom: 0;
@@ -529,9 +566,6 @@ p {
 
 .bibtex-link {
   color: var(--link-color);
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
-  font-weight: 400;
 }
 
 .bibtex-link:hover {

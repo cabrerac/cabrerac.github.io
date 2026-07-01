@@ -9,7 +9,16 @@
 <div class="collapsible-inner talks-list">
 {% for talk in year_group.items %}
 <div class="list-item talk-item">
-<p class="list-primary"><strong>{% if talk.slides %}<a href="{{ talk.slides }}" target="_blank" rel="noopener noreferrer">{{ talk.title }}</a>{% else %}{{ talk.title }}{% endif %}</strong>{% if talk.status == "upcoming" %} · <span class="upcoming-badge">Upcoming</span>{% endif %}{% if talk.page %} · <a href="{{ talk.page }}">[more]</a>{% endif %}</p>
+<div class="list-row">
+<div class="list-main">
+<p class="list-primary"><strong>{% if talk.slides %}<a href="{{ talk.slides }}" target="_blank" rel="noopener noreferrer">{{ talk.title }}</a>{% else %}{{ talk.title }}{% endif %}</strong>{% if talk.status == "upcoming" %} · <span class="upcoming-badge">Upcoming</span>{% endif %}</p>
+</div>
+{% if talk.page %}
+<div class="list-actions">
+<a href="{{ talk.page }}" class="list-action">[more]</a>
+</div>
+{% endif %}
+</div>
 <p class="list-secondary">{% if talk.conference %}{{ talk.conference }}{% if talk.venue %} ({{ talk.venue }}){% endif %}{% else %}{{ talk.venue }}{% endif %}{% if talk.location %}, {{ talk.location }}{% endif %} · {{ talk.month }} {{ talk.year }}</p>
 </div>
 {% endfor %}

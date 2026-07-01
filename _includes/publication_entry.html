@@ -7,7 +7,14 @@
   {% endif %}
 {% endif %}
 <div class="list-item publication">
-<p class="list-primary"><strong>{% if paper_link %}<a href="{{ paper_link }}" target="_blank" rel="noopener noreferrer">{{ pub.title }}</a>{% else %}{{ pub.title }}{% endif %}</strong> · <a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.id }}" class="bibtex-link" data-bibkey="{{ pub.id }}">[bibtex]</a></p>
+<div class="list-row">
+<div class="list-main">
+<p class="list-primary"><strong>{% if paper_link %}<a href="{{ paper_link }}" target="_blank" rel="noopener noreferrer">{{ pub.title }}</a>{% else %}{{ pub.title }}{% endif %}</strong></p>
+</div>
+<div class="list-actions">
+<a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.id }}" class="list-action bibtex-link" data-bibkey="{{ pub.id }}">[bibtex]</a>
+</div>
+</div>
 <p class="list-secondary">{{ pub.authors }}</p>
 <p class="list-meta"><em>{{ pub.journal }}</em>, {{ pub.year }}</p>
 </div>

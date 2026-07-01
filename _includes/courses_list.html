@@ -9,7 +9,11 @@
 {% assign year_courses = visible_courses | where: "year", year | sort: "start_date" | reverse %}
 {% for course in year_courses %}
 <div class="list-item course-item">
+<div class="list-row">
+<div class="list-main">
 <a href="{{ course.url | relative_url }}" class="course-title">{{ course.title }}</a>
+</div>
+</div>
 <p class="list-secondary">{% if course.institution %}{{ course.institution }}{% endif %}{% if course.start_date %} · {{ course.start_date | date: "%B %Y" }}{% endif %}</p>
 {% if course.description %}
 <p class="list-meta">{{ course.description }}</p>

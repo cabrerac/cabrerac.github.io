@@ -9,7 +9,16 @@
 <div class="collapsible-inner activities-list">
 {% for activity in conference_org %}
 <div class="list-item activity-item">
-<p class="list-primary"><strong>{{ activity.title }}</strong> ({{ activity.year }}){% if activity.url %} · <a href="{{ activity.url }}" target="_blank" rel="noopener noreferrer">[website]</a>{% endif %}</p>
+<div class="list-row">
+<div class="list-main">
+<p class="list-primary"><strong>{{ activity.title }}</strong> ({{ activity.year }})</p>
+</div>
+{% if activity.url %}
+<div class="list-actions">
+<a href="{{ activity.url }}" class="list-action" target="_blank" rel="noopener noreferrer">[website]</a>
+</div>
+{% endif %}
+</div>
 <p class="list-secondary">{{ activity.role }} · {{ activity.organisation }}{% if activity.abbreviation %} ({{ activity.abbreviation }}){% endif %}{% if activity.note %} · <span class="list-note">{{ activity.note }}</span>{% endif %}</p>
 </div>
 {% endfor %}
@@ -23,7 +32,16 @@
 <div class="collapsible-inner activities-list">
 {% for activity in editorial %}
 <div class="list-item activity-item">
-<p class="list-primary"><strong>{{ activity.title }}</strong> ({{ activity.year }}){% if activity.url %} · <a href="{{ activity.url }}" target="_blank" rel="noopener noreferrer">[volume]</a>{% endif %}</p>
+<div class="list-row">
+<div class="list-main">
+<p class="list-primary"><strong>{{ activity.title }}</strong> ({{ activity.year }})</p>
+</div>
+{% if activity.url %}
+<div class="list-actions">
+<a href="{{ activity.url }}" class="list-action" target="_blank" rel="noopener noreferrer">[volume]</a>
+</div>
+{% endif %}
+</div>
 <p class="list-secondary">{{ activity.journal }}</p>
 </div>
 {% endfor %}
@@ -38,9 +56,27 @@
 {% for activity in reviewing %}
 <div class="list-item activity-item">
 {% if activity.journal %}
-<p class="list-primary"><strong>{{ activity.journal }}</strong> · Journal reviewer{% if activity.url %} · <a href="{{ activity.url }}" target="_blank" rel="noopener noreferrer">[website]</a>{% endif %}</p>
+<div class="list-row">
+<div class="list-main">
+<p class="list-primary"><strong>{{ activity.journal }}</strong> · Journal reviewer</p>
+</div>
+{% if activity.url %}
+<div class="list-actions">
+<a href="{{ activity.url }}" class="list-action" target="_blank" rel="noopener noreferrer">[website]</a>
+</div>
+{% endif %}
+</div>
 {% elsif activity.conference %}
-<p class="list-primary"><strong>{{ activity.conference }}</strong> ({{ activity.year }}) · {{ activity.title }}{% if activity.url %} · <a href="{{ activity.url }}" target="_blank" rel="noopener noreferrer">[website]</a>{% endif %}</p>
+<div class="list-row">
+<div class="list-main">
+<p class="list-primary"><strong>{{ activity.conference }}</strong> ({{ activity.year }}) · {{ activity.title }}</p>
+</div>
+{% if activity.url %}
+<div class="list-actions">
+<a href="{{ activity.url }}" class="list-action" target="_blank" rel="noopener noreferrer">[website]</a>
+</div>
+{% endif %}
+</div>
 {% endif %}
 </div>
 {% endfor %}
