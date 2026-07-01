@@ -1,11 +1,11 @@
 /* Site styles (list layouts also in main.scss as SCSS reference; loaded rules live here). */
 
 :root {
-  --border-color: #e1e4e8;
-  --heading-color: #24292e;
-  --text-color: #24292e;
-  --text-muted: #586069;
-  --link-color: #0366d6;
+  --border-color: #e8e8e8;
+  --heading-color: #1a1a1a;
+  --text-color: #333333;
+  --text-muted: #666666;
+  --link-color: #1a1a1a;
 }
 
 /* Reset */
@@ -16,9 +16,9 @@
 }
 
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--text-color);
   background-color: #ffffff;
   min-height: 100vh;
@@ -26,80 +26,134 @@ body {
   flex-direction: column;
 }
 
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 1000;
+  padding: 0.5rem 1rem;
+  background: #fff;
+  color: var(--text-color);
+  text-decoration: underline;
+}
+
+.skip-link:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+}
+
 header {
   background-color: #ffffff;
-  padding: 1rem;
+  padding: 1.25rem 1rem 0.75rem;
   text-align: center;
+  border-bottom: 1px solid var(--border-color);
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 1.75rem;
+  font-weight: 600;
   margin: 0;
   color: var(--heading-color);
+  letter-spacing: -0.02em;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 1.25rem;
+  color: var(--heading-color);
+  letter-spacing: -0.02em;
+}
+
+.page-title--home {
+  margin-bottom: 1rem;
 }
 
 nav {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  gap: 0.25rem 1rem;
   background-color: #ffffff;
-  padding: 0.5rem;
+  padding: 0.25rem 0;
 }
 
 nav a {
-  color: var(--text-color);
+  color: var(--text-muted);
   text-decoration: none;
-  margin: 0 0.75rem;
-  padding: 0.5rem;
-  border-radius: 5px;
-  font-size: 16px;
+  padding: 0.25rem 0;
+  font-size: 0.95rem;
 }
 
 nav a:hover {
-  background-color: var(--heading-color);
-  color: #fff;
+  color: var(--heading-color);
+  text-decoration: underline;
 }
 
 nav a.active {
-  background-color: var(--heading-color);
-  color: #fff;
+  color: var(--heading-color);
   font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 main {
-  max-width: 900px;
+  max-width: 42rem;
   margin: 0 auto;
-  font-size: 16px;
-  padding: 1.5rem 1rem;
+  font-size: 1rem;
+  padding: 2rem 1.25rem 2.5rem;
   background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   flex: 1;
   width: 100%;
 }
 
 main a {
   color: var(--link-color);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
 }
 
 main a:hover {
-  text-decoration: underline;
+  color: var(--text-muted);
 }
 
 main h2,
 main h3 {
   color: var(--heading-color);
-  margin-top: 1.5rem;
+  margin-top: 1.75rem;
   margin-bottom: 0.75rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
 }
 
 footer {
   text-align: center;
-  padding: 1rem;
+  padding: 1.25rem 1rem;
   background-color: #ffffff;
-  color: var(--text-color);
+  color: var(--text-muted);
   margin-top: auto;
-  font-size: 16px;
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border-color);
+}
+
+footer a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: var(--heading-color);
+  text-decoration: underline;
+}
+
+.footer-contact {
+  margin-bottom: 0.35rem;
+}
+
+.footer-contact a {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
 }
 
 code,
@@ -120,8 +174,18 @@ p {
 }
 
 .social-icons-container {
-  text-align: center;
-  margin-top: 1rem;
+  text-align: left;
+  margin-top: 1.25rem;
+}
+
+.social-icons-container a {
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-right: 0.65rem;
+}
+
+.social-icons-container a:hover {
+  color: var(--heading-color);
 }
 
 .custom-icon {
@@ -159,42 +223,50 @@ p {
 .collapsible-title {
   display: inline;
   margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .collapsible-header {
   cursor: pointer;
   user-select: none;
-  padding: 1rem;
-  margin: 0.5rem 0;
-  background-color: var(--border-color);
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  padding: 0.65rem 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  border-radius: 0;
+  transition: color 0.15s ease;
 }
 
 .collapsible-header:hover {
-  background-color: #d3d3d3;
+  color: var(--text-muted);
 }
 
 .collapsible-header::before {
-  content: "▶ ";
+  content: "+ ";
   display: inline-block;
-  transition: transform 0.3s ease;
-  margin-right: 0.5rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-right: 0.35rem;
+  width: 0.75rem;
 }
 
 .collapsible-header.active::before {
-  transform: rotate(90deg);
+  content: "− ";
 }
 
 .collapsible-content {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease-out;
+  transition: max-height 0.25s ease-out;
 }
 
 .collapsible-content.expanded {
   max-height: 10000px;
-  transition: max-height 0.5s ease-in;
+  transition: max-height 0.35s ease-in;
+  padding-top: 0.5rem;
+  padding-bottom: 0.25rem;
 }
 
 .profile-photo {
@@ -417,13 +489,16 @@ p {
 }
 
 .upcoming-badge {
-  background-color: var(--link-color);
-  color: #fff;
-  padding: 0.25rem 0.75rem;
-  border-radius: 3px;
+  color: var(--text-muted);
+  padding: 0;
+  border-radius: 0;
   font-size: 0.85rem;
   font-weight: 600;
   white-space: nowrap;
+}
+
+.upcoming-badge::before {
+  content: "· ";
 }
 
 .talk-meta {
@@ -484,12 +559,11 @@ p {
 }
 
 .activity-year {
-  background-color: var(--border-color);
-  color: var(--text-color);
-  padding: 0.25rem 0.75rem;
-  border-radius: 3px;
+  color: var(--text-muted);
+  padding: 0;
+  border-radius: 0;
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: 400;
   white-space: nowrap;
 }
 
@@ -559,13 +633,16 @@ p {
 }
 
 @media only screen and (max-width: 768px) {
+  nav {
+    gap: 0.2rem 0.75rem;
+  }
+
   nav a {
-    margin: 0.35rem;
     font-size: 0.9rem;
   }
 
   main {
-    padding: 1rem 0.75rem;
+    padding: 1.5rem 1rem 2rem;
   }
 
   .profile-photo {
@@ -581,15 +658,16 @@ p {
 
 @media only screen and (max-width: 480px) {
   header {
-    padding: 0.5rem;
+    padding: 1rem 0.75rem 0.5rem;
   }
 
+  .page-title,
   h1 {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
   }
 
   main {
-    padding: 0.75rem 0.5rem;
+    padding: 1.25rem 0.85rem 1.75rem;
   }
 
   .profile-photo {
@@ -598,5 +676,9 @@ p {
     width: 40%;
     max-width: 160px;
     margin: 0 auto 1rem;
+  }
+
+  .social-icons-container {
+    text-align: center;
   }
 }
