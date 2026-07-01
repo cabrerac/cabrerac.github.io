@@ -1,11 +1,3 @@
 <b>{{ include.student.name }}</b> - {{ include.student.institution }} - {% if include.student.status == "current" %}Started: {{ include.student.start_year }}{% else %}Graduated: {{ include.student.graduation_year }}{% endif %}<br>
-{% assign primary_pub = nil %}
-{% if include.student.publications and include.student.publications.size == 1 %}
-  {% assign primary_pub = include.student.publications.first %}
-{% endif %}
-{% assign link_project = false %}
-{% if primary_pub and include.student.project == primary_pub.title %}
-  {% assign link_project = true %}
-{% endif %}
-Project: {% if link_project %}<a href="{{ primary_pub.url }}" target="_blank" rel="noopener noreferrer">{{ include.student.project }}</a>{% else %}{{ include.student.project }}{% endif %}{% unless link_project %}{% for pub in include.student.publications %} <a href="{{ pub.url }}" target="_blank" rel="noopener noreferrer">[paper]</a>{% endfor %}{% endunless %}{% for artefact in include.student.artefacts %} <a href="{{ artefact.url }}" target="_blank" rel="noopener noreferrer">[{{ artefact.name }}]</a>{% endfor %}<br>
+Project: {{ include.student.project }}{% if include.student.publications and include.student.publications.size > 0 %} <a href="{{ include.student.publications.first.url }}" target="_blank" rel="noopener noreferrer">[paper]</a>{% endif %}{% if include.student.artefacts and include.student.artefacts.size > 0 %} <a href="{{ include.student.artefacts.first.url }}" target="_blank" rel="noopener noreferrer">[artefact]</a>{% endif %}<br>
 {% if include.student.description %}{{ include.student.description }}<br>{% endif %}

@@ -48,8 +48,6 @@ past:
     artefacts:
       - name: "cities-board-dev"
         url: "https://github.com/cabrerac/cities-board-dev"
-      - name: "cities-board-plugin"
-        url: "https://github.com/cabrerac/cities-board-plugin"
     status: "graduated"
 
   - name: "Joseph Poon"
@@ -58,8 +56,8 @@ past:
     project: "Adapting Service Placement Algorithms for Edge Computing: Implementing a Decentralized Approach in iFogSim"
     role: "Undergrad Project Supervisor (Together with Neil Lawrence)"
     graduation_year: 2025
-    publications:
-      - title: "iFogSim-Placement: A Simulation Framework for Edge Service Placement"
+    artefacts:
+      - name: "iFogSim-Placement"
         url: "https://github.com/DawnSpider96/iFogSim-Placement"
     status: "graduated"
 
