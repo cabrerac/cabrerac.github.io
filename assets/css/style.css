@@ -253,24 +253,28 @@ p {
 }
 
 .course-nav {
-  margin: 0 0 1rem;
+  margin: 0 0 0.35rem;
+  text-align: left;
 }
 
 .course-nav__path {
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.5rem;
 }
 
 .lecture-resources {
-  margin: 0 0 1.25rem;
-  padding: 0.65rem 0.85rem;
-  border: 1px solid var(--border-color);
-  border-radius: 3px;
-  background: var(--code-bg);
+  margin: 0 0 1rem;
+  padding: 0.45rem 0;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  border-radius: 0;
+  background: #ffffff;
+  text-align: left;
 }
 
 .lecture-resources p {
   margin: 0;
   font-size: 0.92rem;
+  text-align: left;
 }
 
 .collapsible-title {

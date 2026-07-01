@@ -9,16 +9,12 @@
   <p class="course-nav__path list-secondary">
     <a href="{{ '/teaching/' | relative_url }}" class="course-nav__internal">Teaching</a>
     · <a href="{{ course_url }}" class="course-nav__internal">{{ course.title | default: page.course_code }}</a>
-    {% if page.layout == 'lecture' and page.title %}
-    · <span aria-current="page">{{ page.title }}</span>
-    {% endif %}
   </p>
 </nav>
 {% elsif page.layout == 'course' %}
 <nav class="course-nav" aria-label="Course navigation">
   <p class="course-nav__path list-secondary">
     <a href="{{ '/teaching/' | relative_url }}" class="course-nav__internal">Teaching</a>
-    · <span aria-current="page">{{ page.title }}</span>
   </p>
 </nav>
 {% endif %}

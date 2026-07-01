@@ -6,32 +6,32 @@
     {% include header.html %}
     <main id="content" class="main{% if page.sidebar %} main--with-sidebar{% endif %}">
       {% assign course = site.courses | where: "course_code", page.course_code | first %}
+      {% include course_nav.html %}
       {% if page.title %}
       <h1 class="page-title">{{ page.title }}</h1>
       {% endif %}
-      {% include course_nav.html %}
+      {{ content }}
       {% if page.description %}
-      <strong>Description:</strong> {{ page.description }}<br> <!-- Display description -->
+      <strong>Description:</strong> {{ page.description }}<br>
       {% endif %}
       {% if course.department %}
-      <strong>Department:</strong> {{ course.department }}<br> <!-- Display department -->  
+      <strong>Department:</strong> {{ course.department }}<br>
       {% endif %}
       {% if course.institution %}
-      <strong>Institution:</strong> {{ course.institution }}<br> <!-- Display institution -->
+      <strong>Institution:</strong> {{ course.institution }}<br>
       {% endif %}
       {% if page.lecture_date %}
-      <strong>Date:</strong> {{ page.lecture_date | date: "%B %d, %Y" }}<br> <!-- Display date -->
+      <strong>Date:</strong> {{ page.lecture_date | date: "%B %d, %Y" }}<br>
       {% endif %}
       {% if page.hours %}
-      <strong>Hours:</strong> {{ page.hours }}<br> <!-- Display number of hours -->
+      <strong>Hours:</strong> {{ page.hours }}<br>
       {% endif %}
       {% if page.start_time %}
-      <strong>From:</strong> {{ page.start_time }}<br> <!-- Display start time -->
+      <strong>From:</strong> {{ page.start_time }}<br>
       {% endif %}
       {% if page.end_time %}
-      <strong>To:</strong> {{ page.end_time }}<br> <!-- Display end time -->
+      <strong>To:</strong> {{ page.end_time }}<br>
       {% endif %}
-      {{ content }}
     </main>
     {% include footer.html %}
   </body>

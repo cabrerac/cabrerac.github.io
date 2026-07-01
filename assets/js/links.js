@@ -1,7 +1,7 @@
 (() => {
   const TEACHING_PATH = /^\/teaching\//;
-  const ARTIFACT_PATH = /^\/assets\/(?:slides|notebooks|documents|data|docs)\//;
-  const ARTIFACT_EXT = /\.(pdf|ipynb|docx|pptx|zip)$/i;
+  const NEW_TAB_ASSET_PATH = /^\/assets\/(?:slides|notebooks|docs)\//;
+  const SAME_TAB_ASSET_PATH = /^\/assets\/documents\//;
 
   function resolveUrl(href) {
     try {
@@ -31,7 +31,11 @@
       return false;
     }
 
-    if (sameOrigin && (ARTIFACT_PATH.test(path) || ARTIFACT_EXT.test(path))) {
+    if (sameOrigin && SAME_TAB_ASSET_PATH.test(path)) {
+      return false;
+    }
+
+    if (sameOrigin && NEW_TAB_ASSET_PATH.test(path)) {
       return true;
     }
 
@@ -46,17 +50,8 @@
         return;
       }
 
-      const url = resolveUrl(anchor.getAttribute('href'));
-      if (!url) return;
-
-      if (
-        url.origin === window.location.origin &&
-        TEACHING_PATH.test(url.pathname) &&
-        anchor.getAttribute('target') === '_blank'
-      ) {
-        anchor.removeAttribute('target');
-        anchor.removeAttribute('rel');
-      }
+      anchor.removeAttribute('target');
+      anchor.removeAttribute('rel');
     });
   }
 
