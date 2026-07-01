@@ -13,4 +13,4 @@ permalink: /contact/
 <p class="list-meta">Research interests: Data-Oriented Architectures, Machine Learning Systems, Self-Sustaining AI Systems, Interpretability.</p>
 </div>
 
-<p class="list-secondary">Prospective Part III or Masters students at Cambridge: see the <a href="https://mlatcl.github.io/internal/projects/">ML@CL available projects</a>.</p>
+<p class="list-secondary">Prospective Part III or Masters students at Cambridge: see the <a href="https://mlatcl.github.io/internal/projects/" target="_blank" rel="noopener noreferrer">ML@CL available projects</a>.</p>

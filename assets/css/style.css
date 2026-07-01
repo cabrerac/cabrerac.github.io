@@ -11,6 +11,8 @@
   --text-muted: #59636e;
   --link-color: #0e73b8;
   --code-bg: #f6f8fa;
+  --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "IBM Plex Mono", Consolas, Monaco, monospace;
 }
 
 /* Reset */
@@ -25,7 +27,7 @@ html {
 }
 
 body {
-  font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.65;
   color: var(--text-color);
@@ -186,7 +188,7 @@ footer a:hover {
 
 code,
 pre {
-  font-family: Consolas, Monaco, monospace;
+  font-family: var(--font-mono);
 }
 
 code {
@@ -234,30 +236,20 @@ p {
   display: block;
 }
 
-.social-icons-container .ai,
-.social-icons-container .fab {
-  color: inherit;
-}
-
-.social-icons-container .custom-icon {
+.social-icons-container a.social-icon--brand img {
   display: block;
   width: 1.5rem;
   height: 1.5rem;
-}
-
-.social-icons-container .custom-icon img {
-  display: block;
-  width: 100%;
-  height: 100%;
   object-fit: contain;
 }
 
-.social-icons-container .brand-icon img {
-  filter: none;
+.social-icons-container a.social-icon--brand:hover img {
+  opacity: 0.85;
 }
 
-.social-icons-container a:hover .brand-icon img {
-  opacity: 0.85;
+.social-icons-container .ai,
+.social-icons-container .fab {
+  color: inherit;
 }
 
 .collapsible-title {
@@ -366,12 +358,14 @@ p {
 }
 
 .list-tag {
+  font-family: var(--font-mono);
   font-size: 0.92rem;
   font-weight: 400;
   color: var(--text-muted);
 }
 
 .list-action {
+  font-family: var(--font-mono);
   font-size: 0.92rem;
   font-weight: 400;
   text-decoration: underline;
@@ -477,7 +471,7 @@ p {
   width: 90%;
   max-width: 46rem;
   border-radius: 4px;
-  font-family: "IBM Plex Sans", system-ui, sans-serif;
+  font-family: var(--font-sans);
   color: var(--text-color);
 }
 
@@ -517,7 +511,7 @@ p {
   padding: 0.85rem 1rem;
   border: 1px solid var(--border-color);
   border-radius: 3px;
-  font-family: Consolas, Monaco, monospace;
+  font-family: var(--font-mono);
   font-size: 0.88rem;
   line-height: 1.5;
   white-space: pre-wrap;

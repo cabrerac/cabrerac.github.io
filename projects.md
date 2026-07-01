@@ -17,4 +17,4 @@ Prior to this, I worked as a postdoc on the [AutoAI](https://mlatcl.github.io/pr
 
 ### Student projects
 
-Part III and Masters project topics at Cambridge are listed in the [ML@CL project catalogue](https://mlatcl.github.io/internal/projects/).
+Part III and Masters project topics at Cambridge are listed in the [ML@CL project catalogue](https://mlatcl.github.io/internal/projects/){:target="_blank" rel="noopener noreferrer"}.
