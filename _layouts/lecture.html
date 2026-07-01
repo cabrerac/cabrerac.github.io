@@ -10,28 +10,30 @@
       {% if page.title %}
       <h1 class="page-title">{{ page.title }}</h1>
       {% endif %}
-      {{ content }}
+      <div class="lecture-meta">
       {% if page.description %}
-      <strong>Description:</strong> {{ page.description }}<br>
+      <p class="list-secondary"><strong>Description:</strong> {{ page.description }}</p>
       {% endif %}
       {% if course.department %}
-      <strong>Department:</strong> {{ course.department }}<br>
+      <p class="list-secondary"><strong>Department:</strong> {{ course.department }}</p>
       {% endif %}
       {% if course.institution %}
-      <strong>Institution:</strong> {{ course.institution }}<br>
+      <p class="list-secondary"><strong>Institution:</strong> {{ course.institution }}</p>
       {% endif %}
       {% if page.lecture_date %}
-      <strong>Date:</strong> {{ page.lecture_date | date: "%B %d, %Y" }}<br>
+      <p class="list-secondary"><strong>Date:</strong> {{ page.lecture_date | date: "%B %d, %Y" }}</p>
       {% endif %}
       {% if page.hours %}
-      <strong>Hours:</strong> {{ page.hours }}<br>
+      <p class="list-secondary"><strong>Hours:</strong> {{ page.hours }}</p>
       {% endif %}
       {% if page.start_time %}
-      <strong>From:</strong> {{ page.start_time }}<br>
+      <p class="list-secondary"><strong>From:</strong> {{ page.start_time }}</p>
       {% endif %}
       {% if page.end_time %}
-      <strong>To:</strong> {{ page.end_time }}<br>
+      <p class="list-secondary"><strong>To:</strong> {{ page.end_time }}</p>
       {% endif %}
+      </div>
+      {{ content }}
     </main>
     {% include footer.html %}
   </body>

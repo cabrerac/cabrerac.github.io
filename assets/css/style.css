@@ -265,6 +265,14 @@ p {
   text-decoration: underline;
 }
 
+.lecture-meta {
+  margin: 0 0 1rem;
+}
+
+.lecture-meta p {
+  margin: 0 0 0.2rem;
+}
+
 .lecture-resources {
   margin: 0 0 1rem;
   padding: 0.45rem 0;
