@@ -17,22 +17,7 @@
 <div class="students-list">
 {% for student in phd_students %}
 <div class="student-item">
-<b>{{ student.name }}</b> - {{ student.institution }} - {% if student.status == "current" %}Started: {{ student.start_year }}{% else %}Graduated: {{ student.graduation_year }}{% endif %}<br>
-Project: {{ student.project }}<br>
-{% if student.description %}{{ student.description }}<br>{% endif %}
-{% if student.publications or student.artefacts %}
-<div class="student-meta">
-<p><strong>Results:</strong></p>
-<ul>
-{% for pub in student.publications %}
-<li><a href="{{ pub.url }}" target="_blank" rel="noopener noreferrer">{{ pub.title }}</a></li>
-{% endfor %}
-{% for artefact in student.artefacts %}
-<li><a href="{{ artefact.url }}" target="_blank" rel="noopener noreferrer">{{ artefact.name }}</a></li>
-{% endfor %}
-</ul>
-</div>
-{% endif %}
+{% include student_item.html student=student %}
 </div>
 {% endfor %}
 </div>
@@ -45,22 +30,7 @@ Project: {{ student.project }}<br>
 <div class="students-list">
 {% for student in masters_students %}
 <div class="student-item">
-<b>{{ student.name }}</b> - {{ student.institution }} - {% if student.status == "current" %}Started: {{ student.start_year }}{% else %}Graduated: {{ student.graduation_year }}{% endif %}<br>
-Project: {{ student.project }}<br>
-{% if student.description %}{{ student.description }}<br>{% endif %}
-{% if student.publications or student.artefacts %}
-<div class="student-meta">
-<p><strong>Results:</strong></p>
-<ul>
-{% for pub in student.publications %}
-<li><a href="{{ pub.url }}" target="_blank" rel="noopener noreferrer">{{ pub.title }}</a></li>
-{% endfor %}
-{% for artefact in student.artefacts %}
-<li><a href="{{ artefact.url }}" target="_blank" rel="noopener noreferrer">{{ artefact.name }}</a></li>
-{% endfor %}
-</ul>
-</div>
-{% endif %}
+{% include student_item.html student=student %}
 </div>
 {% endfor %}
 </div>
@@ -73,22 +43,7 @@ Project: {{ student.project }}<br>
 <div class="students-list">
 {% for student in undergrad_students %}
 <div class="student-item">
-<b>{{ student.name }}</b> - {{ student.institution }} - {% if student.status == "current" %}Started: {{ student.start_year }}{% else %}Graduated: {{ student.graduation_year }}{% endif %}<br>
-Project: {{ student.project }}<br>
-{% if student.description %}{{ student.description }}<br>{% endif %}
-{% if student.publications or student.artefacts %}
-<div class="student-meta">
-<p><strong>Results:</strong></p>
-<ul>
-{% for pub in student.publications %}
-<li><a href="{{ pub.url }}" target="_blank" rel="noopener noreferrer">{{ pub.title }}</a></li>
-{% endfor %}
-{% for artefact in student.artefacts %}
-<li><a href="{{ artefact.url }}" target="_blank" rel="noopener noreferrer">{{ artefact.name }}</a></li>
-{% endfor %}
-</ul>
-</div>
-{% endif %}
+{% include student_item.html student=student %}
 </div>
 {% endfor %}
 </div>

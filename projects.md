@@ -20,5 +20,3 @@ I lead the **[Interfaces research programme](https://mlatcl.github.io/projects/i
 ### Student projects
 
 Part III and Masters project topics at Cambridge are listed in the [ML@CL project catalogue](https://mlatcl.github.io/internal/projects/).
-
-Full publication list: [Google Scholar](https://scholar.google.com/citations?user=NITUwmcAAAAJ&hl=en).
