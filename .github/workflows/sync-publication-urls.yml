@@ -1,0 +1,35 @@
+name: Sync publication URLs
+
+on:
+  push:
+    branches:
+      - gh-pages
+    paths:
+      - assets/bibs/bibfile.bib
+      - scripts/sync_publication_urls.py
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install pyyaml==6.0.1
+
+      - name: Sync paper_url from bib
+        run: python scripts/sync_publication_urls.py
+
+      - name: Commit updated publications.yml
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Sync publication paper URLs from bib"
+          file_pattern: _data/publications.yml

@@ -41,3 +41,17 @@
 {% endfor %}
 </div>
 {% endif %}
+
+{% assign theses = publications | where: "type", "thesis" %}
+{% if theses.size > 0 %}
+<div class="collapsible-header"><h3 class="collapsible-title">Theses</h3></div>
+<div class="collapsible-content">
+{% for pub in theses %}
+<div class="publication">
+<p><strong>{{ pub.title }}</strong> <a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.bibkey }}" class="bibtex-link" data-bibkey="{{ pub.bibkey }}">[bibtex]</a>{% if pub.paper_url %} <a href="{{ pub.paper_url }}" target="_blank" rel="noopener noreferrer">[thesis]</a>{% endif %}</p>
+<p>{{ pub.authors }}</p>
+<p><em>{{ pub.journal }}</em>, {{ pub.year }}</p>
+</div>
+{% endfor %}
+</div>
+{% endif %}
