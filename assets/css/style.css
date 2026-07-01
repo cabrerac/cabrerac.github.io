@@ -1,26 +1,33 @@
-/* Reset Styles */
+/* Site styles (list layouts also in main.scss as SCSS reference; loaded rules live here). */
+
+:root {
+  --border-color: #e1e4e8;
+  --heading-color: #24292e;
+  --text-color: #24292e;
+  --text-muted: #586069;
+  --link-color: #0366d6;
+}
+
+/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Body Styles */
 body {
-  font-family: Consolas, monospace;
+  font-family: "Open Sans", sans-serif;
   font-size: 16px;
-  line-height: 1.5;
-  color: #333;
+  line-height: 1.6;
+  color: var(--text-color);
   background-color: #ffffff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Header Styles */
 header {
   background-color: #ffffff;
-  color: #fff;
   padding: 1rem;
   text-align: center;
 }
@@ -28,127 +35,103 @@ header {
 h1 {
   font-size: 2rem;
   margin: 0;
+  color: var(--heading-color);
 }
 
-/* Navigation Styles */
 nav {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   background-color: #ffffff;
   padding: 0.5rem;
 }
 
 nav a {
-  color: #333;
+  color: var(--text-color);
   text-decoration: none;
-  margin: 0 1rem;
+  margin: 0 0.75rem;
   padding: 0.5rem;
   border-radius: 5px;
-  font-size: 16;
+  font-size: 16px;
 }
 
 nav a:hover {
-  background-color: #333;
+  background-color: var(--heading-color);
   color: #fff;
 }
 
 nav a.active {
-  background-color: #333;
+  background-color: var(--heading-color);
   color: #fff;
   font-weight: 600;
 }
 
-/* Main Content Styles */
 main {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
-  font-size: 14px;
-  padding: 1rem;
+  font-size: 16px;
+  padding: 1.5rem 1rem;
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   flex: 1;
+  width: 100%;
 }
 
-/* Footer Styles */
+main a {
+  color: var(--link-color);
+}
+
+main a:hover {
+  text-decoration: underline;
+}
+
+main h2,
+main h3 {
+  color: var(--heading-color);
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
 footer {
   text-align: center;
   padding: 1rem;
   background-color: #ffffff;
-  color: #333;
+  color: var(--text-color);
   margin-top: auto;
-  font-size: 16;
+  font-size: 16px;
 }
 
-/* Computer Science Touch */
+code,
+pre {
+  font-family: Consolas, Monaco, monospace;
+}
+
 code {
   background-color: #f1f1f1;
   color: #c7254e;
   padding: 0.1rem 0.3rem;
   border-radius: 3px;
-  font-size: 0.9rem;
-}
-
-/* Media Queries */
-@media only screen and (max-width: 768px) {
-  /* Navigation Styles */
-  nav {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  nav a {
-    margin: 0.5rem;
-    font-size: 0.9rem;
-  }
-
-  /* Main Content Styles */
-  main {
-    padding: 0.5rem;
-  }
-}
-
-@media only screen and (max-width: 480px) {
-  /* Header Styles */
-  header {
-    padding: 0.5rem;
-  }
-
-  h1 {
-    font-size: 1.5rem;
-  }
-
-  /* Navigation Styles */
-  nav a {
-    padding: 0.3rem;
-  }
-
-  /* Main Content Styles */
-  main {
-    padding: 0.3rem;
-  }
-
-  /* Computer Science Touch */
-  code {
-    font-size: 0.8rem;
-  }
+  font-size: 0.9em;
 }
 
 p {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .social-icons-container {
   text-align: center;
+  margin-top: 1rem;
 }
 
 .custom-icon {
   display: inline-block;
   width: 24.5px;
   height: 24.5px;
-  background-color: #fff; /* replace with your desired background color */
+  background-color: #fff;
   margin-top: 10px;
 }
+
 .custom-icon img {
   display: block;
   width: 100%;
@@ -164,7 +147,7 @@ p {
   border-radius: 5px;
   font-size: 16px;
   color: #ffffff;
-  background-color: #333;
+  background-color: var(--heading-color);
   text-decoration: none;
   width: 150px;
 }
@@ -178,10 +161,442 @@ p {
   margin: 0;
 }
 
+.collapsible-header {
+  cursor: pointer;
+  user-select: none;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  background-color: var(--border-color);
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.collapsible-header:hover {
+  background-color: #d3d3d3;
+}
+
+.collapsible-header::before {
+  content: "▶ ";
+  display: inline-block;
+  transition: transform 0.3s ease;
+  margin-right: 0.5rem;
+}
+
+.collapsible-header.active::before {
+  transform: rotate(90deg);
+}
+
+.collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.collapsible-content.expanded {
+  max-height: 10000px;
+  transition: max-height 0.5s ease-in;
+}
+
 .profile-photo {
   float: left;
-  margin-right: 10px;
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
   width: 15%;
+  min-width: 80px;
+  max-width: 140px;
   height: auto;
 }
 
+/* Teaching */
+.teaching-intro {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.teaching-intro h1 {
+  color: var(--heading-color);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.teaching-intro p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.courses-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+}
+
+.course-item {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1.5rem;
+}
+
+.course-item:last-child {
+  border-bottom: none;
+}
+
+.course-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--heading-color);
+  text-decoration: none;
+}
+
+.course-title:hover {
+  color: var(--link-color);
+  text-decoration: underline;
+}
+
+.course-meta {
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.course-institution {
+  display: inline-block;
+  margin-right: 1rem;
+  font-weight: 500;
+}
+
+.course-date {
+  display: inline-block;
+}
+
+.course-description {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+.lectures-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+
+.lecture-item {
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
+}
+
+.lecture-item:last-child {
+  border-bottom: none;
+}
+
+.lecture-title {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--heading-color);
+  text-decoration: none;
+}
+
+.lecture-title:hover {
+  color: var(--link-color);
+  text-decoration: underline;
+}
+
+.lecture-meta {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.lecture-date {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.lecture-description {
+  display: block;
+  line-height: 1.4;
+}
+
+/* Students */
+.students-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+  padding-bottom: 2.5rem;
+}
+
+.student-item {
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.75rem;
+}
+
+.student-item:last-child {
+  border-bottom: none;
+}
+
+.student-item h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--heading-color);
+}
+
+.student-meta {
+  margin-bottom: 0.25rem;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+.student-meta p {
+  margin-bottom: 0.25rem;
+}
+
+.student-meta strong {
+  color: var(--heading-color);
+  font-weight: 600;
+}
+
+.student-meta a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+.student-meta a:hover {
+  text-decoration: underline;
+}
+
+.student-meta ul {
+  margin: 0.5rem 0 0.5rem 1.5rem;
+  padding: 0;
+}
+
+.student-meta li {
+  margin-bottom: 0.25rem;
+}
+
+/* Talks */
+.talks-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+}
+
+.talk-item {
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.75rem;
+}
+
+.talk-item:last-child {
+  border-bottom: none;
+}
+
+.talk-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+  gap: 0.5rem;
+}
+
+.talk-header h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--heading-color);
+}
+
+.upcoming-badge {
+  background-color: var(--link-color);
+  color: #fff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 3px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.talk-meta {
+  margin-bottom: 0.25rem;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+.talk-meta p {
+  margin-bottom: 0.25rem;
+}
+
+.talk-meta strong {
+  color: var(--heading-color);
+  font-weight: 600;
+}
+
+.talk-meta a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+.talk-meta a:hover {
+  text-decoration: underline;
+}
+
+/* Activities */
+.activities-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+}
+
+.activity-item {
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.75rem;
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+}
+
+.activity-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+  gap: 0.5rem;
+}
+
+.activity-header h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--heading-color);
+}
+
+.activity-year {
+  background-color: var(--border-color);
+  color: var(--text-color);
+  padding: 0.25rem 0.75rem;
+  border-radius: 3px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.activity-meta {
+  margin-bottom: 0.25rem;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+.activity-meta p {
+  margin-bottom: 0.25rem;
+}
+
+.activity-meta strong {
+  color: var(--heading-color);
+  font-weight: 600;
+}
+
+.activity-meta a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+.activity-meta a:hover {
+  text-decoration: underline;
+}
+
+.activity-note {
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+/* Publications */
+.publication {
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.75rem;
+}
+
+.publication:last-child {
+  border-bottom: none;
+}
+
+.publication p {
+  margin-bottom: 0.25rem;
+}
+
+.publication p:first-child {
+  font-size: 1.1rem;
+  line-height: 1.3;
+}
+
+.publication p:last-child {
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.bibtex-link {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+.bibtex-link:hover {
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 768px) {
+  nav a {
+    margin: 0.35rem;
+    font-size: 0.9rem;
+  }
+
+  main {
+    padding: 1rem 0.75rem;
+  }
+
+  .profile-photo {
+    width: 25%;
+  }
+
+  .talk-header,
+  .activity-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  header {
+    padding: 0.5rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  main {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .profile-photo {
+    float: none;
+    display: block;
+    width: 40%;
+    max-width: 160px;
+    margin: 0 auto 1rem;
+  }
+}
