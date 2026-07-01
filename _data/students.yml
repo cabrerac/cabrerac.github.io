@@ -44,7 +44,7 @@ past:
     graduation_year: 2020
     publications:
       - title: "Cities-Board: A Framework to Automate the Development of Smart Cities Dashboards"
-        url: "https://ieeexplore.ieee.org/abstract/document/9119074"
+        url: "https://doi.org/10.1109/JIOT.2020.3002581"
     artefacts:
       - name: "cities-board-dev"
         url: "https://github.com/cabrerac/cities-board-dev"
