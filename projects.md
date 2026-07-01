@@ -5,7 +5,11 @@ description: "Research programmes and collaborations"
 permalink: /projects/
 ---
 
-I lead the [Interfaces](https://mlatcl.github.io/projects/interfaces.html) research programme at ML@CL, focusing on interpretable, self-sustaining multi-agent AI systems and extending the [AutoAI](https://mlatcl.github.io/projects/autoai.html) project. {% include interfaces-programme-agenda.html %}
+I lead the [Interfaces](https://mlatcl.github.io/projects/interfaces.html) research programme at ML@CL, focusing on interpretable, self-sustaining multi-agent AI systems.
+
+{% include interfaces-programme-agenda.html %}
+
+Prior to this, I worked as a postdoc on the [AutoAI](https://mlatcl.github.io/projects/autoai.html) project.
 
 ### Public software
 

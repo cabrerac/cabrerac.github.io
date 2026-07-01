@@ -2,6 +2,10 @@
   url: https://github.com/cabrerac/doagent
   description: Observable multi-agent systems
 
+- title: SaLS
+  url: https://github.com/cabrerac/semi-automatic-literature-survey
+  description: Semi-automatic literature survey tool for reproducible systematic reviews
+
 - title: iFogSim-Placement
   url: https://github.com/DawnSpider96/iFogSim-Placement
   description: Edge service placement simulation (with Joseph Poon, SEAMS 2026 artifact)

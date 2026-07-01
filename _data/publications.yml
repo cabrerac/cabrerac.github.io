@@ -340,7 +340,7 @@ publications:
   doi: 10.1109/ColumbianCC.2014.6955332
   source: manual
   show: true
-- title: 'MOWL: A Domain-Specific Language for Modular Ontology Manipulation'
+- title: 'MOWL: Domain-Specific Language for Handling Modular Ontologies'
   authors: Christian Cabrera
   journal: Master's thesis, Universidad de los Andes
   year: '2014'

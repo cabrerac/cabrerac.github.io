@@ -7,7 +7,7 @@
   year: 2026
   month: February
   date: '2026-02-23'
-  type: conference_talk
+  type: invited_talk
   status: past
   visible: true
   slides: https://cabrerac.github.io/assets/slides/2026/icms-intellectual-debt.html
@@ -86,7 +86,7 @@
   year: 2026
   month: April
   date: '2026-04-01'
-  type: conference_talk
+  type: invited_talk
   status: past
   visible: true
   slides: https://cabrerac.github.io/assets/slides/2026/sorrento-doagent.html
@@ -123,7 +123,7 @@
   year: 2026
   month: April
   date: '2026-04-17'
-  type: conference_talk
+  type: invited_talk
   status: past
   visible: true
   slides: https://cabrerac.github.io/assets/slides/2026/safaris-intellectual-debt.html
