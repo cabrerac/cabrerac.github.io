@@ -14,7 +14,7 @@
 {% if phd_students.size > 0 %}
 <div class="collapsible-header active"><h3 class="collapsible-title">PhD Students</h3></div>
 <div class="collapsible-content expanded">
-<div class="students-list">
+<div class="collapsible-inner students-list">
 {% for student in phd_students %}
 <div class="student-item">
 {% include student_item.html student=student %}
@@ -27,7 +27,7 @@
 {% if masters_students.size > 0 %}
 <div class="collapsible-header active"><h3 class="collapsible-title">Master's Students</h3></div>
 <div class="collapsible-content expanded">
-<div class="students-list">
+<div class="collapsible-inner students-list">
 {% for student in masters_students %}
 <div class="student-item">
 {% include student_item.html student=student %}
@@ -40,7 +40,7 @@
 {% if undergrad_students.size > 0 %}
 <div class="collapsible-header active"><h3 class="collapsible-title">Undergraduate Students</h3></div>
 <div class="collapsible-content expanded">
-<div class="students-list">
+<div class="collapsible-inner students-list">
 {% for student in undergrad_students %}
 <div class="student-item">
 {% include student_item.html student=student %}

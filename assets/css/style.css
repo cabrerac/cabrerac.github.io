@@ -1,11 +1,16 @@
 /* Site styles (list layouts also in main.scss as SCSS reference; loaded rules live here). */
 
 :root {
-  --border-color: #e8e8e8;
-  --heading-color: #1a1a1a;
+  /* Aligned with assets/css/marp-styles.css slide palette */
+  --color-primary: #224466;
+  --color-accent: #0e73b8;
+  --color-accent-hover: #0a5a91;
+  --border-color: #e1e4e8;
+  --heading-color: #224466;
   --text-color: #333333;
-  --text-muted: #666666;
-  --link-color: #1a1a1a;
+  --text-muted: #59636e;
+  --link-color: #0e73b8;
+  --code-bg: #f6f8fa;
 }
 
 /* Reset */
@@ -15,15 +20,32 @@
   box-sizing: border-box;
 }
 
+html {
+  height: 100%;
+}
+
 body {
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   font-size: 16px;
   line-height: 1.65;
   color: var(--text-color);
   background-color: #ffffff;
-  min-height: 100vh;
+  height: 100%;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .skip-link {
@@ -44,9 +66,10 @@ body {
 
 header {
   background-color: #ffffff;
-  padding: 1.25rem 1rem 0.75rem;
+  padding: 1rem 1rem 0.65rem;
   text-align: center;
   border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
 }
 
 h1 {
@@ -86,12 +109,12 @@ nav a {
 }
 
 nav a:hover {
-  color: var(--heading-color);
+  color: var(--color-accent);
   text-decoration: underline;
 }
 
 nav a.active {
-  color: var(--heading-color);
+  color: var(--color-accent);
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 0.2em;
@@ -101,10 +124,13 @@ main {
   max-width: 42rem;
   margin: 0 auto;
   font-size: 1rem;
-  padding: 2rem 1.25rem 2.5rem;
+  padding: 1.75rem 1.25rem 2rem;
   background-color: #fff;
-  flex: 1;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
   width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 main a {
@@ -114,7 +140,7 @@ main a {
 }
 
 main a:hover {
-  color: var(--text-muted);
+  color: var(--color-accent-hover);
 }
 
 main h2,
@@ -129,22 +155,31 @@ main h3 {
 
 footer {
   text-align: center;
-  padding: 1.25rem 1rem;
+  padding: 0.45rem 1rem;
   background-color: #ffffff;
   color: var(--text-muted);
-  margin-top: auto;
-  font-size: 0.9rem;
+  flex-shrink: 0;
+  font-size: 0.85rem;
   border-top: 1px solid var(--border-color);
 }
 
 footer a {
-  color: var(--text-muted);
+  color: var(--link-color);
   text-decoration: none;
 }
 
 footer a:hover {
-  color: var(--heading-color);
+  color: var(--color-accent-hover);
   text-decoration: underline;
+}
+
+.footer-line {
+  margin: 0;
+}
+
+.footer-sep {
+  margin: 0 0.4rem;
+  color: var(--border-color);
 }
 
 .footer-contact {
@@ -162,7 +197,7 @@ pre {
 }
 
 code {
-  background-color: #f1f1f1;
+  background-color: var(--code-bg);
   color: #c7254e;
   padding: 0.1rem 0.3rem;
   border-radius: 3px;
@@ -185,7 +220,7 @@ p {
 }
 
 .social-icons-container a:hover {
-  color: var(--heading-color);
+  color: var(--color-accent);
 }
 
 .custom-icon {
@@ -257,18 +292,24 @@ p {
 }
 
 .collapsible-content {
-  max-height: 0;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s ease, padding 0.45s ease;
   overflow: hidden;
-  transition: max-height 0.25s ease-out;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.collapsible-content > .collapsible-inner {
+  min-height: 0;
+  overflow: hidden;
 }
 
 .collapsible-content.expanded {
-  max-height: 10000px;
-  transition: max-height 0.35s ease-in;
+  grid-template-rows: 1fr;
   padding-top: 0.5rem;
-  padding-bottom: 0.25rem;
+  padding-bottom: 0.35rem;
 }
-
 .profile-photo {
   float: left;
   margin-right: 1rem;

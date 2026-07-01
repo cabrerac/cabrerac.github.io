@@ -6,7 +6,7 @@
 {% if conference_org.size > 0 %}
 <div class="collapsible-header active"><h3 class="collapsible-title">Conference Organisation & Leadership</h3></div>
 <div class="collapsible-content expanded">
-<div class="activities-list">
+<div class="collapsible-inner activities-list">
 {% for activity in conference_org %}
 <div class="activity-item">
 <div class="activity-header">
@@ -32,7 +32,7 @@
 {% if editorial.size > 0 %}
 <div class="collapsible-header active"><h3 class="collapsible-title">Editorial Work</h3></div>
 <div class="collapsible-content expanded">
-<div class="activities-list">
+<div class="collapsible-inner activities-list">
 {% for activity in editorial %}
 <div class="activity-item">
 <h3>{{ activity.title }}</h3>
@@ -52,7 +52,7 @@
 {% if reviewing.size > 0 %}
 <div class="collapsible-header active"><h3 class="collapsible-title">Peer Review</h3></div>
 <div class="collapsible-content expanded">
-<div class="activities-list">
+<div class="collapsible-inner activities-list">
 {% for activity in reviewing %}
 <div class="activity-item">
 {% if activity.journal %}

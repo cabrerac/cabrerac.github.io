@@ -7,6 +7,7 @@
 {% if journals.size > 0 %}
 <div class="collapsible-header active"><h3 class="collapsible-title">Journal Articles</h3></div>
 <div class="collapsible-content expanded">
+<div class="collapsible-inner">
 {% for pub in journals %}
 <div class="publication">
 {% assign paper_link = pub.url %}
@@ -22,11 +23,13 @@
 </div>
 {% endfor %}
 </div>
+</div>
 {% endif %}
 
 {% if conferences.size > 0 %}
 <div class="collapsible-header active"><h3 class="collapsible-title">Conference Papers</h3></div>
 <div class="collapsible-content expanded">
+<div class="collapsible-inner">
 {% for pub in conferences %}
 <div class="publication">
 {% assign paper_link = pub.url %}
@@ -42,11 +45,13 @@
 </div>
 {% endfor %}
 </div>
+</div>
 {% endif %}
 
 {% if preprints.size > 0 %}
 <div class="collapsible-header active"><h3 class="collapsible-title">Preprints</h3></div>
 <div class="collapsible-content expanded">
+<div class="collapsible-inner">
 {% for pub in preprints %}
 <div class="publication">
 {% assign paper_link = pub.url %}
@@ -62,12 +67,14 @@
 </div>
 {% endfor %}
 </div>
+</div>
 {% endif %}
 
 {% assign theses = publications | where: "type", "thesis" %}
 {% if theses.size > 0 %}
 <div class="collapsible-header active"><h3 class="collapsible-title">Theses</h3></div>
 <div class="collapsible-content expanded">
+<div class="collapsible-inner">
 {% for pub in theses %}
 <div class="publication">
 {% assign paper_link = pub.url %}
@@ -82,5 +89,6 @@
 <p><em>{{ pub.journal }}</em>, {{ pub.year }}</p>
 </div>
 {% endfor %}
+</div>
 </div>
 {% endif %}

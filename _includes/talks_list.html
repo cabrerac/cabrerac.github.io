@@ -7,12 +7,14 @@
 {% for year_group in talks_by_year %}
 <div class="collapsible-header{% if forloop.first %} active{% endif %}"><h3 class="collapsible-title">{{ year_group.name }}</h3></div>
 <div class="collapsible-content{% if forloop.first %} expanded{% endif %}">
+<div class="collapsible-inner">
 {% for talk in year_group.items %}
 <div class="talk-item">
 <p><strong>{{ talk.title }}</strong>{% if talk.status == "upcoming" %} <span class="upcoming-badge">Upcoming</span>{% endif %}</p>
 <p>{% if talk.conference %}{{ talk.conference }}{% if talk.venue %} ({{ talk.venue }}){% endif %}{% else %}{{ talk.venue }}{% endif %}{% if talk.location %}, {{ talk.location }}{% endif %} — {{ talk.month }} {{ talk.year }}{% if talk.slides %} | <a href="{{ talk.slides }}" target="_blank" rel="noopener noreferrer">[View Slides]</a>{% endif %}{% if talk.page %} | <a href="{{ talk.page }}">[More]</a>{% endif %}</p>
 </div>
 {% endfor %}
+</div>
 </div>
 {% endfor %}
 {% endif %}
