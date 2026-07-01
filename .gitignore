@@ -125,8 +125,8 @@ yarn-error.log*
 ehthumbs.db
 Thumbs.db
 
-# Cursor rules
-.cursor/rules/
+# Cursor IDE (local machine; not for version control)
+.cursor/
 
 # Google Cloud (Forms builder — local credentials)
 scripts/forms_build/client_secrets.json
