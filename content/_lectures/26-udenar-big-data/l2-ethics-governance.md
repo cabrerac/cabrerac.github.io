@@ -43,7 +43,7 @@ visible: true
 
 - [OpenStreetMap — Nariño](https://www.openstreetmap.org/relation/1380130)
 - [Overpass API](https://wiki.openstreetmap.org/wiki/Overpass_API)
-- [**Overpass by Example** — building queries](https://dev.overpass-api.de/overpass-doc/en/) ([es](https://dev.overpass-api.de/overpass-doc/es/))
+- [Overpass by Example - building queries](https://dev.overpass-api.de/overpass-doc/en/) ([es](https://dev.overpass-api.de/overpass-doc/es/))
 - [Overpass QL syntax (reference)](https://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL) · [Overpass Turbo](https://wiki.openstreetmap.org/wiki/Overpass_turbo) (try queries in the browser)
 - [GEIH 2024 — data dictionary (DANE)](https://microdatos.dane.gov.co/index.php/catalog/819/data-dictionary)
 - [UK Data and AI Ethics Framework](https://www.gov.uk/government/publications/data-ethics-framework/data-and-ai-ethics-framework)

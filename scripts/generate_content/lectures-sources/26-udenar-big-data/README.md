@@ -2,6 +2,12 @@
 
 One source file per **lecture** → lecture page + slides + Colab notebook via `scripts/generate_content/generate_content.py`.
 
+**Source layout** (same pattern as `25-udenar-ml-intro`):
+
+- **`lectures-sources/26-udenar-big-data/<lecture>.md`** — slides snippets, `practical-slides.md` (deck-only), RENDER block (web page links).
+- **`_includes/_snippets/26-udenar-big-data/<lecture>/practical.md`** — notebook content (`<!-- NOTEBOOK: -->` … `<!-- end NOTEBOOK: -->`), included at the end of the source file.
+- **`week-N-group.md`** + matching **`week-N-group/practical.md`** for group homework notebooks.
+
 **Lecture order = AA-rec (ethics-first):** L1 intro → **L2 ethics + governance foundations** → L3 storage → L4 processing → L5 ingestion → L6 analytics + viz (with governance-in-practice synthesis). Operational governance lives as hooks in L3–L6 plus project rubric P3.
 
 **Delivery rhythm (Saturdays 1–3):** one shared **07:00–13:00 Colombia / 13:00–19:00 UK** block per Saturday covering both lectures of the day, after each lecture's **~2 h async video** (V1 theory ~1 h + V2 lab demo ~1 h) released earlier in the week. See `work-space/teaching/big-data/planning/session-plan.md`.

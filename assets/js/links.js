@@ -1,7 +1,8 @@
 (() => {
   const TEACHING_PATH = /^\/teaching\//;
   const NEW_TAB_ASSET_PATH = /^\/assets\/(?:slides|notebooks|docs)\//;
-  const SAME_TAB_ASSET_PATH = /^\/assets\/documents\//;
+  const SAME_TAB_DOCUMENT_PATH = /^\/assets\/documents\//;
+  const SAME_TAB_DOCUMENT_EXT = /\.(docx|pptx|txt)$/i;
 
   function resolveUrl(href) {
     try {
@@ -31,8 +32,12 @@
       return false;
     }
 
-    if (sameOrigin && SAME_TAB_ASSET_PATH.test(path)) {
+    if (sameOrigin && SAME_TAB_DOCUMENT_PATH.test(path) && SAME_TAB_DOCUMENT_EXT.test(path)) {
       return false;
+    }
+
+    if (sameOrigin && /\.pdf$/i.test(path)) {
+      return true;
     }
 
     if (sameOrigin && NEW_TAB_ASSET_PATH.test(path)) {
