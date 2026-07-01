@@ -10,6 +10,6 @@ Helper scripts for the site and workflows. Each tool lives in its own folder wit
 | **[pdf_to_markdown](pdf_to_markdown/)** | Extract a PDF into Markdown for use as LLM context (e.g. chat with a paper). |
 | **[ensure_cursor_gitignored.ps1](ensure_cursor_gitignored.ps1)** | Add `.cursor/` to `.gitignore` and `git rm --cached` tracked Cursor rules across repos. |
 | **[push_cursor_gitignore_repos.ps1](push_cursor_gitignore_repos.ps1)** | `pull` → commit `.gitignore` / `.cursor` untrack only → `push` (repos with no other dirty files). |
-| **[publications/](publications/)** | Single-source `_data/publications.yml` → generated `assets/bibs/bibfile.bib` ([build workflow](../.github/workflows/build-publications.yml) on push). |
+| **[publications/](publications/)** | `_data/publications.yml` → `bibfile.bib`; [ORCID sync](publications/sync_orcid.py) + [build](publications/build.py) ([workflow](../.github/workflows/build-publications.yml)). |
 
 Run commands from the **repository root**. See each tool’s README for setup and usage.
