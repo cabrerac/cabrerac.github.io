@@ -1,16 +1,26 @@
-"""Add rel=noopener to lecture resource links and mark Back to course as internal."""
+"""Remove redundant Back to course links from lecture resource bars."""
 import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1] / "content" / "_lectures"
-EXT = ' target="_blank" rel="noopener noreferrer"'
+
+BACK = re.compile(
+    r'\s*&nbsp;\|\s*<a href="/teaching/[^"]+/"(?: class="course-nav__internal")?>Back to course</a>',
+    re.IGNORECASE,
+)
+BACK_TRAILING = re.compile(
+    r'<a href="/teaching/[^"]+/"(?: class="course-nav__internal")?>Back to course</a>',
+    re.IGNORECASE,
+)
 
 
 def fix(text: str) -> str:
-    text = re.sub(r'target="_blank"(?!\s+rel=)', EXT, text)
+    text = BACK.sub("", text)
+    text = BACK_TRAILING.sub("", text)
+    text = re.sub(r"(?:\s*&nbsp;\|\s*)+\s*(?=</p>)", "", text)
     text = re.sub(
-        r'(<a href="/teaching/[^"]+/")( class="course-nav__internal")?>Back to course</a>',
-        r'\1 class="course-nav__internal">Back to course</a>',
+        r'<div class="lecture-resources">\s*<p>\s*</p>\s*</div>\s*',
+        "",
         text,
     )
     return text

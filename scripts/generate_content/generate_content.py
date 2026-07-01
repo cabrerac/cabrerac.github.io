@@ -1069,12 +1069,9 @@ html[data-theme='dark'] code::before {
             )
         group_nb = lecture_metadata.get('group_notebook')
         if group_nb and not lecture_metadata.get('skip_notebook'):
-            links.append(
-                f'<a href="{colab_base}/{group_nb}.ipynb"{ext}>'
-                "Notebook - Group</a>"
-            )
         links.append(
-            f'<a href="/teaching/{course_code}/" class="course-nav__internal">Back to course</a>'
+            f'<a href="{colab_base}/{group_nb}.ipynb"{ext}>'
+            "Notebook - Group</a>"
         )
         return (
             '<div class="lecture-resources">\n  <p>\n    '

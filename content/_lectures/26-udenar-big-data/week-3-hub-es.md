@@ -16,12 +16,6 @@ visible: false
 
 <link rel="stylesheet" href="/assets/css/slides.css">
 <link rel="stylesheet" href="/assets/css/lecture-article.css">
-<div class="lecture-resources">
-  <p>
-    <a href="/teaching/26-udenar-big-data/" class="course-nav__internal">Back to course</a>
-  </p>
-</div>
-
 **Sábado 20 jun 2026 · 07:00–13:00 (Colombia)** · Lecciones **L5** (Ingesta y flujos) + **L6** (Analítica y visualización)
 
 ---

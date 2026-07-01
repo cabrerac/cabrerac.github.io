@@ -6,7 +6,7 @@
     {% include header.html %}
     <main id="content" class="main{% if page.sidebar %} main--with-sidebar{% endif %}">
       {% assign course = site.courses | where: "course_code", page.course_code | first %}
-      {% include course_nav.html %}
+      {% include course_up_nav.html %}
       {% if page.title %}
       <h1 class="page-title">{{ page.title }}</h1>
       {% endif %}

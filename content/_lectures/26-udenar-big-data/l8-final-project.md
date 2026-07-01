@@ -20,12 +20,6 @@ visible: true
 
 <link rel="stylesheet" href="/assets/css/slides.css">
 <link rel="stylesheet" href="/assets/css/lecture-article.css">
-<div class="lecture-resources">
-  <p>
-    <a href="/teaching/26-udenar-big-data/" class="course-nav__internal">Back to course</a>
-  </p>
-</div>
-
 ### Projects Catalog
 
 {% assign catalog = site.data['26-udenar-big-data-projects'] %}

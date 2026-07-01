@@ -252,13 +252,17 @@ p {
   color: inherit;
 }
 
-.course-nav {
-  margin: 0 0 0.35rem;
+.course-up-nav {
+  margin: 0 0 0.5rem;
   text-align: left;
 }
 
-.course-nav__path {
-  margin: 0 0 0.5rem;
+.course-up-nav a {
+  text-decoration: none;
+}
+
+.course-up-nav a:hover {
+  text-decoration: underline;
 }
 
 .lecture-resources {
