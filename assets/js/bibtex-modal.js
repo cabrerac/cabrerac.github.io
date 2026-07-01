@@ -1,81 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const style = document.createElement("style");
-  style.textContent = `
-    .bibtex-modal {
-      display: none;
-      position: fixed;
-      z-index: 10000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.4);
-    }
-
-    .bibtex-modal-content {
-      background-color: #fefefe;
-      margin: 5% auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%;
-      max-width: 800px;
-      border-radius: 5px;
-    }
-
-    .bibtex-modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-
-    .bibtex-modal-close {
-      color: #aaa;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .bibtex-modal-close:hover,
-    .bibtex-modal-close:focus {
-      color: black;
-    }
-
-    .bibtex-modal-body {
-      background-color: #f5f5f5;
-      padding: 15px;
-      border-radius: 3px;
-      font-family: monospace;
-      white-space: pre-wrap;
-      overflow-x: auto;
-      max-height: 60vh;
-      overflow-y: auto;
-    }
-
-    .bibtex-modal-copy {
-      margin-top: 10px;
-      padding: 8px 15px;
-      background-color: #0366d6;
-      color: white;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-      display: block;
-      width: 100%;
-    }
-
-    .bibtex-modal-copy:hover {
-      background-color: #0056b3;
-    }
-
-    .bibtex-modal-copy:active {
-      background-color: #004085;
-    }
-  `;
-  document.head.appendChild(style);
-
-  // Add click handlers to bibtex links
   document.querySelectorAll('.bibtex-link').forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
@@ -85,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function fetchBibtexEntry(bibkey, fileUrl) {
-    // Extract just the bib file URL without the hash
     const bibFileUrl = fileUrl.split('#')[0];
 
     fetch(bibFileUrl)
@@ -101,22 +23,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function extractBibtexEntry(bibtexContent, bibkey) {
-    // Escape special regex characters in bibkey (like dots in DOIs)
     const escapedKey = bibkey.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-
-    // Match the full BibTeX entry including the type (article, inproceedings, etc.)
-    // This handles keys that appear after @type{
     const regex = new RegExp(`(@[a-zA-Z]+\\{[^}]*${escapedKey}[^}]*\\{[^}]*\\}.*?)\\n\\n(?=@|$)`, 's');
     const match = bibtexContent.match(regex);
 
     if (match) {
       let entry = match[1].trim();
-      // Clean up the entry to ensure proper formatting
       entry = entry.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
       return entry;
     }
 
-    // Fallback: try to find the entry more flexibly
     const lines = bibtexContent.split('\n');
     let entryLines = [];
     let inEntry = false;
@@ -127,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       if (inEntry) {
         entryLines.push(lines[i]);
-        // Entry ends when we hit a line with just } or empty line followed by @
         if (lines[i].trim() === '}') {
           break;
         }
@@ -142,7 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function showBibtexModal(content, bibkey) {
-    // Remove existing modal if any
     const existingModal = document.getElementById('bibtex-modal');
     if (existingModal) {
       existingModal.remove();
@@ -159,10 +73,13 @@ document.addEventListener("DOMContentLoaded", () => {
     modalHeader.className = 'bibtex-modal-header';
 
     const title = document.createElement('h3');
-    title.textContent = `BibTeX Entry: ${bibkey}`;
+    title.className = 'bibtex-modal-title';
+    title.textContent = `BibTeX: ${bibkey}`;
 
-    const closeBtn = document.createElement('span');
+    const closeBtn = document.createElement('button');
+    closeBtn.type = 'button';
     closeBtn.className = 'bibtex-modal-close';
+    closeBtn.setAttribute('aria-label', 'Close');
     closeBtn.textContent = '\u00d7';
 
     modalHeader.appendChild(title);
@@ -187,7 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(modal);
     modal.style.display = 'block';
 
-    // Close modal handlers
     closeBtn.onclick = () => modal.style.display = 'none';
 
     window.onclick = (event) => {
@@ -196,7 +112,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
 
-    // Store content for copying
     window.bibtexContent = content;
   }
 });

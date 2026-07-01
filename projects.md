@@ -5,17 +5,11 @@ description: "Research programmes and collaborations"
 permalink: /projects/
 ---
 
-## Interfaces (ML@CL)
-
-I lead the **[Interfaces research programme](https://mlatcl.github.io/projects/interfaces.html)** at ML@CL, focusing on interpretable, self-sustaining multi-agent AI systems and extending [AutoAI](https://mlatcl.github.io/projects/autoai.html).
-
-{% include interfaces-programme-agenda.html %}
+I lead the [Interfaces](https://mlatcl.github.io/projects/interfaces.html) research programme at ML@CL, focusing on interpretable, self-sustaining multi-agent AI systems and extending the [AutoAI](https://mlatcl.github.io/projects/autoai.html) project. {% include interfaces-programme-agenda.html %}
 
 ### Public software
 
-**[DOAgent](https://github.com/cabrerac/doagent)** - observable multi-agent systems
-
-**[iFogSim-Placement](https://github.com/DawnSpider96/iFogSim-Placement)** - edge service placement simulation (with Joseph Poon, SEAMS 2026 artifact)
+{% include software_list.html %}
 
 ### Student projects
 

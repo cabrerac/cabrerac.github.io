@@ -1,31 +1,24 @@
 {% if site.lectures %}
   {% assign course_lectures = site.lectures | where: "course_code", page.course_code | where: "visible", true | sort: 'session' %}
   {% if course_lectures.size > 0 %}
-    <div class="lectures">
-        <h2>Lectures</h2>
-        <ul class="lectures-list">
-        {% for lecture in course_lectures %}
-            <li class="lecture-item">
-                <a href="{{ lecture.permalink }}" class="lecture-title">
-                    {{ lecture.title }}
-                </a>
-                <div class="lecture-meta">
-                    <span class="lecture-date">Date: {{ lecture.lecture_date | date: "%B %d, %Y" }}</span>
-                    <span class="lecture-description">Description: {{ lecture.description }}</span>
-                </div>
-            </li>
-        {% endfor %}
-        </ul>
+    <h3 class="section-heading">Lectures</h3>
+    <div class="lectures-list">
+    {% for lecture in course_lectures %}
+      <div class="list-item">
+        <div class="list-row">
+          <div class="list-main">
+            <p class="list-primary"><a href="{{ lecture.permalink }}">{{ lecture.title }}</a></p>
+          </div>
+        </div>
+        <p class="list-secondary">{{ lecture.lecture_date | date: "%B %d, %Y" }}{% if lecture.description %} · {{ lecture.description }}{% endif %}</p>
+      </div>
+    {% endfor %}
     </div>
   {% else %}
-    <div class="lectures">
-        <h2>Lectures</h2>
-        <p>No lectures available for this course yet.</p>
-    </div>
+    <h3 class="section-heading">Lectures</h3>
+    <p class="list-secondary">No lectures available for this course yet.</p>
   {% endif %}
 {% else %}
-    <div class="lectures">
-        <h2>Lectures</h2>
-        <p>No lectures available.</p>
-    </div>
+  <h3 class="section-heading">Lectures</h3>
+  <p class="list-secondary">No lectures available.</p>
 {% endif %}

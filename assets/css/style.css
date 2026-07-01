@@ -88,10 +88,6 @@ h1 {
   letter-spacing: -0.02em;
 }
 
-.page-title--home {
-  margin-bottom: 1rem;
-}
-
 nav {
   display: flex;
   justify-content: center;
@@ -188,15 +184,6 @@ footer a:hover {
   color: var(--border-color);
 }
 
-.footer-contact {
-  margin-bottom: 0.35rem;
-}
-
-.footer-contact a {
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
-}
-
 code,
 pre {
   font-family: Consolas, Monaco, monospace;
@@ -247,29 +234,14 @@ p {
   display: block;
   width: 100%;
   height: 100%;
-  filter: brightness(0) saturate(100%) invert(28%) sepia(98%) saturate(1200%) hue-rotate(182deg) brightness(93%) contrast(91%);
 }
 
-.social-icons-container a:hover .custom-icon img {
-  filter: brightness(0) saturate(100%) invert(16%) sepia(30%) saturate(1800%) hue-rotate(182deg) brightness(90%) contrast(95%);
+.social-icons-container .brand-icon img {
+  filter: none;
 }
 
-.cv-button {
-  display: block;
-  margin: 0 auto;
-  text-align: center;
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 16px;
-  color: #ffffff;
-  background-color: var(--heading-color);
-  text-decoration: none;
-  width: 150px;
-}
-
-.cv-button:hover {
-  background-color: #444;
+.social-icons-container a:hover .brand-icon img {
+  opacity: 0.85;
 }
 
 .collapsible-title {
@@ -337,7 +309,9 @@ p {
 .students-list,
 .talks-list,
 .activities-list,
-.courses-list {
+.courses-list,
+.software-list,
+.lectures-list {
   margin: 0;
   padding: 0;
 }
@@ -367,8 +341,18 @@ p {
 
 .list-actions {
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
   text-align: right;
   white-space: nowrap;
+}
+
+.list-tag {
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: var(--text-muted);
 }
 
 .list-action {
@@ -399,15 +383,18 @@ p {
 
 .list-primary {
   color: var(--text-color);
-}
-
-.list-primary strong {
-  color: var(--color-primary);
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .list-primary a {
-  font-weight: 600;
+  color: var(--link-color);
+  font-weight: 400;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.list-primary a:hover {
+  color: var(--color-accent-hover);
 }
 
 .list-secondary {
@@ -425,6 +412,27 @@ p {
 .list-note {
   font-style: italic;
 }
+
+.section-heading {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 1.75rem 0 0.75rem;
+  letter-spacing: -0.01em;
+}
+
+.contact-details {
+  margin-bottom: 1.25rem;
+}
+
+.contact-details > p {
+  margin-bottom: 0.15rem;
+}
+
+.contact-details > p:last-child {
+  margin-bottom: 0;
+}
+
 .profile-photo {
   float: left;
   margin-right: 1rem;
@@ -435,133 +443,96 @@ p {
   height: auto;
 }
 
-/* Teaching */
-.teaching-intro {
-  margin-bottom: 3rem;
-  padding-bottom: 2rem;
-  border-bottom: 2px solid var(--border-color);
+/* BibTeX modal */
+.bibtex-modal {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  inset: 0;
+  overflow: auto;
+  background-color: rgba(34, 68, 102, 0.35);
 }
 
-.teaching-intro h1 {
-  color: var(--heading-color);
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.teaching-intro p {
-  font-size: 1.1rem;
-  line-height: 1.6;
+.bibtex-modal-content {
+  background-color: #ffffff;
+  margin: 5% auto;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--border-color);
+  width: 90%;
+  max-width: 46rem;
+  border-radius: 4px;
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
   color: var(--text-color);
-  margin: 0;
 }
 
-.courses-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.course-item {
-  margin-bottom: 0;
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-.course-title {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 0.15rem;
-  color: var(--color-primary);
-  text-decoration: none;
-}
-
-.course-title:hover {
-  color: var(--link-color);
-  text-decoration: underline;
-}
-
-.course-meta {
+.bibtex-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
   margin-bottom: 0.75rem;
-  font-size: 0.95rem;
-  color: var(--text-muted);
 }
 
-.course-institution {
-  display: inline-block;
-  margin-right: 1rem;
-  font-weight: 500;
-}
-
-.course-date {
-  display: inline-block;
-}
-
-.course-description {
+.bibtex-modal-title {
   margin: 0;
   font-size: 1rem;
-  line-height: 1.5;
-  color: var(--text-color);
-}
-
-.lectures-list {
-  list-style: none;
-  padding: 0;
-  margin: 1.5rem 0;
-}
-
-.lecture-item {
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 1rem;
-}
-
-.lecture-item:last-child {
-  border-bottom: none;
-}
-
-.lecture-title {
-  display: block;
-  font-size: 1.2rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
   color: var(--heading-color);
-  text-decoration: none;
 }
 
-.lecture-title:hover {
-  color: var(--link-color);
-  text-decoration: underline;
-}
-
-.lecture-meta {
-  font-size: 0.95rem;
+.bibtex-modal-close {
   color: var(--text-muted);
-}
-
-.lecture-date {
-  display: block;
-  margin-bottom: 0.25rem;
-}
-
-.lecture-description {
-  display: block;
-  line-height: 1.4;
-}
-
-/* Students, talks, activities, publications use .list-item above */
-
-.upcoming-badge {
-  color: var(--text-muted);
+  font-size: 1.5rem;
+  line-height: 1;
+  font-weight: 400;
+  cursor: pointer;
+  border: none;
+  background: none;
   padding: 0;
-  border-radius: 0;
-  font-size: 0.85rem;
-  font-weight: 600;
-  white-space: nowrap;
 }
 
-.upcoming-badge::before {
-  content: "";
+.bibtex-modal-close:hover,
+.bibtex-modal-close:focus {
+  color: var(--heading-color);
+}
+
+.bibtex-modal-body {
+  background-color: var(--code-bg);
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  font-family: Consolas, Monaco, monospace;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  max-height: 60vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.bibtex-modal-body::-webkit-scrollbar {
+  display: none;
+}
+
+.bibtex-modal-copy {
+  margin-top: 0.75rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-accent);
+  color: #ffffff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 400;
+}
+
+.bibtex-modal-copy:hover {
+  background-color: var(--color-accent-hover);
 }
 
 .bibtex-link {
@@ -572,13 +543,26 @@ p {
   text-decoration: underline;
 }
 
+.upcoming-badge {
+  color: var(--text-muted);
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.85rem;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.upcoming-badge::before {
+  content: "";
+}
+
 @media only screen and (max-width: 768px) {
   nav {
-    gap: 0.2rem 0.75rem;
+    gap: 0.15rem 0.55rem;
   }
 
   nav a {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
   }
 
   main {
@@ -586,7 +570,9 @@ p {
   }
 
   .profile-photo {
-    width: 25%;
+    width: 22%;
+    min-width: 72px;
+    max-width: 110px;
   }
 }
 
@@ -605,14 +591,16 @@ p {
   }
 
   .profile-photo {
-    float: none;
+    float: left;
     display: block;
-    width: 40%;
-    max-width: 160px;
-    margin: 0 auto 1rem;
+    width: 26%;
+    min-width: 68px;
+    max-width: 100px;
+    margin: 0 0.75rem 0.5rem 0;
   }
 
   .social-icons-container {
-    text-align: center;
+    text-align: left;
+    clear: both;
   }
 }

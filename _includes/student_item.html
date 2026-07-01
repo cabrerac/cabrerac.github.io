@@ -7,7 +7,7 @@
   {% assign artefact_url = include.student.artefacts.first.url %}
 {% endif %}
 <div class="list-item student-item">
-<p class="list-primary"><strong>{{ include.student.name }}</strong> · {{ include.student.institution }} · {% if include.student.status == "current" %}Started: {{ include.student.start_year }}{% else %}Graduated: {{ include.student.graduation_year }}{% endif %}</p>
+<p class="list-primary">{{ include.student.name }} · {{ include.student.institution }} · {% if include.student.status == "current" %}Started: {{ include.student.start_year }}{% else %}Graduated: {{ include.student.graduation_year }}{% endif %}</p>
 <div class="list-row">
 <div class="list-main">
 <p class="list-secondary">Project: {% if paper_url %}<a href="{{ paper_url }}" target="_blank" rel="noopener noreferrer">{{ include.student.project }}</a>{% else %}{{ include.student.project }}{% endif %}</p>

@@ -9,7 +9,7 @@
 <div class="list-item publication">
 <div class="list-row">
 <div class="list-main">
-<p class="list-primary"><strong>{% if paper_link %}<a href="{{ paper_link }}" target="_blank" rel="noopener noreferrer">{{ pub.title }}</a>{% else %}{{ pub.title }}{% endif %}</strong></p>
+<p class="list-primary">{% if paper_link %}<a href="{{ paper_link }}" target="_blank" rel="noopener noreferrer">{{ pub.title }}</a>{% else %}{{ pub.title }}{% endif %}</p>
 </div>
 <div class="list-actions">
 <a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.id }}" class="list-action bibtex-link" data-bibkey="{{ pub.id }}">[bibtex]</a>

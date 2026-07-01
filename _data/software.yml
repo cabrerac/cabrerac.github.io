@@ -1,0 +1,7 @@
+- title: DOAgent
+  url: https://github.com/cabrerac/doagent
+  description: Observable multi-agent systems
+
+- title: iFogSim-Placement
+  url: https://github.com/DawnSpider96/iFogSim-Placement
+  description: Edge service placement simulation (with Joseph Poon, SEAMS 2026 artifact)

@@ -11,7 +11,7 @@
 <div class="list-item activity-item">
 <div class="list-row">
 <div class="list-main">
-<p class="list-primary"><strong>{{ activity.title }}</strong> ({{ activity.year }})</p>
+<p class="list-primary">{{ activity.title }} ({{ activity.year }})</p>
 </div>
 {% if activity.url %}
 <div class="list-actions">
@@ -34,7 +34,7 @@
 <div class="list-item activity-item">
 <div class="list-row">
 <div class="list-main">
-<p class="list-primary"><strong>{{ activity.title }}</strong> ({{ activity.year }})</p>
+<p class="list-primary">{{ activity.title }} ({{ activity.year }})</p>
 </div>
 {% if activity.url %}
 <div class="list-actions">
@@ -58,7 +58,7 @@
 {% if activity.journal %}
 <div class="list-row">
 <div class="list-main">
-<p class="list-primary"><strong>{{ activity.journal }}</strong> · Journal reviewer</p>
+<p class="list-primary">{{ activity.journal }} · Journal reviewer</p>
 </div>
 {% if activity.url %}
 <div class="list-actions">
@@ -69,7 +69,7 @@
 {% elsif activity.conference %}
 <div class="list-row">
 <div class="list-main">
-<p class="list-primary"><strong>{{ activity.conference }}</strong> ({{ activity.year }}) · {{ activity.title }}</p>
+<p class="list-primary">{{ activity.conference }} ({{ activity.year }}) · {{ activity.title }}</p>
 </div>
 {% if activity.url %}
 <div class="list-actions">

@@ -172,7 +172,7 @@ publications:
   show: true
 - title: 'uDiscovery: An Urban-Centric Model for Service Discovery in Smart Cities'
   authors: Christian Cabrera
-  journal: Trinity College Dublin
+  journal: Ph.D. thesis, Trinity College Dublin
   year: '2020'
   topic: soc
   type: thesis
@@ -340,13 +340,23 @@ publications:
   doi: 10.1109/ColumbianCC.2014.6955332
   source: manual
   show: true
-- title: 'MOWL: lenguaje de dominio específico para la manipulación de ontologías modulares'
+- title: 'MOWL: A Domain-Specific Language for Modular Ontology Manipulation'
   authors: Christian Cabrera
-  journal: Uniandes
+  journal: Master's thesis, Universidad de los Andes
   year: '2014'
   topic: knowledge
   type: thesis
   id: cabrera2014mowl
-  url: https://repositorio.uniandes.edu.co/server/api/core/bitstreams/fb368a77-e8a0-4017-afb9-d4a3c24db237/content
+  url: https://repositorio.uniandes.edu.co/bitstream/handle/1992/12552/u686290.pdf?sequence=1
+  source: manual
+  show: true
+- title: 'Dionisio: A Prototype Modeller for Simplex Linear Programming Problems'
+  authors: Christian Cabrera, Jairo Ruano
+  journal: Undergraduate thesis, Universidad de Nariño
+  year: '2011'
+  topic: nlp
+  type: thesis
+  id: cabrera2011dionisio
+  url: https://sired.udenar.edu.co/7680/
   source: manual
   show: true

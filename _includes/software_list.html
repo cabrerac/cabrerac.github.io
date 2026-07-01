@@ -1,0 +1,16 @@
+{% if site.data.software %}
+<div class="software-list">
+{% for item in site.data.software %}
+<div class="list-item">
+<div class="list-row">
+<div class="list-main">
+<p class="list-primary"><a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a></p>
+</div>
+</div>
+{% if item.description %}
+<p class="list-secondary">{{ item.description }}</p>
+{% endif %}
+</div>
+{% endfor %}
+</div>
+{% endif %}

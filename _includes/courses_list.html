@@ -11,7 +11,7 @@
 <div class="list-item course-item">
 <div class="list-row">
 <div class="list-main">
-<a href="{{ course.url | relative_url }}" class="course-title">{{ course.title }}</a>
+<p class="list-primary"><a href="{{ course.url | relative_url }}">{{ course.title }}</a></p>
 </div>
 </div>
 <p class="list-secondary">{% if course.institution %}{{ course.institution }}{% endif %}{% if course.start_date %} · {{ course.start_date | date: "%B %Y" }}{% endif %}</p>

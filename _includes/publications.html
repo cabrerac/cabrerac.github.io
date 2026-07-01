@@ -3,7 +3,7 @@
 {% assign journals = publications | where: "type", "journal" %}
 {% assign conferences = publications | where: "type", "conf" %}
 {% assign preprints = publications | where: "type", "preprint" %}
-{% assign theses = publications | where: "type", "thesis" %}
+{% assign theses = publications | where: "type", "thesis" | sort: "year" | reverse %}
 
 {% if journals.size > 0 %}
 <div class="collapsible-header active"><h3 class="collapsible-title">Journal Articles</h3></div>
