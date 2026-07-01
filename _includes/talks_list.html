@@ -1,5 +1,4 @@
 {% if site.data.talks %}
-{% comment %} Same as lectures: only show talks where visible != false (true or absent) {% endcomment %}
 {% assign visible_talks = site.data.talks | where_exp: "item", "item.visible != false" %}
 {% assign all_talks = visible_talks | sort: "date" | reverse %}
 {% assign talks_by_year = all_talks | group_by: "year" %}
@@ -7,15 +6,14 @@
 {% for year_group in talks_by_year %}
 <div class="collapsible-header{% if forloop.first %} active{% endif %}"><h3 class="collapsible-title">{{ year_group.name }}</h3></div>
 <div class="collapsible-content{% if forloop.first %} expanded{% endif %}">
-<div class="collapsible-inner">
+<div class="collapsible-inner talks-list">
 {% for talk in year_group.items %}
-<div class="talk-item">
-<p><strong>{{ talk.title }}</strong>{% if talk.status == "upcoming" %} <span class="upcoming-badge">Upcoming</span>{% endif %}</p>
-<p>{% if talk.conference %}{{ talk.conference }}{% if talk.venue %} ({{ talk.venue }}){% endif %}{% else %}{{ talk.venue }}{% endif %}{% if talk.location %}, {{ talk.location }}{% endif %} — {{ talk.month }} {{ talk.year }}{% if talk.slides %} | <a href="{{ talk.slides }}" target="_blank" rel="noopener noreferrer">[View Slides]</a>{% endif %}{% if talk.page %} | <a href="{{ talk.page }}">[More]</a>{% endif %}</p>
+<div class="list-item talk-item">
+<p class="list-primary"><strong>{% if talk.slides %}<a href="{{ talk.slides }}" target="_blank" rel="noopener noreferrer">{{ talk.title }}</a>{% else %}{{ talk.title }}{% endif %}</strong>{% if talk.status == "upcoming" %} · <span class="upcoming-badge">Upcoming</span>{% endif %}{% if talk.page %} · <a href="{{ talk.page }}">[more]</a>{% endif %}</p>
+<p class="list-secondary">{% if talk.conference %}{{ talk.conference }}{% if talk.venue %} ({{ talk.venue }}){% endif %}{% else %}{{ talk.venue }}{% endif %}{% if talk.location %}, {{ talk.location }}{% endif %} · {{ talk.month }} {{ talk.year }}</p>
 </div>
 {% endfor %}
 </div>
 </div>
 {% endfor %}
 {% endif %}
-

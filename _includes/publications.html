@@ -3,24 +3,14 @@
 {% assign journals = publications | where: "type", "journal" %}
 {% assign conferences = publications | where: "type", "conf" %}
 {% assign preprints = publications | where: "type", "preprint" %}
+{% assign theses = publications | where: "type", "thesis" %}
 
 {% if journals.size > 0 %}
 <div class="collapsible-header active"><h3 class="collapsible-title">Journal Articles</h3></div>
 <div class="collapsible-content expanded">
 <div class="collapsible-inner">
 {% for pub in journals %}
-<div class="publication">
-{% assign paper_link = pub.url %}
-{% if paper_link == nil or paper_link == '' %}
-  {% if pub.doi %}{% assign paper_link = pub.doi | prepend: 'https://doi.org/' %}{% endif %}
-  {% if paper_link == nil or paper_link == '' %}
-    {% if pub.arxiv %}{% assign paper_link = pub.arxiv | prepend: 'https://arxiv.org/abs/' %}{% endif %}
-  {% endif %}
-{% endif %}
-<p><strong>{{ pub.title }}</strong> <a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.id }}" class="bibtex-link" data-bibkey="{{ pub.id }}">[bibtex]</a>{% if paper_link %} <a href="{{ paper_link }}" target="_blank" rel="noopener noreferrer">[paper]</a>{% endif %}</p>
-<p>{{ pub.authors }}</p>
-<p><em>{{ pub.journal }}</em>, {{ pub.year }}</p>
-</div>
+{% include publication_entry.html pub=pub %}
 {% endfor %}
 </div>
 </div>
@@ -31,18 +21,7 @@
 <div class="collapsible-content expanded">
 <div class="collapsible-inner">
 {% for pub in conferences %}
-<div class="publication">
-{% assign paper_link = pub.url %}
-{% if paper_link == nil or paper_link == '' %}
-  {% if pub.doi %}{% assign paper_link = pub.doi | prepend: 'https://doi.org/' %}{% endif %}
-  {% if paper_link == nil or paper_link == '' %}
-    {% if pub.arxiv %}{% assign paper_link = pub.arxiv | prepend: 'https://arxiv.org/abs/' %}{% endif %}
-  {% endif %}
-{% endif %}
-<p><strong>{{ pub.title }}</strong> <a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.id }}" class="bibtex-link" data-bibkey="{{ pub.id }}">[bibtex]</a>{% if paper_link %} <a href="{{ paper_link }}" target="_blank" rel="noopener noreferrer">[paper]</a>{% endif %}</p>
-<p>{{ pub.authors }}</p>
-<p><em>{{ pub.journal }}</em>, {{ pub.year }}</p>
-</div>
+{% include publication_entry.html pub=pub %}
 {% endfor %}
 </div>
 </div>
@@ -53,41 +32,18 @@
 <div class="collapsible-content expanded">
 <div class="collapsible-inner">
 {% for pub in preprints %}
-<div class="publication">
-{% assign paper_link = pub.url %}
-{% if paper_link == nil or paper_link == '' %}
-  {% if pub.doi %}{% assign paper_link = pub.doi | prepend: 'https://doi.org/' %}{% endif %}
-  {% if paper_link == nil or paper_link == '' %}
-    {% if pub.arxiv %}{% assign paper_link = pub.arxiv | prepend: 'https://arxiv.org/abs/' %}{% endif %}
-  {% endif %}
-{% endif %}
-<p><strong>{{ pub.title }}</strong> <a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.id }}" class="bibtex-link" data-bibkey="{{ pub.id }}">[bibtex]</a>{% if paper_link %} <a href="{{ paper_link }}" target="_blank" rel="noopener noreferrer">[paper]</a>{% endif %}</p>
-<p>{{ pub.authors }}</p>
-<p><em>{{ pub.journal }}</em>, {{ pub.year }}</p>
-</div>
+{% include publication_entry.html pub=pub %}
 {% endfor %}
 </div>
 </div>
 {% endif %}
 
-{% assign theses = publications | where: "type", "thesis" %}
 {% if theses.size > 0 %}
 <div class="collapsible-header active"><h3 class="collapsible-title">Theses</h3></div>
 <div class="collapsible-content expanded">
 <div class="collapsible-inner">
 {% for pub in theses %}
-<div class="publication">
-{% assign paper_link = pub.url %}
-{% if paper_link == nil or paper_link == '' %}
-  {% if pub.doi %}{% assign paper_link = pub.doi | prepend: 'https://doi.org/' %}{% endif %}
-  {% if paper_link == nil or paper_link == '' %}
-    {% if pub.arxiv %}{% assign paper_link = pub.arxiv | prepend: 'https://arxiv.org/abs/' %}{% endif %}
-  {% endif %}
-{% endif %}
-<p><strong>{{ pub.title }}</strong> <a href="{{ site.bibtex.bibfiles[0] }}#{{ pub.id }}" class="bibtex-link" data-bibkey="{{ pub.id }}">[bibtex]</a>{% if paper_link %} <a href="{{ paper_link }}" target="_blank" rel="noopener noreferrer">[thesis]</a>{% endif %}</p>
-<p>{{ pub.authors }}</p>
-<p><em>{{ pub.journal }}</em>, {{ pub.year }}</p>
-</div>
+{% include publication_entry.html pub=pub %}
 {% endfor %}
 </div>
 </div>

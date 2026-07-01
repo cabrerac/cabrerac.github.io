@@ -1,3 +1,5 @@
-<b>{{ include.student.name }}</b> - {{ include.student.institution }} - {% if include.student.status == "current" %}Started: {{ include.student.start_year }}{% else %}Graduated: {{ include.student.graduation_year }}{% endif %}<br>
-Project: {{ include.student.project }}{% if include.student.publications and include.student.publications.size > 0 %} <a href="{{ include.student.publications.first.url }}" target="_blank" rel="noopener noreferrer">[paper]</a>{% endif %}{% if include.student.artefacts and include.student.artefacts.size > 0 %} <a href="{{ include.student.artefacts.first.url }}" target="_blank" rel="noopener noreferrer">[artefact]</a>{% endif %}<br>
-{% if include.student.description %}{{ include.student.description }}<br>{% endif %}
+<div class="list-item student-item">
+<p class="list-primary"><strong>{{ include.student.name }}</strong> · {{ include.student.institution }} · {% if include.student.status == "current" %}Started: {{ include.student.start_year }}{% else %}Graduated: {{ include.student.graduation_year }}{% endif %}</p>
+<p class="list-secondary">Project: {{ include.student.project }}{% if include.student.publications and include.student.publications.size > 0 %} · <a href="{{ include.student.publications.first.url }}" target="_blank" rel="noopener noreferrer">[paper]</a>{% endif %}{% if include.student.artefacts and include.student.artefacts.size > 0 %} · <a href="{{ include.student.artefacts.first.url }}" target="_blank" rel="noopener noreferrer">[artefact]</a>{% endif %}</p>
+{% if include.student.description %}<p class="list-meta">{{ include.student.description }}</p>{% endif %}
+</div>

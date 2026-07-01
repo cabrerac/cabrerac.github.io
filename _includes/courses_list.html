@@ -8,18 +8,11 @@
 <div class="collapsible-inner courses-list">
 {% assign year_courses = visible_courses | where: "year", year | sort: "start_date" | reverse %}
 {% for course in year_courses %}
-<div class="course-item">
+<div class="list-item course-item">
 <a href="{{ course.url | relative_url }}" class="course-title">{{ course.title }}</a>
-<div class="course-meta">
-{% if course.institution %}
-<span class="course-institution">{{ course.institution }}</span>
-{% endif %}
-{% if course.start_date %}
-<span class="course-date">{{ course.start_date | date: "%B %Y" }}</span>
-{% endif %}
-</div>
+<p class="list-secondary">{% if course.institution %}{{ course.institution }}{% endif %}{% if course.start_date %} · {{ course.start_date | date: "%B %Y" }}{% endif %}</p>
 {% if course.description %}
-<p class="course-description">{{ course.description }}</p>
+<p class="list-meta">{{ course.description }}</p>
 {% endif %}
 </div>
 {% endfor %}

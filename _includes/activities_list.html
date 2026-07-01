@@ -8,21 +8,9 @@
 <div class="collapsible-content expanded">
 <div class="collapsible-inner activities-list">
 {% for activity in conference_org %}
-<div class="activity-item">
-<div class="activity-header">
-<h3>{{ activity.title }}</h3>
-<span class="activity-year">{{ activity.year }}</span>
-</div>
-<div class="activity-meta">
-<p><strong>Role:</strong> {{ activity.role }}</p>
-<p><strong>Organisation:</strong> {{ activity.organisation }}{% if activity.abbreviation %} ({{ activity.abbreviation }}){% endif %}</p>
-{% if activity.note %}
-<p class="activity-note">{{ activity.note }}</p>
-{% endif %}
-{% if activity.url %}
-<p><a href="{{ activity.url }}" target="_blank" rel="noopener noreferrer">[Website]</a></p>
-{% endif %}
-</div>
+<div class="list-item activity-item">
+<p class="list-primary"><strong>{{ activity.title }}</strong> ({{ activity.year }}){% if activity.url %} · <a href="{{ activity.url }}" target="_blank" rel="noopener noreferrer">[website]</a>{% endif %}</p>
+<p class="list-secondary">{{ activity.role }} · {{ activity.organisation }}{% if activity.abbreviation %} ({{ activity.abbreviation }}){% endif %}{% if activity.note %} · <span class="list-note">{{ activity.note }}</span>{% endif %}</p>
 </div>
 {% endfor %}
 </div>
@@ -34,15 +22,9 @@
 <div class="collapsible-content expanded">
 <div class="collapsible-inner activities-list">
 {% for activity in editorial %}
-<div class="activity-item">
-<h3>{{ activity.title }}</h3>
-<div class="activity-meta">
-<p><strong>Publication:</strong> {{ activity.journal }}</p>
-<p><strong>Year:</strong> {{ activity.year }}</p>
-{% if activity.url %}
-<p><a href="{{ activity.url }}" target="_blank" rel="noopener noreferrer">[Volume Link]</a></p>
-{% endif %}
-</div>
+<div class="list-item activity-item">
+<p class="list-primary"><strong>{{ activity.title }}</strong> ({{ activity.year }}){% if activity.url %} · <a href="{{ activity.url }}" target="_blank" rel="noopener noreferrer">[volume]</a>{% endif %}</p>
+<p class="list-secondary">{{ activity.journal }}</p>
 </div>
 {% endfor %}
 </div>
@@ -54,24 +36,11 @@
 <div class="collapsible-content expanded">
 <div class="collapsible-inner activities-list">
 {% for activity in reviewing %}
-<div class="activity-item">
+<div class="list-item activity-item">
 {% if activity.journal %}
-<h3>{{ activity.journal }}</h3>
-<div class="activity-meta">
-<p><strong>Type:</strong> Journal Reviewer</p>
-{% if activity.url %}
-<p><a href="{{ activity.url }}" target="_blank" rel="noopener noreferrer">[Website]</a></p>
-{% endif %}
-</div>
+<p class="list-primary"><strong>{{ activity.journal }}</strong> · Journal reviewer{% if activity.url %} · <a href="{{ activity.url }}" target="_blank" rel="noopener noreferrer">[website]</a>{% endif %}</p>
 {% elsif activity.conference %}
-<h3>{{ activity.conference }}</h3>
-<div class="activity-meta">
-<p><strong>Role:</strong> {{ activity.title }}</p>
-<p><strong>Year:</strong> {{ activity.year }}</p>
-{% if activity.url %}
-<p><a href="{{ activity.url }}" target="_blank" rel="noopener noreferrer">[Conference Website]</a></p>
-{% endif %}
-</div>
+<p class="list-primary"><strong>{{ activity.conference }}</strong> ({{ activity.year }}) · {{ activity.title }}{% if activity.url %} · <a href="{{ activity.url }}" target="_blank" rel="noopener noreferrer">[website]</a>{% endif %}</p>
 {% endif %}
 </div>
 {% endfor %}

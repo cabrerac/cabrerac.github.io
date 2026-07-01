@@ -16,9 +16,7 @@
 <div class="collapsible-content expanded">
 <div class="collapsible-inner students-list">
 {% for student in phd_students %}
-<div class="student-item">
 {% include student_item.html student=student %}
-</div>
 {% endfor %}
 </div>
 </div>
@@ -29,9 +27,7 @@
 <div class="collapsible-content expanded">
 <div class="collapsible-inner students-list">
 {% for student in masters_students %}
-<div class="student-item">
 {% include student_item.html student=student %}
-</div>
 {% endfor %}
 </div>
 </div>
@@ -42,9 +38,7 @@
 <div class="collapsible-content expanded">
 <div class="collapsible-inner students-list">
 {% for student in undergrad_students %}
-<div class="student-item">
 {% include student_item.html student=student %}
-</div>
 {% endfor %}
 </div>
 </div>
