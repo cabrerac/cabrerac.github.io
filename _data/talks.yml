@@ -146,6 +146,6 @@
   month: June
   date: '2026-06-08'
   type: internal
-  status: upcoming
+  status: past
   visible: false
   slides: https://cabrerac.github.io/assets/slides/2026/research-days-interfaces.html
