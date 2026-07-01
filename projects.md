@@ -7,11 +7,19 @@ permalink: /projects/
 
 ## Interfaces (ML@CL)
 
-I lead the **[Interfaces research programme](https://mlatcl.github.io/projects/interfaces.html)** at ML@CL focusing on interpretable, self-sustaining multi-agent AI systems, extending [AutoAI](https://mlatcl.github.io/projects/autoai.html).
+I lead the **[Interfaces research programme](https://mlatcl.github.io/projects/interfaces.html)** at ML@CL, focusing on interpretable, self-sustaining multi-agent AI systems and extending [AutoAI](https://mlatcl.github.io/projects/autoai.html).
 
-## Clinical validation
+{% include interfaces-programme-agenda.html %}
 
-**[aICU](https://ki.se/en/research/research-areas-centres-and-networks/research-groups/anaesthesia-and-intensive-care-rebecka-rubenson-wahlinanna-schandls-research-group/the-aicu-project-developing-next-generation-decision-support-tools-for-intensive-care)** — AI decision support for intensive care (Karolinska Institutet / ML@CL collaboration).
+### Research lines
+
+- **DOCS (Data-Oriented Computing Systems)** — data-oriented architectures (DOAs) that prioritise data over control flow.
+- **S4 (Self-Sustaining Software Systems)** — building blocks for autonomous systems that self-sustain while keeping humans in control.
+
+### Programme objectives
+
+- **Design, architect, and build** — paradigms to design, develop, deploy, and decommission AI-based systems.
+- **Interpret AI-based systems** — techniques and tools for interpretable autonomous behaviour, with humans steering.
 
 ## Public software
 
