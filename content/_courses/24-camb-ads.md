@@ -10,7 +10,7 @@ start_date: 01/11/2024
 end_date: 03/12/2024
 hours: 16
 year: 2024
-permalink: /teaching/25-camb-ads/
+permalink: /teaching/24-camb-ads/
 visible: true
 ---
 <br>

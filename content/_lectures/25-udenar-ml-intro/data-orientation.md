@@ -30,8 +30,6 @@ visible: true
     <a href="/assets/slides/25-udenar-ml-intro/data-orientation.html" target="_blank" rel="noopener noreferrer">HTML slides</a> &nbsp;|&nbsp; <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-udenar-ml-intro/data-orientation.ipynb" target="_blank" rel="noopener noreferrer">Notebook - Individual</a>
   </p>
 </div>
----
-
 ## Resources  
 
 #### Papers and Reports  
