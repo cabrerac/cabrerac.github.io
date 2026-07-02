@@ -36,7 +36,7 @@ visible: true
 
 ### Week 1 links
 
-- [Week 1 hub](/teaching/26-udenar-big-data/week-1-hub-es/)
+- [Week 1 hub](/teaching/26-udenar-big-data/week-1-hub/)
 
 ### Resources
 

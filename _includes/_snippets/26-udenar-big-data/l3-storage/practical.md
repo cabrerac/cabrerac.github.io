@@ -1608,7 +1608,7 @@ Entrega Moodle **martes 16 jun 2026**: ZIP con cuaderno ejecutado + `manifest.js
 
 ## Tareas
 
-Plantillas y plazos en el [hub semana 2](/teaching/26-udenar-big-data/week-2-hub-es/) y en la [Lección 4 (Procesamiento)](/teaching/26-udenar-big-data/l4-processing/).
+Plantillas y plazos en el [hub semana 2](/teaching/26-udenar-big-data/week-2-hub/) y en la [Lección 4 (Procesamiento)](/teaching/26-udenar-big-data/l4-processing/).
 
 ### Trabajo en grupo (semana 2)
 

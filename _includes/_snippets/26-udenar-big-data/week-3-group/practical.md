@@ -347,7 +347,7 @@ Suban el ZIP **`week-3-group-<group_id>.zip`** hasta el **martes 23 de junio de 
 
 `audit.jsonl` y `schema_contract.json` quedan en **Drive** (no en el ZIP). El cuaderno debe mostrar en las celdas **Comprobar** que existen y que el manifiesto los resume.
 
-**Reflexión individual:** `week-3-reflection-<student>.pdf` el **miércoles 24 de junio de 2026** — plantilla en el [hub semana 3](/teaching/26-udenar-big-data/week-3-hub-es/).
+**Reflexión individual:** `week-3-reflection-<student>.pdf` el **miércoles 24 de junio de 2026** — plantilla en el [hub semana 3](/teaching/26-udenar-big-data/week-3-hub/).
 
 **Proyecto:** avancen en la sesión del **sábado 20 jun** (bloque de analítica y gobernanza de capas de evidencia).
 

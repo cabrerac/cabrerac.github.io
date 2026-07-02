@@ -1,39 +1,4 @@
----
-author: Christian Cabrera Jojoa
-course_code: 26-udenar-big-data
-department: Department of Computer Science and Technology
-description: Lecture 2 follows the first access to GEIH by asking what responsible
-  use of that data requires. We treat harm, consent, and fairness not as a final checklist
-  but as requirements that shape every technical choice in Big Data projects. The
-  readings and a guided ethics audit on survey and map data prepare the accountable-practice
-  frame for storage, processing, and analytics ahead.
-email: chc79@cam.ac.uk
-end_time: 01:00 pm
-group_notebook: week-1-group
-hours: 5
-institution: University of Cambridge
-layout: lecture
-lecture_code: l2-ethics-governance
-lecture_date: 06/06/2026
-notebook_description: "Pr\xE1ctica de la Lecci\xF3n 2. Auditor\xEDa \xE9tica sobre\
-  \ GEIH y primer enlace con OpenStreetMap (escuelas)."
-notebook_language: es
-notebook_title: "\xC9tica, privacidad y gobernanza de datos"
-permalink: /teaching/26-udenar-big-data/l2-ethics-governance/
-position: Assistant Research Professor
-session: 2
-start_time: 07:00 am
-title: Ethics, privacy, and foundations of data governance
-visible: true
----
-
-<link rel="stylesheet" href="/assets/css/slides.css">
-<link rel="stylesheet" href="/assets/css/lecture-article.css">
-<div class="lecture-resources">
-  <p>
-    <a href="/assets/slides/26-udenar-big-data/l2-ethics-governance.html" target="_blank" rel="noopener noreferrer">HTML slides</a> &nbsp;|&nbsp; <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l2-ethics-governance.ipynb" target="_blank" rel="noopener noreferrer">Notebook - Individual</a> &nbsp;|&nbsp; <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/week-1-group.ipynb" target="_blank" rel="noopener noreferrer">Notebook - Group</a>
-  </p>
-</div>
+<!-- RENDER: -->
 
 ### Week 1 links
 
@@ -58,3 +23,5 @@ visible: true
 - Khatri, V., & Brown, C. V. (2010). [Designing data governance](https://doi.org/10.1145/1795194.1795237). *Communications of the ACM*, 53(1), 148–152.
 - Nissenbaum, H. (2004). [Privacy as contextual integrity](https://doi.org/10.2139/ssrn.3885612). *Washington Law Review*, 79(1), 119–158.
 - boyd, d., & Crawford, K. (2012). [Critical questions for big data](https://doi.org/10.1080/1369118X.2012.678878). *Information, Communication & Society*, 15(5), 662–679.
+
+<!-- end RENDER: -->

@@ -18,12 +18,6 @@ skip_slides: true
 skip_notebook: true
 ---
 
-<!-- RENDER: -->
+{% include _snippets/26-udenar-big-data/l8-final-project/resources.md %}
 
-### Projects Catalog
 
-{% include 26-udenar-big-data/project_catalog.html %}
-
----
-
-<!-- end RENDER: -->
