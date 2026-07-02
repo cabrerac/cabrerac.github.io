@@ -14,14 +14,7 @@ title: Week 2 - links hub
 visible: false
 ---
 
-<link rel="stylesheet" href="/assets/css/slides.css">
 <link rel="stylesheet" href="/assets/css/lecture-article.css">
-<div class="lecture-resources">
-  <p>
-    
-  </p>
-</div>
-
 **Saturday 13 Jun 2026 · 07:00–13:00 (Colombia)** · Lectures **L3** (Storage) + **L4** (Processing)
 
 ---

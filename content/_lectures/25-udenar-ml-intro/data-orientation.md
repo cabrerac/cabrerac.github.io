@@ -24,19 +24,17 @@ visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
+<link rel="stylesheet" href="/assets/css/lecture-article.css">
 <div class="lecture-resources">
   <p>
-    <a href="/assets/slides/25-udenar-ml-intro/data-orientation.html" target="_blank" rel="noopener noreferrer">[HTML Slides]</a>
-    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-udenar-ml-intro/data-orientation.ipynb" target="_blank" rel="noopener noreferrer">[Colab Notebook]</a>
-    <a href="/teaching/25-udenar-ml-intro/">[Back to Course]</a>
+    <a href="/assets/slides/25-udenar-ml-intro/data-orientation.html" target="_blank" rel="noopener noreferrer">HTML slides</a> &nbsp;|&nbsp; <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-udenar-ml-intro/data-orientation.ipynb" target="_blank" rel="noopener noreferrer">Notebook - Individual</a>
   </p>
 </div>
-
 ---
 
-## Resources
+## Resources  
 
-#### Papers and Reports
+#### Papers and Reports  
 
 - [Zittrain J. (2022). Intellectual Debt: With Great Power Comes Great Ignorance](https://www.cambridge.org/core/books/cambridge-handbook-of-responsible-artificial-intelligence/intellectual-debt/F5D4CF05857D072ABED383AE7A3222E4)
 - [Cabrera C. et al. (2023) Real-world Machine Learning Systems: A survey from a Data-Oriented Architecture Perspective](https://arxiv.org/abs/2302.04810)

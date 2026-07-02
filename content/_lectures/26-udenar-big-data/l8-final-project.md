@@ -18,21 +18,14 @@ title: Final Projects
 visible: true
 ---
 
-<link rel="stylesheet" href="/assets/css/slides.css">
 <link rel="stylesheet" href="/assets/css/lecture-article.css">
-<div class="lecture-resources">
-  <p>
-    
-  </p>
-</div>
-
 ### Projects Catalog
 
 {% assign catalog = site.data['26-udenar-big-data-projects'] %}
 {% if catalog and catalog.projects and catalog.projects.size > 0 %}
 <h3>Proyectos publicados (opt-in)</h3>
 {% for p in catalog.projects %}
-<h4>{{ p.title }} <span style="font-weight: normal; font-size: 0.9em;">({{ p.group_id }})</span></h4>
+<h4>{{ p.title }} <span class="catalog-group-id">({{ p.group_id }})</span></h4>
 <p>{{ p.abstract }}</p>
 {% unless forloop.last %}
 <hr>

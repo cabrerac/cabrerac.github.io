@@ -1,36 +1,56 @@
-/* Lecture page — spacing after the resource bar (no wrapper div; keeps Kramdown parsing) */
+/* Lecture / talk article body — spacing for resources and hub tables */
 
 .lecture-resources {
   margin: 1rem 0 1.25rem;
 }
 
+main > h2,
 main .lecture-resources ~ h2 {
   margin: 1.75rem 0 0.5rem;
-  font-size: 1.35rem;
+  font-size: var(--font-size-lg);
 }
 
+main > h2:first-of-type,
 main .lecture-resources ~ h2:first-of-type {
   margin-top: 0.25rem;
 }
 
+main > h3,
 main .lecture-resources ~ h3 {
   margin: 1.25rem 0 0.4rem;
-  font-size: 1.1rem;
+  font-size: var(--font-size-md);
 }
 
+main > h3:first-of-type,
+main .lecture-resources ~ h3:first-of-type {
+  margin-top: 0.25rem;
+}
+
+main > ul,
+main > ol,
 main .lecture-resources ~ ul,
 main .lecture-resources ~ ol {
   margin: 0 0 1rem 1.25rem;
   padding: 0;
 }
 
+main > li,
 main .lecture-resources ~ li {
   margin-bottom: 0.4rem;
 }
 
+main > h2 + ul,
+main > h2 + ol,
+main > h3 + ul,
+main > h3 + ol,
 main .lecture-resources ~ h2 + ul,
 main .lecture-resources ~ h2 + ol,
 main .lecture-resources ~ h3 + ul,
 main .lecture-resources ~ h3 + ol {
   margin-top: 0.15rem;
+}
+
+.catalog-group-id {
+  font-weight: normal;
+  font-size: var(--font-size-sm);
 }

@@ -14,14 +14,7 @@ title: Week 1 - links hub
 visible: false
 ---
 
-<link rel="stylesheet" href="/assets/css/slides.css">
 <link rel="stylesheet" href="/assets/css/lecture-article.css">
-<div class="lecture-resources">
-  <p>
-    
-  </p>
-</div>
-
 **Saturday 6 Jun 2026 · 07:00–13:00 (Colombia)** · Lectures **L1** (Introduction) + **L2** (Ethics and governance)
 
 ---

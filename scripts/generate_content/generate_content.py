@@ -785,8 +785,9 @@ class ContentGenerator:
 {yaml.dump(page_metadata, default_flow_style=False)}---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
+<link rel="stylesheet" href="/assets/css/lecture-article.css">
 <div class="lecture-resources">
-  <p><a href="{slides_url}" target="_blank" rel="noopener noreferrer">[View Slides]</a></p>
+  <p><a href="{slides_url}" target="_blank" rel="noopener noreferrer">HTML slides</a></p>
 </div>
 
 {body}
@@ -1031,15 +1032,18 @@ html[data-theme='dark'] code::before {
         resources_html = self._lecture_resources_html(
             lecture_file, course_metadata, lecture_metadata
         )
+        style_lines = ['<link rel="stylesheet" href="/assets/css/lecture-article.css">']
+        if not lecture_metadata.get('skip_slides'):
+            style_lines.insert(0, '<link rel="stylesheet" href="/assets/css/slides.css">')
+        body_blocks = ['\n'.join(style_lines)]
+        if resources_html:
+            body_blocks.append(resources_html)
+        body_blocks.append(filtered_content)
         # Create rendered content with metadata and resources
         rendered_content = f"""---
 {yaml.dump(metadata, default_flow_style=False)}---
 
-<link rel=\"stylesheet\" href=\"/assets/css/slides.css\">
-<link rel=\"stylesheet\" href=\"/assets/css/lecture-article.css\">
-{resources_html}
-
-{filtered_content}
+{chr(10).join(body_blocks)}
 """
 
         # Save rendered lecture
@@ -1073,6 +1077,8 @@ html[data-theme='dark'] code::before {
                 f'<a href="{colab_base}/{group_nb}.ipynb"{ext}>'
                 "Notebook - Group</a>"
             )
+        if not links:
+            return ""
         return (
             '<div class="lecture-resources">\n  <p>\n    '
             + " &nbsp;|&nbsp; ".join(links)

@@ -2,10 +2,9 @@
 author: Christian Cabrera Jojoa
 course_code: 26-udenar-big-data
 department: Department of Computer Science and Technology
-description: "Prueba de l\xEDnea base sin calificaci\xF3n antes de iniciar el curso.\
-  \ Async, ~45\u201360 min. Seis ejercicios guiados con comprobaciones autom\xE1ticas\
-  \ ligeras (DIAGNOSTIC_SCORE 0\u20136) sobre el conjunto UCI Adult para mostrar habilidades\
-  \ en Python y datos."
+description: "Ungraded baseline check before starting the course. Async, ~45\u2013\
+  60 min. Six guided exercises with light auto-checks (`DIAGNOSTIC_SCORE` 0\u2013\
+  6) on the UCI Adult dataset to demonstrate Python and data skills."
 email: chc79@cam.ac.uk
 end_time: async
 hours: 1.5
@@ -22,12 +21,10 @@ visible: false
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
+<link rel="stylesheet" href="/assets/css/lecture-article.css">
 <div class="lecture-resources">
   <p>
-    <a href="/assets/slides/26-udenar-big-data/diagnostic.html" target="_blank" rel="noopener noreferrer">[HTML Slides]</a>
-    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/diagnostic.ipynb" target="_blank" rel="noopener noreferrer">[Colab Notebook]</a>
-    <a href="/teaching/26-udenar-big-data/">[Back to Course]</a>
+    <a href="/assets/slides/26-udenar-big-data/diagnostic.html" target="_blank" rel="noopener noreferrer">HTML slides</a> &nbsp;|&nbsp; <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/diagnostic.ipynb" target="_blank" rel="noopener noreferrer">Notebook - Individual</a>
   </p>
 </div>
-
 

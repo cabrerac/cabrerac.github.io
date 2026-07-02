@@ -1,7 +1,7 @@
-/* Site styles (list layouts also in main.scss as SCSS reference; loaded rules live here). */
+/* Site styles — canonical CSS for cabrerac.github.io (main.scss is not loaded). */
 
 :root {
-  /* Aligned with assets/css/marp-styles.css slide palette */
+  /* Palette (aligned with marp-styles.css) */
   --color-primary: #224466;
   --color-accent: #0e73b8;
   --color-accent-hover: #0a5a91;
@@ -13,6 +13,15 @@
   --code-bg: #f6f8fa;
   --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: "IBM Plex Mono", Consolas, Monaco, monospace;
+
+  /* Strict type scale (base 16px) — use only these sizes for site UI text */
+  --font-size-xs: 0.875rem;   /* 14px — footer, tertiary meta */
+  --font-size-sm: 0.9375rem;  /* 15px — secondary meta, nav, resource bar */
+  --font-size-base: 1rem;     /* 16px — body, descriptions, list titles */
+  --font-size-md: 1.125rem;   /* 18px — section headings, h3 */
+  --font-size-lg: 1.25rem;    /* 20px — h2, mobile page titles */
+  --font-size-xl: 1.5rem;     /* 24px — page titles, icon glyphs */
+  --font-size-2xl: 1.75rem;   /* 28px — site header title */
 }
 
 /* Reset */
@@ -28,7 +37,7 @@ html {
 
 body {
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: var(--font-size-base);
   line-height: 1.65;
   color: var(--text-color);
   background-color: #ffffff;
@@ -75,7 +84,7 @@ header {
 }
 
 h1 {
-  font-size: 1.75rem;
+  font-size: var(--font-size-2xl);
   font-weight: 600;
   margin: 0;
   color: var(--heading-color);
@@ -83,7 +92,7 @@ h1 {
 }
 
 .page-title {
-  font-size: 1.5rem;
+  font-size: var(--font-size-xl);
   font-weight: 600;
   margin: 0 0 1.25rem;
   color: var(--heading-color);
@@ -103,7 +112,7 @@ nav a {
   color: var(--text-muted);
   text-decoration: none;
   padding: 0.25rem 0;
-  font-size: 0.95rem;
+  font-size: var(--font-size-sm);
 }
 
 nav a:hover {
@@ -121,7 +130,7 @@ nav a.active {
 main {
   max-width: 46rem;
   margin: 0 auto;
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   padding: 1.75rem 1.25rem 2rem;
   background-color: #fff;
   flex: 1 1 auto;
@@ -147,13 +156,21 @@ main a:hover {
   color: var(--color-accent-hover);
 }
 
-main h2,
+main h2 {
+  color: var(--heading-color);
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  font-size: var(--font-size-lg);
+  letter-spacing: -0.01em;
+}
+
 main h3 {
   color: var(--heading-color);
   margin-top: 1.75rem;
   margin-bottom: 0.75rem;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: var(--font-size-md);
   letter-spacing: -0.01em;
 }
 
@@ -163,7 +180,7 @@ footer {
   background-color: #ffffff;
   color: var(--text-muted);
   flex-shrink: 0;
-  font-size: 0.85rem;
+  font-size: var(--font-size-xs);
   border-top: 1px solid var(--border-color);
 }
 
@@ -196,7 +213,7 @@ code {
   color: #c7254e;
   padding: 0.1rem 0.3rem;
   border-radius: 3px;
-  font-size: 0.9em;
+  font-size: var(--font-size-sm);
 }
 
 p {
@@ -231,7 +248,7 @@ p {
 
 .social-icons-container a > i {
   font-style: normal;
-  font-size: 1.5rem;
+  font-size: var(--font-size-xl);
   line-height: 1;
   display: block;
 }
@@ -266,19 +283,21 @@ p {
 }
 
 .lecture-meta,
-.course-meta {
+.course-meta,
+.talk-meta {
   margin: 0 0 1.25rem;
 }
 
 .lecture-meta-details p,
-.course-meta-details p {
+.course-meta-details p,
+.talk-meta-details p {
   margin: 0 0 0.2rem;
 }
 
 .item-description,
 .list-description {
   margin: 0 0 1rem;
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   color: var(--text-color);
   line-height: 1.65;
 }
@@ -301,14 +320,14 @@ p {
 
 .lecture-resources p {
   margin: 0;
-  font-size: 0.92rem;
+  font-size: var(--font-size-sm);
   text-align: left;
 }
 
 .collapsible-title {
   display: inline;
   margin: 0;
-  font-size: 1rem;
+  font-size: var(--font-size-md);
   font-weight: 600;
 }
 
@@ -412,14 +431,14 @@ p {
 
 .list-tag {
   font-family: var(--font-mono);
-  font-size: 0.92rem;
+  font-size: var(--font-size-sm);
   font-weight: 400;
   color: var(--text-muted);
 }
 
 .list-action {
   font-family: var(--font-mono);
-  font-size: 0.92rem;
+  font-size: var(--font-size-sm);
   font-weight: 400;
   text-decoration: underline;
   text-underline-offset: 0.15em;
@@ -462,13 +481,13 @@ p {
 
 .list-secondary {
   margin-top: 0.15rem;
-  font-size: 0.92rem;
+  font-size: var(--font-size-sm);
   color: var(--text-muted);
 }
 
 .list-meta {
   margin-top: 0.15rem;
-  font-size: 0.88rem;
+  font-size: var(--font-size-xs);
   color: var(--text-muted);
 }
 
@@ -477,7 +496,7 @@ p {
 }
 
 .section-heading {
-  font-size: 1rem;
+  font-size: var(--font-size-md);
   font-weight: 600;
   color: var(--color-primary);
   margin: 1.75rem 0 0.75rem;
@@ -538,14 +557,14 @@ p {
 
 .bibtex-modal-title {
   margin: 0;
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   font-weight: 600;
   color: var(--heading-color);
 }
 
 .bibtex-modal-close {
   color: var(--text-muted);
-  font-size: 1.5rem;
+  font-size: var(--font-size-xl);
   line-height: 1;
   font-weight: 400;
   cursor: pointer;
@@ -565,7 +584,7 @@ p {
   border: 1px solid var(--border-color);
   border-radius: 3px;
   font-family: var(--font-mono);
-  font-size: 0.88rem;
+  font-size: var(--font-size-xs);
   line-height: 1.5;
   white-space: pre-wrap;
   overflow-x: auto;
@@ -590,7 +609,7 @@ p {
   display: block;
   width: 100%;
   font-family: inherit;
-  font-size: 0.92rem;
+  font-size: var(--font-size-sm);
   font-weight: 400;
 }
 
@@ -610,7 +629,7 @@ p {
   color: var(--text-muted);
   padding: 0;
   border-radius: 0;
-  font-size: 0.85rem;
+  font-size: var(--font-size-xs);
   font-weight: 400;
   white-space: nowrap;
 }
@@ -625,7 +644,7 @@ p {
   }
 
   nav a {
-    font-size: 0.88rem;
+    font-size: var(--font-size-xs);
   }
 
   main {
@@ -646,7 +665,7 @@ p {
 
   .page-title,
   h1 {
-    font-size: 1.35rem;
+    font-size: var(--font-size-lg);
   }
 
   main {

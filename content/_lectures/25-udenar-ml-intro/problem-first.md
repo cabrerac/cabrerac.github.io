@@ -22,17 +22,15 @@ visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
+<link rel="stylesheet" href="/assets/css/lecture-article.css">
 <div class="lecture-resources">
   <p>
-    <a href="/assets/slides/25-udenar-ml-intro/problem-first.html" target="_blank" rel="noopener noreferrer">[HTML Slides]</a>
-    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-udenar-ml-intro/problem-first.ipynb" target="_blank" rel="noopener noreferrer">[Colab Notebook]</a>
-    <a href="/teaching/25-udenar-ml-intro/">[Back to Course]</a>
+    <a href="/assets/slides/25-udenar-ml-intro/problem-first.html" target="_blank" rel="noopener noreferrer">HTML slides</a> &nbsp;|&nbsp; <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-udenar-ml-intro/problem-first.ipynb" target="_blank" rel="noopener noreferrer">Notebook - Individual</a>
   </p>
 </div>
-
 ---
 
-## Resources
+## Resources  
 
 #### Books
 
@@ -40,14 +38,14 @@ visible: true
 - [Lawrence, N. D. (2024). The Atomic Human: Understanding Ourselves in the Age of AI. Penguin UK.](https://inverseprobability.com/atomic-human/)
 <br>
 <br>
-#### Papers and Reports
+#### Papers and Reports  
 
 - [Bastidas V., Schooling J. (2025). Socio-Technical AI Design For Public Value](https://aisel.aisnet.org/treos_ecis2024/78/)
 - [Kabi J., Maina C. (2021). Leveraging IoT and Machine Learning for Improved Monitoring of Water Resources - A Case Study of the Upper Ewaso Nyiro River](https://ieeexplore.ieee.org/abstract/document/9576970)
 - [Lavin A. et al. (2022).  Technology Readiness Levels for Machine Learning Systems](https://www.nature.com/articles/s41467-022-33128-9)
 - [Hasterok C., Stompe J. (2022).  PAISE® – Process Model for AI Systems Engineering](https://www.degruyterbrill.com/document/doi/10.1515/auto-2022-0020/html)
 - [Hershey P. (2021). System of Systems Engineering Approach for Complex Deterministic and Nondeterministic Systems (ACDANS)](https://ieeexplore.ieee.org/abstract/document/9497496)
-- [Cabrera C. et al. (2025). The Systems Engineering Approach in Times of Large Language Models](https://scholarspace.manoa.hawaii.edu/items/ccd98c8b-bb61-4a86-9cd4-4719078d028f)
+- [Cabrera C. et al. (2025). The Systems Engineering Approach in Times of Large Language Models](https://scholarspace.manoa.hawaii.edu/items/ccd98c8b-bb61-4a86-9cd4-4719078d028f)  
 <br>
 #### Web
 
