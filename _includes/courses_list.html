@@ -16,7 +16,7 @@
 </div>
 <p class="list-secondary">{% if course.institution %}{{ course.institution }}{% endif %}{% if course.start_date %} · {{ course.start_date | date: "%B %Y" }}{% endif %}</p>
 {% if course.description %}
-<p class="list-meta">{{ course.description }}</p>
+<p class="list-description">{{ course.description }}</p>
 {% endif %}
 </div>
 {% endfor %}

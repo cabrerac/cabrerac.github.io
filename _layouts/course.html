@@ -7,31 +7,34 @@
     <main id="content" class="main{% if page.sidebar %} main--with-sidebar{% endif %}">
       {% include course_up_nav.html %}
       <h1 class="page-title">{{ page.title }}</h1>
+      <div class="course-meta">
       {% if page.description %}
-        <strong>Description:</strong> {{ page.description }}<br> <!-- Display description -->
+      <p class="item-description">{{ page.description }}</p>
       {% endif %}
+      <div class="course-meta-details">
       {% if page.department %}
-        <strong>Department:</strong> {{ page.department }}<br> <!-- Display department -->
+      <p class="list-secondary"><strong>Department:</strong> {{ page.department }}</p>
       {% endif %}
       {% if page.institution %}
-        <strong>Institution:</strong> {{ page.institution }}<br> <!-- Display institution -->
+      <p class="list-secondary"><strong>Institution:</strong> {{ page.institution }}</p>
       {% endif %}
       {% if page.role %}
-        <strong>Role:</strong> {{ page.role }}<br> <!-- Display role -->
+      <p class="list-secondary"><strong>Role:</strong> {{ page.role }}</p>
       {% endif %}
       {% if page.lectures %}
-        <strong>Lectures:</strong> {{ page.lectures }}<br> <!-- Display number of lectures -->
+      <p class="list-secondary"><strong>Lectures:</strong> {{ page.lectures }}</p>
       {% endif %}
       {% if page.hours %}
-        <strong>Hours:</strong> {{ page.hours }}<br> <!-- Display number of hours -->
+      <p class="list-secondary"><strong>Hours:</strong> {{ page.hours }}</p>
       {% endif %}
       {% if page.start_date %}
-        <strong>From:</strong> {{ page.start_date | date: "%B %d, %Y" }}<br> <!-- Display start date -->
+      <p class="list-secondary"><strong>From:</strong> {{ page.start_date | date: "%B %d, %Y" }}</p>
       {% endif %}
       {% if page.end_date %}
-        <strong>To:</strong> {{ page.end_date | date: "%B %d, %Y" }}<br> <!-- Display end date -->
+      <p class="list-secondary"><strong>To:</strong> {{ page.end_date | date: "%B %d, %Y" }}</p>
       {% endif %}
-      <br>
+      </div>
+      </div>
       {{ content }}
       {% include lectures_list.html %}
     </main>

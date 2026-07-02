@@ -10,7 +10,10 @@
             <p class="list-primary"><a href="{{ lecture.permalink }}" class="course-nav__internal">{{ lecture.title }}</a></p>
           </div>
         </div>
-        <p class="list-secondary">{{ lecture.lecture_date | date: "%B %d, %Y" }}{% if lecture.description %} · {{ lecture.description }}{% endif %}</p>
+        <p class="list-secondary">{{ lecture.lecture_date | date: "%B %d, %Y" }}</p>
+        {% if lecture.description %}
+        <p class="list-description">{{ lecture.description }}</p>
+        {% endif %}
       </div>
     {% endfor %}
     </div>

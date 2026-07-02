@@ -265,12 +265,28 @@ p {
   text-decoration: underline;
 }
 
-.lecture-meta {
-  margin: 0 0 1rem;
+.lecture-meta,
+.course-meta {
+  margin: 0 0 1.25rem;
 }
 
-.lecture-meta p {
+.lecture-meta-details p,
+.course-meta-details p {
   margin: 0 0 0.2rem;
+}
+
+.item-description,
+.list-description {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  color: var(--text-color);
+  line-height: 1.65;
+}
+
+.list-description {
+  margin-top: 0.35rem;
+  margin-bottom: 0;
+  line-height: 1.5;
 }
 
 .lecture-resources {

@@ -12,8 +12,9 @@
       {% endif %}
       <div class="lecture-meta">
       {% if page.description %}
-      <p class="list-secondary"><strong>Description:</strong> {{ page.description }}</p>
+      <p class="item-description">{{ page.description }}</p>
       {% endif %}
+      <div class="lecture-meta-details">
       {% if course.department %}
       <p class="list-secondary"><strong>Department:</strong> {{ course.department }}</p>
       {% endif %}
@@ -32,6 +33,7 @@
       {% if page.end_time %}
       <p class="list-secondary"><strong>To:</strong> {{ page.end_time }}</p>
       {% endif %}
+      </div>
       </div>
       {{ content }}
     </main>
