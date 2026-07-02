@@ -53,6 +53,11 @@ scripts/big-data-course/.cache/
 *.bak
 *~
 
+# Jekyll build output (local preview only)
+_site/
+.jekyll-cache/
+.jekyll-metadata
+
 # IDE specific files
 .idea/
 .vscode/

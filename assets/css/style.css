@@ -12,18 +12,17 @@
   --link-color: #0e73b8;
   --code-bg: #f6f8fa;
   --rule-color: #c4c9d0;
-  /* FONT PREVIEW: site-wide Consolas (revert --font-sans to IBM Plex Sans to restore) */
-  --font-sans: Consolas, Monaco, monospace;
-  --font-mono: Consolas, Monaco, monospace;
+  --font-sans: Consolas, Monaco, "Courier New", monospace;
+  --font-mono: Consolas, Monaco, "Courier New", monospace;
 
-  /* Strict type scale (base 16px) — use only these sizes for site UI text */
-  --font-size-xs: 0.875rem;   /* 14px — footer, tertiary meta */
-  --font-size-sm: 0.9375rem;  /* 15px — secondary meta, nav, resource bar */
-  --font-size-base: 1rem;     /* 16px — body, descriptions, list titles */
-  --font-size-md: 1.125rem;   /* 18px — section headings, h3 */
-  --font-size-lg: 1.25rem;    /* 20px — h2, mobile page titles */
-  --font-size-xl: 1.5rem;     /* 24px — page titles, icon glyphs */
-  --font-size-2xl: 1.75rem;   /* 28px — site header title */
+  /* Type scale (14px base — Consolas reads larger than proportional sans at 16px) */
+  --font-size-xs: 0.75rem;      /* 12px — footer, tertiary meta */
+  --font-size-sm: 0.8125rem;    /* 13px — secondary meta, nav, resource bar */
+  --font-size-base: 0.875rem;   /* 14px — body, descriptions, list titles */
+  --font-size-md: 1rem;         /* 16px — section headings, h3 */
+  --font-size-lg: 1.125rem;     /* 18px — h2, mobile page titles */
+  --font-size-xl: 1.25rem;      /* 20px — page titles, icon glyphs */
+  --font-size-2xl: 1.5rem;      /* 24px — site header title */
 }
 
 /* Reset */
@@ -40,7 +39,7 @@ html {
 body {
   font-family: var(--font-sans);
   font-size: var(--font-size-base);
-  line-height: 1.65;
+  line-height: 1.5;
   color: var(--text-color);
   background-color: #ffffff;
   height: 100%;
@@ -90,7 +89,6 @@ h1 {
   font-weight: 600;
   margin: 0;
   color: var(--heading-color);
-  letter-spacing: -0.02em;
 }
 
 .page-title {
@@ -98,7 +96,6 @@ h1 {
   font-weight: 600;
   margin: 0 0 1.25rem;
   color: var(--heading-color);
-  letter-spacing: -0.02em;
 }
 
 nav {
@@ -164,7 +161,6 @@ main h2 {
   margin-bottom: 0.75rem;
   font-weight: 600;
   font-size: var(--font-size-lg);
-  letter-spacing: -0.01em;
 }
 
 main h3 {
@@ -173,7 +169,6 @@ main h3 {
   margin-bottom: 0.75rem;
   font-weight: 600;
   font-size: var(--font-size-md);
-  letter-spacing: -0.01em;
 }
 
 footer {
@@ -443,14 +438,12 @@ main hr {
 }
 
 .list-tag {
-  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   font-weight: 400;
   color: var(--text-muted);
 }
 
 .list-action {
-  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   font-weight: 400;
   text-decoration: underline;
@@ -513,7 +506,6 @@ main hr {
   font-weight: 600;
   color: var(--color-primary);
   margin: 1.75rem 0 0.75rem;
-  letter-spacing: -0.01em;
 }
 
 .contact-details {
