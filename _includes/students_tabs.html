@@ -1,0 +1,61 @@
+{% if site.data.students %}
+{% assign current_phd = site.data.students.current | where: "degree", "PhD Student" | sort: 'start_year' | reverse %}
+{% assign past_phd = site.data.students.past | where: "degree", "PhD Student" | sort: 'graduation_year' | reverse %}
+{% assign phd_students = current_phd | concat: past_phd %}
+
+{% assign current_masters = site.data.students.current | where: "degree", "Master's Student" | sort: 'start_year' | reverse %}
+{% assign past_masters = site.data.students.past | where: "degree", "Master's Student" | sort: 'graduation_year' | reverse %}
+{% assign masters_students = current_masters | concat: past_masters %}
+
+{% assign current_undergrad = site.data.students.current | where: "degree", "Undergraduate Student" | sort: 'start_year' | reverse %}
+{% assign past_undergrad = site.data.students.past | where: "degree", "Undergraduate Student" | sort: 'graduation_year' | reverse %}
+{% assign undergrad_students = current_undergrad | concat: past_undergrad %}
+
+{% assign tab_default = true %}
+
+<div class="content-tabs" data-content-tabs>
+  <div class="content-tablist" role="tablist" aria-label="Supervised students">
+    {% if phd_students.size > 0 %}
+    <button type="button" class="content-tab{% if tab_default %} is-active{% endif %}" role="tab" id="tab-phd" data-tab="phd" aria-controls="panel-phd" aria-selected="{% if tab_default %}true{% else %}false{% endif %}">PhD</button>
+    {% assign tab_default = false %}
+    {% endif %}
+    {% if masters_students.size > 0 %}
+    <button type="button" class="content-tab{% if tab_default %} is-active{% endif %}" role="tab" id="tab-masters" data-tab="masters" aria-controls="panel-masters" aria-selected="{% if tab_default %}true{% else %}false{% endif %}">Masters</button>
+    {% assign tab_default = false %}
+    {% endif %}
+    {% if undergrad_students.size > 0 %}
+    <button type="button" class="content-tab{% if tab_default %} is-active{% endif %}" role="tab" id="tab-undergraduate" data-tab="undergraduate" aria-controls="panel-undergraduate" aria-selected="{% if tab_default %}true{% else %}false{% endif %}">Undergraduate</button>
+    {% assign tab_default = false %}
+    {% endif %}
+  </div>
+
+  {% assign panel_default = true %}
+
+  {% if phd_students.size > 0 %}
+  <div class="content-tabpanel{% if panel_default %} is-active{% endif %}" role="tabpanel" id="panel-phd" data-panel="phd" aria-labelledby="tab-phd"{% unless panel_default %} hidden{% endunless %}>
+    {% for student in phd_students %}
+    {% include student_item.html student=student %}
+    {% endfor %}
+  </div>
+  {% assign panel_default = false %}
+  {% endif %}
+
+  {% if masters_students.size > 0 %}
+  <div class="content-tabpanel{% if panel_default %} is-active{% endif %}" role="tabpanel" id="panel-masters" data-panel="masters" aria-labelledby="tab-masters"{% unless panel_default %} hidden{% endunless %}>
+    {% for student in masters_students %}
+    {% include student_item.html student=student %}
+    {% endfor %}
+  </div>
+  {% assign panel_default = false %}
+  {% endif %}
+
+  {% if undergrad_students.size > 0 %}
+  <div class="content-tabpanel{% if panel_default %} is-active{% endif %}" role="tabpanel" id="panel-undergraduate" data-panel="undergraduate" aria-labelledby="tab-undergraduate"{% unless panel_default %} hidden{% endunless %}>
+    {% for student in undergrad_students %}
+    {% include student_item.html student=student %}
+    {% endfor %}
+  </div>
+  {% assign panel_default = false %}
+  {% endif %}
+</div>
+{% endif %}

@@ -1,15 +1,15 @@
 /* Site styles — canonical CSS for cabrerac.github.io (main.scss is not loaded). */
 
 :root {
-  /* Gray monotone palette (Consolas site) */
-  --color-primary: #59636e;
-  --color-accent: #4a5568;
-  --color-accent-hover: #3d4652;
+  /* Slide palette (marp-styles.css) — colour for headings & links; gray body text */
+  --color-primary: #224466;
+  --color-accent: #0e73b8;
+  --color-accent-hover: #0a5a91;
   --border-color: #e1e4e8;
-  --heading-color: #59636e;
+  --heading-color: #224466;
   --text-color: #59636e;
   --text-muted: #59636e;
-  --link-color: #59636e;
+  --link-color: #0e73b8;
   --code-bg: #f6f8fa;
   --rule-color: #c4c9d0;
   --font-sans: Consolas, Monaco, "Courier New", monospace;
@@ -508,11 +508,11 @@ main hr {
   margin: 1.75rem 0 0.75rem;
 }
 
-.research-tabs {
+.content-tabs {
   margin-top: 1.25rem;
 }
 
-.research-tablist {
+.content-tablist {
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rem 1.25rem;
@@ -520,7 +520,7 @@ main hr {
   margin-bottom: 0.75rem;
 }
 
-.research-tab {
+.content-tab {
   font-family: inherit;
   font-size: var(--font-size-sm);
   color: var(--text-muted);
@@ -532,21 +532,21 @@ main hr {
   cursor: pointer;
 }
 
-.research-tab:hover {
+.content-tab:hover {
   color: var(--color-accent);
 }
 
-.research-tab.is-active {
-  color: var(--text-color);
+.content-tab.is-active {
+  color: var(--color-primary);
   font-weight: 600;
-  border-bottom-color: var(--text-color);
+  border-bottom-color: var(--color-accent);
 }
 
-.research-tabpanel {
+.content-tabpanel {
   display: none;
 }
 
-.research-tabpanel.is-active {
+.content-tabpanel.is-active {
   display: block;
 }
 
@@ -579,7 +579,7 @@ main hr {
   z-index: 10000;
   inset: 0;
   overflow: auto;
-  background-color: rgba(89, 99, 110, 0.35);
+  background-color: rgba(34, 68, 102, 0.35);
 }
 
 .bibtex-modal-content {

@@ -11,34 +11,34 @@
 
 {% assign tab_default = true %}
 
-<div class="research-tabs" data-research-tabs>
-  <div class="research-tablist" role="tablist" aria-label="Research outputs">
+<div class="content-tabs" data-content-tabs>
+  <div class="content-tablist" role="tablist" aria-label="Research outputs">
     {% if journals.size > 0 %}
-    <button type="button" class="research-tab{% if tab_default %} is-active{% endif %}" role="tab" id="tab-journals" data-tab="journals" aria-controls="panel-journals" aria-selected="{% if tab_default %}true{% else %}false{% endif %}">Journals</button>
+    <button type="button" class="content-tab{% if tab_default %} is-active{% endif %}" role="tab" id="tab-journals" data-tab="journals" aria-controls="panel-journals" aria-selected="{% if tab_default %}true{% else %}false{% endif %}">Journals</button>
     {% assign tab_default = false %}
     {% endif %}
     {% if conferences.size > 0 %}
-    <button type="button" class="research-tab{% if tab_default %} is-active{% endif %}" role="tab" id="tab-conferences" data-tab="conferences" aria-controls="panel-conferences" aria-selected="{% if tab_default %}true{% else %}false{% endif %}">Conferences</button>
+    <button type="button" class="content-tab{% if tab_default %} is-active{% endif %}" role="tab" id="tab-conferences" data-tab="conferences" aria-controls="panel-conferences" aria-selected="{% if tab_default %}true{% else %}false{% endif %}">Conferences</button>
     {% assign tab_default = false %}
     {% endif %}
     {% if preprints.size > 0 %}
-    <button type="button" class="research-tab{% if tab_default %} is-active{% endif %}" role="tab" id="tab-preprints" data-tab="preprints" aria-controls="panel-preprints" aria-selected="{% if tab_default %}true{% else %}false{% endif %}">Preprints</button>
+    <button type="button" class="content-tab{% if tab_default %} is-active{% endif %}" role="tab" id="tab-preprints" data-tab="preprints" aria-controls="panel-preprints" aria-selected="{% if tab_default %}true{% else %}false{% endif %}">Preprints</button>
     {% assign tab_default = false %}
     {% endif %}
     {% if theses.size > 0 %}
-    <button type="button" class="research-tab{% if tab_default %} is-active{% endif %}" role="tab" id="tab-theses" data-tab="theses" aria-controls="panel-theses" aria-selected="{% if tab_default %}true{% else %}false{% endif %}">Theses</button>
+    <button type="button" class="content-tab{% if tab_default %} is-active{% endif %}" role="tab" id="tab-theses" data-tab="theses" aria-controls="panel-theses" aria-selected="{% if tab_default %}true{% else %}false{% endif %}">Theses</button>
     {% assign tab_default = false %}
     {% endif %}
     {% if conference_org.size > 0 %}
-    <button type="button" class="research-tab{% if tab_default %} is-active{% endif %}" role="tab" id="tab-organisation" data-tab="organisation" aria-controls="panel-organisation" aria-selected="{% if tab_default %}true{% else %}false{% endif %}">Organisation</button>
+    <button type="button" class="content-tab{% if tab_default %} is-active{% endif %}" role="tab" id="tab-organisation" data-tab="organisation" aria-controls="panel-organisation" aria-selected="{% if tab_default %}true{% else %}false{% endif %}">Organisation</button>
     {% assign tab_default = false %}
     {% endif %}
     {% if editorial.size > 0 %}
-    <button type="button" class="research-tab{% if tab_default %} is-active{% endif %}" role="tab" id="tab-editorial" data-tab="editorial" aria-controls="panel-editorial" aria-selected="{% if tab_default %}true{% else %}false{% endif %}">Editorial</button>
+    <button type="button" class="content-tab{% if tab_default %} is-active{% endif %}" role="tab" id="tab-editorial" data-tab="editorial" aria-controls="panel-editorial" aria-selected="{% if tab_default %}true{% else %}false{% endif %}">Editorial</button>
     {% assign tab_default = false %}
     {% endif %}
     {% if reviewing.size > 0 %}
-    <button type="button" class="research-tab{% if tab_default %} is-active{% endif %}" role="tab" id="tab-review" data-tab="review" aria-controls="panel-review" aria-selected="{% if tab_default %}true{% else %}false{% endif %}">Peer review</button>
+    <button type="button" class="content-tab{% if tab_default %} is-active{% endif %}" role="tab" id="tab-review" data-tab="review" aria-controls="panel-review" aria-selected="{% if tab_default %}true{% else %}false{% endif %}">Peer review</button>
     {% assign tab_default = false %}
     {% endif %}
   </div>
@@ -46,7 +46,7 @@
   {% assign panel_default = true %}
 
   {% if journals.size > 0 %}
-  <div class="research-tabpanel{% if panel_default %} is-active{% endif %}" role="tabpanel" id="panel-journals" data-panel="journals" aria-labelledby="tab-journals"{% unless panel_default %} hidden{% endunless %}>
+  <div class="content-tabpanel{% if panel_default %} is-active{% endif %}" role="tabpanel" id="panel-journals" data-panel="journals" aria-labelledby="tab-journals"{% unless panel_default %} hidden{% endunless %}>
     {% for pub in journals %}
     {% include publication_entry.html pub=pub %}
     {% endfor %}
@@ -55,7 +55,7 @@
   {% endif %}
 
   {% if conferences.size > 0 %}
-  <div class="research-tabpanel{% if panel_default %} is-active{% endif %}" role="tabpanel" id="panel-conferences" data-panel="conferences" aria-labelledby="tab-conferences"{% unless panel_default %} hidden{% endunless %}>
+  <div class="content-tabpanel{% if panel_default %} is-active{% endif %}" role="tabpanel" id="panel-conferences" data-panel="conferences" aria-labelledby="tab-conferences"{% unless panel_default %} hidden{% endunless %}>
     {% for pub in conferences %}
     {% include publication_entry.html pub=pub %}
     {% endfor %}
@@ -64,7 +64,7 @@
   {% endif %}
 
   {% if preprints.size > 0 %}
-  <div class="research-tabpanel{% if panel_default %} is-active{% endif %}" role="tabpanel" id="panel-preprints" data-panel="preprints" aria-labelledby="tab-preprints"{% unless panel_default %} hidden{% endunless %}>
+  <div class="content-tabpanel{% if panel_default %} is-active{% endif %}" role="tabpanel" id="panel-preprints" data-panel="preprints" aria-labelledby="tab-preprints"{% unless panel_default %} hidden{% endunless %}>
     {% for pub in preprints %}
     {% include publication_entry.html pub=pub %}
     {% endfor %}
@@ -73,7 +73,7 @@
   {% endif %}
 
   {% if theses.size > 0 %}
-  <div class="research-tabpanel{% if panel_default %} is-active{% endif %}" role="tabpanel" id="panel-theses" data-panel="theses" aria-labelledby="tab-theses"{% unless panel_default %} hidden{% endunless %}>
+  <div class="content-tabpanel{% if panel_default %} is-active{% endif %}" role="tabpanel" id="panel-theses" data-panel="theses" aria-labelledby="tab-theses"{% unless panel_default %} hidden{% endunless %}>
     {% for pub in theses %}
     {% include publication_entry.html pub=pub %}
     {% endfor %}
@@ -82,7 +82,7 @@
   {% endif %}
 
   {% if conference_org.size > 0 %}
-  <div class="research-tabpanel{% if panel_default %} is-active{% endif %}" role="tabpanel" id="panel-organisation" data-panel="organisation" aria-labelledby="tab-organisation"{% unless panel_default %} hidden{% endunless %}>
+  <div class="content-tabpanel{% if panel_default %} is-active{% endif %}" role="tabpanel" id="panel-organisation" data-panel="organisation" aria-labelledby="tab-organisation"{% unless panel_default %} hidden{% endunless %}>
     {% for activity in conference_org %}
     <div class="list-item activity-item">
       <div class="list-row">
@@ -103,7 +103,7 @@
   {% endif %}
 
   {% if editorial.size > 0 %}
-  <div class="research-tabpanel{% if panel_default %} is-active{% endif %}" role="tabpanel" id="panel-editorial" data-panel="editorial" aria-labelledby="tab-editorial"{% unless panel_default %} hidden{% endunless %}>
+  <div class="content-tabpanel{% if panel_default %} is-active{% endif %}" role="tabpanel" id="panel-editorial" data-panel="editorial" aria-labelledby="tab-editorial"{% unless panel_default %} hidden{% endunless %}>
     {% for activity in editorial %}
     <div class="list-item activity-item">
       <div class="list-row">
@@ -124,7 +124,7 @@
   {% endif %}
 
   {% if reviewing.size > 0 %}
-  <div class="research-tabpanel{% if panel_default %} is-active{% endif %}" role="tabpanel" id="panel-review" data-panel="review" aria-labelledby="tab-review"{% unless panel_default %} hidden{% endunless %}>
+  <div class="content-tabpanel{% if panel_default %} is-active{% endif %}" role="tabpanel" id="panel-review" data-panel="review" aria-labelledby="tab-review"{% unless panel_default %} hidden{% endunless %}>
     {% for activity in reviewing %}
     <div class="list-item activity-item">
       {% if activity.journal %}
