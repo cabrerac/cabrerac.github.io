@@ -111,7 +111,7 @@ nav a {
   color: var(--text-muted);
   text-decoration: none;
   padding: 0.25rem 0;
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
 }
 
 nav a:hover {
@@ -691,7 +691,7 @@ main hr {
   }
 
   nav a {
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-sm);
   }
 
   main {

@@ -85,16 +85,7 @@
   <div class="content-tabpanel{% if panel_default %} is-active{% endif %}" role="tabpanel" id="panel-organisation" data-panel="organisation" aria-labelledby="tab-organisation"{% unless panel_default %} hidden{% endunless %}>
     {% for activity in conference_org %}
     <div class="list-item activity-item">
-      <div class="list-row">
-        <div class="list-main">
-          <p class="list-primary">{{ activity.title }} ({{ activity.year }})</p>
-        </div>
-        {% if activity.url %}
-        <div class="list-actions">
-          <a href="{{ activity.url }}" class="list-action" target="_blank" rel="noopener noreferrer">[website]</a>
-        </div>
-        {% endif %}
-      </div>
+      <p class="list-primary">{% if activity.url %}<a href="{{ activity.url }}" target="_blank" rel="noopener noreferrer">{{ activity.title }}</a>{% else %}{{ activity.title }}{% endif %} ({{ activity.year }})</p>
       <p class="list-secondary">{{ activity.role }} · {{ activity.organisation }}{% if activity.abbreviation %} ({{ activity.abbreviation }}){% endif %}{% if activity.note %} · <span class="list-note">{{ activity.note }}</span>{% endif %}</p>
     </div>
     {% endfor %}
@@ -106,16 +97,7 @@
   <div class="content-tabpanel{% if panel_default %} is-active{% endif %}" role="tabpanel" id="panel-editorial" data-panel="editorial" aria-labelledby="tab-editorial"{% unless panel_default %} hidden{% endunless %}>
     {% for activity in editorial %}
     <div class="list-item activity-item">
-      <div class="list-row">
-        <div class="list-main">
-          <p class="list-primary">{{ activity.title }} ({{ activity.year }})</p>
-        </div>
-        {% if activity.url %}
-        <div class="list-actions">
-          <a href="{{ activity.url }}" class="list-action" target="_blank" rel="noopener noreferrer">[volume]</a>
-        </div>
-        {% endif %}
-      </div>
+      <p class="list-primary">{% if activity.url %}<a href="{{ activity.url }}" target="_blank" rel="noopener noreferrer">{{ activity.title }}</a>{% else %}{{ activity.title }}{% endif %} ({{ activity.year }})</p>
       <p class="list-secondary">{{ activity.journal }}</p>
     </div>
     {% endfor %}
@@ -128,27 +110,9 @@
     {% for activity in reviewing %}
     <div class="list-item activity-item">
       {% if activity.journal %}
-      <div class="list-row">
-        <div class="list-main">
-          <p class="list-primary">{{ activity.journal }} · Journal reviewer</p>
-        </div>
-        {% if activity.url %}
-        <div class="list-actions">
-          <a href="{{ activity.url }}" class="list-action" target="_blank" rel="noopener noreferrer">[website]</a>
-        </div>
-        {% endif %}
-      </div>
+      <p class="list-primary">{% if activity.url %}<a href="{{ activity.url }}" target="_blank" rel="noopener noreferrer">{{ activity.journal }}</a>{% else %}{{ activity.journal }}{% endif %} · Journal reviewer</p>
       {% elsif activity.conference %}
-      <div class="list-row">
-        <div class="list-main">
-          <p class="list-primary">{{ activity.conference }} ({{ activity.year }}) · {{ activity.title }}</p>
-        </div>
-        {% if activity.url %}
-        <div class="list-actions">
-          <a href="{{ activity.url }}" class="list-action" target="_blank" rel="noopener noreferrer">[website]</a>
-        </div>
-        {% endif %}
-      </div>
+      <p class="list-primary">{% if activity.url %}<a href="{{ activity.url }}" target="_blank" rel="noopener noreferrer">{{ activity.conference }}</a>{% else %}{{ activity.conference }}{% endif %} ({{ activity.year }}) · {{ activity.title }}</p>
       {% endif %}
     </div>
     {% endfor %}
