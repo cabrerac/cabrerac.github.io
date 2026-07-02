@@ -11,6 +11,7 @@
   --text-muted: #59636e;
   --link-color: #0e73b8;
   --code-bg: #f6f8fa;
+  --rule-color: #c4c9d0;
   --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: "IBM Plex Mono", Consolas, Monaco, monospace;
 
@@ -312,10 +313,21 @@ p {
   margin: 0 0 1rem;
   padding: 0.45rem 0;
   border: none;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--rule-color);
   border-radius: 0;
   background: #ffffff;
   text-align: left;
+}
+
+/* RENDER blocks used to open with ---; hide duplicate rule after the resource bar */
+.lecture-resources + hr {
+  display: none;
+}
+
+main hr {
+  border: none;
+  border-top: 1px solid var(--rule-color);
+  margin: 1.25rem 0;
 }
 
 .lecture-resources p {

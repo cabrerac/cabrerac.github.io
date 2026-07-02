@@ -1,7 +1,5 @@
 <!-- RENDER: -->
 
----
-
 ## Resources  
 
 #### Papers and Reports  
