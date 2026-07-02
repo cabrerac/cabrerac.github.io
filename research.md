@@ -9,10 +9,4 @@ This page presents the outputs of my research and its impact on the scientific c
 
 Full publication list: [Google Scholar](https://scholar.google.com/citations?user=NITUwmcAAAAJ&hl=en){:target="_blank" rel="noopener noreferrer"} · [ORCID](https://orcid.org/0000-0002-6954-6859){:target="_blank" rel="noopener noreferrer"}.
 
-## Publications
-
-{% include publications.html %}
-
-## Conference Organisation & Editorial Work
-
-{% include activities_list.html %}
+{% include research_tabs.html %}
