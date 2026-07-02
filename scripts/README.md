@@ -1,6 +1,8 @@
 # Scripts
 
-Helper scripts for the site and workflows. Each tool lives in its own folder with its inputs and a README.
+Helper scripts for the **public** site and shared workflows. Each tool lives in its own folder with its inputs and a README.
+
+**Not here:** internal or task-specific scripts (grant forms, admin prep, one-offs) belong under **`work-space/<task-id>/`** — that folder is gitignored. See **Characteristic 2** in `.cursor/rules/customised_workspace.mdc`.
 
 | Tool | Description |
 |------|-------------|

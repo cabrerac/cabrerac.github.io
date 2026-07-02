@@ -33,17 +33,20 @@ google_analytics: G-5Y6B2VTTH1
 # BibTex file
 bibtex:
   bibfiles: [https://cabrerac.github.io/assets/bibs/bibfile.bib]
-# Exclude from processing.
-# The following items will not be processed, by default. Create a custom list
-# to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+# Exclude from processing (.gitignore does not apply to Jekyll).
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - work-space/
+  - scripts/
+  - plans/
+  - docs/
+  - logs/
 
 # Additional directories
 collections_dir: content
