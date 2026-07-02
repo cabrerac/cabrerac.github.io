@@ -23,19 +23,17 @@ visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
+<link rel="stylesheet" href="/assets/css/lecture-article.css">
 <div class="lecture-resources">
   <p>
-    <a href="/assets/slides/25-symposium-ml-deploy/ml-adoption.html" target="_blank" rel="noopener noreferrer">[HTML Slides]</a>
-    <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-symposium-ml-deploy/ml-adoption.ipynb" target="_blank" rel="noopener noreferrer">[Colab Notebook]</a>
-    <a href="/teaching/25-symposium-ml-deploy/">[Back to Course]</a>
+    <a href="/assets/slides/25-symposium-ml-deploy/ml-adoption.html" target="_blank" rel="noopener noreferrer">HTML slides</a> &nbsp;|&nbsp; <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/25-symposium-ml-deploy/ml-adoption.ipynb" target="_blank" rel="noopener noreferrer">Notebook - Individual</a>
   </p>
 </div>
-
 ---
 
-## Resources
+## Resources  
 
-#### Papers and Reports
+#### Papers and Reports  
 
 - [Cabrera C. et al. (2025). The Systems Engineering Approach in Times of Large Language Models](https://scholarspace.manoa.hawaii.edu/items/ccd98c8b-bb61-4a86-9cd4-4719078d028f)
 - [Bastidas V., Schooling J. (2025). Socio-Technical AI Design For Public Value](https://aisel.aisnet.org/treos_ecis2024/78/)
