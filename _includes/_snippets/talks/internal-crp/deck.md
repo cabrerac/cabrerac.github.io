@@ -22,58 +22,63 @@
 ## Consistent reasoning
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 85%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Same problem, different sentences → same correct answer.</b></p>
-                <br>
-                <ul>
-                    <li>(i) Lisa 179 cm, John 178 cm. Who is tallest?</li>
-                    <li>(ii) John 178 cm, Lisa 179 cm. Who is tallest?</li>
-                    <li>Both describe 178 &lt; 179 → <b>Lisa</b>.</li>
-                </ul>
-                <br>
-                <p><b>Chain for AGI:</b> AGI ⇒ pass Turing Test ⇒ reason consistently on basic arithmetic.</p>
-            </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/crp/consistent-reasoning.png" alt="Consistent reasoning example" style="height: 400px">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/images/crp/consistent-reasoning.png" alt="Consistent reasoning example" style="width: 100%; height: auto; max-height: 380px">
                 <div class="footnote">Equivalent sentences, same answer</div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 15%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
+                <p><b>Same problem, different sentences → same correct answer</b>: For an AGI to pass the Turing Test, it must reason consistently on basic arithmetic problems.</p>
             </div>
         </div>
     </div>
 </div>
 
-## The paradox (informal)
+## The paradox
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 58%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Consistent Reasoning Paradox (CRP)</b></p>
-                <br>
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/images/crp/overview.png" alt="CRP overview" style="width: 100%; height: auto; max-height: 380px">
+                <div class="footnote">CRP overview</div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 42%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
+                <p><b>Consistent Reasoning Paradox (CRP). Human-like intelligence in AI <b>requires</b> consistent reasoning.</b></p>
                 <ul>
-                    <li>Human-like intelligence in AI <b>requires</b> consistent reasoning.</li>
                     <li>Any AI that <b>always answers</b> and reasons consistently on many equivalent sentences must <b>hallucinate infinitely often</b> on some basic arithmetic collections.</li>
                     <li>A narrow <b>SpecialBot</b> can be correct on the same problems if it accepts only one sentence per problem.</li>
                     <li><b>Paradox:</b> the less AGI-shaped AI can be more reliable.</li>
                 </ul>
             </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/crp/overview.png" alt="CRP overview" style="height: 400px">
-                <div class="footnote">CRP overview</div>
-            </div>
         </div>
     </div>
 </div>
 
-## CRP I — The non-hallucinating AI exists
+## CRP I: The non-hallucinating AI exists
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 58%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/images/crp/crp-i.png" alt="CRP I" style="width: 100%; height: auto; max-height: 380px">
+                <div class="footnote">CRP I</div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 42%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <p><b>Claim.</b> For collection (⋆) (chemotherapy dosage linear program, many equivalent wordings):</p>
-                <br>
                 <ul>
                     <li>Pick <b>one sentence per problem</b> in a family.</li>
                     <li><b>SpecialBot</b> always answers correctly on that family.</li>
@@ -81,22 +86,25 @@
                     <li>It does <b>not</b> reason consistently: other equivalent sentences may get no answer.</li>
                 </ul>
             </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/crp/crp-i.png" alt="CRP I" style="height: 400px">
-                <div class="footnote">Figure 2 (top): CRP I</div>
-            </div>
         </div>
     </div>
 </div>
 
-## CRP II — Consistent reasoning yields hallucinations
+## CRP II: Consistent reasoning yields hallucinations
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 58%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/images/crp/crp-ii.png" alt="CRP II" style="width: 100%; height: auto; max-height: 380px">
+                <div class="footnote">CRP II</div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 42%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <p><b>Claim.</b> If SpecialBot <b>always answers</b> and accepts <b>any</b> equivalent sentence:</p>
-                <br>
                 <ul>
                     <li>It <b>hallucinates infinitely often</b>.</li>
                     <li>Holds even with unbounded memory and time.</li>
@@ -104,60 +112,34 @@
                     <li>Solving the problem is <b>easier</b> than deciding sentence equivalence.</li>
                 </ul>
             </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/crp/crp-ii.png" alt="CRP II" style="height: 400px">
-                <div class="footnote">Figure 2 (bottom): CRP II</div>
-            </div>
         </div>
     </div>
 </div>
 
-## CRP III(a) — Detecting hallucinations is hard
+## CRP III: Detecting hallucinations is hard
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 55%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Claim (deterministic).</b> For the consistent reasoner from CRP II:</p>
-                <br>
-                <ul>
-                    <li>Checking whether it hallucinated is <b>strictly harder</b> than solving the original problem.</li>
-                    <li>Even with access to <b>true solutions</b>, you cannot always detect errors.</li>
-                    <li><b>Why?</b> Multi-valued problems (e.g. "name a prime"): one witness does not certify all valid answers.</li>
-                </ul>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/crp/crp-iii-a.png" alt="CRP III(a)" style="width: 100%; height: auto; max-height: 340px">
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/crp/crp-iii-a.png" alt="CRP III" style="height: 400px">
-                <img src="{{ site.url }}/assets/media/images/crp/crp-iii-b.png" alt="CRP III" style="height: 400px">
-                <div class="footnote">CRP III</div>
+                <img src="{{ site.url }}/assets/media/images/crp/crp-iii-b.png" alt="CRP III(b)" style="width: 100%; height: auto; max-height: 340px">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 45%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
+                <p><b>III(a) deterministic.</b> Checking whether the reasoner hallucinated is <b>strictly harder</b> than solving the original problem. Even with <b>true solutions</b>, you cannot always detect errors (e.g. multi-valued problems: "name a prime").</p>
+                <p><b>III(b) randomised.</b> No checker can be "almost sure": probability of correct detection <b>p &gt; ½</b> on all inputs is impossible. The checker is either <b>100% certain</b> or no better than a <b>coin flip</b>. Relevant to sampling chatbots: <b>95% confident</b> is ruled out.</p>
             </div>
         </div>
     </div>
 </div>
 
-## CRP III(b) — Randomness does not help
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Claim (randomised).</b> No checker can be "almost sure":</p>
-                <br>
-                <ul>
-                    <li>Probability of correct detection <b>p &gt; ½</b> on all inputs is impossible.</li>
-                    <li>Checker is either <b>100% certain</b> or no better than a <b>coin flip</b>.</li>
-                    <li>Relevant to chatbots that use sampling: <b>95% confident</b> is ruled out in this setting.</li>
-                </ul>
-            </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/crp/fig1-crp-iii.png" alt="CRP III" style="height: 400px">
-                <div class="footnote">Figure 1: CRP III (same crop as III(a) is fine)</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-## CRP IV — Correct answer, no proof
+## CRP IV: Correct answer, no proof
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -179,7 +161,7 @@
     </div>
 </div>
 
-## CRP V — Trustworthy AI with "I don't know"
+## CRP V: Trustworthy AI with "I don't know"
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -206,47 +188,50 @@
 ## The power of "I don't know"
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 58%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/images/crp/overview.png" alt="CRP overview" style="width: 100%; height: auto; max-height: 380px">
+                <div class="footnote">CRP overview</div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 42%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <p><b>Takeaways for trustworthy AI</b></p>
-                <br>
                 <ul>
                     <li>CRP I–IV: always-answer + consistent reasoning ⇒ fallibility (hallucinate, uncheckable, sometimes unexplainable).</li>
-                    <li><b>Remedy:</b> implicit <b>"I don't know" function</b> — strongest form of trust CRP allows.</li>
-                    <li>AGI cannot be "almost sure"; it knows or it abstains like a coin flip.</li>
+                    <li><b>Remedy:</b> implicit <b>"I don't know" function</b> as the strongest form of trust CRP allows.</li>
+                    <li>AGI cannot be "almost sure". It knows or it abstains like a coin flip.</li>
                     <li>Modern chatbots lack this abstention mechanism on collections like (⋆).</li>
                 </ul>
-                <br>
-                <p><b>Discussion:</b> Where in our systems would an explicit abstention layer live?</p>
-            </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/crp/fig1-overview.png" alt="CRP overview" style="height: 400px">
-                <div class="footnote">CRP overview</div>
             </div>
         </div>
     </div>
 </div>
 
-## In practice (optional)
+## In practice
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 58%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Figure 4 — ChatGPT-4o and Gemini on (⋆)</b></p>
-                <br>
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/images/crp/chatgpt.png" alt="ChatGPT and Gemini experiments" style="width: 100%; height: auto; max-height: 380px">
+                <div class="footnote">Chatbot experiments</div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 42%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
+                <p><b>ChatGPT-4o and Gemini on (⋆)</b></p>
                 <ul>
                     <li><b>CRP I:</b> correct on one phrasing.</li>
                     <li><b>CRP II:</b> hallucinate on another equivalent phrasing.</li>
                     <li><b>CRP III:</b> cannot verify another model's answer, even with oracle access.</li>
                 </ul>
-                <br>
                 <p>Skip this slide if time is short.</p>
-            </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/crp/chatgpt.png" alt="ChatGPT and Gemini experiments" style="height: 400px">
-                <div class="footnote">Chatbot experiments</div>
             </div>
         </div>
     </div>
