@@ -13,8 +13,7 @@
                 <p><a href="https://arxiv.org/abs/2408.02357" target="_blank" rel="noopener noreferrer">arXiv:2408.02357</a></p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/crp/fig0-title-abstract.png" alt="Paper title and abstract" style="height: 400px">
-                <div class="footnote">Title and abstract (screenshot from paper)</div>
+                <img src="{{ site.url }}/assets/media/images/crp/title-abstract.png" alt="Paper title and abstract" style="height: 400px">
             </div>
         </div>
     </div>
@@ -37,8 +36,8 @@
                 <p><b>Chain for AGI:</b> AGI ⇒ pass Turing Test ⇒ reason consistently on basic arithmetic.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/crp/fig3-consistent-reasoning.png" alt="Consistent reasoning example" style="height: 400px">
-                <div class="footnote">Figure 3: equivalent sentences, same answer</div>
+                <img src="{{ site.url }}/assets/media/images/crp/consistent-reasoning.png" alt="Consistent reasoning example" style="height: 400px">
+                <div class="footnote">Equivalent sentences, same answer</div>
             </div>
         </div>
     </div>
@@ -60,8 +59,8 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/crp/fig1-overview.png" alt="CRP overview" style="height: 400px">
-                <div class="footnote">Figure 1: CRP overview</div>
+                <img src="{{ site.url }}/assets/media/images/crp/overview.png" alt="CRP overview" style="height: 400px">
+                <div class="footnote">CRP overview</div>
             </div>
         </div>
     </div>
@@ -83,7 +82,7 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/crp/fig2-crp-i.png" alt="CRP I" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/crp/crp-i.png" alt="CRP I" style="height: 400px">
                 <div class="footnote">Figure 2 (top): CRP I</div>
             </div>
         </div>
@@ -106,7 +105,7 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/crp/fig2-crp-ii.png" alt="CRP II" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/crp/crp-ii.png" alt="CRP II" style="height: 400px">
                 <div class="footnote">Figure 2 (bottom): CRP II</div>
             </div>
         </div>
@@ -128,8 +127,9 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/crp/fig1-crp-iii.png" alt="CRP III" style="height: 400px">
-                <div class="footnote">Figure 1: CRP III</div>
+                <img src="{{ site.url }}/assets/media/images/crp/crp-iii-a.png" alt="CRP III" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/crp/crp-iii-b.png" alt="CRP III" style="height: 400px">
+                <div class="footnote">CRP III</div>
             </div>
         </div>
     </div>
@@ -172,8 +172,8 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/crp/fig1-crp-iv.png" alt="CRP IV" style="height: 400px">
-                <div class="footnote">Figure 1: CRP IV</div>
+                <img src="{{ site.url }}/assets/media/images/crp/crp-iv.png" alt="CRP IV" style="height: 400px">
+                <div class="footnote">CRP IV</div>
             </div>
         </div>
     </div>
@@ -196,8 +196,8 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/crp/fig1-crp-v.png" alt="CRP V" style="height: 400px">
-                <div class="footnote">Figure 1: CRP V</div>
+                <img src="{{ site.url }}/assets/media/images/crp/crp-v.png" alt="CRP V" style="height: 400px">
+                <div class="footnote">CRP V</div>
             </div>
         </div>
     </div>
@@ -222,7 +222,7 @@
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/images/crp/fig1-overview.png" alt="CRP overview" style="height: 400px">
-                <div class="footnote">Figure 1: CRP overview</div>
+                <div class="footnote">CRP overview</div>
             </div>
         </div>
     </div>
@@ -245,8 +245,8 @@
                 <p>Skip this slide if time is short.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/crp/fig4-chatgpt.png" alt="ChatGPT and Gemini experiments" style="height: 400px">
-                <div class="footnote">Figure 4: chatbot experiments</div>
+                <img src="{{ site.url }}/assets/media/images/crp/chatgpt.png" alt="ChatGPT and Gemini experiments" style="height: 400px">
+                <div class="footnote">Chatbot experiments</div>
             </div>
         </div>
     </div>
