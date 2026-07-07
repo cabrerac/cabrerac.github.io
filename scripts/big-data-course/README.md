@@ -5,7 +5,7 @@ Python tools used in **Colabs** and on student laptops for the Udenar Big Data c
 | Package | Role |
 |---------|------|
 | [`geih_build/`](geih_build/) | **Access:** download GEIH months from DANE, extract CSVs, log timings; harmonise to Parquet (L3+, stub) |
-| [`check_submission.py`](check_submission.py) | **Marking aid:** PDF → markdown → pre-check for `project_requirements`, `reflection_week_1`, `reflection_l1` |
+| [`check_submission.py`](check_submission.py) | **Marking aid:** PDF → markdown → pre-check for `project_requirements`, `reflection_week_1`–`reflection_week_3`, `reflection_l1` |
 | [`grade_book.py`](grade_book.py) | **Grading:** CSV detail files → `grades.xlsx` (Excel formulas) + Moodle `calificaciones.csv` (grades + `Comentarios de retroalimentación`, UTF-8 BOM) |
 
 **Planning:** `work-space/teaching/big-data/planning/spine-spec.md`, `project-requirements-template.md`
