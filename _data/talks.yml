@@ -149,3 +149,14 @@
   status: past
   visible: false
   slides: https://cabrerac.github.io/assets/slides/2026/research-days-interfaces.html
+- talk_id: internal-consistent-reasoning-paradox
+  title: On the consistent reasoning paradox
+  venue: Internal
+  location: Cambridge
+  year: 2026
+  month: July
+  date: '2026-07-07'
+  type: internal
+  status: past
+  visible: false
+  slides: https://cabrerac.github.io/assets/slides/2026/internal-consistent-reasoning-paradox.html
