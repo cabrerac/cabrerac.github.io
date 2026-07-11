@@ -360,3 +360,13 @@ publications:
   url: https://sired.udenar.edu.co/7680/
   source: manual
   show: true
+- id: paleyes2026code
+  title: 'Code Roulette: How Prompt Variability Affects LLM Code Generation'
+  authors: Andrei Paleyes, Diana Robinson, Radzim Sendyka, Christian Cabrera, Neil D. Lawrence
+  journal: Proceedings of the 3rd International Workshop on Large Language Models For Code
+  year: 2026
+  type: conf
+  topic: other
+  doi: 10.1145/3786181.3788724
+  source: orcid
+  show: false
