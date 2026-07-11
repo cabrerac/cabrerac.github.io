@@ -1,43 +1,43 @@
 projects:
 - group_id: G4
-  title: Spatial and Multitemporal Analytics System for Early Warning Detection of
-    Labor Deterioration in Colombia
-  abstract: 'This project develops an early warning system based on spatial and multitemporal
-    analytics to map the deterioration of labor conditions and structural informality
-    in Colombia. To optimize the targeting of public policies, a Big Data architecture
-    (a Lakehouse ecosystem on Polars) was implemented to process microdata from the
-    Great Integrated Household Survey (GEIH 2022-2025 by DANE) and cross-reference
+  title: Spatial and multi-temporal analytics system for early warning detection of
+    labour deterioration in Colombia
+  abstract: 'This project develops an early warning system based on spatial and multi-temporal
+    analytics to map the deterioration of labour conditions and structural informality
+    in Colombia. To optimise the targeting of public policies, a Big Data architecture
+    (a lakehouse ecosystem on Polars) was implemented to process microdata from the
+    Great Integrated Household Survey (GEIH 2022–2025 by DANE) and cross-reference
     it with infrastructure cartography from OpenStreetMap (OSM). The methodology evaluates
-    the interannual variation of underemployment and the risk of economic inactivity,
+    the inter-annual variation of underemployment and the risk of economic inactivity,
     ensuring rigorous statistical secrecy through differential privacy (Laplace noise
-    injection). The results demonstrate that labor deterioration manifests primarily
-    as a chronic transition toward informality, presenting a strong spatial correlation
-    with "infrastructure deserts" (lack of connectivity and services). The system
-    provides an interactive dashboard that functions as a budgetary triage tool, recommending
-    the State to prioritize comprehensive interventions exclusively in departmental
+    injection). The results demonstrate that labour deterioration manifests primarily
+    as a chronic transition towards informality, presenting a strong spatial correlation
+    with infrastructure deserts (lack of connectivity and services). The system provides
+    an interactive dashboard that functions as a budgetary triage tool, recommending
+    that the government prioritise comprehensive interventions exclusively in departmental
     clusters where high demographic vulnerability and structural abandonment converge.
 
     '
 - group_id: G5
-  title: 'Youth Labor Risk in Colombia: Territorial, Temporal, and Gender Analysis,
-    GEIH 2022-2025'
-  abstract: 'This project analyzes youth labor risk in Colombia for people aged 18
-    to 28 during 2022-2025 using monthly microdata from DANE''s Great Integrated Household
-    Survey (GEIH). The pipeline reconstructs raw, processed, and curated layers; harmonizes
-    demographic, labor force, and employed-person modules; validates observed codes;
+  title: 'Youth labour risk in Colombia: territorial, temporal, and gender analysis,
+    GEIH 2022–2025'
+  abstract: 'This project analyses youth labour risk in Colombia for people aged 18
+    to 28 during 2022–2025 using monthly microdata from DANE''s Great Integrated Household
+    Survey (GEIH). The pipeline reconstructs raw, processed, and curated layers; harmonises
+    demographic, labour-force, and employed-person modules; validates observed codes;
     and applies expansion factors to estimate population-level indicators. The core
     analytical products are monthly unemployment, informality, and employment rates
-    by department, sex, and urban-rural zone. A composite youth labor risk index combines
-    normalized unemployment and informality with a 60/40 weighting scheme, allowing
-    territorial, temporal, and gender comparisons. The project also identifies departments
-    with higher average risk and larger gender gaps, builds a Colombia choropleth
-    map, and exports a static HTML dashboard organized around the research objectives.
-    To support explainability, a descriptive linear regression model summarizes partial
-    associations between observed labor risk and month, department, zone, sex, age,
-    and temporal trend. The model is not interpreted causally. Governance controls
-    include a manifest, audit log, schema contract, reproducible download/cache logic,
-    and k-anonymity suppression with k=30 for public tables. Overall, the project
-    turns GEIH microdata into governed, reproducible evidence for prioritizing youth
+    by department, gender, and urban–rural area. A composite youth labour risk index
+    combines normalised unemployment and informality with a 60/40 weighting scheme,
+    allowing territorial, temporal, and gender comparisons. The project also identifies
+    departments with higher average risk and larger gender gaps, builds a Colombia
+    choropleth map, and exports a static HTML dashboard organised around the research
+    objectives. To support explainability, a descriptive linear regression model summarises
+    partial associations between observed labour risk and month, department, zone,
+    gender, age, and temporal trend. The model is not interpreted causally. Governance
+    controls include a manifest, audit log, schema contract, reproducible download/cache
+    logic, and k-anonymity suppression with k=30 for public tables. Overall, the project
+    turns GEIH microdata into governed, reproducible evidence for prioritising youth
     employment policy by territory, gender, and zone.
 
     '

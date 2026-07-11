@@ -23,12 +23,13 @@ visible: true
 
 {% assign catalog = site.data['26-udenar-big-data-projects'] %}
 {% if catalog and catalog.projects and catalog.projects.size > 0 %}
-<h3>Proyectos publicados (opt-in)</h3>
 {% for p in catalog.projects %}
-<h4>{{ p.title }} <span class="catalog-group-id">({{ p.group_id }})</span></h4>
-<p>{{ p.abstract }}</p>
+### {{ p.title }}
+
+{{ p.abstract }}
+
 {% unless forloop.last %}
-<hr>
+---
 {% endunless %}
 {% endfor %}
 {% endif %}

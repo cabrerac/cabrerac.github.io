@@ -49,8 +49,3 @@ main .lecture-resources ~ h3 + ul,
 main .lecture-resources ~ h3 + ol {
   margin-top: 0.15rem;
 }
-
-.catalog-group-id {
-  font-weight: normal;
-  font-size: var(--font-size-sm);
-}

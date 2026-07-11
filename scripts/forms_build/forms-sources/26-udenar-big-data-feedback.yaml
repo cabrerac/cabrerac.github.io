@@ -1,0 +1,116 @@
+# Machine-readable course feedback form — Udenar Big Data 2026
+# Human spec: work-space/teaching/big-data/planning/course-feedback-form-spec.md
+# Build: python scripts/forms_build/build_form.py 26-udenar-big-data-feedback
+
+meta:
+  course_code: 26-udenar-big-data
+  language: es
+  owner_account: chc79@cam.ac.uk
+  drive_folder_id: "1p9B4ZsPwMl2ZINMCtZD2QF7yZ51m6vfw"
+  distribution:
+    - bulk_email
+    - moodle
+  submission_notes: |
+    Anonymous course feedback after marks are published.
+    Core: self-rated confidence on O1–O9 + S1 (course-design.md).
+
+form:
+  title: "Electiva I Big Data — Retroalimentación final"
+  document_title: "Udenar Big Data 2026 — Course feedback"
+  # Anonymous: do not set email_collection_type (no VERIFIED / RESPONDER_INPUT)
+  description: |
+    Formulario anónimo: El objetivo es determinar qué tan seguro/a se siente
+    de haber alcanzado los objetivos de aprendizaje del curso.
+    Tiempo estimado: 8–12 minutos.
+  confirmation_message: |
+    Gracias por completar el formulario.
+    Sus respuestas son anónimas y nos ayudan a mejorar la próxima edición del curso.
+
+confidence_options: &confidence
+  - "1 — Nada seguro/a"
+  - "2 — Poco seguro/a"
+  - "3 — Moderadamente seguro/a"
+  - "4 — Bastante seguro/a"
+  - "5 — Muy seguro/a de dominarlo"
+
+workload_options: &workload
+  - "1 — Muy baja"
+  - "2 — Baja"
+  - "3 — Adecuada"
+  - "4 — Alta"
+  - "5 — Muy alta"
+
+sections:
+  - title: "Sección 1 — Confianza en los objetivos del curso"
+    description: |
+      Al terminar el curso, ¿qué tan seguro/a se siente de poder hacer cada una
+      de las siguientes cosas? (1 = nada seguro/a; 5 = muy seguro/a de dominarlo)
+    items:
+      - type: choice
+        title: "O1 — Reconocer situaciones de big data en un contexto concreto y formular un problema con criterios de éxito explícitos"
+        required: true
+        options: *confidence
+      - type: choice
+        title: "O2 — Explicar y aplicar una metodología de big data a lo largo del ciclo de vida de un proyecto"
+        required: true
+        options: *confidence
+      - type: choice
+        title: "O3 — Describir patrones de infraestructura y arquitectura y justificar trade-offs a nivel conceptual"
+        required: true
+        options: *confidence
+      - type: choice
+        title: "O4 — Identificar aplicaciones relevantes y limitaciones de enfoques de big data en un dominio"
+        required: true
+        options: *confidence
+      - type: choice
+        title: "O5 — Seleccionar, implementar y documentar formatos, almacenamiento y gestión adecuados a escala y restricciones"
+        required: true
+        options: *confidence
+      - type: choice
+        title: "O6 — Aplicar técnicas de procesamiento y análisis a datos alineados e interpretar resultados en contexto"
+        required: true
+        options: *confidence
+      - type: choice
+        title: "O7 — Diseñar o criticar ingestión y flujos de trabajo (ETL, batch vs streaming) para un fragmento realista de pipeline"
+        required: true
+        options: *confidence
+      - type: choice
+        title: "O8 — Producir analítica y visualizaciones que apoyen una decisión, con una narrativa explícita"
+        required: true
+        options: *confidence
+      - type: choice
+        title: "O9 — Analizar privacidad, gobernanza y ética en conexión con el diseño técnico de sistemas de big data"
+        required: true
+        options: *confidence
+      - type: choice
+        title: "S1 — Integrar lo aprendido en un pipeline de big data completo combinando aspectos contextuales, técnicos y éticos"
+        required: true
+        options: *confidence
+
+  - title: "Sección 2 — Preguntas abiertas"
+    items:
+      - type: paragraph
+        title: "¿Qué le ayudó más a alcanzar estos objetivos?"
+        required: true
+      - type: paragraph
+        title: "¿Qué dificultó más su aprendizaje?"
+        required: true
+      - type: paragraph
+        title: "¿Qué mejoraría en una próxima edición del curso?"
+        required: true
+      - type: paragraph
+        title: "Comentarios adicionales (opcional)"
+        required: false
+
+  - title: "Sección 3 — Carga de trabajo y proyecto (opcional)"
+    description: |
+      Estas preguntas son opcionales y ayudan a calibrar la carga y el valor del proyecto.
+    items:
+      - type: choice
+        title: "Carga de trabajo del curso en general"
+        required: false
+        options: *workload
+      - type: choice
+        title: "Utilidad del proyecto grupal para su aprendizaje"
+        required: false
+        options: *workload

@@ -1,0 +1,10 @@
+form_id: 1Qb8f0gob2T3JYwLTBDYsvSye0P_UskNBcZ_cb4Y_WOw
+responder_url: https://docs.google.com/forms/d/e/1FAIpQLSfaArpyKVJ_4qjRLSKSZNH-d2X6XdsAW7DdJJxHWkV9Fn13TQ/viewform
+edit_url: https://docs.google.com/forms/d/1Qb8f0gob2T3JYwLTBDYsvSye0P_UskNBcZ_cb4Y_WOw/edit
+drive_folder_id: 1p9B4ZsPwMl2ZINMCtZD2QF7yZ51m6vfw
+confirmation_message_manual: The Forms API v1 does not expose confirmation text. Paste
+  the block below in Google Forms → Settings → Presentation.
+confirmation_message: 'Gracias por completar el formulario.
+
+  Sus respuestas son anónimas y nos ayudan a mejorar la próxima edición del curso.'
+note: Paste responder_url into bulk email and Moodle.

@@ -320,7 +320,7 @@ publications:
   doi: 10.1145/3019612.3019698
   source: manual
   show: true
-- title: 'Sedea: Prototipo de sistema experto para el diagnóstico de enfermedades autoinmunes de órgano basado en internist'
+- title: 'Sedea: A prototype expert system for the diagnosis of organ-specific autoimmune diseases based on Internist'
   authors: Christian Cabrera
   journal: Revista Universidad y Salud
   year: '2014'
