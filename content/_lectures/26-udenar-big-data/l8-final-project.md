@@ -18,6 +18,9 @@ title: Final Projects
 visible: true
 ---
 
+<div class="lecture-resources">
+</div>
+
 <link rel="stylesheet" href="/assets/css/lecture-article.css">
 ### Projects Catalog
 
