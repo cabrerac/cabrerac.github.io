@@ -1,12 +1,15 @@
 orcid: 0000-0002-6954-6859
 publications:
-- title: Prompt Variability Effects on LLM Code Generation
-  authors: Andrei Paleyes, Radzim Sendyka, Diana Robinson, Christian Cabrera, Neil D. Lawrence
-  journal: Third International Workshop on Large Language Models for Code (LLM4Code 2026), co-located with ICSE 2026
+- title: 'Code Roulette: How Prompt Variability Affects LLM Code Generation'
+  authors: Andrei Paleyes, Diana Robinson, Radzim Sendyka, Christian Cabrera, Neil D. Lawrence
+  journal: Proceedings of the 3rd International Workshop on Large Language Models For Code (LLM4Code '26)
   year: '2026'
   topic: ml_systems
   type: conf
   id: paleyes2026prompt
+  doi: 10.1145/3786181.3788724
+  url: https://dl.acm.org/doi/full/10.1145/3786181.3788724
+  pages: 59-66
   arxiv: '2506.10204'
   source: manual
   show: true
@@ -22,12 +25,14 @@ publications:
   show: true
 - title: 'iFogSim-Placement: A Simulation Framework for Edge Service Placement'
   authors: Joseph Poon, Christian Cabrera, Neil D. Lawrence
-  journal: Proceedings of the 21st International Conference on Software Engineering for Adaptive and Self-Managing Systems (SEAMS 2026), co-located with ICSE 2026
+  journal: Proceedings of the 21st International Conference on Software Engineering for Adaptive and Self-Managing Systems (SEAMS '26)
   year: '2026'
   topic: soc
   type: conf
   id: poon2026ifogsim
-  url: https://github.com/DawnSpider96/iFogSim-Placement
+  doi: 10.1145/3788550.3794939
+  url: https://dl.acm.org/doi/full/10.1145/3788550.3794939
+  pages: 253-258
   source: manual
   show: true
 - title: 'Machine Learning Systems: A Survey from a Data-Oriented Perspective'
@@ -360,13 +365,3 @@ publications:
   url: https://sired.udenar.edu.co/7680/
   source: manual
   show: true
-- id: paleyes2026code
-  title: 'Code Roulette: How Prompt Variability Affects LLM Code Generation'
-  authors: Andrei Paleyes, Diana Robinson, Radzim Sendyka, Christian Cabrera, Neil D. Lawrence
-  journal: Proceedings of the 3rd International Workshop on Large Language Models For Code
-  year: 2026
-  type: conf
-  topic: other
-  doi: 10.1145/3786181.3788724
-  source: orcid
-  show: false

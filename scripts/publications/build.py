@@ -94,8 +94,6 @@ def render_bib_entry(pub: dict[str, Any]) -> str:
     link = paper_url(pub)
     if link and not pub.get("doi") and not pub.get("arxiv"):
         lines.append(f"\turl={{{link}}},")
-    if pub_id == "poon2026ifogsim":
-        lines.append("\tnote={Artifact},")
 
     if lines[-1].endswith(","):
         lines[-1] = lines[-1][:-1]
