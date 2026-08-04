@@ -22,9 +22,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <ul>
-                    <li>A monolith AGI may be too costly if it is even feasible. Most models are strong on some tasks and weak on others. Most alignment methods assume a <b>single</b> powerful system.</li>
-                </ul>
+                <p>A monolith AGI may be too costly if it is even feasible. Most models are strong on some tasks and weak on others. Most alignment methods assume a <b>single</b> powerful system.</p>
             </div>
         </div>
     </div>
@@ -36,9 +34,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <ul>
-                    <li><b>Patchwork AGI:</b> general intelligence can emerge from coordinating specialised sub-AGI agents with complementary skills and affordances, rather than from one monolithic AGI system.</li>
-                </ul>
+                <p><b>Patchwork AGI:</b> general intelligence can emerge from coordinating specialised sub-AGI agents with complementary skills and affordances, rather than from one monolithic AGI system.</p>
             </div>
         </div>
     </div>
@@ -47,14 +43,14 @@
 ## Distributional AGI Safety
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 55%">
+    <div class="row" style="height: 75%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
                 <img src="{{ site.url }}/assets/media/images/multi-agent-risks/mechanism.png" alt="PLACEHOLDER: Dist AGI market / sandbox schematic" style="width: 100%; height: auto">
             </div>
         </div>
     </div>
-    <div class="row" style="height: 45%">
+    <div class="row" style="height: 25%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
                 <ul>
@@ -76,7 +72,7 @@
                 <img src="{{ site.url }}/assets/media/images/multi-agent-risks/market.png" alt="PLACEHOLDER: Dist AGI market design figure" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Market design</b> · rules of the agent economy</p>
+                <p><b>Market design</b> to rule agents interaction</p>
                 <ul>
                     <li>Insulation and gated I/O</li>
                     <li>Transparency, identity, reputation</li>
@@ -97,7 +93,7 @@
                 <img src="{{ site.url }}/assets/media/images/multi-agent-risks/baseline.png" alt="PLACEHOLDER: Dist AGI baseline agent safety figure" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Baseline agent safety</b> · entry requirements before join</p>
+                <p><b>Baseline agent safety</b> as entry requirements</p>
                 <ul>
                     <li>Adversarial robustness</li>
                     <li>Interruptibility and containment</li>
@@ -118,7 +114,7 @@
                 <img src="{{ site.url }}/assets/media/images/multi-agent-risks/monitoring.png" alt="PLACEHOLDER: Dist AGI monitoring and oversight figure" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Monitoring and oversight</b> · live detection of novel failure</p>
+                <p><b>Monitoring and oversight</b> for novel failures detection</p>
                 <ul>
                     <li>Systematic risk monitoring</li>
                     <li>Independent oversight</li>
@@ -136,10 +132,10 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/regulations.png" alt="PLACEHOLDER: Dist AGI regulation figure" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/regulation.png" alt="PLACEHOLDER: Dist AGI regulation figure" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Regulation</b> · external authority and accountability</p>
+                <p><b>Regulation</b> as external authority</p>
                 <ul>
                     <li>Legal liability and accountability</li>
                     <li>Standards and compliance</li>
