@@ -1,13 +1,13 @@
 ---
 talk_id: internal-mas-risks-dist-agi
-title: "Multi-agent risks and distributional AGI safety"
+title: "Distributional AGI safety and multi-agent risks"
 title_slide: |
   Reading group
-  Multi-agent risks and distributional AGI safety
+  Distributional AI safety and multi-agent risks
 description: >-
-  Interfaces reading group on Hammond et al. (CAIF, arXiv:2502.14143) and
-  Tomašev et al. (DeepMind, arXiv:2512.16856): multi-agent failure modes,
-  risk factors, patchwork AGI, and virtual agentic markets.
+  Interfaces reading group on Tomašev et al. (DeepMind, arXiv:2512.16856) then
+  Hammond et al. (CAIF, arXiv:2502.14143): patchwork AGI and markets, then
+  multi-agent failure modes, risk factors, and implications.
 venue: Internal
 location: Cambridge
 year: 2026

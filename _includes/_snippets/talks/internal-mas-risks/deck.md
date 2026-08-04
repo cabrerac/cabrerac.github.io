@@ -1,5 +1,156 @@
 <!-- SLIDES: -->
 
+## Distributional AGI Safety
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>Tomašev, Franklin, Jacobs, Krier, Osindero. Google DeepMind (2026)</p>
+                <p><a href="https://arxiv.org/abs/2512.16856" target="_blank" rel="noopener noreferrer">arXiv:2512.16856</a></p>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/dist-title-abstract.png" alt="PLACEHOLDER: Dist AGI title + abstract crop (first page of arXiv PDF)" style="height: 400px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Distributional AGI Safety
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <ul>
+                    <li>A monolith AGI may be too costly if it is even feasible. Most models are strong on some tasks and weak on others. Most alignment methods assume a <b>single</b> powerful system.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Distributional AGI Safety
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <ul>
+                    <li><b>Patchwork AGI:</b> general intelligence can emerge from coordinating specialised sub-AGI agents with complementary skills and affordances, rather than from one monolithic AGI system.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Distributional AGI Safety
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 55%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/mechanism.png" alt="PLACEHOLDER: Dist AGI market / sandbox schematic" style="width: 100%; height: auto">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 45%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
+                <ul>
+                    <li><b>Idea:</b> markets as incentive mechanisms for collective agent behaviour</li>
+                    <li>Run them inside virtual sandboxes with auditability, reputation, oversight, and regulations</li>
+                    <li>Goal: understand, control, and safely deploy multi-agent systems at scale</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Distributional AGI Safety
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/market.png" alt="PLACEHOLDER: Dist AGI market design figure" style="height: 400px">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Market design</b> · rules of the agent economy</p>
+                <ul>
+                    <li>Insulation and gated I/O</li>
+                    <li>Transparency, identity, reputation</li>
+                    <li>Roles, obligations, access control</li>
+                    <li>Circuit breakers and incentive alignment</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Distributional AGI Safety
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/baseline.png" alt="PLACEHOLDER: Dist AGI baseline agent safety figure" style="height: 400px">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Baseline agent safety</b> · entry requirements before join</p>
+                <ul>
+                    <li>Adversarial robustness</li>
+                    <li>Interruptibility and containment</li>
+                    <li>Alignment and interpretability</li>
+                    <li>Defence against malicious prompts</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Distributional AGI Safety
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/monitoring.png" alt="PLACEHOLDER: Dist AGI monitoring and oversight figure" style="height: 400px">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Monitoring and oversight</b> · live detection of novel failure</p>
+                <ul>
+                    <li>Systematic risk monitoring</li>
+                    <li>Independent oversight</li>
+                    <li>Proto-AGI and collusion detection</li>
+                    <li>Red teaming and forensic tooling</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Distributional AGI Safety
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/regulations.png" alt="PLACEHOLDER: Dist AGI regulation figure" style="height: 400px">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Regulation</b> · external authority and accountability</p>
+                <ul>
+                    <li>Legal liability and accountability</li>
+                    <li>Standards and compliance</li>
+                    <li>Insurance and anti-monopoly measures</li>
+                    <li>International coordination and infrastructure governance</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
 ## Multi-Agent Risks from Advanced AI
 
 <div class="rows" style="height: 100%">
@@ -7,7 +158,6 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p>Hammond et al. Technical report from Cooperative AI Foundation (Feb 2025)</p>
-                <br>
                 <p><a href="https://arxiv.org/abs/2502.14143" target="_blank" rel="noopener noreferrer">arXiv:2502.14143</a></p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
@@ -17,7 +167,7 @@
     </div>
 </div>
 
-## Why this report
+## Multi-Agent Risks from Advanced AI
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -32,13 +182,13 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/caif-table1-overview.png" alt="PLACEHOLDER: CAIF Table 1 overview (failure modes x risk factors map)" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/caif-report.png" alt="PLACEHOLDER: CAIF title + abstract crop (first page of arXiv PDF)" style="height: 400px">
             </div>
         </div>
     </div>
 </div>
 
-## Three failure modes
+## Multi-Agent Risks from Advanced AI
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 60%">
@@ -61,305 +211,235 @@
     </div>
 </div>
 
-## Failure modes in practice
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <ul>
-                    <li><b>Miscoordination:</b> incompatible strategies, credit assignment, limited interaction</li>
-                    <li><b>Conflict:</b> social dilemmas on shared resources, coercion</li>
-                    <li><b>Collusion:</b> markets and steganography (hidden channels)</li>
-                </ul>
-            </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/caif-table3-cases.png" alt="PLACEHOLDER: CAIF Table 3 case studies (or GovSim Fig. 3)" style="height: 400px">
-            </div>
-        </div>
-    </div>
-</div>
-
-## Seven risk factors
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 55%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/caif-risk-factors.png" alt="PLACEHOLDER: CAIF risk-factor overview (Table 1 right half or Section 3)" style="width: 100%; height: auto">
-            </div>
-        </div>
-    </div>
-    <div class="row" style="height: 45%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                <p>Enablers that make the failure modes more likely:</p>
-                <ul>
-                    <li>Information asymmetries · Network effects · Selection pressures</li>
-                    <li>Destabilising dynamics · Commitment and trust</li>
-                    <li>Emergent agency · Multi-agent security</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Zoom: asymmetries and trust
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 55%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/caif-fig5-asymmetry.png" alt="PLACEHOLDER: CAIF Figure 5 — information asymmetry / market profits" style="width: 100%; height: auto">
-            </div>
-        </div>
-    </div>
-    <div class="row" style="height: 45%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                <ul>
-                    <li><b>Asymmetries:</b> different information → bargaining failure, deception</li>
-                    <li><b>Commitment and trust:</b> rigid or mistaken commitments, threats</li>
-                    <li>Paper directions: information design, mutual transparency, privacy-preserving monitoring, humans in the loop</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Zoom: collusion and networks
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 55%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/caif-fig-network.png" alt="PLACEHOLDER: CAIF Figure 6 or 7 — network cascade / correlated failure" style="width: 100%; height: auto">
-            </div>
-        </div>
-    </div>
-    <div class="row" style="height: 45%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                <ul>
-                    <li><b>Collusion:</b> detect hidden coordination. Assess impact when many AI systems interact</li>
-                    <li><b>Network effects:</b> error blast radius, rewiring, homogeneity and correlated failure</li>
-                    <li>Need faithful and tractable simulations, plus network monitoring</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Implications
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <ul>
-                    <li><b>Safety:</b> alignment of one agent is not enough</li>
-                    <li><b>Governance:</b> multi-agent evaluations, infrastructure, liability</li>
-                    <li><b>Ethics:</b> accountability diffusion when many agents act</li>
-                </ul>
-            </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/caif-table2-implications.png" alt="PLACEHOLDER: CAIF Table 2 — implications for safety, governance, ethics" style="height: 400px">
-            </div>
-        </div>
-    </div>
-</div>
-
-## The paper
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Distributional AGI Safety</b></p>
-                <br>
-                <p>Tomašev, Franklin, Jacobs, Krier, Osindero · Google DeepMind · 2026</p>
-                <br>
-                <p><a href="https://arxiv.org/abs/2512.16856" target="_blank" rel="noopener noreferrer">arXiv:2512.16856</a></p>
-            </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/dist-title-abstract.png" alt="PLACEHOLDER: Dist AGI title + abstract crop (first page of arXiv PDF)" style="height: 400px">
-            </div>
-        </div>
-    </div>
-</div>
-
-## Patchwork AGI
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 55%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/dist-patchwork.png" alt="PLACEHOLDER: Dist AGI intro figure or paragraph — patchwork AGI" style="width: 100%; height: auto">
-            </div>
-        </div>
-    </div>
-    <div class="row" style="height: 45%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                <ul>
-                    <li><b>Claim:</b> general capability can emerge from groups of specialised agents with complementary skills and affordances</li>
-                    <li>Most models are strong on some tasks and weak on others</li>
-                    <li>A monolith AGI may be too costly if it is even feasible</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Why this changes safety
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <ul>
-                    <li>Most alignment methods assume a <b>single</b> powerful system</li>
-                    <li>Patchwork AGI needs ways to recognise and steer <b>composite</b> behaviour</li>
-                    <li><b>Many hands:</b> accountability is hard when many agents contribute</li>
-                </ul>
-            </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/dist-monolith-vs-mas.png" alt="PLACEHOLDER: Dist AGI monolith vs multi-agent AGI (or many-hands crop)" style="height: 400px">
-            </div>
-        </div>
-    </div>
-</div>
-
-## Markets and sandboxes
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 55%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/dist-market-sandbox.png" alt="PLACEHOLDER: Dist AGI market / sandbox schematic" style="width: 100%; height: auto">
-            </div>
-        </div>
-    </div>
-    <div class="row" style="height: 45%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                <ul>
-                    <li><b>Idea:</b> markets as incentive mechanisms for collective agent behaviour</li>
-                    <li>Run them inside virtual sandboxes with auditability, reputation, and oversight</li>
-                    <li>Goal: understand, control, and safely deploy multi-agent systems at scale</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Defence in depth
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 55%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/dist-table1-defence.png" alt="PLACEHOLDER: Dist AGI Table 1 — defence-in-depth summary" style="width: 100%; height: auto">
-            </div>
-        </div>
-    </div>
-    <div class="row" style="height: 45%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
-                <ul>
-                    <li><b>Market design</b> · <b>Baseline agent safety</b></li>
-                    <li><b>Monitoring and oversight</b> · <b>Regulation</b></li>
-                    <li>No single layer is enough on its own</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Market design (detail)
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p>Structural rules inside the agent economy:</p>
-                <ul>
-                    <li>Insulation and gated I/O</li>
-                    <li>Transparency, identity, reputation</li>
-                    <li>Roles, obligations, access control</li>
-                    <li>Circuit breakers and smart contracts</li>
-                </ul>
-            </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/dist-market-design.png" alt="PLACEHOLDER: Dist AGI Table 1 market-design row (or section crop)" style="height: 400px">
-            </div>
-        </div>
-    </div>
-</div>
-
-## Services as substrate
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <ul>
-                    <li>Authors lean on <b>CAIS / AI services</b> for implementation style</li>
-                    <li>Modularity, encapsulation, data abstraction, client/server composition</li>
-                    <li>Useful for building agent systems. Also the place where data can become hard to see</li>
-                </ul>
-            </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/dist-cais-services.png" alt="PLACEHOLDER: Dist AGI CAIS / services crop (or Drexler diagram)" style="height: 400px">
-            </div>
-        </div>
-    </div>
-</div>
-
-## How the two fit
+## Multi-Agent Risks from Advanced AI
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <ul>
-                    <li><b>CAIF:</b> what can go wrong (failure modes and risk factors)</li>
-                    <li><b>Dist AGI:</b> an institutional response for patchwork AGI (markets, sandboxes, defence in depth)</li>
-                    <li>Together: a map of multi-agent risk, plus one proposal for governing agent populations</li>
-                </ul>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Failure</th>
+                            <th>Instances</th>
+                            <th>Directions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>Miscoordination</b><br>Similar goals, but agents cannot align behaviour</td>
+                            <td>Incompatible strategies, credit assignment, limited interaction</td>
+                            <td>Protocols and norms, heterogeneous interfaces, modelling other agents</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
 
-## Discussion
+## Multi-Agent Risks from Advanced AI
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <p>Optional prompts (skip if the room is already talking):</p>
-                <br>
-                <ul>
-                    <li>Which CAIF risk factor feels most urgent for systems we already build?</li>
-                    <li>Do agentic markets help, or do they recreate opacity through services?</li>
-                    <li>What would you need to <b>observe</b> to trust multi-agent oversight?</li>
-                </ul>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Failure</th>
+                            <th>Instances</th>
+                            <th>Directions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>Miscoordination</b><br>Similar goals, but agents cannot align behaviour</td>
+                            <td>Incompatible strategies, credit assignment, limited interaction</td>
+                            <td>Protocols and norms, heterogeneous interfaces, modelling other agents</td>
+                        </tr>
+                        <tr>
+                            <td><b>Conflict</b><br>Outcomes leave the Pareto frontier. Selfish policies</td>
+                            <td>Social dilemmas on shared resources, coercion and extortion</td>
+                            <td>Norms for equilibria, cooperative dispositions, external governance</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
 
-## Links
+## Multi-Agent Risks from Advanced AI
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <ul>
-                    <li>Hammond et al. · <a href="https://arxiv.org/abs/2502.14143" target="_blank" rel="noopener noreferrer">arXiv:2502.14143</a></li>
-                    <li>Tomašev et al. · <a href="https://arxiv.org/abs/2512.16856" target="_blank" rel="noopener noreferrer">arXiv:2512.16856</a></li>
-                </ul>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Failure</th>
+                            <th>Instances</th>
+                            <th>Directions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>Miscoordination</b><br>Similar goals, but agents cannot align behaviour</td>
+                            <td>Incompatible strategies, credit assignment, limited interaction</td>
+                            <td>Protocols and norms, heterogeneous interfaces, modelling other agents</td>
+                        </tr>
+                        <tr>
+                            <td><b>Conflict</b><br>Outcomes leave the Pareto frontier. Selfish policies</td>
+                            <td>Social dilemmas on shared resources, coercion and extortion</td>
+                            <td>Norms for equilibria, cooperative dispositions, external governance</td>
+                        </tr>
+                        <tr>
+                            <td><b>Collusion</b><br>Secret cooperation that harms others</td>
+                            <td>Markets, steganography (hidden channels)</td>
+                            <td>Detect collusion, assess impact in multi-system deployments</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Multi-Agent Risks from Advanced AI
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Risk factor</th>
+                            <th>Instances</th>
+                            <th>Directions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>Information asymmetries</b><br>Agents hold different information in joint tasks</td>
+                            <td>Communication constraints, bargaining failure, deception</td>
+                            <td>Information design, individual revelation, truthful AI in MAS</td>
+                        </tr>
+                        <tr>
+                            <td><b>Network effects</b><br>Structure of connections shapes collective behaviour</td>
+                            <td>Error blast radius, rewiring, homogeneity and correlated failure</td>
+                            <td>Monitor networks, faithful and tractable simulations, improve stability</td>
+                        </tr>
+                        <tr>
+                            <td><b>Commitment and trust</b><br>Agents rely on others keeping commitments</td>
+                            <td>Inefficient outcomes, rigid or mistaken commitments, threats</td>
+                            <td>Humans in the loop, limit committing power, mutual transparency</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Multi-Agent Risks from Advanced AI
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Risk factor</th>
+                            <th>Instances</th>
+                            <th>Directions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>Selection pressures</b><br>Behaviour is filtered over time by natural or artificial pressures</td>
+                            <td>Evaluation against co-players, environment design, training-task effects</td>
+                            <td>Evolutionary game theory, simulate selection, study co-play</td>
+                        </tr>
+                        <tr>
+                            <td><b>Destabilising dynamics</b><br>Hard-to-predict patterns from interacting agents</td>
+                            <td>Feedback loops, cycles, chaos, phase transitions, distributional shift</td>
+                            <td>Understand, monitor, and stabilise dynamics. Regulate adaptive MAS</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Multi-Agent Risks from Advanced AI
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Risk factor</th>
+                            <th>Instances</th>
+                            <th>Directions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>Emergent agency</b><br>Dangerous capabilities or goals at the collective level</td>
+                            <td>Dangerous MAS capabilities and goals</td>
+                            <td>Empirical exploration, theories of emergence, monitor and intervene</td>
+                        </tr>
+                        <tr>
+                            <td><b>Multi-agent security</b><br>Protect heterogeneous agent networks and the systems they touch</td>
+                            <td>Swarm attacks, cascading failures, social engineering at scale, covert threats</td>
+                            <td>Secure protocols, threat detection, adversarial testing, socio-technical defence</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Multi-Agent Risks from Advanced AI
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Area</th>
+                            <th>Why it matters</th>
+                            <th>Directions / concerns</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>Safety</b></td>
+                            <td>Aligning one agent is not enough</td>
+                            <td>Collusion, robustness and security in MAS, correlated and compounding failure</td>
+                        </tr>
+                        <tr>
+                            <td><b>Governance</b></td>
+                            <td>Socio-technical fixes sit outside a single model</td>
+                            <td>Multi-agent evaluations, infrastructure, documentation, liability</td>
+                        </tr>
+                        <tr>
+                            <td><b>Ethics</b></td>
+                            <td>MAS can amplify existing harms</td>
+                            <td>Accountability diffusion, privacy loss, bias, epistemic destabilisation</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
