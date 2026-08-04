@@ -178,7 +178,7 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/caif-report.png" alt="Cover of Multi-Agent Risks from Advanced AI, Cooperative AI Foundation Technical Report #1 (February 2025)" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/caif-report.png" alt="Cover of Multi-Agent Risks from Advanced AI, Cooperative AI Foundation Technical Report #1 (February 2025)" style="height:100%; width:auto">
             </div>
         </div>
     </div>
