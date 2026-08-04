@@ -10,7 +10,7 @@
                 <p><a href="https://arxiv.org/abs/2512.16856" target="_blank" rel="noopener noreferrer">arXiv:2512.16856</a></p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/dist-title-abstract.png" alt="PLACEHOLDER: Dist AGI title + abstract crop (first page of arXiv PDF)" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/dist-title-abstract.png" alt="arXiv page for Distributional AGI Safety by Tomašev et al. (arXiv:2512.16856)" style="height:100%; width:auto">
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
     <div class="row" style="height: 75%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/mechanism.png" alt="PLACEHOLDER: Dist AGI market / sandbox schematic" style="width: 100%; height: auto">
+                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/mechanism.png" alt="Four-panel overview of Dist AGI defence in depth: market design, baseline agent safety, monitoring and oversight, and regulatory mechanisms" style="width: 100%; height: auto">
             </div>
         </div>
     </div>
@@ -69,7 +69,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/market.png" alt="PLACEHOLDER: Dist AGI market design figure" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/market.png" alt="Market Design panel: structural constraints for virtual agent economies, including insulation, transparency, identity, and circuit breakers" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Market design</b> to rule agents interaction</p>
@@ -90,7 +90,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/baseline.png" alt="PLACEHOLDER: Dist AGI baseline agent safety figure" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/baseline.png" alt="Baseline Agent Safety panel: minimum reliability standards such as adversarial robustness, interruptibility, containment, and alignment" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Baseline agent safety</b> as entry requirements</p>
@@ -111,7 +111,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/monitoring.png" alt="PLACEHOLDER: Dist AGI monitoring and oversight figure" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/monitoring.png" alt="Monitoring and Oversight panel: systemic risk monitoring, independent oversight, proto-AGI detection, red teaming, and forensic tooling" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Monitoring and oversight</b> for novel failures detection</p>
@@ -132,7 +132,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/regulation.png" alt="PLACEHOLDER: Dist AGI regulation figure" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/regulation.png" alt="Regulatory Mechanisms panel: liability, standards, insurance, anti-monopoly measures, and international coordination" style="height: 400px">
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Regulation</b> as external authority</p>
@@ -157,7 +157,7 @@
                 <p><a href="https://arxiv.org/abs/2502.14143" target="_blank" rel="noopener noreferrer">arXiv:2502.14143</a></p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/caif-report.png" alt="PLACEHOLDER: CAIF title + abstract crop (first page of arXiv PDF)" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/caif-report.png" alt="Cover of Multi-Agent Risks from Advanced AI, Cooperative AI Foundation Technical Report #1 (February 2025)" style="height:100%; width:auto">
             </div>
         </div>
     </div>
@@ -178,7 +178,7 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/caif-report.png" alt="PLACEHOLDER: CAIF title + abstract crop (first page of arXiv PDF)" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/caif-report.png" alt="Cover of Multi-Agent Risks from Advanced AI, Cooperative AI Foundation Technical Report #1 (February 2025)" style="height: 400px">
             </div>
         </div>
     </div>
@@ -187,14 +187,14 @@
 ## Multi-Agent Risks from Advanced AI
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 60%">
+    <div class="row" style="height: 75%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/caif-fig1-failures.png" alt="PLACEHOLDER: CAIF Figure 1 — three failure modes" style="width: 100%; height: auto">
+                <img src="{{ site.url }}/assets/media/images/multi-agent-risks/caif-fig1-failures.png" alt="Figure 1 decision tree of multi-agent failure modes: miscoordination, conflict, and collusion by cooperation and objectives" style="width: 100%; height: auto">
             </div>
         </div>
     </div>
-    <div class="row" style="height: 40%">
+    <div class="row" style="height: 25%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
                 <ul>
@@ -212,7 +212,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <table class="table">
                     <thead>
                         <tr>
@@ -239,7 +239,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <table class="table">
                     <thead>
                         <tr>
@@ -271,7 +271,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <table class="table">
                     <thead>
                         <tr>
@@ -308,7 +308,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <table class="table">
                     <thead>
                         <tr>
@@ -345,7 +345,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <table class="table">
                     <thead>
                         <tr>
@@ -377,7 +377,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <table class="table">
                     <thead>
                         <tr>
@@ -409,7 +409,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <table class="table">
                     <thead>
                         <tr>

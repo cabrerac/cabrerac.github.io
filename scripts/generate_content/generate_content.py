@@ -1694,13 +1694,13 @@ style: |
 
   .table th,
   .table td {{
-    color: #000000 !important;
+    color: var(--text-color) !important;
   }}
 
-  /* Ensure table text stays black in dark mode */
+  /* Table text follows theme text color in dark mode */
   html[data-theme='dark'] .table th,
   html[data-theme='dark'] .table td {{
-    color: #000000 !important;
+    color: var(--text-color) !important;
   }}
 
   /* Ensure table background stays white in dark mode */
