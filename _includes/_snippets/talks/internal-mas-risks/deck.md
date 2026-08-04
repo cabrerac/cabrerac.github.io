@@ -6,7 +6,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>Hammond et al. - Cooperative AI Foundation - Technical Report #1 - Feb 2025</p>
+                <p>Hammond et al. Technical report from Cooperative AI Foundation (Feb 2025)</p>
                 <br>
                 <p><a href="https://arxiv.org/abs/2502.14143" target="_blank" rel="noopener noreferrer">arXiv:2502.14143</a></p>
             </div>
@@ -27,7 +27,7 @@
                 <br>
                 <ul>
                     <li>Modern MAS make those problems <b>worse</b>.</li>
-                    <li>New risks come from <b>cooperation</b> (wanted or not) and from how goals relate.</li>
+                    <li>New risks come from <b>cooperation</b> and from how goals relate.</li>
                     <li>The report maps <b>failure modes</b>, <b>risk factors</b>, and implications for safety, governance, and ethics.</li>
                 </ul>
             </div>
