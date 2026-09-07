@@ -45,7 +45,7 @@ def load_config(config_path: Path) -> dict:
 
 
 def load_recipients(csv_path: Path) -> list[dict]:
-    """Load recipients from CSV. Expected columns: email, name, surname, custom_line (case-insensitive)."""
+    """Load recipients from CSV. Required: email, name, surname, custom_line. Optional: cc (comma-separated)."""
     if not csv_path.exists():
         raise FileNotFoundError(f"CSV not found: {csv_path}")
     rows = []
@@ -60,7 +60,7 @@ def load_recipients(csv_path: Path) -> list[dict]:
                     rows.append(row)
         else:
             raise ValueError(
-                f"CSV must have columns: email, name, surname, custom_line. Got: {reader.fieldnames}"
+                f"CSV must have columns: email, name, surname, custom_line (optional: cc). Got: {reader.fieldnames}"
             )
     return rows
 
@@ -261,7 +261,9 @@ def main() -> None:
         print(f"DRY RUN: would send to {len(recipients)} recipient(s).")
         for i, r in enumerate(recipients, 1):
             subj = render_body(subject, r)
-            print(f"  {i}. {r.get('email')} | {subj[:60]}{'...' if len(subj) > 60 else ''}")
+            row_cc = (r.get("cc") or "").strip()
+            extra = f" | cc={row_cc}" if row_cc else ""
+            print(f"  {i}. {r.get('email')}{extra} | {subj[:60]}{'...' if len(subj) > 60 else ''}")
         return
 
     if smtp_auth:
@@ -280,6 +282,18 @@ def main() -> None:
         body_html = render_body(body_html_template, recipient) if body_html_template else None
         subj = render_body(subject, recipient)
 
+        # Optional per-row CC (comma/semicolon-separated), merged with config CC
+        row_cc = []
+        raw_cc = (recipient.get("cc") or "").replace(";", ",")
+        for part in raw_cc.split(","):
+            addr = part.strip()
+            if addr and addr.lower() != to_email.lower() and addr not in row_cc:
+                row_cc.append(addr)
+        msg_cc = []
+        for addr in cc + row_cc:
+            if addr and addr.lower() != to_email.lower() and addr not in msg_cc:
+                msg_cc.append(addr)
+
         try:
             msg = build_message(
                 sender=sender,
@@ -287,7 +301,7 @@ def main() -> None:
                 subject=subj,
                 body_text=body_text,
                 body_html=body_html,
-                cc=cc,
+                cc=msg_cc,
                 bcc=bcc,
                 attachment_paths=attachment_paths,
                 base_dir=config_path.parent,
@@ -296,7 +310,7 @@ def main() -> None:
             print(f"Skip {to_email}: {e}", file=sys.stderr)
             continue
 
-        to_list = [to_email] + cc + bcc
+        to_list = [to_email] + msg_cc + bcc
         try:
             with smtplib.SMTP(smtp_host, smtp_port, timeout=smtp_timeout) as smtp:
                 if smtp_use_tls:
