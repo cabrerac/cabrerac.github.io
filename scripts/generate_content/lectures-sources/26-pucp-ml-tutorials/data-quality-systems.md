@@ -1,7 +1,7 @@
 ---
 course_code: 26-pucp-ml-tutorials
 title: Data Quality, Systems Framing and AI Narrative
-description: We open with a systems view for prioritising civil-engineering decisions before modelling, walk a concise AI history timeline through 2025 Agentic AI and 2026 Multi-Agent Systems, then diagnose data quality as fitness for purpose (garbage-in framing) using a structural-sensor stand-in.
+description: We introduce the course, place AI on one timeline that ends in the technocentric problem, then use a systems-engineering approach, the ML pipeline, and the data-science process (access and assess) to diagnose data quality. The lab downloads one fixed USGS earthquake catalog for Peru and reuses it in later sessions.
 session: 1
 start_time: 10:00 am
 end_time: 1:00 pm
@@ -17,118 +17,67 @@ visible: false
 lecture_code: data-quality-systems
 lecture_date: 05/10/2026
 permalink: /teaching/26-pucp-ml-tutorials/data-quality-systems/
-notebook_title: Diagnóstico de calidad de datos y priorización de problemas
-notebook_description: Práctica de sesión 1 — inspeccionar y diagnosticar calidad de datos (stand-in de sensores estructurales).
+notebook_title: Acceso y evaluación del catálogo sísmico USGS (Perú 2024)
+notebook_description: Práctica de sesión 1. Descargar el catálogo USGS de sismos en Perú (2024, magnitud 4.5 o más) y evaluar si cada registro sirve para una revisión post-terremoto. La misma URL se reutiliza en las sesiones siguientes.
 ---
 
-<!-- ALL: content that goes everywhere -->
-<!-- SLIDES: content that only goes to slides -->
-<!-- RENDER: content that only goes to rendered markdown -->
-<!-- NOTEBOOK: content that only goes to notebook -->
-<!-- SLIDES+RENDER: content that goes to both rendered markdown and slides -->
-<!-- SLIDES+NOTEBOOK: content that goes to both slides and notebook -->
-<!-- RENDER+NOTEBOOK: content that goes to both rendered markdown and notebook -->
-
 <!-- SLIDES: -->
 
-# Session Outcomes
+# Course
 
 <!-- end SLIDES: -->
 
-<!-- SLIDES+RENDER: -->
-
-## What you will be able to do
-
-- Frame a civil / seismic decision with stakeholders, constraints, and success criteria **before** choosing a model.
-- Place current tooling on a short history arc through **2025 Agentic AI** and **2026 Multi-Agent Systems** (context, not today's lab).
-- Diagnose data quality as **fitness for a purpose** and list concrete risks (missingness, units, leakage, labels).
-
-<!-- end SLIDES+RENDER: -->
+{% include _snippets/26-pucp-ml-tutorials/data-quality-systems/course.md %}
 
 <!-- SLIDES: -->
 
-# How We Work
+# One Catalog for the Course
 
 <!-- end SLIDES: -->
 
-<!-- SLIDES+RENDER: -->
-
-## Delivery pattern
-
-- Slides in English; talk and notebooks in Spanish.
-- Online; Colab-preferred notebooks; formative checks only.
-- This lead owns sessions **1-5** (programme host numbers 1-3 and 8-9).
-
-<!-- end SLIDES+RENDER: -->
+{% include _snippets/26-pucp-ml-tutorials/data-quality-systems/catalog.md %}
 
 <!-- SLIDES: -->
 
-# Systems View First
+# AI History
 
 <!-- end SLIDES: -->
 
-{% include _snippets/problem-first.md %}
-
-{% include _snippets/sys-eng-approach.md %}
+{% include _snippets/26-pucp-ml-tutorials/data-quality-systems/ai-history.md %}
 
 <!-- SLIDES: -->
 
-# Prioritise Before Modelling
+# The Technocentric Problem
 
 <!-- end SLIDES: -->
 
-<!-- SLIDES+RENDER: -->
-
-## Civil / seismic vignette (placeholder)
-
-Example decision: prioritise **retrofit screening** versus a new **sensor campaign**. Name the stakeholder, the decision, one hard constraint, and what would count as success — **no model yet**.
-
-<!-- end SLIDES+RENDER: -->
+{% include _snippets/26-pucp-ml-tutorials/data-quality-systems/technocentrism.md %}
 
 <!-- SLIDES: -->
 
-# AI Narrative Timeline
+# Systems Engineering Approach
 
 <!-- end SLIDES: -->
 
-{% include _snippets/early-neural-networks.md %}
-
-{% include _snippets/deep-learning.md %}
+{% include _snippets/26-pucp-ml-tutorials/data-quality-systems/sys-eng-approach.md %}
 
 <!-- SLIDES: -->
 
-# Recent Arc
+# Machine Learning Pipeline
 
 <!-- end SLIDES: -->
 
-<!-- SLIDES+RENDER: -->
-
-## Condensed timeline (fitness questions stay)
-
-- Early neural networks → deep learning → transformers / LLMs
-- **2025 Agentic AI** — tool-using loops; autonomy claims need evidence
-- **2026 Multi-Agent Systems** — roles, coordination, over-trust risks
-- Fancy models still fail on **unfit data** (garbage in / garbage out)
-
-<!-- end SLIDES+RENDER: -->
-
-{% include _snippets/agentic-ai.md %}
+{% include _snippets/26-pucp-ml-tutorials/data-quality-systems/ml-pipeline.md %}
 
 <!-- SLIDES: -->
 
-# 2026 Multi-Agent Systems
+# Data Science Process
 
 <!-- end SLIDES: -->
 
-<!-- SLIDES+RENDER: -->
+{% include _snippets/26-pucp-ml-tutorials/data-quality-systems/data-science-process.md %}
 
-## Multi-Agent Systems (context only)
-
-- Multiple agents with roles, shared state, and handoffs.
-- Coordination and evaluation become first-class; over-trust and unsafe advice remain risks in engineering settings.
-- Host programme session **#10** (co-trainer) covers agents in depth — today this is narrative context only.
-
-<!-- end SLIDES+RENDER: -->
+{% include _snippets/26-pucp-ml-tutorials/data-quality-systems/data-assess.md %}
 
 <!-- SLIDES: -->
 
@@ -136,77 +85,6 @@ Example decision: prioritise **retrofit screening** versus a new **sensor campai
 
 <!-- end SLIDES: -->
 
-{% include _snippets/data-quality.md %}
+{% include _snippets/26-pucp-ml-tutorials/data-quality-systems/data-quality.md %}
 
-{% include _snippets/data-assess.md %}
-
-<!-- SLIDES: -->
-
-# Checklist
-
-<!-- end SLIDES: -->
-
-<!-- SLIDES+RENDER: -->
-
-## Reusable diagnosis checklist
-
-Schema · units · missingness · duplicates · leakage · temporal coverage · label quality · whether the data can answer the **stated decision**.
-
-<!-- end SLIDES+RENDER: -->
-
-<!-- SLIDES: -->
-
-# Lab Launch
-
-<!-- end SLIDES: -->
-
-<!-- NOTEBOOK: -->
-
-# Introducción práctica
-
-En esta sesión diagnosticamos calidad de datos **antes** de modelar. Usaremos un CSV sintético de sensores estructurales (stand-in). El dataset sísmico real aún está por definir.
-
-## Objetivos
-
-1. Cargar e inspeccionar el stand-in.
-2. Medir faltantes, duplicados, rangos y unidades sospechosas.
-3. Redactar criterios de éxito y al menos dos riesgos de calidad ligados a una decisión civil.
-
-```python
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-
-# Stand-in: replace with course CSV path or upload in Colab
-# df = pd.read_csv("sensor-structural-standin.csv")
-print("Carga el CSV stand-in y revisa head/info/describe")
-```
-
-### Diagnóstico rápido
-
-```python
-# Ejemplo de checklist (adapta a tus columnas)
-# print(df.isna().mean().sort_values(ascending=False))
-# print(df.duplicated().sum())
-# df.hist(figsize=(10, 8)); plt.tight_layout()
-```
-
-### Ticket de salida
-
-Escribe: (a) criterios de éxito de la decisión; (b) al menos dos riesgos de calidad de datos y por qué importan.
-
-<!-- end NOTEBOOK: -->
-
-<!-- SLIDES: -->
-
-# Preview Session 2
-
-<!-- end SLIDES: -->
-
-<!-- SLIDES+RENDER: -->
-
-## Next
-
-Linear and logistic baselines → the **perceptron** → activation choice.
-
-<!-- end SLIDES+RENDER: -->
+{% include _snippets/26-pucp-ml-tutorials/data-quality-systems/practical.md %}
