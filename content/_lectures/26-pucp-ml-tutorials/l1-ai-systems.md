@@ -25,7 +25,7 @@ position: Assistant Research Professor
 session: 1
 start_time: 10:00 am
 title: AI Systems and ML Pipeline
-visible: false
+visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
