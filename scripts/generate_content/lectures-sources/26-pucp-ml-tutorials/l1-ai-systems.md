@@ -32,7 +32,7 @@ notebook_description: "Práctica de lecture 1. Parte guiada con el catálogo USG
 
 <!-- SLIDES: -->
 
-# AI Narrative
+# The AI Narrative
 
 <!-- end SLIDES: -->
 
@@ -85,8 +85,6 @@ notebook_description: "Práctica de lecture 1. Parte guiada con el catálogo USG
 <!-- end SLIDES: -->
 
 {% include _snippets/26-pucp-ml-tutorials/l1-ai-systems/data-assess.md %}
-
-{% include _snippets/26-pucp-ml-tutorials/l1-ai-systems/data-quality.md %}
 
 <!-- SLIDES: -->
 
