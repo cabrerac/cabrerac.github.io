@@ -8,7 +8,7 @@
             <div class="column vertical-middle text-left" style="width: 100%">
             <ul>
                 <li>Remote sessions combining theory and practice</li>
-                <li>AI systems and ML pipeline, linear models and perceptron, neural networks, transofmers, and large language models</li>
+                <li>AI systems and ML pipeline, linear models and perceptron, neural networks, transformers, and large language models</li>
                 <li>Content will be published weekly</li>
                 <li>You can ask questions at any moment</li>
                 <li>Participation is key</li>

@@ -8,19 +8,18 @@
             <div class="column vertical-middle text-left" style="width: 50%">
             <h3>Overview</h3>
             <ul>
-                <li>Course framing and two USGS catalogs</li>
-                <li>AI history and the technocentric problem</li>
+                <li>AI narrative and the technocentric problem</li>
                 <li>Systems engineering and problem first</li>
-                <li>ML pipeline and access, assess, address</li>
-                <li>Data quality as fitness for a purpose</li>
+                <li>ML pipeline and data science methodology</li>
+                <li>Access, assess, and address in practice</li>
             </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
             <h3>Next Time</h3>
             <ul>
-                <li>Linear and logistic baselines</li>
+                <li>Linear and logistic models</li>
                 <li>The perceptron</li>
-                <li>Activation choice</li>
+                <li>Activation function, loss function, and back propagation</li>
             </ul>
             </div>
         </div>
