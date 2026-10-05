@@ -345,7 +345,7 @@ print(f"Localización débil para un distrito: {int(incertidumbre.sum())} de {le
 )
 ```
 
-Lea la columna `place` de las filas que salieron. Muchas dirán algo como *"off the coast"*. No es casualidad: un sismo mar adentro solo puede ser registrado desde tierra, así que todas las estaciones quedan del mismo lado y el `gap` se dispara. **El patrón de errores tiene una explicación física**, y encontrarla es parte de la evaluación.
+En esta etapa debemos analizar los datos en contexto para encontrar la explicación física de lo observado.
 
 ### Paso 9 — Un resumen reutilizable
 
@@ -474,22 +474,6 @@ assert modelo_colombia.coef_.shape == (1,)
 print("Modelo Colombia: OK")
 ```
 
-### Paso 13 — Escribir el diagnóstico
-
-Un análisis que no se puede explicar en palabras no está terminado. Complete el texto de abajo usando los números de `resumen_colombia` y del ajuste.
-
-Responda, en concreto: ¿usaría este catálogo para una revisión posterior a un sismo? ¿Bajo qué criterios diría que funcionó? ¿Qué dos problemas de calidad encontró? ¿Y qué parte del catálogo quedó fuera del modelo?
-
-```python
-diagnostico_colombia = """
-Decision:
-Criterios de exito:
-Dos riesgos de calidad:
-Filas que el modelo no vio:
-"""
-print(diagnostico_colombia)
-```
-
 ---
 
 ## Parte individual — Perú 2024
@@ -586,9 +570,9 @@ print("Replay Perú: OK")
 print("URL del curso (guárdela):", USGS_URL_PERU)
 ```
 
-### Ticket de salida
+### Análisis final
 
-Complete en sus palabras. No copie el diagnóstico de Colombia.
+Complete en sus palabras.
 
 ```python
 diagnostico_peru = """
