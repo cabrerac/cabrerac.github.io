@@ -1,13 +1,11 @@
 <!-- NOTEBOOK: -->
 
-## Cómo está organizado este cuaderno
+Este cuaderno se organiza en dos secciones:
 
-Hay **dos partes**.
+1. **Seccion guiada:** Descargamos el catálogo USGS de **Colombia**, 2024, para sismos de magnitud 4.5 o más. Recorremos las diferentes etapas de la metodología de ciencia de datos **acceso**, **evaluación** y **address**.
+2. **Sección individual:** Los estudiantes replicarán el mismo método sobre el catálogo del **Perú**, 2024, misma magnitud. Reutilicen las funciones de la parte guiada.
 
-1. **Guiada (con el instructor).** Catálogo USGS de **Colombia**, 2024, magnitud 4.5 o más. Recorremos **acceso**, **evaluación** y **address**. Address es un modelo lineal simple.
-2. **Individual.** El mismo método sobre el catálogo del **Perú**, 2024, misma magnitud. Reutilice las funciones de la parte guiada.
-
-La decisión de hoy: después de un sismo, ¿qué filas están en condiciones de usarse para una revisión (dónde fue, qué tan grande, qué tan segura es la localización)? El modelo lineal **practica address**. No aprueba una decisión de campo.
+En esta oportunidad nos interesa determinar después de un sismo, ¿qué filas están en condiciones de usarse para una revisión (dónde fue, qué tan grande, qué tan segura es la localización)?
 
 Ejecute las celdas de arriba hacia abajo. En cada **Comprobar**, confirme el mensaje `OK` antes de seguir.
 
@@ -392,7 +390,6 @@ diagnostico_peru = """
 Que cambio al pasar de Colombia a Peru:
 Un riesgo de calidad que se repite:
 Un riesgo que es distinto:
-Usaria el modelo lineal para una decision de campo? Por que no:
 """
 print(diagnostico_peru)
 ```

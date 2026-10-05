@@ -24,21 +24,11 @@ notebook_description: "Práctica de lecture 1. Parte guiada con el catálogo USG
 
 <!-- SLIDES: -->
 
-# Course
+# Course Structure
 
 <!-- end SLIDES: -->
 
-{% include _snippets/26-pucp-ml-tutorials/l1-ai-systems/course.md %}
-
-<!-- SLIDES: -->
-
-# Two Catalogs Today
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-pucp-ml-tutorials/l1-ai-systems/catalog.md %}
-
-<!-- SLIDES: -->
+{% include _snippets/26-pucp-ml-tutorials/l1-ai-systems/course-structure.md %}
 
 # AI History
 
