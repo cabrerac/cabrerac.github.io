@@ -94,12 +94,6 @@ notebook_description: "Práctica de lecture 1. Parte guiada con el catálogo USG
 
 {% include _snippets/26-pucp-ml-tutorials/l1-ai-systems/data-address.md %}
 
-<!-- SLIDES: -->
-
-# Pipeline and Process
-
-<!-- end SLIDES: -->
-
 {% include _snippets/26-pucp-ml-tutorials/l1-ai-systems/conclusions.md %}
 
 {% include _snippets/26-pucp-ml-tutorials/l1-ai-systems/resources.md %}
