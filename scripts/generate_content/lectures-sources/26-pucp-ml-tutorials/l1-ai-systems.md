@@ -18,8 +18,8 @@ visible: false
 lecture_code: l1-ai-systems
 lecture_date: 05/10/2026
 permalink: /teaching/26-pucp-ml-tutorials/l1-ai-systems/
-notebook_title: Acceso y evaluación del catálogo sísmico USGS (Perú 2024)
-notebook_description: Práctica de lecture 1. En este cuaderno descargamos el catálogo USGS de sismos en Perú (2024, magnitud 4.5 o más) y evaluar si cada registro sirve para una revisión post-terremoto. Al final entrenamos un modelo simple de regresión líneal.
+notebook_title: "Acceso, evaluación y primer modelo lineal (USGS)"
+notebook_description: "Práctica de lecture 1. Parte guiada con el catálogo USGS de Colombia (2024, magnitud 4.5 o más). Acceso, evaluación y un modelo lineal simple. Trabajo individual: el mismo método sobre el catálogo del Perú, que se reutiliza en las sesiones siguientes."
 ---
 
 <!-- SLIDES: -->
@@ -32,7 +32,7 @@ notebook_description: Práctica de lecture 1. En este cuaderno descargamos el ca
 
 <!-- SLIDES: -->
 
-# One Catalog for the Course
+# Two Catalogs Today
 
 <!-- end SLIDES: -->
 
@@ -86,7 +86,7 @@ notebook_description: Práctica de lecture 1. En este cuaderno descargamos el ca
 
 <!-- end SLIDES: -->
 
-{% include _snippets/data-quality.md %}
+{% include _snippets/26-pucp-ml-tutorials/l1-ai-systems/data-quality.md %}
 
 {% include _snippets/26-pucp-ml-tutorials/l1-ai-systems/conclusions.md %}
 

@@ -14,12 +14,12 @@ institution: University of Cambridge
 layout: lecture
 lecture_code: l1-ai-systems
 lecture_date: 05/10/2026
-notebook_description: "Pr\xE1ctica de lecture 1. En este cuaderno descargamos el cat\xE1\
-  logo USGS de sismos en Per\xFA (2024, magnitud 4.5 o m\xE1s) y evaluar si cada registro\
-  \ sirve para una revisi\xF3n post-terremoto. Al final entrenamos un modelo simple\
-  \ de regresi\xF3n l\xEDneal."
+notebook_description: "Pr\xE1ctica de lecture 1. Parte guiada con el cat\xE1logo USGS\
+  \ de Colombia (2024, magnitud 4.5 o m\xE1s). Acceso, evaluaci\xF3n y un modelo lineal\
+  \ simple. Trabajo individual: el mismo m\xE9todo sobre el cat\xE1logo del Per\xFA\
+  , que se reutiliza en las sesiones siguientes."
 notebook_language: es
-notebook_title: "Acceso y evaluaci\xF3n del cat\xE1logo s\xEDsmico USGS (Per\xFA 2024)"
+notebook_title: "Acceso, evaluaci\xF3n y primer modelo lineal (USGS)"
 permalink: /teaching/26-pucp-ml-tutorials/l1-ai-systems/
 position: Assistant Research Professor
 session: 1
