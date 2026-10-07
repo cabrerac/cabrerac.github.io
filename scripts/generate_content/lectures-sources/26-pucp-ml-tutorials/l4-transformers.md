@@ -1,7 +1,7 @@
 ---
 course_code: 26-pucp-ml-tutorials
-title: Transformers and Situating LLMs
-description: Whiteboard intuition for the transformer architecture (attention, multi-head, encoder and decoder sketch), situating LLMs against the October neural-network block, and a minimal LLM demo with civil-engineering fitness criteria for when not to use an LLM.
+title: The Transformer Architecture
+description: This lecture introduces the transformer neural network architecture, which is the architecture of novel Large Language Models (LLMs). We will start formalising the architecture and its training. We will then introduce how to use and tailor LLMs into our ML projects and daily activities for different purposes.
 session: 4
 start_time: 10:00 am
 end_time: 1:00 pm

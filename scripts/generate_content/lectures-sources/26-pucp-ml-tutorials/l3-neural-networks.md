@@ -1,7 +1,7 @@
 ---
 course_code: 26-pucp-ml-tutorials
-title: Neural Networks, Architectures Survey and Intro CNN
-description: From the perceptron to multilayer networks. Forward pass, loss, back-propagation intuition, train and validation discipline, a survey of MLP vs CNN selection criteria, and an introduction to convolution and kernels by the end of the session.
+title: Neural Networks
+description: We will continue our course exploring neural networks. We will build on previous concepts to define and formalise these supervised models that constitute the foundations of the latest advances in Machine Learning. We will also introduce and formalise Deep Learning models, their architectures and implementation details.
 session: 3
 start_time: 10:00 am
 end_time: 1:00 pm

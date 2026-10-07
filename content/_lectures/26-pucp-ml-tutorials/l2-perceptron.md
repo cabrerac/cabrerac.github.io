@@ -2,9 +2,13 @@
 author: Christian Cabrera Jojoa
 course_code: 26-pucp-ml-tutorials
 department: Department of Computer Science and Technology
-description: From linear and logistic baselines to the perceptron as a building block
-  for neural networks. We cover loss intuition, linear separability limits, and activation
-  choice (linear, sigmoid, tanh, ReLU) for civil-engineering decision contexts.
+description: This lecture explores the idea of learning from data. We explore the
+  induction process that agents follow to go from a specific set of observations to
+  general rules. We will explore linear regression and classification models, building
+  upon these foundations to introduce the perceptron as a fundamental building block
+  for neural networks. We examine their mathematical formulation, learning process,
+  and limitations, concluding with how these simple units form the basis for neural
+  network architectures.
 email: chc79@cam.ac.uk
 end_time: 1:00 pm
 hours: 3

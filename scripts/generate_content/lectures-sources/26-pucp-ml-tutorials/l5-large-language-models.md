@@ -1,7 +1,7 @@
 ---
 course_code: 26-pucp-ml-tutorials
-title: Prompting, RAG and Fine-Tuning
-description: Practical prompting patterns, a minimal RAG loop (retrieve, ground, generate), contrast of prompt-only vs RAG vs light fine-tuning, and explicit limits and misuse risks (hallucination, over-trust, leakage, unsafe advice) in engineering contexts.
+title: Large Language Models
+description: This lecture will introduce the different mechanisms to work with Large Language Models (LLMs). We will explore three main approaches to customise LLMs such as prompt engineering, retrieval augmented generation, fine tuning, and models distillation.
 session: 5
 start_time: 10:00 am
 end_time: 1:00 pm
