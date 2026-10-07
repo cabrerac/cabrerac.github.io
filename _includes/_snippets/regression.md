@@ -1,26 +1,24 @@
 <!-- SLIDES: -->
 
-## Regression
-
-## Regression
+## Regression Models
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <p>The regression problem involves <b>predicting a continuous numerical value</b>. Regression models approximate a function <em><b>f</b></em> that maps input features to a continuous output.</p>
+                <p>The regression problem involves <b>predicting a continuous numerical value</b>. Regression models approximate a function $f$ that maps input features to a continuous output.</p>
             </div>
         </div>
     </div>
 </div>
 
-## Regression
+## Regression Models
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 40%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-                <p>The hypotheses space <em><b>H</b></em> includes linear functions of continuous-valued inputs and outputs.</p>            
+                <p>The hypotheses space $\mathcal{H}$ includes linear functions of continuous-valued inputs and outputs.</p>
             </div>
         </div>
     </div>
@@ -38,9 +36,9 @@
     <div class="row" style="height: 40%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-                <p>The hypotheses space <em><b>H</b></em> includes linear functions of continuous-valued inputs and outputs.</p>
+                <p>The hypotheses space $\mathcal{H}$ includes linear functions of continuous-valued inputs and outputs.</p>
                 <br>
-                <p>The simplest example is "fitting a straight line". The model learns the coefficients <em><b>W</b></em></p>
+                <p>The simplest example is "fitting a straight line". The model learns the coefficients $W$</p>
                 <br>
 $$
 y = w_{1}x + w_{0} \; ; \; W = \langle w_0, w_1 \rangle
@@ -62,9 +60,9 @@ $$
     <div class="row" style="height: 40%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-                <p>The hypotheses space <em><b>H</b></em> includes linear functions of continuous-valued inputs and outputs.</p>
+                <p>The hypotheses space $\mathcal{H}$ includes linear functions of continuous-valued inputs and outputs.</p>
                 <br>
-                <p>The simplest example is "fitting a straight line". The model learns the coefficients <em><b>W</b></em></p>
+                <p>The simplest example is "fitting a straight line". The model learns the coefficients $W$</p>
                 <br>
 $$
 y = w_{1}x + w_{0} \; ; \; W = \langle w_0, w_1 \rangle
@@ -109,13 +107,13 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<p>The simplest example is "fitting a straight line". The model learns the coefficients <em><b>W</b></em></p>
+<p>The simplest example is "fitting a straight line". The model learns the coefficients $W$</p>
 <br>
 $$
 y = w_{1}x + w_{0} \; ; \; W = \langle w_0, w_1 \rangle
 $$
 <br>
-<p>Finding the <em><b>h</b></em> that best fits the data is called linear regression.</p>
+<p>Finding the $h$ that best fits the data is called linear regression.</p>
 <br>
 $$
 h_w = w_{1}x + w_{0}
@@ -131,19 +129,19 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<p>The simplest example is "fitting a straight line". The model learns the coefficients <em><b>W</b></em></p>
+<p>The simplest example is "fitting a straight line". The model learns the coefficients $W$</p>
 <br>
 $$
 y = w_{1}x + w_{0} \; ; \; W = \langle w_0, w_1 \rangle
 $$
 <br>
-<p>Finding the <em><b>h</b></em> that best fits the data is called linear regression.</p>
+<p>Finding the $h$ that best fits the data is called linear regression.</p>
 <br>
 $$
 h_w = w_{1}x + w_{0}
 $$
 <br>
-<p>Finding the values of the weights <em><b>w<sub>0</sub></b></em> and <em><b>w<sub>1</sub></b></em> that minimise the empirical loss <em><b>L<sub>2</sub></b></em> (Squared Error).</p>
+<p>Finding the values of the weights $w_0$ and $w_1$ that minimise the empirical loss $L_2$ (Squared Error).</p>
 $$
 \text{Loss}(h_w) = \sum_{i=1}^n (y_i - h_w(x_i))^2
 $$
@@ -161,12 +159,12 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<p>Given the <em><b>Loss(h<sub>w</sub>)</b></em></p>
+<p>Given the $\text{Loss}(h_w)$</p>
 $$
 \text{Loss}(h_w) = \sum_{i=1}^n (y_i - (w_1 x_i + w_0))^2
 $$
 <br>
-<p>We want to find <em><b>w*</b></em></p>
+<p>We want to find $w^*$</p>
 $$
 w^* = \underset{w}{\arg\min} \; \sum_{i=1}^n (y_i - h_w(x_i))^2
 $$
@@ -181,17 +179,17 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<p>Given the <em><b>Loss(h<sub>w</sub>)</b></em></p>
+<p>Given the $\text{Loss}(h_w)$</p>
 $$
 \text{Loss}(h_w) = \sum_{i=1}^n (y_i - (w_1 x_i + w_0))^2
 $$
 <br>
-<p>We want to find <em><b>w*</b></em></p>
+<p>We want to find $w^*$</p>
 $$
 w^* = \underset{w}{\arg\min} \; \sum_{i=1}^n (y_i - h_w(x_i))^2
 $$
 <br>
-<p>We know that the loss is minimised when its partial derivatives with respect to <em><b>w<sub>0</sub></b></em> and <em><b>w<sub>1</sub></b></em> are zero.</p>
+<p>We know that the loss is minimised when its partial derivatives with respect to $w_0$ and $w_1$ are zero.</p>
 <br>
 $$
 \frac{\partial \text{Loss}(h_w)}{\partial w_0} = 0 \; ; \; \frac{\partial \text{Loss}(h_w)}{\partial w_1} = 0
@@ -207,7 +205,7 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<p>We know that the loss is minimised when its partial derivatives with respect to <em><b>w<sub>0</sub></b></em> and <em><b>w<sub>1</sub></b></em> are zero.</p>
+<p>We know that the loss is minimised when its partial derivatives with respect to $w_0$ and $w_1$ are zero.</p>
 <br>
 $$
 \frac{\partial \text{Loss}(h_w)}{\partial w_0} = 0 \; ; \; \frac{\partial \text{Loss}(h_w)}{\partial w_1} = 0
@@ -228,7 +226,7 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<p>We know that the loss is minimised when its partial derivatives with respect to <em><b>w<sub>0</sub></b></em> and <em><b>w<sub>1</sub></b></em> are zero.</p>
+<p>We know that the loss is minimised when its partial derivatives with respect to $w_0$ and $w_1$ are zero.</p>
 <br>
 $$
 \frac{\partial \text{Loss}(h_w)}{\partial w_0} = 0 \; ; \; \frac{\partial \text{Loss}(h_w)}{\partial w_1} = 0
@@ -242,7 +240,7 @@ $$
 <br>
 $$
 w_0 = \frac{1}{n}(\sum_{i=1}^n y_i - w_1 \sum_{i=1}^n x_i) \; ; \;
-w_1 = \frac{n\sum_{i=1}^n x_i y_i - \sum_{i=1}^n x_i \sum_{i=1}^n y_i}{n\sum_{i=1}^n x_i^2 - \left(\sum_{i=1}^n x_i\right)^2} 
+w_1 = \frac{n\sum_{i=1}^n x_i y_i - \sum_{i=1}^n x_i \sum_{i=1}^n y_i}{n\sum_{i=1}^n x_i^2 - \left(\sum_{i=1}^n x_i\right)^2}
 $$
 </div>
         </div>
@@ -333,7 +331,7 @@ until convergence
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<p>Following with our "straight line" example, the update rule for <em><b>w<sub>0</sub></b></em> and <em><b>w<sub>1</sub></b></em> is</p>
+<p>Following with our "straight line" example, the update rule for $w_0$ and $w_1$ is</p>
 <br>
 $$
 w_i \leftarrow w_i - \alpha \frac{\partial \text{Loss}(w)}{\partial w_i}
@@ -349,7 +347,7 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<p>Following with our "straight line" example, the update rule for <em><b>w<sub>0</sub></b></em> and <em><b>w<sub>1</sub></b></em> is</p>
+<p>Following with our "straight line" example, the update rule for $w_0$ and $w_1$ is</p>
 <br>
 $$
 w_i \leftarrow w_i - \alpha \frac{\partial \text{Loss}(w)}{\partial w_i}
@@ -370,7 +368,7 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<p>Following with our "straight line" example, the update rule for <em><b>w<sub>0</sub></b></em> and <em><b>w<sub>1</sub></b></em> is</p>
+<p>Following with our "straight line" example, the update rule for $w_0$ and $w_1$ is</p>
 <br>
 $$
 w_i \leftarrow w_i - \alpha \frac{\partial \text{Loss}(w)}{\partial w_i}
@@ -431,7 +429,7 @@ $$
 $$
 2(y-h_w(x)) \frac{\partial (y-h_w(x))}{\partial w_i} = 2(y-h_w(x)) \frac{\partial (y-(w_1x+w_0))}{\partial w_i}
 $$
-<p>Applying this to <em><b>w<sub>0</sub></b></em> and <em><b>w<sub>1</sub></b></em></p>
+<p>Applying this to $w_0$ and $w_1$</p>
 <br>
 $$
 \frac{\partial \text{Loss}(w)}{\partial w_0} = -2(y-h_w(x)) \; ; \; \frac{\partial \text{Loss}(w)}{\partial w_1} = -2(y-h_w(x))x
@@ -468,7 +466,7 @@ $$
 $$
 w_0 \leftarrow w_ 0 + \alpha (y-h_w(x)) \; ; \; w_1 \leftarrow w_ 1 + \alpha (y-h_w(x))x
 $$
-<p>For <b><em>N</b></em> training examples</p>
+<p>For $N$ training examples</p>
 $$
 w_0 \leftarrow w_0 + \alpha \sum_{i=1}^N (y_i - h_w(x_i))
 \; ; \;
@@ -488,8 +486,8 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 40%">
-                <p><b>Batch Gradient Descent</b></p>            
-                <p>The algorithm updates <b><em>W</em></b> using the entire dataset in each iteration.</p>
+                <p><b>Batch Gradient Descent</b></p>
+                <p>The algorithm updates $W$ using the entire dataset in each iteration.</p>
             </div>
             <div class="column vertical-top text-left" style="width: 60%">
 
@@ -531,7 +529,7 @@ def batch_gradient_descent(X, y, alpha=0.01, epochs=1000):
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 40%">
                 <p><b>Stochastic Gradient Descent</b></p>
-                <p>The algorithm updates <b><em>W</em></b> after computing the gradient for each training example.</p>
+                <p>The algorithm updates $W$ after computing the gradient for each training example.</p>
             </div>
             <div class="column vertical-top text-left" style="width: 60%">
 
@@ -569,7 +567,7 @@ def stochastic_gradient_descent(X, y, alpha=0.01, epochs=1000):
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 40%">
                 <p><b>Mini-batch Gradient Descent</b></p>
-                <p>The algorithm updates <b><em>W</em></b> after computing the gradient for a small batch of training examples (batch size <em>m</em>). The batch size is another hyperparameter.</p>
+                <p>The algorithm updates $W$ after computing the gradient for a small batch of training examples (batch size <em>m</em>). The batch size is another hyperparameter.</p>
             </div>
             <div class="column vertical-top text-left" style="width: 60%">
 
@@ -616,12 +614,12 @@ def mini_batch_gradient_descent(X, y, alpha=0.01, epochs=1000, batch_size=32):
                 <div class="footnote">Linear regression fit.</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Linear Regression</b></p>            
+                <p><b>Linear Regression</b></p>
                 <p>Training Dataset</p>
 $$
 (x_1, y_1), (x_2, y_2), ..., (x_N, y_N)
 $$
-<p>Hypothesis Space: All possible linear functions of continuous-valued inputs and outputs.</p>   
+<p>Hypothesis Space: All possible linear functions of continuous-valued inputs and outputs.</p>
 $$
 y = w_{1}x + w_{0}
 $$
@@ -652,12 +650,12 @@ $$
                 <div class="footnote">Gradient Descent Algorithm - Jacopo Bertolotti, CC0, via Wikimedia Commons.</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Linear Regression</b></p>            
+                <p><b>Linear Regression</b></p>
                 <p>Analytical Solution:</p>
 $$
 \frac{\partial \text{Loss}(h_w)}{\partial w_0} = 0 \; ; \; \frac{\partial \text{Loss}(h_w)}{\partial w_1} = 0
 $$
-<p>Gradient Descent Algorithm:</p>   
+<p>Gradient Descent Algorithm:</p>
 <pre><code>
 Initialize w randomly
 repeat

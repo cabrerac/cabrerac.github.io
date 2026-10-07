@@ -19,7 +19,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
                 <br>
-                <p>In these problems, each example is a <b>n-element vector</b>. The hypotheses space <em><b>H</b></em> now includes linear functions of multiple continuous-valued inputs and a single continuous output.</p>
+                <p>In these problems, each example is a <b>n-element vector</b>. The hypotheses space $\mathcal{H}$ now includes linear functions of multiple continuous-valued inputs and a single continuous output.</p>
                 <br>
 $$
 y = w_0 + w_1x_1 + w_2x_2 + ... + w_nx_n \; ; \; \mathbf{w} = \langle w_0, w_1, w_2, ..., w_n \rangle
@@ -36,7 +36,7 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
                 <br>
-                <p>In these problems, each example is a <b>n-element vector</b>. The hypotheses space <em><b>H</b></em> now includes linear functions of multiple continuous-valued inputs and a single continuous output.</p>
+                <p>In these problems, each example is a <b>n-element vector</b>. The hypotheses space $\mathcal{H}$ now includes linear functions of multiple continuous-valued inputs and a single continuous output.</p>
                 <br>
 $$
 y = w_0 + w_1x_1 + w_2x_2 + ... + w_nx_n \; ; \; \mathbf{w} = \langle w_0, w_1, w_2, ..., w_n \rangle
@@ -58,7 +58,7 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
                 <br>
-                <p>In these problems, each example is a <b>n-element vector</b>. The hypotheses space <em><b>H</b></em> now includes linear functions of multiple continuous-valued inputs and a single continuous output.</p>
+                <p>In these problems, each example is a <b>n-element vector</b>. The hypotheses space $\mathcal{H}$ now includes linear functions of multiple continuous-valued inputs and a single continuous output.</p>
                 <br>
 $$
 y = w_0 + w_1x_1 + w_2x_2 + ... + w_nx_n \; ; \; \mathbf{w} = \langle w_0, w_1, w_2, ..., w_n \rangle

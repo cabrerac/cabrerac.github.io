@@ -35,11 +35,13 @@ La parte guiada usa **Colombia**. La parte individual usa **Perú**. El método 
 
 ---
 
-## Repaso de Python para este cuaderno
+## Datos y helpers (reutilización de la sesión 1)
 
-Estas celdas cubren lo que usaremos hoy: armar una URL, descargar un CSV, leerlo con pandas y ajustar modelos con scikit-learn y numpy. Si ya lo domina, ejecútelas y siga.
+No repetimos el tutorial de acceso de la sesión 1. En un Colab fresco necesitamos las mismas piezas: importaciones, dos helpers de descarga, el recorte de Colombia y la tabla en memoria. Eso va en **dos bloques de código** con docstrings. El material nuevo —lineal, logística, perceptrón— empieza justo después.
 
 ### Importaciones
+
+Un solo bloque con lo que usa todo el cuaderno. Si ya lo tiene cargado de otra celda, puede ejecutarlo de nuevo sin problema.
 
 ```python
 from pathlib import Path
@@ -53,76 +55,49 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 ```
 
-### Una dirección y `requests`
+### Helpers de descarga y catálogo de Colombia
 
-**`requests.get`** pide un archivo por HTTP, igual que lo haría un navegador, pero desde Python. **`raise_for_status`** detiene la celda si el servidor responde con un error (por ejemplo, 404 o 500). Sin esa línea, un fallo del servidor pasaría desapercibido y seguiríamos trabajando con una respuesta vacía.
+Este bloque redefine `build_usgs_url` y `download_csv` (las mismas ideas de la sesión 1), fija `PARAMETROS_COLOMBIA` y la ruta local, arma la URL, descarga el CSV y lo carga en `sismos_colombia`. Lea las docstrings: documentan el contrato de cada función. No rehacemos el recorrido paso a paso del Access.
 
-La celda siguiente pregunta al USGS por la versión de su servicio. Es la consulta más barata posible y sirve para confirmar que hay conexión.
-
-```python
-respuesta = requests.get("https://earthquake.usgs.gov/fdsnws/event/1/version", timeout=60)
-respuesta.raise_for_status()
-print(respuesta.text.strip())
-```
-
-### Guardar con `Path` y leer con pandas
-
-**`Path`** representa la ruta de un archivo en esta sesión de Colab. **`read_csv`** convierte un archivo CSV en un `DataFrame`.
-
-Guardamos el CSV en disco antes de leerlo, en vez de pasar el texto directo a pandas. Es un paso extra, pero deja una copia de **exactamente** lo que respondió el servidor. Si mañana el catálogo cambia, esa copia es la única prueba de con qué datos trabajamos hoy.
+| Parámetro clave | Valor Colombia |
+|-----------------|----------------|
+| fechas | 2024-01-01 → 2025-01-01 |
+| `minmagnitude` | 4.5 |
+| latitud | -4.5 → 13.5 |
+| longitud | -79.5 → -66.5 |
 
 ```python
-ejemplo = Path("ejemplo_l2.csv")
-ejemplo.write_text("id,valor\nA,1\nB,2\n", encoding="utf-8")
-tabla = pd.read_csv(ejemplo)
-print(tabla)
-assert list(tabla.columns) == ["id", "valor"]
-print("Repaso: OK")
-```
+def build_usgs_url(parametros: dict) -> str:
+    """Arma la URL del catálogo USGS FDSN a partir de un diccionario de parámetros.
 
----
+    No toca la red: solo une la base con ``clave=valor`` separados por ``&``.
+    Imprima la URL y revísela antes de descargar.
+    """
+    base = "https://earthquake.usgs.gov/fdsnws/event/1/query"
+    consulta = "&".join(f"{clave}={valor}" for clave, valor in parametros.items())
+    return f"{base}?{consulta}"
 
-## Parte guiada A — Acceso (Colombia)
 
-**Propósito.** Conseguir el catálogo de Colombia de 2024 y dejarlo en memoria como una tabla, sabiendo qué pedimos y qué dejamos fuera. Este bloque redefine los helpers para un Colab fresco: no depende de que la sesión 1 siga cargada.
+def download_csv(url: str, dest: Path, timeout: int = 120) -> int:
+    """Descarga ``url`` a ``dest`` y devuelve el número de bytes escritos.
 
-### Cómo se construye la URL de descarga
+    Falla temprano si el servidor responde 4xx/5xx o si el cuerpo no empieza
+    con ``time,`` (cabecera del CSV del catálogo). Así evitamos guardar una
+    página HTML de error con extensión ``.csv``.
+    """
+    respuesta = requests.get(url, timeout=timeout)
+    respuesta.raise_for_status()
+    texto = respuesta.text
+    if not texto.startswith("time,"):
+        raise ValueError(
+            "La respuesta no es el CSV del catálogo. "
+            "Revise la URL antes de seguir."
+        )
+    dest.write_text(texto, encoding="utf-8")
+    return dest.stat().st_size
 
-El USGS ofrece dos caminos para obtener los mismos datos.
 
-**Ruta manual (navegador).** Puede abrir el [buscador de sismos](https://earthquake.usgs.gov/earthquakes/search/), llenar el formulario con las fechas, la magnitud mínima y el rectángulo geográfico, y pulsar descargar. Funciona, y es la forma correcta de explorar la primera vez.
-
-El problema aparece cuando necesitamos repetir la consulta: en otra región, en otro año, o dentro de un proceso automático. Un formulario no se puede versionar ni compartir con precisión. Una URL, sí.
-
-**Ruta programática (API).** El mismo servicio acepta la consulta como una dirección web. La base es siempre la misma y los parámetros se agregan después del signo `?`, separados por `&`:
-
-```text
-https://earthquake.usgs.gov/fdsnws/event/1/query?format=csv&starttime=2024-01-01&...
-```
-
-| Parámetro | Significado | Valor para Colombia |
-|-----------|-------------|---------------------|
-| `format` | Formato de la respuesta | `csv` |
-| `starttime` | Primer instante incluido | `2024-01-01` |
-| `endtime` | Límite superior, no incluido | `2025-01-01` |
-| `minmagnitude` | Magnitud mínima | `4.5` |
-| `minlatitude`, `maxlatitude` | Borde sur y norte del rectángulo | `-4.5`, `13.5` |
-| `minlongitude`, `maxlongitude` | Borde oeste y este del rectángulo | `-79.5`, `-66.5` |
-
-Vale la pena detenerse un momento aquí, porque **esa URL es la decisión de acceso**, y es una decisión con consecuencias:
-
-- `minmagnitude=4.5` deja fuera los sismos pequeños. Para una revisión de daños es razonable. Para un estudio de microsismicidad sería un error grave.
-- El rectángulo deja fuera el resto del mundo, incluyendo sismos cercanos a la frontera que sí se sintieron en Colombia. Por eso usamos un margen un poco más amplio que el país.
-- `endtime=2025-01-01` no incluye ese día. El rango cubre 2024 completo y nada más.
-
-Nadie puede reconstruir nuestro análisis sin esta URL. Guárdela junto con los resultados.
-
-### Paso 1 — Fijar los parámetros del recorte
-
-Escribimos los parámetros como un diccionario y no como una cadena de texto. Así quedan legibles, se pueden revisar uno por uno, y la parte individual podrá reutilizar el mismo mecanismo cambiando solo cuatro valores.
-
-```python
-# Ventana de Colombia, con un margen en la frontera.
+# Ventana de Colombia (margen en la frontera). Exactamente la de la sesión 1.
 PARAMETROS_COLOMBIA = {
     "format": "csv",
     "starttime": "2024-01-01",
@@ -133,28 +108,19 @@ PARAMETROS_COLOMBIA = {
     "minlongitude": "-79.5",
     "maxlongitude": "-66.5",
 }
-
-# Dónde guardaremos la copia local de la respuesta.
 CATALOGO_COLOMBIA = Path("usgs_colombia_2024_m45.csv")
-```
-
-### Paso 2 — Armar la URL
-
-`build_usgs_url` solo une la base con los parámetros. No descarga nada y no toca la red. Separar el armado de la descarga nos deja imprimir la URL y revisarla **antes** de usarla, que es cuando todavía es barato corregir un error.
-
-```python
-def build_usgs_url(parametros: dict) -> str:
-    """Arma la URL del catálogo USGS a partir de un diccionario de parámetros."""
-    base = "https://earthquake.usgs.gov/fdsnws/event/1/query"
-    consulta = "&".join(f"{clave}={valor}" for clave, valor in parametros.items())
-    return f"{base}?{consulta}"
-
 
 USGS_URL_COLOMBIA = build_usgs_url(PARAMETROS_COLOMBIA)
 print(USGS_URL_COLOMBIA)
+
+bytes_colombia = download_csv(USGS_URL_COLOMBIA, CATALOGO_COLOMBIA)
+sismos_colombia = pd.read_csv(CATALOGO_COLOMBIA)
+print(f"Guardado: {CATALOGO_COLOMBIA} ({bytes_colombia / 1e3:.1f} KB)")
+print("Filas, columnas:", sismos_colombia.shape)
+sismos_colombia.head()
 ```
 
-Lea la URL que acaba de imprimirse. Debería poder señalar en ella cada decisión de la tabla anterior.
+Hoy nos importan sobre todo `gap`, `horizontalError`, `mag`, `depth` y `latitude`. Si aparece alguna columna que no reconoce, búsquela en el [glosario del USGS](https://earthquake.usgs.gov/data/comcat/).
 
 **Comprobar:**
 
@@ -163,72 +129,16 @@ assert USGS_URL_COLOMBIA.startswith("https://earthquake.usgs.gov/fdsnws/event/1/
 assert "starttime=2024-01-01" in USGS_URL_COLOMBIA
 assert "minmagnitude=4.5" in USGS_URL_COLOMBIA
 assert "minlatitude=-4.5" in USGS_URL_COLOMBIA
-print("URL de Colombia: OK")
-```
-
-### Paso 3 — Descargar el CSV
-
-`download_csv` pide la URL, guarda la respuesta en disco y devuelve su tamaño.
-
-Note la verificación del medio: antes de escribir el archivo comprobamos que el texto empiece con `time,`, que es la primera columna del catálogo. Esto parece exagerado, pero cubre un caso real y silencioso. Cuando una API rechaza una consulta, muchas veces responde con una página de error en HTML **y un código de estado normal**. Sin esa comprobación guardaríamos esa página con extensión `.csv`, pandas fallaría varias celdas más abajo con un mensaje incomprensible, y buscaríamos el problema en el lugar equivocado.
-
-La regla general: **falle temprano y con un mensaje que diga qué revisar.**
-
-```python
-def download_csv(url: str, dest: Path, timeout: int = 120) -> int:
-    """Descarga url a dest y devuelve el número de bytes.
-
-    Falla si la respuesta no es el CSV del catálogo.
-    """
-    respuesta = requests.get(url, timeout=timeout)
-    respuesta.raise_for_status()  # falla si el servidor respondió 4xx o 5xx
-    texto = respuesta.text
-    if not texto.startswith("time,"):  # el CSV del catálogo siempre empieza así
-        raise ValueError(
-            "La respuesta no es el CSV del catálogo. "
-            "Revise la URL antes de seguir."
-        )
-    dest.write_text(texto, encoding="utf-8")
-    return dest.stat().st_size
-
-
-bytes_colombia = download_csv(USGS_URL_COLOMBIA, CATALOGO_COLOMBIA)
-print(f"Guardado: {CATALOGO_COLOMBIA}")
-print(f"Tamaño: {bytes_colombia / 1e3:.1f} KB")
-```
-
-**Comprobar:**
-
-```python
 assert CATALOGO_COLOMBIA.is_file()
 assert bytes_colombia > 3_000
-print("Descarga Colombia: OK")
-```
-
-### Paso 4 — Leer la tabla
-
-El acceso termina cuando la tabla está en memoria y sabemos qué columnas trajimos. No cuando el archivo está en disco: un archivo que no hemos abierto todavía no es un dato con el que se pueda trabajar.
-
-```python
-sismos_colombia = pd.read_csv(CATALOGO_COLOMBIA)
-print("Filas, columnas:", sismos_colombia.shape)
-print("Columnas:", list(sismos_colombia.columns))
-sismos_colombia.head()
-```
-
-Compare la lista de columnas con lo que recuerda de la sesión 1. Hoy nos importan sobre todo `gap`, `horizontalError`, `mag`, `depth` y `latitude`. Si aparece alguna columna que no reconoce, búsquela en el [glosario del USGS](https://earthquake.usgs.gov/data/comcat/) antes de seguir.
-
-**Comprobar:**
-
-```python
 columnas_clave = [
     "time", "latitude", "longitude", "depth", "mag", "magType",
     "id", "place", "horizontalError", "gap", "status",
 ]
-faltan = [columna for columna in columnas_clave if columna not in sismos_colombia.columns]
+faltan = [c for c in columnas_clave if c not in sismos_colombia.columns]
 assert not faltan, f"Faltan columnas: {faltan}"
 assert len(sismos_colombia) > 20, "El recorte de Colombia vino casi vacío. No cambie los parámetros."
-print(f"Tabla Colombia: {len(sismos_colombia)} sismos. OK")
+print(f"Helpers + tabla Colombia: {len(sismos_colombia)} sismos. OK")
 ```
 
 ---
@@ -247,7 +157,7 @@ Dos advertencias antes de entrenar, y las dos son parte del resultado:
 
 **El modelo solo ve las filas completas.** `dropna()` descarta los sismos a los que les falta `gap` o `horizontalError`. Esas filas no desaparecen del problema, solo desaparecen del ajuste. Y no faltan al azar: son típicamente los eventos peor determinados, justo los que más nos preocupaban en la evaluación de la sesión 1. El modelo se entrena, entonces, sobre la parte más fácil del catálogo. Hay que decirlo cuando se presenten los resultados.
 
-### Paso 5 — Elegir las filas
+### Paso 1 — Elegir las filas
 
 Empaquetamos el filtro en una función. La parte individual reutilizará exactamente la misma regla sobre Perú. Si cada país se filtrara con criterios distintos, cualquier diferencia en la pendiente podría venir del método en vez de los datos.
 
@@ -257,7 +167,7 @@ def filas_para_regresion(tabla: pd.DataFrame) -> pd.DataFrame:
     return tabla[["gap", "horizontalError"]].dropna()
 ```
 
-### Paso 6 — Entrenar la recta
+### Paso 2 — Entrenar la recta
 
 `LinearRegression().fit(X, y)` es el **entrenamiento**: el algoritmo recorre los datos y ajusta la pendiente y el intercepto para minimizar el error cuadrático medio, es decir, la suma de las distancias verticales al cuadrado entre cada punto y la recta.
 
@@ -290,7 +200,7 @@ Los dos números tienen una lectura concreta:
 
 Fíjese también en cuántas filas se usaron frente al total. Esa diferencia es la que mencionamos en la advertencia anterior: el modelo no vio las filas incompletas.
 
-### Paso 7 — Mirar el ajuste
+### Paso 3 — Mirar el ajuste
 
 Nunca acepte un modelo solo por sus coeficientes. Dibújelo.
 
@@ -359,7 +269,7 @@ Por eso `gap` y `horizontalError` quedan **fuera** de las entradas. Solo constru
 
 La línea base de hoy usa solo esas tres. Como ejercicio opcional más adelante puede probar añadir `longitude` y comparar. No es parte del recorrido obligatorio. Tampoco usamos `status` ni `reviewed` en esta sesión: dejar el encoding categórico para más adelante mantiene el modelo pequeño y legible.
 
-### Paso 8 — Construir la tabla de clasificación
+### Paso 4 — Construir la tabla de clasificación
 
 Construimos la etiqueta, dejamos solo las filas con las tres características y con `gap` / `horizontalError` completos (sin ellos no hay etiqueta), y miramos el balance de clases antes de entrenar.
 
@@ -392,7 +302,7 @@ Mire el balance de clases con atención. Si casi todas las filas son del mismo l
 
 Un modelo solo aporta algo si **supera** esa línea base. Si apenas la empata, la exactitud alta engaña: el modelo no aprendió nada que no sepa un contador de clases. En ingeniería civil esto es especialmente peligroso, porque un informe que diga "92% de exactitud" suena sólido hasta que alguien pregunta cuál era el piso trivial.
 
-### Paso 9 — Partición train / test
+### Paso 5 — Partición train / test
 
 Separar entrenamiento y evaluación es la forma más simple de no autoengañarnos. Entrenamos con una parte de las filas y medimos con otra que el modelo no vio. Fijamos `random_state=42` para que el reparto sea reproducible. Usamos 70% para entrenar y 30% para medir. `stratify` intenta conservar la proporción de positivos y negativos en ambos lados, siempre que haya al menos dos clases.
 
@@ -427,7 +337,7 @@ print("línea base mayoritaria (test):", round(baseline_co, 3))
 print("Un modelo útil debe superar ese número. Empatarlo no cuenta como acierto real.")
 ```
 
-### Paso 10 — Entrenar la logística
+### Paso 6 — Entrenar la logística
 
 `LogisticRegression().fit` ajusta los coeficientes de la combinación lineal que entra a la sigmoide. El resultado no es una recta sobre el error en kilómetros: es una frontera en el espacio de `mag`, `depth` y `latitude` que convierte cada fila en una probabilidad de ubicación débil.
 
@@ -473,7 +383,7 @@ En un flujo operativo de filtrado rápido, a veces solo se necesita la segunda p
 
 Vamos a implementarlo de dos formas: **desde cero con numpy** (para ver la regla de actualización online) y con **`sklearn.linear_model.Perceptron`** (para contrastar con una implementación de biblioteca). Las exactitudes no tienen por qué coincidir al decimal: no optimizan exactamente la misma función de pérdida ni con el mismo criterio de parada. Lo importante es que **ambos entrenan**, que las asserts confirman el contrato del código, y que ninguna exactitud se lea sin el piso de la clase mayoritaria.
 
-### Paso 11 — Perceptrón desde cero (numpy)
+### Paso 7 — Perceptrón desde cero (numpy)
 
 La idea del perceptrón clásico es **online**: mira un ejemplo a la vez y solo actualiza los pesos cuando se equivoca.
 
@@ -531,7 +441,7 @@ print("¿supera la línea base?", acc_numpy_co > baseline_co)
 
 Lea los pesos con la misma cautela que los coeficientes de la logística: están en la escala de las variables de entrada, y el sesgo no es un "error en kilómetros". Lo que importa para la decisión operativa es si la exactitud de test supera la línea base mayoritaria, y cómo se compara con la logística del paso anterior.
 
-### Paso 12 — Perceptrón con scikit-learn
+### Paso 8 — Perceptrón con scikit-learn
 
 `sklearn.linear_model.Perceptron` implementa la misma familia de modelos. Fijamos `random_state` y un número moderado de iteraciones. Por debajo, la biblioteca maneja el sesgo, el criterio de tolerancia y el orden de los ejemplos. Nosotros nos quedamos con la interfaz familiar: `fit` y `predict`.
 
@@ -554,7 +464,7 @@ Compare las dos exactitudes del perceptrón con la de la logística y con la lí
 2. **La logística supera a los perceptrones.** La probabilidad suave puede generalizar mejor que la decisión dura en un recorte pequeño o desbalanceado.
 3. **Nadie supera la base de forma clara.** Entonces el problema no es "elegir mejor algoritmo": es que estas tres características, en este recorte, no anticipan bien la etiqueta. Esa conclusión también es un resultado.
 
-### Paso 13 — Un vistazo a la decisión
+### Paso 9 — Un vistazo a la decisión
 
 Para visualizar, proyectamos solo dos ejes (`mag` y `depth`) y coloreamos según la etiqueta verdadera. No dibujamos la frontera completa en 3D. El gráfico sirve para recordar que estamos clasificando puntos reales del catálogo, no datos sintéticos generados en el vacío.
 
@@ -611,7 +521,7 @@ El perceptrón clásico usa una activación de **umbral** (signo): por encima de
 
 | Activación | Qué hace | Lectura en este contexto |
 |------------|----------|--------------------------|
-| **Lineal** | Deja pasar la combinación tal cual | Es el modelo de regresión del paso 6. Útil para predecir un error en km |
+| **Lineal** | Deja pasar la combinación tal cual | Es el modelo de regresión del paso 2. Útil para predecir un error en km |
 | **Sigmoide** | Comprime a (0, 1) | Es el corazón de la logística. Útil cuando necesita un riesgo |
 | **tanh** | Comprime a (-1, 1), centrada en cero | Similar a la sigmoide, pero simétrica. A veces estabiliza el entrenamiento |
 | **ReLU** | `max(0, z)` | Apaga señales negativas. Es la activación por defecto en redes profundas modernas |
@@ -653,7 +563,9 @@ Antes de tocar el teclado, recuerde qué espera comparar al final:
 - Las **exactitudes** de logística y de ambos perceptrones, siempre al lado de ese piso.
 - Una **justificación escrita** de activación (sigmoide, tanh, ReLU o lineal) frente a las líneas base de esta sesión.
 
-### Paso 14 — Acceso
+### Descargar y cargar Perú
+
+Un solo bloque: parámetros del curso, URL, descarga y lectura. Sin rehacer el tutorial de Access.
 
 ```python
 PARAMETROS_CURSO = {
@@ -670,9 +582,7 @@ CATALOGO_PERU = Path("usgs_peru_2024_m45.csv")
 
 USGS_URL_PERU = build_usgs_url(PARAMETROS_CURSO)
 print(USGS_URL_PERU)
-```
 
-```python
 bytes_peru = download_csv(USGS_URL_PERU, CATALOGO_PERU)
 sismos_peru = pd.read_csv(CATALOGO_PERU)
 print("Filas, columnas:", sismos_peru.shape)
@@ -690,7 +600,7 @@ assert len(sismos_peru) > 50, "El recorte del Perú vino casi vacío. Revise la 
 print(f"Tabla Perú: {len(sismos_peru)} sismos. OK")
 ```
 
-### Paso 15 — Línea base lineal
+### Paso 10 — Línea base lineal
 
 Ajuste la misma recta `horizontalError ~ gap` sobre Perú. Imprima el coeficiente al lado del de Colombia y dibuje el ajuste. Las pistas de lectura son las mismas que en la sesión 1:
 
@@ -724,7 +634,7 @@ ax.legend()
 plt.show()
 ```
 
-### Paso 16 — Logística y perceptrón sobre Perú
+### Paso 11 — Logística y perceptrón sobre Perú
 
 Use las mismas características (`mag`, `depth`, `latitude`) y la misma etiqueta de ubicación débil. Particione con `random_state=42`. Entrene logística, perceptrón numpy y perceptrón sklearn. Imprima las tres exactitudes de test **junto a la línea base mayoritaria** del conjunto de test. Un modelo útil debe superar ese piso.
 
@@ -788,7 +698,7 @@ print("Replay Perú (lineal + logística + perceptrón): OK")
 print("URL del curso (guárdela):", USGS_URL_PERU)
 ```
 
-### Paso 17 — Comparar y justificar
+### Paso 12 — Comparar y justificar
 
 Complete en sus palabras. No basta con pegar los números: diga qué cambió al pasar de Colombia a Perú, qué modelo preferiría para filtrar ubicaciones débiles en este recorte, y qué activación usaría en el bloque siguiente frente a las líneas base lineal y logística de esta sesión.
 

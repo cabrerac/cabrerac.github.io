@@ -92,7 +92,7 @@ $$
 $$
 h^* = \underset{h \in H}{\arg\min} \; \text{Loss}(h)
 $$
-<br>Where $H$ is the hypothesis space.
+<br>Where $\mathcal{H}$ is the hypothesis space.
 <br>
 $$
 \mathbf{w}^* = \underset{\mathbf{w}}{\arg\min} \; (y - h_\mathbf{w}(\mathbf{x}))^2
@@ -127,7 +127,7 @@ $$
 $$
 h^* = \underset{h \in H}{\arg\min} \; \text{Loss}(h)
 $$
-<br>Where $H$ is the hypothesis space.
+<br>Where $\mathcal{H}$ is the hypothesis space.
 <br>
 $$
 \mathbf{w}^* = \underset{\mathbf{w}}{\arg\min} \; (y - h_\mathbf{w}(\mathbf{x}))^2
@@ -242,7 +242,7 @@ $$
 $$
 h^* = \underset{h \in H}{\arg\min} \; \text{Loss}(y - \sigma(\mathbf{w} \cdot \mathbf{x}))
 $$
-<br>Where $H$ is the hypothesis space.
+<br>Where $\mathcal{H}$ is the hypothesis space.
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
 $$
@@ -274,7 +274,7 @@ $$
 $$
 h^* = \underset{h \in H}{\arg\min} \; \text{Loss}(y - \sigma(\mathbf{w} \cdot \mathbf{x}))
 $$
-<br>Where $H$ is the hypothesis space.
+<br>Where $\mathcal{H}$ is the hypothesis space.
 <br>
 $$
 \mathbf{w}^* = \underset{\mathbf{w}}{\arg\min} \; (y - \sigma(\mathbf{w} \cdot \mathbf{x}))^2

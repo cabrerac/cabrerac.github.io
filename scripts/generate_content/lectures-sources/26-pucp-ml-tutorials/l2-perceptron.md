@@ -1,6 +1,6 @@
 ---
 course_code: 26-pucp-ml-tutorials
-title: Linear Models to the Perceptron
+title: From Linear Models to the Perceptron
 description: This lecture explores the idea of learning from data. We explore the induction process that agents follow to go from a specific set of observations to general rules. We will explore linear regression and classification models, building upon these foundations to introduce the perceptron as a fundamental building block for neural networks. We examine their mathematical formulation, learning process, and limitations, concluding with how these simple units form the basis for neural network architectures.
 session: 2
 start_time: 10:00 am
@@ -30,7 +30,7 @@ notebook_description: "Práctica de sesión 2. Baselines lineal y logístico, y 
 
 <!-- SLIDES: -->
 
-# Linear Baselines
+# Regression Models
 
 <!-- end SLIDES: -->
 
@@ -40,7 +40,7 @@ notebook_description: "Práctica de sesión 2. Baselines lineal y logístico, y 
 
 <!-- SLIDES: -->
 
-# Logistic Baseline
+# Linear Classifiers
 
 <!-- end SLIDES: -->
 
@@ -63,8 +63,6 @@ notebook_description: "Práctica de sesión 2. Baselines lineal y logístico, y 
 {% include _snippets/26-pucp-ml-tutorials/l2-perceptron/activations.md %}
 
 {% include _snippets/26-pucp-ml-tutorials/l2-perceptron/conclusions.md %}
-
-{% include _snippets/26-pucp-ml-tutorials/l2-perceptron/lab-launch.md %}
 
 {% include _snippets/26-pucp-ml-tutorials/l2-perceptron/resources.md %}
 

@@ -24,7 +24,7 @@ permalink: /teaching/26-pucp-ml-tutorials/l2-perceptron/
 position: Assistant Research Professor
 session: 2
 start_time: 10:00 am
-title: Linear Models to the Perceptron
+title: From Linear Models to the Perceptron
 visible: false
 ---
 
