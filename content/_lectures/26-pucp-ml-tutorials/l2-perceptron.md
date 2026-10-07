@@ -45,7 +45,6 @@ visible: false
 
 <br>
 <br>
-
 #### Papers and Reports
 
 - [McCulloch, W., Pitts, W. (1943). A Logical Calculus of the Ideas Immanent in Nervous Activity](https://www.cs.cmu.edu/~epxing/Class/10715/reading/McCulloch.and.Pitts.pdf)
@@ -53,7 +52,7 @@ visible: false
 - [Minsky, M., Papert, S. (1969). Perceptrons: An Introduction to Computational Geometry. MIT Press](https://rodsmith.nz/wp-content/uploads/Minsky-and-Papert-Perceptrons.pdf)
 
 <br>
-
+<br>
 #### Web
 
 - [Perceptron Learning Algorithm](https://en.wikipedia.org/wiki/Perceptron)
