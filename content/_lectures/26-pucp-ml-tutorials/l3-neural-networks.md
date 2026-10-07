@@ -2,9 +2,10 @@
 author: Christian Cabrera Jojoa
 course_code: 26-pucp-ml-tutorials
 department: Department of Computer Science and Technology
-description: From the perceptron to multilayer networks. Forward pass, loss, back-propagation
-  intuition, train and validation discipline, a survey of MLP vs CNN selection criteria,
-  and an introduction to convolution and kernels by the end of the session.
+description: We will continue our course exploring neural networks. We will build
+  on previous concepts to define and formalise these supervised models that constitute
+  the foundations of the latest advances in Machine Learning. We will also introduce
+  and formalise Deep Learning models, their architectures and implementation details.
 email: chc79@cam.ac.uk
 end_time: 1:00 pm
 hours: 3
@@ -20,7 +21,7 @@ permalink: /teaching/26-pucp-ml-tutorials/l3-neural-networks/
 position: Assistant Research Professor
 session: 3
 start_time: 10:00 am
-title: Neural Networks, Architectures Survey and Intro CNN
+title: Neural Networks
 visible: false
 ---
 
@@ -39,17 +40,12 @@ visible: false
 - [Bishop, C. (2006). Pattern Recognition and Machine Learning. Springer. Chapter 5](https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf)
 - [Nielsen, M. (2015). Neural Networks and Deep Learning](http://neuralnetworksanddeeplearning.com/)
 
-<br>
-<br>
-
 #### Papers and Reports
 
 - [Rumelhart, D. E., Hinton, G. E., Williams, R. J. (1986). Learning representations by back-propagating errors](https://www.nature.com/articles/323533a0)
 - [LeCun, Y., et al. (1998). Gradient-based learning applied to document recognition](https://ieeexplore.ieee.org/document/726791)
 - [LeCun, Y., Bengio, Y., Hinton, G. (2015). Deep learning. Nature](https://www.nature.com/articles/nature14539)
 - [Krizhevsky, A., Sutskever, I., Hinton, G. E. (2012). ImageNet classification with deep convolutional neural networks](https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks)
-
-<br>
 
 #### Web
 

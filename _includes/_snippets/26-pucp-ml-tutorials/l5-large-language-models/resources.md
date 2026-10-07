@@ -9,9 +9,6 @@
 - [Ouyang, L., et al. (2022). Training language models to follow instructions with human feedback](https://arxiv.org/abs/2203.02155)
 - [Cabrera, C., et al. (2025). The Systems Engineering approach in times of Large Language Models](https://scholarspace.manoa.hawaii.edu/items/ccd98c8b-bb61-4a86-9cd4-4719078d028f)
 
-<br>
-<br>
-
 #### Web
 
 - [OpenAI API Documentation](https://platform.openai.com/docs)

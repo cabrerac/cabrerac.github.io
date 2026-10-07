@@ -2,9 +2,10 @@
 author: Christian Cabrera Jojoa
 course_code: 26-pucp-ml-tutorials
 department: Department of Computer Science and Technology
-description: Practical prompting patterns, a minimal RAG loop (retrieve, ground, generate),
-  contrast of prompt-only vs RAG vs light fine-tuning, and explicit limits and misuse
-  risks (hallucination, over-trust, leakage, unsafe advice) in engineering contexts.
+description: This lecture will introduce the different mechanisms to work with Large
+  Language Models (LLMs). We will explore three main approaches to customise LLMs
+  such as prompt engineering, retrieval augmented generation, fine tuning, and models
+  distillation.
 email: chc79@cam.ac.uk
 end_time: 1:00 pm
 hours: 3
@@ -20,7 +21,7 @@ permalink: /teaching/26-pucp-ml-tutorials/l5-large-language-models/
 position: Assistant Research Professor
 session: 5
 start_time: 10:00 am
-title: Prompting, RAG and Fine-Tuning
+title: Large Language Models
 visible: false
 ---
 
@@ -39,9 +40,6 @@ visible: false
 - [Lewis, P., et al. (2020). Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401)
 - [Ouyang, L., et al. (2022). Training language models to follow instructions with human feedback](https://arxiv.org/abs/2203.02155)
 - [Cabrera, C., et al. (2025). The Systems Engineering approach in times of Large Language Models](https://scholarspace.manoa.hawaii.edu/items/ccd98c8b-bb61-4a86-9cd4-4719078d028f)
-
-<br>
-<br>
 
 #### Web
 

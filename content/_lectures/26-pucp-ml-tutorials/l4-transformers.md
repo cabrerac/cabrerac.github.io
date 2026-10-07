@@ -2,10 +2,10 @@
 author: Christian Cabrera Jojoa
 course_code: 26-pucp-ml-tutorials
 department: Department of Computer Science and Technology
-description: Whiteboard intuition for the transformer architecture (attention, multi-head,
-  encoder and decoder sketch), situating LLMs against the October neural-network block,
-  and a minimal LLM demo with civil-engineering fitness criteria for when not to use
-  an LLM.
+description: This lecture introduces the transformer neural network architecture,
+  which is the architecture of novel Large Language Models (LLMs). We will start formalising
+  the architecture and its training. We will then introduce how to use and tailor
+  LLMs into our ML projects and daily activities for different purposes.
 email: chc79@cam.ac.uk
 end_time: 1:00 pm
 hours: 3
@@ -21,7 +21,7 @@ permalink: /teaching/26-pucp-ml-tutorials/l4-transformers/
 position: Assistant Research Professor
 session: 4
 start_time: 10:00 am
-title: Transformers and Situating LLMs
+title: The Transformer Architecture
 visible: false
 ---
 
@@ -38,17 +38,12 @@ visible: false
 
 - [Jurafsky, D., and Martin J.H. (2025). Speech and Language Processing. Chapter 9](https://web.stanford.edu/~jurafsky/slp3/)
 
-<br>
-<br>
-
 #### Papers and Reports
 
 - [Vaswani, A., et al. (2017). Attention is all you need](https://papers.nips.cc/paper_files/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html)
 - [Devlin, J., et al. (2018). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding](https://arxiv.org/abs/1810.04805)
 - [Radford, A., et al. (2019). Language models are unsupervised multitask learners](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)
 - [OpenAI. (2023). GPT-4 Technical Report](https://arxiv.org/abs/2303.08774)
-
-<br>
 
 #### Web
 
