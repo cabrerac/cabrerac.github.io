@@ -17,10 +17,9 @@ visible: false
 lecture_code: l3-neural-networks
 lecture_date: 19/10/2026
 permalink: /teaching/26-pucp-ml-tutorials/l3-neural-networks/
-notebook_title: Redes neuronales y introducción a CNN
-notebook_description: Práctica de sesión 3. Entrenamiento y validación de un FFN e introducción a convoluciones.
+notebook_title: "Redes neuronales"
+notebook_description: "Práctica de sesión 3. Red neuronal con una capa oculta, desde cero y con scikit-learn, y control del sobreajuste."
 ---
-
 <!-- SLIDES: -->
 
 # Last Time
@@ -39,35 +38,11 @@ notebook_description: Práctica de sesión 3. Entrenamiento y validación de un 
 
 <!-- SLIDES: -->
 
-# Deep Learning Sketch
+# Deep Learning
 
 <!-- end SLIDES: -->
 
 {% include _snippets/deep-learning.md %}
-
-<!-- SLIDES: -->
-
-# Architecture Survey
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/architecture-survey.md %}
-
-<!-- SLIDES: -->
-
-# Intro CNN
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/intro-cnn.md %}
-
-<!-- SLIDES: -->
-
-# Field Usefulness
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/decision-limits.md %}
 
 {% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/conclusions.md %}
 

@@ -8,18 +8,19 @@
             <div class="column vertical-middle text-left" style="width: 50%">
             <h3>Overview</h3>
             <ul>
-                <li>Linear baseline</li>
-                <li>Logistic baseline</li>
+                <li>Linear and logistic baselines</li>
+                <li>Hypothesis space, loss function, weights, update rule, gradient descent</li>
                 <li>The perceptron and linear separability</li>
-                <li>Activation choice</li>
+                <li>Hyperparameters</li>
             </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
             <h3>Next Time</h3>
             <ul>
-                <li>Feed-forward networks</li>
-                <li>Loss and back-propagation</li>
-                <li>Architecture survey and intro CNN</li>
+                <li>Neural networks</li>
+                <li>Activation functions</li>
+                <li>Back-propagation</li>
+                <li>Networks architectures</li>
             </ul>
             </div>
         </div>

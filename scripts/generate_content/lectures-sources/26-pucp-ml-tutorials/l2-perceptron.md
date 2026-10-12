@@ -34,9 +34,13 @@ notebook_description: "Práctica de sesión 2. Baselines lineal y logístico, y 
 
 <!-- end SLIDES: -->
 
+{% include _snippets/26-pucp-ml-tutorials/l2-perceptron/supervised-setup.md %}
+
 {% include _snippets/regression.md %}
 
 {% include _snippets/multivariate-regression.md %}
+
+{% include _snippets/26-pucp-ml-tutorials/l2-perceptron/fitting.md %}
 
 <!-- SLIDES: -->
 
@@ -54,13 +58,9 @@ notebook_description: "Práctica de sesión 2. Baselines lineal y logístico, y 
 
 {% include _snippets/perceptron.md %}
 
-<!-- SLIDES: -->
+{% include _snippets/26-pucp-ml-tutorials/l2-perceptron/ml-pipeline.md %}
 
-# Activations
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-pucp-ml-tutorials/l2-perceptron/activations.md %}
+{% include _snippets/26-pucp-ml-tutorials/l2-perceptron/hyperparameters.md %}
 
 {% include _snippets/26-pucp-ml-tutorials/l2-perceptron/conclusions.md %}
 

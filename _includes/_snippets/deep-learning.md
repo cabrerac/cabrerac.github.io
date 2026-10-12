@@ -94,7 +94,7 @@
                     <li><b>Proper Weight Initialization:</b> Xavier/Glorot initialization</li>
                     <li><b>Batch Normalization:</b> Normalize activations during training</li>
                     <li><b>Modern Optimizers:</b> Adam, RMSprop with adaptive learning rates</li>
-                    <li><b>Regularisation:</b> Dropout, L2, early stopping, and augmentation techniques</li>
+                    <li><p><b>Regularisation:</b> Dropout, $L_2$, early stopping, and augmentation techniques</p></li>
                     <li><b>Network Architectures:</b> Different architectures for different problems</li>
                 </ul>
             </div>
@@ -117,15 +117,15 @@
                 <p><b>Xavier/Glorot Initialization:</b></p>
 <br>
 $$
-W_{ij} \sim \mathcal{N}\left(0, \frac{2}{n_{in} + n_{out}}\right)
+W_{ij} \sim \mathcal{N}\left(0, \frac{2}{n_{\text{in}} + n_{\text{out}}}\right)
 $$
 <br>
 <p><b>He Initialization (for ReLU):</b></p>
 <br>
 $$
-W_{ij} \sim \mathcal{N}\left(0, \frac{2}{n_{in}}\right)
+W_{ij} \sim \mathcal{N}\left(0, \frac{2}{n_{\text{in}}}\right)
 $$
-<br>Where $n_{in}$ and $n_{out}$ are the number of input and output neurons respectively.
+<br>Where $n_{\text{in}}$ and $n_{\text{out}}$ are the number of input and output neurons respectively.
 </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Neural_Network.svg" alt="Deep Neural Network" style="max-width: 100%; height: auto;">
@@ -200,9 +200,9 @@ $$
 y_i = \begin{cases} \frac{x_i}{1-p} & \text{with probability } 1-p \\ 0 & \text{with probability } p \end{cases}
 $$
 <br>
-<p><b>L2 Regularization:</b> Add penalty to loss function</p>
+<p><b>$L_2$ Regularization:</b> Add penalty to loss function</p>
 $$
-L_{reg} = L + \lambda \sum_{l=1}^{L} ||\mathbf{W}^{(l)}||_F^2
+L_{\text{reg}} = L + \lambda \sum_{l=1}^{L} \|\mathbf{W}^{(l)}\|_F^2
 $$
 <br>
 <p><b>Early Stopping:</b> Stop training when validation loss increases</p>

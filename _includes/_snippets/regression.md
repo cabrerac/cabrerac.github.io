@@ -319,7 +319,7 @@ repeat
 until convergence
 </code></pre>
 <br>
-<p>The size of the step is given by the parameter α, which regulates the behaviour of the gradient descent algorithm. This is a hyperparameter of the regression model we are training, usually called <em>learning rate.</em></p>
+<p>The size of the step is given by the parameter $\alpha$, which regulates the behaviour of the gradient descent algorithm. This is a hyperparameter of the regression model we are training, usually called <em>learning rate.</em></p>
             </div>
         </div>
     </div>
@@ -355,7 +355,7 @@ $$
 <p>The loss function is represented as a composition of functions.</p>
 <br>
 $$
-\text{Loss}(w) = (y - h_w(x))^2  \; ; \; f(w)= y - h_w(x) \; ; \; g(f)= ||f||^2
+\text{Loss}(w) = (y - h_w(x))^2  \; ; \; f(w)= y - h_w(x) \; ; \; g(f)= \|f\|^2
 $$
 </div>
         </div>
@@ -376,7 +376,7 @@ $$
 <p>The loss function is represented as a composition of functions.</p>
 <br>
 $$
-\text{Loss}(w) = (y - h_w(x))^2  \; ; \; f(w)= y - h_w(x) \; ; \; g(f)= ||f||^2
+\text{Loss}(w) = (y - h_w(x))^2  \; ; \; f(w)= y - h_w(x) \; ; \; g(f)= \|f\|^2
 $$
 <p>We need to differentiate the loss function step by step using the <b>chain rule</b> to compute the gradients.</p>
 <br>
@@ -445,10 +445,10 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<p>The update rule for each weight in the "straight line" example is (folding 2 into α)</p>
+<p>The update rule for each weight in the "straight line" example is (folding 2 into $\alpha$)</p>
 <br>
 $$
-w_0 \leftarrow w_ 0 + \alpha (y-h_w(x)) \; ; \; w_1 \leftarrow w_ 1 + \alpha (y-h_w(x))x
+w_0 \leftarrow w_0 + \alpha (y-h_w(x)) \; ; \; w_1 \leftarrow w_1 + \alpha (y-h_w(x))x
 $$
 </div>
         </div>
@@ -461,10 +461,10 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-<p>The update rule for each weight in the "straight line" example is (folding 2 into α)</p>
+<p>The update rule for each weight in the "straight line" example is (folding 2 into $\alpha$)</p>
 <br>
 $$
-w_0 \leftarrow w_ 0 + \alpha (y-h_w(x)) \; ; \; w_1 \leftarrow w_ 1 + \alpha (y-h_w(x))x
+w_0 \leftarrow w_0 + \alpha (y-h_w(x)) \; ; \; w_1 \leftarrow w_1 + \alpha (y-h_w(x))x
 $$
 <p>For $N$ training examples</p>
 $$
@@ -567,7 +567,7 @@ def stochastic_gradient_descent(X, y, alpha=0.01, epochs=1000):
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 40%">
                 <p><b>Mini-batch Gradient Descent</b></p>
-                <p>The algorithm updates $W$ after computing the gradient for a small batch of training examples (batch size <em>m</em>). The batch size is another hyperparameter.</p>
+                <p>The algorithm updates $W$ after computing the gradient for a small batch of training examples (batch size $m$). The batch size is another hyperparameter.</p>
             </div>
             <div class="column vertical-top text-left" style="width: 60%">
 
@@ -617,7 +617,7 @@ def mini_batch_gradient_descent(X, y, alpha=0.01, epochs=1000, batch_size=32):
                 <p><b>Linear Regression</b></p>
                 <p>Training Dataset</p>
 $$
-(x_1, y_1), (x_2, y_2), ..., (x_N, y_N)
+(x_1, y_1), (x_2, y_2), \ldots, (x_N, y_N)
 $$
 <p>Hypothesis Space: All possible linear functions of continuous-valued inputs and outputs.</p>
 $$

@@ -90,7 +90,7 @@ $$
                 <p>The optimal hypothesis is the one that minimises the loss function:</p>
                 <br>
 $$
-h^* = \underset{h \in H}{\arg\min} \; \text{Loss}(h)
+h^* = \underset{h \in \mathcal{H}}{\arg\min} \; \text{Loss}(h)
 $$
 <br>Where $\mathcal{H}$ is the hypothesis space.
 <br>
@@ -125,7 +125,7 @@ $$
                 <p>The optimal hypothesis is the one that minimises the loss function:</p>
                 <br>
 $$
-h^* = \underset{h \in H}{\arg\min} \; \text{Loss}(h)
+h^* = \underset{h \in \mathcal{H}}{\arg\min} \; \text{Loss}(h)
 $$
 <br>Where $\mathcal{H}$ is the hypothesis space.
 <br>
@@ -236,11 +236,11 @@ $$
                 <p>An alternative to the discrete threshold function is the <b>logistic function</b>, which is smooth and differentiable. The process of finding the optimal hypothesis is called <b>logistic regression.</b></p>
 <br>
 $$
-h^* = \underset{h \in H}{\arg\min} \; \text{Loss}(y - h_\mathbf{w}(\mathbf{x}))
+h^* = \underset{h \in \mathcal{H}}{\arg\min} \; \text{Loss}(y - h_\mathbf{w}(\mathbf{x}))
 $$
 <br>
 $$
-h^* = \underset{h \in H}{\arg\min} \; \text{Loss}(y - \sigma(\mathbf{w} \cdot \mathbf{x}))
+h^* = \underset{h \in \mathcal{H}}{\arg\min} \; \text{Loss}(y - \sigma(\mathbf{w} \cdot \mathbf{x}))
 $$
 <br>Where $\mathcal{H}$ is the hypothesis space.
 </div>
@@ -268,11 +268,11 @@ $$
                 <p>An alternative to the discrete threshold function is the <b>logistic function</b>, which is smooth and differentiable. The process of finding the optimal hypothesis is called <b>logistic regression.</b></p>
 <br>
 $$
-h^* = \underset{h \in H}{\arg\min} \; \text{Loss}(y - h_\mathbf{w}(\mathbf{x}))
+h^* = \underset{h \in \mathcal{H}}{\arg\min} \; \text{Loss}(y - h_\mathbf{w}(\mathbf{x}))
 $$
 <br>
 $$
-h^* = \underset{h \in H}{\arg\min} \; \text{Loss}(y - \sigma(\mathbf{w} \cdot \mathbf{x}))
+h^* = \underset{h \in \mathcal{H}}{\arg\min} \; \text{Loss}(y - \sigma(\mathbf{w} \cdot \mathbf{x}))
 $$
 <br>Where $\mathcal{H}$ is the hypothesis space.
 <br>
@@ -425,7 +425,7 @@ $$
 $$
 \mathbf{w} \leftarrow \mathbf{w} + \alpha(y - \sigma(\mathbf{w} \cdot \mathbf{x})) \cdot \sigma(\mathbf{w} \cdot \mathbf{x})(1 - \sigma(\mathbf{w} \cdot \mathbf{x})) \cdot \mathbf{x}
 $$
-<br>Where $α$ is the learning rate.
+<br>Where $\alpha$ is the learning rate.
             </div>
         </div>
     </div>

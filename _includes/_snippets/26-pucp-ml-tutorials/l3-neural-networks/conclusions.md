@@ -8,17 +8,20 @@
             <div class="column vertical-middle text-left" style="width: 50%">
             <h3>Overview</h3>
             <ul>
-                <li>Feed-forward networks</li>
-                <li>Loss and back-propagation</li>
-                <li>MLP vs CNN selection</li>
-                <li>Intro convolution and field limits</li>
+                <li>Neural Networks</li>
+                <li>Forward Passing</li>
+                <li>Backward Propagation</li>
+                <li>Deep Learning</li>
+                <li>Weights and Normalisation</li>
+                <li>Optimisers and Regularisation</li>
+                <li>ResNets, CNNs, and RNNs</li>
             </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
             <h3>Next Time</h3>
             <ul>
-                <li>Host computer-vision and PINN block</li>
-                <li>We return on 23 Nov for transformers</li>
+                <li>The Transformer Architecture</li>
+                <li>Large Language Models</li>
             </ul>
             </div>
         </div>

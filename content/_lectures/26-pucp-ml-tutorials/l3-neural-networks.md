@@ -13,10 +13,10 @@ institution: University of Cambridge
 layout: lecture
 lecture_code: l3-neural-networks
 lecture_date: 19/10/2026
-notebook_description: "Pr\xE1ctica de sesi\xF3n 3. Entrenamiento y validaci\xF3n de\
-  \ un FFN e introducci\xF3n a convoluciones."
+notebook_description: "Pr\xE1ctica de sesi\xF3n 3. Red neuronal con una capa oculta,\
+  \ desde cero y con scikit-learn, y control del sobreajuste."
 notebook_language: es
-notebook_title: "Redes neuronales y introducci\xF3n a CNN"
+notebook_title: Redes neuronales
 permalink: /teaching/26-pucp-ml-tutorials/l3-neural-networks/
 position: Assistant Research Professor
 session: 3

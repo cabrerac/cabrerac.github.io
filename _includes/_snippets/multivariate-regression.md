@@ -22,7 +22,7 @@
                 <p>In these problems, each example is a <b>n-element vector</b>. The hypotheses space $\mathcal{H}$ now includes linear functions of multiple continuous-valued inputs and a single continuous output.</p>
                 <br>
 $$
-y = w_0 + w_1x_1 + w_2x_2 + ... + w_nx_n \; ; \; \mathbf{w} = \langle w_0, w_1, w_2, ..., w_n \rangle
+y = w_0 + w_1x_1 + w_2x_2 + \ldots + w_nx_n \; ; \; \mathbf{w} = \langle w_0, w_1, w_2, \ldots, w_n \rangle
 $$
 </div>
         </div>
@@ -39,12 +39,12 @@ $$
                 <p>In these problems, each example is a <b>n-element vector</b>. The hypotheses space $\mathcal{H}$ now includes linear functions of multiple continuous-valued inputs and a single continuous output.</p>
                 <br>
 $$
-y = w_0 + w_1x_1 + w_2x_2 + ... + w_nx_n \; ; \; \mathbf{w} = \langle w_0, w_1, w_2, ..., w_n \rangle
+y = w_0 + w_1x_1 + w_2x_2 + \ldots + w_nx_n \; ; \; \mathbf{w} = \langle w_0, w_1, w_2, \ldots, w_n \rangle
 $$
 <br>We want to find the $h$ that best fits the data.
 <br>
 $$
-h_w = w_0 + w_1x_1 + w_2x_2 + ... + w_nx_n
+h_w = w_0 + w_1x_1 + w_2x_2 + \ldots + w_nx_n
 $$
 </div>
         </div>
@@ -61,12 +61,12 @@ $$
                 <p>In these problems, each example is a <b>n-element vector</b>. The hypotheses space $\mathcal{H}$ now includes linear functions of multiple continuous-valued inputs and a single continuous output.</p>
                 <br>
 $$
-y = w_0 + w_1x_1 + w_2x_2 + ... + w_nx_n \; ; \; \mathbf{w} = \langle w_0, w_1, w_2, ..., w_n \rangle
+y = w_0 + w_1x_1 + w_2x_2 + \ldots + w_nx_n \; ; \; \mathbf{w} = \langle w_0, w_1, w_2, \ldots, w_n \rangle
 $$
 <br>We want to find the $h$ that best fits the data.
 <br>
 $$
-h_w = w_0 + w_1x_1 + w_2x_2 + ... + w_nx_n
+h_w = w_0 + w_1x_1 + w_2x_2 + \ldots + w_nx_n
 $$
 <br>
 <p>In vector notation:</p>
@@ -117,7 +117,7 @@ $$
 <br>
 <p>In matrix notation:</p>
 $$
-\text{Loss}(h_\mathbf{w}) = ||\mathbf{y} - \mathbf{X}\mathbf{w}||^2
+\text{Loss}(h_\mathbf{w}) = \|\mathbf{y} - \mathbf{X}\mathbf{w}\|^2
 $$
 <br><br>Where $\mathbf{y}$ is the target vector, $\mathbf{X}$ is the feature matrix, and $\mathbf{w}$ is the weight vector.
 </div>
@@ -134,7 +134,7 @@ $$
                 <br>
                 <p>Given the Loss function:</p>
 $$
-\text{Loss}(h_\mathbf{w}) = ||\mathbf{y} - \mathbf{X}\mathbf{w}||^2
+\text{Loss}(h_\mathbf{w}) = \|\mathbf{y} - \mathbf{X}\mathbf{w}\|^2
 $$
 </div>
         </div>
@@ -150,11 +150,11 @@ $$
                 <br>
                 <p>Given the Loss function:</p>
 $$
-\text{Loss}(h_\mathbf{w}) = ||\mathbf{y} - \mathbf{X}\mathbf{w}||^2
+\text{Loss}(h_\mathbf{w}) = \|\mathbf{y} - \mathbf{X}\mathbf{w}\|^2
 $$
 <br>We want to find $\mathbf{w}^*$
 $$
-\mathbf{w}^* = \underset{\mathbf{w}}{\arg\min} ||\mathbf{y} - \mathbf{X}\mathbf{w}||^2
+\mathbf{w}^* = \underset{\mathbf{w}}{\arg\min} \|\mathbf{y} - \mathbf{X}\mathbf{w}\|^2
 $$
 </div>
         </div>
@@ -170,15 +170,15 @@ $$
                 <br>
                 <p>Given the Loss function:</p>
 $$
-\text{Loss}(h_\mathbf{w}) = ||\mathbf{y} - \mathbf{X}\mathbf{w}||^2
+\text{Loss}(h_\mathbf{w}) = \|\mathbf{y} - \mathbf{X}\mathbf{w}\|^2
 $$
 <br>We want to find $\mathbf{w}^*$
 $$
-\mathbf{w}^* = \underset{\mathbf{w}}{\arg\min} ||\mathbf{y} - \mathbf{X}\mathbf{w}||^2
+\mathbf{w}^* = \underset{\mathbf{w}}{\arg\min} \|\mathbf{y} - \mathbf{X}\mathbf{w}\|^2
 $$
 <br>Taking the derivative with respect to $\mathbf{w}$ and setting to zero:
 $$
-\frac{\partial}{\partial \mathbf{w}}||\mathbf{y} - \mathbf{X}\mathbf{w}||^2 = 0
+\frac{\partial}{\partial \mathbf{w}}\|\mathbf{y} - \mathbf{X}\mathbf{w}\|^2 = 0
 $$
 </div>
         </div>
@@ -194,15 +194,15 @@ $$
                 <br>
                 <p>Given the Loss function:</p>
 $$
-\text{Loss}(h_\mathbf{w}) = ||\mathbf{y} - \mathbf{X}\mathbf{w}||^2
+\text{Loss}(h_\mathbf{w}) = \|\mathbf{y} - \mathbf{X}\mathbf{w}\|^2
 $$
 <br>We want to find $\mathbf{w}^*$
 $$
-\mathbf{w}^* = \underset{\mathbf{w}}{\arg\min} ||\mathbf{y} - \mathbf{X}\mathbf{w}||^2
+\mathbf{w}^* = \underset{\mathbf{w}}{\arg\min} \|\mathbf{y} - \mathbf{X}\mathbf{w}\|^2
 $$
 <br>Taking the derivative with respect to $\mathbf{w}$ and setting to zero:
 $$
-\frac{\partial}{\partial \mathbf{w}}||\mathbf{y} - \mathbf{X}\mathbf{w}||^2 = 0
+\frac{\partial}{\partial \mathbf{w}}\|\mathbf{y} - \mathbf{X}\mathbf{w}\|^2 = 0
 $$
 <br>
 <p>This leads to the normal equation:</p>
@@ -261,7 +261,7 @@ $$
 $$
 \mathbf{w} \leftarrow \mathbf{w} + \alpha\mathbf{X}^T(\mathbf{y} - \mathbf{X}\mathbf{w})
 $$
-<br>Where $α$ is the learning rate.
+<br>Where $\alpha$ is the learning rate.
 </div>
         </div>
     </div>
