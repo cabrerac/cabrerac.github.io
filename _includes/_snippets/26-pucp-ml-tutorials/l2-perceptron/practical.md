@@ -29,15 +29,13 @@ En la sesión 1 usamos esos umbrales para **filtrar** filas. Hoy los usamos para
 - La **logística** responde: ¿cuál es el riesgo de que esta fila sea una ubicación débil?
 - El **perceptrón** responde: ¿de qué lado de una frontera lineal dura cae esta fila?
 
-Los tres modelos hablan el lenguaje de una decisión de ingeniería civil. No reemplazan el cálculo de incertidumbre del USGS. Son líneas base para practicar, con datos reales, la diferencia entre predecir un número, predecir una probabilidad y aprender una frontera de decisión.
-
-La parte guiada usa **Colombia**. La parte individual usa **Perú**. El método es el mismo. Solo cambia la ventana geográfica. `PARAMETROS_CURSO` (Perú) es el contrato con las sesiones siguientes. **No lo modifique.**
+La parte guiada usa **Colombia**. La parte individual usa **Perú**. El método es el mismo. Solo cambia la ventana geográfica (i.e., `PARAMETROS_CURSO` (Perú)).
 
 ---
 
 ## Datos y helpers (reutilización de la sesión 1)
 
-No repetimos el tutorial de acceso de la sesión 1. En un Colab fresco necesitamos las mismas piezas: importaciones, dos helpers de descarga, el recorte de Colombia y la tabla en memoria. Eso va en **dos bloques de código** con docstrings. El material nuevo —lineal, logística, perceptrón— empieza justo después.
+Repetimos los métodos de acceso de la sesión 1 e importamos las librerías que utilizaremos en esta sesión.
 
 ### Importaciones
 
@@ -57,7 +55,7 @@ from sklearn.model_selection import train_test_split
 
 ### Helpers de descarga y catálogo de Colombia
 
-Este bloque redefine `build_usgs_url` y `download_csv` (las mismas ideas de la sesión 1), fija `PARAMETROS_COLOMBIA` y la ruta local, arma la URL, descarga el CSV y lo carga en `sismos_colombia`. Lea las docstrings: documentan el contrato de cada función. No rehacemos el recorrido paso a paso del Access.
+Este bloque redefine `build_usgs_url` y `download_csv` (las mismas ideas de la sesión 1), fija `PARAMETROS_COLOMBIA` y la ruta local, arma la URL, descarga el CSV y lo carga en `sismos_colombia`.
 
 | Parámetro clave | Valor Colombia |
 |-----------------|----------------|
@@ -70,7 +68,6 @@ Este bloque redefine `build_usgs_url` y `download_csv` (las mismas ideas de la s
 def build_usgs_url(parametros: dict) -> str:
     """Arma la URL del catálogo USGS FDSN a partir de un diccionario de parámetros.
 
-    No toca la red: solo une la base con ``clave=valor`` separados por ``&``.
     Imprima la URL y revísela antes de descargar.
     """
     base = "https://earthquake.usgs.gov/fdsnws/event/1/query"
@@ -145,7 +142,7 @@ print(f"Helpers + tabla Colombia: {len(sismos_colombia)} sismos. OK")
 
 ## Parte guiada B — Regresión lineal (Colombia)
 
-**Propósito.** Entrenar un primer modelo sobre los datos que acabamos de descargar, y ser explícitos sobre lo que ese modelo no cubre. La pregunta es la misma que cerró la sesión 1 en address: **dado el `gap` de un sismo, ¿cuánto error horizontal cabe esperar?**
+**Propósito.** Entrenar un primer modelo sobre los datos que acabamos de descargar. La pregunta es la misma que cerró la sesión 1 en address: **dado el `gap` de un sismo, ¿cuánto error horizontal cabe esperar?**
 
 Es un problema de **regresión**, porque la respuesta es un número y no una categoría. El modelo más simple que puede responderla es una **recta**: una pendiente y un intercepto, dos parámetros que el algoritmo ajusta para que la recta pase lo más cerca posible de los puntos observados.
 
@@ -224,7 +221,7 @@ ax.legend()
 plt.show()
 ```
 
-Pregúntese, mirando el gráfico: ¿la recta describe bien lo que ve, o hay estructura que se le escapa? Si la respuesta es la segunda, el problema no es el código: es que una recta no es el modelo adecuado. Esa es una conclusión válida y vale la pena escribirla. En este cuaderno la recta sigue siendo nuestra **línea base continua**: el piso contra el que, más adelante, pediremos justificar una activación distinta.
+Pregúntese, mirando el gráfico: ¿la recta describe bien lo que ve, o hay estructura que se le escapa? Si la respuesta es la segunda, el problema no es el código: es que una recta no es el modelo adecuado. Esa es una conclusión válida y vale la pena escribirla.
 
 **Comprobar:**
 
@@ -236,12 +233,12 @@ print("Regresión lineal Colombia: OK")
 
 ### Paso 4 — La misma recta desde cero (numpy)
 
-`LinearRegression` nos dio la pendiente y el intercepto en una línea. Ahora hacemos el mismo trabajo a mano, para ver qué hay dentro de ese `fit`. Es la misma estructura de los ejercicios de regresión del curso de introducción: implementar, comparar coeficientes con la biblioteca, comparar métricas y dibujar.
+`LinearRegression` nos dio la pendiente y el intercepto en una línea. Ahora hacemos el mismo trabajo a mano, para ver qué hay dentro de ese `fit`.
 
-El modelo es $y = w x + b$, con $x$ el `gap` y $t$ el `horizontalError` observado. Entrenar es buscar los $w$ y $b$ que minimizan el **error cuadrático medio**:
+El modelo es $y = w x + b$, con $x$ el `gap` y $y$ el `horizontalError` observado. Entrenar es buscar los $w$ y $b$ que minimizan el **error cuadrático medio**:
 
 $$
-E(w, b) = \frac{1}{N} \sum_{n=1}^{N} \left( w x_n + b - t_n \right)^2
+E(w, b) = \frac{1}{N} \sum_{n=1}^{N} \left( w x_n + b - y_n \right)^2
 $$
 
 Hay dos caminos. El primero es el **descenso de gradiente**: empezar en $w = b = 0$ y moverse, paso a paso, en la dirección que más baja el error. El tamaño del paso es la tasa de aprendizaje $\alpha$:
@@ -250,7 +247,7 @@ $$
 w \leftarrow w - \alpha \frac{\partial E}{\partial w}, \qquad b \leftarrow b - \alpha \frac{\partial E}{\partial b}
 $$
 
-El segundo es la **ecuación normal**, que para la recta tiene solución cerrada, $[b, w]^\top = (X^\top X)^{-1} X^\top t$, donde $X$ lleva una columna de unos para el intercepto. Con una sola variable y unas 60 filas, las dos llegan al mismo sitio. Usamos la segunda solo como control.
+El segundo es la **ecuación normal**, que para la recta tiene solución cerrada, $[b, w]^\top = (X^\top X)^{-1} X^\top y$, donde $X$ lleva una columna de unos para el intercepto. Con una sola variable y unas 60 filas, las dos llegan al mismo sitio. Usamos la segunda solo como control.
 
 Un detalle práctico. El `gap` va de unos 20 a más de 200 grados. Con números así, un mismo $\alpha$ es demasiado grande para $w$ y demasiado pequeño para $b$, y el descenso oscila o no avanza. Por eso la función estandariza $x$ por dentro (media 0, desviación 1) y, al final, devuelve $w$ y $b$ en las unidades originales: km por grado y km.
 
@@ -320,7 +317,7 @@ comparacion_lineal_co, (w_gd_co, b_gd_co, historial_lineal_co) = comparar_lineal
 comparacion_lineal_co
 ```
 
-Lea la tabla por columnas. Las tres versiones deberían coincidir en pendiente e intercepto hasta varios decimales, y por tanto también en MSE y $R^2$. Si coinciden, ya sabe qué hace `LinearRegression().fit`: minimiza el mismo error que acabamos de escribir. El $R^2$ dice qué fracción de la variación del error horizontal explica el `gap`. Un valor bajo no es un fallo del código: es lo que la sesión 1 ya sugería, que el `gap` explica solo una parte del error.
+Lea la tabla por columnas. Las tres versiones deberían coincidir en pendiente e intercepto hasta varios decimales, y por tanto también en MSE y $R^2$. Si coinciden, ya sabe qué hace `LinearRegression().fit`: minimiza el mismo error que acabamos de escribir. El $R^2$ nos dice qué tan bueno es el modelo comparado con un simple promedio. Un valor negativo indica que el modelo es peor que el promedio. El $R^2$ nos dice que fracción de la variación del error horizontal es explicado por el `gap`. Un valor bajo no es un fallo del código, es un posible error en el modelo porque estamos ignorando variables que tienen influencia en la variable que deseamos predecir.
 
 ### Paso 5 — Comparar las dos rectas y la curva de pérdida
 
@@ -357,7 +354,7 @@ graficar_lineal(usable_lineal_co, w_gd_co, b_gd_co, modelo_lineal_co, historial_
                 "Colombia 2024: numpy frente a scikit-learn")
 ```
 
-La curva baja rápido en las primeras épocas y luego se aplana sobre la línea de scikit-learn. Ese aplanamiento es la señal de que el descenso llegó al mínimo: más épocas ya no mejoran nada. Si la curva subiera o saltara, $\alpha$ sería demasiado grande. Pruebe `alpha=1.2` en `entrenar_lineal_numpy` para verlo, y vuelva a 0.1.
+La curva baja rápido en las primeras épocas y luego se aplana sobre la línea de scikit-learn. Ese aplanamiento es la señal de que el descenso llegó al mínimo: más épocas ya no mejoran nada. Si la curva subiera o saltara, deberíamos ajustar $\alpha$ ya que sería demasiado grande. Si la curva se demora mucho en bajar, deberíamos ajustar $\alpha$ ya que puede ser demasiado pequeña.
 
 **Comprobar:**
 
@@ -380,8 +377,6 @@ print("Recta numpy = recta scikit-learn (Colombia): OK")
 
 La regresión lineal del paso anterior responde "cuánto error cabe esperar". En un flujo de revisión post-sismo, muchas veces la pregunta operativa es otra: **¿paso esta fila a revisión de distrito, o la marco como sospechosa?** Esa es una decisión binaria. La regresión logística estima la **probabilidad** de que la fila sea una ubicación débil. Por dentro usa una función sigmoide: comprime una combinación lineal de las entradas a un valor entre 0 y 1.
 
-En el contexto de la revisión, ese número se lee como un **riesgo**: ¿conviene tratar esta fila como sospechosa antes de afirmar el distrito? No es lo mismo que el error en kilómetros. Es una lectura distinta del mismo fenómeno físico (calidad de localización), pensada para una decisión de filtrado.
-
 ### La etiqueta: ubicación débil
 
 Usamos exactamente los umbrales de la sesión 1:
@@ -389,7 +384,7 @@ Usamos exactamente los umbrales de la sesión 1:
 - `horizontalError > 10` km
 - `gap > 90` grados
 
-La etiqueta es 1 si se cumple **cualquiera** de los dos. Es una decisión nuestra, no una propiedad del catálogo. Si otro equipo usa 15 km y 120 grados obtendrá otro conjunto de positivos. Por eso los umbrales van escritos en el informe, no escondidos en el código.
+La etiqueta es 1 si se cumple **cualquiera** de los dos. Es una decisión nuestra, no una propiedad del catálogo. Si otro equipo usa 15 km y 120 grados obtendrá otro conjunto de positivos.
 
 ### Qué entra como características (y qué no)
 
@@ -404,8 +399,6 @@ Por eso `gap` y `horizontalError` quedan **fuera** de las entradas. Solo constru
 | `mag` | Eventos más grandes suelen activar más estaciones, pero no siempre |
 | `depth` | La profundidad fija en 10 km y los sismos profundos cambian la geometría aparente |
 | `latitude` | En este recorte, la latitud resume en parte la posición relativa a la red |
-
-La línea base de hoy usa solo esas tres. Como ejercicio opcional más adelante puede probar añadir `longitude` y comparar. No es parte del recorrido obligatorio. Tampoco usamos `status` ni `reviewed` en esta sesión: dejar el encoding categórico para más adelante mantiene el modelo pequeño y legible.
 
 ### Paso 6 — Construir la tabla de clasificación
 
@@ -435,10 +428,6 @@ print("Positivos (ubicación débil):", int(clasif_colombia["ubicacion_debil"].s
 print("Negativos:", int((clasif_colombia["ubicacion_debil"] == 0).sum()))
 clasif_colombia.head()
 ```
-
-Mire el balance de clases con atención. Si casi todas las filas son del mismo lado, la exactitud de un modelo trivial (siempre predecir la clase mayoritaria) ya es alta. Ese número es la **línea base mayoritaria**. Más abajo lo imprimimos junto a cada exactitud de test.
-
-Un modelo solo aporta algo si **supera** esa línea base. Si apenas la empata, la exactitud alta engaña: el modelo no aprendió nada que no sepa un contador de clases. En ingeniería civil esto es especialmente peligroso, porque un informe que diga "92% de exactitud" suena sólido hasta que alguien pregunta cuál era el piso trivial.
 
 ### Paso 7 — Partición train / test
 
@@ -666,8 +655,6 @@ Piénselo así, en el lenguaje de una revisión post-sismo:
 - La **logística** responde: "¿qué tan riesgosa es esta fila?" (un número entre 0 y 1).
 - El **perceptrón** responde: "¿la paso o la rechazo?" (una decisión binaria).
 
-En un flujo operativo de filtrado rápido, a veces solo se necesita la segunda pregunta. En un informe que debe justificar umbrales ante un revisor, suele hacer falta la primera. Las dos conviven: el perceptrón es el antepasado directo del bloque neuronal; la logística es la versión probabilística de una frontera lineal parecida.
-
 Vamos a implementarlo de dos formas: **desde cero con numpy** (para ver la regla de actualización online) y con **`sklearn.linear_model.Perceptron`** (para contrastar con una implementación de biblioteca). Las exactitudes no tienen por qué coincidir al decimal: no optimizan exactamente la misma función de pérdida ni con el mismo criterio de parada. Lo importante es que **ambos entrenan**, que las asserts confirman el contrato del código, y que ninguna exactitud se lea sin el piso de la clase mayoritaria.
 
 ### Paso 11 — Perceptrón desde cero (numpy)
@@ -757,81 +744,6 @@ Compare las dos exactitudes del perceptrón con la de la logística y con la lí
 2. **La logística supera a los perceptrones.** La probabilidad suave puede generalizar mejor que la decisión dura en un recorte pequeño o desbalanceado.
 3. **Nadie supera la base de forma clara.** Entonces el problema no es "elegir mejor algoritmo": es que estas tres características, en este recorte, no anticipan bien la etiqueta. Esa conclusión también es un resultado.
 
-### Paso 13 — Un vistazo a la decisión
-
-Para visualizar, proyectamos solo dos ejes (`mag` y `depth`) y coloreamos según la etiqueta verdadera. No dibujamos la frontera completa en 3D. El gráfico sirve para recordar que estamos clasificando puntos reales del catálogo, no datos sintéticos generados en el vacío.
-
-```python
-fig, ax = plt.subplots(figsize=(6, 4))
-debil = clasif_colombia["ubicacion_debil"] == 1
-firme = ~debil
-ax.scatter(
-    clasif_colombia.loc[firme, "mag"],
-    clasif_colombia.loc[firme, "depth"],
-    alpha=0.5,
-    label="ubicación firme",
-)
-ax.scatter(
-    clasif_colombia.loc[debil, "mag"],
-    clasif_colombia.loc[debil, "depth"],
-    alpha=0.5,
-    label="ubicación débil",
-)
-ax.set_xlabel("mag")
-ax.set_ylabel("depth (km)")
-ax.set_title("Colombia 2024: etiqueta de ubicación débil")
-ax.legend()
-plt.show()
-```
-
-Si los dos colores se mezclan sin un patrón evidente en este plano, no se sorprenda: la frontera real vive en tres dimensiones (`mag`, `depth`, `latitude`), y además la etiqueta se definió con columnas que **no** están en estos ejes. El gráfico no es una prueba de que el modelo funcione. Es un recordatorio de que el fenómeno es físico y desordenado.
-
-**Comprobar:**
-
-```python
-assert pesos_numpy_co.shape == (1 + len(FEATURES_CLASIFICACION),)
-assert 0.0 <= acc_numpy_co <= 1.0
-assert 0.0 <= acc_sk_co <= 1.0
-assert modelo_perceptron_co.coef_.shape == (1, len(FEATURES_CLASIFICACION))
-print("Perceptrón Colombia (numpy + sklearn): OK")
-```
-
-### Tres modelos, tres lecturas
-
-Antes de pasar a las activaciones y a Perú, fije estas tres frases:
-
-1. **Lineal:** error horizontal esperado dado el `gap` (número continuo).
-2. **Logística:** riesgo de ubicación débil (probabilidad entre 0 y 1).
-3. **Perceptrón:** frontera lineal dura que acepta o rechaza la fila (decisión 0/1).
-
-Las tres son útiles. Ninguna reemplaza el informe del USGS. Las tres se rompen si las características filtran la etiqueta o si evaluamos sobre el mismo conjunto con el que entrenamos sin decirlo.
-
----
-
-## Activaciones: de la frontera lineal al bloque neuronal
-
-El perceptrón clásico usa una activación de **umbral** (signo): por encima de cero, 1; por debajo, 0. Las redes modernas cambian esa función. Cuatro nombres que debe reconocer, en el lenguaje de una decisión de sensores y de revisión:
-
-| Activación | Qué hace | Lectura en este contexto |
-|------------|----------|--------------------------|
-| **Lineal** | Deja pasar la combinación tal cual | Es el modelo de regresión del paso 2. Útil para predecir un error en km |
-| **Sigmoide** | Comprime a (0, 1) | Es el corazón de la logística. Útil cuando necesita un riesgo |
-| **tanh** | Comprime a (-1, 1), centrada en cero | Similar a la sigmoide, pero simétrica. A veces estabiliza el entrenamiento |
-| **ReLU** | `max(0, z)` | Apaga señales negativas. Es la activación por defecto en redes profundas modernas |
-
-Hoy no entrenamos una red profunda. Sí necesitamos que sepa **por qué** elegiría una activación frente a otra cuando el bloque siguiente deje de ser un solo perceptrón. La justificación escrita pesada queda para la parte individual. Aquí solo dejamos un puente corto y una demostración numérica mínima.
-
-```python
-z = np.linspace(-4, 4, 9)
-print("z      :", np.round(z, 2))
-print("lineal :", np.round(z, 2))
-print("sigmoide:", np.round(1 / (1 + np.exp(-z)), 3))
-print("tanh   :", np.round(np.tanh(z), 3))
-print("ReLU   :", np.round(np.maximum(0, z), 2))
-```
-
-Observe cómo la sigmoide satura cerca de 0 y 1, cómo `tanh` queda centrada en cero, y cómo ReLU corta todo lo negativo. Esas formas no son decorativas: condicionan qué tipo de señal puede aprender el bloque siguiente.
-
 ---
 
 ## Parte individual — Perú 2024
@@ -891,7 +803,7 @@ assert len(sismos_peru) > 50, "El recorte del Perú vino casi vacío. Revise la 
 print(f"Tabla Perú: {len(sismos_peru)} sismos. OK")
 ```
 
-### Paso 14 — Preparar Perú (común a las tres opciones)
+### Paso 13 — Preparar Perú (común a las tres opciones)
 
 Esta celda arma las dos tablas que usan los modelos: las filas con `gap` y `horizontalError` para la recta, y la tabla de clasificación con la partición de siempre (`test_size=0.30`, `random_state=42`, estratificada) para la logística y el perceptrón. También calcula el piso de la clase mayoritaria.
 
@@ -919,7 +831,7 @@ print("línea base mayoritaria (test):", round(baseline_pe, 3))
 
 Note que en Perú la clase mayoritaria es la de ubicación **débil**. Buena parte de la sismicidad ocurre mar adentro, donde las estaciones solo pueden estar de un lado, y eso empuja el `gap` hacia arriba. El test tiene unas 40 filas, así que una fila mueve la exactitud unos 2.5 puntos.
 
-### Paso 15 — Elegir el modelo
+### Paso 14 — Elegir el modelo
 
 Escriba en la celda siguiente `"lineal"`, `"logistica"` o `"perceptron"`. Si no está seguro, piense en la decisión que quiere apoyar:
 
@@ -1020,35 +932,6 @@ else:
     assert 0.0 <= acc_numpy_pe <= 1.0 and 0.0 <= acc_sk_pe <= 1.0
 print(f"Perú, opción {MODELO_ELEGIDO}: OK")
 print("URL del curso (guárdela):", USGS_URL_PERU)
-```
-
-### Paso 16 — Interpretar en términos civiles
-
-Complete en sus palabras. No basta con pegar los números. Diga qué modelo eligió y para qué decisión, si la versión numpy y la de scikit-learn cuentan la misma historia, cómo se compara con la línea base (el piso de la clase mayoritaria si clasifica, o el error de la recta si hace regresión), y qué cambió respecto a Colombia.
-
-```python
-interpretacion_peru = """
-Modelo elegido y decision civil que apoya:
-Numpy frente a scikit-learn (coinciden o no, y por que):
-Comparacion con la linea base de Peru:
-Que cambio respecto a Colombia:
-Que no puede decidir este modelo por si solo:
-"""
-print(interpretacion_peru)
-```
-
----
-
-## Ticket de salida
-
-Escriba **exactamente dos oraciones**. En la primera, diga qué activación elegiría para un flujo de revisión post-sismo. En la segunda, diga por qué esa elección es mejor (o peor) que quedarse solo con la línea base lineal o logística de esta sesión.
-
-```python
-ticket_de_salida = """
-Oracion 1:
-Oracion 2:
-"""
-print(ticket_de_salida)
 ```
 
 <!-- end NOTEBOOK: -->
