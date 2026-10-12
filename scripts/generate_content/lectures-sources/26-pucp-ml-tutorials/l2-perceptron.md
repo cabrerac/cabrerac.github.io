@@ -13,7 +13,7 @@ department: Department of Computer Science and Technology
 institution: University of Cambridge
 layout: lecture
 notebook_language: es
-visible: false
+visible: true
 lecture_code: l2-perceptron
 lecture_date: 12/10/2026
 permalink: /teaching/26-pucp-ml-tutorials/l2-perceptron/
