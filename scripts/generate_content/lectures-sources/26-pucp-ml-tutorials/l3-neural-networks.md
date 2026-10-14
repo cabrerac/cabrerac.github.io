@@ -30,19 +30,53 @@ notebook_description: "Práctica de sesión 3. Red neuronal con una capa oculta,
 
 <!-- SLIDES: -->
 
-# Neural Networks
+# Neural Network Architectures
 
 <!-- end SLIDES: -->
 
-{% include _snippets/neural-networks.md %}
+{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/architectures-intro.md %}
 
 <!-- SLIDES: -->
 
-# Deep Learning
+# Feedforward Neural Networks
 
 <!-- end SLIDES: -->
 
-{% include _snippets/deep-learning.md %}
+{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/mlp-theory.md %}
+
+{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/mlp-activations.md %}
+
+{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/mlp-training.md %}
+
+{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/deep-networks.md %}
+
+{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/regularisation.md %}
+
+{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/mlp-implementation.md %}
+
+<!-- SLIDES: -->
+
+# Recurrent Neural Networks
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/rnn.md %}
+
+<!-- SLIDES: -->
+
+# Convolutional Neural Networks
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/cnn.md %}
+
+{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/resnet.md %}
+
+{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/architectures-summary.md %}
+
+{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/hyperparameters.md %}
+
+{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/ml-pipeline.md %}
 
 {% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/conclusions.md %}
 

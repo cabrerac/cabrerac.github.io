@@ -8,13 +8,12 @@
             <div class="column vertical-middle text-left" style="width: 50%">
             <h3>Overview</h3>
             <ul>
-                <li>Neural Networks</li>
-                <li>Forward Passing</li>
-                <li>Backward Propagation</li>
-                <li>Deep Learning</li>
-                <li>Weights and Normalisation</li>
-                <li>Optimisers and Regularisation</li>
-                <li>ResNets, CNNs, and RNNs</li>
+                <li>Feedforward networks and activation functions</li>
+                <li>Training with backpropagation and gradient descent</li>
+                <li>Deep networks: initialisation, normalisation, and optimisers</li>
+                <li>Recurrent networks and LSTMs</li>
+                <li>Convolutional networks and ResNets</li>
+                <li>Hyperparameters</li>
             </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
