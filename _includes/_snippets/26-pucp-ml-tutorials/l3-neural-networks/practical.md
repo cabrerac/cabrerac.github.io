@@ -1,10 +1,6 @@
 <!-- NOTEBOOK: -->
 
-Este cuaderno entrena las arquitecturas de la sesión, en el mismo orden que las diapositivas.
-
-Cada bloque dice qué datos hay, cuál es la tarea y por qué esa arquitectura encaja.
-
-El código que sigue está comentado para leerlo línea por línea.
+Este cuaderno entrena las arquitecturas de la sesión. Cada bloque describe los datos utilizados, cuál es la tarea que se quiere solucionar y por qué esa arquitectura encaja.
 
 Ejecute las celdas de arriba hacia abajo. En cada **Comprobar**, confirme el mensaje `OK` antes de seguir.
 
@@ -13,6 +9,7 @@ Ejecute las celdas de arriba hacia abajo. En cada **Comprobar**, confirme el men
 ## Importaciones
 
 ```python
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import torch
@@ -31,27 +28,13 @@ from torch import nn
 
 ## Dos lunas
 
-Quinientos puntos en el plano forman dos medias lunas entrelazadas, con un poco de ruido.
+Quinientos puntos en el plano forman dos medias lunas entrelazadas, con un poco de ruido. La tarea es decir a qué luna pertenece un punto nuevo.
 
-La tarea es decir a qué luna pertenece un punto nuevo.
+Una recta no puede separar las lunas. El perceptrón y la logística de la sesión 2 son rectas, así que se quedan cortos.
 
-Una recta no puede separar las lunas.
+Un perceptrón multicapa añade una capa oculta. Cada unidad oculta es una curva sobre las dos coordenadas. La capa de salida combina esas curvas y puede rodear una luna.
 
-El perceptrón y la logística de la sesión 2 son rectas, así que se quedan cortos.
-
-Un perceptrón multicapa añade una capa oculta.
-
-Cada unidad oculta es una curva sobre las dos coordenadas.
-
-La capa de salida combina esas curvas y puede rodear una luna.
-
-La implementación es la de las diapositivas: `MLPClassifier` dentro de un `pipeline`.
-
-`hidden_layer_sizes=(8,)` es una capa oculta de 8 unidades.
-
-Por defecto la activación es ReLU y el optimizador es Adam.
-
-`alpha` es la penalización $L_2$, no la tasa de aprendizaje.
+Implementamos un `MLPClassifier` dentro de un `pipeline`. `hidden_layer_sizes=(8,)` es una capa oculta de 8 unidades. Por defecto la activación es ReLU y el optimizador es Adam. `alpha` es la penalización $L_2$, no la tasa de aprendizaje.
 
 ```python
 def lineas_base_lunas(X_train, y_train, X_test, y_test):
@@ -81,6 +64,15 @@ def lineas_base_lunas(X_train, y_train, X_test, y_test):
 
 # Dos lunas. noise=0.25 las mezcla lo justo para que una recta no baste.
 X_lunas, y_lunas = make_moons(n_samples=500, noise=0.25, random_state=42)
+
+# El color es la luna. Una recta no puede dejar cada color de un solo lado.
+plt.figure(figsize=(5, 4))
+plt.scatter(X_lunas[:, 0], X_lunas[:, 1], c=y_lunas, cmap="coolwarm", edgecolor="k", s=18)
+plt.xlabel("x1")
+plt.ylabel("x2")
+plt.title("Dos lunas")
+plt.show()
+
 X_train, X_test, y_train, y_test = train_test_split(
     X_lunas, y_lunas, test_size=0.30, random_state=42, stratify=y_lunas
 )
@@ -95,7 +87,7 @@ print({nombre: round(valor, 3) for nombre, valor in bases_lunas.items()})
 ```
 
 ```python
-# StandardScaler y la red viven en el mismo objeto, como en la diapositiva.
+# StandardScaler y la red viven en el mismo objeto.
 mlp_lunas = make_pipeline(
     StandardScaler(),
     MLPClassifier(
@@ -111,6 +103,48 @@ exactitud_mlp = float(mlp_lunas.score(X_test, y_test))
 print("exactitud MLP en test:", round(exactitud_mlp, 3))
 ```
 
+La logística corta el plano con una recta. El MLP cierra una región alrededor de cada luna.
+
+```python
+def pintar_regiones(ax, predecir, X, y, titulo):
+    """Pinta la clase que el modelo asigna a cada punto del plano.
+
+    Los puntos de datos van encima, con el color de su luna verdadera.
+
+    Args:
+        ax: Eje de matplotlib.
+        predecir: Función que recibe puntos (n, 2) y devuelve una clase por punto.
+        X: Coordenadas originales de las lunas.
+        y: Etiqueta verdadera de cada punto.
+        titulo: Texto del panel.
+    """
+    x_min, x_max = X[:, 0].min() - 0.5, X[:, 0].max() + 0.5
+    y_min, y_max = X[:, 1].min() - 0.5, X[:, 1].max() + 0.5
+    xx, yy = np.meshgrid(np.linspace(x_min, x_max, 250), np.linspace(y_min, y_max, 250))
+    malla = np.c_[xx.ravel(), yy.ravel()]
+    # El color de fondo es la clase predicha. El punto es la clase real.
+    zz = predecir(malla).reshape(xx.shape)
+    ax.contourf(xx, yy, zz, alpha=0.35, cmap="coolwarm")
+    ax.scatter(X[:, 0], X[:, 1], c=y, cmap="coolwarm", edgecolor="k", s=16)
+    ax.set_title(titulo)
+    ax.set_xlabel("x1")
+    ax.set_ylabel("x2")
+
+
+logistica_lunas = LogisticRegression().fit(X_train_esc, y_train)
+fig, ejes = plt.subplots(1, 2, figsize=(9, 4))
+pintar_regiones(
+    ejes[0],
+    lambda puntos: logistica_lunas.predict(escalador_lunas.transform(puntos)),
+    X_lunas,
+    y_lunas,
+    "Logística",
+)
+pintar_regiones(ejes[1], mlp_lunas.predict, X_lunas, y_lunas, "MLP")
+plt.tight_layout()
+plt.show()
+```
+
 **Comprobar:**
 
 ```python
@@ -123,25 +157,11 @@ print("El MLP separa las lunas mejor que una recta. OK")
 
 ## Manchas solares
 
-La serie trae el número anual de manchas solares, de 1700 a 2008.
+La serie trae el número anual de manchas solares, de 1700 a 2008. El ciclo dura unos 11 años, así que el valor del próximo año depende de los anteriores. La tarea es predecir el año que sigue a partir de una ventana de 11 años.
 
-El ciclo dura unos 11 años, así que el valor del próximo año depende de los anteriores.
+Una red recurrente encaja porque el estado oculto guarda lo que ya vio en la ventana. Los mismos pesos se reutilizan en cada año, así que la ventana podría tener otra longitud. La predicción sale del último estado oculto.
 
-La tarea es predecir el año que sigue a partir de una ventana de 11 años.
-
-Una red recurrente encaja porque el estado oculto guarda lo que ya vio en la ventana.
-
-Los mismos pesos se reutilizan en cada año, así que la ventana podría tener otra longitud.
-
-La predicción sale del último estado oculto, como en la diapositiva.
-
-Las líneas base no tienen memoria aprendida.
-
-La persistencia repite el último año.
-
-La media responde siempre el promedio de train.
-
-La regresión lineal usa la misma ventana, pero suma los años con pesos fijos y sin estado oculto.
+Las líneas base no tienen memoria aprendida. La persistencia repite el último año. La media responde siempre el promedio de train. La regresión lineal usa la misma ventana, pero suma los años con pesos fijos y sin estado oculto.
 
 ```python
 import statsmodels.api as sm
@@ -158,7 +178,7 @@ def preparar_manchas(ventana=11):
         ventana: Cuántos años mira el modelo antes de predecir el siguiente.
 
     Returns:
-        Tensores de train y de test, y la función que devuelve la escala original.
+        Ventanas de train y de test, la serie completa y los años de test.
     """
     tabla = sm.datasets.sunspots.load_pandas().data
     valores = tabla["SUNACTIVITY"].to_numpy(dtype=float)
@@ -183,6 +203,9 @@ def preparar_manchas(ventana=11):
         "X_test": entradas[~en_train],
         "y_test": objetivos[~en_train],
         "a_original": a_original,
+        "anios": anios,
+        "valores": valores,
+        "anio_test": anio_objetivo[~en_train],
     }
 
 
@@ -207,6 +230,15 @@ recm_media = recm(serie["y_test"], np.full_like(serie["y_test"], media_train))
 recm_persistencia = recm(serie["y_test"], ultimo_anio)
 print("años de test:", len(serie["y_test"]))
 print("RECM media:", round(recm_media, 1), "| RECM persistencia:", round(recm_persistencia, 1))
+
+# La línea vertical separa train (hasta 1950) de test.
+plt.figure(figsize=(8, 3))
+plt.plot(serie["anios"], serie["valores"], color="black")
+plt.axvline(1950, color="gray", linestyle="--")
+plt.xlabel("año")
+plt.ylabel("manchas")
+plt.title("Manchas solares")
+plt.show()
 ```
 
 ```python
@@ -294,11 +326,18 @@ pred_test = serie["a_original"](predecir_rnn(rnn_manchas, serie["X_test"]))
 recm_rnn = recm(serie["y_test"], pred_test)
 print("RECM RNN:", round(recm_rnn, 1), "| pérdida inicial:", round(historial_rnn[0], 3),
       "| pérdida final:", round(historial_rnn[-1], 3))
+
+# En test se ve si la RNN sigue el ciclo o solo copia el año anterior.
+plt.figure(figsize=(8, 3))
+plt.plot(serie["anio_test"], serie["y_test"], color="black", label="observado")
+plt.plot(serie["anio_test"], pred_test, label="RNN")
+plt.plot(serie["anio_test"], ultimo_anio, label="persistencia", alpha=0.7)
+plt.xlabel("año")
+plt.ylabel("manchas")
+plt.title("Test, 1951 a 2008")
+plt.legend()
+plt.show()
 ```
-
-Cambiar `nn.RNN` por `nn.LSTM` o `nn.GRU` en `ModeloSecuencia` es el cambio de una línea de la diapositiva.
-
-LSTM y GRU devuelven el estado de otra forma, así que aquí dejamos la RNN.
 
 **Comprobar:**
 
@@ -313,19 +352,11 @@ print("La RNN mejora el promedio de train. OK")
 
 ## Dígitos escritos a mano
 
-`load_digits` trae 1797 imágenes de 8 por 8 píxeles, sin usar la etiqueta de clase.
+`load_digits` trae 1797 imágenes de 8 por 8 píxeles, sin usar la etiqueta de clase. La tarea es comprimir cada imagen en un código corto y reconstruirla. No hay etiqueta que predecir. El objetivo es la propia imagen.
 
-La tarea es comprimir cada imagen en un código corto y reconstruirla.
+Un autoencoder encaja porque el codificador produce el código y el decodificador vuelve a los 64 píxeles. El código es más corto que la imagen, así que la red tiene que quedarse con lo que importa.
 
-No hay etiqueta que predecir. El objetivo es la propia imagen.
-
-Un autoencoder encaja porque el codificador produce el código y el decodificador vuelve a los 64 píxeles.
-
-El código es más corto que la imagen, así que la red tiene que quedarse con lo que importa.
-
-La línea base lineal es PCA con el mismo tamaño de código, 8 números.
-
-PCA también comprime y reconstruye, pero solo con rectas.
+La línea base lineal es PCA con el mismo tamaño de código, 8 números. PCA también comprime y reconstruye, pero solo con rectas.
 
 ```python
 def preparar_digitos(K=8):
@@ -359,9 +390,33 @@ def ecm(real, reconstruido):
     return float(np.mean((real - reconstruido) ** 2))
 
 
+def mostrar_imagenes(filas, lado=8):
+    """Dibuja varias filas de imágenes de 8 por 8.
+
+    Args:
+        filas: Lista de pares (título, array de forma (n, 64)).
+        lado: Ancho de cada imagen en píxeles.
+    """
+    n = filas[0][1].shape[0]
+    fig, ejes = plt.subplots(len(filas), n, figsize=(n, len(filas) + 0.6))
+    if len(filas) == 1:
+        ejes = np.array([ejes])
+    for i, (titulo, imagenes) in enumerate(filas):
+        for j in range(n):
+            ejes[i, j].imshow(imagenes[j].reshape(lado, lado), cmap="gray_r", vmin=0, vmax=1)
+            ejes[i, j].set_xticks([])
+            ejes[i, j].set_yticks([])
+        ejes[i, 0].set_ylabel(titulo, rotation=0, ha="right", va="center")
+    plt.tight_layout()
+    plt.show()
+
+
 X_train_d, X_test_d, X_hat_pca = preparar_digitos()
 print("train:", X_train_d.shape, "| test:", X_test_d.shape)
 print("ECM de PCA:", round(ecm(X_test_d, X_hat_pca), 4))
+
+# Ocho dígitos de test, antes de comprimirlos.
+mostrar_imagenes([("original", X_test_d[:8])])
 ```
 
 ```python
@@ -443,8 +498,16 @@ def reconstruir(modelo, X):
 
 
 ae_digitos, historial_ae = entrenar_autoencoder(X_train_d)
+recon_ae = reconstruir(ae_digitos, X_test_d[:8])
 ecm_ae = ecm(X_test_d, reconstruir(ae_digitos, X_test_d))
 print("ECM autoencoder:", round(ecm_ae, 4), "| pérdida final:", round(historial_ae[-1], 4))
+
+# El autoencoder conserva el trazo. PCA, con el mismo tamaño de código, lo borra más.
+mostrar_imagenes([
+    ("original", X_test_d[:8]),
+    ("autoencoder", recon_ae),
+    ("PCA", X_hat_pca[:8]),
+])
 ```
 
 **Comprobar:**
@@ -459,21 +522,9 @@ print("El autoencoder reconstruye mejor que PCA. OK")
 
 ## Los mismos dígitos, con un VAE
 
-Los datos son las mismas imágenes.
+Los datos son las mismas imágenes. La tarea ya no es solo reconstruir un dígito visto. También queremos dibujar dígitos nuevos. El autoencoder guarda un punto por imagen.
 
-La tarea ya no es solo reconstruir un dígito visto.
-
-También queremos dibujar dígitos nuevos.
-
-El autoencoder guarda un punto por imagen.
-
-Nada nos dice qué puntos del código corresponden a dígitos que no vimos.
-
-El VAE guarda una distribución por imagen.
-
-El codificador produce una media y una dispersión.
-
-El código es una muestra de esa distribución, y el decodificador la convierte en píxeles.
+Nada nos dice qué puntos del código corresponden a dígitos que no vimos. El VAE guarda una distribución por imagen. El codificador produce una media y una dispersión. El código es una muestra de esa distribución, y el decodificador la convierte en píxeles.
 
 Para dibujar un dígito nuevo se muestra de la distribución estándar y se decodifica.
 
@@ -579,7 +630,13 @@ def muestras_vae(modelo, n=8):
 vae_digitos, historial_vae = entrenar_vae(X_train_d)
 ecm_vae = ecm(X_test_d, reconstruir(vae_digitos, X_test_d))
 print("ECM VAE:", round(ecm_vae, 4), "| pérdida final:", round(historial_vae[-1], 1))
-print("Muestras nuevas, forma:", muestras_vae(vae_digitos).shape)
+
+# La fila de abajo no reconstruye una foto. Sale de un código nuevo.
+mostrar_imagenes([
+    ("original", X_test_d[:8]),
+    ("VAE", reconstruir(vae_digitos, X_test_d[:8])),
+    ("muestras", muestras_vae(vae_digitos)),
+])
 ```
 
 El VAE suele reconstruir un poco peor que el autoencoder.
@@ -598,25 +655,11 @@ print("El VAE reconstruye y puede muestrear. OK")
 
 ## Artículos y citas de Cora
 
-Cora es una red de 2708 artículos.
+Cora es una red de 2708 artículos. Cada artículo es una bolsa de 1433 palabras, y una arista lo une con los artículos que cita. La tarea es predecir el tema del artículo, entre 7 temas. La partición ya viene dada: 140 artículos de train y 1000 de test.
 
-Cada artículo es una bolsa de 1433 palabras, y una arista lo une con los artículos que cita.
+Una logística mira solo las palabras de cada artículo e ignora las citas. Eso falla cuando dos artículos del mismo tema se citan pero no comparten las mismas palabras.
 
-La tarea es predecir el tema del artículo, entre 7 temas.
-
-La partición ya viene dada: 140 artículos de train y 1000 de test.
-
-Una logística mira solo las palabras de cada artículo e ignora las citas.
-
-Eso falla cuando dos artículos del mismo tema se citan pero no comparten las mismas palabras.
-
-Una capa convolucional de grafos mezcla cada artículo con sus vecinos.
-
-El tema puede llegar por una cita, no solo por el texto.
-
-La capa de abajo es la de la diapositiva.
-
-`torch_geometric` solo trae el grafo. No es la capa.
+Una capa convolucional de grafos mezcla cada artículo con sus vecinos. El tema puede llegar por una cita, no solo por el texto.
 
 ```python
 %pip install -q torch_geometric
@@ -716,6 +759,20 @@ logistica_cora.fit(X_train_cora, y_train_cora)
 exactitud_logistica = float(logistica_cora.score(X_test_cora, y_test_cora))
 print("nodos:", cora.num_nodes, "| características:", cora.num_features)
 print("exactitud logística sin grafo:", round(exactitud_logistica, 3))
+
+temas, cuentas = np.unique(cora.y.numpy(), return_counts=True)
+fig, ejes = plt.subplots(1, 2, figsize=(9, 3))
+ejes[0].bar(temas, cuentas, color="steelblue")
+ejes[0].set_xlabel("tema")
+ejes[0].set_ylabel("artículos")
+ejes[0].set_title("Artículos por tema")
+# El grado es el número de citas de cada artículo.
+ejes[1].hist(A_cora.sum(dim=1).numpy(), bins=30, color="steelblue")
+ejes[1].set_xlabel("citas")
+ejes[1].set_ylabel("artículos")
+ejes[1].set_title("Cuántas citas tiene cada artículo")
+plt.tight_layout()
+plt.show()
 ```
 
 ```python
@@ -751,6 +808,29 @@ def entrenar_gcn(grafo, A, epocas=200):
 
 gcn_cora, historial_gcn, exactitud_gcn = entrenar_gcn(cora, A_cora)
 print("exactitud GCN:", round(exactitud_gcn, 3), "| pérdida final:", round(historial_gcn[-1], 3))
+
+plt.figure(figsize=(4, 3))
+plt.bar(["logística", "GCN"], [exactitud_logistica, exactitud_gcn], color=["gray", "steelblue"])
+plt.ylabel("exactitud en test")
+plt.ylim(0, 1)
+plt.title("Palabras solas frente a palabras y citas")
+plt.show()
+
+# El plano es solo las palabras (dos componentes). El color de la derecha es el tema que dice la GCN.
+plano = PCA(n_components=2).fit_transform(cora.x.numpy())
+en_test = cora.test_mask.numpy()
+with torch.no_grad():
+    pred_cora = gcn_cora(cora.x, A_cora).argmax(dim=1).numpy()
+fig, ejes = plt.subplots(1, 2, figsize=(9, 4))
+ejes[0].scatter(plano[en_test, 0], plano[en_test, 1], c=cora.y.numpy()[en_test], cmap="tab10", s=8)
+ejes[0].set_title("Tema real")
+ejes[1].scatter(plano[en_test, 0], plano[en_test, 1], c=pred_cora[en_test], cmap="tab10", s=8)
+ejes[1].set_title("Tema que predice la GCN")
+for eje in ejes:
+    eje.set_xlabel("palabra 1")
+    eje.set_ylabel("palabra 2")
+plt.tight_layout()
+plt.show()
 ```
 
 **Comprobar:**
@@ -761,228 +841,6 @@ assert int(cora.train_mask.sum()) == 140
 assert historial_gcn[-1] < historial_gcn[0]
 assert exactitud_gcn > exactitud_logistica
 print("La GCN usa las citas y supera a la logística. OK")
-```
-
----
-
-## Fotografías CIFAR-10
-
-CIFAR-10 son fotografías a color de 32 por 32 píxeles.
-
-Hay 10 clases, entre ellas avión, automóvil y pájaro.
-
-La tarea es nombrar el objeto de una foto nueva.
-
-Un perceptrón multicapa trataría cada píxel como una coordenada suelta y no vería que un borde es el mismo en cualquier parte de la foto.
-
-Una red convolucional recorre la imagen con un mismo núcleo.
-
-Ese núcleo busca un patrón local, por ejemplo un borde, y lo puede encontrar en cualquier posición.
-
-Luego una agrupación reduce la foto y la siguiente capa ve patrones un poco más grandes.
-
-El modelo es el de la diapositiva.
-
-Usamos 8000 fotos de train y 2000 de test para que el ajuste quepa en la sesión.
-
-La descarga de CIFAR-10 ocurre una sola vez.
-
-```python
-%pip install -q torchvision
-```
-
-```python
-from torch.utils.data import DataLoader, Subset
-from torchvision import datasets, transforms
-
-
-def cargar_cifar(n_train=8000, n_test=2000):
-    """Descarga CIFAR-10 y devuelve dos cargadores con un subconjunto.
-
-    Args:
-        n_train: Cuántas fotos de train usar.
-        n_test: Cuántas fotos de test usar.
-
-    Returns:
-        El cargador de train y el de test.
-    """
-    transformacion = transforms.ToTensor()
-    train = datasets.CIFAR10(root="datos_cifar", train=True, download=True, transform=transformacion)
-    test = datasets.CIFAR10(root="datos_cifar", train=False, download=True, transform=transformacion)
-    cargador_train = DataLoader(Subset(train, range(n_train)), batch_size=128, shuffle=True)
-    cargador_test = DataLoader(Subset(test, range(n_test)), batch_size=128)
-    return cargador_train, cargador_test
-
-
-def exactitud_cargador(modelo, cargador):
-    """Fracción de fotos bien clasificadas.
-
-    Args:
-        modelo: Red que devuelve 10 puntajes por foto.
-        cargador: Lotes de fotos y etiquetas.
-
-    Returns:
-        La exactitud entre 0 y 1.
-    """
-    modelo.eval()
-    aciertos = 0
-    total = 0
-    with torch.no_grad():
-        for fotos, etiquetas in cargador:
-            pred = modelo(fotos).argmax(dim=1)
-            aciertos += int((pred == etiquetas).sum())
-            total += len(etiquetas)
-    return aciertos / total
-
-
-def entrenar_fotos(modelo, cargador_train, epocas=3):
-    """Entrena un clasificador de fotos con entropía cruzada.
-
-    Args:
-        modelo: CNN o red residual.
-        cargador_train: Lotes de CIFAR-10.
-        epocas: Pasadas por el subconjunto de train.
-
-    Returns:
-        El modelo y la pérdida media de cada época.
-    """
-    optimizador = torch.optim.Adam(modelo.parameters(), lr=1e-3)
-    perdida_fn = nn.CrossEntropyLoss()
-    historial = []
-    for epoca in range(epocas):
-        modelo.train()
-        total = 0.0
-        lotes = 0
-        for fotos, etiquetas in cargador_train:
-            optimizador.zero_grad()
-            # CrossEntropyLoss aplica el softmax. El modelo devuelve puntajes.
-            perdida = perdida_fn(modelo(fotos), etiquetas)
-            perdida.backward()
-            optimizador.step()
-            total += float(perdida)
-            lotes += 1
-        historial.append(total / lotes)
-    return modelo, historial
-
-
-cargador_train, cargador_test = cargar_cifar()
-cnn = nn.Sequential(
-    nn.Conv2d(3, 32, kernel_size=3, padding=1),  # 32 mapas, la foto sigue en 32x32
-    nn.ReLU(),
-    nn.MaxPool2d(2),                              # 32x32 pasa a 16x16
-    nn.Conv2d(32, 64, kernel_size=3, padding=1),
-    nn.ReLU(),
-    nn.MaxPool2d(2),                              # 16x16 pasa a 8x8
-    nn.Flatten(),
-    nn.Linear(64 * 8 * 8, 10),                    # 10 clases
-)
-cnn, historial_cnn = entrenar_fotos(cnn, cargador_train)
-exactitud_cnn = exactitud_cargador(cnn, cargador_test)
-print("exactitud CNN:", round(exactitud_cnn, 3), "| pérdida final:", round(historial_cnn[-1], 3))
-```
-
-Azar puro acertaría cerca de 0.10, porque hay 10 clases.
-
-Con pocas épocas el número no es el de un modelo grande.
-
-Sí debe quedar por encima del azar.
-
-**Comprobar:**
-
-```python
-assert historial_cnn[-1] < historial_cnn[0]
-assert exactitud_cnn > 0.20
-print("La CNN supera el azar en CIFAR-10. OK")
-```
-
----
-
-## Las mismas fotografías, con un bloque residual
-
-Los datos y la tarea son los de CIFAR-10.
-
-La red de arriba ya usa convoluciones.
-
-Si la hacemos mucho más honda, el gradiente tiene que cruzar muchas capas y el entrenamiento se estanca.
-
-Un bloque residual pide a las capas una corrección, y suma la entrada al final.
-
-El gradiente tiene un camino directo por esa suma.
-
-El bloque es el de la diapositiva.
-
-Lo metemos en una red pequeña, con las mismas fotos, para ver el atajo en el código.
-
-```python
-class BloqueResidual(nn.Module):
-    """Dos convoluciones que aprenden una corrección, más la entrada.
-
-    Args:
-        canales: Mapas de entrada y de salida. Tienen que coincidir para poder sumar.
-    """
-
-    def __init__(self, canales):
-        super().__init__()
-        self.conv1 = nn.Conv2d(canales, canales, 3, padding=1)
-        self.conv2 = nn.Conv2d(canales, canales, 3, padding=1)
-        self.relu = nn.ReLU()
-
-    def forward(self, x):
-        """Devuelve la corrección sumada a la entrada, y luego ReLU.
-
-        Args:
-            x: Mapas de forma (lote, canales, alto, ancho).
-
-        Returns:
-            Mapas de la misma forma.
-        """
-        # F(x). padding=1 mantiene el alto y el ancho, así la suma es válida.
-        correccion = self.conv2(self.relu(self.conv1(x)))
-        return self.relu(correccion + x)
-
-
-class RedResidual(nn.Module):
-    """Una convolución de entrada, un bloque residual y la capa de 10 clases.
-
-    La primera convolución pasa de 3 canales de color a 32 mapas.
-    El bloque trabaja sobre esos 32 mapas.
-    """
-
-    def __init__(self):
-        super().__init__()
-        self.entrada = nn.Sequential(
-            nn.Conv2d(3, 32, kernel_size=3, padding=1),
-            nn.ReLU(),
-        )
-        self.bloque = BloqueResidual(32)
-        self.pool = nn.AdaptiveAvgPool2d(1)
-        self.cabeza = nn.Linear(32, 10)
-
-    def forward(self, x):
-        """Clasifica un lote de fotos.
-
-        Args:
-            x: Fotos de forma (lote, 3, 32, 32).
-
-        Returns:
-            Diez puntajes por foto.
-        """
-        mapas = self.bloque(self.entrada(x))
-        # Un número por mapa, y de ahí a las 10 clases.
-        return self.cabeza(self.pool(mapas).flatten(1))
-
-
-resnet, historial_resnet = entrenar_fotos(RedResidual(), cargador_train)
-exactitud_resnet = exactitud_cargador(resnet, cargador_test)
-print("exactitud residual:", round(exactitud_resnet, 3), "| pérdida final:", round(historial_resnet[-1], 3))
-```
-
-**Comprobar:**
-
-```python
-assert historial_resnet[-1] < historial_resnet[0]
-assert exactitud_resnet > 0.20
-print("El bloque residual entrena sobre las mismas fotos. OK")
 ```
 
 <!-- end NOTEBOOK: -->
