@@ -984,3 +984,5 @@ assert historial_resnet[-1] < historial_resnet[0]
 assert exactitud_resnet > 0.20
 print("El bloque residual entrena sobre las mismas fotos. OK")
 ```
+
+<!-- end NOTEBOOK: -->
