@@ -834,11 +834,11 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 60%">
+            <div class="column vertical-middle text-left" style="width: 40%">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Gradient_descent.gif" alt="Gradient Descent Algorithm" style="max-width: 100%; height: auto;">
                 <div class="footnote">Gradient Descent Algorithm - Jacopo Bertolotti, CC0, via Wikimedia Commons.</div>
             </div>
-            <div class="column vertical-middle text-left" style="width: 40%">
+            <div class="column vertical-middle text-left" style="width: 60%">
                 <p>We choose any starting point and then compute <b>an estimate of the gradient</b>. We then move a small amount in the steepest downhill direction, repeating until we converge on a point in the weight space with <em>(local)</em> minima loss.</p>
 <br>
 <pre><code>Gradient Descent Algorithm:

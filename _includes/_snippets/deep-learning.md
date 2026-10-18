@@ -64,9 +64,6 @@
     </div>
 </div>
 
-<!-- end SLIDES: -->
-
-
 ## Deep Learning
 
 <div class="rows" style="height: 100%">
@@ -92,13 +89,12 @@
             <div class="column vertical-top text-left" style="width: 50%">
                 <br>
                 <p><b>Vanishing and Exploding Gradients:</b> In deep networks, gradients can become very small (vanishing) or very large (exploding) during backpropagation:</p>
-                <br>
                 <ul>
                     <li><b>Proper Weight Initialization:</b> Xavier/Glorot initialization</li>
                     <li><b>Batch Normalization:</b> Normalize activations during training</li>
                     <li><b>Modern Optimizers:</b> Adam, RMSprop with adaptive learning rates</li>
                     <li><p><b>Regularisation:</b> Dropout, $L_2$, early stopping, and augmentation techniques</p></li>
-                    <li><b>Network Architectures:</b> Different architectures for different problems</li>
+                    <li><b>Network Architectures:</b> Different architectures for different problems and data types</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -214,6 +210,43 @@ $$
         </div>
     </div>
 </div>
+
+## Deep Learning
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 40%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Neural_Network.svg" alt="Deep Neural Network" style="height: 170px">
+                <div class="footnote">Deep Neural Network with multiple hidden layers - QuantuMechaniX8, CC0, via Wikimedia Commons</div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 60%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Architecture</b></p>
+                <ul>
+                    <li><p><b>Number of layers $L$:</b> depth of the network</p></li>
+                    <li><p><b>Hidden units $M$:</b> width of each hidden layer</p></li>
+                    <li><p><b>Activation $h(\cdot)$:</b> sigmoid, tanh, or ReLU</p></li>
+                </ul>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Training</b></p>
+                <ul>
+                    <li><p><b>Learning rate $\alpha$:</b> size of each gradient descent step</p></li>
+                    <li><p><b>Epochs and batch size $m$:</b> passes over the data and examples per update</p></li>
+                    <li><p><b>Optimiser:</b> SGD or Adam</p></li>
+                    <li><p><b>Regularisation strength $\lambda$:</b> weight of the complexity penalty</p></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- end SLIDES: -->
+
 
 ## Deep Learning
 

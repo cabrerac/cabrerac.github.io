@@ -56,17 +56,9 @@ notebook_description: "Práctica de sesión 3. Red neuronal con una capa oculta,
 
 {% include _snippets/autoencoders.md %}
 
-{% include _snippets/generative-models.md %}
-
 {% include _snippets/gnn.md %}
 
 {% include _snippets/cnn.md %}
-
-{% include _snippets/nn-architectures-summary.md %}
-
-{% include _snippets/nn-hyperparameters.md %}
-
-{% include _snippets/ml-pipeline.md %}
 
 {% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/conclusions.md %}
 

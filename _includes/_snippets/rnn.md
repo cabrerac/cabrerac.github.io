@@ -5,11 +5,11 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 55%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/rnn-unfold.svg" alt="Unfolded RNN" style="max-width: 100%; height: auto;">
                 <div class="footnote">Unfolded recurrent neural network - fdeloche, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
-            <div class="column vertical-top text-left" style="width: 45%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <ul>
                     <li><p><b>Tasks:</b> forecasting, sequence classification, language modelling, and speech recognition</p></li>
                     <li><p><b>Data:</b> time series, text, audio, and sensor signals</p></li>
@@ -26,11 +26,71 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 55%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/rnn-unfold.svg" alt="Unfolded RNN" style="max-width: 100%; height: auto;">
                 <div class="footnote">Unfolded recurrent neural network - fdeloche, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
-            <div class="column vertical-top text-left" style="width: 45%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Example:</b> a seismometer trace</p>
+                <ul>
+                    <li><p><b>Sequence:</b> ground motion sampled over time</p></li>
+                    <li><p><b>Each step:</b> the reading at that time</p></li>
+                    <li><p><b>Hidden state:</b> memory of the earlier readings</p></li>
+                    <li><p><b>Task:</b> one prediction, such as the peak shaking ahead</p></li>
+                </ul>
+</div>
+        </div>
+    </div>
+</div>
+
+## Recurrent Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 40%">
+                <p><b>Python implementation:</b> PyTorch</p>
+                <p>A sequence to one value</p>
+                <ul>
+                    <li><p><b>Layers:</b> nn.RNN, nn.LSTM, and nn.GRU share one interface</p></li>
+                    <li><p><b>Clipping:</b> clip_grad_norm_ before each update</p></li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 60%">
+
+```python
+from torch import nn
+
+class SequenceModel(nn.Module):
+    def __init__(self, n_features, n_hidden):
+        super().__init__()
+        self.rnn = nn.RNN(n_features, n_hidden, batch_first=True)
+        self.head = nn.Linear(n_hidden, 1)
+
+    def forward(self, x):                 # x: (batch, T, n_features)
+        out, h_T = self.rnn(x)            # tanh hidden state
+        return self.head(h_T[-1])         # last hidden state
+
+# in the training loop
+nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+```
+</div>
+        </div>
+    </div>
+</div>
+
+<!-- end SLIDES: -->
+
+## Recurrent Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/rnn-unfold.svg" alt="Unfolded RNN" style="max-width: 100%; height: auto;">
+                <div class="footnote">Unfolded recurrent neural network - fdeloche, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Theory:</b> a hidden state $\mathbf{h}_t$ for each time step $t$</p>
                 <p><b>Recurrence:</b> the same weights at every time step</p>
 $$
@@ -51,11 +111,11 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 55%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/rnn-unfold.svg" alt="Unfolded RNN" style="max-width: 100%; height: auto;">
                 <div class="footnote">Unfolded recurrent neural network - fdeloche, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
-            <div class="column vertical-top text-left" style="width: 45%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Backpropagation through time:</b> backpropagation on the unfolded network</p>
 $$
 E = \sum_{t=1}^{T} E_t
@@ -78,11 +138,11 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 45%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/lstm-cell.svg" alt="LSTM Cell" style="max-width: 100%; height: auto;">
                 <div class="footnote">Long short-term memory cell - fdeloche, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
-            <div class="column vertical-top text-left" style="width: 55%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Long short-term memory (LSTM)</b> <a href="https://doi.org/10.1162/neco.1997.9.8.1735" target="_blank" rel="noopener noreferrer">(Hochreiter and Schmidhuber, 1997)</a> adds a cell state $\mathbf{c}_t$ controlled by gates</p>
 $$
 \mathbf{f}_t, \mathbf{i}_t, \mathbf{o}_t = \sigma\left(\mathbf{W}_{f,i,o} [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_{f,i,o}\right)
@@ -108,7 +168,7 @@ $$
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/gru-cell.svg" alt="GRU Cell" style="max-width: 100%; height: auto;">
                 <div class="footnote">Gated recurrent unit - Jeblad, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
-            <div class="column vertical-top text-left" style="width: 55%">
+            <div class="column vertical-middle text-left" style="width: 55%">
                 <p><b>Gated recurrent unit (GRU)</b> <a href="https://arxiv.org/abs/1406.1078" target="_blank" rel="noopener noreferrer">(Cho et al., 2014)</a> uses two gates and no cell state</p>
 $$
 \mathbf{z}_t = \sigma\left(\mathbf{W}_z [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_z\right) \qquad \mathbf{r}_t = \sigma\left(\mathbf{W}_r [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_r\right)
@@ -134,52 +194,15 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 30%">
+            <div class="column vertical-middle text-left" style="width: 40%">
                 <p><b>Python implementation:</b> PyTorch</p>
-                <p>A sequence to one value</p>
+                <p>The same model with an RNN</p>
                 <ul>
-                    <li><p><b>Layers:</b> nn.RNN, nn.LSTM, and nn.GRU share one interface</p></li>
-                    <li><p><b>Clipping:</b> clip_grad_norm_ before each update</p></li>
-                    <li><p><b>Example:</b> a window of sensor readings to one prediction</p></li>
-                </ul>
-            </div>
-            <div class="column vertical-top text-left" style="width: 70%">
-
-```python
-from torch import nn
-
-class SequenceModel(nn.Module):
-    def __init__(self, n_features, n_hidden):
-        super().__init__()
-        self.lstm = nn.LSTM(n_features, n_hidden, batch_first=True)
-        self.head = nn.Linear(n_hidden, 1)
-
-    def forward(self, x):                 # x: (batch, T, n_features)
-        out, (h_T, c_T) = self.lstm(x)
-        return self.head(h_T[-1])         # last hidden state
-
-# in the training loop
-nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
-```
-</div>
-        </div>
-    </div>
-</div>
-
-## Recurrent Neural Networks
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 30%">
-                <p><b>Python implementation:</b> PyTorch</p>
-                <p>The same model with a GRU</p>
-                <ul>
-                    <li><p><b>Output:</b> no cell state, only $\mathbf{h}_T$</p></li>
+                    <li><p><b>Output:</b> hidden state $\mathbf{h}_T$ only</p></li>
                     <li><p><b>Swap:</b> nn.RNN, nn.LSTM, and nn.GRU in one line</p></li>
                 </ul>
             </div>
-            <div class="column vertical-top text-left" style="width: 70%">
+            <div class="column vertical-middle text-left" style="width: 60%">
 
 ```python
 from torch import nn
@@ -187,16 +210,14 @@ from torch import nn
 class SequenceModel(nn.Module):
     def __init__(self, n_features, n_hidden):
         super().__init__()
-        self.gru = nn.GRU(n_features, n_hidden, batch_first=True)
+        self.rnn = nn.RNN(n_features, n_hidden, batch_first=True)
         self.head = nn.Linear(n_hidden, 1)
 
     def forward(self, x):                 # x: (batch, T, n_features)
-        out, h_T = self.gru(x)            # no cell state
+        out, h_T = self.rnn(x)
         return self.head(h_T[-1])         # last hidden state
 ```
 </div>
         </div>
     </div>
 </div>
-
-<!-- end SLIDES: -->

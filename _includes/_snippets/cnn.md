@@ -9,14 +9,12 @@
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/cnn-typical.png" alt="Typical CNN" style="max-width: 100%; height: auto;">
                 <div class="footnote">Typical CNN - Aphex34, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
-            <div class="column vertical-top text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <ul>
                     <li><p><b>Tasks:</b> image classification, object detection, and segmentation</p></li>
                     <li><p><b>Data:</b> grid-structured inputs such as images, video frames, spectrograms, and maps</p></li>
                     <li><p><b>Key idea:</b> local connectivity, shared weights, and pooling</p></li>
                 </ul>
-                <p>LeNet read handwritten digits <a href="https://ieeexplore.ieee.org/document/726791" target="_blank" rel="noopener noreferrer">(LeCun et al., 1998)</a></p>
-                <p>AlexNet won the ImageNet challenge <a href="https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks" target="_blank" rel="noopener noreferrer">(Krizhevsky et al., 2012)</a></p>
 </div>
         </div>
     </div>
@@ -31,7 +29,67 @@
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/cnn-typical.png" alt="Typical CNN" style="max-width: 100%; height: auto;">
                 <div class="footnote">Typical CNN - Aphex34, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
-            <div class="column vertical-top text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Example:</b> small colour photographs</p>
+                <ul>
+                    <li><p><b>Input:</b> one RGB image of size 32 times 32</p></li>
+                    <li><p><b>Local patterns:</b> an edge or a texture can appear anywhere</p></li>
+                    <li><p><b>Shared weights:</b> one kernel is reused across the image</p></li>
+                    <li><p><b>Task:</b> classification into 10 classes, such as airplane, car, or bird</p></li>
+                </ul>
+</div>
+        </div>
+    </div>
+</div>
+
+## Convolutional Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 40%">
+                <p><b>Python implementation:</b> PyTorch</p>
+                <p>RGB images of size ${32} \times 32$ and 10 classes</p>
+                <ul>
+                    <li><p><b>Training loop:</b> the same as for the MLP</p></li>
+                    <li><p><b>Loss:</b> CrossEntropyLoss applies the softmax</p></li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 60%">
+
+```python
+from torch import nn
+
+model = nn.Sequential(
+    nn.Conv2d(3, 32, kernel_size=3, padding=1),   # 32 feature maps
+    nn.ReLU(),
+    nn.MaxPool2d(2),                              # 32x32 to 16x16
+    nn.Conv2d(32, 64, kernel_size=3, padding=1),
+    nn.ReLU(),
+    nn.MaxPool2d(2),                              # 16x16 to 8x8
+    nn.Flatten(),
+    nn.Linear(64 * 8 * 8, 10),                    # 10 classes
+)
+loss_fn = nn.CrossEntropyLoss()
+```
+</div>
+        </div>
+    </div>
+</div>
+
+<!-- end SLIDES: -->
+
+
+## Convolutional Neural Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/cnn-typical.png" alt="Typical CNN" style="max-width: 100%; height: auto;">
+                <div class="footnote">Typical CNN - Aphex34, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Theory:</b> why not an MLP</p>
                 <p><b>Motivation:</b> an MLP on images does not scale and ignores spatial structure</p>
 $$
@@ -188,41 +246,6 @@ $$
     </div>
 </div>
 
-## Convolutional Neural Networks
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 30%">
-                <p><b>Python implementation:</b> PyTorch</p>
-                <p>RGB images of size ${32} \times 32$ and 10 classes</p>
-                <ul>
-                    <li><p><b>Training loop:</b> the same as for the MLP</p></li>
-                    <li><p><b>Loss:</b> CrossEntropyLoss applies the softmax</p></li>
-                </ul>
-            </div>
-            <div class="column vertical-top text-left" style="width: 70%">
-
-```python
-from torch import nn
-
-model = nn.Sequential(
-    nn.Conv2d(3, 32, kernel_size=3, padding=1),   # 32 feature maps
-    nn.ReLU(),
-    nn.MaxPool2d(2),                              # 32x32 to 16x16
-    nn.Conv2d(32, 64, kernel_size=3, padding=1),
-    nn.ReLU(),
-    nn.MaxPool2d(2),                              # 16x16 to 8x8
-    nn.Flatten(),
-    nn.Linear(64 * 8 * 8, 10),                    # 10 classes
-)
-loss_fn = nn.CrossEntropyLoss()
-```
-</div>
-        </div>
-    </div>
-</div>
-
 ## Residual Networks
 
 <div class="rows" style="height: 100%">
@@ -252,7 +275,7 @@ loss_fn = nn.CrossEntropyLoss()
                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/59/Resnet.png" alt="ResNet" style="max-width: 100%; height: auto;">
                 <div class="footnote">ResNets - Xiaozhu0429, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
-            <div class="column vertical-top text-left" style="width: 60%">
+            <div class="column vertical-middle text-left" style="width: 60%">
                 <p><b>Theory:</b> the residual block</p>
                 <p><b>Motivation:</b> very deep CNNs are hard to train, and training error can grow with depth <a href="https://arxiv.org/abs/1512.03385" target="_blank" rel="noopener noreferrer">(He et al., 2016)</a></p>
                 <p><b>Residual block:</b> the layers learn a correction $\mathcal{F}$ to their input</p>
@@ -273,14 +296,36 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 30%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/59/Resnet.png" alt="ResNet" style="max-width: 100%; height: auto;">
+                <div class="footnote">ResNets - Xiaozhu0429, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Example:</b> the same photographs, in a much deeper network</p>
+                <ul>
+                    <li><p><b>Block input:</b> a set of feature maps</p></li>
+                    <li><p><b>Residual:</b> the layers learn a correction to that input</p></li>
+                    <li><p><b>Skip:</b> the input is added back</p></li>
+                    <li><p><b>Task:</b> the same 10-class classification, with many layers</p></li>
+                </ul>
+</div>
+        </div>
+    </div>
+</div>
+
+## Residual Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 40%">
                 <p><b>Python implementation:</b> PyTorch</p>
                 <ul>
                     <li><p><b>Skip connection:</b> one addition in forward()</p></li>
                     <li><p><b>Shapes:</b> $\mathcal{F}(\mathbf{x})$ and $\mathbf{x}$ must match</p></li>
                 </ul>
             </div>
-            <div class="column vertical-top text-left" style="width: 70%">
+            <div class="column vertical-middle text-left" style="width: 60%">
 
 ```python
 from torch import nn
@@ -300,5 +345,3 @@ class ResidualBlock(nn.Module):
         </div>
     </div>
 </div>
-
-<!-- end SLIDES: -->
