@@ -8,11 +8,14 @@
             <div class="column vertical-middle text-left" style="width: 50%">
             <h3>Overview</h3>
             <ul>
-                <li>Feedforward networks and activation functions</li>
-                <li>Training with backpropagation and gradient descent</li>
-                <li>Deep networks: initialisation, normalisation, and optimisers</li>
-                <li>Recurrent networks and LSTMs</li>
-                <li>Convolutional networks and ResNets</li>
+                <li>The perceptron and the XOR problem</li>
+                <li>Neural networks: the MLP, activations, and backpropagation</li>
+                <li>Deep networks: initialisation, normalisation, optimisers, and dropout</li>
+                <li>Recurrent networks: RNNs, LSTMs, and GRUs</li>
+                <li>Autoencoders and VAEs</li>
+                <li>Generative models: GANs and diffusion</li>
+                <li>Graph neural networks</li>
+                <li>CNNs and ResNets</li>
                 <li>Hyperparameters</li>
             </ul>
             </div>

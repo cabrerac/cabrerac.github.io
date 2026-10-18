@@ -64,6 +64,9 @@
     </div>
 </div>
 
+<!-- end SLIDES: -->
+
+
 ## Deep Learning
 
 <div class="rows" style="height: 100%">
@@ -141,7 +144,7 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 50%">
-                <p><b>Input normalisation:</b></p>
+                <p><b>Batch normalisation:</b></p>
                 <br>
 $$
 \mu_B = \frac{1}{m} \sum_{i=1}^{m} x_i; \, \, \sigma_B^2 = \frac{1}{m} \sum_{i=1}^{m} (x_i - \mu_B)^2
@@ -176,7 +179,6 @@ $$
                 <ul>
                     <li><b>Stochastic Gradient Descent (SGD):</b> Updates parameters using a subset of data and reduces computation time.</li>
                     <li><b>Adam:</b> Adaptively adjust the learning rate for each parameter.</li>
-                    <li><b>...</b></li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -202,7 +204,7 @@ $$
 <br>
 <p><b>$L_2$ Regularization:</b> Add penalty to loss function</p>
 $$
-L_{\text{reg}} = L + \lambda \sum_{l=1}^{L} \|\mathbf{W}^{(l)}\|_F^2
+E_{\text{reg}} = E + \lambda \sum_{l=1}^{L} \|\mathbf{W}^{(l)}\|_F^2
 $$
 <br>
 <p><b>Early Stopping:</b> Stop training when validation loss increases</p>
@@ -315,5 +317,3 @@ $$
         </div>
     </div>
 </div>
-
-<!-- end SLIDES: --> 

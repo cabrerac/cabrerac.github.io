@@ -30,53 +30,43 @@ notebook_description: "Práctica de sesión 3. Red neuronal con una capa oculta,
 
 <!-- SLIDES: -->
 
+# Neural Networks
+
+<!-- end SLIDES: -->
+
+{% include _snippets/neural-networks.md %}
+
+{% include _snippets/mlp-implementation.md %}
+
+<!-- SLIDES: -->
+
+# Deep Learning
+
+<!-- end SLIDES: -->
+
+{% include _snippets/deep-learning.md %}
+
+<!-- SLIDES: -->
+
 # Neural Network Architectures
 
 <!-- end SLIDES: -->
 
-{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/architectures-intro.md %}
+{% include _snippets/rnn.md %}
 
-<!-- SLIDES: -->
+{% include _snippets/autoencoders.md %}
 
-# Feedforward Neural Networks
+{% include _snippets/generative-models.md %}
 
-<!-- end SLIDES: -->
+{% include _snippets/gnn.md %}
 
-{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/mlp-theory.md %}
+{% include _snippets/cnn.md %}
 
-{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/mlp-activations.md %}
+{% include _snippets/nn-architectures-summary.md %}
 
-{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/mlp-training.md %}
+{% include _snippets/nn-hyperparameters.md %}
 
-{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/deep-networks.md %}
-
-{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/regularisation.md %}
-
-{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/mlp-implementation.md %}
-
-<!-- SLIDES: -->
-
-# Recurrent Neural Networks
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/rnn.md %}
-
-<!-- SLIDES: -->
-
-# Convolutional Neural Networks
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/cnn.md %}
-
-{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/resnet.md %}
-
-{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/architectures-summary.md %}
-
-{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/hyperparameters.md %}
-
-{% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/ml-pipeline.md %}
+{% include _snippets/ml-pipeline.md %}
 
 {% include _snippets/26-pucp-ml-tutorials/l3-neural-networks/conclusions.md %}
 

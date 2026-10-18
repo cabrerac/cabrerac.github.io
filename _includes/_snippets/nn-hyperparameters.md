@@ -19,7 +19,6 @@
                     <li><p><b>Number of layers $L$:</b> depth of the network</p></li>
                     <li><p><b>Hidden units $M$:</b> width of each hidden layer</p></li>
                     <li><p><b>Activation $h(\cdot)$:</b> sigmoid, tanh, or ReLU</p></li>
-                    <li><p><b>Kernel size $k$, padding $p$, stride $s$:</b> convolutional layers</p></li>
                 </ul>
             </div>
             <div class="column vertical-top text-left" style="width: 50%">
@@ -31,6 +30,31 @@
                     <li><p><b>Regularisation strength $\lambda$:</b> weight of the complexity penalty</p></li>
                 </ul>
             </div>
+        </div>
+    </div>
+</div>
+
+## Hyperparameters
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Sequences and generative models</b></p>
+                <ul>
+                    <li><p><b>Hidden state size:</b> dimension of $\mathbf{h}_t$ in RNNs, LSTMs, and GRUs</p></li>
+                    <li><p><b>Latent dimension:</b> size of $\mathbf{z}$ in autoencoders, VAEs, and GANs</p></li>
+                    <li><p><b>Noise steps $T$ and schedule $\bar{\alpha}_t$:</b> diffusion models</p></li>
+                </ul>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Graphs and convolutions</b></p>
+                <ul>
+                    <li><p><b>GNN layers $L$ and aggregation $\bigoplus$:</b> hops reached and how messages combine</p></li>
+                    <li><p><b>Kernel size $k$, padding $p$, stride $s$:</b> convolutional layers</p></li>
+                    <li><p><b>Residual blocks:</b> depth of a ResNet</p></li>
+                </ul>
+</div>
         </div>
     </div>
 </div>

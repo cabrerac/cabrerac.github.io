@@ -10,12 +10,13 @@
                 <div class="footnote">Typical CNN - Aphex34, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
             <div class="column vertical-top text-left" style="width: 50%">
-                <p><b>Motivation:</b> an MLP on images does not scale and ignores spatial structure</p>
-$$
-224 \times 224 \times 3 = 150{,}528 \text{ inputs}
-$$
-                <p>A first hidden layer with 1,000 units already needs about 150 million weights</p>
-                <p>Neighbouring pixels are related and the same pattern can appear anywhere in the image</p>
+                <ul>
+                    <li><p><b>Tasks:</b> image classification, object detection, and segmentation</p></li>
+                    <li><p><b>Data:</b> grid-structured inputs such as images, video frames, spectrograms, and maps</p></li>
+                    <li><p><b>Key idea:</b> local connectivity, shared weights, and pooling</p></li>
+                </ul>
+                <p>LeNet read handwritten digits <a href="https://ieeexplore.ieee.org/document/726791" target="_blank" rel="noopener noreferrer">(LeCun et al., 1998)</a></p>
+                <p>AlexNet won the ImageNet challenge <a href="https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks" target="_blank" rel="noopener noreferrer">(Krizhevsky et al., 2012)</a></p>
 </div>
         </div>
     </div>
@@ -31,13 +32,13 @@ $$
                 <div class="footnote">Typical CNN - Aphex34, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
             <div class="column vertical-top text-left" style="width: 50%">
-                <ul>
-                    <li><p><b>Data:</b> grid-structured inputs such as images, video frames, spectrograms, and maps</p></li>
-                    <li><p><b>Tasks:</b> image classification, object detection, and segmentation</p></li>
-                    <li><p><b>Key ideas:</b> local connectivity, shared weights, and pooling</p></li>
-                </ul>
-                <p>LeNet read handwritten digits <a href="https://ieeexplore.ieee.org/document/726791" target="_blank" rel="noopener noreferrer">(LeCun et al., 1998)</a></p>
-                <p>AlexNet won the ImageNet challenge <a href="https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks" target="_blank" rel="noopener noreferrer">(Krizhevsky et al., 2012)</a></p>
+                <p><b>Theory:</b> why not an MLP</p>
+                <p><b>Motivation:</b> an MLP on images does not scale and ignores spatial structure</p>
+$$
+224 \times 224 \times 3 = 150{,}528 \text{ inputs}
+$$
+                <p>A first hidden layer with 1,000 units already needs about 150 million weights</p>
+                <p>Neighbouring pixels are related and the same pattern can appear anywhere in the image</p>
 </div>
         </div>
     </div>
@@ -193,7 +194,7 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 30%">
-                <p><b>PyTorch</b></p>
+                <p><b>Python implementation:</b> PyTorch</p>
                 <p>RGB images of size ${32} \times 32$ and 10 classes</p>
                 <ul>
                     <li><p><b>Training loop:</b> the same as for the MLP</p></li>
@@ -216,6 +217,84 @@ model = nn.Sequential(
     nn.Linear(64 * 8 * 8, 10),                    # 10 classes
 )
 loss_fn = nn.CrossEntropyLoss()
+```
+</div>
+        </div>
+    </div>
+</div>
+
+## Residual Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/59/Resnet.png" alt="ResNet" style="max-width: 100%; height: auto;">
+                <div class="footnote">ResNets - Xiaozhu0429, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <ul>
+                    <li><p><b>Tasks:</b> image classification, object detection, and segmentation with networks of more than 100 layers</p></li>
+                    <li><p><b>Data:</b> the same as CNNs</p></li>
+                    <li><p><b>Key idea:</b> skip connections allow gradients to flow through the network</p></li>
+                </ul>
+</div>
+        </div>
+    </div>
+</div>
+
+## Residual Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 40%">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/59/Resnet.png" alt="ResNet" style="max-width: 100%; height: auto;">
+                <div class="footnote">ResNets - Xiaozhu0429, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
+            </div>
+            <div class="column vertical-top text-left" style="width: 60%">
+                <p><b>Theory:</b> the residual block</p>
+                <p><b>Motivation:</b> very deep CNNs are hard to train, and training error can grow with depth <a href="https://arxiv.org/abs/1512.03385" target="_blank" rel="noopener noreferrer">(He et al., 2016)</a></p>
+                <p><b>Residual block:</b> the layers learn a correction $\mathcal{F}$ to their input</p>
+$$
+\mathbf{y} = \mathcal{F}(\mathbf{x}, \{\mathbf{W}_i\}) + \mathbf{x}
+$$
+$$
+\frac{\partial \mathbf{y}}{\partial \mathbf{x}} = \frac{\partial \mathcal{F}}{\partial \mathbf{x}} + \mathbf{I}
+$$
+                <p>The identity term gives the gradient a direct path to early layers</p>
+</div>
+        </div>
+    </div>
+</div>
+
+## Residual Networks
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 30%">
+                <p><b>Python implementation:</b> PyTorch</p>
+                <ul>
+                    <li><p><b>Skip connection:</b> one addition in forward()</p></li>
+                    <li><p><b>Shapes:</b> $\mathcal{F}(\mathbf{x})$ and $\mathbf{x}$ must match</p></li>
+                </ul>
+            </div>
+            <div class="column vertical-top text-left" style="width: 70%">
+
+```python
+from torch import nn
+
+class ResidualBlock(nn.Module):
+    def __init__(self, channels):
+        super().__init__()
+        self.conv1 = nn.Conv2d(channels, channels, 3, padding=1)
+        self.conv2 = nn.Conv2d(channels, channels, 3, padding=1)
+        self.relu = nn.ReLU()
+
+    def forward(self, x):
+        f = self.conv2(self.relu(self.conv1(x)))   # F(x)
+        return self.relu(f + x)                    # F(x) + x
 ```
 </div>
         </div>
