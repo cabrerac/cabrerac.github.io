@@ -18,7 +18,7 @@ lecture_code: l3-neural-networks
 lecture_date: 19/10/2026
 permalink: /teaching/26-pucp-ml-tutorials/l3-neural-networks/
 notebook_title: "Redes neuronales"
-notebook_description: "Práctica de sesión 3. Red neuronal con una capa oculta, desde cero y con scikit-learn, y control del sobreajuste."
+notebook_description: "Práctica de sesión 3. Datos, tarea y una implementación comentada de cada arquitectura de la sesión."
 ---
 <!-- SLIDES: -->
 
