@@ -15,6 +15,12 @@
                     <li><p><b>Data:</b> time series, text, audio, and sensor signals</p></li>
                     <li><p><b>Key idea:</b> a hidden state carries memory from one time step to the next</p></li>
                 </ul>
+$$
+\mathbf{h}_t = \tanh\left(\mathbf{W}_{hh} \mathbf{h}_{t-1} + \mathbf{W}_{xh} \mathbf{x}_t + \mathbf{b}_h\right)
+$$
+$$
+\hat{\mathbf{y}}_t = \mathbf{W}_{hy} \mathbf{h}_t + \mathbf{b}_y
+$$
                 <p><b>Limitation of the MLP:</b> sequences have an order and a variable length, and an MLP expects a fixed-size input</p>
 </div>
         </div>
@@ -31,12 +37,12 @@
                 <div class="footnote">Unfolded recurrent neural network - fdeloche, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Example:</b> a seismometer trace</p>
+                <p><b>Example:</b> the next character</p>
                 <ul>
-                    <li><p><b>Sequence:</b> ground motion sampled over time</p></li>
-                    <li><p><b>Each step:</b> the reading at that time</p></li>
-                    <li><p><b>Hidden state:</b> memory of the earlier readings</p></li>
-                    <li><p><b>Task:</b> one prediction, such as the peak shaking ahead</p></li>
+                    <li><p><b>Sequence:</b> the 11 characters in "el temblor "</p></li>
+                    <li><p><b>Each step:</b> one character, as a one-hot vector</p></li>
+                    <li><p><b>Hidden state:</b> memory of the characters already read</p></li>
+                    <li><p><b>Task:</b> the next character, m</p></li>
                 </ul>
 </div>
         </div>
@@ -50,9 +56,9 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 40%">
                 <p><b>Python implementation:</b> PyTorch</p>
-                <p>A sequence to one value</p>
+                <p>A window of characters to the next character</p>
                 <ul>
-                    <li><p><b>Layers:</b> nn.RNN, nn.LSTM, and nn.GRU share one interface</p></li>
+                    <li><p><b>Layers:</b> nn.RNN, then a score for each character</p></li>
                     <li><p><b>Clipping:</b> clip_grad_norm_ before each update</p></li>
                 </ul>
             </div>
@@ -62,14 +68,14 @@
 from torch import nn
 
 class SequenceModel(nn.Module):
-    def __init__(self, n_features, n_hidden):
+    def __init__(self, n_chars, n_hidden):
         super().__init__()
-        self.rnn = nn.RNN(n_features, n_hidden, batch_first=True)
-        self.head = nn.Linear(n_hidden, 1)
+        self.rnn = nn.RNN(n_chars, n_hidden, batch_first=True)
+        self.head = nn.Linear(n_hidden, n_chars)
 
-    def forward(self, x):                 # x: (batch, T, n_features)
+    def forward(self, x):                 # x: (batch, T, n_chars)
         out, h_T = self.rnn(x)            # tanh hidden state
-        return self.head(h_T[-1])         # last hidden state
+        return self.head(h_T[-1])         # scores for the next character
 
 # in the training loop
 nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
@@ -196,10 +202,10 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 40%">
                 <p><b>Python implementation:</b> PyTorch</p>
-                <p>The same model with an RNN</p>
+                <p>The same character model with an RNN</p>
                 <ul>
                     <li><p><b>Output:</b> hidden state $\mathbf{h}_T$ only</p></li>
-                    <li><p><b>Swap:</b> nn.RNN, nn.LSTM, and nn.GRU in one line</p></li>
+                    <li><p><b>Head:</b> one score per character in the alphabet</p></li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 60%">
@@ -208,14 +214,14 @@ $$
 from torch import nn
 
 class SequenceModel(nn.Module):
-    def __init__(self, n_features, n_hidden):
+    def __init__(self, n_chars, n_hidden):
         super().__init__()
-        self.rnn = nn.RNN(n_features, n_hidden, batch_first=True)
-        self.head = nn.Linear(n_hidden, 1)
+        self.rnn = nn.RNN(n_chars, n_hidden, batch_first=True)
+        self.head = nn.Linear(n_hidden, n_chars)
 
-    def forward(self, x):                 # x: (batch, T, n_features)
+    def forward(self, x):                 # x: (batch, T, n_chars)
         out, h_T = self.rnn(x)
-        return self.head(h_T[-1])         # last hidden state
+        return self.head(h_T[-1])         # scores for the next character
 ```
 </div>
         </div>
