@@ -185,9 +185,9 @@ print(texto)
 print("largo:", len(texto))
 ```
 
-Cada fila es una ventana de 11 caracteres, y el objetivo es el carácter que sigue. La primera ventana es `el temblor` más el espacio que la separa de `movió`. El objetivo de esa fila es la `m`. La segunda se corre un carácter y el objetivo es la `o`. La tercera empieza con un espacio y el objetivo es la `v`. La última es `nes vecinas` y el objetivo es el punto final. La celda de abajo imprime esas cuatro, no las 174.
+Cada fila es una ventana de 11 caracteres, y el objetivo es el carácter que sigue. La primera ventana es `el temblor` más el espacio que la separa de `movió`. El objetivo de esa fila es la `m`. La segunda se corre un carácter y el objetivo es la `o`. La tercera empieza con un espacio y el objetivo es la `v`. La última es `nes vecinas` y el objetivo es el punto final.
 
-En la función, `texto[i - 11:i]` copia esos 11 caracteres. Cada carácter se vuelve un vector de ceros con un 1 en su columna del alfabeto. `np.stack` apila esas ventanas. El objetivo no es el carácter escrito, es su posición en el alfabeto, porque la pérdida compara índices.
+En la función, `texto[i - 11:i]` copia esos 11 caracteres. Cada carácter se vuelve un vector de ceros con un 1 en su columna del alfabeto. `np.stack` apila esas ventanas. Esta transformación permite comparar indices (i.e., posiciones en el alfabeto) en lugar del carácter escrito.
 
 ```python
 def preparar_texto(texto, ventana=11):
@@ -515,140 +515,6 @@ mostrar_imagenes([
 assert historial_ae[-1] < historial_ae[0]
 assert recon_ae.shape == (8, 64)
 print("El autoencoder reconstruye los dígitos de test. OK")
-```
-
----
-
-## Los mismos dígitos, con un VAE
-
-Los datos son las mismas imágenes. La tarea ya no es solo reconstruir un dígito visto. También queremos dibujar dígitos nuevos. El autoencoder guarda un punto por imagen.
-
-Nada nos dice qué puntos del código corresponden a dígitos que no vimos. El VAE guarda una distribución por imagen. El codificador produce una media y una dispersión. El código es una muestra de esa distribución, y el decodificador la convierte en píxeles.
-
-### El modelo
-
-El codificador no devuelve el código directo. Devuelve una media `mu` y `log_var`, el logaritmo de la varianza de una gaussiana. Guardar el logaritmo mantiene la varianza positiva. Para reconstruir, se saca un código al azar de esa gaussiana. El ruido es una normal estándar, y la media y la varianza lo desplazan y lo estiran. El gradiente pasa por ese desplazamiento, así que el codificador aprende dónde colocar la gaussiana.
-
-```python
-class VAE(nn.Module):
-    """Codifica cada imagen como una gaussiana y decodifica una muestra.
-
-    Args:
-        D: Tamaño de la imagen estirada.
-        M: Tamaño de la capa intermedia.
-        codigo: Dimensión de la gaussiana latente.
-    """
-
-    def __init__(self, D, M, codigo):
-        super().__init__()
-        self.codificador = nn.Sequential(nn.Linear(D, M), nn.ReLU())
-        self.mu = nn.Linear(M, codigo)
-        self.log_var = nn.Linear(M, codigo)
-        self.decodificador = nn.Sequential(nn.Linear(codigo, M), nn.ReLU(), nn.Linear(M, D))
-
-    def forward(self, x):
-        """Reconstruye x y devuelve los parámetros de la gaussiana.
-
-        Args:
-            x: Tensor de forma (lote, D).
-
-        Returns:
-            La reconstrucción, la media y el logaritmo de la varianza.
-        """
-        h = self.codificador(x)
-        mu = self.mu(h)
-        log_var = self.log_var(h)
-        epsilon = torch.randn_like(mu)
-        z = mu + torch.exp(0.5 * log_var) * epsilon
-        return self.decodificador(z), mu, log_var
-```
-
-La pérdida tiene dos partes. La primera es el error de reconstrucción, la suma de los cuadrados entre cada píxel y la imagen que devuelve el decodificador. La segunda es la divergencia KL. `log_var.exp()` es la varianza, y esa línea mide cuánto se aleja la gaussiana de una normal estándar, de media 0 y varianza 1. Acercarlas a esa normal llena el espacio del código. Un código nuevo, sacado de esa misma normal, cae en una zona que el decodificador ya recorrió al entrenar.
-
-```python
-def perdida_vae(reconstruccion, x, mu, log_var):
-    """Suma el error de reconstrucción y la divergencia KL.
-
-    Args:
-        reconstruccion: Imagen producida por el decodificador.
-        x: Imagen original.
-        mu: Media del código.
-        log_var: Logaritmo de la varianza del código.
-
-    Returns:
-        Un escalar con las dos partes de la pérdida.
-    """
-    reconstruccion_ecm = ((x - reconstruccion) ** 2).sum()
-    kl = -0.5 * (1 + log_var - mu ** 2 - log_var.exp()).sum()
-    return reconstruccion_ecm + kl
-```
-
-El bucle es el del autoencoder. Cambia la pérdida, que ahora suma la reconstrucción y la KL.
-
-```python
-def entrenar_vae(X_train, epocas=80):
-    """Ajusta el VAE con reconstrucción más KL.
-
-    Args:
-        X_train: Imágenes de train, una por fila.
-        epocas: Pasadas completas por train.
-
-    Returns:
-        El modelo y la pérdida de cada época.
-    """
-    torch.manual_seed(42)
-    X = torch.tensor(X_train, dtype=torch.float32)
-    modelo = VAE(D=X.shape[1], M=128, codigo=8)
-    optimizador = torch.optim.Adam(modelo.parameters(), lr=1e-3)
-    historial = []
-    for epoca in range(epocas):
-        optimizador.zero_grad()
-        reconstruccion, mu, log_var = modelo(X)
-        perdida = perdida_vae(reconstruccion, X, mu, log_var)
-        perdida.backward()
-        optimizador.step()
-        historial.append(float(perdida))
-    return modelo, historial
-```
-
-Un código nuevo es un vector de 8 números sacado de la normal estándar. `mu.out_features` es ese largo, 8. El decodificador convierte cada vector en 64 píxeles. Esa imagen no copia un dígito del conjunto.
-
-```python
-def muestras_vae(modelo, n=8):
-    """Decodifica n códigos sacados de la normal estándar.
-
-    Args:
-        modelo: Un VAE entrenado.
-        n: Cuántas imágenes nuevas dibujar.
-
-    Returns:
-        Un array de forma (n, D).
-    """
-    modelo.eval()
-    with torch.no_grad():
-        z = torch.randn(n, modelo.mu.out_features)
-        return modelo.decodificador(z).numpy()
-```
-
-La fila de arriba es el dígito original. La del medio es la reconstrucción del VAE para esa misma imagen. La de abajo no parte de una foto. Parte de 8 códigos nuevos, sacados de la normal estándar, y el decodificador los dibuja. El ECM del VAE suele quedar por encima del autoencoder, porque parte del ajuste se gasta en la KL.
-
-```python
-vae_digitos, historial_vae = entrenar_vae(X_train_d)
-ecm_vae = ecm(X_test_d, reconstruir(vae_digitos, X_test_d))
-print("ECM VAE:", round(ecm_vae, 4), "| pérdida final:", round(historial_vae[-1], 1))
-mostrar_imagenes([
-    ("original", X_test_d[:8]),
-    ("VAE", reconstruir(vae_digitos, X_test_d[:8])),
-    ("muestras", muestras_vae(vae_digitos)),
-])
-```
-
-**Comprobar:**
-
-```python
-assert historial_vae[-1] < historial_vae[0]
-assert muestras_vae(vae_digitos).shape == (8, 64)
-print("El VAE reconstruye y puede muestrear. OK")
 ```
 
 ---
