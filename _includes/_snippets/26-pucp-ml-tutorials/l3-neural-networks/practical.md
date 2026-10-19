@@ -8,7 +8,7 @@ Ejecute las celdas de arriba hacia abajo. En cada **Comprobar**, confirme el men
 
 ## Importaciones
 
-Un solo bloque con lo que usa todo el cuaderno.
+En el siguiente bloque importamos las librerías y conjuntos de datos que usaremos a lo largo del cuaderno.
 
 ```python
 import matplotlib.pyplot as plt
@@ -38,10 +38,10 @@ Un perceptrón multicapa añade una capa oculta. Cada unidad oculta es una curva
 
 ### Los datos
 
-`noise=0.25` mezcla las lunas lo justo para que una recta no baste. El color es la luna.
+`noise=0.20` desplaza cada punto un poco al azar. Las dos lunas se tocan, y una recta deja puntos de las dos clases del mismo lado. El color del punto es la luna verdadera.
 
 ```python
-X_lunas, y_lunas = make_moons(n_samples=500, noise=0.25, random_state=42)
+X_lunas, y_lunas = make_moons(n_samples=500, noise=0.20, random_state=42)
 
 plt.figure(figsize=(5, 4))
 plt.scatter(X_lunas[:, 0], X_lunas[:, 1], c=y_lunas, cmap="coolwarm", edgecolor="k", s=18)
@@ -51,7 +51,11 @@ plt.title("Dos lunas")
 plt.show()
 ```
 
-Partimos 70/30, estratificado, y escalamos con la media y la desviación de train.
+Partimos 70/30 y escalamos con la media y la desviación de train.
+
+Una partición estratificada deja cada luna con la misma proporción en train y en test que en el conjunto completo. Cada luna es la mitad de los puntos, así que train queda cerca de 175 puntos por luna y test cerca de 75. La exactitud compara los modelos sobre la misma mezcla de clases.
+
+Escalar resta la media de train y divide por su desviación. Las dos coordenadas quedan en la misma escala. La media y la desviación se calculan solo con train, así que los puntos de test no entran en el escalado.
 
 ```python
 X_train, X_test, y_train, y_test = train_test_split(
@@ -65,7 +69,7 @@ print("train:", len(y_train), "| test:", len(y_test))
 
 ### Líneas base
 
-La función ajusta la logística y el perceptrón de la sesión 2, y también la exactitud de predecir siempre la clase mayoritaria.
+La clase mayoritaria es el piso. Si un modelo acierta menos que decir siempre la luna más común, no usó el plano. La logística y el perceptrón son las rectas de la sesión 2. La diferencia con el MLP es lo que aporta la capa oculta.
 
 ```python
 def lineas_base_lunas(X_train, y_train, X_test, y_test):
@@ -93,6 +97,8 @@ def lineas_base_lunas(X_train, y_train, X_test, y_test):
     }
 ```
 
+El diccionario trae tres exactitudes en test. El piso es acertar siempre la luna más común. Las otras dos son las rectas de la sesión 2.
+
 ```python
 bases_lunas = lineas_base_lunas(X_train_esc, y_train, X_test_esc, y_test)
 print({nombre: round(valor, 3) for nombre, valor in bases_lunas.items()})
@@ -100,7 +106,7 @@ print({nombre: round(valor, 3) for nombre, valor in bases_lunas.items()})
 
 ### El perceptrón multicapa
 
-El modelo es el de la diapositiva. `hidden_layer_sizes=(8,)` es una capa oculta de 8 unidades. Por defecto la activación es ReLU y el optimizador es Adam. `alpha` es la penalización $L_2$, no la tasa de aprendizaje.
+El modelo es el de la diapositiva. `hidden_layer_sizes=(8,)` pone una capa oculta de 8 unidades. Cada unidad dibuja una curva sobre las dos coordenadas. Por defecto la activación es ReLU y el optimizador es Adam. `alpha=1e-4` es la penalización $L_2$. Encoge los pesos para que la frontera no memorice el ruido de las lunas. `max_iter=2000` es el tope de pasadas por train.
 
 ```python
 mlp_lunas = make_pipeline(
@@ -118,7 +124,7 @@ exactitud_mlp = float(mlp_lunas.score(X_test, y_test))
 print("exactitud MLP en test:", round(exactitud_mlp, 3))
 ```
 
-La logística corta el plano con una recta. El MLP cierra una región alrededor de cada luna.
+El color de fondo es la clase que el modelo asigna a cada punto del plano. El punto de encima conserva el color de su luna verdadera. Si el fondo y el punto coinciden, el modelo acertó. La logística corta el plano con una recta. El MLP cierra una región alrededor de cada luna.
 
 ```python
 def pintar_regiones(ax, predecir, X, y, titulo):
@@ -179,7 +185,7 @@ Una red recurrente encaja porque el estado oculto guarda lo que ya vio en la ven
 
 ### La serie
 
-Cada fila es una ventana de 11 años y el objetivo es el año siguiente. Train llega hasta 1950. Test es 1951 a 2008. La media y la desviación salen solo de train.
+Cada fila es una ventana de 11 años, y el objetivo es el año que sigue. Once años cubren un ciclo, así que la ventana ve una subida y una bajada. Train son las ventanas cuyo año objetivo cae en 1950 o antes. Test son los 58 años de 1951 a 2008. La media y la desviación se calculan solo con los años de train. El escalado no usa el tramo que queremos predecir.
 
 ```python
 import statsmodels.api as sm
@@ -223,7 +229,7 @@ def preparar_manchas(ventana=11):
     }
 ```
 
-La línea vertical marca el fin de train. Se ve el ciclo de unos 11 años.
+La curva es el número de manchas de cada año, de 1700 a 2008. La línea vertical es 1950, el último año cuyo valor entra en train. A la derecha de la línea está el test. El ciclo de unos 11 años se repite a lo largo de toda la serie.
 
 ```python
 serie = preparar_manchas()
@@ -239,7 +245,9 @@ plt.show()
 
 ### Líneas base
 
-La persistencia repite el último año de la ventana. La media responde siempre el promedio de train. Medimos con la raíz del error cuadrático medio.
+La persistencia dice que el próximo año tendrá las mismas manchas que el último año de la ventana. En una serie que cambia despacio, esa copia ya queda cerca de lo observado. La media ignora la ventana y responde siempre el promedio de train, cerca de la mitad de un ciclo.
+
+El RECM es la raíz del error cuadrático medio, en número de manchas. Un RECM de 20 quiere decir que la predicción se aleja, en promedio, unos 20 manchas del valor observado. Más bajo es una curva más pegada a la serie.
 
 ```python
 def recm(y_real, y_pred):
@@ -267,7 +275,7 @@ print("RECM media:", round(recm_media, 1), "| RECM persistencia:", round(recm_pe
 
 ### La red recurrente
 
-La red lee la ventana año por año. La cabeza lineal lee solo el último estado oculto.
+La red lee los 11 años de uno en uno. En cada año actualiza un estado oculto de 32 números, con los mismos pesos. Ese estado es la memoria de la ventana. La cabeza lineal lee solo el estado del último año y devuelve un número: la predicción del año siguiente, todavía en la escala normalizada.
 
 ```python
 class ModeloSecuencia(nn.Module):
@@ -300,7 +308,7 @@ class ModeloSecuencia(nn.Module):
         return self.cabeza(h_T[-1])
 ```
 
-Con pocas épocas la red solo aprende la forma media del ciclo y se queda por debajo de los picos. Adam y más épocas le dejan seguir la amplitud. El recorte del gradiente es el de la diapositiva.
+Con pocas épocas la red solo copia la forma media del ciclo y se queda por debajo de los picos. Adam ajusta el paso según el tamaño de cada gradiente, y 300 épocas le dan tiempo a seguir la amplitud. El recorte del gradiente limita el producto de pendientes a lo largo de los 11 años. Si ese producto crece, el paso se vuelve enorme y el ajuste se dispara.
 
 ```python
 def entrenar_rnn(X_train, y_train, n_ocultas=32, epocas=300):
@@ -335,6 +343,8 @@ def entrenar_rnn(X_train, y_train, n_ocultas=32, epocas=300):
     return modelo, historial
 ```
 
+Esta función apaga el entrenamiento y devuelve la predicción en la escala normalizada. En la celda de la figura, `a_original` la pasa de nuevo a número de manchas.
+
 ```python
 def predecir_rnn(modelo, X):
     """Predice en la escala escalada y devuelve un vector de numpy.
@@ -352,7 +362,7 @@ def predecir_rnn(modelo, X):
         return modelo(lote).squeeze(1).numpy()
 ```
 
-En el test se compara la red con lo observado y con la persistencia.
+La curva negra es el número observado entre 1951 y 2008. La azul es la predicción de la red a un año. La naranja es la persistencia. El RECM resume la distancia de cada curva a la negra. La comprobación pide que el de la red sea menor que el de la persistencia.
 
 ```python
 rnn_manchas, historial_rnn = entrenar_rnn(serie["X_train"], serie["y_train"])
@@ -391,7 +401,7 @@ Un autoencoder encaja porque el codificador produce el código y el decodificado
 
 ### Las imágenes
 
-Los píxeles originales van de 0 a 16. Los pasamos a 0-1 y separamos 70/30.
+Cada imagen es una grilla de 8 por 8. Un píxel vale de 0 a 16. Dividir por 16 lo deja entre 0 y 1, la escala en la que el error cuadrático trata igual a cada píxel. La partición es 70/30 y es aleatoria. Aquí no hay una clase que equilibrar, porque el objetivo de cada fila es la propia imagen.
 
 ```python
 def preparar_digitos():
@@ -403,6 +413,8 @@ def preparar_digitos():
     imagenes = load_digits().data / load_digits().data.max()
     return train_test_split(imagenes, test_size=0.30, random_state=42)
 ```
+
+El ECM es el error cuadrático medio por píxel. Vale 0 si la reconstrucción copia la imagen. Un ECM de 0.02 quiere decir que, en promedio, cada píxel se aleja 0.02 en la escala de 0 a 1.
 
 ```python
 def ecm(real, reconstruido):
@@ -417,6 +429,8 @@ def ecm(real, reconstruido):
     """
     return float(np.mean((real - reconstruido) ** 2))
 ```
+
+Cada fila del dibujo es un grupo de imágenes, y el texto a la izquierda dice de dónde sale. `vmin=0` y `vmax=1` fijan el blanco y el negro. Dos reconstrucciones se comparan con la misma escala.
 
 ```python
 def mostrar_imagenes(filas, lado=8):
@@ -440,7 +454,7 @@ def mostrar_imagenes(filas, lado=8):
     plt.show()
 ```
 
-Ocho dígitos de test, antes de comprimirlos.
+Estas ocho imágenes son de test. Ningún modelo las ha usado para ajustarse. Quedan como referencia para las filas de reconstrucción que vienen después.
 
 ```python
 X_train_d, X_test_d = preparar_digitos()
@@ -450,7 +464,7 @@ mostrar_imagenes([("original", X_test_d[:8])])
 
 ### PCA
 
-PCA con 8 componentes es la compresión lineal. El código del autoencoder tendrá el mismo tamaño.
+PCA busca las 8 direcciones de train que conservan más variación de los píxeles. Reconstruir es volver de esas 8 coordenadas a los 64 píxeles con un mapa lineal. El autoencoder usará un código del mismo tamaño, así que la comparación mide si una compresión con curvas recupera más que estas 8 rectas.
 
 ```python
 pca_digitos = PCA(n_components=8).fit(X_train_d)
@@ -460,7 +474,7 @@ print("ECM de PCA:", round(ecm(X_test_d, X_hat_pca), 4))
 
 ### El autoencoder
 
-El codificador baja de 64 píxeles a una capa de 128 y luego a 8 números. El decodificador hace el camino de vuelta. La capa ancha le da sitio a una compresión que no es una recta. Con pocas épocas y una capa estrecha, PCA reconstruye mejor.
+El codificador pasa de 64 píxeles a 128 y de ahí a 8 números. El decodificador recorre el camino inverso. La capa de 128 puede combinar los píxeles con curvas. PCA solo combina con rectas. Con pocas épocas, o con una capa estrecha, la red no llega a usar esa ventaja y PCA se ve más nítido. Ciento cincuenta épocas con Adam le dan tiempo a bajar el error por debajo del de PCA.
 
 ```python
 class Autoencoder(nn.Module):
@@ -490,6 +504,8 @@ class Autoencoder(nn.Module):
         return self.decodificador(codigo)
 ```
 
+El bucle usa toda la matriz de train en cada paso. El objetivo de la pérdida es la propia imagen.
+
 ```python
 def entrenar_autoencoder(X_train, epocas=150):
     """Ajusta el autoencoder para minimizar el error de reconstrucción.
@@ -518,6 +534,8 @@ def entrenar_autoencoder(X_train, epocas=150):
     return modelo, historial
 ```
 
+Esta función pasa las imágenes por el modelo ya entrenado y devuelve píxeles. Si el modelo es el VAE, se queda con la imagen y deja fuera la media y la varianza.
+
 ```python
 def reconstruir(modelo, X):
     """Reconstruye un numpy array con el modelo, sin guardar gradiente.
@@ -539,7 +557,7 @@ def reconstruir(modelo, X):
         return salida.numpy()
 ```
 
-Arriba el original, en medio el autoencoder, abajo PCA.
+La fila de arriba es la imagen original. La del medio es la reconstrucción del autoencoder. La de abajo es la de PCA, con un código del mismo tamaño. El ECM impreso resume todo el test, no solo estas ocho imágenes.
 
 ```python
 ae_digitos, historial_ae = entrenar_autoencoder(X_train_d)
@@ -571,7 +589,7 @@ Nada nos dice qué puntos del código corresponden a dígitos que no vimos. El V
 
 ### El modelo
 
-`log_var` es el logaritmo de la varianza, más estable que guardar sigma. La muestra usa ruido estándar para que el gradiente pueda pasar.
+El codificador no devuelve el código directo. Devuelve una media `mu` y `log_var`, el logaritmo de la varianza de una gaussiana. Guardar el logaritmo mantiene la varianza positiva. Para reconstruir, se saca un código al azar de esa gaussiana. El ruido es una normal estándar, y la media y la varianza lo desplazan y lo estiran. El gradiente pasa por ese desplazamiento, así que el codificador aprende dónde colocar la gaussiana.
 
 ```python
 class VAE(nn.Module):
@@ -608,7 +626,7 @@ class VAE(nn.Module):
         return self.decodificador(z), mu, log_var
 ```
 
-La pérdida suma el error de reconstrucción y la divergencia KL. La KL acerca cada gaussiana a la normal estándar, así un código nuevo sigue siendo decodificable.
+La pérdida tiene dos partes. La primera es el error de reconstrucción, la distancia entre la imagen y la que devuelve el decodificador. La segunda es la divergencia KL. Mide cuánto se aleja cada gaussiana de una normal estándar, de media 0 y varianza 1. Acercarlas a esa normal llena el espacio del código. Un código nuevo, sacado de esa misma normal, cae en una zona que el decodificador ya recorrió al entrenar.
 
 ```python
 def perdida_vae(reconstruccion, x, mu, log_var):
@@ -627,6 +645,8 @@ def perdida_vae(reconstruccion, x, mu, log_var):
     kl = -0.5 * (1 + log_var - mu ** 2 - log_var.exp()).sum()
     return reconstruccion_ecm + kl
 ```
+
+El bucle es el del autoencoder. Cambia la pérdida, que ahora suma la reconstrucción y la KL.
 
 ```python
 def entrenar_vae(X_train, epocas=80):
@@ -654,6 +674,8 @@ def entrenar_vae(X_train, epocas=80):
     return modelo, historial
 ```
 
+Un código nuevo es un vector de 8 números sacado de la normal estándar. El decodificador lo convierte en 64 píxeles. Esa imagen no copia un dígito del conjunto.
+
 ```python
 def muestras_vae(modelo, n=8):
     """Decodifica n códigos sacados de la normal estándar.
@@ -672,7 +694,7 @@ def muestras_vae(modelo, n=8):
         return modelo.decodificador(z).numpy()
 ```
 
-La fila de abajo no reconstruye una foto. Sale de un código nuevo. El VAE suele reconstruir un poco peor que el autoencoder, porque paga la KL.
+La fila de arriba es el dígito original. La del medio es la reconstrucción del VAE para esa misma imagen. La de abajo no parte de una foto. Parte de 8 códigos nuevos, sacados de la normal estándar, y el decodificador los dibuja. El ECM del VAE suele quedar por encima del autoencoder, porque parte del ajuste se gasta en la KL.
 
 ```python
 vae_digitos, historial_vae = entrenar_vae(X_train_d)
@@ -705,11 +727,13 @@ Una capa convolucional de grafos mezcla cada artículo con sus vecinos. El tema 
 
 ### El grafo
 
-`torch_geometric` solo trae el grafo. La capa la escribimos nosotros.
+`torch_geometric` descarga el grafo de Cora y las máscaras de train y de test. La capa que mezcla vecinos la escribimos debajo, para ver la multiplicación por la matriz de citas.
 
 ```python
 %pip install -q torch_geometric
 ```
+
+La matriz A tiene un 1 donde un artículo cita a otro. `edge_index` trae cada cita como un par de origen y destino.
 
 ```python
 from torch_geometric.datasets import Planetoid
@@ -730,7 +754,7 @@ def cargar_cora():
     return grafo, A
 ```
 
-Cada barra es un tema. El histograma dice cuántas citas tiene cada artículo.
+La barra de la izquierda cuenta cuántos artículos hay en cada uno de los 7 temas. El histograma de la derecha cuenta las citas de cada artículo. La mayoría tiene pocas, y unos pocos están muy conectados. Esa diferencia importa al mezclar vecinos. Un artículo con muchas citas arrastraría la suma si cada fila no se escala.
 
 ```python
 cora, A_cora = cargar_cora()
@@ -752,7 +776,7 @@ plt.show()
 
 ### Línea base sin grafo
 
-La logística usa solo las palabras de los 140 artículos de train.
+La logística ve solo la bolsa de 1433 palabras. No ve qué artículos se citan. Se ajusta con los 140 de train y se mide en los 1000 de test. Es el piso de un modelo que ignora el grafo. La GCN tiene que superar este número usando las mismas palabras más las citas.
 
 ```python
 logistica_cora = LogisticRegression(max_iter=2000)
@@ -767,7 +791,7 @@ print("exactitud logística sin grafo:", round(exactitud_logistica, 3))
 
 ### La capa
 
-El bucle propio deja pasar el texto del propio artículo. Cada fila se escala para que un nodo con muchos vecinos no domine. La última capa no aplica ReLU, para no aplastar los puntajes de los temas.
+Sumar la identidad pone un 1 en la diagonal. Cada artículo conserva sus propias palabras además de las de sus vecinos. El grado es el número de citas más uno, por ese bucle. Dividir por la raíz del grado deja en la misma escala a un artículo muy citado y a uno casi aislado. La última capa deja la activación apagada. ReLU pondría a cero los puntajes negativos, y un tema con puntaje negativo dejaría de competir.
 
 ```python
 class CapaGCN(nn.Module):
@@ -804,7 +828,7 @@ class CapaGCN(nn.Module):
         return mezclado
 ```
 
-Dos capas alcanzan artículos a dos citas de distancia.
+La primera capa mezcla a cada artículo con los que cita directamente. La segunda repite la mezcla, así que el tema puede llegar desde un artículo a dos citas de distancia. Dieciséis es el tamaño del vector intermedio.
 
 ```python
 class RedGCN(nn.Module):
@@ -834,7 +858,7 @@ class RedGCN(nn.Module):
         return self.capa2(self.capa1(H, A), A)
 ```
 
-La pérdida usa solo los 140 nodos de train. El resto no enseña.
+`train_mask` marca los 140 artículos cuya etiqueta entra en la pérdida. Cada paso ve el grafo entero, porque un vecino de test puede estar citado por uno de train. El error solo se calcula en esos 140. Los 1000 de test se reservan para medir la exactitud.
 
 ```python
 def entrenar_gcn(grafo, A, epocas=200):
@@ -866,7 +890,7 @@ def entrenar_gcn(grafo, A, epocas=200):
     return modelo, historial, float(exactitud)
 ```
 
-La barra compara las dos exactitudes. En el plano, cada punto es un artículo de test según sus palabras. A la izquierda el tema real. A la derecha el tema que dice la GCN.
+La barra compara la exactitud de la logística y la de la GCN en los mismos 1000 artículos. En el plano, PCA reduce las 1433 palabras a 2 coordenadas solo para poder dibujar. El modelo sigue siendo la GCN. A la izquierda, el color es el tema real. A la derecha, el color es el tema que asigna la GCN. Un cambio de color entre paneles es un artículo mal clasificado.
 
 ```python
 gcn_cora, historial_gcn, exactitud_gcn = entrenar_gcn(cora, A_cora)
