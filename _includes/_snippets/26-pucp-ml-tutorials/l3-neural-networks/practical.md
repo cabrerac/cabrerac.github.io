@@ -309,18 +309,24 @@ def generar(modelo, semilla, n, alfabeto):
     Returns:
         La semilla seguida de los caracteres nuevos.
     """
+    # Crea un diccionario para convertir un caracter en su indice
     indice = {caracter: i for i, caracter in enumerate(alfabeto)}
     ventana = semilla
     nuevos = []
+    # Cambia el modelo a modo uso
     modelo.eval()
+    # Suspende la actualización de los pesos en este bloque
     with torch.no_grad():
         for paso in range(n):
             fila = np.zeros((1, len(ventana), len(alfabeto)))
             for t, caracter in enumerate(ventana):
+                # Una ventana, 11 filas (i.e., caracteres), 22 columnas (i.e., alfabeto)
                 fila[0, t, indice[caracter]] = 1.0
             puntajes = modelo(torch.tensor(fila, dtype=torch.float32))
+            # Selecciona la letra con el puntaje máximo
             letra = alfabeto[int(puntajes.argmax(dim=1))]
             nuevos.append(letra)
+            # Actualiza la ventana para la siguiente iteración
             ventana = ventana[1:] + letra
     return semilla + "".join(nuevos)
 ```
