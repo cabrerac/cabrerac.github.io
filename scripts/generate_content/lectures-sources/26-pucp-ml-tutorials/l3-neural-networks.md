@@ -13,12 +13,12 @@ department: Department of Computer Science and Technology
 institution: University of Cambridge
 layout: lecture
 notebook_language: es
-visible: false
+visible: true
 lecture_code: l3-neural-networks
 lecture_date: 19/10/2026
 permalink: /teaching/26-pucp-ml-tutorials/l3-neural-networks/
 notebook_title: "Redes neuronales"
-notebook_description: "Práctica de sesión 3. Datos, tarea y una implementación comentada de cada arquitectura de la sesión."
+notebook_description: "Práctica de sesión 3. Datos, tarea y una implementación comentada de algunas arquitecturas."
 ---
 <!-- SLIDES: -->
 

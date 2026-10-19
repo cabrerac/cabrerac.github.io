@@ -14,7 +14,7 @@ layout: lecture
 lecture_code: l3-neural-networks
 lecture_date: 19/10/2026
 notebook_description: "Pr\xE1ctica de sesi\xF3n 3. Datos, tarea y una implementaci\xF3\
-  n comentada de cada arquitectura de la sesi\xF3n."
+  n comentada de algunas arquitecturas."
 notebook_language: es
 notebook_title: Redes neuronales
 permalink: /teaching/26-pucp-ml-tutorials/l3-neural-networks/
@@ -22,7 +22,7 @@ position: Assistant Research Professor
 session: 3
 start_time: 10:00 am
 title: Neural Networks
-visible: false
+visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
