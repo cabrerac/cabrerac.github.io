@@ -187,7 +187,7 @@ print("largo:", len(texto))
 
 Cada fila es una ventana de 11 caracteres, y el objetivo es el carácter que sigue. La primera ventana es `el temblor` más el espacio que la separa de `movió`. El objetivo de esa fila es la `m`. La segunda se corre un carácter y el objetivo es la `o`. La tercera empieza con un espacio y el objetivo es la `v`. La última es `nes vecinas` y el objetivo es el punto final. La celda de abajo imprime esas cuatro, no las 174.
 
-En la función, `texto[i - 11:i]` copia esos 11 caracteres. Cada carácter se vuelve un vector de ceros con un 1 en su columna del alfabeto (i.e., one-hot). `np.stack` apila esas ventanas. El objetivo no es el carácter escrito, es su posición en el alfabeto, porque la pérdida compara índices.
+En la función, `texto[i - 11:i]` copia esos 11 caracteres. Cada carácter se vuelve un vector de ceros con un 1 en su columna del alfabeto. `np.stack` apila esas ventanas. El objetivo no es el carácter escrito, es su posición en el alfabeto, porque la pérdida compara índices.
 
 ```python
 def preparar_texto(texto, ventana=11):
@@ -213,7 +213,7 @@ def preparar_texto(texto, ventana=11):
     return np.stack(filas), np.array(objetivos), alfabeto
 ```
 
-`X_texto` tiene forma `(filas, 11, alfabeto)`. Esa matriz es la que entra en la red. `y_texto` es un índice por fila, guardado aparte.
+Cada ventana es una matriz de 11 filas y 22 columnas. Cada fila es un carácter. Cada columna es una letra del alfabeto. Hay un 1 en la columna de ese carácter y 0 en las demás. La `e` de la primera ventana tiene el 1 en la columna 6. La red no lee las letras. Lee estas matrices, así que esa es la entrada. `X_texto` apila las 174 matrices, una por ventana. En PyTorch ese bloque se llama tensor y su forma se escribe `(174, 11, 22)`. `y_texto` es el índice del carácter objetivo, uno por ventana, y no es parte de esas matrices.
 
 ```python
 X_texto, y_texto, alfabeto = preparar_texto(texto)
@@ -225,7 +225,7 @@ for nombre, k in (("primera", 0), ("segunda", 1), ("tercera", 2), ("última", -1
 
 ### La red recurrente
 
-La red lee los 11 caracteres de uno en uno. `batch_first` ordena el tensor como `(filas, caracteres, alfabeto)`. En cada carácter actualiza un estado oculto de 128 números, con los mismos pesos. `salida` guarda el estado de cada carácter. `h_T[-1]` es solo el estado del último carácter, porque hay una sola capa. La cabeza lineal convierte esos 128 números en un puntaje por carácter del alfabeto.
+La red lee los 11 caracteres de uno en uno. `batch_first=True` dice que cada matriz de 11 por 22 entra como una ventana, con los 11 caracteres en orden. Es el orden en que `np.stack` apiló las filas. En cada carácter actualiza un estado oculto de 128 números, con los mismos pesos. `salida` guarda el estado de cada carácter. `h_T[-1]` es solo el estado del último carácter, porque hay una sola capa. La cabeza lineal convierte esos 128 números en un puntaje por carácter del alfabeto.
 
 En el primer paso lee la `e` de `el temblor`. En el segundo lee la `l`, con los mismos pesos, y así hasta el espacio. El puntaje más alto después de ese espacio es la predicción de la `m`.
 
@@ -285,6 +285,9 @@ def entrenar_texto(X, y, n_ocultas=128, epocas=400):
         puntajes = modelo(lote_x)
         perdida = perdida_fn(puntajes, lote_y)
         perdida.backward()
+        # Después de backward cada peso tiene un gradiente.
+        # Si el largo de ese vector pasa de 1, lo encoge hasta dejarlo en 1.
+        # El producto de las pendientes en los 11 caracteres puede hacer enorme el paso.
         nn.utils.clip_grad_norm_(modelo.parameters(), max_norm=1.0)
         optimizador.step()
         historial.append(float(perdida))
