@@ -184,6 +184,25 @@ La serie trae el número anual de manchas solares, de 1700 a 2008. El ciclo de m
 
 Cada fila es una ventana de 11 años, y el objetivo es el año que sigue. Once años cubren un ciclo, así que la ventana ve una subida y una bajada. Train son las ventanas cuyo año objetivo cae en 1950 o antes. Test son los 58 años de 1951 a 2008. La media y la desviación se calculan solo con los años de train. El escalado no usa el tramo que queremos predecir.
 
+La primera fila, antes de escalar, usa los conteos de 1700 a 1710. El objetivo es el conteo de 1711.
+
+| Papel | Año | Manchas |
+| --- | --- | --- |
+| Entrada | 1700 | 5 |
+| Entrada | 1701 | 11 |
+| Entrada | 1702 | 16 |
+| Entrada | 1703 | 23 |
+| Entrada | 1704 | 36 |
+| Entrada | 1705 | 58 |
+| Entrada | 1706 | 29 |
+| Entrada | 1707 | 20 |
+| Entrada | 1708 | 10 |
+| Entrada | 1709 | 8 |
+| Entrada | 1710 | 3 |
+| Objetivo | 1711 | 0 |
+
+La fila siguiente se corre un año. Sus entradas son 1701 a 1711 y su objetivo es 1712, que también vale 0. El escalado ocurre antes de armar el tensor. La red ve estos conteos después de restar la media de train y dividir por su desviación.
+
 ```python
 import statsmodels.api as sm
 
@@ -203,7 +222,7 @@ def preparar_manchas(ventana=11):
     # range empieza en 11. Para cada i, copia los 11 conteos que terminan justo antes de i.
     # np.stack apila esas copias. Cada copia es una fila. La primera es 1700 a 1710.
     entradas = np.stack([valores[i - ventana:i] for i in range(ventana, len(valores))])
-    # El objetivo de esa fila es el conteo del propio año i. El primero es 1711.
+    # El objetivo de esa fila es el conteo del propio año i dede 1711.
     objetivos = valores[ventana:]
     # El año calendario de cada objetivo, para poder cortar en 1950.
     anio_objetivo = anios[ventana:]
@@ -234,11 +253,24 @@ def preparar_manchas(ventana=11):
     }
 ```
 
-La curva es el número de manchas de cada año, de 1700 a 2008. La línea vertical es 1950, el último año cuyo valor entra en train. A la derecha de la línea está el test. El ciclo de unos 11 años se repite a lo largo de toda la serie.
+`preparar_manchas` devuelve las matrices ya partidas. `X_train` guarda las filas cuyo objetivo cae en 1950 o antes. `y_train` es el objetivo escalado de cada fila, en un vector aparte. Esa matriz es la que entra en la red recurrente.
 
 ```python
 serie = preparar_manchas()
+print("X_train", serie["X_train"].shape, "| y_train", serie["y_train"].shape)
+print("X_test", serie["X_test"].shape, "| y_test", serie["y_test"].shape)
 
+columnas = [f"t-{11 - j}" for j in range(11)]
+vista = pd.DataFrame(serie["X_train"][:3], columns=columnas)
+vista["y escalado"] = serie["y_train"][:3]
+print(vista.round(2).to_string(index=False))
+```
+
+`t-11` es el año más viejo de la ventana y `t-1` el más reciente. En la primera fila son 1700 y 1710, ya escalados. `y escalado` es 1711 en la escala de train. `X_test` son las 58 filas de 1951 a 2008. `y_test` guarda esas metas en número de manchas, sin escalar.
+
+La curva es el número de manchas de cada año, de 1700 a 2008. La línea vertical es 1950, el último año cuyo valor entra en train. A la derecha de la línea está el test. El ciclo de unos 11 años se repite a lo largo de toda la serie.
+
+```python
 plt.figure(figsize=(8, 3))
 plt.plot(serie["anios"], serie["valores"], color="black")
 plt.axvline(1950, color="gray", linestyle="--")
@@ -284,6 +316,16 @@ print("RECM media:", round(recm_media, 1), "| RECM persistencia:", round(recm_pe
 ### La red recurrente
 
 La red lee los 11 años de uno en uno. En cada año actualiza un estado oculto de 32 números, con los mismos pesos. Ese estado es la memoria de la ventana. La cabeza lineal lee solo el estado del último año y devuelve un número: la predicción del año siguiente, todavía en la escala normalizada.
+
+`unsqueeze(-1)` deja el lote con forma `(filas, 11, 1)`.
+
+| Eje | Tamaño | Significado |
+| --- | --- | --- |
+| Lote | una fila | esta ventana |
+| Tiempo | 11 | los años, en orden |
+| Características | 1 | el conteo escalado de ese año |
+
+`nn.RNN` tiene tamaño de entrada 1. En el primer paso lee el conteo escalado de 1700 y actualiza el estado oculto. En el segundo paso lee 1701, con los mismos pesos, y así hasta 1710. La cabeza lineal lee solo el estado oculto después de 1710 y devuelve un número, la predicción escalada de 1711.
 
 ```python
 class ModeloSecuencia(nn.Module):
@@ -776,10 +818,21 @@ def cargar_cora():
     return grafo, A
 ```
 
-La barra de la izquierda cuenta cuántos artículos hay en cada uno de los 7 temas. El histograma de la derecha cuenta las citas de cada artículo. La mayoría tiene pocas, y unos pocos están muy conectados. Esa diferencia importa al mezclar vecinos. Un artículo con muchas citas arrastraría la suma si cada fila no se escala.
+`cora.x` es la matriz de palabras. Una fila es un artículo y una columna es una palabra, con 0 o 1. `train_mask` es un vector de verdadero o falso, uno por fila. No es una columna de la matriz. `cora.x[train_mask]` se queda con las filas marcadas verdadero, igual que `entradas[en_train]`.
 
 ```python
 cora, A_cora = cargar_cora()
+print("cora.x", tuple(cora.x.shape), "| A", tuple(A_cora.shape))
+print("train", int(cora.train_mask.sum()), "| test", int(cora.test_mask.sum()))
+print("primeras banderas de train_mask:", cora.train_mask[:8].numpy())
+print("filas de train", tuple(cora.x[cora.train_mask].shape))
+```
+
+Las primeras banderas dicen qué artículos del inicio entran en train. La logística ve solo esas 140 filas, cada una con 1433 palabras. La red sobre el grafo recibe las 2708 filas, y la máscara solo elige cuáles entran en la pérdida.
+
+La barra de la izquierda cuenta cuántos artículos hay en cada uno de los 7 temas. El histograma de la derecha cuenta las citas de cada artículo. La mayoría tiene pocas, y unos pocos están muy conectados. Esa diferencia importa al mezclar vecinos. Un artículo con muchas citas arrastraría la suma si cada fila no se escala.
+
+```python
 print("nodos:", cora.num_nodes, "| características:", cora.num_features)
 
 temas, cuentas = np.unique(cora.y.numpy(), return_counts=True)
