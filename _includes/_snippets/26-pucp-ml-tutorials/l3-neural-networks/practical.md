@@ -13,7 +13,6 @@ En el siguiente bloque importamos las librerías y conjuntos de datos que usarem
 ```python
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 import torch
 from sklearn.datasets import load_digits, make_moons
 from sklearn.linear_model import LogisticRegression, Perceptron
@@ -167,203 +166,123 @@ print("El MLP separa las lunas mejor que una recta. OK")
 
 ---
 
-## Manchas solares
+## Texto
 
-La serie trae el número anual de manchas solares, de 1700 a 2008. El ciclo de manchas dura unos 11 años, así que el valor del próximo año depende de los anteriores. La tarea es predecir el año que sigue a partir de una ventana de 11 años (i.e., teniendo en cuenta los 11 años anteriores). Una red recurrente guarda el estado oculto de la historia de la ventana. Los mismos pesos se reutilizan en cada año y La predicción sale del último estado oculto.
+El párrafo de abajo es el conjunto de datos. La tarea es predecir el carácter que sigue a una ventana de 11 caracteres. Una red recurrente encaja porque lee la ventana de a un carácter y guarda lo ya visto en el estado oculto. Los mismos pesos se reutilizan en cada carácter. La predicción sale del último estado oculto.
 
-### La serie
+### El párrafo
 
-Cada fila es una ventana de 11 años, y el objetivo es el año que sigue. Once años cubren un ciclo, así que la ventana ve una subida y una bajada. Train son las ventanas cuyo año objetivo cae en 1950 o antes. Test son los 58 años de 1951 a 2008. La media y la desviación se calculan solo con los años de train. El escalado no usa el tramo que queremos predecir.
-
-La primera fila, antes de escalar, usa los conteos de 1700 a 1710. El objetivo es el conteo de 1711.
-
-| Papel | Año | Manchas |
-| --- | --- | --- |
-| Entrada | 1700 | 5 |
-| Entrada | 1701 | 11 |
-| Entrada | 1702 | 16 |
-| Entrada | 1703 | 23 |
-| Entrada | 1704 | 36 |
-| Entrada | 1705 | 58 |
-| Entrada | 1706 | 29 |
-| Entrada | 1707 | 20 |
-| Entrada | 1708 | 10 |
-| Entrada | 1709 | 8 |
-| Entrada | 1710 | 3 |
-| Objetivo | 1711 | 0 |
-
-La fila siguiente se corre un año. Sus entradas son 1701 a 1711 y su objetivo es 1712, que también vale 0. El escalado ocurre antes de armar el tensor. La red ve estos conteos después de restar la media de train y dividir por su desviación.
-
-En la función, `valores` es esa columna de manchas. `valores[i - 11:i]` copia los 11 conteos anteriores al año `i` (i.e., la primera copia es 1700 a 1710). `np.stack` apila las copias y cada una queda como una fila. `objetivos` guarda el conteo del año `i`, desde 1711. `anio_objetivo` es el año de calendario de esa fila, y `en_train` es verdadero cuando ese año es 1950 o anterior. `entradas[en_train]` se queda con esas filas. `~en_train` invierte la máscara y deja 1951 a 2008. La media y la desviación se calculan en la serie original, solo hasta 1950. Restamos esa media y dividimos por la desviación. Un cero en esa escala es el promedio de train, y `a_original` vuelve de ahí al número de manchas.
+El texto cabe en el cuaderno. Es corto a propósito, para que la red pueda aprenderlo en la sesión y continuar la semilla.
 
 ```python
-import statsmodels.api as sm
+texto = (
+    "el temblor movió la estación cercana. "
+    "la estación registró el movimiento del suelo. "
+    "el operador revisó la señal y avisó al centro. "
+    "el centro comparó la señal con las estaciones vecinas."
+)
+print(texto)
+print("largo:", len(texto))
+```
 
+Cada fila es una ventana de 11 caracteres, y el objetivo es el carácter que sigue. La primera ventana es `el temblor` más el espacio que la separa de `movió`. El objetivo de esa fila es la `m`. La fila siguiente se corre un carácter: llega hasta esa `m`, y el objetivo es la `o`.
 
-def preparar_manchas(ventana=11):
-    """Arma ventanas de manchas solares y una partición por año.
+En la función, `texto[i - 11:i]` copia esos 11 caracteres. Cada carácter se vuelve un vector de ceros con un 1 en su columna del alfabeto (i.e., one-hot). `np.stack` apila esas ventanas. El objetivo no es el carácter escrito, es su posición en el alfabeto, porque la pérdida compara índices.
+
+```python
+def preparar_texto(texto, ventana=11):
+    """Arma ventanas de caracteres y el índice del carácter que sigue.
 
     Args:
-        ventana: Cuántos años mira el modelo antes de predecir el siguiente.
+        texto: Párrafo del que salen las ventanas.
+        ventana: Cuántos caracteres mira el modelo antes de predecir el siguiente.
 
     Returns:
-        Ventanas de train y de test, la serie completa y los años de test.
+        Las ventanas en one-hot, el índice de cada objetivo y el alfabeto.
     """
-    tabla = sm.datasets.sunspots.load_pandas().data
-    valores = tabla["SUNACTIVITY"].to_numpy(dtype=float)
-    anios = tabla["YEAR"].to_numpy()
-    entradas = np.stack([valores[i - ventana:i] for i in range(ventana, len(valores))])
-    objetivos = valores[ventana:]
-    anio_objetivo = anios[ventana:]
-    en_train = anio_objetivo <= 1950
-    media = valores[anios <= 1950].mean()
-    desv = valores[anios <= 1950].std()
-    entradas = (entradas - media) / desv
-    objetivos_esc = (objetivos - media) / desv
-
-    def a_original(prediccion):
-        """Pasa una predicción escalada al número de manchas."""
-        return prediccion * desv + media
-
-    return {
-        "X_train": entradas[en_train],
-        "y_train": objetivos_esc[en_train],
-        "X_test": entradas[~en_train],
-        "y_test": objetivos[~en_train],
-        "a_original": a_original,
-        "anios": anios,
-        "valores": valores,
-        "anio_test": anio_objetivo[~en_train],
-    }
+    alfabeto = sorted(set(texto))
+    indice = {caracter: i for i, caracter in enumerate(alfabeto)}
+    filas = []
+    objetivos = []
+    for i in range(ventana, len(texto)):
+        fila = np.zeros((ventana, len(alfabeto)))
+        for t, caracter in enumerate(texto[i - ventana:i]):
+            fila[t, indice[caracter]] = 1.0
+        filas.append(fila)
+        objetivos.append(indice[texto[i]])
+    return np.stack(filas), np.array(objetivos), alfabeto
 ```
 
-`preparar_manchas` devuelve las matrices ya partidas. `X_train` guarda las filas cuyo objetivo cae en 1950 o antes. `y_train` es el objetivo escalado de cada fila, en un vector aparte. Esa matriz es la que entra en la red recurrente.
+`X_texto` tiene forma `(filas, 11, alfabeto)`. Esa matriz es la que entra en la red. `y_texto` es un índice por fila, guardado aparte.
 
 ```python
-serie = preparar_manchas()
-print("X_train", serie["X_train"].shape, "| y_train", serie["y_train"].shape)
-print("X_test", serie["X_test"].shape, "| y_test", serie["y_test"].shape)
-
-columnas = [f"t-{11 - j}" for j in range(11)]
-vista = pd.DataFrame(serie["X_train"][:3], columns=columnas)
-vista["y escalado"] = serie["y_train"][:3]
-print(vista.round(2).to_string(index=False))
-```
-
-`t-11` es el año más viejo de la ventana y `t-1` el más reciente. En la primera fila son 1700 y 1710, ya escalados. `y escalado` es 1711 en la escala de train. `X_test` son las 58 filas de 1951 a 2008. `y_test` guarda esas metas en número de manchas, sin escalar.
-
-La curva es el número de manchas de cada año, de 1700 a 2008. La línea vertical es 1950, el último año cuyo valor entra en train. A la derecha de la línea está el test. El ciclo de unos 11 años se repite a lo largo de toda la serie.
-
-```python
-plt.figure(figsize=(8, 3))
-plt.plot(serie["anios"], serie["valores"], color="black")
-plt.axvline(1950, color="gray", linestyle="--")
-plt.xlabel("año")
-plt.ylabel("manchas")
-plt.title("Manchas solares")
-plt.show()
-```
-
-### Líneas base
-
-La persistencia dice que el próximo año tendrá las mismas manchas que el último año de la ventana. En una serie que cambia despacio, esa copia ya queda cerca de lo observado. La media ignora la ventana y responde siempre el promedio de train, cerca de la mitad de un ciclo.
-
-El RECM es la raíz del error cuadrático medio, en número de manchas. Un RECM de 20 quiere decir que la predicción se aleja, en promedio, unos 20 manchas del valor observado. Más bajo es una curva más pegada a la serie.
-
-`X_test[:, -1]` es el último año de cada ventana, todavía escalado. `a_original` lo devuelve a número de manchas, y esa copia es la persistencia. Un vector de ceros, pasado por `a_original`, es la media de train. `full_like` repite esa media tantas veces como años hay en el test.
-
-```python
-def recm(y_real, y_pred):
-    """Raíz del error cuadrático medio, en la escala de las manchas.
-
-    Args:
-        y_real: Valores observados.
-        y_pred: Valores predichos, en la misma escala.
-
-    Returns:
-        Un número. Cero sería una predicción perfecta.
-    """
-    return float(np.sqrt(np.mean((y_real - y_pred) ** 2)))
-```
-
-```python
-ultimo_anio = serie["a_original"](serie["X_test"][:, -1])
-media_train = float(serie["a_original"](np.zeros(1)))
-recm_media = recm(serie["y_test"], np.full_like(serie["y_test"], media_train))
-recm_persistencia = recm(serie["y_test"], ultimo_anio)
-print("años de test:", len(serie["y_test"]))
-print("RECM media:", round(recm_media, 1), "| RECM persistencia:", round(recm_persistencia, 1))
+X_texto, y_texto, alfabeto = preparar_texto(texto)
+primera = "".join(alfabeto[i] for i in X_texto[0].argmax(axis=1))
+print("ventanas", X_texto.shape, "| alfabeto", len(alfabeto))
+print("primera ventana:", repr(primera), "| objetivo:", repr(alfabeto[y_texto[0]]))
 ```
 
 ### La red recurrente
 
-La red lee los 11 años de uno en uno. `batch_first` ordena el tensor como `(filas, años, 1)`. En cada año actualiza un estado oculto de 32 números, con los mismos pesos. Ese estado es la memoria de la ventana. `salida` guarda el estado de cada año. `h_T[-1]` es solo el estado del último año, porque hay una sola capa, y la cabeza lineal lo convierte en un número: la predicción del año siguiente, todavía en la escala normalizada.
+La red lee los 11 caracteres de uno en uno. `batch_first` ordena el tensor como `(filas, caracteres, alfabeto)`. En cada carácter actualiza un estado oculto de 128 números, con los mismos pesos. `salida` guarda el estado de cada carácter. `h_T[-1]` es solo el estado del último carácter, porque hay una sola capa. La cabeza lineal convierte esos 128 números en un puntaje por carácter del alfabeto.
 
-`unsqueeze(-1)` deja el lote con forma `(filas, 11, 1)`.
-
-| Eje | Tamaño | Significado |
-| --- | --- | --- |
-| Lote | una fila | esta ventana |
-| Tiempo | 11 | los años, en orden |
-| Características | 1 | el conteo escalado de ese año |
-
-`nn.RNN` tiene tamaño de entrada 1. En el primer paso lee el conteo escalado de 1700 y actualiza el estado oculto. En el segundo paso lee 1701, con los mismos pesos, y así hasta 1710. La cabeza lineal lee solo el estado oculto después de 1710 y devuelve un número, la predicción escalada de 1711.
+En el primer paso lee la `e` de `el temblor`. En el segundo lee la `l`, con los mismos pesos, y así hasta el espacio. El puntaje más alto después de ese espacio es la predicción de la `m`.
 
 ```python
-class ModeloSecuencia(nn.Module):
-    """Lee una ventana año por año y predice un solo número.
+class ModeloTexto(nn.Module):
+    """Lee una ventana carácter por carácter y puntúa el carácter siguiente.
 
     El estado oculto se actualiza en cada paso con los mismos pesos.
 
     Args:
-        n_entradas: Cuántos números llegan en cada año. Aquí es 1.
+        n_caracteres: Tamaño del alfabeto. Es también el tamaño de cada one-hot.
         n_ocultas: Tamaño del estado oculto.
     """
 
-    def __init__(self, n_entradas, n_ocultas):
+    def __init__(self, n_caracteres, n_ocultas):
         super().__init__()
-        self.rnn = nn.RNN(n_entradas, n_ocultas, batch_first=True)
-        self.cabeza = nn.Linear(n_ocultas, 1)
+        self.rnn = nn.RNN(n_caracteres, n_ocultas, batch_first=True)
+        self.cabeza = nn.Linear(n_ocultas, n_caracteres)
 
     def forward(self, x):
-        """Predice el año siguiente a cada ventana.
+        """Puntúa el carácter siguiente a cada ventana.
 
         Args:
-            x: Tensor de forma (lote, años, n_entradas).
+            x: Tensor de forma (lote, caracteres, alfabeto).
 
         Returns:
-            Tensor de forma (lote, 1).
+            Tensor de forma (lote, alfabeto), sin softmax.
         """
         salida, h_T = self.rnn(x)
         return self.cabeza(h_T[-1])
 ```
 
-Con pocas épocas la red solo copia la forma media del ciclo y se queda por debajo de los picos. Adam ajusta el paso según el tamaño de cada gradiente, y 300 épocas le dan tiempo a seguir la amplitud. El recorte del gradiente limita el producto de pendientes a lo largo de los 11 años. Si ese producto crece, el paso se vuelve enorme y el ajuste se dispara. Antes del bucle, `unsqueeze(-1)` agrega un eje: las ventanas pasan de `(filas, 11)` a `(filas, 11, 1)`, un conteo por año, y el objetivo pasa de `(filas,)` a `(filas, 1)`, que es la forma que compara la pérdida.
+La pérdida es la entropía cruzada entre esos puntajes y el índice del carácter correcto. Adam ajusta el paso, y 400 épocas le dan tiempo a aprender un párrafo tan corto. El recorte del gradiente limita el producto de pendientes a lo largo de los 11 caracteres.
 
 ```python
-def entrenar_rnn(X_train, y_train, n_ocultas=32, epocas=300):
-    """Ajusta la red recurrente con error cuadrático y recorta el gradiente.
+def entrenar_texto(X, y, n_ocultas=128, epocas=400):
+    """Ajusta la red para predecir el índice del carácter siguiente.
 
     Args:
-        X_train: Ventanas escaladas, forma (filas, años).
-        y_train: Año siguiente escalado, un número por ventana.
+        X: Ventanas one-hot, forma (filas, caracteres, alfabeto).
+        y: Índice del carácter objetivo, uno por ventana.
         n_ocultas: Tamaño del estado oculto.
-        epocas: Pasadas completas por train.
+        epocas: Pasadas completas por el párrafo.
 
     Returns:
         El modelo entrenado y la pérdida de cada época.
     """
     torch.manual_seed(42)
-    X = torch.tensor(X_train, dtype=torch.float32).unsqueeze(-1)
-    y = torch.tensor(y_train, dtype=torch.float32).unsqueeze(-1)
-    modelo = ModeloSecuencia(n_entradas=1, n_ocultas=n_ocultas)
+    lote_x = torch.tensor(X, dtype=torch.float32)
+    lote_y = torch.tensor(y, dtype=torch.long)
+    modelo = ModeloTexto(n_caracteres=X.shape[-1], n_ocultas=n_ocultas)
     optimizador = torch.optim.Adam(modelo.parameters(), lr=1e-3)
-    perdida_fn = nn.MSELoss()
+    perdida_fn = nn.CrossEntropyLoss()
     historial = []
     for epoca in range(epocas):
         optimizador.zero_grad()
-        prediccion = modelo(X)
-        perdida = perdida_fn(prediccion, y)
+        puntajes = modelo(lote_x)
+        perdida = perdida_fn(puntajes, lote_y)
         perdida.backward()
         nn.utils.clip_grad_norm_(modelo.parameters(), max_norm=1.0)
         optimizador.step()
@@ -371,52 +290,52 @@ def entrenar_rnn(X_train, y_train, n_ocultas=32, epocas=300):
     return modelo, historial
 ```
 
-Esta función apaga el entrenamiento y devuelve la predicción en la escala normalizada. `squeeze(1)` quita el eje de tamaño 1 y deja un número por ventana. En la celda de la figura, `a_original` la pasa de nuevo a número de manchas.
+Para escribir, partimos de una semilla de 11 caracteres. La red elige el carácter de mayor puntaje, lo agregamos al final y soltamos el primero. Esa ventana nueva vuelve a entrar, y repetimos.
 
 ```python
-def predecir_rnn(modelo, X):
-    """Predice en la escala escalada y devuelve un vector de numpy.
+def generar(modelo, semilla, n, alfabeto):
+    """Completa la semilla con n caracteres, eligiendo el de mayor puntaje.
 
     Args:
-        modelo: Un ModeloSecuencia ya entrenado.
-        X: Ventanas, forma (filas, años).
+        modelo: Red ya entrenada.
+        semilla: Cadena inicial, del largo de la ventana.
+        n: Cuántos caracteres nuevos escribir.
+        alfabeto: Caracteres en el mismo orden que las columnas one-hot.
 
     Returns:
-        Predicciones, una por ventana.
+        La semilla seguida de los caracteres nuevos.
     """
+    indice = {caracter: i for i, caracter in enumerate(alfabeto)}
+    ventana = semilla
+    nuevos = []
     modelo.eval()
     with torch.no_grad():
-        lote = torch.tensor(X, dtype=torch.float32).unsqueeze(-1)
-        return modelo(lote).squeeze(1).numpy()
+        for paso in range(n):
+            fila = np.zeros((1, len(ventana), len(alfabeto)))
+            for t, caracter in enumerate(ventana):
+                fila[0, t, indice[caracter]] = 1.0
+            puntajes = modelo(torch.tensor(fila, dtype=torch.float32))
+            letra = alfabeto[int(puntajes.argmax(dim=1))]
+            nuevos.append(letra)
+            ventana = ventana[1:] + letra
+    return semilla + "".join(nuevos)
 ```
 
-La curva negra es el número observado entre 1951 y 2008. La azul es la predicción de la red a un año. La naranja es la persistencia. El RECM resume la distancia de cada curva a la negra. La comprobación pide que el de la red sea menor que el de la persistencia.
+La semilla es la primera ventana del párrafo. Lo que sigue debería parecerse al texto, porque el párrafo es corto y la red lo vio entero.
 
 ```python
-rnn_manchas, historial_rnn = entrenar_rnn(serie["X_train"], serie["y_train"])
-pred_test = serie["a_original"](predecir_rnn(rnn_manchas, serie["X_test"]))
-recm_rnn = recm(serie["y_test"], pred_test)
-print("RECM RNN:", round(recm_rnn, 1), "| pérdida inicial:", round(historial_rnn[0], 3),
-      "| pérdida final:", round(historial_rnn[-1], 3))
-
-plt.figure(figsize=(8, 3))
-plt.plot(serie["anio_test"], serie["y_test"], color="black", label="observado")
-plt.plot(serie["anio_test"], pred_test, label="RNN")
-plt.plot(serie["anio_test"], ultimo_anio, label="persistencia", alpha=0.7)
-plt.xlabel("año")
-plt.ylabel("manchas")
-plt.title("Test, 1951 a 2008")
-plt.legend()
-plt.show()
+rnn_texto, historial_texto = entrenar_texto(X_texto, y_texto)
+generado = generar(rnn_texto, texto[:11], n=80, alfabeto=alfabeto)
+print("pérdida inicial:", round(historial_texto[0], 3), "| final:", round(historial_texto[-1], 3))
+print(generado)
 ```
 
 **Comprobar:**
 
 ```python
-assert len(serie["y_test"]) == 58
-assert historial_rnn[-1] < historial_rnn[0]
-assert recm_rnn < recm_persistencia
-print("La RNN mejora la persistencia. OK")
+assert historial_texto[-1] < historial_texto[0]
+assert len(generado) == 11 + 80
+print("La red continúa el texto. OK")
 ```
 
 ---
