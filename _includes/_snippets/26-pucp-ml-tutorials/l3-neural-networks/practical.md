@@ -78,6 +78,7 @@ def lineas_base_lunas(X_train, y_train, X_test, y_test):
     Returns:
         Un diccionario con la exactitud de cada línea base.
     """
+    # Exactitud de decir siempre la clase más común
     piso = float(max(y_test.mean(), 1.0 - y_test.mean()))
     logistica = LogisticRegression().fit(X_train, y_train)
     perceptron = Perceptron(random_state=42).fit(X_train, y_train)
@@ -129,10 +130,14 @@ def pintar_regiones(ax, predecir, X, y, titulo):
         y: Etiqueta verdadera de cada punto.
         titulo: Texto del panel.
     """
+    # Medio unidad de margen para no cortar las lunas del borde
     x_min, x_max = X[:, 0].min() - 0.5, X[:, 0].max() + 0.5
     y_min, y_max = X[:, 1].min() - 0.5, X[:, 1].max() + 0.5
+    # Grilla de 250 por 250 puntos
     xx, yy = np.meshgrid(np.linspace(x_min, x_max, 250), np.linspace(y_min, y_max, 250))
+    # Aplana la grilla y junta cada punto en dos columnas
     malla = np.c_[xx.ravel(), yy.ravel()]
+    # Devuelve la clase de cada punto a la forma de la grilla
     zz = predecir(malla).reshape(xx.shape)
     ax.contourf(xx, yy, zz, alpha=0.35, cmap="coolwarm")
     ax.scatter(X[:, 0], X[:, 1], c=y, cmap="coolwarm", edgecolor="k", s=16)
@@ -200,16 +205,22 @@ def preparar_texto(texto, ventana=11):
     Returns:
         Las ventanas en one-hot, el índice de cada objetivo y el alfabeto.
     """
+    # Ordena los caracteres distintos del párrafo
     alfabeto = sorted(set(texto))
+    # Crea un diccionario para convertir un caracter en su indice
     indice = {caracter: i for i, caracter in enumerate(alfabeto)}
     filas = []
     objetivos = []
     for i in range(ventana, len(texto)):
+        # 11 filas (i.e., caracteres) y una columna por letra del alfabeto
         fila = np.zeros((ventana, len(alfabeto)))
         for t, caracter in enumerate(texto[i - ventana:i]):
+            # Pone el 1 en la columna de ese carácter
             fila[t, indice[caracter]] = 1.0
         filas.append(fila)
+        # Guarda el índice del carácter que sigue a la ventana
         objetivos.append(indice[texto[i]])
+    # Apila las ventanas en un solo bloque
     return np.stack(filas), np.array(objetivos), alfabeto
 ```
 
@@ -219,6 +230,7 @@ Cada ventana es una matriz de 11 filas y 22 columnas. Cada fila es un carácter.
 X_texto, y_texto, alfabeto = preparar_texto(texto)
 print("ventanas", X_texto.shape, "| alfabeto", len(alfabeto))
 for nombre, k in (("primera", 0), ("segunda", 1), ("tercera", 2), ("última", -1)):
+    # Lee la columna del 1 en cada fila y la vuelve a convertir en letra
     ventana = "".join(alfabeto[i] for i in X_texto[k].argmax(axis=1))
     print(nombre, repr(ventana), "| objetivo:", repr(alfabeto[y_texto[k]]))
 ```
@@ -254,7 +266,9 @@ class ModeloTexto(nn.Module):
         Returns:
             Tensor de forma (lote, alfabeto), sin softmax.
         """
+        # Guarda el estado de cada carácter y el estado final de la única capa
         salida, h_T = self.rnn(x)
+        # Convierte el estado del último carácter en un puntaje por letra
         return self.cabeza(h_T[-1])
 ```
 
@@ -275,7 +289,9 @@ def entrenar_texto(X, y, n_ocultas=128, epocas=400):
     """
     torch.manual_seed(42)
     lote_x = torch.tensor(X, dtype=torch.float32)
+    # El objetivo entra como índice entero
     lote_y = torch.tensor(y, dtype=torch.long)
+    # La última dimensión de X es el tamaño del alfabeto
     modelo = ModeloTexto(n_caracteres=X.shape[-1], n_ocultas=n_ocultas)
     optimizador = torch.optim.Adam(modelo.parameters(), lr=1e-3)
     perdida_fn = nn.CrossEntropyLoss()
@@ -283,6 +299,7 @@ def entrenar_texto(X, y, n_ocultas=128, epocas=400):
     for epoca in range(epocas):
         optimizador.zero_grad()
         puntajes = modelo(lote_x)
+        # Compara los puntajes con el índice del carácter correcto
         perdida = perdida_fn(puntajes, lote_y)
         perdida.backward()
         # Después de backward cada peso tiene un gradiente.
@@ -400,9 +417,11 @@ def mostrar_imagenes(filas, lado=8):
     n = filas[0][1].shape[0]
     fig, ejes = plt.subplots(len(filas), n, figsize=(n, len(filas) + 0.6))
     if len(filas) == 1:
+        # Envuelve el vector de ejes para poder indexar con fila y columna
         ejes = np.array([ejes])
     for i, (titulo, imagenes) in enumerate(filas):
         for j in range(n):
+            # Vuelve a armar la grilla de 8 por 8, con blanco y negro fijos
             ejes[i, j].imshow(imagenes[j].reshape(lado, lado), cmap="gray_r", vmin=0, vmax=1)
             ejes[i, j].set_xticks([])
             ejes[i, j].set_yticks([])
@@ -466,6 +485,7 @@ def entrenar_autoencoder(X_train, epocas=150):
     """
     torch.manual_seed(42)
     X = torch.tensor(X_train, dtype=torch.float32)
+    # 64 píxeles, capa de 128 y código de 8 números
     modelo = Autoencoder(D=X.shape[1], M=128, codigo=8)
     optimizador = torch.optim.Adam(modelo.parameters(), lr=1e-3)
     perdida_fn = nn.MSELoss()
@@ -473,6 +493,7 @@ def entrenar_autoencoder(X_train, epocas=150):
     for epoca in range(epocas):
         optimizador.zero_grad()
         reconstruccion = modelo(X)
+        # El objetivo es la propia imagen, no una etiqueta
         perdida = perdida_fn(reconstruccion, X)
         perdida.backward()
         optimizador.step()
@@ -493,10 +514,13 @@ def reconstruir(modelo, X):
     Returns:
         Reconstrucciones en numpy, una por fila.
     """
+    # Cambia el modelo a modo uso
     modelo.eval()
+    # Suspende la actualización de los pesos en este bloque
     with torch.no_grad():
         lote = torch.tensor(X, dtype=torch.float32)
         salida = modelo(lote)
+        # Si la salida trae varias piezas, se queda con la imagen
         if isinstance(salida, tuple):
             salida = salida[0]
         return salida.numpy()
@@ -553,10 +577,12 @@ def cargar_cora():
     Returns:
         El grafo de Planetoid y una matriz A con 1 en cada cita.
     """
+    # Se queda con el único grafo de la lista
     grafo = Planetoid(root="datos_cora", name="Cora")[0]
     n = grafo.num_nodes
     A = torch.zeros(n, n)
     origen, destino = grafo.edge_index
+    # Escribe un 1 donde el artículo de origen cita al de destino
     A[origen, destino] = 1.0
     return grafo, A
 ```
@@ -636,10 +662,15 @@ class CapaGCN(nn.Module):
         Returns:
             Vectores nuevos, forma (nodos, n_salida).
         """
+        # Suma un 1 en la diagonal para conservar las palabras del propio artículo
         A_tilde = A + torch.eye(A.shape[0])
+        # Diagonal con la raíz invertida del número de citas más uno
         D_inv_sqrt = torch.diag(A_tilde.sum(dim=1).pow(-0.5))
+        # Escala filas y columnas para igualar un artículo muy citado y uno aislado
         A_hat = D_inv_sqrt @ A_tilde @ D_inv_sqrt
+        # Mezcla cada artículo con sus vecinos
         mezclado = A_hat @ self.lineal(H)
+        # Aplica ReLU salvo en la última capa, que deja los puntajes libres
         if self.activar:
             return torch.relu(mezclado)
         return mezclado
@@ -660,6 +691,7 @@ class RedGCN(nn.Module):
     def __init__(self, n_entrada, n_oculta, n_clases):
         super().__init__()
         self.capa1 = CapaGCN(n_entrada, n_oculta)
+        # La segunda capa deja la activación apagada
         self.capa2 = CapaGCN(n_oculta, n_clases, activar=False)
 
     def forward(self, H, A):
@@ -672,6 +704,7 @@ class RedGCN(nn.Module):
         Returns:
             Tensor de forma (nodos, n_clases), sin softmax.
         """
+        # La segunda mezcla alcanza artículos a dos citas de distancia
         return self.capa2(self.capa1(H, A), A)
 ```
 
@@ -690,18 +723,23 @@ def entrenar_gcn(grafo, A, epocas=200):
         El modelo, la pérdida de cada época y la exactitud en test.
     """
     torch.manual_seed(42)
+    # Los temas van de 0 a 6, así que hay 7 clases
     modelo = RedGCN(grafo.num_features, n_oculta=16, n_clases=int(grafo.y.max()) + 1)
     optimizador = torch.optim.Adam(modelo.parameters(), lr=0.01)
     historial = []
     for epoca in range(epocas):
         optimizador.zero_grad()
         puntajes = modelo(grafo.x, A)
+        # El error solo entra en los 140 artículos de train
         perdida = nn.functional.cross_entropy(puntajes[grafo.train_mask], grafo.y[grafo.train_mask])
         perdida.backward()
         optimizador.step()
         historial.append(float(perdida))
+    # Cambia el modelo a modo uso
     modelo.eval()
+    # Suspende la actualización de los pesos en este bloque
     with torch.no_grad():
+        # Elige el tema de mayor puntaje en los 1000 de test
         pred = modelo(grafo.x, A).argmax(dim=1)[grafo.test_mask].numpy()
         exactitud = accuracy_score(grafo.y[grafo.test_mask].numpy(), pred)
     return modelo, historial, float(exactitud)
