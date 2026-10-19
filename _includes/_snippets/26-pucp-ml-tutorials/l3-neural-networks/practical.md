@@ -185,7 +185,7 @@ print(texto)
 print("largo:", len(texto))
 ```
 
-Cada fila es una ventana de 11 caracteres, y el objetivo es el carácter que sigue. La primera ventana es `el temblor` más el espacio que la separa de `movió`. El objetivo de esa fila es la `m`. La fila siguiente se corre un carácter: llega hasta esa `m`, y el objetivo es la `o`.
+Cada fila es una ventana de 11 caracteres, y el objetivo es el carácter que sigue. La primera ventana es `el temblor` más el espacio que la separa de `movió`. El objetivo de esa fila es la `m`. La segunda se corre un carácter y el objetivo es la `o`. La tercera empieza con un espacio y el objetivo es la `v`. La última es `nes vecinas` y el objetivo es el punto final. La celda de abajo imprime esas cuatro, no las 174.
 
 En la función, `texto[i - 11:i]` copia esos 11 caracteres. Cada carácter se vuelve un vector de ceros con un 1 en su columna del alfabeto (i.e., one-hot). `np.stack` apila esas ventanas. El objetivo no es el carácter escrito, es su posición en el alfabeto, porque la pérdida compara índices.
 
@@ -217,9 +217,10 @@ def preparar_texto(texto, ventana=11):
 
 ```python
 X_texto, y_texto, alfabeto = preparar_texto(texto)
-primera = "".join(alfabeto[i] for i in X_texto[0].argmax(axis=1))
 print("ventanas", X_texto.shape, "| alfabeto", len(alfabeto))
-print("primera ventana:", repr(primera), "| objetivo:", repr(alfabeto[y_texto[0]]))
+for nombre, k in (("primera", 0), ("segunda", 1), ("tercera", 2), ("última", -1)):
+    ventana = "".join(alfabeto[i] for i in X_texto[k].argmax(axis=1))
+    print(nombre, repr(ventana), "| objetivo:", repr(alfabeto[y_texto[k]]))
 ```
 
 ### La red recurrente
