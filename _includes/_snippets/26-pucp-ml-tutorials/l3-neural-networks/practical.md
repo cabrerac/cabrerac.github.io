@@ -16,7 +16,6 @@ import numpy as np
 import pandas as pd
 import torch
 from sklearn.datasets import load_digits, make_moons
-from sklearn.decomposition import PCA
 from sklearn.linear_model import LogisticRegression, Perceptron
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
@@ -63,7 +62,7 @@ print("train:", len(y_train), "| test:", len(y_test))
 
 ### Líneas base
 
-La clase mayoritaria es el baseline. Si un modelo acierta menos que decir siempre la luna más común, no usó el plano. La logística y el perceptrón son las rectas de la sesión 2. La diferencia con el MLP es lo que aporta la capa oculta.
+La clase mayoritaria es el baseline. `y_test.mean()` es la fracción de lunas de la clase 1, y la exactitud de decir siempre la clase más común es la mayor entre esa fracción y `1 - y_test.mean()`. Si un modelo acierta menos que eso, no usó el plano. La logística y el perceptrón son las rectas de la sesión 2. La diferencia con el MLP es lo que aporta la capa oculta.
 
 ```python
 def lineas_base_lunas(X_train, y_train, X_test, y_test):
@@ -80,8 +79,6 @@ def lineas_base_lunas(X_train, y_train, X_test, y_test):
     Returns:
         Un diccionario con la exactitud de cada línea base.
     """
-    # y_test.mean() es la fracción de unos.
-    # La exactitud de la clase más común es la mayor de esa fracción y su complemento.
     piso = float(max(y_test.mean(), 1.0 - y_test.mean()))
     logistica = LogisticRegression().fit(X_train, y_train)
     perceptron = Perceptron(random_state=42).fit(X_train, y_train)
@@ -101,25 +98,24 @@ print({nombre: round(valor, 3) for nombre, valor in bases_lunas.items()})
 
 ### El perceptrón multicapa
 
-El modelo que implementamos a continuación usa una capa oculta de 8 unidaes (i.e., `hidden_layer_sizes=(8,)`). Cada unidad dibuja una curva sobre las dos coordenadas. Por defecto la activación es ReLU y el optimizador es Adam. `alpha=1e-4` es la penalización $L_2$ también conocida como mínimos cuadrados o distancia euclidiana . `max_iter=2000` es el tope de pasadas por train.
+El modelo que implementamos a continuación usa una capa oculta de 8 unidaes (i.e., `hidden_layer_sizes=(8,)`). Cada unidad dibuja una curva sobre las dos coordenadas. Por defecto la activación es ReLU y el optimizador es Adam. `alpha=1e-4` es la penalización $L_2$ también conocida como mínimos cuadrados o distancia euclidiana . `max_iter=2000` es el tope de pasadas por train. `fit` recibe las lunas sin escalar, porque el `StandardScaler` del pipeline escala por dentro.
 
 ```python
 mlp_lunas = make_pipeline(
     StandardScaler(),
     MLPClassifier(
-        hidden_layer_sizes=(8,),  # una capa oculta, 8 unidades
-        alpha=1e-4,               # penalización L2
+        hidden_layer_sizes=(8,),
+        alpha=1e-4,
         max_iter=2000,
         random_state=42,
     ),
 )
-# fit recibe las lunas sin escalar. El pipeline escala por dentro.
 mlp_lunas.fit(X_train, y_train)
 exactitud_mlp = float(mlp_lunas.score(X_test, y_test))
 print("exactitud MLP en test:", round(exactitud_mlp, 3))
 ```
 
-El color de fondo es la clase que el modelo asigna a cada punto del plano. El punto de encima conserva el color de su luna verdadera. Si el fondo y el punto coinciden, el modelo acertó. La logística corta el plano con una recta. El MLP cierra una región alrededor de cada luna.
+El color de fondo es la clase que el modelo asigna a cada punto del plano. Para pintarlo armamos una grilla de 250 por 250 puntos, con medio unidad de margen para no cortar las lunas del borde. `meshgrid` forma las parejas `(x, y)`, `ravel` las aplana y `c_` las junta en dos columnas, que es lo que recibe el modelo. `reshape` devuelve esas clases a la forma de la grilla. El punto de encima conserva el color de su luna verdadera. Si el fondo y el punto coinciden, el modelo acertó. La logística corta el plano con una recta. El MLP cierra una región alrededor de cada luna. La logística se entrenó con datos escalados, así que la grilla de ese panel también se escala antes de predecir.
 
 ```python
 def pintar_regiones(ax, predecir, X, y, titulo):
@@ -134,14 +130,10 @@ def pintar_regiones(ax, predecir, X, y, titulo):
         y: Etiqueta verdadera de cada punto.
         titulo: Texto del panel.
     """
-    # Medio unidad de margen para que el fondo no corte los puntos del borde.
     x_min, x_max = X[:, 0].min() - 0.5, X[:, 0].max() + 0.5
     y_min, y_max = X[:, 1].min() - 0.5, X[:, 1].max() + 0.5
-    # 250 valores por eje. meshgrid arma todas las parejas (x, y) de la grilla.
     xx, yy = np.meshgrid(np.linspace(x_min, x_max, 250), np.linspace(y_min, y_max, 250))
-    # ravel aplana la grilla. c_ junta x e y en una matriz de dos columnas.
     malla = np.c_[xx.ravel(), yy.ravel()]
-    # predecir devuelve un vector. reshape lo devuelve a la forma de xx para pintarlo.
     zz = predecir(malla).reshape(xx.shape)
     ax.contourf(xx, yy, zz, alpha=0.35, cmap="coolwarm")
     ax.scatter(X[:, 0], X[:, 1], c=y, cmap="coolwarm", edgecolor="k", s=16)
@@ -155,7 +147,6 @@ logistica_lunas = LogisticRegression().fit(X_train_esc, y_train)
 fig, ejes = plt.subplots(1, 2, figsize=(9, 4))
 pintar_regiones(
     ejes[0],
-    # La logística vio datos escalados, así que esta grilla también se escala.
     lambda puntos: logistica_lunas.predict(escalador_lunas.transform(puntos)),
     X_lunas,
     y_lunas,
@@ -203,6 +194,8 @@ La primera fila, antes de escalar, usa los conteos de 1700 a 1710. El objetivo e
 
 La fila siguiente se corre un año. Sus entradas son 1701 a 1711 y su objetivo es 1712, que también vale 0. El escalado ocurre antes de armar el tensor. La red ve estos conteos después de restar la media de train y dividir por su desviación.
 
+En la función, `valores` es esa columna de manchas. `valores[i - 11:i]` copia los 11 conteos anteriores al año `i` (i.e., la primera copia es 1700 a 1710). `np.stack` apila las copias y cada una queda como una fila. `objetivos` guarda el conteo del año `i`, desde 1711. `anio_objetivo` es el año de calendario de esa fila, y `en_train` es verdadero cuando ese año es 1950 o anterior. `entradas[en_train]` se queda con esas filas. `~en_train` invierte la máscara y deja 1951 a 2008. La media y la desviación se calculan en la serie original, solo hasta 1950. Restamos esa media y dividimos por la desviación. Un cero en esa escala es el promedio de train, y `a_original` vuelve de ahí al número de manchas.
+
 ```python
 import statsmodels.api as sm
 
@@ -219,31 +212,22 @@ def preparar_manchas(ventana=11):
     tabla = sm.datasets.sunspots.load_pandas().data
     valores = tabla["SUNACTIVITY"].to_numpy(dtype=float)
     anios = tabla["YEAR"].to_numpy()
-    # range empieza en 11. Para cada i, copia los 11 conteos que terminan justo antes de i.
-    # np.stack apila esas copias. Cada copia es una fila. La primera es 1700 a 1710.
     entradas = np.stack([valores[i - ventana:i] for i in range(ventana, len(valores))])
-    # El objetivo de esa fila es el conteo del propio año i dede 1711.
     objetivos = valores[ventana:]
-    # El año calendario de cada objetivo, para poder cortar en 1950.
     anio_objetivo = anios[ventana:]
-    # Verdadero en las filas cuyo año a predecir es 1950 o anterior.
     en_train = anio_objetivo <= 1950
-    # Media y desviación de la serie original, solo en los años de train.
     media = valores[anios <= 1950].mean()
     desv = valores[anios <= 1950].std()
-    # Resta la media y divide por la desviación. El cero queda en el promedio de train.
     entradas = (entradas - media) / desv
     objetivos_esc = (objetivos - media) / desv
 
     def a_original(prediccion):
         """Pasa una predicción escalada al número de manchas."""
-        # Deshace el escalado. Una predicción 0 vuelve a la media de train.
         return prediccion * desv + media
 
     return {
         "X_train": entradas[en_train],
         "y_train": objetivos_esc[en_train],
-        # ~en_train invierte la máscara y deja los años de 1951 a 2008.
         "X_test": entradas[~en_train],
         "y_test": objetivos[~en_train],
         "a_original": a_original,
@@ -286,6 +270,8 @@ La persistencia dice que el próximo año tendrá las mismas manchas que el últ
 
 El RECM es la raíz del error cuadrático medio, en número de manchas. Un RECM de 20 quiere decir que la predicción se aleja, en promedio, unos 20 manchas del valor observado. Más bajo es una curva más pegada a la serie.
 
+`X_test[:, -1]` es el último año de cada ventana, todavía escalado. `a_original` lo devuelve a número de manchas, y esa copia es la persistencia. Un vector de ceros, pasado por `a_original`, es la media de train. `full_like` repite esa media tantas veces como años hay en el test.
+
 ```python
 def recm(y_real, y_pred):
     """Raíz del error cuadrático medio, en la escala de las manchas.
@@ -301,12 +287,8 @@ def recm(y_real, y_pred):
 ```
 
 ```python
-# [:, -1] toma el último año de cada ventana, todavía normalizado.
-# a_original lo devuelve a número de manchas. Esa copia es la persistencia.
 ultimo_anio = serie["a_original"](serie["X_test"][:, -1])
-# Un cero en la escala normalizada es la media de train.
 media_train = float(serie["a_original"](np.zeros(1)))
-# full_like repite esa media en un vector del mismo largo que el test.
 recm_media = recm(serie["y_test"], np.full_like(serie["y_test"], media_train))
 recm_persistencia = recm(serie["y_test"], ultimo_anio)
 print("años de test:", len(serie["y_test"]))
@@ -315,7 +297,7 @@ print("RECM media:", round(recm_media, 1), "| RECM persistencia:", round(recm_pe
 
 ### La red recurrente
 
-La red lee los 11 años de uno en uno. En cada año actualiza un estado oculto de 32 números, con los mismos pesos. Ese estado es la memoria de la ventana. La cabeza lineal lee solo el estado del último año y devuelve un número: la predicción del año siguiente, todavía en la escala normalizada.
+La red lee los 11 años de uno en uno. `batch_first` ordena el tensor como `(filas, años, 1)`. En cada año actualiza un estado oculto de 32 números, con los mismos pesos. Ese estado es la memoria de la ventana. `salida` guarda el estado de cada año. `h_T[-1]` es solo el estado del último año, porque hay una sola capa, y la cabeza lineal lo convierte en un número: la predicción del año siguiente, todavía en la escala normalizada.
 
 `unsqueeze(-1)` deja el lote con forma `(filas, 11, 1)`.
 
@@ -340,7 +322,6 @@ class ModeloSecuencia(nn.Module):
 
     def __init__(self, n_entradas, n_ocultas):
         super().__init__()
-        # batch_first pone el lote delante y el tiempo después.
         self.rnn = nn.RNN(n_entradas, n_ocultas, batch_first=True)
         self.cabeza = nn.Linear(n_ocultas, 1)
 
@@ -353,13 +334,11 @@ class ModeloSecuencia(nn.Module):
         Returns:
             Tensor de forma (lote, 1).
         """
-        # salida trae el estado de cada año. h_T trae solo el estado final de cada capa.
         salida, h_T = self.rnn(x)
-        # Con una capa, h_T[-1] es el estado del último año. La cabeza lo pasa a un número.
         return self.cabeza(h_T[-1])
 ```
 
-Con pocas épocas la red solo copia la forma media del ciclo y se queda por debajo de los picos. Adam ajusta el paso según el tamaño de cada gradiente, y 300 épocas le dan tiempo a seguir la amplitud. El recorte del gradiente limita el producto de pendientes a lo largo de los 11 años. Si ese producto crece, el paso se vuelve enorme y el ajuste se dispara.
+Con pocas épocas la red solo copia la forma media del ciclo y se queda por debajo de los picos. Adam ajusta el paso según el tamaño de cada gradiente, y 300 épocas le dan tiempo a seguir la amplitud. El recorte del gradiente limita el producto de pendientes a lo largo de los 11 años. Si ese producto crece, el paso se vuelve enorme y el ajuste se dispara. Antes del bucle, `unsqueeze(-1)` agrega un eje: las ventanas pasan de `(filas, 11)` a `(filas, 11, 1)`, un conteo por año, y el objetivo pasa de `(filas,)` a `(filas, 1)`, que es la forma que compara la pérdida.
 
 ```python
 def entrenar_rnn(X_train, y_train, n_ocultas=32, epocas=300):
@@ -375,10 +354,7 @@ def entrenar_rnn(X_train, y_train, n_ocultas=32, epocas=300):
         El modelo entrenado y la pérdida de cada época.
     """
     torch.manual_seed(42)
-    # unsqueeze(-1) agrega un eje al final.
-    # La forma pasa de (filas, años) a (filas, años, 1), un dato por año.
     X = torch.tensor(X_train, dtype=torch.float32).unsqueeze(-1)
-    # Lo mismo en el objetivo: de (filas,) a (filas, 1), que es lo que compara la pérdida.
     y = torch.tensor(y_train, dtype=torch.float32).unsqueeze(-1)
     modelo = ModeloSecuencia(n_entradas=1, n_ocultas=n_ocultas)
     optimizador = torch.optim.Adam(modelo.parameters(), lr=1e-3)
@@ -389,14 +365,13 @@ def entrenar_rnn(X_train, y_train, n_ocultas=32, epocas=300):
         prediccion = modelo(X)
         perdida = perdida_fn(prediccion, y)
         perdida.backward()
-        # Si el producto a lo largo del tiempo crece, este recorte lo limita.
         nn.utils.clip_grad_norm_(modelo.parameters(), max_norm=1.0)
         optimizador.step()
         historial.append(float(perdida))
     return modelo, historial
 ```
 
-Esta función apaga el entrenamiento y devuelve la predicción en la escala normalizada. En la celda de la figura, `a_original` la pasa de nuevo a número de manchas.
+Esta función apaga el entrenamiento y devuelve la predicción en la escala normalizada. `squeeze(1)` quita el eje de tamaño 1 y deja un número por ventana. En la celda de la figura, `a_original` la pasa de nuevo a número de manchas.
 
 ```python
 def predecir_rnn(modelo, X):
@@ -412,7 +387,6 @@ def predecir_rnn(modelo, X):
     modelo.eval()
     with torch.no_grad():
         lote = torch.tensor(X, dtype=torch.float32).unsqueeze(-1)
-        # squeeze(1) quita el eje de tamaño 1. Queda un número por ventana.
         return modelo(lote).squeeze(1).numpy()
 ```
 
@@ -464,7 +438,6 @@ def preparar_digitos():
     Returns:
         Train y test, una imagen estirada por fila.
     """
-    # data.max() vale 16. Dividir deja cada píxel entre 0 y 1.
     imagenes = load_digits().data / load_digits().data.max()
     return train_test_split(imagenes, test_size=0.30, random_state=42)
 ```
@@ -485,7 +458,7 @@ def ecm(real, reconstruido):
     return float(np.mean((real - reconstruido) ** 2))
 ```
 
-Cada fila del dibujo es un grupo de imágenes, y el texto a la izquierda dice de dónde sale. `vmin=0` y `vmax=1` fijan el blanco y el negro. Dos reconstrucciones se comparan con la misma escala.
+Cada fila del dibujo es un grupo de imágenes, y el texto a la izquierda dice de dónde sale. Cada imagen llega como 64 números, y `reshape` arma de nuevo la grilla de 8 por 8. `vmin=0` y `vmax=1` fijan el blanco y el negro, así dos reconstrucciones se comparan con la misma escala. Si solo hay una fila de imágenes, `subplots` devuelve un vector. Lo envolvemos para poder indexar con `[fila, columna]`.
 
 ```python
 def mostrar_imagenes(filas, lado=8):
@@ -497,12 +470,10 @@ def mostrar_imagenes(filas, lado=8):
     """
     n = filas[0][1].shape[0]
     fig, ejes = plt.subplots(len(filas), n, figsize=(n, len(filas) + 0.6))
-    # Con una sola fila, subplots devuelve un vector. Esta envoltura permite usar [fila, columna].
     if len(filas) == 1:
         ejes = np.array([ejes])
     for i, (titulo, imagenes) in enumerate(filas):
         for j in range(n):
-            # La fila llega como 64 números. reshape arma de nuevo la grilla de 8 por 8.
             ejes[i, j].imshow(imagenes[j].reshape(lado, lado), cmap="gray_r", vmin=0, vmax=1)
             ejes[i, j].set_xticks([])
             ejes[i, j].set_yticks([])
@@ -519,20 +490,9 @@ print("train:", X_train_d.shape, "| test:", X_test_d.shape)
 mostrar_imagenes([("original", X_test_d[:8])])
 ```
 
-### PCA
-
-PCA busca las 8 direcciones de train que conservan más variación de los píxeles. Reconstruir es volver de esas 8 coordenadas a los 64 píxeles con un mapa lineal. El autoencoder usará un código del mismo tamaño, así que la comparación mide si una compresión con curvas recupera más que estas 8 rectas.
-
-```python
-pca_digitos = PCA(n_components=8).fit(X_train_d)
-# transform baja cada imagen de test a 8 números. inverse_transform vuelve a 64 píxeles.
-X_hat_pca = pca_digitos.inverse_transform(pca_digitos.transform(X_test_d))
-print("ECM de PCA:", round(ecm(X_test_d, X_hat_pca), 4))
-```
-
 ### El autoencoder
 
-El codificador pasa de 64 píxeles a 128 y de ahí a 8 números. El decodificador recorre el camino inverso. La capa de 128 puede combinar los píxeles con curvas. PCA solo combina con rectas. Con pocas épocas, o con una capa estrecha, la red no llega a usar esa ventaja y PCA se ve más nítido. Ciento cincuenta épocas con Adam le dan tiempo a bajar el error por debajo del de PCA.
+El codificador pasa de 64 píxeles a 128 y de ahí a 8 números. El decodificador recorre el camino inverso, de 8 a 128 y de 128 a 64. La capa de 128 combina los píxeles antes de comprimirlos. Ciento cincuenta épocas con Adam le dan tiempo a bajar el error de reconstrucción.
 
 ```python
 class Autoencoder(nn.Module):
@@ -584,7 +544,6 @@ def entrenar_autoencoder(X_train, epocas=150):
     for epoca in range(epocas):
         optimizador.zero_grad()
         reconstruccion = modelo(X)
-        # El objetivo es la entrada. No hay otra etiqueta.
         perdida = perdida_fn(reconstruccion, X)
         perdida.backward()
         optimizador.step()
@@ -609,13 +568,12 @@ def reconstruir(modelo, X):
     with torch.no_grad():
         lote = torch.tensor(X, dtype=torch.float32)
         salida = modelo(lote)
-        # El VAE devuelve también mu y log_var. El autoencoder devuelve solo la imagen.
         if isinstance(salida, tuple):
             salida = salida[0]
         return salida.numpy()
 ```
 
-La fila de arriba es la imagen original. La del medio es la reconstrucción del autoencoder. La de abajo es la de PCA, con un código del mismo tamaño. El ECM impreso resume todo el test, no solo estas ocho imágenes.
+La fila de arriba es la imagen original. La de abajo es la reconstrucción del autoencoder. El ECM impreso resume todo el test, no solo estas ocho imágenes.
 
 ```python
 ae_digitos, historial_ae = entrenar_autoencoder(X_train_d)
@@ -625,7 +583,6 @@ print("ECM autoencoder:", round(ecm_ae, 4), "| pérdida final:", round(historial
 mostrar_imagenes([
     ("original", X_test_d[:8]),
     ("autoencoder", recon_ae),
-    ("PCA", X_hat_pca[:8]),
 ])
 ```
 
@@ -633,8 +590,8 @@ mostrar_imagenes([
 
 ```python
 assert historial_ae[-1] < historial_ae[0]
-assert ecm_ae < ecm(X_test_d, X_hat_pca)
-print("El autoencoder reconstruye mejor que PCA. OK")
+assert recon_ae.shape == (8, 64)
+print("El autoencoder reconstruye los dígitos de test. OK")
 ```
 
 ---
@@ -678,14 +635,12 @@ class VAE(nn.Module):
         h = self.codificador(x)
         mu = self.mu(h)
         log_var = self.log_var(h)
-        # epsilon es un ruido distinto para cada número del código, de una normal estándar.
         epsilon = torch.randn_like(mu)
-        # exp(0.5 * log_var) es la desviación. z queda en media + desviación * ruido.
         z = mu + torch.exp(0.5 * log_var) * epsilon
         return self.decodificador(z), mu, log_var
 ```
 
-La pérdida tiene dos partes. La primera es el error de reconstrucción, la distancia entre la imagen y la que devuelve el decodificador. La segunda es la divergencia KL. Mide cuánto se aleja cada gaussiana de una normal estándar, de media 0 y varianza 1. Acercarlas a esa normal llena el espacio del código. Un código nuevo, sacado de esa misma normal, cae en una zona que el decodificador ya recorrió al entrenar.
+La pérdida tiene dos partes. La primera es el error de reconstrucción, la suma de los cuadrados entre cada píxel y la imagen que devuelve el decodificador. La segunda es la divergencia KL. `log_var.exp()` es la varianza, y esa línea mide cuánto se aleja la gaussiana de una normal estándar, de media 0 y varianza 1. Acercarlas a esa normal llena el espacio del código. Un código nuevo, sacado de esa misma normal, cae en una zona que el decodificador ya recorrió al entrenar.
 
 ```python
 def perdida_vae(reconstruccion, x, mu, log_var):
@@ -700,9 +655,7 @@ def perdida_vae(reconstruccion, x, mu, log_var):
     Returns:
         Un escalar con las dos partes de la pérdida.
     """
-    # Suma de los cuadrados entre cada píxel y su reconstrucción.
     reconstruccion_ecm = ((x - reconstruccion) ** 2).sum()
-    # log_var.exp() es la varianza. Esta es la KL de esa gaussiana contra la normal estándar.
     kl = -0.5 * (1 + log_var - mu ** 2 - log_var.exp()).sum()
     return reconstruccion_ecm + kl
 ```
@@ -735,7 +688,7 @@ def entrenar_vae(X_train, epocas=80):
     return modelo, historial
 ```
 
-Un código nuevo es un vector de 8 números sacado de la normal estándar. El decodificador lo convierte en 64 píxeles. Esa imagen no copia un dígito del conjunto.
+Un código nuevo es un vector de 8 números sacado de la normal estándar. `mu.out_features` es ese largo, 8. El decodificador convierte cada vector en 64 píxeles. Esa imagen no copia un dígito del conjunto.
 
 ```python
 def muestras_vae(modelo, n=8):
@@ -750,7 +703,6 @@ def muestras_vae(modelo, n=8):
     """
     modelo.eval()
     with torch.no_grad():
-        # mu.out_features es el largo del código, 8. Cada fila es un código nuevo.
         z = torch.randn(n, modelo.mu.out_features)
         return modelo.decodificador(z).numpy()
 ```
@@ -794,7 +746,7 @@ Una capa convolucional de grafos mezcla cada artículo con sus vecinos. El tema 
 %pip install -q torch_geometric
 ```
 
-La matriz A tiene un 1 donde un artículo cita a otro. `edge_index` trae cada cita como un par de origen y destino.
+La matriz `A` tiene un 1 donde un artículo cita a otro. `Planetoid(...)[0]` se queda con el único grafo de la lista. Al crear `A` está llena de ceros, una fila y una columna por artículo. `edge_index` trae cada cita como un par de origen y destino, y `A[origen, destino] = 1` escribe ese 1.
 
 ```python
 from torch_geometric.datasets import Planetoid
@@ -806,14 +758,10 @@ def cargar_cora():
     Returns:
         El grafo de Planetoid y una matriz A con 1 en cada cita.
     """
-    # Planetoid devuelve una lista con un solo grafo. [0] se queda con ese grafo.
     grafo = Planetoid(root="datos_cora", name="Cora")[0]
     n = grafo.num_nodes
-    # Una fila y una columna por artículo, de momento en cero.
     A = torch.zeros(n, n)
-    # edge_index tiene dos filas: origen y destino de cada cita.
     origen, destino = grafo.edge_index
-    # Escribe 1 en la fila del artículo que cita y la columna del artículo citado.
     A[origen, destino] = 1.0
     return grafo, A
 ```
@@ -830,7 +778,7 @@ print("filas de train", tuple(cora.x[cora.train_mask].shape))
 
 Las primeras banderas dicen qué artículos del inicio entran en train. La logística ve solo esas 140 filas, cada una con 1433 palabras. La red sobre el grafo recibe las 2708 filas, y la máscara solo elige cuáles entran en la pérdida.
 
-La barra de la izquierda cuenta cuántos artículos hay en cada uno de los 7 temas. El histograma de la derecha cuenta las citas de cada artículo. La mayoría tiene pocas, y unos pocos están muy conectados. Esa diferencia importa al mezclar vecinos. Un artículo con muchas citas arrastraría la suma si cada fila no se escala.
+La barra de la izquierda cuenta cuántos artículos hay en cada uno de los 7 temas. El histograma de la derecha cuenta las citas de cada artículo. La suma de cada fila de `A` es cuántas citas salen de ese artículo. La mayoría tiene pocas, y unos pocos están muy conectados. Esa diferencia importa al mezclar vecinos. Un artículo con muchas citas arrastraría la suma si cada fila no se escala.
 
 ```python
 print("nodos:", cora.num_nodes, "| características:", cora.num_features)
@@ -841,7 +789,6 @@ ejes[0].bar(temas, cuentas, color="steelblue")
 ejes[0].set_xlabel("tema")
 ejes[0].set_ylabel("artículos")
 ejes[0].set_title("Artículos por tema")
-# Suma de cada fila de A: cuántas citas salen de ese artículo.
 ejes[1].hist(A_cora.sum(dim=1).numpy(), bins=30, color="steelblue")
 ejes[1].set_xlabel("citas")
 ejes[1].set_ylabel("artículos")
@@ -852,11 +799,10 @@ plt.show()
 
 ### Línea base sin grafo
 
-La logística ve solo la bolsa de 1433 palabras. No ve qué artículos se citan. Se ajusta con los 140 de train y se mide en los 1000 de test. Es el piso de un modelo que ignora el grafo. La GCN tiene que superar este número usando las mismas palabras más las citas.
+La logística ve solo la bolsa de 1433 palabras. No ve qué artículos se citan. `cora.x[train_mask]` deja las 140 filas de train, y `test_mask` deja las 1000 de test. Se ajusta con esas 140 y se mide en las 1000. Es el piso de un modelo que ignora el grafo. La GCN tiene que superar este número usando las mismas palabras más las citas.
 
 ```python
 logistica_cora = LogisticRegression(max_iter=2000)
-# train_mask es verdadero o falso, un valor por artículo. El índice deja solo los 140 de train.
 X_train_cora = cora.x[cora.train_mask].numpy()
 y_train_cora = cora.y[cora.train_mask].numpy()
 X_test_cora = cora.x[cora.test_mask].numpy()
@@ -868,7 +814,7 @@ print("exactitud logística sin grafo:", round(exactitud_logistica, 3))
 
 ### La capa
 
-Sumar la identidad pone un 1 en la diagonal. Cada artículo conserva sus propias palabras además de las de sus vecinos. El grado es el número de citas más uno, por ese bucle. Dividir por la raíz del grado deja en la misma escala a un artículo muy citado y a uno casi aislado. La última capa deja la activación apagada. ReLU pondría a cero los puntajes negativos, y un tema con puntaje negativo dejaría de competir.
+Sumar la identidad pone un 1 en la diagonal. Cada artículo conserva sus propias palabras además de las de sus vecinos. El grado es el número de citas más uno, por ese bucle. Dividir por la raíz del grado deja en la misma escala a un artículo muy citado y a uno casi aislado. En el código, `A + eye` arma esa diagonal, el grado elevado a `-1/2` queda en otra diagonal, y multiplicar por la izquierda y por la derecha escala filas y columnas. Después la capa lineal cambia el tamaño del vector y `A_hat` mezcla cada artículo con sus vecinos. Los pesos de esa capa son los mismos para todos los artículos. La última capa deja la activación apagada. ReLU pondría a cero los puntajes negativos, y un tema con puntaje negativo dejaría de competir.
 
 ```python
 class CapaGCN(nn.Module):
@@ -882,7 +828,6 @@ class CapaGCN(nn.Module):
 
     def __init__(self, n_entrada, n_salida, activar=True):
         super().__init__()
-        # Los mismos pesos para todos los nodos.
         self.lineal = nn.Linear(n_entrada, n_salida)
         self.activar = activar
 
@@ -896,13 +841,9 @@ class CapaGCN(nn.Module):
         Returns:
             Vectores nuevos, forma (nodos, n_salida).
         """
-        # Suma la identidad. La diagonal pasa a 1 y cada artículo se incluye a sí mismo.
         A_tilde = A + torch.eye(A.shape[0])
-        # Grado de cada nodo, elevado a -1/2, colocado en la diagonal.
         D_inv_sqrt = torch.diag(A_tilde.sum(dim=1).pow(-0.5))
-        # El producto de la izquierda escala las filas. El de la derecha escala las columnas.
         A_hat = D_inv_sqrt @ A_tilde @ D_inv_sqrt
-        # La capa lineal cambia el tamaño del vector. A_hat mezcla cada nodo con sus vecinos.
         mezclado = A_hat @ self.lineal(H)
         if self.activar:
             return torch.relu(mezclado)
@@ -939,7 +880,7 @@ class RedGCN(nn.Module):
         return self.capa2(self.capa1(H, A), A)
 ```
 
-`train_mask` marca los 140 artículos cuya etiqueta entra en la pérdida. Cada paso ve el grafo entero, porque un vecino de test puede estar citado por uno de train. El error solo se calcula en esos 140. Los 1000 de test se reservan para medir la exactitud.
+`train_mask` marca los 140 artículos cuya etiqueta entra en la pérdida. Cada paso ve el grafo entero, porque un vecino de test puede estar citado por uno de train. El error solo se calcula en esos 140. Los 1000 de test se reservan para medir la exactitud. Los temas van de 0 a 6. `y.max()` vale 6, y sumarle 1 da las 7 clases. `argmax` elige el tema con el puntaje más alto.
 
 ```python
 def entrenar_gcn(grafo, A, epocas=200):
@@ -954,27 +895,24 @@ def entrenar_gcn(grafo, A, epocas=200):
         El modelo, la pérdida de cada época y la exactitud en test.
     """
     torch.manual_seed(42)
-    # Los temas van de 0 a 6. y.max() es 6, y sumar 1 da las 7 clases.
     modelo = RedGCN(grafo.num_features, n_oculta=16, n_clases=int(grafo.y.max()) + 1)
     optimizador = torch.optim.Adam(modelo.parameters(), lr=0.01)
     historial = []
     for epoca in range(epocas):
         optimizador.zero_grad()
         puntajes = modelo(grafo.x, A)
-        # Solo entran las filas donde train_mask es verdadero.
         perdida = nn.functional.cross_entropy(puntajes[grafo.train_mask], grafo.y[grafo.train_mask])
         perdida.backward()
         optimizador.step()
         historial.append(float(perdida))
     modelo.eval()
     with torch.no_grad():
-        # argmax elige el tema de mayor puntaje. test_mask deja los 1000 artículos de test.
         pred = modelo(grafo.x, A).argmax(dim=1)[grafo.test_mask].numpy()
         exactitud = accuracy_score(grafo.y[grafo.test_mask].numpy(), pred)
     return modelo, historial, float(exactitud)
 ```
 
-La barra compara la exactitud de la logística y la de la GCN en los mismos 1000 artículos. En el plano, PCA reduce las 1433 palabras a 2 coordenadas solo para poder dibujar. El modelo sigue siendo la GCN. A la izquierda, el color es el tema real. A la derecha, el color es el tema que asigna la GCN. Un cambio de color entre paneles es un artículo mal clasificado.
+La barra compara la exactitud de la logística y la de la GCN en los mismos 1000 artículos. La altura es la fracción de temas acertados. La logística usa solo las palabras. La GCN usa las palabras y las citas.
 
 ```python
 gcn_cora, historial_gcn, exactitud_gcn = entrenar_gcn(cora, A_cora)
@@ -985,23 +923,6 @@ plt.bar(["logística", "GCN"], [exactitud_logistica, exactitud_gcn], color=["gra
 plt.ylabel("exactitud en test")
 plt.ylim(0, 1)
 plt.title("Palabras solas frente a palabras y citas")
-plt.show()
-
-# Dos coordenadas solo para dibujar. Estas componentes no entran en la GCN.
-plano = PCA(n_components=2).fit_transform(cora.x.numpy())
-en_test = cora.test_mask.numpy()
-with torch.no_grad():
-    # argmax otra vez: un tema por artículo, y en_test se queda con el test.
-    pred_cora = gcn_cora(cora.x, A_cora).argmax(dim=1).numpy()
-fig, ejes = plt.subplots(1, 2, figsize=(9, 4))
-ejes[0].scatter(plano[en_test, 0], plano[en_test, 1], c=cora.y.numpy()[en_test], cmap="tab10", s=8)
-ejes[0].set_title("Tema real")
-ejes[1].scatter(plano[en_test, 0], plano[en_test, 1], c=pred_cora[en_test], cmap="tab10", s=8)
-ejes[1].set_title("Tema que predice la GCN")
-for eje in ejes:
-    eje.set_xlabel("palabra 1")
-    eje.set_ylabel("palabra 2")
-plt.tight_layout()
 plt.show()
 ```
 
