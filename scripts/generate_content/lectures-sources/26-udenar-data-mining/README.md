@@ -1,13 +1,13 @@
 # Lecture sources - 26-udenar-data-mining
 
-Skeleton only.
-No lecture content yet.
+Each source holds front matter, section titles and include lines only.
+The content lives in `_includes/_snippets/26-udenar-data-mining/<lecture>/` and in the shared snippets in `_includes/_snippets/`.
 The course page is `content/_courses/26-udenar-data-mining.md`.
 `visible` is false until a page should appear on the course index.
 
 | Source | Name | Date |
 | --- | --- | --- |
-| `l1-introduction` | Introduction to data mining, questions, and a standard for a good answer | 7 Nov 2026 |
+| `l1-introduction` | Introduction to data mining, questions, and methodology | 7 Nov 2026 |
 | `l2-patterns` | Repeating patterns and baselines | 7 Nov 2026 |
 | `week-1-group` | Week 1 group notebook | 7 Nov 2026 |
 | `week-1-hub` | Week 1 links hub | 7 Nov 2026 |
@@ -22,7 +22,7 @@ The course page is `content/_courses/26-udenar-data-mining.md`.
 | `l7-research` | Future research directions in data mining (optional) | 28 Nov 2026 |
 | `l8-final-project` | Final projects | 28 Nov 2026 |
 
-Generate one lecture from the repo root once it has content.
+Generate one lecture (page, slides and notebook) from the repo root.
 
 ```bash
 python scripts/generate_content/generate_content.py 26-udenar-data-mining/l1-introduction

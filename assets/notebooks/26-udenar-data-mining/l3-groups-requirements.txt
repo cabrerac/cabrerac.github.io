@@ -1,0 +1,8 @@
+# L3 groups. Python 3.10 or newer.
+# spaCy is used only for its English stop-word list. No language model is downloaded.
+pandas
+numpy
+matplotlib
+requests
+spacy>=3.8,<3.9
+scikit-learn>=1.3

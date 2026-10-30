@@ -1,0 +1,10 @@
+# Week 2 group notebook. Python 3.10 or newer.
+# spaCy is used only for its Spanish and English stop-word lists. No language model is downloaded.
+# sentence-transformers downloads intfloat/multilingual-e5-small (about 470 MB) on first use.
+pandas
+numpy
+matplotlib
+requests
+spacy>=3.8,<3.9
+scikit-learn>=1.3
+sentence-transformers

@@ -1,0 +1,9 @@
+# Week 3 group notebook. Python 3.10 or newer.
+pandas
+numpy
+matplotlib
+requests
+networkx
+scipy
+scikit-learn>=1.3
+gensim

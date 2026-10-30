@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-data-mining
 title: Week 3 group notebook
-description: Skeleton. No notebook content yet.
+description: The week 3 group notebook is the project. Each group places the articles of its department in the links graph (degree with PageRank, betweenness, node2vec), predicts a given label from the article attributes (logistic regression, a random forest, one hidden layer), and builds the starter list of articles with at least two supports, with what would change it.
 session: 3
 start_time: async
 end_time: async
@@ -18,8 +18,8 @@ visible: false
 skip_slides: true
 skip_lecture_page: true
 notebook_language: es
-notebook_title: Semana 3
-notebook_description: Cuaderno de grupo de la semana 3.
+notebook_title: Semana 3, cuaderno de grupo
+notebook_description: Cuaderno de grupo de la semana 3. El lugar de cada artículo en la red de enlaces, una etiqueta dada y la lista inicial con al menos dos apoyos.
 ---
 
 {% include _snippets/26-udenar-data-mining/week-3-group/practical.md %}

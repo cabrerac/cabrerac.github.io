@@ -18,8 +18,76 @@ permalink: /teaching/26-udenar-data-mining/l1-introduction/
 visible: false
 notebook_language: es
 notebook_title: Introducción a la minería de datos, preguntas y metodología
-notebook_description: Práctica individual de la Lección 1. Formular la pregunta, los pasos y el estándar, y ver cómo se construye la colección de artículos cientificos que utilizaremos a lo largo del curso.
+notebook_description: Práctica individual de la Lección 1. Formular la pregunta, los pasos y el estándar, y ver cómo se construye la colección de artículos científicos que utilizaremos a lo largo del curso.
 ---
+
+<!-- SLIDES: -->
+
+# Course Structure
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-data-mining/l1-introduction/course-structure.md %}
+
+<!-- SLIDES: -->
+
+# The Data Science Process
+
+<!-- end SLIDES: -->
+
+{% include _snippets/data-science-process.md %}
+
+{% include _snippets/26-udenar-data-mining/l1-introduction/last-course.md %}
+
+<!-- SLIDES: -->
+
+# What is Data Mining
+
+<!-- end SLIDES: -->
+
+{% include _snippets/data-mining-history.md %}
+
+<!-- SLIDES: -->
+
+# CRISP-DM
+
+<!-- end SLIDES: -->
+
+{% include _snippets/crisp-dm.md %}
+
+<!-- SLIDES: -->
+
+# CRISP-DM and the Data Science Process
+
+<!-- end SLIDES: -->
+
+{% include _snippets/crisp-dm-and-data-science-process.md %}
+
+<!-- SLIDES: -->
+
+# The Data Mining Question
+
+<!-- end SLIDES: -->
+
+{% include _snippets/data-mining-question.md %}
+
+<!-- SLIDES: -->
+
+# The Course Data
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-data-mining/l1-introduction/course-data.md %}
+
+<!-- SLIDES: -->
+
+# Conclusions
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-data-mining/l1-introduction/conclusions.md %}
+
+{% include _snippets/26-udenar-data-mining/l1-introduction/practical-slides.md %}
 
 {% include _snippets/26-udenar-data-mining/l1-introduction/resources.md %}
 {% include _snippets/26-udenar-data-mining/l1-introduction/practical.md %}

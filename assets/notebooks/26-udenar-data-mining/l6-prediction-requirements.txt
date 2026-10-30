@@ -1,0 +1,6 @@
+# L6 prediction. Python 3.10 or newer.
+pandas
+numpy
+matplotlib
+requests
+scikit-learn>=1.3

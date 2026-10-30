@@ -1,0 +1,13 @@
+# Week 1 group notebook. Python 3.10 or newer.
+# es_core_news_lg is a 568 MB download (603 MB installed). Measured on a box run with a fast
+# connection, not on Colab: download and install about 8 s, spacy.load 2.5 s. On free Colab or
+# a home connection it can take longer. Allow up to a couple of minutes.
+# If the large model fails on a weak connection, the notebook falls back to es_core_news_md
+# (42 MB) and prints which model it loaded. To install the medium model by hand:
+#   python -m spacy download es_core_news_md
+pandas
+numpy
+matplotlib
+requests
+spacy>=3.8,<3.9
+es_core_news_lg @ https://github.com/explosion/spacy-models/releases/download/es_core_news_lg-3.8.0/es_core_news_lg-3.8.0-py3-none-any.whl

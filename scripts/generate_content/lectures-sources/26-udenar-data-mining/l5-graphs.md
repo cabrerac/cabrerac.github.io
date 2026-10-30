@@ -16,10 +16,89 @@ lecture_code: l5-graphs
 lecture_date: 21/11/2026
 permalink: /teaching/26-udenar-data-mining/l5-graphs/
 visible: false
+group_notebook: week-3-group
 notebook_language: es
 notebook_title: Grafos y el lugar de un ítem entre los demás
 notebook_description: Práctica individual de la Lección 5. Describir un artículo por su lugar en las citas, no por cuántas veces se lo nombra.
 ---
+
+<!-- SLIDES: -->
+
+# Last Time
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-data-mining/l5-graphs/last-time.md %}
+
+<!-- SLIDES: -->
+
+# Graphs
+
+<!-- end SLIDES: -->
+
+{% include _snippets/graphs.md %}
+
+{% include _snippets/26-udenar-data-mining/l5-graphs/course-data.md %}
+
+<!-- SLIDES: -->
+
+# Degree
+
+<!-- end SLIDES: -->
+
+{% include _snippets/degree-centrality.md %}
+
+<!-- SLIDES: -->
+
+# PageRank
+
+<!-- end SLIDES: -->
+
+{% include _snippets/pagerank.md %}
+
+<!-- SLIDES: -->
+
+# Betweenness
+
+<!-- end SLIDES: -->
+
+{% include _snippets/betweenness.md %}
+
+<!-- SLIDES: -->
+
+# node2vec
+
+<!-- end SLIDES: -->
+
+{% include _snippets/node2vec.md %}
+
+<!-- SLIDES: -->
+
+# Judging Graph Results
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-data-mining/l5-graphs/comparison.md %}
+
+<!-- SLIDES: -->
+
+# Adding the Graph Result
+
+<!-- end SLIDES: -->
+
+{% include _snippets/combining-results.md %}
+
+{% include _snippets/26-udenar-data-mining/l5-graphs/graph-support.md %}
+
+<!-- SLIDES: -->
+
+# Conclusions
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-data-mining/l5-graphs/conclusions.md %}
+
+{% include _snippets/26-udenar-data-mining/l5-graphs/practical-slides.md %}
 
 {% include _snippets/26-udenar-data-mining/l5-graphs/resources.md %}
 {% include _snippets/26-udenar-data-mining/l5-graphs/practical.md %}

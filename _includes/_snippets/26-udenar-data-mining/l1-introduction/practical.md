@@ -1,3 +1,622 @@
 <!-- NOTEBOOK: -->
 
+## Repaso de Python para este cuaderno
+ 
+Este cuaderno no entrena ningún modelo. Usa cuatro piezas de Python. Si ya las conoce, ejecute estas celdas rápido.
+ 
+### Leer una tabla con `pandas`
+`pd.read_csv` lee un archivo CSV y devuelve un **DataFrame**, una tabla con filas y columnas con nombre. `df.shape` dice cuántas filas y columnas tiene.
+
+```python
+import pandas as pd
+
+mini = pd.DataFrame({"title": ["A", "B", "C"], "year": [2010, 2015, 2020]})
+print(mini.shape)
+mini
+```
+
+
+
+### Texto con `f"..."`
+Una cadena con `f` delante inserta variables dentro del texto, entre llaves. Después de `:` se puede dar formato, por ejemplo `:,` para separar miles.
+
+```python
+n_papers = 320
+max_citations = 54824
+print(f"La colección tiene {n_papers} artículos. El más citado tiene {max_citations:,} citas.")
+```
+
+
+
+### Diccionarios
+Un **diccionario** guarda pares clave y valor. Lo usaremos para escribir la tarjeta de la pregunta, porque cada parte de la tarjeta tiene un nombre.
+
+```python
+card = {"question": "¿Qué leer?", "steps": ["mirar", "filtrar"]}
+print(card["question"], len(card["steps"]))
+```
+
+
+
+### Comprobar con `assert`
+`assert` detiene el cuaderno si una condición es falsa. Las celdas **Comprobar** usan este patrón, como en todos los cuadernos del curso.
+
+```python
+assert len(card["steps"]) == 2
+print("Repaso de Python: OK")
+```
+
+
+
+---
+ 
+## Instrucciones
+ 
+**La historia.** Usted es parte de un equipo interno de un consejo. El consejo tiene una base de artículos científicos sobre nutrición. El equipo debe decidir **qué artículos tiene que leer** para su tema, y con qué filtro llegaron a la lista. Durante el curso construiremos esa lista paso a paso, un método por lección.
+ 
+**Hoy no hay modelo.** Esta lección trata de lo que pasa **antes** de minar: escribir la pregunta, mirar los datos con calma y decidir qué es una buena respuesta. Seguimos **CRISP-DM**, la metodología del curso. Sus seis fases son las secciones de todos los cuadernos del curso.
+ 
+**Qué hacer.** Ejecute las celdas de arriba hacia abajo. Cada paso empieza con **En este paso** y termina con una celda **Comprobar**. Algunas celdas le piden escribir con sus palabras. Hágalo, porque el cuaderno de grupo le pedirá lo mismo para su departamento.
+ 
+**Mapa del cuaderno**
+ 
+| Parte | Fase CRISP-DM | Qué sale |
+|-------|---------------|----------|
+| 1 | Comprensión del negocio | La tarjeta de la pregunta en `pregunta.json` |
+| 2 | Comprensión de los datos | Tabla de perfil y un histograma de citas |
+| 3 | Preparación de los datos | Una revisión, no una limpieza |
+| 4 | Modelado | Nada todavía. Empieza en la Lección 2 |
+| 5 | Evaluación | El estándar como función `meets_standard` |
+| 6 | Despliegue | Cómo se puede usar la lista y cómo no |
+ 
+**Carpetas.** La primera celda de código crea `data/` (datos descargados) y `outputs/` (tablas y gráficos).
+ 
+---
+ 
+## Parte 1. Comprensión del negocio
+ 
+### Paso 1. El equipo y la decisión
+En este paso escribimos quién decide, qué decide y qué no puede decidir. Esto va primero porque cambia todo lo demás. El mismo conjunto de artículos sirve para decisiones muy distintas, y cada decisión pide un estándar distinto.
+ 
+| Pregunta | Respuesta para el laboratorio |
+|----------|-------------------------------|
+| ¿Quién usa la lista? | El equipo interno del consejo |
+| ¿Qué decide con ella? | Qué artículos abrir y leer para su trabajo sobre nutrición |
+| ¿Qué no decide con ella? | No la cita como evidencia oficial del consejo. No reemplaza leer los artículos |
+| ¿Qué filtro no sirve? | Un número alto de citas por sí solo |
+ 
+La última fila importa. Un artículo muy citado puede ser un manual general o un artículo de otro tema que cita todo el mundo. La cantidad de citas mide popularidad, no si el artículo sirve para el trabajo del equipo.
+ 
+### Paso 2. Configuración
+En este paso importamos las librerías y creamos las carpetas.
+
+```python
+import json
+from pathlib import Path
+
+import matplotlib.pyplot as plt
+import pandas as pd
+import requests
+
+DATA_DIR = Path("data")
+OUTPUTS_DIR = Path("outputs")
+DATA_DIR.mkdir(parents=True, exist_ok=True)
+OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
+print("Carpetas listas:", DATA_DIR, OUTPUTS_DIR)
+```
+
+
+
+**Comprobar:**
+
+```python
+assert DATA_DIR.is_dir() and OUTPUTS_DIR.is_dir()
+print("Configuración: OK")
+```
+
+
+
+### Paso 3. La tarjeta de la pregunta
+En este paso escribimos la **tarjeta de la pregunta** como un diccionario. Las claves van en inglés, igual que todo el código del curso. Tiene cuatro partes:
+ 
+- `question` (pregunta): qué queremos responder, en una frase.
+- `steps` (pasos): cómo vamos a responder, en orden.
+- `standard` (estándar): cómo sabremos que la respuesta es buena. Se escribe **antes** de mirar resultados, para no ajustar la meta al resultado.
+- `use` (uso): qué se puede hacer con la respuesta y qué no.
+ 
+El estándar tiene números porque la Parte 5 lo convierte en una función que se puede comprobar.
+
+```python
+question_card = {
+    "question": "¿Qué artículos de nutrición debe leer el equipo para su tema, y qué filtro los puso en la lista?",
+    "steps": [
+        "comprender el negocio",
+        "comprender los datos",
+        "preparar los datos para cada método",
+        "modelar (desde la Lección 2)",
+        "evaluar contra el estándar y una línea base",
+        "desplegar: entregar la lista con su filtro",
+    ],
+    "standard": {
+        "min_papers": 10,                # una lista más corta no cubre el tema
+        "max_papers": 30,                # una lista más larga no se alcanza a leer
+        "max_share_citations_only": 0.5,   # máximo la mitad puede venir de las más citadas
+    },
+    "use": {
+        "may": ["decidir qué artículos abrir primero para el trabajo del equipo"],
+        "may_not": ["citar la lista como evidencia del consejo", "elegir artículos solo por sus citas"],
+    },
+}
+print(json.dumps(question_card, ensure_ascii=False, indent=2))
+```
+
+
+
+**Su turno.** Lea la tarjeta. ¿Cambiaría algún número del estándar? Escriba su respuesta en la celda siguiente, en una o dos frases. No cambie el diccionario todavía. Lo discutiremos el sábado.
+
+```python
+my_comment = """
+Escriba aquí si cambiaría algún número del estándar y por qué.
+"""
+print(my_comment)
+```
+
+
+
+### Paso 4. Guardar `pregunta.json`
+En este paso guardamos la tarjeta en un archivo. La Lección 2 la lee al empezar y le añade cómo se usan los patrones.
+
+```python
+QUESTION_PATH = Path("pregunta.json")
+QUESTION_PATH.write_text(json.dumps(question_card, ensure_ascii=False, indent=2), encoding="utf-8")
+print(f"Guardado: {QUESTION_PATH}")
+```
+
+
+
+**Comprobar:**
+
+```python
+saved = json.loads(QUESTION_PATH.read_text(encoding="utf-8"))
+assert {"question", "steps", "standard", "use"} <= set(saved)
+print("pregunta.json: OK")
+```
+
+
+
+---
+ 
+## Parte 2. Comprensión de los datos
+ 
+### Paso 1. Descargar los artículos
+En este paso descargamos `nutricion-papers.csv` del sitio del curso. La función guarda el archivo en `data/` y no lo vuelve a descargar si ya está. Es el mismo patrón de caché de los cuadernos de Big Data.
+
+```python
+BASE_URL = "https://cabrerac.github.io/assets/data/26-udenar-data-mining"
+
+
+def download_data(name: str, folder: Path = DATA_DIR) -> Path:
+    """Descarga un archivo de datos del curso, una sola vez.
+
+    Qué hace: si el archivo ya está en la carpeta, lo usa. Si no, lo descarga de BASE_URL.
+    Entrada: name, el nombre del archivo (por ejemplo "nutricion-papers.csv"), y folder, la carpeta destino.
+    Salida: la ruta local del archivo.
+    Por qué: no queremos depender de la red en cada ejecución ni descargar dos veces.
+    """
+    dest = folder / name
+    if dest.is_file() and dest.stat().st_size > 0:
+        print(f"Ya en caché: {dest}")
+        return dest
+    response = requests.get(f"{BASE_URL}/{name}", timeout=60)
+    response.raise_for_status()
+    dest.write_bytes(response.content)
+    print(f"Descargado: {dest} ({dest.stat().st_size / 1e6:.1f} MB)")
+    return dest
+
+
+papers_path = download_data("nutricion-papers.csv")
+```
+
+
+
+**Comprobar:**
+
+```python
+assert papers_path.is_file() and papers_path.stat().st_size > 500_000
+print("Descarga: OK")
+```
+
+
+
+### Paso 2. Primera mirada
+En este paso cargamos el archivo y miramos su forma y sus columnas.
+
+```python
+papers = pd.read_csv(papers_path)
+print(f"Filas: {papers.shape[0]}  |  Columnas: {papers.shape[1]}")
+papers.head(3)
+```
+
+
+
+Cada fila es un artículo. Estas son las columnas que usaremos en el curso:
+ 
+| Columna | Qué es | Lección que la usa |
+|---------|--------|--------------------|
+| `title`, `abstract` | Título y resumen | L2 (patrones), L3 (grupos), L4 (texto) |
+| `year`, `cited_by_count` | Año y número de citas | L1 (perfil) |
+| `topics`, `links` | Temas de OpenAlex y citas dentro de la colección | L5 (enlaces) |
+| `field` y las demás | Campo y atributos del artículo | L6 (predicción) |
+
+```python
+papers.dtypes
+```
+
+
+
+**Comprobar:**
+
+```python
+assert papers.shape == (320, 13)
+assert {"title", "abstract", "year", "cited_by_count"} <= set(papers.columns)
+print("Forma de los datos: OK")
+```
+
+
+
+### Paso 3. Valores faltantes
+En este paso contamos las celdas vacías por columna. Un vacío puede ser un error o puede ser normal. Hay que mirarlo antes de decidir.
+
+```python
+missing = papers.isna().sum()
+missing[missing > 0]
+```
+
+
+
+Dos columnas tienen vacíos. `links` está vacío en 175 artículos. Es normal: muchos artículos no citan a otro artículo de esta misma colección. Lo veremos en la Lección 5. `venue_type` falta en 3 artículos. No usamos esa columna hasta la Lección 6. El `abstract`, que es lo que más usaremos, no tiene vacíos.
+
+**Comprobar:**
+
+```python
+assert missing["links"] == 175 and missing["venue_type"] == 3
+assert missing["abstract"] == 0
+print("Faltantes: OK")
+```
+
+
+
+### Paso 4. Largo de los resúmenes
+En este paso contamos las palabras de cada resumen. Un resumen muy corto no es un resumen. Puede ser una portada o una nota de la revista.
+
+```python
+papers["abstract_words"] = papers["abstract"].str.split().str.len()
+print(papers["abstract_words"].describe().round(0))
+short_abstracts = papers[papers["abstract_words"] < 20]
+print(f"\nResúmenes de menos de 20 palabras: {len(short_abstracts)}")
+short_abstracts[["title", "abstract"]].head(4)
+```
+
+
+
+Ocho resúmenes tienen menos de 20 palabras. Por ejemplo, "Peer Reviewed" o la frase de una portada. No los borramos hoy. En la Lección 2 cada método decide qué hacer con ellos.
+
+**Comprobar:**
+
+```python
+assert len(short_abstracts) == 8
+print("Largo de los resúmenes: OK")
+```
+
+
+
+### Paso 5. Años e idioma
+En este paso miramos de cuándo son los artículos y en qué idioma están.
+
+```python
+print(f"Años: de {papers['year'].min()} a {papers['year'].max()}")
+print(papers["language"].value_counts())
+papers.loc[papers["language"] != "en", ["title", "language"]]
+```
+
+
+
+Casi todo está en inglés. Hay un artículo en polaco. El inglés importa en la Lección 2: las palabras vacías y el modelo de vectores serán los del inglés. En el cuaderno de grupo, Wikipedia está en español, y eso cambia la preparación.
+
+**Comprobar:**
+
+```python
+assert (papers["language"] == "en").sum() == 319
+assert papers["year"].between(1980, 2024).all()
+print("Años e idioma: OK")
+```
+
+
+
+### Paso 6. Citas
+En este paso miramos el número de citas de cada artículo.
+
+```python
+print(papers["cited_by_count"].describe().round(0))
+median_citations = papers["cited_by_count"].median()
+print(f"\nMediana de citas: {median_citations:,.0f}")
+```
+
+
+
+```python
+plt.figure(figsize=(7, 4))
+plt.hist(papers["cited_by_count"], bins=40, color="steelblue")
+plt.axvline(median_citations, color="darkorange", linestyle="--", label=f"mediana = {median_citations:,.0f}")
+plt.xlabel("Citas del artículo")
+plt.ylabel("Número de artículos")
+plt.title("Citas de los 320 artículos")
+plt.legend()
+plt.tight_layout()
+plt.savefig(OUTPUTS_DIR / "histograma_citas.png", dpi=120)
+plt.show()
+```
+
+
+
+La mayoría tiene unos pocos miles de citas y unos pocos tienen decenas de miles. El más citado, *Global cancer statistics*, ni siquiera es de nutrición.
+
+**Comprobar:**
+
+```python
+assert papers["cited_by_count"].max() == 54824
+assert (OUTPUTS_DIR / "histograma_citas.png").is_file()
+print("Citas: OK")
+```
+
+
+
+### Paso 7. Cómo se construyó la colección
+En este paso leemos cómo se armó la colección. Esto es parte de comprender los datos, porque explica lo que **no** está.
+ 
+Los artículos vienen de **OpenAlex**, una base abierta de publicaciones. Se pidieron artículos del tema nutrición **que tuvieran resumen**, y se tomaron los **más citados**. Por eso incluso el menos citado tiene muchas citas.
+
+```python
+print(f"El artículo menos citado de la colección tiene {papers['cited_by_count'].min():,} citas.")
+```
+
+
+
+Consecuencia: la colección **ya es una muestra de popularidad**. Si filtramos otra vez por citas, solo repetimos el criterio con que se construyó. Por eso el estándar dice que un número alto de citas por sí solo no es un filtro. Los filtros del curso tienen que mirar el contenido.
+ 
+### Paso 8. Tabla de perfil
+En este paso juntamos lo visto en una tabla de perfil y la guardamos. El cuaderno de grupo le pide la misma tabla para Wikipedia.
+
+```python
+def profile_column(series: pd.Series) -> dict:
+    """Resume una columna en una fila de la tabla de perfil.
+
+    Qué hace: cuenta valores, vacíos y valores distintos, y da un ejemplo.
+    Entrada: una columna del DataFrame (pandas Series).
+    Salida: un diccionario con tipo, vacíos, distintos y ejemplo.
+    Por qué: una sola tabla permite comparar columnas de un vistazo antes de usarlas.
+    """
+    non_missing = series.dropna()
+    return {
+        "dtype": str(series.dtype),
+        "missing": int(series.isna().sum()),
+        "distinct": int(series.nunique()),
+        "example": str(non_missing.iloc[0])[:40] if len(non_missing) else "",
+    }
+
+
+profile = pd.DataFrame({col: profile_column(papers[col]) for col in papers.columns}).T
+profile.to_csv(OUTPUTS_DIR / "perfil_datos.csv")
+profile
+```
+
+
+
+**Comprobar:**
+
+```python
+assert len(profile) == papers.shape[1]
+assert (OUTPUTS_DIR / "perfil_datos.csv").is_file()
+print("Perfil: OK")
+```
+
+
+
+---
+ 
+## Parte 3. Preparación de los datos
+ 
+Hoy la preparación es una **revisión, no una limpieza**. La razón es que cada método de las próximas lecciones pide su propia preparación. Si limpiamos hoy para un método, podemos dañar la entrada de otro.
+ 
+### Paso 1. Duplicados y vacíos
+En este paso revisamos si hay artículos repetidos.
+
+```python
+print(f"Títulos repetidos: {papers['title'].duplicated().sum()}")
+print(f"Resúmenes repetidos: {papers['abstract'].duplicated().sum()}")
+papers[papers["title"].duplicated(keep=False)][["title", "year", "cited_by_count"]]
+```
+
+
+Hay dos títulos repetidos. Son declaraciones de consenso que se publicaron en dos revistas a la vez, y OpenAlex guarda un registro por revista. Una de ellas (CONSORT 2010, extensión de 2016) tiene además el mismo resumen en los dos registros. Hoy solo lo anotamos. No borramos nada, porque la decisión depende del método: para contar pares en la Lección 2, un resumen repetido suma dos veces, pero dos artículos no alcanzan el umbral de 10 y no forman un patrón por sí solos.
+
+
+**Comprobar:**
+
+```python
+assert papers["title"].duplicated().sum() == 2
+assert papers["abstract"].duplicated().sum() == 1
+print("Duplicados revisados: OK")
+```
+
+
+
+### Paso 2. Un resumen, tres preparaciones
+En este paso vemos, con un solo resumen, que cada método pide algo distinto. Es solo una vista previa. La Lección 2 lo hace bien, con las herramientas adecuadas.
+
+```python
+import re
+from collections import Counter
+
+text = papers.loc[1, "abstract"]
+text_words = [w for w in re.findall(r"[^\W\d_]+", text.lower()) if len(w) >= 3]
+print(text[:250], "...")
+print(f"\nPalabras: {len(text_words)}")
+```
+
+
+
+| Método (Lección 2) | Lo que necesita del texto |
+|--------------------|---------------------------|
+| Pares frecuentes | Un **conjunto**: qué palabras aparecen, sin contar repeticiones |
+| Lift | Además, **cuántos artículos** tienen cada palabra sola |
+| Embedding | Que cada palabra tenga un **vector** en un modelo ya entrenado |
+
+```python
+word_set = set(text_words)
+word_counts = Counter(text_words)
+print(f"Como lista: {len(text_words)} palabras")
+print(f"Como conjunto: {len(word_set)} palabras distintas")
+print(f"Como conteo, las más repetidas: {word_counts.most_common(5)}")
+```
+
+
+
+Fíjese en que las palabras más repetidas son "the", "and", "of". No dicen nada del tema. En la Lección 2 las quitamos con una lista de **palabras vacías**. También veremos texto de relleno propio de los artículos, como las etiquetas *Background* y *Methods* de los resúmenes estructurados.
+
+**Comprobar:**
+
+```python
+assert len(word_set) <= len(text_words)
+print("Vista previa de preparación: OK")
+```
+
+
+
+---
+ 
+## Parte 4. Modelado
+ 
+**Lección 2 en adelante.** En esta lección no hay modelo. La Lección 2 empieza con patrones que se repiten en los resúmenes.
+ 
+---
+ 
+## Parte 5. Evaluación
+ 
+### Paso 1. El estándar como función
+En este paso convertimos el estándar de la tarjeta en una función. Así cualquier lista se puede comprobar igual, hoy y en las lecciones siguientes. Una lista es una tabla con al menos las columnas `title` y `filter` (el nombre del filtro que puso cada artículo).
+
+```python
+def meets_standard(reading_list: pd.DataFrame, standard: dict = question_card["standard"], collection: pd.DataFrame = papers) -> tuple[bool, list[str]]:
+    """Comprueba si una lista de artículos cumple el estándar de la tarjeta.
+
+    Qué hace: revisa el tamaño de la lista, que cada artículo diga qué filtro lo puso
+    y que no más de la proporción permitida venga solo de las citas.
+    Entrada: reading_list (DataFrame con columnas title y filter), standard y collection.
+    Salida: (ok, reasons), donde reasons explica cada regla que no se cumple.
+    Por qué: el estándar se escribió antes de mirar resultados. Una función lo aplica
+    igual a cualquier lista y evita que lo ajustemos a lo que salió.
+    """
+    reasons = []
+    n = len(reading_list)
+    if n < standard["min_papers"]:
+        reasons.append(f"tiene {n} artículos, el mínimo es {standard['min_papers']}")
+    if n > standard["max_papers"]:
+        reasons.append(f"tiene {n} artículos, el máximo es {standard['max_papers']}")
+    if reading_list["filter"].isna().any() or (reading_list["filter"].astype(str).str.strip() == "").any():
+        reasons.append("algún artículo no dice qué filtro lo puso")
+    most_cited = set(collection.nlargest(standard["max_papers"], "cited_by_count")["title"])
+    citations_only = reading_list["title"].isin(most_cited) & (reading_list["filter"] == "citas")
+    if n and citations_only.mean() > standard["max_share_citations_only"]:
+        reasons.append(f"{citations_only.mean():.0%} de la lista viene solo de las citas")
+    return len(reasons) == 0, reasons
+```
+
+
+
+### Paso 2. Probar el estándar con dos listas de juguete
+En este paso probamos la función con dos listas. No son modelos. Solo sirven para ver que el estándar distingue una lista mala de una aceptable.
+ 
+La primera lista toma los 20 artículos más citados. La segunda toma artículos cuyo resumen menciona *obesity* y *children*, con ese filtro escrito.
+
+```python
+citation_list = papers.nlargest(20, "cited_by_count")[["title"]].assign(filter="citas")
+citations_ok, citation_reasons = meets_standard(citation_list)
+print("Lista por citas:", "cumple" if citations_ok else "no cumple", citation_reasons)
+
+mentions = papers["abstract"].str.contains("obesity", case=False) & papers["abstract"].str.contains("children", case=False)
+topic_list = papers.loc[mentions, ["title"]].head(30).assign(filter="resumen menciona obesity y children")
+topic_ok, topic_reasons = meets_standard(topic_list)
+print(f"Lista por tema ({len(topic_list)} artículos):", "cumple" if topic_ok else "no cumple", topic_reasons)
+```
+
+
+
+La lista por citas no cumple. Tiene buen tamaño, pero solo repite la popularidad con que se armó la colección. La lista por tema cumple el estándar. Eso no la hace buena todavía: falta saber si su filtro supera una línea base. Eso empieza en la Lección 2.
+
+**Comprobar:**
+
+```python
+assert citations_ok is False
+assert topic_ok is True
+print("Estándar: OK")
+```
+
+
+
+---
+ 
+## Parte 6. Despliegue
+ 
+### Paso 1. Cómo se puede usar la lista y cómo no
+En este paso volvemos a la parte `use` de la tarjeta. Desplegar aquí no es publicar un sistema. Es entregar la lista al equipo con instrucciones claras.
+ 
+| Se puede | No se puede |
+|----------|-------------|
+| Decidir qué artículos abrir primero | Citar la lista como evidencia del consejo |
+| Saber qué filtro puso cada artículo | Elegir artículos solo por sus citas |
+| Cambiar la lista si cambia el tema | Usar la lista en otro departamento sin rehacerla |
+ 
+**Su turno.** Escriba un riesgo de usar mal la lista y cómo lo evitaría.
+
+```python
+my_risk = """
+Escriba aquí un riesgo de uso y cómo lo evitaría.
+"""
+print(my_risk)
+```
+
+
+
+### Paso 2. Comprobación final
+En este paso revisamos que el cuaderno dejó lo que la Lección 2 necesita.
+
+```python
+def _check_ok(name, predicate):
+    """Ejecuta una comprobación y dice OK o incompleto, sin detener el cuaderno."""
+    try:
+        ok = bool(predicate())
+    except Exception:
+        ok = False
+    print(f"{name}: {'OK' if ok else 'incompleto'}")
+    return ok
+
+
+checks = [
+    ("pregunta.json", lambda: QUESTION_PATH.is_file()),
+    ("Datos descargados", lambda: papers_path.is_file()),
+    ("outputs/perfil_datos.csv", lambda: (OUTPUTS_DIR / "perfil_datos.csv").is_file()),
+    ("outputs/histograma_citas.png", lambda: (OUTPUTS_DIR / "histograma_citas.png").is_file()),
+    ("Estándar como función", lambda: meets_standard(topic_list)[0]),
+]
+passed = sum(_check_ok(n, f) for n, f in checks)
+print(f"\nL1_CHECKS={passed}/{len(checks)}")
+if passed == len(checks):
+    print("L1_OK. Siga con el cuaderno de la Lección 2 en la misma carpeta.")
+```
+
+
+
+
+
 <!-- end NOTEBOOK: -->

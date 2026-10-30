@@ -9,8 +9,8 @@ Run commands from the **repository root**.
 | Path | Role |
 |------|------|
 | `build_form.py` | Reads YAML → `forms.create` + `forms.batchUpdate` + optional Drive folder move |
-| `forms-sources/*.yaml` | Machine-readable form specs (human spec: `work-space/teaching/big-data/planning/intake-form-spec.md`) |
-| `forms-sources/*.out.yaml` | Written after a successful build (form ID, URLs — safe to commit once published) |
+| `forms-sources/*.yaml` | Default folder for machine-readable form specs. Pass `--sources-dir <folder>` to read specs from elsewhere (course specs are kept private) |
+| `<sources-dir>/*.out.yaml` | Written after a successful build (form ID, URLs — safe to commit once published) |
 | `client_secrets.json` | OAuth client credentials (**local only**, gitignored) |
 | `token.json` | OAuth token after first browser consent (**local only**, gitignored) |
 
@@ -44,7 +44,7 @@ then Drive API is not enabled yet (Forms API was, Drive was not):
 5. Re-run the move (no need to rebuild the form):
 
    ```bash
-   python scripts/forms_build/build_form.py 26-udenar-big-data-intake \
+   python scripts/forms_build/build_form.py --sources-dir work-space/teaching/big-data/scripts/forms-sources 26-udenar-big-data-intake \
      --move-only --form-id YOUR_FORM_ID
    ```
 
@@ -81,7 +81,7 @@ YAML may use `|` multiline blocks for readability; the script flattens them to a
 ## Build a form
 
 ```bash
-python scripts/forms_build/build_form.py 26-udenar-big-data-intake
+python scripts/forms_build/build_form.py --sources-dir work-space/teaching/big-data/scripts/forms-sources 26-udenar-big-data-intake
 ```
 
 **First run:** sign in as **`chc79@cam.ac.uk`** when the browser opens.
@@ -91,7 +91,7 @@ python scripts/forms_build/build_form.py 26-udenar-big-data-intake
 If a previous run created the title but failed on `batchUpdate`, reuse that form:
 
 ```bash
-python scripts/forms_build/build_form.py 26-udenar-big-data-intake \
+python scripts/forms_build/build_form.py --sources-dir work-space/teaching/big-data/scripts/forms-sources 26-udenar-big-data-intake \
   --form-id 1wchR3PiDLEYDnReNTwgXED4P4nS-BZdVSQj_gDwR5y4
 ```
 
@@ -100,7 +100,7 @@ python scripts/forms_build/build_form.py 26-udenar-big-data-intake \
 1. Create or open the target folder in Drive.
 2. Copy the folder ID from the URL: `https://drive.google.com/drive/folders/FOLDER_ID_HERE`
    (or paste the full URL — the script extracts the ID).
-3. In `forms-sources/26-udenar-big-data-intake.yaml`, set:
+3. In the spec YAML (for example `<sources-dir>/26-udenar-big-data-intake.yaml`), set:
 
    ```yaml
    meta:
@@ -114,14 +114,14 @@ The folder must belong to the same Google account you use for OAuth (or be share
 **Move an already-created form** (without rebuilding questions):
 
 ```bash
-python scripts/forms_build/build_form.py 26-udenar-big-data-intake \
+python scripts/forms_build/build_form.py --sources-dir work-space/teaching/big-data/scripts/forms-sources 26-udenar-big-data-intake \
   --move-only --form-id YOUR_FORM_ID
 ```
 
 Or override the folder from the command line:
 
 ```bash
-python scripts/forms_build/build_form.py 26-udenar-big-data-intake \
+python scripts/forms_build/build_form.py --sources-dir work-space/teaching/big-data/scripts/forms-sources 26-udenar-big-data-intake \
   --move-only --form-id YOUR_FORM_ID \
   --drive-folder-id "1p9B4ZsPwMl2ZINMCtZD2QF7yZ51m6vfw"
 ```
@@ -132,7 +132,7 @@ The Forms API **v1** does not support setting the post-submit confirmation text 
 
 ### After build
 
-Paste `responder_url` from `forms-sources/26-udenar-big-data-intake.out.yaml` into bulk email and Moodle.
+Paste `responder_url` from `<sources-dir>/26-udenar-big-data-intake.out.yaml` into bulk email and Moodle.
 
 ## Manual fallback
 
@@ -146,4 +146,4 @@ Students upload their completed `.ipynb` via Moodle. Naming convention:
 diagnostic_{lastname}_{firstname}.ipynb
 ```
 
-See `forms-sources/26-udenar-big-data-intake.yaml` → `meta.submission_notes`.
+See `<sources-dir>/26-udenar-big-data-intake.yaml` → `meta.submission_notes`.

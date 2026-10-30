@@ -300,8 +300,14 @@ def write_output_meta(
 
 
 def main() -> int:
+    global SOURCES_DIR
     parser = argparse.ArgumentParser(description="Build a Google Form from YAML")
-    parser.add_argument("spec_stem", help="YAML file stem in forms-sources/ (without .yaml)")
+    parser.add_argument("spec_stem", help="YAML file stem in the sources folder (without .yaml)")
+    parser.add_argument(
+        "--sources-dir",
+        default=str(SOURCES_DIR),
+        help="Folder with the YAML specs; the .out.yaml is written there too (default: forms-sources/ next to this script)",
+    )
     parser.add_argument(
         "--form-id",
         help="Populate an existing empty form instead of creating a new one",
@@ -316,6 +322,8 @@ def main() -> int:
         help="Only move an existing form to drive_folder_id (requires --form-id)",
     )
     args = parser.parse_args()
+
+    SOURCES_DIR = Path(args.sources_dir).resolve()
 
     spec = load_spec(args.spec_stem)
     form_info = spec["form"]

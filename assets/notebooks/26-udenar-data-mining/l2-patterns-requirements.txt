@@ -1,0 +1,13 @@
+# L2 patterns. Python 3.10 or newer.
+# en_core_web_lg is a 401 MB download (425 MB installed). Measured on a box run with a fast
+# connection, not on Colab: download and install 5 to 6 s, spacy.load 2.5 s. On free Colab or
+# a home connection it can take longer. Allow up to a couple of minutes.
+# If the large model fails on a weak connection, the notebook falls back to en_core_web_md
+# (33 MB) and prints which model it loaded. To install the medium model by hand:
+#   python -m spacy download en_core_web_md
+pandas
+numpy
+matplotlib
+requests
+spacy>=3.8,<3.9
+en_core_web_lg @ https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.8.0/en_core_web_lg-3.8.0-py3-none-any.whl

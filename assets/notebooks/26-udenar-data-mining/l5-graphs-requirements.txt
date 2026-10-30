@@ -1,0 +1,8 @@
+# L5 graphs. Python 3.10 or newer.
+pandas
+numpy
+matplotlib
+requests
+networkx
+scipy
+gensim

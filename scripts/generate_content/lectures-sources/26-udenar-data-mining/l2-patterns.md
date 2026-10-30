@@ -16,11 +16,105 @@ lecture_code: l2-patterns
 lecture_date: 07/11/2026
 permalink: /teaching/26-udenar-data-mining/l2-patterns/
 visible: false
+group_notebook: week-1-group
 notebook_language: es
 notebook_title: Patrones que se repiten y líneas base
 notebook_description: Práctica individual de la Lección 2. Encontrar patrones que se repiten en la colección de artículos y comparar cada uno con los otros patrones y con una línea base.
 ---
 
+<!-- SLIDES: -->
+
+# Last Time
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-data-mining/l2-patterns/last-time.md %}
+
+<!-- SLIDES: -->
+
+# Repeating Patterns
+
+<!-- end SLIDES: -->
+
+{% include _snippets/pattern-mining.md %}
+
+<!-- SLIDES: -->
+
+# Text Preparation
+
+<!-- end SLIDES: -->
+
+{% include _snippets/text-preparation.md %}
+
+<!-- SLIDES: -->
+
+# Frequent Word Pairs
+
+<!-- end SLIDES: -->
+
+{% include _snippets/frequent-itemsets.md %}
+
+<!-- SLIDES: -->
+
+# Lift
+
+<!-- end SLIDES: -->
+
+{% include _snippets/lift.md %}
+
+<!-- SLIDES: -->
+
+# Word Embeddings
+
+<!-- end SLIDES: -->
+
+{% include _snippets/word-embeddings.md %}
+
+<!-- SLIDES: -->
+
+# Baselines
+
+<!-- end SLIDES: -->
+
+{% include _snippets/permutation-baseline.md %}
+
+{% include _snippets/multiple-testing.md %}
+
+{% include _snippets/swap-randomization.md %}
+
+{% include _snippets/random-pair-baseline.md %}
+
+<!-- SLIDES: -->
+
+# Comparing the Methods
+
+<!-- end SLIDES: -->
+
+{% include _snippets/pattern-methods-comparison.md %}
+
+{% include _snippets/26-udenar-data-mining/l2-patterns/comparison.md %}
+
+<!-- SLIDES: -->
+
+# Using a Pattern
+
+<!-- end SLIDES: -->
+
+{% include _snippets/pattern-to-decision.md %}
+
+{% include _snippets/26-udenar-data-mining/l2-patterns/decision-use.md %}
+
+<!-- SLIDES: -->
+
+# Conclusions
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-data-mining/l2-patterns/conclusions.md %}
+
+{% include _snippets/26-udenar-data-mining/l2-patterns/practical-slides.md %}
+
+{% include _snippets/26-udenar-data-mining/l2-patterns/week1-deliverables.md %}
+
 {% include _snippets/26-udenar-data-mining/l2-patterns/resources.md %}
 {% include _snippets/26-udenar-data-mining/l2-patterns/practical.md %}
-

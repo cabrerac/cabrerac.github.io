@@ -629,7 +629,7 @@ class ContentGenerator:
         if lecture_meta.get("instructor_only"):
             print(
                 f"[SKIP] Instructor-only source {lecture_file.stem} — "
-                "use scripts/big-data-course/build_instructor_notebook.py"
+                "build it with the course's private instructor script in work-space/"
             )
             return
 

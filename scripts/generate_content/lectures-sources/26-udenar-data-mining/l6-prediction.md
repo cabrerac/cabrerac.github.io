@@ -16,10 +16,97 @@ lecture_code: l6-prediction
 lecture_date: 21/11/2026
 permalink: /teaching/26-udenar-data-mining/l6-prediction/
 visible: false
+group_notebook: week-3-group
 notebook_language: es
 notebook_title: Clasificación, regresión y una etiqueta dada
 notebook_description: Práctica individual de la Lección 6. Predecir una etiqueta dada a partir de los atributos del artículo, sin usar el texto ni un conteo de popularidad, y contar aciertos y errores sobre ejemplos marcados.
 ---
+
+<!-- SLIDES: -->
+
+# Last Time
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-data-mining/l6-prediction/last-time.md %}
+
+<!-- SLIDES: -->
+
+# Supervised Prediction
+
+<!-- end SLIDES: -->
+
+{% include _snippets/prediction.md %}
+
+{% include _snippets/26-udenar-data-mining/l6-prediction/course-data.md %}
+
+<!-- SLIDES: -->
+
+# Tabular Preparation
+
+<!-- end SLIDES: -->
+
+{% include _snippets/tabular-preparation.md %}
+
+<!-- SLIDES: -->
+
+# Logistic Regression
+
+<!-- end SLIDES: -->
+
+{% include _snippets/logistic-regression.md %}
+
+<!-- SLIDES: -->
+
+# Random Forests
+
+<!-- end SLIDES: -->
+
+{% include _snippets/decision-trees-random-forests.md %}
+
+<!-- SLIDES: -->
+
+# One Hidden Layer
+
+<!-- end SLIDES: -->
+
+{% include _snippets/one-hidden-layer-network.md %}
+
+{% include _snippets/mlp-implementation.md %}
+
+{% include _snippets/26-udenar-data-mining/l6-prediction/network-in-course.md %}
+
+<!-- SLIDES: -->
+
+# Judging Predictions
+
+<!-- end SLIDES: -->
+
+{% include _snippets/classification-evaluation.md %}
+
+{% include _snippets/26-udenar-data-mining/l6-prediction/comparison.md %}
+
+<!-- SLIDES: -->
+
+# Adding the Prediction
+
+<!-- end SLIDES: -->
+
+{% include _snippets/combining-results.md %}
+
+{% include _snippets/26-udenar-data-mining/l6-prediction/starter-list.md %}
+
+<!-- SLIDES: -->
+
+# Conclusions
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-data-mining/l6-prediction/conclusions.md %}
+
+{% include _snippets/26-udenar-data-mining/l6-prediction/practical-slides.md %}
+
+{% include _snippets/26-udenar-data-mining/l6-prediction/week3-deliverables.md %}
 
 {% include _snippets/26-udenar-data-mining/l6-prediction/resources.md %}
 {% include _snippets/26-udenar-data-mining/l6-prediction/practical.md %}

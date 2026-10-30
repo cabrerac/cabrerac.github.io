@@ -30,7 +30,7 @@ One source file per **lecture** → lecture page + slides + Colab notebook via `
 | `l7-research` | 7 — sync (after L8 talks) | Sat 27 Jun 2026 | Research lines + masters project links (~1 h); slides in English |
 | `l8-final-project` | 8 — Sat 4 (single 6 h block) | Sat 27 Jun 2026 | Live group presentations (07:00–13:00 CO), then L7 research talk |
 
-**Instructor solutions** (not in `lectures-sources/`): `work-space/teaching/big-data/instructor/*.md` → `python scripts/big-data-course/build_instructor_notebook.py`. Output: `instructor/notebooks/*.ipynb` (local only; never `assets/notebooks/`).
+**Instructor solutions** (not in `lectures-sources/`): `work-space/teaching/big-data/instructor/*.md` → `python work-space/teaching/big-data/scripts/build_instructor_notebook.py`. Output: `instructor/notebooks/*.ipynb` (local only; never `assets/notebooks/`).
 
 Generate one lecture (from repo root):
 
