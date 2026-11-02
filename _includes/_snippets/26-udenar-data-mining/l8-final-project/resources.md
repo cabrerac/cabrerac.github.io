@@ -1,12 +1,12 @@
 <!-- RENDER: -->
 
-**Saturday 28 Nov 2026, 07:00 to 13:00 (Colombia), 12:00 to 18:00 (UK)**. Final project talks. Each group presents its week 3 notebook. There is no new mining.
+**Saturday 28 Nov 2026, 07:00 to 13:00 (Colombia), 12:00 to 18:00 (UK)**. Final project talks. Each group presents its starter list (`outputs/lista_inicial.csv`) and its week 3 notebook. There is no new mining.
 
 ---
 
 ### Talk order
 
-| Slot | Colombia | UK | Group | Department | Talk title |
+| Slot | Colombia | UK | Group | Secretaría | Talk title |
 |------|----------|----|-------|------------|------------|
 | Setup | 07:00-07:30 | 12:00-12:30 | All | Sound and screen check per group | |
 | Talk 1 | 07:30-08:00 | 12:30-13:00 | G1 | Pobreza | [POR CONFIRMAR] |
@@ -28,12 +28,12 @@ Each talk is about 20 minutes, then about 10 minutes of questions. The titles co
 
 Upload the slides as a PDF on Moodle, as `project-slides-<group_id>.pdf`, by **Friday 27 Nov, 23:59 (Colombia)**. A group that misses it presents from its own laptop. One or more members may speak. Use these six slide headings:
 
-1. Department and the decision question.
+1. The secretaría and the new person's question.
 2. The starter list, short enough to read aloud.
-3. Two results that support the list.
-4. One article described by its place among the others.
-5. What would change the list.
-6. What the list is not allowed to decide.
+3. Two supports per article.
+4. An article described by its place among the others.
+5. What fact would remove an article, and what would change on the list.
+6. What the list cannot decide.
 
 ---
 

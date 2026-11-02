@@ -5,14 +5,24 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p>A <b>text encoder</b> is a pretrained model that turns a whole text into one vector of numbers.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Text Encoders
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Tokens and subwords</b> <a href="https://doi.org/10.18653/v1/P16-1162" target="_blank" rel="noopener noreferrer">(Sennrich et al., 2016)</a></p>
-                <ul>
-                    <li>An encoder reads tokens, not words</li>
-                    <li>Rare words are split into known pieces</li>
-                    <li>One vocabulary covers many languages</li>
-                    <li>Each model reads at most a fixed number of tokens</li>
-                </ul>
+                <p>An encoder reads tokens, not words.</p>
+                <p>Rare words are split into known pieces.</p>
+                <p>One vocabulary covers many languages.</p>
+                <p>Each model reads at most a fixed number of tokens.</p>
             </div>
         </div>
     </div>
@@ -33,9 +43,7 @@
                         </td>
                     </tr>
                 </table>
-                <ul>
-                    <li>Each token gets a vector that depends on the whole text</li>
-                </ul>
+                <p>Each token gets a vector that depends on the whole text.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 45%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/transformer-full-architecture.png" alt="Transformer architecture, encoder on the left" style="height: 400px">
@@ -50,14 +58,12 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <p><b>Mean pooling</b></p>
                 <p>$$\mathbf{v}(t) = \frac{1}{T} \sum_{j=1}^{T} \mathbf{h}_j \qquad \hat{\mathbf{v}} = \frac{\mathbf{v}}{\lVert \mathbf{v} \rVert}$$</p>
-                <ul>
-                    <li><p>$\mathbf{h}_j$ is the vector of token $j$, $T$ the tokens read</p></li>
-                    <li><p>One vector per text, of fixed size</p></li>
-                    <li><p>Scaled to length 1, so the dot product is the cosine</p></li>
-                </ul>
+                <p>$\mathbf{h}_j$ is the vector of token $j$, $T$ the tokens read.</p>
+                <p>One vector per text, of fixed size.</p>
+                <p>Scaled to length 1, so the dot product is the cosine.</p>
             </div>
         </div>
     </div>
@@ -102,12 +108,10 @@
                         </td>
                     </tr>
                 </table>
-                <ul>
-                    <li>English and Spanish texts with the same model</li>
-                    <li>Each text starts with the prefix "query: " <a href="https://huggingface.co/intfloat/multilingual-e5-small" target="_blank" rel="noopener noreferrer">(multilingual-e5-small model card)</a></li>
-                    <li>Texts longer than 512 tokens are cut, count how many</li>
-                    <li>Cost on free Colab CPU: about 470 MB to download, then about a minute for a few hundred abstracts (box estimate)</li>
-                </ul>
+                <p>English and Spanish texts with the same model.</p>
+                <p>Each text starts with the prefix "query: " <a href="https://huggingface.co/intfloat/multilingual-e5-small" target="_blank" rel="noopener noreferrer">(multilingual-e5-small model card)</a>.</p>
+                <p>Texts longer than 512 tokens are cut, count how many.</p>
+                <p>Cost on free Colab CPU: about 470 MB to download, then about a minute for a few hundred abstracts (box estimate).</p>
             </div>
         </div>
     </div>

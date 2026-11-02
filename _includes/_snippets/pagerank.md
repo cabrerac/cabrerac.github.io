@@ -7,13 +7,23 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p><b>PageRank</b> scores an item by the links it receives, and a link counts more when it comes from an item that scores high itself.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## PageRank
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Degree that weighs who links to you <a href="https://web.archive.org/web/20241231011600/http://ilpubs.stanford.edu:8090/422/" target="_blank" rel="noopener noreferrer">(Page et al., 1998)</a></b></p>
-                <ul>
-                    <li>Degree counts every link the same. PageRank weighs who makes it</li>
-                    <li>A random surfer follows links, and now and then jumps to any item</li>
-                    <li>PageRank is the share of time the surfer spends on each item</li>
-                </ul>
+                <p>Degree counts every link the same. PageRank weighs who makes it.</p>
+                <p>A random surfer follows links, and now and then jumps to any item.</p>
+                <p>PageRank is the share of time the surfer spends on each item.</p>
                 <table class="table">
                     <tr><td><p>"a page has high rank if the sum of the ranks of its backlinks is high. This covers both the case when a page has many backlinks and when a page has a few highly ranked backlinks."</p><p>Page et al. (1998), p. 3</p></td></tr>
                 </table>
@@ -31,7 +41,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 55%">
+            <div class="column vertical-top text-left" style="width: 55%">
                 <p><b>The formula</b></p>
                 <p>$$PR(v) = \frac{1 - d}{n} + d \sum_{u \to v} \frac{PR(u)}{\text{out}(u)}$$</p>
                 <ul>
@@ -43,11 +53,9 @@
             </div>
             <div class="column vertical-middle text-left" style="width: 45%">
                 <p><b>Power iteration</b></p>
-                <ul>
-                    <li><p>Start with $PR(v) = 1/n$ for every item</p></li>
-                    <li><p>Apply the formula to all items until the scores stop changing</p></li>
-                    <li><p>The scores add up to 1, so compare them with $1/n$</p></li>
-                </ul>
+                <p>Start with $PR(v) = 1/n$ for every item.</p>
+                <p>Apply the formula to all items until the scores stop changing.</p>
+                <p>The scores add up to 1, so compare them with $1/n$.</p>
             </div>
         </div>
     </div>
@@ -60,9 +68,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 45%">
                 <p><b>Four items</b></p>
-                <ul>
-                    <li>A links to B and C. B links to C. C links to A. D links to C</li>
-                </ul>
+                <p>A links to B and C. B links to C. C links to A. D links to C.</p>
                 <table class="table">
                     <thead>
                         <tr><th>Item</th><th>In-degree</th><th>PageRank</th></tr>
@@ -77,11 +83,9 @@
             </div>
             <div class="column vertical-middle text-left" style="width: 55%">
                 <p><b>Same in-degree, different PageRank</b></p>
-                <ul>
-                    <li>A's one link comes from C, the best placed item. B's comes from A, which splits its score in two</li>
-                    <li>So A has almost twice the PageRank of B</li>
-                    <li>D gets only the random jump, $0.15 / 4 = 0.0375$</li>
-                </ul>
+                <p>A's one link comes from C, the best placed item. B's comes from A, which splits its score in two.</p>
+                <p>So A has almost twice the PageRank of B.</p>
+                <p>D gets only the random jump, $0.15 / 4 = 0.0375$.</p>
                 <p>Computed with the code on the next slide, the same as networkx.pagerank to 3 decimals.</p>
             </div>
         </div>
@@ -95,10 +99,8 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 40%">
                 <p><b>Python, by hand</b></p>
-                <ul>
-                    <li>The directed links as a dict of sets</li>
-                    <li>One loop is one step of the surfer for every item</li>
-                </ul>
+                <p>The directed links as a dict of sets.</p>
+                <p>One loop is one step of the surfer for every item.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 60%">
 
@@ -152,11 +154,9 @@ not_by_degree = [v for v in top_rank if v not in top_degree]
             <div class="column vertical-middle text-left" style="width: 45%">
                 <p><b>Reading question</b></p>
                 <p>When do degree and PageRank disagree?</p>
-                <ul>
-                    <li>When an item gets few links, but from well placed items</li>
-                    <li>When an item gets many links from items nobody links to</li>
-                    <li>A hub tops both, so the hub warning holds for PageRank too</li>
-                </ul>
+                <p>When an item gets few links, but from well placed items.</p>
+                <p>When an item gets many links from items nobody links to.</p>
+                <p>A hub tops both, so the hub warning holds for PageRank too.</p>
             </div>
         </div>
     </div>

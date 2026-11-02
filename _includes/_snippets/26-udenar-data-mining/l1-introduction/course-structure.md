@@ -104,7 +104,7 @@
                       <li>The course follows an active learning approach. <b>Your participation</b> is crucial for everyone to succeed</li>
                       <li>Turn on your camera during Saturday sync sessions unless you have agreed an exception with the instructor</li>
                       <li>Complete async videos and the individual practice notebooks before Saturday</li>
-                      <li>Bring your learning journal to reading discussions. Reading lists are shared the week before</li>
+                      <li>Bring your learning journal to reading discussions. Both readings of each week come in the course email the week before</li>
                       <li>Use your group Microsoft Teams link for in-group work during sync sessions</li>
                       <li>You are free to use AI during the course but declare your use honestly in every reflection. Do not submit wholesale AI-generated reflections</li>
                       <li>Respect data ethics on the explored datasets</li>

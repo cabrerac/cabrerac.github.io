@@ -6,6 +6,18 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
+                <p><b>CRISP-DM</b> is a process model that splits a data mining project into six phases, from understanding the business question to deploying the result.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## CRISP-DM
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/crisp-dm-process-diagram.png" alt="CRISP-DM process diagram" style="height: 500px">
                 <div class="footnote">CRISP-DM Process Diagram - Kenneth Jensen, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
             </div>
@@ -227,10 +239,8 @@
                         </td>
                     </tr>
                 </table>
-                <ul>
-                    <li>Modeling shows a data problem, so we go back to preparation</li>
-                    <li>Evaluation shows a weak question, so we go back to the business</li>
-                </ul>
+                <p>Modeling shows a data problem, so we go back to preparation.</p>
+                <p>Evaluation shows a weak question, so we go back to the business.</p>
             </div>
         </div>
     </div>

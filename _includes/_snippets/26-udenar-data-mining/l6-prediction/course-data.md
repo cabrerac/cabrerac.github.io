@@ -9,12 +9,10 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>The label: [TBD label, open question 1]</b></p>
-                <ul>
-                    <li>What the label is and how it is built</li>
-                    <li>How many papers have it, and how many are left out</li>
-                    <li>Not read from the text, that was Lecture 4</li>
-                    <li>Not a popularity count, which says how known an item is, not what it is</li>
-                </ul>
+                <p>What the label is and how it is built.</p>
+                <p>How many papers have it, and how many are left out.</p>
+                <p>Not read from the text, that was Lecture 4.</p>
+                <p>Not a popularity count, which says how known an item is, not what it is.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>The five inputs for the Wikipedia groups</b></p>
@@ -38,17 +36,13 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Overlap with Lecture 4: [TBD label, open question 1]</b></p>
-                <ul>
-                    <li>A label that repeats the text result is not a new support</li>
-                    <li>How strong the overlap is, and what the course does about it</li>
-                </ul>
+                <p>A label that repeats the text result is not a new support.</p>
+                <p>How strong the overlap is, and what the course does about it.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Leakage on our data: [TBD label, open question 1]</b></p>
-                <ul>
-                    <li>Which input is built from the label, and what is taken out</li>
-                    <li>The same model with and without it</li>
-                </ul>
+                <p>Which input is built from the label, and what is taken out.</p>
+                <p>The same model with and without it.</p>
             </div>
         </div>
     </div>

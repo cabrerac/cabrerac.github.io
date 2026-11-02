@@ -5,6 +5,18 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p><b>Clustering</b> puts similar items in the same group and different items in different groups, without being told what the groups are.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Groups of Similar Items
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>What is a group</b></p>
                 <table class="table">
@@ -15,11 +27,9 @@
                         </td>
                     </tr>
                 </table>
-                <ul>
-                    <li>Items inside a group are close to each other</li>
-                    <li>Items in different groups are far apart</li>
-                    <li>No one tells the method what the groups are</li>
-                </ul>
+                <p>Items inside a group are close to each other.</p>
+                <p>Items in different groups are far apart.</p>
+                <p>No one tells the method what the groups are.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/cluster-analysis-mouse.svg" alt="Three groups of points" style="height: 380px">
@@ -44,11 +54,9 @@
                         </td>
                     </tr>
                 </table>
-                <ul>
-                    <li>A method returns labels, not meanings</li>
-                    <li>Someone who knows the field reads each group</li>
-                    <li>Then decides what the group is for</li>
-                </ul>
+                <p>A method returns labels, not meanings.</p>
+                <p>Someone who knows the field reads each group.</p>
+                <p>Then decides what the group is for.</p>
             </div>
         </div>
     </div>
@@ -59,7 +67,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <p><b>Similarity and distance</b></p>
                 <p>Each item is a vector $\mathbf{x}$, for example the word counts of one text.</p>
                 <p>$$\cos(\mathbf{x}, \mathbf{y}) = \frac{\mathbf{x} \cdot \mathbf{y}}{\lVert \mathbf{x} \rVert \, \lVert \mathbf{y} \rVert}$$</p>
@@ -75,7 +83,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <p><b>Scale each item to length 1</b></p>
                 <p>$$\hat{\mathbf{x}} = \frac{\mathbf{x}}{\lVert \mathbf{x} \rVert}$$</p>
                 <ul>
@@ -96,12 +104,10 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>An item that fits no group</b></p>
-                <ul>
-                    <li>Some methods put every item in a group</li>
-                    <li>Others can say an item fits nowhere</li>
-                    <li>An item far from every group is worth a human look</li>
-                    <li>It can be an error, a rare case, or a new topic</li>
-                </ul>
+                <p>Some methods put every item in a group.</p>
+                <p>Others can say an item fits nowhere.</p>
+                <p>An item far from every group is worth a human look.</p>
+                <p>It can be an error, a rare case, or a new topic.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/clusters-with-noise.svg" alt="Groups with points around them" style="height: 380px">

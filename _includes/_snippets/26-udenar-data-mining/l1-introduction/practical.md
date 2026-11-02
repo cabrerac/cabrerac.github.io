@@ -52,11 +52,11 @@ print("Repaso de Python: OK")
  
 ## Instrucciones
  
-**La historia.** Usted es parte de un equipo interno de un consejo. El consejo tiene una base de artículos científicos sobre nutrición. El equipo debe decidir **qué artículos tiene que leer** para su tema, y con qué filtro llegaron a la lista. Durante el curso construiremos esa lista paso a paso, un método por lección.
+**La historia.** Usted es parte de un equipo interno de una alcaldía, en la secretaría de salud. La secretaría tiene una base de artículos científicos sobre nutrición. El equipo debe decidir **qué artículos tiene que leer** para su tema, y con qué filtro llegaron a la lista. Durante el curso construiremos esa lista paso a paso, un método por lección.
  
 **Hoy no hay modelo.** Esta lección trata de lo que pasa **antes** de minar: escribir la pregunta, mirar los datos con calma y decidir qué es una buena respuesta. Seguimos **CRISP-DM**, la metodología del curso. Sus seis fases son las secciones de todos los cuadernos del curso.
  
-**Qué hacer.** Ejecute las celdas de arriba hacia abajo. Cada paso empieza con **En este paso** y termina con una celda **Comprobar**. Algunas celdas le piden escribir con sus palabras. Hágalo, porque el cuaderno de grupo le pedirá lo mismo para su departamento.
+**Qué hacer.** Ejecute las celdas de arriba hacia abajo. Cada paso empieza con **En este paso** y termina con una celda **Comprobar**. Algunas celdas le piden escribir con sus palabras. Hágalo, porque el cuaderno de grupo le pedirá lo mismo para su secretaría.
  
 **Mapa del cuaderno**
  
@@ -80,9 +80,9 @@ En este paso escribimos quién decide, qué decide y qué no puede decidir. Esto
  
 | Pregunta | Respuesta para el laboratorio |
 |----------|-------------------------------|
-| ¿Quién usa la lista? | El equipo interno del consejo |
+| ¿Quién usa la lista? | El equipo interno de la secretaría de salud |
 | ¿Qué decide con ella? | Qué artículos abrir y leer para su trabajo sobre nutrición |
-| ¿Qué no decide con ella? | No la cita como evidencia oficial del consejo. No reemplaza leer los artículos |
+| ¿Qué no decide con ella? | No la cita como evidencia oficial de la alcaldía. No reemplaza leer los artículos |
 | ¿Qué filtro no sirve? | Un número alto de citas por sí solo |
  
 La última fila importa. Un artículo muy citado puede ser un manual general o un artículo de otro tema que cita todo el mundo. La cantidad de citas mide popularidad, no si el artículo sirve para el trabajo del equipo.
@@ -144,7 +144,7 @@ question_card = {
     },
     "use": {
         "may": ["decidir qué artículos abrir primero para el trabajo del equipo"],
-        "may_not": ["citar la lista como evidencia del consejo", "elegir artículos solo por sus citas"],
+        "may_not": ["citar la lista como evidencia de la alcaldía", "elegir artículos solo por sus citas"],
     },
 }
 print(json.dumps(question_card, ensure_ascii=False, indent=2))
@@ -573,9 +573,9 @@ En este paso volvemos a la parte `use` de la tarjeta. Desplegar aquí no es publ
  
 | Se puede | No se puede |
 |----------|-------------|
-| Decidir qué artículos abrir primero | Citar la lista como evidencia del consejo |
+| Decidir qué artículos abrir primero | Citar la lista como evidencia de la alcaldía |
 | Saber qué filtro puso cada artículo | Elegir artículos solo por sus citas |
-| Cambiar la lista si cambia el tema | Usar la lista en otro departamento sin rehacerla |
+| Cambiar la lista si cambia el tema | Usar la lista en otra secretaría sin rehacerla |
  
 **Su turno.** Escriba un riesgo de usar mal la lista y cómo lo evitaría.
 

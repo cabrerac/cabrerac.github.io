@@ -1,4 +1,5 @@
 <!-- SLIDES: -->
+<!-- 2 Nov 2026: the visible note "Numbers: box run on rebuilt data." was removed from these slides (critic brief r1, S4). The source notes stay in these comments. -->
 <!-- Numbers: box run on rebuilt data, DRAFT. box-run/RESULTS.md section 4 (held-out 20%, bootstrap 2,000 resamples, seed 7), checked by the critic (checkpoint B review, OK list). The keyword cells come from the round 2 slide code run with the keyword list of the Python slide (critic, checkpoint B round 2, S-R2-1) and are rechecked on the L4 notebook run, like every L4 number here. The five-fold column is on the 253 training rows (S2). The 64 kept apart papers carry the OpenAlex topic label until Christian marks them (M5). If he marks before recording, re-run this slide from the notebook after the marking. Agricultura target approved 30 Oct 2026. -->
 
 ## Comparing the Methods
@@ -29,7 +30,6 @@
                     </tbody>
                 </table>
                 <p style="font-size: 0.8em">Encoder minus TF-IDF: [-0.09, 0.00]. No clear winner. With 19 yes papers, one paper moves F1 a lot.</p>
-                <div class="footnote">Numbers: box run on rebuilt data.</div>
             </div>
         </div>
     </div>
@@ -40,7 +40,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 68%">
+            <div class="column vertical-middle text-center" style="width: 100%">
                 <p><b>Kept apart F1 in every extract</b></p>
                 <table class="table" style="font-size: 0.5em">
                     <thead>
@@ -56,10 +56,19 @@
                     </tbody>
                 </table>
                 <p style="font-size: 0.55em">* Papers: the keyword list above. Wikipedia extracts: a stand-in list, the stems of the target category names. Your group writes its own list from the question.</p>
-                <div class="footnote">Numbers: box run on rebuilt data.</div>
             </div>
-            <div class="column vertical-middle text-left" style="width: 32%">
-                <ul style="font-size: 0.72em">
+        </div>
+    </div>
+</div>
+
+## Comparing the Methods
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <p><b>Kept apart F1 in every extract</b></p>
+                <ul>
                     <li>Every interval of the difference includes 0. No clear winner</li>
                     <li>Five folds on all rows: the encoder is higher on average in vivienda and medio ambiente, but those intervals include 0 too</li>
                     <li>The encoder may help where the target words vary. It adds nothing where a few words decide</li>

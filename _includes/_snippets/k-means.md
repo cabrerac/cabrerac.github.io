@@ -5,6 +5,18 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p><b>k-means</b> splits the items into $k$ groups so that each item is close to the centre of its own group.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## k-means
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 45%">
                 <p><b>The idea</b></p>
                 <ul>
@@ -27,14 +39,12 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <p><b>What k-means minimises</b></p>
                 <p>$$J = \sum_{j=1}^{k} \sum_{i \in C_j} \lVert \mathbf{x}_i - \boldsymbol{\mu}_j \rVert^2$$</p>
-                <ul>
-                    <li><p>$C_j$ is the set of items in group $j$</p></li>
-                    <li><p>$\boldsymbol{\mu}_j$ is the mean of those items</p></li>
-                    <li><p>Small $J$ means items sit near their centre</p></li>
-                </ul>
+                <p>$C_j$ is the set of items in group $j$.</p>
+                <p>$\boldsymbol{\mu}_j$ is the mean of those items.</p>
+                <p>Small $J$ means items sit near their centre.</p>
             </div>
         </div>
     </div>
@@ -45,7 +55,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <p><b>Lloyd steps</b> <a href="https://doi.org/10.1109/TIT.1982.1056489" target="_blank" rel="noopener noreferrer">(Lloyd, 1982)</a></p>
                 <ol>
                     <li><p>Place $k$ centres</p></li>
@@ -54,11 +64,9 @@
                     <li>Repeat 2 and 3 until nothing changes</li>
                 </ol>
                 <p><b>k-means++</b> <a href="https://dl.acm.org/doi/10.5555/1283383.1283494" target="_blank" rel="noopener noreferrer">(Arthur &amp; Vassilvitskii, 2007)</a></p>
-                <ul>
-                    <li>Pick the first centre at random</li>
-                    <li>Pick each next one far from those already picked</li>
-                    <li><p>Run several starts and keep the lowest $J$</p></li>
-                </ul>
+                <p>Pick the first centre at random.</p>
+                <p>Pick each next one far from those already picked.</p>
+                <p>Run several starts and keep the lowest $J$.</p>
             </div>
         </div>
     </div>
@@ -69,7 +77,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <p><b>Silhouette</b> <a href="https://doi.org/10.1016/0377-0427(87)90125-7" target="_blank" rel="noopener noreferrer">(Rousseeuw, 1987)</a></p>
                 <p>$$s(i) = \frac{b(i) - a(i)}{\max\{a(i),\, b(i)\}}$$</p>
                 <ul>
@@ -109,12 +117,10 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Limits</b></p>
-                <ul>
-                    <li>Groups come out round and of similar spread</li>
-                    <li>Every item is forced into a group</li>
-                    <li>A different start can give different groups</li>
-                    <li>The number of groups is ours, not the data's</li>
-                </ul>
+                <p>Groups come out round and of similar spread.</p>
+                <p>Every item is forced into a group.</p>
+                <p>A different start can give different groups.</p>
+                <p>The number of groups is ours, not the data's.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/k-means-versus-k-medoids.png" alt="k-means on groups that are not round" style="height: 380px">
@@ -164,11 +170,9 @@ K_CHOSEN = max(silhouettes, key=silhouettes.get)   # or a k chosen for the use
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 35%">
                 <p><b>Reading a group</b></p>
-                <ul>
-                    <li>The centre weights each word</li>
-                    <li>Its top words name the group</li>
-                    <li>Size next to the words</li>
-                </ul>
+                <p>The centre weights each word.</p>
+                <p>Its top words name the group.</p>
+                <p>Size next to the words.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
 

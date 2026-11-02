@@ -5,14 +5,8 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Preparation</b></p>
-                <ul>
-                    <li>One set of words per text</li>
-                    <li>All pairs of words inside each set</li>
-                    <li>A count of texts for each pair</li>
-                </ul>
-                <p>{diet, obesity, risk} gives three pairs: diet + obesity, diet + risk, obesity + risk.</p>
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p>A <b>frequent word pair</b> is a pair of words that appear together in at least a minimum number of texts, the support floor.</p>
             </div>
         </div>
     </div>
@@ -24,6 +18,22 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
+                <p><b>Preparation</b></p>
+                <p>One set of words per text.</p>
+                <p>All pairs of words inside each set.</p>
+                <p>A count of texts for each pair.</p>
+                <p>{diet, obesity, risk} gives three pairs: diet + obesity, diet + risk, obesity + risk.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Frequent Word Pairs
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <p><b>Support</b></p>
                 <p>The support of a pair is the number of texts that hold both words.</p>
                 <p>$$\text{support}(A,B) = \left|\{\, i : A \in T_i \text{ and } B \in T_i \,\}\right|$$</p>
@@ -71,15 +81,13 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-top text-left" style="width: 50%">
                 <p><b>The support floor</b></p>
                 <p>A pair needs at least $k$ texts, a share of the collection with a minimum count.</p>
                 <p>$$k = \max\left(5,\ \lceil 0.03 \cdot N \rceil\right)$$</p>
-                <ul>
-                    <li>With 100 texts, k is 5</li>
-                    <li>With 300 texts, k is 9</li>
-                    <li>With 1,000 texts, k is 30</li>
-                </ul>
+                <p>With 100 texts, k is 5.</p>
+                <p>With 300 texts, k is 9.</p>
+                <p>With 1,000 texts, k is 30.</p>
                 <table class="table">
                     <tr>
                         <td>
@@ -89,14 +97,12 @@
                     </tr>
                 </table>
             </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-top text-left" style="width: 50%">
                 <p><b>Why a floor</b></p>
-                <ul>
-                    <li>One standout text cannot make a pattern alone</li>
-                    <li>Rare pairs look strong by luck</li>
-                    <li>The list stays small enough to read</li>
-                    <li>1,000 words give 499,500 possible pairs</li>
-                </ul>
+                <p>One standout text cannot make a pattern alone.</p>
+                <p>Rare pairs look strong by luck.</p>
+                <p>The list stays small enough to read.</p>
+                <p>1,000 words give 499,500 possible pairs.</p>
                 <p>$$\binom{V}{2} = \frac{V(V-1)}{2}$$</p>
             </div>
         </div>
@@ -110,11 +116,9 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>The Apriori property</b> <a href="https://www.vldb.org/conf/1994/P487.PDF" target="_blank" rel="noopener noreferrer">(Agrawal &amp; Srikant, 1994)</a></p>
-                <ul>
-                    <li>A pair cannot be in more texts than either of its words</li>
-                    <li>If a word is below the floor, every pair with it is below the floor</li>
-                    <li>So we drop rare words first, then count pairs</li>
-                </ul>
+                <p>A pair cannot be in more texts than either of its words.</p>
+                <p>If a word is below the floor, every pair with it is below the floor.</p>
+                <p>So we drop rare words first, then count pairs.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/frequent-itemsets-lattice.png" alt="Itemset lattice" style="height: 360px">
@@ -131,11 +135,9 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 35%">
                 <p><b>Python: the floor</b></p>
-                <ul>
-                    <li>The floor from the number of texts</li>
-                    <li>Count each word once per text</li>
-                    <li>Keep the words at the floor</li>
-                </ul>
+                <p>The floor from the number of texts.</p>
+                <p>Count each word once per text.</p>
+                <p>Keep the words at the floor.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
 
@@ -169,11 +171,9 @@ vocabulary = sorted(w for w, c in word_count.items() if c >= FLOOR)
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 35%">
                 <p><b>Python: the pairs</b></p>
-                <ul>
-                    <li>Pairs from the kept words only</li>
-                    <li>combinations gives each pair once</li>
-                    <li>Keep the pairs at the floor</li>
-                </ul>
+                <p>Pairs from the kept words only.</p>
+                <p>combinations gives each pair once.</p>
+                <p>Keep the pairs at the floor.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
 

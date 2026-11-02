@@ -5,6 +5,18 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p>A <b>data mining question</b> states what someone needs to decide, how we will answer it, what counts as a good answer and who will use it.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## The Data Mining Question
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>A question needs four parts</b></p>
                 <ul>
@@ -29,12 +41,10 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Question</b></p>
-                <ul>
-                    <li>Names a reader and a decision</li>
-                    <li>Names the data it will use</li>
-                    <li>Can be answered with that data</li>
-                    <li>Is small enough for the time we have</li>
-                </ul>
+                <p>Names a reader and a decision.</p>
+                <p>Names the data it will use.</p>
+                <p>Can be answered with that data.</p>
+                <p>Is small enough for the time we have.</p>
                 <p><b>Bad:</b> What is interesting in the data?</p>
                 <p><b>Better:</b> Which ten books should the library buy again next term?</p>
             </div>
@@ -49,12 +59,10 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Steps</b></p>
-                <ul>
-                    <li>One line for each CRISP-DM phase</li>
-                    <li>The preparation each method needs</li>
-                    <li>The methods we will compare</li>
-                    <li>Where a step can send us back</li>
-                </ul>
+                <p>One line for each CRISP-DM phase.</p>
+                <p>The preparation each method needs.</p>
+                <p>The methods we will compare.</p>
+                <p>Where a step can send us back.</p>
                 <p>Steps are a plan, not a promise. They will change.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">

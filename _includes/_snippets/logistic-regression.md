@@ -5,7 +5,19 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 55%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p><b>Logistic regression</b> turns a weighted sum of an item's attributes into the probability that the item belongs to a class.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Logistic Regression
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 55%">
                 <p><b>A probability from a weighted sum</b> <a href="https://doi.org/10.1111/j.2517-6161.1958.tb00292.x" target="_blank" rel="noopener noreferrer">(Cox, 1958)</a></p>
                 <p>$$P(y = 1 \mid \mathbf{x}) = \sigma(\mathbf{w} \cdot \mathbf{x} + b)$$</p>
                 <p>$$\sigma(z) = \frac{1}{1 + e^{-z}}$$</p>
@@ -27,14 +39,12 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <p><b>Log loss</b></p>
                 <p>$$\mathcal{L}(\mathbf{w}, b) = -\sum_{i=1}^{n} \left[ y_i \log p_i + (1 - y_i) \log (1 - p_i) \right]$$</p>
-                <ul>
-                    <li><p>$p_i$ is the predicted probability for item $i$</p></li>
-                    <li><p>A confident wrong answer costs a lot</p></li>
-                    <li><p>The weights are found by minimising the loss</p></li>
-                </ul>
+                <p>$p_i$ is the predicted probability for item $i$.</p>
+                <p>A confident wrong answer costs a lot.</p>
+                <p>The weights are found by minimising the loss.</p>
             </div>
         </div>
     </div>
@@ -45,15 +55,13 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <p><b>L2 penalty and class weights</b></p>
                 <p>$$\min_{\mathbf{w}, b} \ \frac{1}{2} \lVert \mathbf{w} \rVert^2 + C \sum_{i} s_{y_i} \, \ell_i$$</p>
-                <ul>
-                    <li><p>With many columns, weights can grow to fit noise</p></li>
-                    <li><p>The penalty keeps them small, a larger $C$ means a weaker penalty</p></li>
-                    <li><p>$s_y = n / (2\, n_y)$ gives the rare class the same total weight</p></li>
-                    <li><p>Without it, a model can do well by saying no to everything</p></li>
-                </ul>
+                <p>With many columns, weights can grow to fit noise.</p>
+                <p>The penalty keeps them small, a larger $C$ means a weaker penalty.</p>
+                <p>$s_y = n / (2\, n_y)$ gives the rare class the same total weight.</p>
+                <p>Without it, a model can do well by saying no to everything.</p>
             </div>
         </div>
     </div>

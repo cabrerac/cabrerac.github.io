@@ -1,4 +1,5 @@
 <!-- SLIDES: -->
+<!-- 2 Nov 2026: the visible note "Numbers: box run on rebuilt data." was removed from these slides (critic brief r1, S4). The source notes stay in these comments. -->
 
 <!-- Numbers: slide code on rebuilt data, box run (week-3/feasibility/r3/w3decks_n2v_pagerank.json, critic l5_slide_code.json, sorted(adj)). Round 4: the three former box-run markers filled from the notebooks maker's box run (sorted(adj), seeds 7 to 9, workers=1, betweenness rounded to 9 dp). -->
 
@@ -19,11 +20,8 @@
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>What that means</b></p>
-                <ul>
-                    <li>The top paper, a Global Burden of Disease paper, links to 8% of the others, so no hub</li>
-                    <li>The hub rule never flags fewer than 5 links, the minimum of the Lecture 2 support floor. The 10% share decides it in every set</li>
-                </ul>
-                <div class="footnote">Numbers: box run on rebuilt data.</div>
+                <p>The top paper, a Global Burden of Disease paper, links to 8% of the others, so no hub.</p>
+                <p>The hub rule never flags fewer than 5 links, the minimum of the Lecture 2 support floor. The 10% share decides it in every set.</p>
             </div>
         </div>
     </div>
@@ -47,14 +45,11 @@
                         <tr><td>Salud mental</td><td>332</td><td>828</td><td>14%</td><td>275 (83%)</td><td>Psiquiatría, 27%</td><td>9</td></tr>
                     </tbody>
                 </table>
-                <div class="footnote">Numbers: box run on rebuilt data.</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 34%">
-                <ul>
-                    <li>Fewer isolated items than the papers, 14% to 27%</li>
-                    <li>In every extract the top article links to 14% to 30% of the others</li>
-                    <li>Read the other articles with and without the hubs</li>
-                </ul>
+                <p>Fewer isolated items than the papers, 14% to 27%.</p>
+                <p>In every extract the top article links to 14% to 30% of the others.</p>
+                <p>Read the other articles with and without the hubs.</p>
             </div>
         </div>
     </div>

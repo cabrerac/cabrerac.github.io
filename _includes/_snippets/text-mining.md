@@ -5,14 +5,24 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p><b>Text mining</b> turns many texts, too many to read by hand, into the short answers a question needs.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Text Mining
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Extraction from text</b></p>
-                <ul>
-                    <li>Turn each text into a short answer the question needs</li>
-                    <li>Read or skip, on topic or not, mentions a place or not</li>
-                    <li>Many texts, too many to read by hand</li>
-                    <li>A method reads them all, a person checks a sample</li>
-                </ul>
+                <p>Turn each text into a short answer the question needs.</p>
+                <p>Read or skip, on topic or not, mentions a place or not.</p>
+                <p>Many texts, too many to read by hand.</p>
+                <p>A method reads them all, a person checks a sample.</p>
             </div>
         </div>
     </div>

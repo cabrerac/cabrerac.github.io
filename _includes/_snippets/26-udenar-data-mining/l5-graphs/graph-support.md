@@ -1,4 +1,5 @@
 <!-- SLIDES: -->
+<!-- 2 Nov 2026: the visible note "Numbers: box run on rebuilt data." was removed from these slides (critic brief r1, S4). The source notes stay in these comments. -->
 
 <!-- Numbers: slide code on rebuilt data, box run (week-3/feasibility/r3/w3decks_n2v_pagerank.json, critic l5_slide_code.json, sorted(adj)). Round 4: the three former box-run markers filled from the notebooks maker's box run (sorted(adj), seeds 7 to 9, workers=1, betweenness rounded to 9 dp). -->
 
@@ -9,13 +10,10 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 45%">
                 <p><b>A bridge in the graph</b></p>
-                <ul>
-                    <li>A bridge: top quarter by betweenness among connected papers, and not a hub</li>
-                    <li>49 bridges among the 196 connected papers, 15% of the 318</li>
-                    <li>Four supports: has_pattern, read_group, text_says_read and graph_support</li>
-                    <li>Papers in view with at least two: 69</li>
-                </ul>
-                <div class="footnote">Numbers: box run on rebuilt data.</div>
+                <p>A bridge: top quarter by betweenness among connected papers, and not a hub.</p>
+                <p>49 bridges among the 196 connected papers, 15% of the 318.</p>
+                <p>Four supports: has_pattern, read_group, text_says_read and graph_support.</p>
+                <p>Papers in view with at least two: 69.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 55%">
 

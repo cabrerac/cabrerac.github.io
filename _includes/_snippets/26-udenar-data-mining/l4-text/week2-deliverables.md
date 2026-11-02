@@ -22,6 +22,7 @@
                     <li>Use the week 2 reflection template on the course page</li>
                 </ul>
                 <p>Both go through Moodle.</p>
+                <p>Each article on the starter list will need two supports and a written fact that would remove it.</p>
             </div>
         </div>
     </div>

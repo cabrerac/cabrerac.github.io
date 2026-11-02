@@ -44,7 +44,7 @@ print(f"Coseno: {u @ v:.3f}. Repaso de Python: OK")
  
 ## Instrucciones
  
-**La historia.** Seguimos con el equipo interno del consejo. Tiene 320 artículos sobre nutrición y debe decidir cuáles leer. En la Lección 1 escribimos la pregunta y el estándar (una lista de 10 a 30 artículos). En la Lección 2 encontramos patrones: pares de palabras que se repiten más que por azar. Hoy buscamos **grupos**: artículos que usan palabras parecidas. Y buscamos los artículos que **no encajan en ningún grupo**.
+**La historia.** Seguimos con el equipo interno de la secretaría de salud. Tiene 320 artículos sobre nutrición y debe decidir cuáles leer. En la Lección 1 escribimos la pregunta y el estándar (una lista de 10 a 30 artículos). En la Lección 2 encontramos patrones: pares de palabras que se repiten más que por azar. Hoy buscamos **grupos**: artículos que usan palabras parecidas. Y buscamos los artículos que **no encajan en ningún grupo**.
  
 **La idea central.** Un grupo es un conjunto de artículos más parecidos entre sí que con el resto. No sabemos de antemano cuántos grupos hay ni qué significan. Por eso juzgamos los grupos sin etiquetas: contra una línea base al azar, con varias semillas y comparando métodos. Un grupo sirve a la decisión solo si el equipo puede leerlo.
  
@@ -264,7 +264,7 @@ else:
         "standard": {"min_papers": 10, "max_papers": 30, "max_share_citations_only": 0.5},
         "use": {
             "may": ["decidir qué artículos abrir primero para el trabajo del equipo"],
-            "may_not": ["citar la lista como evidencia del consejo", "elegir artículos solo por sus citas"],
+            "may_not": ["citar la lista como evidencia de la alcaldía", "elegir artículos solo por sus citas"],
         },
         "pattern_use": {"rule": "Un artículo entra en la lista cuando lo apoyan al menos dos resultados del curso."},
     }

@@ -5,14 +5,24 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p><b>TF-IDF</b> gives a word a high weight in a text when it is frequent in that text and rare in the others.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## TF-IDF
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <p><b>Term frequency</b></p>
                 <p>$$\text{tf}(w, d) = 1 + \log c(w, d)$$</p>
-                <ul>
-                    <li><p>$c(w, d)$ is how many times word $w$ appears in document $d$, zero stays zero</p></li>
-                    <li><p>The log stops one repeated word from taking over</p></li>
-                    <li><p>Ten mentions count more than one, but not ten times more</p></li>
-                </ul>
+                <p>$c(w, d)$ is how many times word $w$ appears in document $d$, zero stays zero.</p>
+                <p>The log stops one repeated word from taking over.</p>
+                <p>Ten mentions count more than one, but not ten times more.</p>
                 <p><a href="https://doi.org/10.1016/0306-4573(88)90021-0" target="_blank" rel="noopener noreferrer">(Salton &amp; Buckley, 1988)</a></p>
             </div>
         </div>
@@ -24,7 +34,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <p><b>Inverse document frequency</b> <a href="https://doi.org/10.1108/eb026526" target="_blank" rel="noopener noreferrer">(Sparck Jones, 1972)</a></p>
                 <p>$$\text{idf}(w) = \log \frac{1 + N}{1 + \text{df}(w)} + 1$$</p>
                 <ul>
@@ -44,15 +54,13 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <p><b>The document by word matrix</b></p>
                 <p>$$x_{dw} = \text{tf}(w, d) \cdot \text{idf}(w)$$</p>
-                <ul>
-                    <li><p>One row per document, one column per word</p></li>
-                    <li><p>Each row scaled to length 1, so long texts do not win</p></li>
-                    <li><p>The weights are learned on the training texts only</p></li>
-                    <li><p>Texts kept apart are transformed with those same weights</p></li>
-                </ul>
+                <p>One row per document, one column per word.</p>
+                <p>Each row scaled to length 1, so long texts do not win.</p>
+                <p>The weights are learned on the training texts only.</p>
+                <p>Texts kept apart are transformed with those same weights.</p>
             </div>
         </div>
     </div>

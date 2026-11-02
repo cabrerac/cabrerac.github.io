@@ -86,4 +86,18 @@ print(table["in_view"].sum(), (table["supports"] >= 3).sum(), added.sum())
     </div>
 </div>
 
+## The Starter List
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <p><b>What fact would remove an article</b></p>
+                <p>Every article on the list in outputs/lista_inicial.csv gets a line in the column hecho_que_saca, the fact that would remove it from the starter list.</p>
+                <p>The column alerta_centro marks an article that is central only because it links to many others. It is a warning to read the article, never a support.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- end SLIDES: -->

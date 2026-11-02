@@ -5,21 +5,29 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p><b>Combining results</b> keeps an item in view only when at least two different methods support it.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Combining Results
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>One result is not enough</b></p>
-                <ul>
-                    <li>Each method sees the items in its own way, and each one is weak alone</li>
-                    <li>An item stays in view only when at least two results support it</li>
-                    <li>Items left out are not deleted, they wait for another result</li>
-                </ul>
+                <p>Each method sees the items in its own way, and each one is weak alone.</p>
+                <p>An item stays in view only when at least two results support it.</p>
+                <p>Items left out are not deleted, they wait for another result.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>What would change it</b></p>
-                <ul>
-                    <li>Another setting of any method</li>
-                    <li>Another reading of a result</li>
-                    <li>A new result that supports or drops an item</li>
-                </ul>
+                <p>Another setting of any method.</p>
+                <p>Another reading of a result.</p>
+                <p>A new result that supports or drops an item.</p>
                 <p>We write these down next to the result, before anyone uses it.</p>
             </div>
         </div>

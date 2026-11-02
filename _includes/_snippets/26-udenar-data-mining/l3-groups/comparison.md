@@ -1,5 +1,6 @@
 <!-- SLIDES: -->
-<!-- Numbers: from the executed L3 notebook, which runs exactly the slide code, as listed in box-run/week-2/W2-L3-L4-VALUES.md (30 Oct 2026, about 04:35). Source map in week-2-round-2-por-confirmar.txt. Not from box-run/week2_groups.py, RESULTS.md section 3 or the critic's provisional table. Footer stays "box run on rebuilt data". -->
+<!-- 2 Nov 2026: the visible note "Numbers: box run on rebuilt data." was removed from these slides (critic brief r1, S4). The source notes stay in these comments. -->
+<!-- Numbers: from the executed L3 notebook, which runs exactly the slide code, as listed in box-run/week-2/W2-L3-L4-VALUES.md (30 Oct 2026, about 04:35). Source map in week-2-round-2-por-confirmar.txt. Not from box-run/week2_groups.py, RESULTS.md section 3 or the critic's provisional table. The visible footer was removed on 2 Nov 2026. -->
 
 ## Comparing the Methods
 
@@ -31,7 +32,6 @@
                     </tbody>
                 </table>
                 <p>The floor of 10 is the same as for a pattern in Lecture 2, and it is the smallest HDBSCAN group. HDBSCAN pairs use only the papers it puts in a group. Not a contest.</p>
-                <div class="footnote">Numbers: box run on rebuilt data.</div>
             </div>
         </div>
     </div>
@@ -42,7 +42,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 70%">
+            <div class="column vertical-middle text-center" style="width: 100%">
                 <p><b>Weak structure in every extract</b></p>
                 <table class="table" style="font-size: 0.5em">
                     <thead>
@@ -57,10 +57,19 @@
                         <tr><td>Salud mental</td><td>0.087 (k = 8)</td><td>0.070</td><td>0.49</td><td>5</td><td>46%</td></tr>
                     </tbody>
                 </table>
-                <div class="footnote">Numbers: box run on rebuilt data.</div>
             </div>
-            <div class="column vertical-middle text-left" style="width: 30%">
-                <ul style="font-size: 0.8em">
+        </div>
+    </div>
+</div>
+
+## Comparing the Methods
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <p><b>Weak structure in every extract</b></p>
+                <ul>
                     <li>Silhouette across the extracts: 0.032 to 0.123 over every k from 3 to 8, and 0.055 to 0.123 at the chosen k</li>
                     <li>Every extract is above its shuffled baseline, by 0.002 to 0.039. Agricultura only just: 0.055 against 0.053</li>
                     <li>Share of items HDBSCAN leaves as noise: 29% to 52% with SVD, 40% to 100% without</li>

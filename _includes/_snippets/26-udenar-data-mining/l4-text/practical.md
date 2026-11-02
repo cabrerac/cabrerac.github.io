@@ -39,7 +39,7 @@ print(f"TP {tp}, FP {fp}, FN {fn}, TN {tn}. Repaso de Python: OK")
  
 ## Instrucciones
  
-**La historia.** Seguimos con el equipo interno del consejo y sus 320 artículos de nutrición. En la Lección 2 encontramos patrones y en la Lección 3 grupos débiles. Con dos resultados, solo 8 artículos quedaron en vista, menos de los 10 que pide el estándar, porque el apoyo del grupo lo reciben solo los 10 artículos del grupo de HDBSCAN que lee el equipo. Hoy sumamos un tercer resultado: **leer el texto** de cada resumen y decir si trata del tema del equipo.
+**La historia.** Seguimos con el equipo interno de la secretaría de salud y sus 320 artículos de nutrición. En la Lección 2 encontramos patrones y en la Lección 3 grupos débiles. Con dos resultados, solo 8 artículos quedaron en vista, menos de los 10 que pide el estándar, porque el apoyo del grupo lo reciben solo los 10 artículos del grupo de HDBSCAN que lee el equipo. Hoy sumamos un tercer resultado: **leer el texto** de cada resumen y decir si trata del tema del equipo.
  
 **La idea central.** Para enseñarle a un método qué es "un artículo del tema", necesitamos **ejemplos marcados**. Las marcas se escriben **antes** de correr cualquier método, para que los resultados no nos cambien la vara. Separamos un conjunto de artículos marcados que ningún método ve al aprender, y medimos ahí los aciertos y los errores.
  

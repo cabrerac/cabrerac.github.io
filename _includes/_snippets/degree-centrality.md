@@ -5,22 +5,30 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p>The <b>degree</b> of an item is the number of links it has to other items in the graph.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Degree
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
                 <p><b>How many links</b></p>
                 <p>$$\deg(v) = |N(v)|$$</p>
                 <p>$$\text{share}(v) = \frac{\deg(v)}{n - 1}$$</p>
-                <ul>
-                    <li><p>$n$ is the number of nodes, so $n - 1$ is the most links a node can have</p></li>
-                    <li><p>In a directed graph, in-degree counts links received and out-degree links made</p></li>
-                </ul>
+                <p>$n$ is the number of nodes, so $n - 1$ is the most links a node can have.</p>
+                <p>In a directed graph, in-degree counts links received and out-degree links made.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Reading the degree</b></p>
-                <ul>
-                    <li>Most items have few links and a few have many</li>
-                    <li>A histogram of degree shows this long tail</li>
-                    <li>Isolated items sit at degree 0, often a large bar</li>
-                </ul>
+                <p>Most items have few links and a few have many.</p>
+                <p>A histogram of degree shows this long tail.</p>
+                <p>Isolated items sit at degree 0, often a large bar.</p>
             </div>
         </div>
     </div>
@@ -33,11 +41,9 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>The hub warning</b></p>
-                <ul>
-                    <li>A node linked to a large share of the others is a <b>hub</b></li>
-                    <li>Often it is the topic itself, the article everything else points to</li>
-                    <li>A hub is a warning, not an automatic pick</li>
-                </ul>
+                <p>A node linked to a large share of the others is a <b>hub</b>.</p>
+                <p>Often it is the topic itself, the article everything else points to.</p>
+                <p>A hub is a warning, not an automatic pick.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>One rule for a hub</b></p>

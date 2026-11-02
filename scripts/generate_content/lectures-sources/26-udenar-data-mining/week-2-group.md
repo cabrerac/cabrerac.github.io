@@ -19,7 +19,7 @@ skip_slides: true
 skip_lecture_page: true
 notebook_language: es
 notebook_title: Semana 2, cuaderno de grupo
-notebook_description: Cuaderno de grupo de la semana 2. Grupos de artículos, un conjunto marcado por el grupo y tres métodos de texto sobre las entradillas de su departamento en Wikipedia.
+notebook_description: Cuaderno de grupo de la semana 2. Grupos de artículos, un conjunto marcado por el grupo y tres métodos de texto sobre las entradillas de su secretaría en Wikipedia.
 ---
 
 {% include _snippets/26-udenar-data-mining/week-2-group/practical.md %}

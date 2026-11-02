@@ -5,6 +5,18 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p><b>Text preparation</b> turns each text into a clean set of words before any counting starts.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Text Preparation
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>From a text to a set of words</b></p>
                 <ul>
@@ -27,12 +39,10 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 55%">
                 <p><b>Boilerplate</b></p>
-                <ul>
-                    <li>Words that repeat because of how texts are written, not what they say</li>
-                    <li>Section labels such as background, methods, findings</li>
-                    <li>Funding lines that name the same funder again and again</li>
-                    <li>Web addresses: http, https, www, org</li>
-                </ul>
+                <p>Words that repeat because of how texts are written, not what they say.</p>
+                <p>Section labels such as background, methods, findings.</p>
+                <p>Funding lines that name the same funder again and again.</p>
+                <p>Web addresses: http, https, www, org.</p>
                 <p>http and www appear together in many texts, beat every baseline, and mean nothing. A baseline will not catch boilerplate. Preparation must.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 45%">
@@ -56,11 +66,9 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 35%">
                 <p><b>Python</b></p>
-                <ul>
-                    <li>One set of words per text</li>
-                    <li>spaCy stop words plus the boilerplate list</li>
-                    <li>Drop texts with fewer than five words</li>
-                </ul>
+                <p>One set of words per text.</p>
+                <p>spaCy stop words plus the boilerplate list.</p>
+                <p>Drop texts with fewer than five words.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
 

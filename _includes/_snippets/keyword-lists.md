@@ -5,14 +5,24 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p>A <b>keyword list</b> marks a text as a match when it contains at least one word from a list that a person wrote.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Keyword Lists
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <p><b>A dictionary method</b></p>
-                <ul>
-                    <li>Write a list of words that point to the answer</li>
-                    <li>A text with at least one word from the list is a match</li>
-                    <li>No training, every decision can be explained</li>
-                    <li>The list is the model</li>
-                </ul>
+                <p>Write a list of words that point to the answer.</p>
+                <p>A text with at least one word from the list is a match.</p>
+                <p>No training, every decision can be explained.</p>
+                <p>The list is the model.</p>
                 <p>$$\hat{y}(t) = \begin{cases} 1 & \text{if } W(t) \cap L \neq \emptyset \\ 0 & \text{otherwise} \end{cases}$$</p>
                 <p>$W(t)$ is the set of words of text $t$ and $L$ is the list.</p>
             </div>
@@ -27,12 +37,10 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Building the list</b></p>
-                <ul>
-                    <li>Write it from the question, before looking at any result</li>
-                    <li>Normalise it the same way as the texts, lower case</li>
-                    <li>Add the plural and the singular, diet and diets</li>
-                    <li>Keep it short and say why each word is there</li>
-                </ul>
+                <p>Write it from the question, before looking at any result.</p>
+                <p>Normalise it the same way as the texts, lower case.</p>
+                <p>Add the plural and the singular, diet and diets.</p>
+                <p>Keep it short and say why each word is there.</p>
             </div>
         </div>
     </div>
@@ -45,12 +53,10 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Wider or narrower</b></p>
-                <ul>
-                    <li>A wider list finds more right texts</li>
-                    <li>It also catches more wrong ones</li>
-                    <li>A narrow list misses texts that use other words</li>
-                    <li>Changing the list after seeing the marks is fitting the list to the test</li>
-                </ul>
+                <p>A wider list finds more right texts.</p>
+                <p>It also catches more wrong ones.</p>
+                <p>A narrow list misses texts that use other words.</p>
+                <p>Changing the list after seeing the marks is fitting the list to the test.</p>
             </div>
         </div>
     </div>

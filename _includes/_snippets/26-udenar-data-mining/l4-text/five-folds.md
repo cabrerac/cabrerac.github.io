@@ -8,12 +8,10 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 30%">
                 <p><b>Five folds on the papers</b></p>
-                <ul>
-                    <li>TF-IDF inside the model, so word weights are learned in each fold</li>
-                    <li>The encoder vectors do not learn from the marks, so they go in as they are</li>
-                    <li>Training rows only, never the kept apart papers</li>
-                    <li>First line: the kept apart intervals</li>
-                </ul>
+                <p>TF-IDF inside the model, so word weights are learned in each fold.</p>
+                <p>The encoder vectors do not learn from the marks, so they go in as they are.</p>
+                <p>Training rows only, never the kept apart papers.</p>
+                <p>First line: the kept apart intervals.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 70%">
 

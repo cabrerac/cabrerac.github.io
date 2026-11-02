@@ -59,16 +59,12 @@
                 </table>
             </div>
             <div class="column vertical-middle text-left" style="width: 45%">
-                <ul>
-                    <li>Twice the floor shows Global Burden of Disease terms: YLDs (years lived with disability), YLLs (years of life lost), SDI (socio-demographic index)</li>
-                    <li>Then plain topics: blood + pressure, men + women</li>
-                </ul>
+                <p>Twice the floor shows Global Burden of Disease terms: YLDs (years lived with disability), YLLs (years of life lost), SDI (socio-demographic index).</p>
+                <p>Then plain topics: blood + pressure, men + women.</p>
                 <p><b>The count, last</b></p>
-                <ul>
-                    <li>7,311 pairs kept, 6,507 of them with lift 2 or more</li>
-                    <li>The 95th percentile of chance has median 14, range 2 to 80</li>
-                    <li>About 800 of 16,000 candidates pass by luck alone. Read from the top</li>
-                </ul>
+                <p>7,311 pairs kept, 6,507 of them with lift 2 or more.</p>
+                <p>The 95th percentile of chance has median 14, range 2 to 80.</p>
+                <p>About 800 of 16,000 candidates pass by luck alone. Read from the top.</p>
             </div>
         </div>
     </div>
@@ -81,10 +77,8 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 32%">
                 <p><b>Highest support</b></p>
-                <ul>
-                    <li>Common words. Lift stays close to 1</li>
-                    <li>All four are kept. For common words the 95th percentile of chance is high, 58 to 80</li>
-                </ul>
+                <p>Common words. Lift stays close to 1.</p>
+                <p>All four are kept. For common words the 95th percentile of chance is high, 58 to 80.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 68%">
                 <table class="table">

@@ -13,7 +13,7 @@
                 </ul>
                 <p><b>Group notebook</b></p>
                 <ul>
-                    <li><a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/week-2-group.ipynb">Week 2 - groups and text on your Wikipedia department</a></li>
+                    <li><a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/week-2-group.ipynb">Week 2 - groups and text on your secretaría's Wikipedia file</a></li>
                 </ul>
                 <p><b>Templates and deliverables</b> are available on the <a href="https://cabrerac.github.io/teaching/26-udenar-data-mining/week-2-hub/" target="_blank">Week 2 page</a>.</p>
             </div>

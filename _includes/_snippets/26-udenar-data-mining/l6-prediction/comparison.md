@@ -9,11 +9,9 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Right and wrong counts: [TBD label, open question 1]</b></p>
-                <ul>
-                    <li>The majority share, then TP, FP, FN, TN on the rows kept apart</li>
-                    <li>For the three methods and the majority baseline</li>
-                    <li>What the models mostly use, and three wrong papers read</li>
-                </ul>
+                <p>The majority share, then TP, FP, FN, TN on the rows kept apart.</p>
+                <p>For the three methods and the majority baseline.</p>
+                <p>What the models mostly use, and three wrong papers read.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Does the prediction count?</b></p>

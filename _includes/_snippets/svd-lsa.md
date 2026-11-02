@@ -5,6 +5,18 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p><b>Reducing the dimensions</b> replaces thousands of word columns with a few directions that keep most of how the items differ.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Reducing the Dimensions
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 45%">
                 <p><b>An item by word matrix</b></p>
                 <ul>
@@ -27,15 +39,13 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 55%">
+            <div class="column vertical-top text-left" style="width: 55%">
                 <p><b>Singular value decomposition</b></p>
                 <p>$$X = U \, S \, V^{\top}$$</p>
-                <ul>
-                    <li><p>$V$ holds directions over the words</p></li>
-                    <li><p>$S$ holds how much each direction explains, largest first</p></li>
-                    <li><p>Keep the first $r$ directions, $Z = U_r S_r$</p></li>
-                    <li><p>Explained variance tells how much of $X$ is kept</p></li>
-                </ul>
+                <p>$V$ holds directions over the words.</p>
+                <p>$S$ holds how much each direction explains, largest first.</p>
+                <p>Keep the first $r$ directions, $Z = U_r S_r$.</p>
+                <p>Explained variance tells how much of $X$ is kept.</p>
                 <p>Used on text it is called latent semantic analysis <a href="https://doi.org/10.1002/(SICI)1097-4571(199009)41:6%3C391::AID-ASI1%3E3.0.CO;2-9" target="_blank" rel="noopener noreferrer">(Deerwester et al., 1990)</a>.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 45%">

@@ -27,13 +27,11 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>The lab decision</b></p>
-                <p>You are an internal team at a council. Your colleagues must decide what to open next.</p>
-                <ul>
-                    <li>Which papers must the team read, and which filter put them there?</li>
-                    <li>The median paper has 2,929 citations. The top one has 54,824</li>
-                    <li>A high citation count alone is not a filter</li>
-                    <li>The list is a reading start. It is not evidence the council may cite</li>
-                </ul>
+                <p>You are an internal team in the alcaldía, the city hall, working for one secretaría. New colleagues must decide what to read first.</p>
+                <p>Which papers must the team read, and which filter put them there?</p>
+                <p>The median paper has 2,929 citations. The top one has 54,824.</p>
+                <p>A high citation count alone is not a filter.</p>
+                <p>The list is a starter reading list. It is not evidence the secretaría may cite.</p>
             </div>
         </div>
     </div>

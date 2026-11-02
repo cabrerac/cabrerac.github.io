@@ -5,17 +5,27 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p>A <b>pattern</b> is something that repeats across many transactions, such as products bought together or words used together.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Repeating Patterns
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>What is a pattern</b></p>
-                <ul>
-                    <li>Something that repeats across many transactions</li>
-                    <li>Products bought together in many baskets</li>
-                    <li>Words used together in many texts</li>
-                </ul>
+                <p>Something that repeats across many transactions.</p>
+                <p>Products bought together in many baskets.</p>
+                <p>Words used together in many texts.</p>
                 <p>We count transactions, not mentions.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/supermarket-checkout.jpg" alt="Supermarket checkout" style="height: 400px">
+                <img src="{{ site.url }}/assets/media/images/supermarket-checkout.jpg" alt="Supermarket checkout" style="height: 400px">
                 <div class="footnote">Supermarket checkout Tegut Tauberbischofsheim - Triplec85, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
         </div>
@@ -57,12 +67,10 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>One standout text is not a pattern</b></p>
-                <ul>
-                    <li>A text that says "sugar tax" twenty times is still one text</li>
-                    <li>A pair seen in one or two texts can be luck or one author's style</li>
-                    <li>A pattern needs a minimum number of texts</li>
-                    <li>And it needs to beat what chance would give</li>
-                </ul>
+                <p>A text that says "sugar tax" twenty times is still one text.</p>
+                <p>A pair seen in one or two texts can be luck or one author's style.</p>
+                <p>A pattern needs a minimum number of texts.</p>
+                <p>And it needs to beat what chance would give.</p>
             </div>
         </div>
     </div>
@@ -83,14 +91,12 @@
                         </td>
                     </tr>
                 </table>
-                <ul>
-                    <li>Association rules from IBM Almaden</li>
-                    <li>The start of frequent pattern mining</li>
-                </ul>
+                <p>Association rules from IBM Almaden.</p>
+                <p>The start of frequent pattern mining.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 40%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/rakesh-agrawal.jpg" alt="Rakesh Agrawal" style="height: 340px">
-                <div class="footnote">Rakesh Agrawal - bwatpu, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/frequent-itemsets-lattice.png" alt="Itemset lattice" style="height: 340px">
+                <div class="footnote">FrequentItems - Xodarap00, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
@@ -151,8 +157,8 @@
                 <p>Pretrained vectors bring what other texts say about a word.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 40%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/tomas-mikolov.jpg" alt="Tomas Mikolov" style="height: 340px">
-                <div class="footnote">Tomáš Mikolov (2020) - Jindřich Nosek (NoJin), CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
+                <img src="{{ site.url }}/assets/media/images/skip-gram.svg" alt="Skip-gram model of word2vec" style="height: 340px">
+                <div class="footnote">Skip-gram - Zhang, Lipton, Li, and Smola, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
         </div>
     </div>

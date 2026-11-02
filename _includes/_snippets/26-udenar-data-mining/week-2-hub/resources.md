@@ -67,7 +67,7 @@ The notebooks download the course data themselves. The files are also listed bel
 | Devlin, J., Chang, M.-W., Lee, K. and Toutanova, K. (2019). BERT: Pre-training of deep bidirectional transformers for language understanding | [PDF (ACL Anthology)](https://aclanthology.org/N19-1423.pdf) |
 | Learning journal week 2 (Word) | [learning-journal-week-2.docx](/assets/documents/26-udenar-data-mining/learning-journal-week-2.docx) |
 
-Fill in the journal before Saturday and bring it to the reading discussion. It is not graded. The Devlin et al. paper is attached to your group email. Jain (2010) opens from the DOI link through the university library.
+Fill in the journal before Saturday and bring it to the reading discussion. It is not graded. Both readings are also attached to the course email.
 
 ---
 
@@ -80,9 +80,11 @@ Fill in the journal before Saturday and bring it to the reading discussion. It i
 
 | Deliverable | Due (Colombia) |
 |-------------|----------------|
-| Group zip `week-2-<group_id>.zip` | Tue 17 Nov 2026, 23:59 |
+| Group zip `week-2-<group_id>.zip` with `week-2-group-<group_id>.ipynb`, `pregunta.json`, `marcas.csv`, `outputs/grupos.csv`, `outputs/texto.csv` and `outputs/en_vista.csv` | Tue 17 Nov 2026, 23:59 |
 | Reflection `week-2-reflection-<surname>-<initial>.pdf` (first surname and first initial) | Wed 18 Nov 2026, 23:59 |
 | Project requirements document | Handed in with the project zip on Tue 1 Dec 2026 |
+
+`outputs/grupos.csv` and `outputs/texto.csv` give two of the five supports for the starter list (groups and text). `outputs/en_vista.csv` keeps the three supports so far, and week 3 reads it. An article stays in view with two supports. The list to read has at most `max_articles` from your `pregunta.json`. The rest stay in the file with `recortado`. If fewer than `min_articles` qualify, the list is not padded. It is read in full and reported as a weak result.
 
 Submissions go through Moodle. Your group's Teams link is in Moodle.
 

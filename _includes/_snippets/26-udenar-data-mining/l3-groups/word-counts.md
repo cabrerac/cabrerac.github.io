@@ -8,12 +8,10 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 30%">
                 <p><b>Word counts for the papers</b></p>
-                <ul>
-                    <li>The word function of Lecture 2, with repeats kept</li>
-                    <li>Texts with at least 5 distinct words, as in Lecture 2</li>
-                    <li>Words in at least the floor of papers and at most half of them</li>
-                    <li>Each row scaled to length 1</li>
-                </ul>
+                <p>The word function of Lecture 2, with repeats kept.</p>
+                <p>Texts with at least 5 distinct words, as in Lecture 2.</p>
+                <p>Words in at least the floor of papers and at most half of them.</p>
+                <p>Each row scaled to length 1.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 70%">
 

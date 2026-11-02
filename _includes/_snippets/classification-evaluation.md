@@ -5,6 +5,18 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p>A <b>confusion matrix</b> counts the right and wrong answers of a prediction on marked examples that the model never saw.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Right and Wrong Counts
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Confusion matrix</b></p>
                 <table class="table">
@@ -27,14 +39,12 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 55%">
+            <div class="column vertical-top text-left" style="width: 55%">
                 <p><b>Precision, recall, F1</b></p>
                 <p>$$\text{precision} = \frac{TP}{TP + FP} \qquad \text{recall} = \frac{TP}{TP + FN}$$</p>
                 <p>$$F_1 = \frac{2 \cdot \text{precision} \cdot \text{recall}}{\text{precision} + \text{recall}}$$</p>
-                <ul>
-                    <li><p>Precision, how many of the yes answers were right</p></li>
-                    <li><p>Recall, how many of the actual yes were found</p></li>
-                </ul>
+                <p>Precision, how many of the yes answers were right.</p>
+                <p>Recall, how many of the actual yes were found.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 45%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/precision-recall.svg" alt="Precision and recall" style="height: 400px">
@@ -116,11 +126,9 @@ def f1_interval(y, pred_a, pred_b=None, n_resamples=N_RESAMPLES, seed=SEED):
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 35%">
                 <p><b>Python</b></p>
-                <ul>
-                    <li>The four counts and the three scores</li>
-                    <li>The same function for every method</li>
-                    <li>Then read three wrong items per method by hand</li>
-                </ul>
+                <p>The four counts and the three scores.</p>
+                <p>The same function for every method.</p>
+                <p>Then read three wrong items per method by hand.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
 
@@ -151,11 +159,9 @@ pred_majority = [0] * len(y_test)   # the baseline: always the larger class, her
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 30%">
                 <p><b>Five folds on the training rows</b></p>
-                <ul>
-                    <li>Any preparation learned from data sits inside the model, so each fold learns it again</li>
-                    <li>Every training row is predicted once</li>
-                    <li>Shown next to the kept apart counts</li>
-                </ul>
+                <p>Any preparation learned from data sits inside the model, so each fold learns it again.</p>
+                <p>Every training row is predicted once.</p>
+                <p>Shown next to the kept apart counts.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 70%">
 

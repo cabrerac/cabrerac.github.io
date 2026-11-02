@@ -5,6 +5,18 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p>Groups found without labels are <b>judged</b> against chance, against other runs and against people who know the field, because there is no answer key.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Judging Groups
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>No labels to check against</b></p>
                 <ul>
@@ -27,12 +39,10 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Weak structure is a finding</b></p>
-                <ul>
-                    <li>A silhouette near 1 says each item is much closer to its group than to any other</li>
-                    <li>A silhouette near 0 says many items sit halfway between two groups</li>
-                    <li>That is not a bug in the code. It is a fact about the data</li>
-                    <li>Texts on one topic share many words, and their subtopics mix</li>
-                </ul>
+                <p>A silhouette near 1 says each item is much closer to its group than to any other.</p>
+                <p>A silhouette near 0 says many items sit halfway between two groups.</p>
+                <p>That is not a bug in the code. It is a fact about the data.</p>
+                <p>Texts on one topic share many words, and their subtopics mix.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>How much to trust the groups</b></p>
@@ -55,12 +65,10 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 36%">
                 <p><b>Shuffled baseline</b></p>
-                <ul>
-                    <li>Each word keeps its number of items</li>
-                    <li>Its items are drawn at random</li>
-                    <li>Real silhouette against the 95th percentile, p95() rank rule, no interpolation</li>
-                    <li>Unlike a swap null, item length is not kept. Rows have length 1, so the mix of words is compared</li>
-                </ul>
+                <p>Each word keeps its number of items.</p>
+                <p>Its items are drawn at random.</p>
+                <p>Real silhouette against the 95th percentile, p95() rank rule, no interpolation.</p>
+                <p>Unlike a swap null, item length is not kept. Rows have length 1, so the mix of words is compared.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 64%">
 

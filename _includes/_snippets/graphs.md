@@ -7,17 +7,27 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p>A <b>graph</b> is a set of items, called nodes, and the links among them, called edges.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Graphs
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Items and the links among them</b></p>
-                <ul>
-                    <li><p>A graph $G = (V, E)$ has nodes $V$ and edges $E$</p></li>
-                    <li><p><b>Directed</b> - $u \to v$, item $u$ links to item $v$</p></li>
-                    <li><p><b>Undirected</b> - $u - v$, the two items are linked, whatever the direction</p></li>
-                    <li><p>Not what an item says, but where it sits among the others</p></li>
-                </ul>
+                <p>A graph $G = (V, E)$ has nodes $V$ and edges $E$.</p>
+                <p><b>Directed</b> - $u \to v$, item $u$ links to item $v$.</p>
+                <p><b>Undirected</b> - $u - v$, the two items are linked, whatever the direction.</p>
+                <p>Not what an item says, but where it sits among the others.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/social-network-analysis.jpg" alt="A network of links among people" style="height: 380px">
+                <img src="{{ site.url }}/assets/media/images/social-network-analysis.jpg" alt="A network of links among people" style="height: 380px">
                 <div class="footnote">Social Network Analysis Visualization - Martin Grandjean, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
             </div>
         </div>
@@ -31,21 +41,17 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Words for a graph</b></p>
-                <ul>
-                    <li><p><b>Neighbours</b> - $N(v)$, the nodes linked to $v$</p></li>
-                    <li><p><b>Degree</b> - $\deg(v) = |N(v)|$, how many neighbours</p></li>
-                    <li><p><b>Path</b> - a chain of edges from one node to another</p></li>
-                    <li><p><b>Shortest path</b> - a path with the fewest edges</p></li>
-                </ul>
+                <p><b>Neighbours</b> - $N(v)$, the nodes linked to $v$.</p>
+                <p><b>Degree</b> - $\deg(v) = |N(v)|$, how many neighbours.</p>
+                <p><b>Path</b> - a chain of edges from one node to another.</p>
+                <p><b>Shortest path</b> - a path with the fewest edges.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Parts of a graph</b></p>
-                <ul>
-                    <li><p><b>Component</b> - nodes that can all reach each other</p></li>
-                    <li><p><b>Largest component</b> - the biggest of them</p></li>
-                    <li><p><b>Isolated node</b> - degree 0, no link to any other item in the set</p></li>
-                    <li><p>Isolated means no link inside this set, not unimportant</p></li>
-                </ul>
+                <p><b>Component</b> - nodes that can all reach each other.</p>
+                <p><b>Largest component</b> - the biggest of them.</p>
+                <p><b>Isolated node</b> - degree 0, no link to any other item in the set.</p>
+                <p>Isolated means no link inside this set, not unimportant.</p>
             </div>
         </div>
     </div>
@@ -58,12 +64,10 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 45%">
                 <p><b>From a table to a graph</b></p>
-                <ul>
-                    <li>Each row is an item, with a column that lists the items it links to</li>
-                    <li>Drop duplicate items and self links first</li>
-                    <li>Keep a link only when both ends are in the set</li>
-                    <li>Directed links for PageRank, undirected edges for the rest</li>
-                </ul>
+                <p>Each row is an item, with a column that lists the items it links to.</p>
+                <p>Drop duplicate items and self links first.</p>
+                <p>Keep a link only when both ends are in the set.</p>
+                <p>Directed links for PageRank, undirected edges for the rest.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 55%">
 
@@ -98,12 +102,10 @@ for a, targets in links_out.items():
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Euler and the bridges of Königsberg <a href="https://scholarlycommons.pacific.edu/euler-works/53/" target="_blank" rel="noopener noreferrer">(Euler, 1736)</a></b></p>
-                <ul>
-                    <li>Can a walk cross each of the seven bridges exactly once?</li>
-                    <li>Euler kept only land masses and bridges, nodes and edges</li>
-                    <li>The answer depends on each land mass's degree</li>
-                    <li>No such walk exists. Graph theory starts here</li>
-                </ul>
+                <p>Can a walk cross each of the seven bridges exactly once?</p>
+                <p>Euler kept only land masses and bridges, nodes and edges.</p>
+                <p>The answer depends on each land mass's degree.</p>
+                <p>No such walk exists. Graph theory starts here.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/konigsberg-bridges.png" alt="The seven bridges of Königsberg" style="height: 300px">
@@ -145,10 +147,8 @@ for a, targets in links_out.items():
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>What a graph adds</b></p>
-                <ul>
-                    <li>Many methods look at each item alone, by its own attributes or words</li>
-                    <li>A graph looks at the links among items</li>
-                </ul>
+                <p>Many methods look at each item alone, by its own attributes or words.</p>
+                <p>A graph looks at the links among items.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Three ways to read a place</b></p>

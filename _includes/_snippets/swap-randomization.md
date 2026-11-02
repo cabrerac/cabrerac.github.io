@@ -15,7 +15,7 @@
                     <li>Swap randomisation keeps both margins <a href="https://doi.org/10.1145/1297332.1297338" target="_blank" rel="noopener noreferrer">(Gionis et al., 2007)</a></li>
                 </ul>
             </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-top text-left" style="width: 50%">
                 <p><b>One swap</b></p>
 
 $$
@@ -32,11 +32,9 @@ t_2 & 1 & 0
 \end{array}
 $$
 
-<ul>
-    <li>Text 1 keeps its length, text 2 keeps its length</li>
-    <li>Word 1 and word 2 keep their support</li>
-    <li>Many swaps give one random table with the same margins</li>
-</ul>
+<p>Text 1 keeps its length, text 2 keeps its length.</p>
+<p>Word 1 and word 2 keep their support.</p>
+<p>Many swaps give one random table with the same margins.</p>
             </div>
         </div>
     </div>
@@ -49,12 +47,10 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 35%">
                 <p><b>Python: swap null</b></p>
-                <ul>
-                    <li>5 swap attempts per 1 in the table</li>
-                    <li>100 random tables, seed 7. Sorting each text's words makes the seed repeatable</li>
-                    <li>Keep pairs at the floor and strictly above the 95th percentile</li>
-                    <li>p95, swap_null_counts and kept_pairs come from the course module swap_randomization.py</li>
-                </ul>
+                <p>5 swap attempts per 1 in the table.</p>
+                <p>100 random tables, seed 7. Sorting each text's words makes the seed repeatable.</p>
+                <p>Keep pairs at the floor and strictly above the 95th percentile.</p>
+                <p>p95, swap_null_counts and kept_pairs come from the course module swap_randomization.py.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
 

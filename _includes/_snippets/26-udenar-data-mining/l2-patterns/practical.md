@@ -49,7 +49,7 @@ print(f"Coseno: {cosine:.2f}. Repaso de Python: OK")
  
 ## Instrucciones
  
-**La historia.** Seguimos con el mismo equipo interno del consejo de la Lección 1. Tiene una colección de 320 artículos sobre nutrición y debe decidir cuáles tiene que leer. En la Lección 1 escribimos la pregunta, los pasos, el estándar y el uso. Hoy damos el primer paso de minería: buscar **patrones que se repiten** en los resúmenes (`abstract`).
+**La historia.** Seguimos con el mismo equipo interno de la secretaría de salud de la Lección 1. Tiene una colección de 320 artículos sobre nutrición y debe decidir cuáles tiene que leer. En la Lección 1 escribimos la pregunta, los pasos, el estándar y el uso. Hoy damos el primer paso de minería: buscar **patrones que se repiten** en los resúmenes (`abstract`).
  
 **La idea central.** Un patrón es un par de palabras que aparece junto en muchos artículos. Un solo artículo famoso no es un patrón. Un patrón vale la pena mirarlo cuando supera a una **línea base** (lo que veríamos por azar). Entre los que la superan, destacan los que aparecen mucho más de lo esperado.
  
@@ -225,7 +225,7 @@ else:
         "standard": {"min_papers": 10, "max_papers": 30, "max_share_citations_only": 0.5},
         "use": {
             "may": ["decidir qué artículos abrir primero para el trabajo del equipo"],
-            "may_not": ["citar la lista como evidencia del consejo", "elegir artículos solo por sus citas"],
+            "may_not": ["citar la lista como evidencia de la alcaldía", "elegir artículos solo por sus citas"],
         },
     }
     QUESTION_PATH.write_text(json.dumps(question_card, ensure_ascii=False, indent=2), encoding="utf-8")

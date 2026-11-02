@@ -25,6 +25,7 @@
                 <ul>
                     <li>Slides PDF for the talk by Friday 27 November, 23:59</li>
                     <li>The fixed group notebook goes in the project zip, Tuesday 1 December</li>
+                    <li>Each article on the list has two supports and its hecho_que_saca, the fact that would remove it</li>
                     <li>Both week 3 items go through Moodle. Full timetable: <a href="{{ site.url }}/assets/documents/26-udenar-data-mining/week-3-session-plan-es.pdf" target="_blank" rel="noopener noreferrer">Week 3 session plan (PDF)</a></li>
                 </ul>
             </div>

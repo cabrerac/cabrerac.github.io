@@ -5,14 +5,24 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p>A kept pattern <b>names candidates</b>, and a candidate becomes a pick only when other results support it.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Using a Pattern
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>From a pattern to a decision</b></p>
-                <ul>
-                    <li>A kept pattern names a theme</li>
-                    <li>The records that hold it become candidates</li>
-                    <li>A candidate is not a pick until other results support it</li>
-                    <li>The reason travels with each record: which pattern, which method, which baseline</li>
-                </ul>
+                <p>A kept pattern names a theme.</p>
+                <p>The records that hold it become candidates.</p>
+                <p>A candidate is not a pick until other results support it.</p>
+                <p>The reason travels with each record: which pattern, which method, which baseline.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>What would change that use</b></p>

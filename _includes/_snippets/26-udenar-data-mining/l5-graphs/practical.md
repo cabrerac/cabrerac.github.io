@@ -40,7 +40,7 @@ print(f"Pasos desde A: {steps}. E no se alcanza. Repaso de Python: OK")
  
 ## Instrucciones
  
-**La historia.** Seguimos con el equipo interno del consejo y sus 320 artículos de nutrición. Ya tenemos tres resultados: patrones (L2), grupos (L3) y texto (L4). Con ellos, 52 de los 317 artículos quedaron en vista. Hoy miramos algo que ninguno de los tres usa: **las citas entre los artículos**. Un artículo citado por otros del conjunto, o que une dos partes del conjunto, tiene un lugar que no se ve en su texto ni en su número de citas en el mundo.
+**La historia.** Seguimos con el equipo interno de la secretaría de salud y sus 320 artículos de nutrición. Ya tenemos tres resultados: patrones (L2), grupos (L3) y texto (L4). Con ellos, 52 de los 317 artículos quedaron en vista. Hoy miramos algo que ninguno de los tres usa: **las citas entre los artículos**. Un artículo citado por otros del conjunto, o que une dos partes del conjunto, tiene un lugar que no se ve en su texto ni en su número de citas en el mundo.
  
 **La idea central.** Describimos un artículo por su **lugar entre los demás**, no por cuántas veces se lo cita. Un artículo enlazado con muchos otros es una **alerta**, no una elección automática: puede ser una revisión general que todos citan. Un artículo que **une dos grupos** puede ser justo el que una persona nueva necesita leer.
  
@@ -203,7 +203,7 @@ print(question_card["question"])
 ```
 
 ### Paso 2. Recuperar los tres apoyos de la semana 2
-En este paso leemos `outputs/grupos_l3.csv` (patrón y grupo) y `outputs/texto_l4.csv` (texto). Si no están, siga igual: los tres apoyos quedan en falso y la cuenta final será más baja. Copie los dos archivos de la L4 a la carpeta `outputs/` para tener la cuenta real. Estos tres apoyos son los resultados de la semana 2: el patrón de la L2, el grupo leído de la L3 y el texto de la L4. Hoy les sumamos un cuarto.
+En este paso leemos `outputs/grupos_l3.csv` (patrón y grupo) y `outputs/texto_l4.csv` (texto). Si no están, siga igual: los tres apoyos quedan en falso y la cuenta final será más baja. Copie `grupos_l3.csv` de la L3 y `texto_l4.csv` de la L4 a la carpeta `outputs/` para tener la cuenta real. Estos tres apoyos son los resultados de la semana 2: el patrón de la L2, el grupo leído de la L3 y el texto de la L4. Hoy les sumamos un cuarto.
 
 ```python
 GROUPS_PATH = OUTPUTS_DIR / "grupos_l3.csv"
@@ -435,7 +435,7 @@ assert diff < 1e-3
 print(f"PageRank: OK ({len(top_rank) - len(not_by_degree)} de los 10 primeros también están entre los 10 de más grado)")
 ```
 
-**Lo que vemos.** PageRank premia que te cite alguien importante, no solo que te citen muchos. "Obesity in children and young people" tiene grado 6 y está entre los 3 primeros por PageRank, mientras que el grado más bajo entre los 10 de más grado es 14. En los extractos de Wikipedia pasa lo mismo: *Medicina psicosomática* tiene grado 3 y la enlaza Psiquiatría, el artículo con más PageRank de salud mental, y *Abono verde* tiene grado 6 y la enlazan Fertilizante y Agricultura ecológica. Lo verá en el cuaderno de grupo con su departamento.
+**Lo que vemos.** PageRank premia que te cite alguien importante, no solo que te citen muchos. "Obesity in children and young people" tiene grado 6 y está entre los 3 primeros por PageRank, mientras que el grado más bajo entre los 10 de más grado es 14. En los extractos de Wikipedia pasa lo mismo: *Medicina psicosomática* tiene grado 3 y la enlaza Psiquiatría, el artículo con más PageRank de salud mental, y *Abono verde* tiene grado 6 y la enlazan Fertilizante y Agricultura ecológica. Lo verá en el cuaderno de grupo con su secretaría.
  
 ### M2. Distancias por niveles
 En este paso escribimos la búsqueda en anchura del repaso como una función. La intermediación cuenta caminos más cortos, y esta función es la base. La usamos una vez desde el primer artículo por PageRank, para ver hasta dónde llega la red desde él.
@@ -572,7 +572,7 @@ print("Vectores de node2vec: OK (ningún artículo sin vector tiene coseno)")
  
 ## Parte 6. Evaluación
  
-Aquí no hay marcas. No buscamos un ganador entre los métodos: no es una competencia. Miramos qué dice cada uno que los otros no dicen, y si node2vec es estable. Las preguntas son las del equipo del consejo. ¿El grafo repite lo que ya dicen las citas? ¿Hay artículos que el grafo pone arriba y una cuenta de citas no? ¿Podemos confiar en los vecinos de node2vec si cambiamos la semilla?
+Aquí no hay marcas. No buscamos un ganador entre los métodos: no es una competencia. Miramos qué dice cada uno que los otros no dicen, y si node2vec es estable. Las preguntas son las del equipo de la secretaría de salud. ¿El grafo repite lo que ya dicen las citas? ¿Hay artículos que el grafo pone arriba y una cuenta de citas no? ¿Podemos confiar en los vecinos de node2vec si cambiamos la semilla?
  
 ### Paso 1. Grado y PageRank contra las citas
 En este paso comparamos el orden por PageRank con el orden por grado, por grado de entrada (cuántos lo citan dentro del conjunto) y por citas en el mundo (`cited_by_count`). Usamos la correlación de rangos de Spearman. Compara órdenes y no valores: vale 1 si los dos órdenes son iguales y 0 si no tienen relación. Sirve aquí porque los puntajes tienen escalas muy distintas.

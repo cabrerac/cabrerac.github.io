@@ -5,21 +5,29 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p><b>Supervised prediction</b> learns a given label from the attributes of items whose label is known, and then predicts it for new items.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Supervised Prediction
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>A label given, not found</b></p>
-                <ul>
-                    <li>Unsupervised methods find structure in the items</li>
-                    <li>Here each item already has a label, given by a rule or by people</li>
-                    <li>A model learns the label from the item's attributes</li>
-                </ul>
+                <p>Unsupervised methods find structure in the items.</p>
+                <p>Here each item already has a label, given by a rule or by people.</p>
+                <p>A model learns the label from the item's attributes.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Classes and numbers</b></p>
-                <ul>
-                    <li>Here the label is a class, so this is classification</li>
-                    <li>Regression is the same weighted sum, with a number as the label</li>
-                    <li>A good label is not something the attributes contain by construction, that is leakage</li>
-                </ul>
+                <p>Here the label is a class, so this is classification.</p>
+                <p>Regression is the same weighted sum, with a number as the label.</p>
+                <p>A good label is not something the attributes contain by construction, that is leakage.</p>
             </div>
         </div>
     </div>
@@ -41,10 +49,8 @@
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Why kept apart</b></p>
-                <ul>
-                    <li>A model can remember its training rows</li>
-                    <li>Only rows it has never seen show how it will do on new items</li>
-                </ul>
+                <p>A model can remember its training rows.</p>
+                <p>Only rows it has never seen show how it will do on new items.</p>
             </div>
         </div>
     </div>

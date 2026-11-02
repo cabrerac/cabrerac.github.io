@@ -27,7 +27,7 @@ Watch both recordings before Saturday. Each recording has the theory and a step-
 | L6 individual | [l6-prediction](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l6-prediction.ipynb) |
 | Week 3 group (the project) | [week-3-group](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/week-3-group.ipynb) |
 
-The L5 and L6 notebooks read `outputs/grupos_l3.csv` and `outputs/texto_l4.csv` from your L3 and L4 notebooks. The group notebook reads `pregunta.json`, `marcas.csv` and `outputs/en_vista.csv` from your week 2 group zip. Keep them at hand.
+The L5 and L6 notebooks read `outputs/grupos_l3.csv` and `outputs/texto_l4.csv` from your L3 and L4 notebooks. The group notebook reads `pregunta.json` and `outputs/en_vista.csv` from your week 2 group zip. Keep them at hand. `marcas.csv` goes only in the week 3 zip.
 
 ---
 
@@ -67,7 +67,7 @@ The notebooks download the course data themselves. The files are also listed bel
 | LeCun, Y., Bengio, Y. and Hinton, G. (2015). Deep learning | [DOI](https://doi.org/10.1038/nature14539) |
 | Learning journal week 3 (Word) | [learning-journal-week-3.docx](/assets/documents/26-udenar-data-mining/learning-journal-week-3.docx) |
 
-Fill in the journal before Saturday and bring it to the reading discussion. It is not graded. The Page et al. report is attached to your group email. LeCun, Bengio and Hinton (2015) opens from the DOI link through the university library.
+Fill in the journal before Saturday and bring it to the reading discussion. It is not graded. Both readings are also attached to the course email.
 
 ---
 
@@ -86,13 +86,15 @@ Fill in the journal before Saturday and bring it to the reading discussion. It i
 
 | Deliverable | Due (Colombia) |
 |-------------|----------------|
-| Group zip `week-3-<group_id>.zip`, with the talk title `project-title-es.txt` and abstract `project-abstract-es.txt` | Tue 24 Nov 2026, 23:59 |
+| Group zip `week-3-<group_id>.zip` with `week-3-group-<group_id>.ipynb`, `pregunta.json`, `marcas.csv`, `outputs/grafo.csv`, `outputs/prediccion.csv`, `outputs/lista_inicial.csv`, `project-title-es.txt` and `project-abstract-es.txt` | Tue 24 Nov 2026, 23:59 |
 | Reflection `week-3-reflection-<surname>-<initial>.pdf` (first surname and first initial) | Wed 25 Nov 2026, 23:59 |
-| Talk slides (PDF) | Fri 27 Nov 2026, 23:59 |
-| Project zip (the same group notebook, with fixes after feedback) | Tue 1 Dec 2026, 23:59 |
-| Project reflection | Wed 2 Dec 2026, 23:59 |
+| Talk slides `project-slides-<group_id>.pdf` | Fri 27 Nov 2026, 23:59 |
+| Project zip `project-<group_id>.zip` (the same group notebook, with fixes after feedback) | Tue 1 Dec 2026, 23:59 |
+| Project reflection `project-reflection-<apellido>-<inicial>.pdf` | Wed 2 Dec 2026, 23:59 |
 
-The talk title is under 15 words. The abstract is one paragraph of about 120 words: the department, the question, two results that support the list, and what would change the list. Your group writes both files. They go in the week 3 zip only. Talks are on Sat 28 Nov, in the order G1 to G5.
+`outputs/grafo.csv` and `outputs/prediccion.csv` give the last two supports (place in the graph and prediction). `outputs/lista_inicial.csv` is the starter list: every article has at least two supports and, if it is read, the fact that would remove it. An article central only because it links to many others carries `alerta_centro`. It is a warning, not a support. The list to read has at most `max_articles` from your `pregunta.json`. The rest stay in the file with `recortado`. If fewer than `min_articles` qualify, the list is not padded. It is read in full and reported as a weak result.
+
+The talk title is under 15 words. The abstract is one paragraph of about 120 words: the secretaría, the newcomer's question, two supports on the list, and what fact would remove an article. Your group writes both files. They go in the week 3 zip only. Talks are on Sat 28 Nov, in the order G1 to G5.
 
 Project week open hours on Teams (23 to 27 Nov): [POR CONFIRMAR] one hour on Wed 25 Nov, time [POR CONFIRMAR].
 

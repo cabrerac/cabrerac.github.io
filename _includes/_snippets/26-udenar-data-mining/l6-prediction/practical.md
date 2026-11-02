@@ -26,7 +26,7 @@ print(f"Dijo {said.tolist()}, era {y_te.tolist()}. Aciertos: {int((said == y_te)
  
 ## Instrucciones
  
-**La historia.** Seguimos con el equipo interno del consejo y sus artículos de nutrición. Ya tenemos cuatro resultados: patrones (L2), grupos (L3), texto (L4) y el lugar en la red (L5). Hoy sumamos el último: **predecir una etiqueta dada** a partir de los atributos de cada artículo. La etiqueta del laboratorio es `internacional`: un artículo con autores de al menos dos países. No sale del texto y no es una cuenta de citas. Al final de la lección el equipo tiene una lista de lectura corta, con cinco apoyos detrás de cada artículo, y sabe qué parte de la lista depende de cada uno.
+**La historia.** Seguimos con el equipo interno de la secretaría de salud y sus artículos de nutrición. Ya tenemos cuatro resultados: patrones (L2), grupos (L3), texto (L4) y el lugar en la red (L5). Hoy sumamos el último: **predecir una etiqueta dada** a partir de los atributos de cada artículo. La etiqueta del laboratorio es `internacional`: un artículo con autores de al menos dos países. No sale del texto y no es una cuenta de citas. Al final de la lección el equipo tiene una lista de lectura corta, con cinco apoyos detrás de cada artículo, y sabe qué parte de la lista depende de cada uno.
  
 **La idea central.** La etiqueta está dada, no la buscamos. Aprendemos con una parte de los artículos y contamos aciertos y errores en otra parte que ningún modelo vio. Cada modelo se compara con la **clase mayor**: decir siempre la clase más común. Un modelo que no le gana a eso no aporta. Y ponemos al lado una regla de una línea, sin modelo, para ver si los modelos ganan algo sobre lo obvio.
  
@@ -870,7 +870,7 @@ if passed == len(checks):
 
 ## Conclusiones
 
-El equipo del consejo empezó la semana 2 con 318 artículos y una pregunta: ¿qué leer para su tema, y qué filtro puso cada artículo en la lista? Ahora tiene una lista de 30 para leer, recortada de 98 en vista. Cada artículo de la lista tiene al menos dos de cinco apoyos: el patrón de la L2, el grupo leído de la L3, el texto de la L4, el lugar en la red de la L5 y la predicción de la L6.
+El equipo de la secretaría de salud empezó la semana 2 con 318 artículos y una pregunta: ¿qué leer para su tema, y qué filtro puso cada artículo en la lista? Ahora tiene una lista de 30 para leer, recortada de 98 en vista. Cada artículo de la lista tiene al menos dos de cinco apoyos: el patrón de la L2, el grupo leído de la L3, el texto de la L4, el lugar en la red de la L5 y la predicción de la L6.
 
 Cada apoyo agregó algo distinto. El patrón de la L2 es el que más pesa: si lo quitamos salen 35 artículos. Sin el texto salen 22 y sin el grafo 14. El grafo agrega puentes que una cuenta de citas no vería. Si quitamos la predicción salen 29, pero su señal es el número de autores. Tres modelos no le ganan con claridad a contar autores. Con otras semillas la ventaja cambia, por eso miramos varias. Ser internacional no es una razón para leer un artículo, y el equipo lo sabe porque la tabla de "quitar cada resultado" lo muestra.
 
@@ -884,6 +884,6 @@ for i, row in reading_list.iterrows():
     print(f"{i:2d}. ({row['supports']} apoyos) {row['title'][:90]}")
 ```
 
-Esta lista no es la respuesta final. Es un punto de partida para leer, con el porqué de cada artículo escrito al lado. En el cuaderno de grupo cada departamento hace lo mismo con sus artículos de Wikipedia.
+Esta lista no es la respuesta final. Es un punto de partida para leer, con el porqué de cada artículo escrito al lado. En el cuaderno de grupo cada grupo hace lo mismo con los artículos de Wikipedia de su secretaría.
 
 <!-- end NOTEBOOK: -->
