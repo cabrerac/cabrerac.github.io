@@ -5,24 +5,28 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-top text-left" style="width: 50%">
                 <p><b>Group zip by Tuesday 17 November, 23:59 Colombia time</b></p>
                 <ul>
-                    <li>week-2-&lt;group_id&gt;.zip</li>
+                    <li>One file, week-2-&lt;group_id&gt;.zip</li>
                     <li>The executed week 2 group notebook</li>
-                    <li>pregunta.json and marcas.csv</li>
-                    <li>outputs/grupos.csv, outputs/texto.csv, outputs/en_vista.csv</li>
+                    <li>pregunta.json and marcas.csv, the group's marks</li>
+                    <li>outputs/grupos.csv, the group of each article</li>
+                    <li>outputs/texto.csv, what each text filter says, with the marks</li>
+                    <li>outputs/en_vista.csv, the results of weeks 1 and 2 for each article</li>
                 </ul>
+                <p>These files are the result of the second iteration of the project.</p>
             </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Individual reflection by Wednesday 18 November, 23:59</b></p>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Individual reflection by Wednesday 18 November, 23:59 Colombia time</b></p>
                 <ul>
                     <li>One PDF, week-2-reflection-&lt;apellido&gt;-&lt;inicial&gt;.pdf</li>
-                    <li>Covers Lecture 3 and Lecture 4</li>
-                    <li>Use the week 2 reflection template on the course page</li>
+                    <li>Between 700 and 1000 words, using the <a href="{{ site.url }}/assets/documents/26-udenar-data-mining/reflection-week-2-template.docx" target="_blank" rel="noopener noreferrer">week 2 reflection template</a></li>
+                    <li>Keep the headings Metadatos, Proceso, Decisión, Métodos, and Ética</li>
                 </ul>
-                <p>Both go through Moodle.</p>
-                <p>Each article on the starter list will need two supports and a written fact that would remove it.</p>
+                <p><b>Requirements, section 2 of the project report</b></p>
+                <p>On Saturday you get feedback on the week 1 draft and update it with what you found this week. It goes into project-report-&lt;group_id&gt;.pdf.</p>
+                <p>Submissions go through Moodle.</p>
             </div>
         </div>
     </div>
@@ -33,14 +37,19 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
                 <p><b>Saturday 14 November, 07:00 to 13:00 Colombia time</b></p>
                 <ul>
-                    <li>Shared block for Lecture 3 and Lecture 4</li>
-                    <li>Mark the kept apart texts first, before running any model</li>
-                    <li>Reading discussion, group notebook, project work</li>
-                    <li>Full timetable: <a href="{{ site.url }}/assets/documents/26-udenar-data-mining/week-2-session-plan-es.pdf" target="_blank" rel="noopener noreferrer">Week 2 session plan (PDF)</a></li>
+                    <li><b>07:00</b> Opening. Each group gets one question from the learning journal</li>
+                    <li><b>07:15</b> Reading discussion in groups. Each group prepares one slide that answers its question</li>
+                    <li><b>08:00</b> Plenary with one speaker per group</li>
+                    <li><b>08:45</b> Live run of the Lecture 3 and Lecture 4 notebooks, each student in their own Colab</li>
+                    <li><b>10:00</b> Group notebook. First mark, then run the text models. marcas.csv holds 60 to 67 articles, about 15 to 21 per person</li>
+                    <li><b>11:00</b> Project progress on the requirements, section 2 of the report</li>
+                    <li><b>12:20</b> Plenary on the project</li>
+                    <li><b>12:50</b> Closing and deadlines</li>
                 </ul>
+                <p>The full timetable is in the <a href="{{ site.url }}/assets/documents/26-udenar-data-mining/week-2-session-plan-es.pdf" target="_blank" rel="noopener noreferrer">week 2 session plan</a>.</p>
             </div>
         </div>
     </div>

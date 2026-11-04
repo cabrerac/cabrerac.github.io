@@ -9,7 +9,8 @@
             <div class="column vertical-middle text-left" style="width: 40%">
                 <p><b>For the secretaría team</b></p>
                 <p style="font-size: 0.85em">The decision uses the HDBSCAN groups. The team reads a group when its top words touch its topic, such as obesity, diet, diabetes or hypertension.</p>
-                <p style="font-size: 0.85em">A paper gets the group support only if it sits in a group the team reads. Noise papers get no support. They are the outlier list, kept for a look.</p>
+                <p style="font-size: 0.85em">A paper gets the group result only if it sits in a group the team reads. Noise papers do not get it. They are the outlier list, kept for a look.</p>
+                <p style="font-size: 0.85em">The group can still keep any paper on the list if it explains why.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 60%">
                 <p><b>HDBSCAN groups of the papers</b></p>
@@ -25,8 +26,7 @@
                         <tr><td>4</td><td>87</td><td>studies, data, research, effects, food, human, review, use</td><td>no</td></tr>
                     </tbody>
                 </table>
-                <p style="font-size: 0.8em">Noise, listed for a look: 108 papers.</p>
-                <p style="font-size: 0.8em">In view with 2 supports: 8 papers.</p>
+                <p style="font-size: 0.8em">108 noise papers, kept for a look. 8 in view with MIN_SUPPORTS = 2.</p>
             </div>
         </div>
     </div>
@@ -62,8 +62,7 @@ SUPPORT_COLUMNS = ["has_pattern", "read_group"]
                         <tr><td>4</td><td>87</td><td>studies, data, research, effects, food, human, review, use</td><td>no</td></tr>
                     </tbody>
                 </table>
-                <p style="font-size: 0.8em">Noise, listed for a look: 108 papers.</p>
-                <p style="font-size: 0.8em">In view with 2 supports: 8 papers.</p>
+                <p style="font-size: 0.8em">108 noise papers, kept for a look. 8 in view with MIN_SUPPORTS = 2.</p>
             </div>
         </div>
     </div>

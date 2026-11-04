@@ -3367,7 +3367,7 @@ html[data-theme='dark'] .slide-content ol li {
 <li>k-means, Gaussian mixtures and HDBSCAN on the papers</li>
 <li>Low silhouette, no natural k</li>
 <li>Many papers fit no group, they are listed for a look</li>
-<li>A paper stays in view with at least two supports</li>
+<li>The list shows which results support each paper</li>
 </ul>
 </div>
 <div class="column vertical-middle text-left" style="width: 50%">
@@ -4505,7 +4505,7 @@ html[data-theme='dark'] .slide-content ol li {
 <li><b>Data preparation</b> - a keyword list, a TF-IDF matrix, the text cut to 512 tokens, marked examples</li>
 <li><b>Modeling</b> - keyword match, TF-IDF with logistic regression, a frozen encoder with logistic regression</li>
 <li><b>Evaluation</b> - right and wrong counts on the marked papers</li>
-<li><b>Deployment</b> - the text result as a third support</li>
+<li><b>Deployment</b> - the text result as a third result for the list</li>
 </ul>
 </div>
 <div class="column vertical-middle text-left" style="width: 50%">
@@ -16937,7 +16937,7 @@ STOP_WORDS = <span class="hljs-built_in">set</span>(STOP_WORDS_EN) | ABSTRACT_LA
     text = (text <span class="hljs-keyword">or</span> <span class="hljs-string">&quot;&quot;</span>).lower().replace(<span class="hljs-string">&quot;[cita requerida]&quot;</span>, <span class="hljs-string">&quot; &quot;</span>)
     <span class="hljs-keyword">return</span> {w <span class="hljs-keyword">for</span> w <span class="hljs-keyword">in</span> WORD_RE.findall(text) <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(w) &gt;= <span class="hljs-number">3</span> <span class="hljs-keyword">and</span> w <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> stop_words}
 
-word_sets = [words(t, STOP_WORDS) <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> texts]
+word_sets = [words(t, STOP_WORDS) <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> papers[<span class="hljs-string">&quot;abstract&quot;</span>]]
 word_sets = [s <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> word_sets <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(s) &gt;= <span class="hljs-number">5</span>]
 </code></pre>
 </div>
@@ -53080,7 +53080,7 @@ html[data-theme='dark'] .slide-content ol li {
 <p>English and Spanish texts with the same model.</p>
 <p>Each text starts with the prefix "query: " <a href="https://huggingface.co/intfloat/multilingual-e5-small" target="_blank" rel="noopener noreferrer">(multilingual-e5-small model card)</a>.</p>
 <p>Texts longer than 512 tokens are cut, count how many.</p>
-<p>Cost on free Colab CPU: about 470 MB to download, then about a minute for a few hundred abstracts (box estimate).</p>
+<p>Cost on free Colab CPU: about 470 MB to download, then about a minute for a few hundred abstracts.</p>
 </div>
 </div>
 </div>
@@ -70110,18 +70110,18 @@ html[data-theme='dark'] .slide-content ol li {
 <div class="columns" style="width: 100%">
 <div class="column vertical-middle text-left" style="width: 55%">
 <p><b>Three results now</b></p>
-<table class="table" style="font-size: 0.75em">
+<table class="table" style="font-size: 0.7em">
 <thead>
-<tr><th>Paper</th><th>Pattern</th><th>Group</th><th>Text</th><th>Supports</th><th>In view</th></tr>
+<tr><th>Paper</th><th>Pattern</th><th>Group</th><th>Text</th><th>Results in favour</th><th>In view to start</th></tr>
 </thead>
 <tbody>
 <tr><td>A</td><td>yes</td><td>yes</td><td>yes</td><td>3</td><td>yes</td></tr>
 <tr><td>B</td><td>no</td><td>yes</td><td>yes</td><td>2</td><td>yes</td></tr>
 <tr><td>C</td><td>yes</td><td>no</td><td>no</td><td>1</td><td>no</td></tr>
-<tr><td>D</td><td>no</td><td>noise</td><td>yes</td><td>1</td><td>no, but listed for a look</td></tr>
+<tr><td>D</td><td>no</td><td>noise</td><td>yes</td><td>1</td><td>no, listed for a look</td></tr>
 </tbody>
 </table>
-<p>In view with at least 2 supports: 52 of 317 papers</p>
+<p>In view with MIN_SUPPORTS = 2: 52 of 317 papers</p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python">SUPPORT_COLUMNS = [<span class="hljs-string">&quot;has_pattern&quot;</span>, <span class="hljs-string">&quot;read_group&quot;</span>, <span class="hljs-string">&quot;text_says_read&quot;</span>]
 </code></pre>
 </div>
@@ -70133,7 +70133,8 @@ html[data-theme='dark'] .slide-content ol li {
 <li>Another target</li>
 <li>Another threshold than 0.5</li>
 </ul>
-<p>The text result is one support, like the others. It does not decide alone.</p>
+<p>The text result is one result, like the others. It does not decide alone.</p>
+<p>The group can keep other papers if it explains why.</p>
 </div>
 </div>
 </div>
@@ -72389,7 +72390,7 @@ html[data-theme='dark'] .slide-content ol li {
 <li>Links among items in a graph</li>
 <li>Degree, PageRank, betweenness, node2vec</li>
 <li>An item's place among the others</li>
-<li>A fourth result for the two-results rule</li>
+<li>A fourth result for the list</li>
 </ul>
 </div>
 </div>
@@ -73514,17 +73515,18 @@ html[data-theme='dark'] .slide-content ol li {
 <div class="rows" style="height: 100%">
 <div class="row" style="height: 100%">
 <div class="columns" style="width: 100%">
-<div class="column vertical-middle text-left" style="width: 100%">
-<p><b>Individual notebooks</b></p>
+<div class="column vertical-top text-left" style="width: 100%">
+<p><b>The <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l4-text.ipynb" target="_blank">Lecture 4 notebook</a> follows CRISP-DM</b></p>
 <ul>
-<li><a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l3-groups.ipynb">Lecture 3 - groups and items that fit no group</a></li>
-<li><a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l4-text.ipynb">Lecture 4 - text extraction and marked examples</a></li>
+<li><b>Part 1, Setup.</b> Libraries, parameters, the encoder, and the interval function</li>
+<li><b>Part 2, Business understanding.</b> pregunta.json and outputs/grupos_l3.csv from Lecture 3</li>
+<li><b>Part 3, Data understanding.</b> The papers, the training label, and the length of the abstracts</li>
+<li><b>Part 4, Data preparation.</b> The word list, the marked set, TF-IDF, and the encoder texts</li>
+<li><b>Part 5, Modeling.</b> The predictions of the three methods</li>
+<li><b>Part 6, Evaluation.</b> Hits and errors, F1 with its interval, and five folds</li>
+<li><b>Part 7, Deployment.</b> Three results in supports and outputs/texto_l4.csv</li>
 </ul>
-<p><b>Group notebook</b></p>
-<ul>
-<li><a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/week-2-group.ipynb">Week 2 - groups and text on your secretaría's Wikipedia file</a></li>
-</ul>
-<p><b>Templates and deliverables</b> are available on the <a href="https://cabrerac.github.io/teaching/26-udenar-data-mining/week-2-hub/" target="_blank">Week 2 page</a>.</p>
+<p>On Saturday we continue live from about 09:20 to 10:00, to see a text filter with its hits and errors. The rest is finished at home. Run the encoder cell before Saturday, because it downloads a text model, multilingual-e5-small of about 470 MB.</p>
 </div>
 </div>
 </div>
@@ -74648,24 +74650,28 @@ html[data-theme='dark'] .slide-content ol li {
 <div class="rows" style="height: 100%">
 <div class="row" style="height: 100%">
 <div class="columns" style="width: 100%">
-<div class="column vertical-middle text-left" style="width: 50%">
+<div class="column vertical-top text-left" style="width: 50%">
 <p><b>Group zip by Tuesday 17 November, 23:59 Colombia time</b></p>
 <ul>
-<li>week-2-&lt;group_id&gt;.zip</li>
+<li>One file, week-2-&lt;group_id&gt;.zip</li>
 <li>The executed week 2 group notebook</li>
-<li>pregunta.json and marcas.csv</li>
-<li>outputs/grupos.csv, outputs/texto.csv, outputs/en_vista.csv</li>
+<li>pregunta.json and marcas.csv, the group's marks</li>
+<li>outputs/grupos.csv, the group of each article</li>
+<li>outputs/texto.csv, what each text filter says, with the marks</li>
+<li>outputs/en_vista.csv, the results of weeks 1 and 2 for each article</li>
 </ul>
+<p>These files are the result of the second iteration of the project.</p>
 </div>
-<div class="column vertical-middle text-left" style="width: 50%">
-<p><b>Individual reflection by Wednesday 18 November, 23:59</b></p>
+<div class="column vertical-top text-left" style="width: 50%">
+<p><b>Individual reflection by Wednesday 18 November, 23:59 Colombia time</b></p>
 <ul>
 <li>One PDF, week-2-reflection-&lt;apellido&gt;-&lt;inicial&gt;.pdf</li>
-<li>Covers Lecture 3 and Lecture 4</li>
-<li>Use the week 2 reflection template on the course page</li>
+<li>Between 700 and 1000 words, using the <a href="https://cabrerac.github.io/assets/documents/26-udenar-data-mining/reflection-week-2-template.docx" target="_blank" rel="noopener noreferrer">week 2 reflection template</a></li>
+<li>Keep the headings Metadatos, Proceso, Decisión, Métodos, and Ética</li>
 </ul>
-<p>Both go through Moodle.</p>
-<p>Each article on the starter list will need two supports and a written fact that would remove it.</p>
+<p><b>Requirements, section 2 of the project report</b></p>
+<p>On Saturday you get feedback on the week 1 draft and update it with what you found this week. It goes into project-report-&lt;group_id&gt;.pdf.</p>
+<p>Submissions go through Moodle.</p>
 </div>
 </div>
 </div>
@@ -75789,14 +75795,19 @@ html[data-theme='dark'] .slide-content ol li {
 <div class="rows" style="height: 100%">
 <div class="row" style="height: 100%">
 <div class="columns" style="width: 100%">
-<div class="column vertical-middle text-left" style="width: 100%">
+<div class="column vertical-top text-left" style="width: 100%">
 <p><b>Saturday 14 November, 07:00 to 13:00 Colombia time</b></p>
 <ul>
-<li>Shared block for Lecture 3 and Lecture 4</li>
-<li>Mark the kept apart texts first, before running any model</li>
-<li>Reading discussion, group notebook, project work</li>
-<li>Full timetable: <a href="https://cabrerac.github.io/assets/documents/26-udenar-data-mining/week-2-session-plan-es.pdf" target="_blank" rel="noopener noreferrer">Week 2 session plan (PDF)</a></li>
+<li><b>07:00</b> Opening. Each group gets one question from the learning journal</li>
+<li><b>07:15</b> Reading discussion in groups. Each group prepares one slide that answers its question</li>
+<li><b>08:00</b> Plenary with one speaker per group</li>
+<li><b>08:45</b> Live run of the Lecture 3 and Lecture 4 notebooks, each student in their own Colab</li>
+<li><b>10:00</b> Group notebook. First mark, then run the text models. marcas.csv holds 60 to 67 articles, about 15 to 21 per person</li>
+<li><b>11:00</b> Project progress on the requirements, section 2 of the report</li>
+<li><b>12:20</b> Plenary on the project</li>
+<li><b>12:50</b> Closing and deadlines</li>
 </ul>
+<p>The full timetable is in the <a href="https://cabrerac.github.io/assets/documents/26-udenar-data-mining/week-2-session-plan-es.pdf" target="_blank" rel="noopener noreferrer">week 2 session plan</a>.</p>
 </div>
 </div>
 </div>

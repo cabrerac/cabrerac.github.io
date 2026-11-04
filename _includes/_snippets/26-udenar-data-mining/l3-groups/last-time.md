@@ -38,7 +38,7 @@
                     <li><b>Data preparation</b> - word counts per paper scaled to length 1, then SVD</li>
                     <li><b>Modeling</b> - k-means, a Gaussian mixture, HDBSCAN</li>
                     <li><b>Evaluation</b> - silhouette against a shuffled baseline, stability, agreement, noise</li>
-                    <li><b>Deployment</b> - a paper stays in view with at least two supports</li>
+                    <li><b>Deployment</b> - the group result for each paper, saved in outputs/grupos_l3.csv</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">

@@ -11,7 +11,7 @@
                     <li>k-means, Gaussian mixtures and HDBSCAN on the papers</li>
                     <li>Low silhouette, no natural k</li>
                     <li>Many papers fit no group, they are listed for a look</li>
-                    <li>A paper stays in view with at least two supports</li>
+                    <li>The list shows which results support each paper</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -36,7 +36,7 @@
                     <li><b>Data preparation</b> - a keyword list, a TF-IDF matrix, the text cut to 512 tokens, marked examples</li>
                     <li><b>Modeling</b> - keyword match, TF-IDF with logistic regression, a frozen encoder with logistic regression</li>
                     <li><b>Evaluation</b> - right and wrong counts on the marked papers</li>
-                    <li><b>Deployment</b> - the text result as a third support</li>
+                    <li><b>Deployment</b> - the text result as a third result for the list</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">

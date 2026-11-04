@@ -31,8 +31,8 @@
                 <ul>
                     <li><b>Question</b> - which papers must the team read?</li>
                     <li><b>Steps</b> - the six phases, one line each</li>
-                    <li><b>Standard</b> - beats a baseline and the other candidates</li>
-                    <li><b>Use</b> - a reading start, not evidence to cite</li>
+                    <li><b>Standard</b> - set before the results, such as 10 to 30 papers</li>
+                    <li><b>Use</b> - a starter reading list, not evidence to cite</li>
                 </ul>
                 <p>This week you should be able to state a data mining question and place each step in CRISP-DM.</p>
             </div>

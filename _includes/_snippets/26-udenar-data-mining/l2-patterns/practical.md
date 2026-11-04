@@ -63,6 +63,10 @@ print(f"Coseno: {cosine:.2f}. Repaso de Python: OK")
  
 **Qué hacer.** Ejecute las celdas de arriba hacia abajo. Cada paso empieza con **En este paso** y termina con una celda **Comprobar**. Si un `assert` falla, revise la celda anterior antes de seguir. Los nombres del código están en inglés, como en todos los cuadernos del curso. Las explicaciones están en español.
  
+**El sábado 7 nov.** Hacia las 09:20 seguimos en vivo con este cuaderno, hasta las 10:00. La meta en clase es ver el soporte, el lift y por qué un par se conserva. No hace falta terminar la Parte 6 en clase. Lo que falte se termina en casa. Ejecute la Parte 1 antes del sábado para que el modelo de vectores ya esté probado.
+ 
+**Del laboratorio al proyecto.** Desde las 10:00 el cuaderno de grupo repite estos pasos con las entradillas de Wikipedia de su secretaría. Cada paso del cuaderno de grupo dice qué parte de este cuaderno adaptar.
+ 
 **Mapa del cuaderno**
  
 | Parte | Fase CRISP-DM | Qué sale |
@@ -80,7 +84,7 @@ print(f"Coseno: {cosine:.2f}. Repaso de Python: OK")
 ## Parte 1. Configuración
  
 ### Paso 1. Librerías, carpetas y parámetros
-En este paso importamos las librerías y fijamos los parámetros que usa todo el cuaderno. Los parámetros son **los mismos** en este cuaderno, en el cuaderno de grupo y en el script de control del curso. No los cambie aquí.
+En este paso importamos las librerías y fijamos los parámetros que usa todo el cuaderno. Los parámetros son **los mismos** en este cuaderno y en el cuaderno de grupo. No los cambie aquí.
  
 El **umbral de soporte** es un solo parámetro: una proporción de los artículos con un mínimo absoluto. Con 317 artículos da 10. Con un extracto de 298 artículos da 9. Así ningún grupo trabaja con una regla distinta.
 
@@ -108,7 +112,7 @@ OUTPUTS_DIR = Path("outputs")
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 
-# Parámetros compartidos con el cuaderno de grupo y el script de control (no cambiar)
+# Parámetros compartidos con el cuaderno de grupo (no cambiar)
 SUPPORT_SHARE = 0.03   # proporción de textos
 SUPPORT_MIN = 5        # mínimo de textos
 SWAPS_PER_ONE = 5      # intentos de intercambio por cada 1 de la tabla, en cada tabla al azar
@@ -140,7 +144,7 @@ print("Parámetros: OK")
 ### Paso 2. Modelo de vectores de palabras
 En este paso cargamos el modelo de **spaCy** que usa el Método 3. Preferimos el modelo grande `en_core_web_lg`, porque da a cada palabra frecuente su propio vector.
  
-**Tiempo de instalación.** En un Colab nuevo hay que descargarlo en cada sesión. El archivo pesa 401 MB (425 MB ya instalado). Lo medimos en una máquina de prueba del curso con buena conexión, no en Colab: la descarga e instalación tomó entre 5 y 6 segundos y la carga con `spacy.load` 2,5 segundos. En Colab gratuito puede tardar más, según la conexión del momento. Calcule hasta un par de minutos.
+**Tiempo de instalación.** En un Colab nuevo hay que descargarlo en cada sesión. El archivo pesa 401 MB. En Colab gratuito calcule hasta un par de minutos, según la conexión del momento.
  
 **Si la descarga falla.** Con una conexión débil la descarga del modelo grande puede fallar. La celda intenta entonces el modelo mediano `en_core_web_md` (unos 33 MB). También puede elegirlo a propósito con `USE_MEDIUM_MODEL = True`. La celda imprime qué modelo cargó. En la Parte 4, Paso 7, verá qué cambia con el mediano.
 
@@ -770,12 +774,12 @@ En este paso vemos la herramienta que conserva los dos márgenes: la **swap rand
  
 Cada texto sigue con el mismo número de palabras y cada palabra sigue en el mismo número de textos. Después de muchos intercambios, la tabla es una tabla al azar con los mismos márgenes. Contamos los pares en esa tabla y obtenemos un valor de lo que daría el azar.
  
-Las funciones de esta celda son las del módulo compartido del curso (`swap_randomization.py`). Copiamos su código sin cambios para que el cuaderno funcione solo en Colab y dé los mismos números que el script del curso. Solo traducimos al español los docstrings y los comentarios.
+Esta celda define las funciones de la línea base. Lea qué hace cada una en su docstring. No hace falta memorizar el código.
 
 
 
 ```python
-# support_floor, p95, swap_randomize, pair_counts, swap_null_counts y kept_pairs: mismo código que scripts/data-mining-course/swap_randomization.py, salvo docstrings y comentarios en español.
+# p95 y swap_randomize. pair_counts, swap_null_counts y kept_pairs van en el Paso 4.
 def p95(values: Sequence[float]) -> float:
     """Percentil 95 por rango, sin interpolar. Es la misma regla de las diapositivas y de los cuadernos."""
     values = sorted(values)
@@ -860,9 +864,9 @@ print("Listas cortas: OK")
 ### Paso 4. Cien tablas al azar para nuestros artículos
 En este paso construimos 100 tablas al azar (`N_SAMPLES`). Cada una parte de la tabla real y recibe 5 intentos de intercambio por cada uno de la tabla (`SWAPS_PER_ONE`). En cada tabla contamos el soporte de los 16.271 pares candidatos. Así cada par tiene 100 valores de lo que daría el azar.
  
-La celda define tres funciones más del módulo compartido: `pair_counts` cuenta todos los pares de una vez con un producto de matrices, `swap_null_counts` arma las 100 tablas y `kept_pairs` aplica la regla.
+La celda define tres funciones más: `pair_counts` cuenta todos los pares de una vez con un producto de matrices, `swap_null_counts` arma las 100 tablas y `kept_pairs` aplica la regla.
  
-**Tiempo.** Esta es la celda más lenta del cuaderno. En el computador del curso tardó unos 16 s. En Colab gratuito calcule entre 20 y 40 s, menos de un minuto. Mientras trabaja, la celda imprime una línea cada 20 tablas (`random tables: 20 of 100`) para que vea que avanza.
+**Tiempo.** Esta es la celda más lenta del cuaderno. En Colab gratuito calcule entre 20 y 40 s, menos de un minuto. Mientras trabaja, la celda imprime una línea cada 20 tablas (`random tables: 20 of 100`) para que vea que avanza.
 
 
 
@@ -897,7 +901,7 @@ def swap_null_counts(
     Cada tabla al azar parte de la tabla observada y recibe
     swaps_per_one * (número de unos) intentos de intercambio.
     progress_every: imprime "random tables: k of n" cada tantas tablas (0 = en silencio).
-    Con los artículos del curso tarda unos 16 s en el PC y unos 20 a 40 s en Colab gratuito.
+    Con los artículos del curso tarda unos 20 a 40 s en Colab gratuito.
     """
     pairs = list(pairs)
     vocab = sorted({w for p in pairs for w in p} | {w for t in transactions for w in t})
@@ -1073,7 +1077,7 @@ Cómo leer la tabla:
 - **M1** encuentra el vocabulario general de la colección. Útil para describirla, poco útil para filtrar.
 - **M2** encuentra expresiones del campo. Es el método que más sirve al equipo, siempre con el umbral y la línea base.
 - **M3** encuentra palabras que se usan igual en cualquier texto. Confirma un par de M2, pero sola no encuentra temas.
-- Un par que destaca en M2 **y** es cercano en M3 tiene dos apoyos distintos. Es el candidato más fuerte para la decisión, y aun así es un candidato para mirar.
+- Un par que destaca en M2 **y** es cercano en M3 destaca con dos métodos distintos. Es el candidato más fuerte para la decisión, y aun así es un candidato para mirar.
 
 
 
@@ -1127,7 +1131,7 @@ print("patrones_l2.csv: OK")
 ## Parte 7. Despliegue
  
 ### Paso 1. Cómo usaremos un patrón conservado
-En este paso escribimos, en la tarjeta de la pregunta, cómo entra un patrón en la decisión. Un patrón no elige artículos. Un patrón se convierte en un **filtro con nombre**: "artículos que contienen *fasting + plasma*". Ese filtro se suma a los resultados de las lecciones siguientes (grupos, texto, enlaces). Un artículo entra en la lista cuando lo apoyan al menos dos resultados.
+En este paso escribimos, en la tarjeta de la pregunta, cómo entra un patrón en la decisión. Un patrón no elige artículos. Un patrón se convierte en un **filtro con nombre**: "artículos que contienen *fasting + plasma*". Ese filtro se suma a los resultados de las lecciones siguientes (grupos, texto, enlaces). El equipo explica por qué cada artículo está en la lista y qué resultados lo apoyan. Un artículo puede tener varios resultados a favor, uno o ninguno, si el equipo lo justifica.
  
 Y escribimos qué cambiaría ese uso. Si un patrón solo aparece por un formato de revista, como pasó con *background + methods*, se descarta. Si deja de superar al azar con datos nuevos, también. Si el equipo cambia de tema, cambian los patrones que importan.
 
@@ -1137,7 +1141,7 @@ Y escribimos qué cambiaría ese uso. Si un patrón solo aparece por un formato 
 question_card["pattern_use"] = {
     "how_it_enters": "Cada patrón conservado define un filtro con nombre (artículos que contienen las dos palabras).",
     "reading": "Conservado quiere decir que vale la pena mirarlo, no que esté probado.",
-    "rule": "Un artículo entra en la lista cuando lo apoyan al menos dos resultados del curso.",
+    "rule": "El equipo explica por qué cada artículo está en la lista y qué resultados lo apoyan. Un artículo puede tener varios, uno o ninguno, si el equipo lo justifica.",
     "what_changes_it": [
         "el patrón resulta ser formato o financiación y no contenido",
         "el patrón ya no supera la línea base con datos nuevos",

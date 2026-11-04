@@ -90,7 +90,7 @@ def words(text, stop_words):
     text = (text or "").lower().replace("[cita requerida]", " ")
     return {w for w in WORD_RE.findall(text) if len(w) >= 3 and w not in stop_words}
 
-word_sets = [words(t, STOP_WORDS) for t in texts]
+word_sets = [words(t, STOP_WORDS) for t in papers["abstract"]]
 word_sets = [s for s in word_sets if len(s) >= 5]
 ```
 

@@ -16,8 +16,7 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Does the prediction count?</b></p>
                 <ul>
-                    <li><b>l6_counts</b> is true only if all three methods are more than 0.02 above the majority share on the rows kept apart</li>
-                    <li>0.02 is about 1 to 2 rows: a tie-breaker, not a significance test</li>
+                    <li>The prediction counts only when all three methods beat the majority share on the rows kept apart</li>
                     <li>For our label: [TBD label, open question 1]</li>
                     <li>Not a contest</li>
                 </ul>

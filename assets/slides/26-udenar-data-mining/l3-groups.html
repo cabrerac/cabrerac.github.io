@@ -4507,7 +4507,7 @@ html[data-theme='dark'] .slide-content ol li {
 <li><b>Data preparation</b> - word counts per paper scaled to length 1, then SVD</li>
 <li><b>Modeling</b> - k-means, a Gaussian mixture, HDBSCAN</li>
 <li><b>Evaluation</b> - silhouette against a shuffled baseline, stability, agreement, noise</li>
-<li><b>Deployment</b> - a paper stays in view with at least two supports</li>
+<li><b>Deployment</b> - the group result for each paper, saved in outputs/grupos_l3.csv</li>
 </ul>
 </div>
 <div class="column vertical-middle text-left" style="width: 50%">
@@ -32818,9 +32818,12 @@ html[data-theme='dark'] .slide-content ol li {
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python">vocabulary = vectorizer.get_feature_names_out()
 kmeans = KMeans(n_clusters=K_CHOSEN, n_init=<span class="hljs-number">10</span>, random_state=SEED).fit(X)
 kmeans_labels = kmeans.labels_
-<span class="hljs-keyword">for</span> g, centre <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(kmeans.cluster_centers_):
-    top = centre.argsort()[::-<span class="hljs-number">1</span>][:<span class="hljs-number">8</span>]
-    <span class="hljs-built_in">print</span>(g, (kmeans_labels == g).<span class="hljs-built_in">sum</span>(), <span class="hljs-built_in">list</span>(vocabulary[top]))
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">top_words</span>(<span class="hljs-params">weights, vocabulary, n=TOP_WORDS</span>):
+    <span class="hljs-keyword">return</span> [<span class="hljs-built_in">str</span>(vocabulary[j]) <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> np.argsort(weights)[::-<span class="hljs-number">1</span>][:n]]
+
+kmeans_words = {g: top_words(centre, vocabulary)
+                <span class="hljs-keyword">for</span> g, centre <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(kmeans.cluster_centers_)}
 </code></pre>
 </div>
 </div>
@@ -59944,7 +59947,7 @@ html[data-theme='dark'] .slide-content ol li {
 <p><b>Shuffled baseline</b></p>
 <p>Each word keeps its number of items.</p>
 <p>Its items are drawn at random.</p>
-<p>Real silhouette against the 95th percentile, p95() rank rule, no interpolation.</p>
+<p>Real silhouette against the 95th percentile of the shuffled silhouettes, read as in Lecture 2.</p>
 <p>Unlike a swap null, item length is not kept. Rows have length 1, so the mix of words is compared.</p>
 </div>
 <div class="column vertical-middle text-left" style="width: 64%">
@@ -67899,7 +67902,7 @@ html[data-theme='dark'] .slide-content ol li {
 <div class="row" style="height: 100%">
 <div class="columns" style="width: 100%">
 <div class="column vertical-middle text-center" style="width: 100%">
-<p><b>Combining results</b> keeps an item in view only when at least two different methods support it.</p>
+<p><b>Combining results</b> shows, for each item, which of the different methods support it.</p>
 </div>
 </div>
 </div>
@@ -69024,10 +69027,10 @@ html[data-theme='dark'] .slide-content ol li {
 <div class="row" style="height: 100%">
 <div class="columns" style="width: 100%">
 <div class="column vertical-middle text-left" style="width: 50%">
-<p><b>One result is not enough</b></p>
+<p><b>Each result is a reason</b></p>
 <p>Each method sees the items in its own way, and each one is weak alone.</p>
-<p>An item stays in view only when at least two results support it.</p>
-<p>Items left out are not deleted, they wait for another result.</p>
+<p>The list shows which results support each item. An item can stay with one result or none, if you explain why it is on the list.</p>
+<p>Items left out are not deleted, they wait for another result or a reason.</p>
 </div>
 <div class="column vertical-middle text-left" style="width: 50%">
 <p><b>What would change it</b></p>
@@ -70158,25 +70161,26 @@ html[data-theme='dark'] .slide-content ol li {
 <div class="rows" style="height: 100%">
 <div class="row" style="height: 100%">
 <div class="columns" style="width: 100%">
-<div class="column vertical-middle text-left" style="width: 55%">
+<div class="column vertical-middle text-left" style="width: 45%">
 <p><b>One column per result</b></p>
-<table class="table" style="font-size: 0.8em">
+<table class="table" style="font-size: 0.7em">
 <thead>
-<tr><th>Item</th><th>Result A</th><th>Result B</th><th>Supports</th><th>In view</th></tr>
+<tr><th>Item</th><th>Result A</th><th>Result B</th><th>Results in favour</th><th>Starting point</th></tr>
 </thead>
 <tbody>
-<tr><td>1</td><td>yes</td><td>yes</td><td>2</td><td>yes</td></tr>
-<tr><td>2</td><td>yes</td><td>no</td><td>1</td><td>no</td></tr>
-<tr><td>3</td><td>no</td><td>yes</td><td>1</td><td>no</td></tr>
-<tr><td>4</td><td>no</td><td>no</td><td>0</td><td>no, not deleted</td></tr>
+<tr><td>1</td><td>yes</td><td>yes</td><td>2</td><td>in</td></tr>
+<tr><td>2</td><td>yes</td><td>no</td><td>1</td><td>out</td></tr>
+<tr><td>3</td><td>no</td><td>yes</td><td>1</td><td>out</td></tr>
+<tr><td>4</td><td>no</td><td>no</td><td>0</td><td>out, not deleted</td></tr>
 </tbody>
 </table>
-<p>A new result adds a column. The rule stays the same.</p>
+<p>A new result adds a column. The count is only a starting point. You can keep or drop any item if you say why.</p>
 </div>
-<div class="column vertical-middle text-left" style="width: 45%">
+<div class="column vertical-middle text-left" style="width: 55%">
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python">SUPPORT_COLUMNS = [<span class="hljs-string">&quot;result_a&quot;</span>, <span class="hljs-string">&quot;result_b&quot;</span>]   <span class="hljs-comment"># one per result</span>
 
 table[<span class="hljs-string">&quot;supports&quot;</span>] = table[SUPPORT_COLUMNS].astype(<span class="hljs-built_in">int</span>).<span class="hljs-built_in">sum</span>(axis=<span class="hljs-number">1</span>)
+<span class="hljs-comment"># a starting point, change it with a reason</span>
 table[<span class="hljs-string">&quot;in_view&quot;</span>] = table[<span class="hljs-string">&quot;supports&quot;</span>] &gt;= MIN_SUPPORTS
 <span class="hljs-built_in">print</span>(table[<span class="hljs-string">&quot;in_view&quot;</span>].<span class="hljs-built_in">sum</span>(), <span class="hljs-string">&quot;items in view&quot;</span>)
 </code></pre>
@@ -71306,7 +71310,8 @@ html[data-theme='dark'] .slide-content ol li {
 <div class="column vertical-middle text-left" style="width: 40%">
 <p><b>For the secretaría team</b></p>
 <p style="font-size: 0.85em">The decision uses the HDBSCAN groups. The team reads a group when its top words touch its topic, such as obesity, diet, diabetes or hypertension.</p>
-<p style="font-size: 0.85em">A paper gets the group support only if it sits in a group the team reads. Noise papers get no support. They are the outlier list, kept for a look.</p>
+<p style="font-size: 0.85em">A paper gets the group result only if it sits in a group the team reads. Noise papers do not get it. They are the outlier list, kept for a look.</p>
+<p style="font-size: 0.85em">The group can still keep any paper on the list if it explains why.</p>
 </div>
 <div class="column vertical-middle text-left" style="width: 60%">
 <p><b>HDBSCAN groups of the papers</b></p>
@@ -71322,8 +71327,7 @@ html[data-theme='dark'] .slide-content ol li {
 <tr><td>4</td><td>87</td><td>studies, data, research, effects, food, human, review, use</td><td>no</td></tr>
 </tbody>
 </table>
-<p style="font-size: 0.8em">Noise, listed for a look: 108 papers.</p>
-<p style="font-size: 0.8em">In view with 2 supports: 8 papers.</p>
+<p style="font-size: 0.8em">108 noise papers, kept for a look. 8 in view with MIN_SUPPORTS = 2.</p>
 </div>
 </div>
 </div>
@@ -72468,8 +72472,7 @@ html[data-theme='dark'] .slide-content ol li {
 <tr><td>4</td><td>87</td><td>studies, data, research, effects, food, human, review, use</td><td>no</td></tr>
 </tbody>
 </table>
-<p style="font-size: 0.8em">Noise, listed for a look: 108 papers.</p>
-<p style="font-size: 0.8em">In view with 2 supports: 8 papers.</p>
+<p style="font-size: 0.8em">108 noise papers, kept for a look. 8 in view with MIN_SUPPORTS = 2.</p>
 </div>
 </div>
 </div>
@@ -74716,7 +74719,7 @@ html[data-theme='dark'] .slide-content ol li {
 <li>SVD before distances</li>
 <li>k-means, Gaussian mixtures, HDBSCAN</li>
 <li>Weak structure is a finding</li>
-<li>At least two results to stay in view</li>
+<li>The list shows which results support each paper</li>
 </ul>
 </div>
 <div class="column vertical-middle text-left" style="width: 50%">
@@ -75850,17 +75853,18 @@ html[data-theme='dark'] .slide-content ol li {
 <div class="rows" style="height: 100%">
 <div class="row" style="height: 100%">
 <div class="columns" style="width: 100%">
-<div class="column vertical-middle text-left" style="width: 100%">
-<p><b>Individual notebooks</b></p>
+<div class="column vertical-top text-left" style="width: 100%">
+<p><b>The <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l3-groups.ipynb" target="_blank">Lecture 3 notebook</a> follows CRISP-DM</b></p>
 <ul>
-<li><a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l3-groups.ipynb">Lecture 3 - groups and items that fit no group</a></li>
-<li><a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l4-text.ipynb">Lecture 4 - text extraction and marked examples</a></li>
+<li><b>Part 1, Setup.</b> Libraries, parameters, and the functions from Lecture 2</li>
+<li><b>Part 2, Business understanding.</b> pregunta.json and outputs/patrones_l2.csv from Lecture 2</li>
+<li><b>Part 3, Data understanding.</b> The papers with a useful abstract</li>
+<li><b>Part 4, Data preparation.</b> Scaled counts, SVD, and distances</li>
+<li><b>Part 5, Modeling.</b> Groups from k-means, the mixture, and HDBSCAN</li>
+<li><b>Part 6, Evaluation.</b> Baseline, stability, agreement, and what each group means</li>
+<li><b>Part 7, Deployment.</b> The supports table and outputs/grupos_l3.csv</li>
 </ul>
-<p><b>Group notebook</b></p>
-<ul>
-<li><a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/week-2-group.ipynb">Week 2 - groups and text on your secretaría's Wikipedia file</a></li>
-</ul>
-<p><b>Templates and deliverables</b> are available on the <a href="https://cabrerac.github.io/teaching/26-udenar-data-mining/week-2-hub/" target="_blank">Week 2 page</a>.</p>
+<p>At 08:45 on Saturday 14 November we run it live and you run it at the same time. Run it once before Saturday and note the cells that did not run. From about 09:20 we continue with Lecture 4. Templates and deliverables are on the <a href="https://cabrerac.github.io/teaching/26-udenar-data-mining/week-2-hub/" target="_blank">Week 2 page</a>.</p>
 </div>
 </div>
 </div>

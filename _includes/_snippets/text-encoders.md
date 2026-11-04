@@ -111,7 +111,7 @@
                 <p>English and Spanish texts with the same model.</p>
                 <p>Each text starts with the prefix "query: " <a href="https://huggingface.co/intfloat/multilingual-e5-small" target="_blank" rel="noopener noreferrer">(multilingual-e5-small model card)</a>.</p>
                 <p>Texts longer than 512 tokens are cut, count how many.</p>
-                <p>Cost on free Colab CPU: about 470 MB to download, then about a minute for a few hundred abstracts (box estimate).</p>
+                <p>Cost on free Colab CPU: about 470 MB to download, then about a minute for a few hundred abstracts.</p>
             </div>
         </div>
     </div>

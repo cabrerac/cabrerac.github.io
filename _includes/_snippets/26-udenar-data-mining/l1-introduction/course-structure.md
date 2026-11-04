@@ -35,9 +35,9 @@
                    <b>Sync sessions on Saturday, 07:00 to 13:00 Colombia time</b>
                    <ul>
                       <li>Discussion of the week's readings in groups and plenary</li>
+                      <li>Live run of the week's individual notebooks</li>
                       <li>Teamwork on the week's group notebook</li>
-                      <li>Teamwork on the course project</li>
-                      <li>Sharing findings and questions in plenary</li>
+                      <li>Teamwork on the course project and sharing progress in plenary</li>
                    </ul>
                 </p>
             </div>
@@ -53,10 +53,10 @@
             <div class="column vertical-top text-left" style="width: 100%">
                 <p><b>Homework</b></p>
                    <ul>
-                      <li>Personal learning journal to document the readings before Saturday sessions</li>
-                      <li>Group notebook with the week's practical. Started on Saturday and due on Tuesday at 23:59 Colombia time</li>
-                      <li>A reference notebook is shared on Wednesday morning</li>
-                      <li>Individual reflection on the week's learning. Due on Wednesday at 23:59 using the provided template</li>
+                      <li>Personal learning journal with your answers to the reading questions, before Saturday sessions</li>
+                      <li>Group zip with the week's group notebook and its output files. Started on Saturday and due on Tuesday at 23:59 Colombia time</li>
+                      <li>Reference outputs and a solution video are shared on Wednesday morning</li>
+                      <li>Individual reflection on the week's learning, between 700 and 1000 words. Due on Wednesday at 23:59 using the provided template</li>
                       <li>Course project presented on our final day: Saturday, 28 November</li>
                       <li>Submissions through Moodle</li>
                    </ul>
@@ -103,7 +103,7 @@
                    <ul>
                       <li>The course follows an active learning approach. <b>Your participation</b> is crucial for everyone to succeed</li>
                       <li>Turn on your camera during Saturday sync sessions unless you have agreed an exception with the instructor</li>
-                      <li>Complete async videos and the individual practice notebooks before Saturday</li>
+                      <li>Complete async videos and run the individual notebooks in Colab before Saturday. Note the cells that did not run</li>
                       <li>Bring your learning journal to reading discussions. Both readings of each week come in the course email the week before</li>
                       <li>Use your group Microsoft Teams link for in-group work during sync sessions</li>
                       <li>You are free to use AI during the course but declare your use honestly in every reflection. Do not submit wholesale AI-generated reflections</li>
@@ -119,12 +119,20 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Week 1</b></p>
+            <div class="column vertical-top text-left" style="width: 100%">
+                <p><b>Week 1:</b> <a href="https://cabrerac.github.io/teaching/26-udenar-data-mining/l1-introduction/" target="_blank">Lecture 1</a> and <a href="https://cabrerac.github.io/teaching/26-udenar-data-mining/l2-patterns/" target="_blank">Lecture 2</a>, then one Saturday session.</p>
+                <p><b>Saturday 7 November, 07:00 to 13:00 Colombia time</b></p>
                 <ul>
-                    <li><a href="https://cabrerac.github.io/teaching/26-udenar-data-mining/l1-introduction/" target="_blank">Lecture 1: Introduction to data mining, questions, and methodology</a></li>
-                    <li><a href="https://cabrerac.github.io/teaching/26-udenar-data-mining/l2-patterns/" target="_blank">Lecture 2: Repeating patterns and baselines</a></li>
+                    <li><b>07:00</b> Opening. Each group gets one question from the learning journal</li>
+                    <li><b>07:15</b> Reading discussion in groups. Each group prepares one slide that answers its question</li>
+                    <li><b>08:00</b> Plenary with one speaker per group</li>
+                    <li><b>08:45</b> Live run of the Lecture 1 and Lecture 2 notebooks, each student in their own Colab</li>
+                    <li><b>10:00</b> Group notebook</li>
+                    <li><b>11:00</b> Project definition, the requirements (section 2 of the report) and the canvas</li>
+                    <li><b>12:20</b> Plenary on the project</li>
+                    <li><b>12:50</b> Closing and deadlines</li>
                 </ul>
+                <p>The full timetable is in the <a href="{{ site.url }}/assets/documents/26-udenar-data-mining/week-1-session-plan-es.pdf" target="_blank" rel="noopener noreferrer">week 1 session plan</a>.</p>
             </div>
         </div>
     </div>

@@ -181,9 +181,12 @@ K_CHOSEN = max(silhouettes, key=silhouettes.get)   # or a k chosen for the use
 vocabulary = vectorizer.get_feature_names_out()
 kmeans = KMeans(n_clusters=K_CHOSEN, n_init=10, random_state=SEED).fit(X)
 kmeans_labels = kmeans.labels_
-for g, centre in enumerate(kmeans.cluster_centers_):
-    top = centre.argsort()[::-1][:8]
-    print(g, (kmeans_labels == g).sum(), list(vocabulary[top]))
+
+def top_words(weights, vocabulary, n=TOP_WORDS):
+    return [str(vocabulary[j]) for j in np.argsort(weights)[::-1][:n]]
+
+kmeans_words = {g: top_words(centre, vocabulary)
+                for g, centre in enumerate(kmeans.cluster_centers_)}
 ```
 
             </div>

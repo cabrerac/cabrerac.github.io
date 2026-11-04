@@ -54,17 +54,21 @@ print(f"Pasos desde A: {steps}. E no se alcanza. Repaso de Python: OK")
  
 **Qué hacer.** Ejecute las celdas de arriba hacia abajo. Cada paso empieza con **En este paso**. Los pasos que crean algo nuevo terminan con una celda `# Comprobar`. Si un `assert` falla, revise la celda anterior antes de seguir. Los nombres del código están en inglés, como en todos los cuadernos del curso. Las explicaciones están en español.
  
+**El sábado 21 nov.** A las 08:45 el docente ejecuta este cuaderno en vivo y ustedes lo ejecutan al mismo tiempo. Ejecútelo una vez antes del sábado y anote las celdas que no pudo ejecutar. Hacia las 09:20 seguimos con la L6. Lo que falte se termina en casa.
+ 
+**Del laboratorio al proyecto.** Desde las 10:00 el cuaderno de grupo de la semana 3 repite estos pasos con los enlaces entre los artículos de su secretaría: G1 Agricultura, G2 Salud mental, G3 Medio ambiente, G4 Inclusión Social y G5 Vivienda. Cada paso del cuaderno de grupo dice qué parte de este cuaderno adaptar.
+ 
 **Mapa del cuaderno**
  
 | Parte | Fase CRISP-DM | Qué sale |
 |-------|---------------|----------|
 | 1 | Configuración | Librerías, parámetros y funciones |
-| 2 | Comprensión del negocio | `pregunta.json` y los tres apoyos de la semana 2 |
+| 2 | Comprensión del negocio | `pregunta.json` y los tres resultados de la semana 2 |
 | 3 | Comprensión de los datos | Los artículos y sus enlaces |
 | 4 | Preparación de los datos | La lista de enlaces, los dos grafos y el componente mayor |
 | 5 | Modelado | Grado, PageRank, intermediación y node2vec |
 | 6 | Evaluación | Contra las citas, un artículo descrito por su lugar, estabilidad de node2vec |
-| 7 | Despliegue | El apoyo del grafo en `supports` y `outputs/grafo_l5.csv` |
+| 7 | Despliegue | El resultado del grafo en `supports` y `outputs/grafo_l5.csv` |
 
 ---
  
@@ -110,7 +114,7 @@ SUPPORT_MIN = 5
 SEED = 7
 
 # Decisión, L3 en adelante
-MIN_SUPPORTS = 2
+MIN_SUPPORTS = 2             # el código empieza en 2, cámbielo si lo justifica (0 o 1 también valen)
 
 # L5 (compartidos con el cuaderno de grupo, no cambiar)
 HUB_SHARE = 0.10          # un nodo enlazado a al menos el 10% de los otros es una alerta
@@ -184,7 +188,7 @@ print(f"{len(raw)} filas, columnas: {list(raw.columns)}")
 ## Parte 2. Comprensión del negocio
  
 ### Paso 1. Recuperar la pregunta
-En este paso leemos `pregunta.json`. La pregunta no cambia. Lo nuevo es cómo entra el grafo: un artículo recibe el apoyo del grafo si **une partes de la red** y no es solo un nodo central. Si trabaja en la misma carpeta de la L4, la tarjeta ya está. Si no, la celda escribe la tarjeta de referencia del laboratorio.
+En este paso leemos `pregunta.json`. La pregunta no cambia. Lo nuevo es cómo entra el grafo: un artículo recibe el resultado del grafo si **une partes de la red** y no es solo un nodo central. Si trabaja en la misma carpeta de la L4, la tarjeta ya está. Si no, la celda escribe la tarjeta de referencia del laboratorio.
 
 ```python
 QUESTION_PATH = Path("pregunta.json")
@@ -202,8 +206,8 @@ else:
 print(question_card["question"])
 ```
 
-### Paso 2. Recuperar los tres apoyos de la semana 2
-En este paso leemos `outputs/grupos_l3.csv` (patrón y grupo) y `outputs/texto_l4.csv` (texto). Si no están, siga igual: los tres apoyos quedan en falso y la cuenta final será más baja. Copie `grupos_l3.csv` de la L3 y `texto_l4.csv` de la L4 a la carpeta `outputs/` para tener la cuenta real. Estos tres apoyos son los resultados de la semana 2: el patrón de la L2, el grupo leído de la L3 y el texto de la L4. Hoy les sumamos un cuarto.
+### Paso 2. Recuperar los tres resultados de la semana 2
+En este paso leemos `outputs/grupos_l3.csv` (patrón y grupo) y `outputs/texto_l4.csv` (texto). Si no están, siga igual: los tres resultados quedan en falso y la cuenta final será más baja. Copie `grupos_l3.csv` de la L3 y `texto_l4.csv` de la L4 a la carpeta `outputs/` para tener la cuenta real. Estos tres son los resultados de la semana 2: el patrón de la L2, el grupo leído de la L3 y el texto de la L4. Hoy les sumamos un cuarto.
 
 ```python
 GROUPS_PATH = OUTPUTS_DIR / "grupos_l3.csv"
@@ -221,14 +225,14 @@ if GROUPS_PATH.is_file() and TEXT_PATH.is_file():
     print(f"Semana 2: {len(week2)} filas, {week2[['has_pattern', 'read_group', 'text_says_read']].sum().to_dict()}")
 else:
     week2 = pd.DataFrame(columns=["title", "has_pattern", "read_group", "text_says_read"])
-    print("Faltan grupos_l3.csv o texto_l4.csv. Los tres apoyos de la semana 2 quedan en falso.")
+    print("Faltan grupos_l3.csv o texto_l4.csv. Los tres resultados de la semana 2 quedan en falso.")
 ```
 
 ```python
 # Comprobar
 assert {"question", "standard"} <= set(question_card)
-assert list(week2.columns) == ["title", "has_pattern", "read_group", "text_says_read"]
-print("Pregunta y apoyos de la semana 2: OK")
+assert {"title", "has_pattern", "read_group", "text_says_read"} <= set(week2.columns)
+print("Pregunta y resultados de la semana 2: OK")
 ```
 
 ---
@@ -236,7 +240,7 @@ print("Pregunta y apoyos de la semana 2: OK")
 ## Parte 3. Comprensión de los datos
  
 ### Paso 1. Los artículos y los títulos repetidos
-En este paso quitamos los títulos repetidos. Un nodo del grafo es un título, así que dos filas con el mismo título serían el mismo nodo. Nos quedamos con la primera. En la semana 2 se usaron 317 filas: se quitaron 3 resúmenes demasiado cortos y se dejaron las dos copias de cada título repetido. Aquí se usan las 318 filas sin repetidos. Más adelante, al juntar con la semana 2, un título repetido toma un apoyo si cualquiera de sus dos filas lo tenía.
+En este paso quitamos los títulos repetidos. Un nodo del grafo es un título, así que dos filas con el mismo título serían el mismo nodo. Nos quedamos con la primera. En la semana 2 se usaron 317 filas: se quitaron 3 resúmenes demasiado cortos y se dejaron las dos copias de cada título repetido. Aquí se usan las 318 filas sin repetidos. Más adelante, al juntar con la semana 2, un título repetido toma un resultado a favor si cualquiera de sus dos filas lo tenía.
 
 ```python
 repeated = raw.loc[raw["title"].duplicated(), "title"].tolist()
@@ -728,8 +732,8 @@ print(place_finding)
  
 ## Parte 7. Despliegue
  
-### Paso 1. El apoyo del grafo en la tabla de apoyos
-En este paso armamos `table`, una fila por artículo con el título como índice. Juntamos los tres apoyos de la semana 2 por título. Si un título repetido aparecía dos veces en la semana 2, toma el apoyo si cualquiera de sus dos filas lo tenía. Los 3 resúmenes cortos que la semana 2 dejó fuera no tienen apoyo de L3 ni de L4, y los mostramos como "sin texto". El apoyo del grafo es ser un **puente**. Las columnas de apoyo tienen los nombres de las diapositivas: `has_pattern`, `read_group`, `text_says_read` y ahora `graph_support`.
+### Paso 1. El resultado del grafo en la tabla
+En este paso armamos `table`, una fila por artículo con el título como índice. Juntamos los tres resultados de la semana 2 por título. Si un título repetido aparecía dos veces en la semana 2, toma el resultado a favor si cualquiera de sus dos filas lo tenía. Los 3 resúmenes cortos que la semana 2 dejó fuera no tienen resultado de L3 ni de L4, y los mostramos como "sin texto". El resultado del grafo es ser un **puente**. Las columnas de resultados son `has_pattern`, `read_group`, `text_says_read` y ahora `graph_support`. Un artículo queda en vista con al menos `MIN_SUPPORTS` resultados a favor. El código empieza en 2. Cambie el valor si lo justifica, 0 o 1 también valen. La tabla de la celda cuenta cuántos artículos tienen 0, 1, 2 y 3 o más resultados a favor.
 
 ```python
 supports_w2 = week2.groupby("title")[["has_pattern", "read_group", "text_says_read"]].any()
@@ -746,20 +750,21 @@ table["supports"] = table[SUPPORT_COLUMNS].astype(int).sum(axis=1)
 table["in_view"] = table["supports"] >= MIN_SUPPORTS
 before = (table[SUPPORT_COLUMNS[:3]].astype(int).sum(axis=1) >= MIN_SUPPORTS).sum()
 print(f"En vista con tres resultados: {before}. Con el grafo: {table['in_view'].sum()} de {N}")
-print(table["supports"].value_counts().sort_index().to_dict())
+counts = table["supports"].clip(upper=3).value_counts().reindex(range(4), fill_value=0).rename(index={3: "3 o más"})
+print(counts.rename_axis("resultados a favor").to_frame("artículos").T.to_string())
 ```
 
 ```python
 # Comprobar
 assert len(table) == N and table.index.is_unique
 assert table["in_view"].sum() >= before and table["graph_support"].sum() == len(bridges)
-print("Tabla de apoyos con el grafo: OK")
+print("Tabla de resultados con el grafo: OK")
 ```
 
-**Lo que aprendemos aquí.** El grafo suma un apoyo a los puentes, que son unos pocos artículos con enlaces. Más de la mitad de los artículos no tiene vector y el 38% está aislado, así que el grafo no puede apoyarlos: eso no los saca de la lista, solo dice que su lugar en la red no cuenta para ellos. Ningún artículo de nutrición pasa la alerta de nodo central. En los extractos de Wikipedia sí hay nodos centrales, y los puentes los dejan fuera. Con el grafo, la lista pasa de 52 a 69 artículos en vista. Solo uno tiene los cuatro apoyos.
+**Lo que aprendemos aquí.** El grafo suma un resultado a favor de los puentes, que son unos pocos artículos con enlaces. Más de la mitad de los artículos no tiene vector y el 38% está aislado, así que el grafo no puede apoyarlos: eso no los saca de la lista, solo dice que su lugar en la red no cuenta para ellos. Ningún artículo de nutrición pasa la alerta de nodo central. En los extractos de Wikipedia sí hay nodos centrales, y los puentes los dejan fuera. Con el grafo, la lista pasa de 52 a 69 artículos en vista con `MIN_SUPPORTS = 2`. Solo uno tiene los cuatro resultados a favor.
  
 ### Paso 2. Guardar el grafo
-En este paso guardamos `outputs/grafo_l5.csv`, con una fila por artículo. Los nombres de las columnas van en español, como en las semanas anteriores. `vecinos_n2v` lleva los 5 vecinos separados por `|`, y queda vacía para los artículos sin vector. La L6 lee este archivo para traer el apoyo del grafo sin repetir los cálculos.
+En este paso guardamos `outputs/grafo_l5.csv`, con una fila por artículo. Los nombres de las columnas van en español, como en las semanas anteriores. `vecinos_n2v` lleva los 5 vecinos separados por `|`, y queda vacía para los artículos sin vector. La L6 lee este archivo para traer el resultado del grafo sin repetir los cálculos.
 
 ```python
 graph_table = pd.DataFrame({
@@ -782,17 +787,17 @@ print(f"Guardado: {graph_path} ({len(graph_table)} filas)")
 ```python
 # Comprobar
 saved = pd.read_csv(graph_path, keep_default_na=False)
-assert list(saved.columns) == ["title", "grado", "pagerank", "intermediacion", "aislado", "alerta_centro", "sin_vector_n2v", "vecinos_n2v", "supports", "in_view"]
+assert {"title", "grado", "pagerank", "intermediacion", "aislado", "alerta_centro", "sin_vector_n2v", "vecinos_n2v", "supports", "in_view"} <= set(saved.columns)
 assert len(saved) == N
 print("grafo_l5.csv: OK")
 ```
 
 ### Paso 3. Qué cambiaría la decisión
-En este paso anotamos en `pregunta.json` cómo entra el grafo y qué lo cambiaría. La tarjeta viaja con el equipo de lección en lección. Así, quien lea la lista sabe por qué un artículo tiene el apoyo del grafo y qué regla lo decidió.
+En este paso anotamos en `pregunta.json` cómo entra el grafo y qué lo cambiaría. La tarjeta viaja con el equipo de lección en lección. Así, quien lea la lista sabe por qué un artículo tiene el resultado del grafo a favor y qué regla lo decidió.
 
 ```python
 question_card["graph_use"] = {
-    "how_it_enters": "Un artículo recibe un apoyo si es un puente: está en el cuarto superior por intermediación entre los artículos con enlaces, y no es un nodo central.",
+    "how_it_enters": "El resultado del grafo cuenta a favor de un artículo si es un puente: está en el cuarto superior por intermediación entre los artículos con enlaces, y no es un nodo central.",
     "reading": "El grafo solo ve las citas dentro del conjunto. Un artículo aislado no tiene lugar, no es malo.",
     "bridges": len(bridges),
     "what_changes_it": ["otro corte que el cuarto superior", "otra regla para los nodos centrales", "más artículos o más enlaces en el conjunto"],
@@ -801,7 +806,7 @@ QUESTION_PATH.write_text(json.dumps(question_card, ensure_ascii=False, indent=2)
 print(json.dumps(question_card["graph_use"], ensure_ascii=False, indent=1))
 ```
 
-**Su turno.** Elija un artículo de la tabla con dos apoyos o más. Escriba en dos frases qué dice su lugar en la red y qué cambiaría si quitáramos el apoyo del grafo.
+**Su turno.** Elija un artículo en vista de la tabla. Con `MIN_SUPPORTS = 2`, el valor con que empieza el código, tiene al menos dos resultados a favor. Escriba en dos frases qué dice su lugar en la red y qué cambiaría si quitáramos el resultado del grafo.
 
 ```python
 my_paper = """
@@ -832,7 +837,7 @@ checks = [
     ("pregunta.json con uso del grafo", lambda: "graph_use" in json.loads(QUESTION_PATH.read_text(encoding="utf-8"))),
     ("outputs/grafo_l5.csv", lambda: graph_path.is_file()),
     ("Histograma de grado y dibujo del componente", lambda: all((OUTPUTS_DIR / f).is_file() for f in ["grado_l5.png", "componente_l5.png"])),
-    ("Apoyos de la semana 2", lambda: len(week2) > 0),
+    ("Resultados de la semana 2", lambda: len(week2) > 0),
     ("Hallazgo sobre el lugar escrito", lambda: "___" not in place_finding),
     ("Un artículo leído por su lugar", lambda: "Escriba aquí" not in my_paper),
 ]

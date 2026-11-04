@@ -2,17 +2,17 @@
 
 ## Instrucciones
 
-**Propósito.** Cuaderno de grupo de la semana 3 (Lecciones 5 y 6). Su grupo sigue como equipo interno de una alcaldía, con los artículos de su secretaría. Esta semana se cierra la **lista de inicio**: los artículos que una persona nueva en la secretaría debe abrir primero.
+**Propósito.** Cuaderno de grupo de la semana 3 (Lecciones 5 y 6). Su grupo sigue como equipo interno de una alcaldía, con los artículos de su secretaría. Esta semana se cierra la **lista de inicio**, la lista de artículos para los nuevos integrantes del equipo.
 
-**Esta semana.** Se suman dos apoyos: el lugar de cada artículo en la red de enlaces (`outputs/grafo.csv`) y una predicción (`outputs/prediccion.csv`). Después arman la lista en `outputs/lista_inicial.csv`. Cada artículo de la lista tiene al menos dos apoyos y una frase escrita por el grupo: qué hecho lo sacaría de la lista.
+**Esta semana.** Se suman dos resultados: el lugar de cada artículo en la red de enlaces (`outputs/grafo.csv`) y una predicción (`outputs/prediccion.csv`). Después arman la lista en `outputs/lista_inicial.csv`, con los resultados de las tres semanas que apoyan cada artículo y una frase escrita por el grupo: qué hecho lo sacaría de la lista.
 
-**Requisito.** Ejecute primero los cuadernos individuales **L5** y **L6**. Este cuaderno lo escribe el grupo. Cada paso dice qué código de L5 o L6 adaptar. No pegue sin entender. Tengan en la carpeta `pregunta.json` y `outputs/en_vista.csv` de su ZIP de la semana 2. `marcas.csv` no se lee aquí, pero va de nuevo en el ZIP.
+**Requisito.** Ejecute primero los cuadernos individuales **L5** y **L6**. Este cuaderno lo escribe el grupo. Cada paso dice qué código de L5 o L6 adaptar. No pegue sin entender. Tengan en la carpeta `pregunta.json` y `outputs/en_vista.csv` de su ZIP de la semana 2. `marcas.csv` no se lee aquí, pero va de nuevo en el ZIP. El sábado 21 nov el grupo lo empieza de 10:00 a 10:45 y lo termina en casa.
 
-**Datos de entrada.** El mismo CSV de su grupo. La columna `links` trae los enlaces de la entradilla a otros artículos del mismo extracto. Un enlace es una mención en el texto, no una cita. Las categorías las pusieron quienes editan Wikipedia.
+**Datos de entrada.** El mismo archivo de su grupo: G1 Agricultura, G2 Salud mental, G3 Medio ambiente, G4 Inclusión Social y G5 Vivienda. La columna `links` trae los enlaces de la entradilla a otros artículos del mismo extracto. Un enlace es una mención en el texto, no una cita. Las categorías las pusieron quienes editan Wikipedia.
 
 **Materiales.** [L5 Grafos](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l5-graphs.ipynb) y [L6 Predicción](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l6-prediction.ipynb).
 
-**Pregunta del grupo.** ¿Qué artículos entran en la lista de inicio de su secretaría con al menos dos apoyos, y qué hecho sacaría a cada uno?
+**Pregunta del grupo.** ¿Qué artículos entran en la lista de inicio de su secretaría, qué resultados apoyan a cada uno y qué hecho lo sacaría?
 
 **Entrega Moodle (martes 24 nov 2026, 23:59 Colombia).** ZIP `week-3-<group_id>.zip` con `week-3-group-<group_id>.ipynb` (este cuaderno ejecutado y renombrado), `pregunta.json`, `marcas.csv` de la semana 2, `outputs/grafo.csv`, `outputs/prediccion.csv`, `outputs/lista_inicial.csv`, `project-title-es.txt` y `project-abstract-es.txt`. El mismo cuaderno, con los arreglos después de la devolución, va en el ZIP del proyecto el martes 1 de diciembre.
 
@@ -21,7 +21,7 @@
 | Ejercicio | Tema | Entregable clave |
 |-----------|------|------------------|
 | **0** | Configuración | Grupo, etiqueta, datos, parámetros y funciones |
-| **1** | Comprensión del negocio | La tarjeta y los apoyos de la semana 2 |
+| **1** | Comprensión del negocio | La tarjeta y los resultados de la semana 2 |
 | **2** | Comprensión de los datos | Títulos únicos y enlaces dentro del extracto |
 | **3** | Preparación de los datos | Los grafos y la tabla de la L6 |
 | **4** | Modelado | Grado, PageRank, puentes, node2vec y los tres métodos de la L6 |
@@ -36,7 +36,7 @@
 
 ### Paso 0.1. Grupo, etiqueta y datos
 
-Cambie solo `GROUP`. `LABEL` es la etiqueta de la L6 y la elige el profesor; hasta entonces es `"label"`, la categoría del extracto.
+Cambie solo `GROUP`. La etiqueta de la L6 es `LABEL = "categoria_objetivo"`: 1 si la categoría del artículo (`categoria`) está en `TARGETS[GROUP]`, y 0 si no. `TARGETS` son las mismas categorías del filtro de la semana 2.
 
 ```python
 import json
@@ -46,7 +46,10 @@ import pandas as pd
 import requests
 
 GROUP = "G1"   # cambie a G2, G3, G4 o G5
-LABEL = "label"   # [POR DECIDIR, pregunta abierta 1] la etiqueta de la L6
+LABEL = "categoria_objetivo"   # 1 si categoria está en TARGETS[GROUP], 0 si no
+TARGETS = {"G1": ["Agrarismo", "Organizaciones agrícolas"], "G2": ["Trastornos mentales", "Psiquiatría"], "G3": ["Conservacionismo"],
+           "G4": ["Hambrunas", "Hambre", "Bancos de alimentos"], "G5": ["Hipotecas", "Arrendamiento", "Huelgas de alquileres",
+           "Vivienda asequible", "Vivienda pública"]}
 EXTRACTS = {"G1": ("Agricultura", "agricultura.csv"), "G2": ("Salud mental", "salud-mental.csv"), "G3": ("Medio ambiente", "medio-ambiente.csv"),
             "G4": ("Inclusión Social", "inclusion-social.csv"), "G5": ("Vivienda", "vivienda.csv")}
 SECRETARIAT, FILENAME = EXTRACTS[GROUP]
@@ -56,6 +59,7 @@ path.parent.mkdir(exist_ok=True)
 if not path.is_file():   # descarga una sola vez
     path.write_bytes(requests.get(f"https://cabrerac.github.io/assets/data/26-udenar-data-mining/{FILENAME}", timeout=60).content)
 df = pd.read_csv(path, keep_default_na=False).drop_duplicates("title").reset_index(drop=True)
+df = df.rename(columns={"label": "categoria"})   # en el extracto la columna se llama label
 print(f"Grupo {GROUP}: secretaría de {SECRETARIAT}, {len(df)} artículos sin títulos repetidos. Etiqueta: {LABEL}")
 ```
 
@@ -63,7 +67,7 @@ print(f"Grupo {GROUP}: secretaría de {SECRETARIAT}, {len(df)} artículos sin t�
 
 | Qué copiar | Dónde está |
 |------------|------------|
-| Los parámetros de la L5 (`SUPPORT_SHARE`, `SUPPORT_MIN`, `SEED`, `MIN_SUPPORTS`, `HUB_SHARE` a `N_RANDOM_PAIRS`), sin cambiar sus valores | L5, Parte 1, Paso 1 |
+| Los parámetros de la L5 (`SUPPORT_SHARE`, `SUPPORT_MIN`, `SEED`, `MIN_SUPPORTS`, `HUB_SHARE` a `N_RANDOM_PAIRS`), sin cambiar sus valores. `MIN_SUPPORTS` empieza en 2 y pueden cambiarlo si lo justifican | L5, Parte 1, Paso 1 |
 | Los parámetros de la L6 (`FLAGGED_SHARE` a `N_FOLDS` y `HIDDEN_UNITS` a `SPLIT_SEEDS`), sin `LABEL` ni cambiar sus valores | L6, Parte 1, Paso 1 |
 | Las importaciones de la L5 (networkx, gensim, random) | L5, Parte 1, Paso 1 |
 | Las importaciones de la L6 (sklearn, scipy) | L6, Parte 1, Paso 1 |
@@ -94,12 +98,12 @@ print("Paso 0.2: OK")
 
 ## Ejercicio 1. Comprensión del negocio
 
-### Paso 1.1. La tarjeta y los apoyos de la semana 2
+### Paso 1.1. La tarjeta y los resultados de la semana 2
 
 | Qué copiar | Dónde está en L5 |
 |------------|------------------|
 | Leer la tarjeta en `question_card` | Parte 2, Paso 1 |
-| Leer los apoyos en `week2`, con las tres columnas en verdadero o falso | Parte 2, Paso 2 (aquí el archivo es `outputs/en_vista.csv`) |
+| Leer los resultados en `week2`, con las tres columnas en verdadero o falso | Parte 2, Paso 2 (aquí el archivo es `outputs/en_vista.csv`) |
 
 ```python
 # SU CÓDIGO. Paso 1.1: question_card, week2 y graph_expectation
@@ -186,8 +190,8 @@ print("Paso 3.1: OK")
 ```
 
 **Listo cuando:**
-- `label_of(attributes)` lee la etiqueta solo de su columna (`label`, `has_image`, `has_infobox` o `n_wikipedias`, según `LABEL`) y se detiene con un error si falta. `y = label_of(attributes)`.
-- `kind` deja como `Other` los tipos con menos de `support_floor(N)` artículos. Si `LABEL` es `"tiene_imagen"`, `has_image` no es entrada [POR DECIDIR, pregunta abierta 1].
+- `label_of(attributes)` lee la etiqueta solo de su columna, según `LABEL`, y se detiene con un error si falta. Con `"categoria_objetivo"` da 1 si `categoria` está en `TARGETS[GROUP]` y 0 si no. `y = label_of(attributes)`.
+- `kind` deja como `Other` los tipos con menos de `support_floor(N)` artículos. Si `LABEL` es `"tiene_imagen"`, `has_image` no es entrada.
 - En los números `add_indicator=False`, porque `has_date` ya marca el año faltante.
 - `test` tiene `n_flagged(N)` filas y no comparte títulos con `train`.
 
@@ -317,7 +321,7 @@ print("Paso 5.1: OK")
 
 **Listo cuando:**
 - La clase mayor es `y_test.value_counts(normalize=True).max()`.
-- `l6_counts` es `True` solo si los tres métodos quedan más de `MARGIN` por encima. Si es `False`, la L6 no suma apoyos: es un resultado, no un error.
+- `l6_counts` dice si la predicción entra en la lista. Es `True` solo si cada uno de los tres métodos acierta en las filas apartadas más que la clase mayor, por un margen de `MARGIN` (0,02, una o dos filas de unas 60, como en la L6). Si es `False`, la predicción no apoya su lista. Es un resultado normal y válido, no un error: lo informan en el proyecto y explican por qué (los métodos no le ganan a la clase mayor por más de `MARGIN`).
 - `l6_finding` (texto) da la clase mayor, la exactitud de los tres métodos, `l6_counts` y en cuántas de las 5 particiones se sostiene, y qué significa para la lista.
 
 **Comprobar:**
@@ -331,7 +335,7 @@ print("Paso 5.2: OK")
 
 ## Ejercicio 6. Despliegue
 
-### Paso 6.1. La tabla con los cinco apoyos
+### Paso 6.1. La tabla con los cinco resultados
 
 | Columna | De dónde sale | Dónde está |
 |---------|---------------|------------|
@@ -339,16 +343,15 @@ print("Paso 5.2: OK")
 | `graph_support` | el artículo está en `bridges` | L5, Parte 7, Paso 1 |
 | `prediction` | al menos 2 de 3 métodos, con `vote_of`, fuera del pliegue o apartada | L6, Parte 7, Paso 1 |
 | `one_support` | si la etiqueta repite el texto de la L4 | L6, Parte 7, Paso 2 |
-| `TARGETS` | las categorías del filtro, sin cambiarlas | su cuaderno de la semana 2, Paso 0.1 |
 
 ```python
-# SU CÓDIGO. Paso 6.1: TARGETS, table, graph_support, voted, prediction y one_support
+# SU CÓDIGO. Paso 6.1: table, graph_support, voted, prediction y one_support
 
 ```
 
 **Listo cuando:**
-- `table` tiene una fila por título (el índice) y las cinco columnas en verdadero o falso. `voted` es la clase votada de cada artículo. `alerta_centro` nunca es un apoyo.
-- [POR DECIDIR, pregunta abierta 1] Con `LABEL = "label"`, `prediction` es verdadero si la clase votada está en `TARGETS[GROUP]` y `one_support` es verdadero. Con una etiqueta de dos clases, `prediction` es la clase `"1"` y `one_support` es `abs(phi) >= 0.30`.
+- `table` tiene una fila por título (el índice) y las cinco columnas en verdadero o falso. `voted` es la clase votada de cada artículo. `alerta_centro` nunca cuenta como resultado a favor.
+- La etiqueta tiene dos clases. `prediction` es verdadero si la clase votada es `"1"`, es decir, si al menos 2 de los 3 métodos dicen que la categoría está en `TARGETS[GROUP]`. `one_support` es `abs(phi) >= 0.30`, con phi entre la etiqueta y `text_says_read`.
 
 **Comprobar:**
 
@@ -363,7 +366,7 @@ print("Paso 6.1: OK")
 |------------|------------------|
 | `SUPPORT_COLUMNS`, `table["supports"]` y `table["in_view"]`, con la rama de `one_support` | Parte 7, Paso 3 |
 | `drop_one` | Parte 7, Paso 4 |
-| `starter_list`, ordenada por apoyos, `prob_texto` y título, con `recortado` | Parte 7, Paso 5 |
+| `starter_list`, ordenada por número de resultados a favor, `prob_texto` y título, con `recortado` | Parte 7, Paso 5 |
 
 ```python
 # SU CÓDIGO. Paso 6.2: SUPPORT_COLUMNS, supports, in_view, drop_one y starter_list
@@ -371,13 +374,13 @@ print("Paso 6.1: OK")
 ```
 
 **Listo cuando:**
-- `prob_texto` sale de `week2` y `starter_list` tiene `alerta_centro` (el artículo está en `hubs`). Un artículo con `alerta_centro` solo queda por sus apoyos.
-- Todos los artículos de `starter_list` tienen al menos `MIN_SUPPORTS` apoyos y los no recortados son como mucho `standard["max_articles"]`. Si quedan menos de `standard["min_articles"]`, no rellenan: imprimen que es un resultado débil.
+- `prob_texto` sale de `week2` y `starter_list` tiene `alerta_centro` (el artículo está en `hubs`). Un artículo con `alerta_centro` solo queda por sus resultados a favor.
+- `starter_list` tiene los artículos con al menos `MIN_SUPPORTS` resultados a favor. El código empieza en 2. Cambien el valor si lo justifican, 0 o 1 también valen. Muestran una tabla pequeña con cuántos artículos tienen 0, 1, 2 y 3 o más resultados a favor, y con ella explican su elección. Los no recortados son como mucho `standard["max_articles"]`. Si quedan menos de `standard["min_articles"]`, no rellenan: imprimen que es un resultado débil.
 
 **Comprobar:**
 
 ```python
-assert (starter_list["supports"] >= MIN_SUPPORTS).all() and starter_list["alerta_centro"].dtype == bool
+assert starter_list["supports"].between(0, len(SUPPORT_COLUMNS)).all() and starter_list["alerta_centro"].dtype == bool
 print("Paso 6.2: OK")
 ```
 
@@ -441,7 +444,7 @@ print("Paso 6.4: OK")
 
 **Listo cuando:**
 - `project-title-es.txt` tiene el título de la charla del sábado 28 de noviembre, con menos de 15 palabras.
-- `project-abstract-es.txt` es un solo párrafo de unas 120 palabras: la secretaría, la pregunta de la persona nueva, dos apoyos de la lista y qué hecho sacaría un artículo.
+- `project-abstract-es.txt` es un solo párrafo de unas 120 palabras: la secretaría, la pregunta de la persona nueva, los resultados que apoyan la lista y qué hecho sacaría un artículo.
 
 **Comprobar:**
 
@@ -462,14 +465,15 @@ print("Paso 6.5: OK")
 
 ## Para la reflexión individual
 
-La reflexión de la semana 3 va con la plantilla Word de la semana. Estas son sus preguntas:
+Use la [plantilla de la reflexión de la semana 3](https://cabrerac.github.io/assets/documents/26-udenar-data-mining/reflection-week-3-template.docx) y mantenga sus títulos. Extensión: entre 700 y 1000 palabras. Por debajo de 500 palabras el texto queda corto.
 
-| Parte | Pregunta |
-|-------|----------|
-| **Proceso** | Qué hizo el grupo en el cuaderno de la semana 3, en orden. Diga cuál fue su línea en el registro de contribución. |
-| **Elección** | Una elección del grupo, por qué esa elección y un límite de esa elección. |
-| **Decisión** | Un artículo de `outputs/lista_inicial.csv` que no quedó recortado. Diga sus dos apoyos y qué hecho lo sacaría de la lista de inicio. |
-| **Ética** | Nombre una elección técnica de esta semana. Diga a quién ayuda o perjudica, o cómo se podría usar mal la lista. Relacione el punto con Page, Brin, Motwani y Winograd (1998) o con LeCun, Bengio y Hinton (2015). |
+| Título | Qué escribir |
+|--------|--------------|
+| **Metadatos** | Nombre, grupo, semana 3 (L5 + L6), conteo aproximado de palabras y la lectura que cita. |
+| **Proceso** | Qué hizo el grupo en el cuaderno de la semana 3. Diga cuál fue su contribución. |
+| **Decisión** | Describa la lista de inicio de su grupo. Elija un artículo de `outputs/lista_inicial.csv` y diga por qué está en la lista y qué hecho lo sacaría. |
+| **Métodos** | Explique cuáles fueron los métodos utilizados en esta semana (grado, PageRank, puentes y los modelos de predicción) y cómo se comparan entre ellos. |
+| **Ética** | Nombre una elección técnica de esta semana. Diga a quién ayuda o perjudica, o cómo se podría usar mal un resultado de esta semana. Relacione el punto con Page, Brin, Motwani y Winograd (1998) o con LeCun, Bengio y Hinton (2015). |
 
 ## Entrega
 
@@ -479,11 +483,11 @@ La reflexión de la semana 3 va con la plantilla Word de la semana. Estas son su
 | `pregunta.json` | La tarjeta con `graph_use` y `prediction_use` |
 | `marcas.csv` | Su conjunto marcado de la semana 2 |
 | `outputs/grafo.csv` | El lugar de cada artículo en la red, con `graph_support` y `alerta_centro` |
-| `outputs/prediccion.csv` | La clase votada y el apoyo de la predicción |
-| `outputs/lista_inicial.csv` | Los artículos con al menos dos apoyos, con `recortado`, `alerta_centro` y `hecho_que_saca` |
+| `outputs/prediccion.csv` | La clase votada y el resultado de la predicción |
+| `outputs/lista_inicial.csv` | Los artículos en vista, con los resultados que los apoyan, `recortado`, `alerta_centro` y `hecho_que_saca` |
 | `project-title-es.txt` | El título de la charla, con menos de 15 palabras |
 | `project-abstract-es.txt` | El resumen de la charla, un párrafo de unas 120 palabras |
 
-La lista de inicio es el producto del proyecto. Cada artículo tiene al menos dos apoyos y un hecho que lo sacaría.
+La lista de inicio es el producto del proyecto. Cada artículo muestra los resultados que lo apoyan y un hecho que lo sacaría. Estos archivos son la tercera iteración.
 
 <!-- end NOTEBOOK: -->

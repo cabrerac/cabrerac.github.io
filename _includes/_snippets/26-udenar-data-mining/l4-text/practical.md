@@ -39,7 +39,7 @@ print(f"TP {tp}, FP {fp}, FN {fn}, TN {tn}. Repaso de Python: OK")
  
 ## Instrucciones
  
-**La historia.** Seguimos con el equipo interno de la secretaría de salud y sus 320 artículos de nutrición. En la Lección 2 encontramos patrones y en la Lección 3 grupos débiles. Con dos resultados, solo 8 artículos quedaron en vista, menos de los 10 que pide el estándar, porque el apoyo del grupo lo reciben solo los 10 artículos del grupo de HDBSCAN que lee el equipo. Hoy sumamos un tercer resultado: **leer el texto** de cada resumen y decir si trata del tema del equipo.
+**La historia.** Seguimos con el equipo interno de la secretaría de salud y sus 320 artículos de nutrición. En la Lección 2 encontramos patrones y en la Lección 3 grupos débiles. Con los dos resultados de la L2 y la L3, y `MIN_SUPPORTS = 2`, el valor con que empieza el código, solo 8 artículos quedaron en vista, menos de los 10 que pide el estándar, porque el resultado del grupo lo reciben solo los 10 artículos del grupo de HDBSCAN que lee el equipo. Hoy sumamos un tercer resultado: **leer el texto** de cada resumen y decir si trata del tema del equipo.
  
 **La idea central.** Para enseñarle a un método qué es "un artículo del tema", necesitamos **ejemplos marcados**. Las marcas se escriben **antes** de correr cualquier método, para que los resultados no nos cambien la vara. Separamos un conjunto de artículos marcados que ningún método ve al aprender, y medimos ahí los aciertos y los errores.
  
@@ -52,6 +52,10 @@ print(f"TP {tp}, FP {fp}, FN {fn}, TN {tn}. Repaso de Python: OK")
 | M3. Codificador y regresión logística | ¿Qué dice un modelo de lenguaje sobre el texto entero? | El texto con el prefijo `"query: "`, cortado a 512 tokens | Un peso por dimensión del vector |
  
 **Qué hacer.** Ejecute las celdas de arriba hacia abajo. Cada paso empieza con **En este paso**. Los pasos que crean algo nuevo terminan con una celda **Comprobar**. Si un `assert` falla, revise la celda anterior antes de seguir. Los nombres del código están en inglés, como en todos los cuadernos del curso. Las explicaciones están en español.
+ 
+**El sábado 14 nov.** Hacia las 09:20 seguimos en vivo con este cuaderno, hasta las 10:00. La meta en clase es ver un filtro de texto con sus aciertos y errores. Lo que falte se termina en casa. Ejecute la celda del codificador antes del sábado, porque descarga un modelo de texto (`multilingual-e5-small`) de unos 470 MB.
+ 
+**Del laboratorio al proyecto.** Desde las 10:00 el cuaderno de grupo de la semana 2 repite estos pasos con las entradillas de su secretaría. Primero marcan, después corren los modelos de texto.
  
 **Mapa del cuaderno**
  
@@ -112,7 +116,7 @@ SUPPORT_SHARE = 0.03
 SUPPORT_MIN = 5
 SEED = 7
 
-# L4 (compartidos con el cuaderno de grupo y el script de control, no cambiar)
+# L4 (compartidos con el cuaderno de grupo, no cambiar)
 FLAGGED_SHARE = 0.20        # proporción de textos en el conjunto marcado
 FLAGGED_MIN = 40            # mínimo de textos marcados
 POSITIVE_SHARE = 0.10       # proporción mínima de positivos en la etiqueta
@@ -127,13 +131,13 @@ PREFIX = "query: "          # el prefijo que pide e5
 N_SHUFFLES = 30             # tablas al azar de la línea base de la L3 (aquí no se usa)
 
 # Decisión, L3 en adelante
-MIN_SUPPORTS = 2
+MIN_SUPPORTS = 2             # el código empieza en 2, cámbielo si lo justifica (0 o 1 también valen)
 
 # Propio de este cuaderno
 N_FOLDS = 5                 # pliegues de la validación cruzada
 
 
-# support_floor: mismo código que scripts/data-mining-course/swap_randomization.py, salvo docstrings y comentarios en español.
+# support_floor: la misma función de la L2.
 def support_floor(n_texts: int) -> int:
     """Soporte mínimo que necesita una palabra o un par: max(SUPPORT_MIN, ceil(SUPPORT_SHARE * n))."""
     return max(SUPPORT_MIN, math.ceil(SUPPORT_SHARE * n_texts))
@@ -314,7 +318,7 @@ else:
     question_card = {
         "question": "¿Qué artículos de nutrición debe leer el equipo para su tema, y qué filtro los puso en la lista?",
         "standard": {"min_papers": 10, "max_papers": 30, "max_share_citations_only": 0.5},
-        "pattern_use": {"rule": "Un artículo entra en la lista cuando lo apoyan al menos dos resultados del curso."},
+        "pattern_use": {"rule": "El equipo explica por qué cada artículo está en la lista y qué resultados lo apoyan. Un artículo puede tener varios, uno o ninguno, si el equipo lo justifica."},
     }
     QUESTION_PATH.write_text(json.dumps(question_card, ensure_ascii=False, indent=2), encoding="utf-8")
     print("pregunta.json no estaba. Escribimos la tarjeta.")
@@ -331,7 +335,7 @@ print("Pregunta: OK")
 ```
 
 ### Paso 2. Recuperar los grupos de la Lección 3
-En este paso leemos `outputs/grupos_l3.csv`. Trae, para cada artículo, los dos apoyos de la L2 y la L3. En la Parte 7 sumaremos el tercero. Si el archivo no está (un Colab nuevo), súbalo desde su cuaderno de la L3 a la carpeta `outputs/`. Sin él, el cuaderno sigue, pero los apoyos anteriores quedan en 0.
+En este paso leemos `outputs/grupos_l3.csv`. Trae, para cada artículo, los dos resultados de la L2 y la L3. En la Parte 7 sumaremos el tercero. Si el archivo no está (un Colab nuevo), súbalo desde su cuaderno de la L3 a la carpeta `outputs/`. Sin él, el cuaderno sigue, pero los resultados anteriores quedan en 0.
 
 
 
@@ -339,7 +343,7 @@ En este paso leemos `outputs/grupos_l3.csv`. Trae, para cada artículo, los dos 
 GROUPS_PATH = OUTPUTS_DIR / "grupos_l3.csv"
 if GROUPS_PATH.is_file():
     groups_l3 = pd.read_csv(GROUPS_PATH)
-    print(f"grupos_l3.csv: {len(groups_l3)} artículos, {groups_l3['in_view'].sum()} en vista con dos resultados")
+    print(f"grupos_l3.csv: {len(groups_l3)} artículos, {groups_l3['in_view'].sum()} en vista en la L3")
 else:
     groups_l3 = pd.DataFrame(columns=["title", "kmeans", "mezcla", "prob_mezcla", "hdbscan", "has_pattern", "read_group", "supports", "in_view"])
     print("No encontramos outputs/grupos_l3.csv. Súbalo desde la L3 y vuelva a ejecutar esta celda.")
@@ -830,10 +834,10 @@ print(my_error)
  
 ## Parte 7. Despliegue
  
-### Paso 1. Tres resultados en la tabla de apoyos
+### Paso 1. Tres resultados en la tabla
 En este paso sumamos el texto como tercer resultado. Cada artículo recibe una predicción de TF-IDF de un modelo que no lo vio: los 64 marcados, del modelo entrenado con las 253 filas (`pred_lr`), y las 253 filas de entrenamiento, de los cinco pliegues (`cv_tfidf`). Usamos TF-IDF porque es el método más simple que funciona, y el codificador no lo supera con claridad.
  
-Ahora hay tres columnas en `SUPPORT_COLUMNS`. Un artículo queda **en vista** con al menos `MIN_SUPPORTS` (2) de los tres.
+Ahora hay tres columnas en `SUPPORT_COLUMNS`. Un artículo queda **en vista** con al menos `MIN_SUPPORTS` resultados a favor de los tres. El código empieza en 2. Cambie el valor si lo justifica, 0 o 1 también valen. La tabla de la celda cuenta cuántos artículos tienen 0, 1, 2 y 3 o más resultados a favor.
 
 
 
@@ -856,12 +860,13 @@ supports["text_says_read"] = text_says_read.astype(bool)
 supports["supports"] = supports[SUPPORT_COLUMNS].astype(int).sum(axis=1)
 supports["in_view"] = supports["supports"] >= MIN_SUPPORTS
 l3_in_view = (supports[["has_pattern", "read_group"]].astype(int).sum(axis=1) >= MIN_SUPPORTS).sum()
-print(f"Con dos resultados (L2 y L3): {l3_in_view} en vista")
+print(f"Solo L2 y L3, con MIN_SUPPORTS = {MIN_SUPPORTS}: {l3_in_view} en vista")
 print(f"El texto dice leer: {supports['text_says_read'].sum()}. Con tres resultados: {supports['in_view'].sum()} en vista")
-print(supports["supports"].value_counts().sort_index().to_dict())
+counts = supports["supports"].clip(upper=3).value_counts().reindex(range(4), fill_value=0).rename(index={3: "3 o más"})
+print(counts.rename_axis("resultados a favor").to_frame("artículos").T.to_string())
 ```
 
-`grupos_l3.csv` guarda los dos apoyos de la L2 y la L3 en `has_pattern` y `read_group`. Aquí les sumamos `text_says_read`, una columna por resultado, como en la L3. La regla es la misma: dos apoyos de tres. Con el texto, la lista crece, porque ahora un artículo puede entrar con patrón y texto, o con grupo y texto. Los artículos con los tres apoyos son los primeros para abrir.
+`grupos_l3.csv` guarda los dos resultados de la L2 y la L3 en `has_pattern` y `read_group`. Aquí les sumamos `text_says_read`, una columna por resultado, como en la L3. `MIN_SUPPORTS` sigue en 2. Con el texto, la lista crece, porque ahora un artículo puede entrar con patrón y texto, o con grupo y texto. Los artículos con los tres resultados a favor son los primeros para abrir.
  
 **Comprobar:**
 
@@ -870,11 +875,11 @@ print(supports["supports"].value_counts().sort_index().to_dict())
 ```python
 assert supports["supports"].between(0, len(SUPPORT_COLUMNS)).all()
 assert supports["in_view"].sum() >= l3_in_view and list(supports.columns[1:4]) == SUPPORT_COLUMNS
-print("Apoyos: OK")
+print("Resultados: OK")
 ```
 
 ### Paso 2. El largo de la lista
-En este paso comparamos la lista con el estándar de la tarjeta. La L1 fijó un máximo, `standard["max_papers"]` (30): una lista más larga no se alcanza a leer. Si hay más artículos en vista, los ordenamos y nos quedamos con los primeros. Primero van los de más apoyos. Entre los que tienen los mismos apoyos, primero va el de `prob_texto` más alta. `prob_texto` dice qué tan seguro está TF-IDF de que conviene abrir el artículo. Como `text_says_read`, sale de un modelo que no vio ese artículo. Al final desempata el título, para que el corte sea el mismo en cada corrida.
+En este paso comparamos la lista con el estándar de la tarjeta. La L1 fijó un máximo, `standard["max_papers"]` (30): una lista más larga no se alcanza a leer. Si hay más artículos en vista, los ordenamos y nos quedamos con los primeros. Primero van los de más resultados a favor. Entre los que tienen el mismo número de resultados, primero va el de `prob_texto` más alta. `prob_texto` dice qué tan seguro está TF-IDF de que conviene abrir el artículo. Como `text_says_read`, sale de un modelo que no vio ese artículo. Al final desempata el título, para que el corte sea el mismo en cada corrida.
  
 Los que no entran no se borran. Quedan en la tabla con `recortado` en verdadero.
 
@@ -892,13 +897,13 @@ order = supports[supports["in_view"]].sort_values(["supports", "prob_texto", "ti
 kept = order.index[:MAX_PAPERS]
 supports["recortado"] = supports["in_view"] & ~supports.index.isin(kept)
 print(f"En vista: {supports['in_view'].sum()}. Máximo de la tarjeta: {MAX_PAPERS}. Quedan {len(kept)}, recortados: {supports['recortado'].sum()}")
-print(f"De los que quedan: {(supports.loc[kept, 'supports'] == 3).sum()} con tres apoyos y {(supports.loc[kept, 'supports'] == 2).sum()} con dos")
+print(f"De los que quedan: {(supports.loc[kept, 'supports'] == 3).sum()} con tres resultados y {(supports.loc[kept, 'supports'] == 2).sum()} con dos")
 if len(kept) < 5:
     print("Quedan menos de 5 artículos en vista. Es un resultado débil: no rellenamos la lista.")
 supports.loc[kept, ["title", "supports", "prob_texto"]].head(10).round(3)
 ```
 
-Quedan en vista 52 artículos y la tarjeta pide como máximo 30. Arriba quedan los 8 con los tres apoyos, y después 22 de los 44 con dos, los de `prob_texto` más alta. Los otros 22 no se borran: siguen en la tabla con `recortado` en verdadero. La lista para leer es la de `in_view` sin `recortado`. En ella quedan varias ediciones de la misma guía: los *Standards of Medical Care in Diabetes* de la ADA de 2011, 2013, 2020, 2022 y 2023, y el consenso ADA y EASD de 2018 y 2022. El equipo abre la más reciente de cada una. Si quedaran menos de 5 en vista, no rellenaríamos la lista: la celda lo diría, y sería un resultado débil.
+Con `MIN_SUPPORTS = 2` quedan en vista 52 artículos y la tarjeta pide como máximo 30. Arriba quedan los 8 con los tres resultados a favor, y después 22 de los 44 con dos, los de `prob_texto` más alta. Los otros 22 no se borran: siguen en la tabla con `recortado` en verdadero. La lista para leer es la de `in_view` sin `recortado`. En ella quedan varias ediciones de la misma guía: los *Standards of Medical Care in Diabetes* de la ADA de 2011, 2013, 2020, 2022 y 2023, y el consenso ADA y EASD de 2018 y 2022. El equipo abre la más reciente de cada una. Si quedaran menos de 5 en vista, no rellenaríamos la lista: la celda lo diría, y sería un resultado débil.
  
 **Comprobar:**
 
@@ -941,7 +946,7 @@ print(f"Guardado: {text_path} ({len(text_table)} filas, {text_table['marca'].not
 
 ```python
 saved = pd.read_csv(text_path)
-assert list(saved.columns) == ["title", "keyword", "tfidf_lr", "prob_texto", "codificador", "marca", "supports", "in_view", "recortado"]
+assert {"title", "keyword", "tfidf_lr", "prob_texto", "codificador", "marca", "supports", "in_view", "recortado"} <= set(saved.columns)
 assert saved["marca"].notna().sum() == n_flagged(N)
 print("texto_l4.csv: OK")
 ```
@@ -953,11 +958,11 @@ En este paso escribimos en la tarjeta cómo entra el texto y qué lo cambiaría:
 
 ```python
 question_card["text_use"] = {
-    "how_it_enters": "Un artículo recibe un apoyo si TF-IDF con regresión logística dice leer, con un modelo que no lo vio.",
+    "how_it_enters": "El resultado del texto cuenta a favor de un artículo si TF-IDF con regresión logística dice leer, con un modelo que no lo vio.",
     "marks": MARKS_SOURCE,
     "reading": "TF-IDF y el codificador no se distinguen con este conjunto marcado: el intervalo de la diferencia incluye el 0.",
-    "rule": "Un artículo queda en vista con al menos dos de tres apoyos: patrón (L2), grupo (L3), texto (L4).",
-    "reading_list": "Si hay más en vista que el máximo de la tarjeta, se ordena por apoyos, luego por prob_texto y luego por título. El resto queda con recortado = True.",
+    "rule": "El código empieza con MIN_SUPPORTS = 2 de tres resultados: patrón (L2), grupo (L3) y texto (L4). El equipo puede cambiar el valor si lo justifica, 0 o 1 también valen.",
+    "reading_list": "Si hay más en vista que el máximo de la tarjeta, se ordena por número de resultados a favor, luego por prob_texto y luego por título. El resto queda con recortado = True.",
     "what_changes_it": ["otra lista de palabras", "otro conjunto marcado", "otra etiqueta de entrenamiento", "otro umbral que 0,5", "otro máximo de la lista", "otro orden del recorte"],
 }
 QUESTION_PATH.write_text(json.dumps(question_card, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -985,7 +990,7 @@ checks = [
     ("outputs/texto_l4.csv", lambda: text_path.is_file()),
     ("outputs/vectores_l4.npy", lambda: VECTORS_PATH.is_file()),
     ("Matrices de confusión", lambda: all((OUTPUTS_DIR / f).is_file() for f in ["confusion_palabras_clave.png", "confusion_tfidf.png", "confusion_codificador.png"])),
-    ("Apoyos de la L3", lambda: len(groups_l3) == N),
+    ("Resultados de la L3", lambda: len(groups_l3) == N),
     ("Un error leído a mano", lambda: "Escriba aquí" not in my_error),
 ]
 passed = sum(_check_ok(n, f) for n, f in checks)

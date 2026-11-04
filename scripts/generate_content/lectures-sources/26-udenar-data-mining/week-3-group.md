@@ -19,7 +19,7 @@ skip_slides: true
 skip_lecture_page: true
 notebook_language: es
 notebook_title: Semana 3, cuaderno de grupo
-notebook_description: Cuaderno de grupo de la semana 3. El lugar de cada artículo en la red de enlaces, una etiqueta dada y la lista inicial con al menos dos apoyos.
+notebook_description: Cuaderno de grupo de la semana 3. El lugar de cada artículo en la red de enlaces, una etiqueta dada y la lista inicial con los resultados que apoyan cada artículo.
 ---
 
 {% include _snippets/26-udenar-data-mining/week-3-group/practical.md %}

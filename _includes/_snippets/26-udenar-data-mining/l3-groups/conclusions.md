@@ -12,7 +12,7 @@
                     <li>SVD before distances</li>
                     <li>k-means, Gaussian mixtures, HDBSCAN</li>
                     <li>Weak structure is a finding</li>
-                    <li>At least two results to stay in view</li>
+                    <li>The list shows which results support each paper</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">

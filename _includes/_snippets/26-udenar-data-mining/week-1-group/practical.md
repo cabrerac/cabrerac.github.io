@@ -2,17 +2,17 @@
 
 ## Instrucciones
 
-**Propósito.** Cuaderno de grupo de la semana 1 (Lecciones 1 y 2). Su grupo es un equipo interno de una alcaldía y trabaja para una secretaría. El producto del proyecto es una **lista de inicio**: los artículos que una persona nueva en la secretaría debe abrir primero.
+**Propósito.** Cuaderno de grupo de la semana 1 (Lecciones 1 y 2). Su grupo es un equipo interno de una alcaldía y trabaja para una secretaría. El producto del proyecto es una lista de artículos para los nuevos integrantes del equipo.
 
-**Esta semana.** El cuaderno empieza la lista con dos archivos: la tarjeta de la pregunta en `pregunta.json` y los pares de palabras frente a una línea base en `outputs/patrones.csv`. La lista se cierra en la semana 3.
+**Esta semana.** El grupo genera dos archivos: `pregunta.json` (la pregunta a resolver, el estándar de la solución y el uso) y `outputs/patrones.csv` (los pares de palabras con soporte, lift y cuáles se conservan frente a su línea base). Esos dos archivos son el resultado de la primera iteración del proyecto.
 
-**Requisito.** Ejecute primero los cuadernos individuales **L1** y **L2**. Este cuaderno lo escribe el grupo. Cada paso dice qué código de L1 o L2 adaptar. No pegue sin entender.
+**Requisito.** Ejecute primero los cuadernos individuales **L1** y **L2**. Este cuaderno lo escribe el grupo. Cada paso dice qué código de L1 o L2 adaptar. No pegue sin entender. El sábado 7 nov el grupo lo empieza de 10:00 a 10:45 y lo termina en casa.
 
-**Datos de entrada.** Un CSV por grupo con artículos de Wikipedia en español. El texto para los patrones es la columna `lead`, la **entradilla** del artículo. Las categorías las pusieron quienes editan Wikipedia. Un par de categorías que se repite no es un patrón del grupo.
+**Datos de entrada.** El archivo de su secretaría: G1 Agricultura, G2 Salud mental, G3 Medio ambiente, G4 Inclusión Social y G5 Vivienda. Cada fila es un artículo de Wikipedia en español. El texto para los patrones es la columna `lead`, la **entradilla** del artículo.
 
 **Materiales.** [L1 Introducción](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l1-introduction.ipynb) y [L2 Patrones](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l2-patterns.ipynb).
 
-**Pregunta del grupo.** ¿Qué artículos de su secretaría debe abrir primero una persona nueva, y qué pares de palabras de las entradillas superan a la línea base?
+**Pregunta del grupo.** ¿Qué artículos de su secretaría debe leer primero una persona nueva en el equipo, y qué pares de palabras de las entradillas superan a la línea base?
 
 **Entrega Moodle (martes 10 nov 2026, 23:59 Colombia).** ZIP `week-1-<group_id>.zip` con `week-1-group-<group_id>.ipynb` (este cuaderno ejecutado y renombrado), `pregunta.json` y `outputs/patrones.csv`.
 
@@ -74,7 +74,7 @@ print(f"Grupo {GROUP}: secretaría de {SECRETARIAT}, {len(articles)} artículos"
 **Listo cuando:**
 - Los parámetros tienen los valores de la L2.
 - `QUESTION_PATH` es `pregunta.json` y `PATTERNS_PATH` es `outputs/patrones.csv`.
-- `nlp` y `MODEL` cargan un modelo de español: `MODELS = ["es_core_news_lg", "es_core_news_md"]`.
+- `nlp` y `MODEL` cargan un modelo de español: `MODELS = ["es_core_news_lg", "es_core_news_md"]`. El grande pesa unos 570 MB. Si Colab falla, reinicie el entorno y repita la celda.
 
 **Comprobar:**
 
@@ -278,7 +278,7 @@ print("Paso 4.2: OK")
 ```
 
 **Listo cuando:**
-- `BASELINE` (texto) dice qué conserva su azar y por qué es justo para su extracto. La referencia es la de la L2; otra vale si la justifican.
+- `BASELINE` (texto) dice qué conserva su azar y por qué es justo para su extracto. La referencia es la de la L2. Otra vale si la justifican.
 - `null` tiene los conteos al azar de cada par y `table` tiene `null_p95`.
 
 **Comprobar:**
@@ -378,14 +378,15 @@ print("Paso 6.1: OK. Armen el ZIP.")
 
 ## Para la reflexión individual
 
-La reflexión de la semana 1 va con la plantilla Word de la semana. Estas son sus preguntas:
+Use la [plantilla de la reflexión de la semana 1](https://cabrerac.github.io/assets/documents/26-udenar-data-mining/reflection-week-1-template.docx) y mantenga sus títulos. Extensión: entre 700 y 1000 palabras. Por debajo de 500 palabras el texto queda corto.
 
-| Parte | Pregunta |
-|-------|----------|
-| **Proceso** | Qué hizo el grupo en el cuaderno de la semana 1, en orden. Diga cuál fue su línea en el registro de contribución. |
-| **Elección** | Una elección del grupo, por qué esa elección y un límite de esa elección. |
-| **Decisión** | Un par que el grupo conservó en `outputs/patrones.csv`. Cómo cambia ese par quién queda en la lista de inicio. |
-| **Ética** | Nombre una elección técnica de esta semana. Diga a quién ayuda o perjudica, o cómo se podría usar mal la lista. Relacione el punto con Wirth y Hipp (2000) o con Agrawal, Imielinski y Swami (1993). |
+| Título | Qué escribir |
+|--------|--------------|
+| **Metadatos** | Nombre, grupo, semana 1 (L1 + L2), conteo aproximado de palabras y la lectura que cita. |
+| **Proceso** | Qué hizo el grupo en el cuaderno de la semana 1. Diga cuál fue su contribución. |
+| **Decisión** | Describa las reglas de asociación que exploró en esta semana. |
+| **Métodos** | Explique cuáles fueron los métodos utilizados en esta semana y cómo se comparan entre ellos. |
+| **Ética** | Nombre una elección técnica de esta semana. Diga a quién ayuda o perjudica, o cómo se podría usar mal un resultado de esta semana. Relacione el punto con Wirth y Hipp (2000) o con Agrawal, Imielinski y Swami (1993). |
 
 ## Entrega
 
@@ -395,6 +396,6 @@ La reflexión de la semana 1 va con la plantilla Word de la semana. Estas son su
 | `pregunta.json` | La tarjeta del grupo con `pattern_use` |
 | `outputs/patrones.csv` | Una fila por par candidato, con sus columnas de evaluación |
 
-Estos dos archivos empiezan la lista de inicio. Los pares con `kept_lift2` cuentan como el primer apoyo de un artículo en la semana 2.
+`pregunta.json` y `outputs/patrones.csv` son la primera iteración. En la semana 2 el grupo añade lo que encuentre y lo compara con estos pares.
 
 <!-- end NOTEBOOK: -->

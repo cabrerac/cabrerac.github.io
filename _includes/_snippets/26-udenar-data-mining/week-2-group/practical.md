@@ -2,19 +2,19 @@
 
 ## Instrucciones
 
-**Propósito.** Cuaderno de grupo de la semana 2 (Lecciones 3 y 4). Su grupo sigue como equipo interno de una alcaldía, con los artículos de su secretaría. Esta semana suma dos resultados a la **lista de inicio**: grupos de artículos parecidos y un filtro de texto con sus aciertos y errores.
+**Propósito.** Cuaderno de grupo de la semana 2 (Lecciones 3 y 4). Su grupo sigue como equipo interno de una alcaldía, con los artículos de su secretaría. Esta semana suma dos resultados a la lista de artículos para los nuevos integrantes del equipo: grupos de artículos parecidos y un filtro de texto con sus aciertos y errores.
 
-**Esta semana.** Cada resultado queda en un archivo con nombre. Los grupos van en `outputs/grupos.csv`. El filtro de texto va en `outputs/texto.csv`, con la marca del grupo al lado para contar aciertos y errores. La tabla `outputs/en_vista.csv` junta los tres apoyos de cada artículo: el par de la semana 1, el grupo y el texto.
+**Esta semana.** Cada resultado queda en un archivo con nombre. Los grupos van en `outputs/grupos.csv`. El filtro de texto va en `outputs/texto.csv`, con la marca del grupo al lado para contar aciertos y errores. La tabla `outputs/en_vista.csv` junta los resultados de la semana 1 y de la semana 2 para cada artículo: el par, el grupo y el texto.
 
-**Requisito.** Ejecute primero los cuadernos individuales **L3** y **L4**. Este cuaderno lo escribe el grupo. Cada paso dice qué código de L3 o L4 adaptar. No pegue sin entender. Suba `pregunta.json` y `outputs/patrones.csv` de su semana 1 antes de empezar.
+**Requisito.** Ejecute primero los cuadernos individuales **L3** y **L4**. Este cuaderno lo escribe el grupo. Cada paso dice qué código de L3 o L4 adaptar. No pegue sin entender. Suba `pregunta.json` y `outputs/patrones.csv` de su semana 1 antes de empezar. El sábado 14 nov el grupo lo empieza de 10:00 a 10:45 y lo termina en casa.
 
-**Datos de entrada.** El mismo CSV de la semana 1. El texto es la columna `lead`, la **entradilla**. La etiqueta del filtro sale de las categorías: es trabajo de quienes editan Wikipedia, una etiqueta dada y no encontrada.
+**Datos de entrada.** El mismo archivo de la semana 1: G1 Agricultura, G2 Salud mental, G3 Medio ambiente, G4 Inclusión Social y G5 Vivienda. El texto es la columna `lead`, la **entradilla**. La etiqueta del filtro sale de las categorías que pusieron quienes editan Wikipedia.
 
 **Materiales.** [L3 Grupos](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l3-groups.ipynb) y [L4 Texto](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l4-text.ipynb).
 
 **Pregunta del grupo.** ¿Qué grupos de artículos debe leer la persona nueva, y cuántos aciertos y errores tiene un filtro de texto frente a las marcas del grupo?
 
-**Primero marcan, después evalúan.** El sábado, la meta de las 10:00 es el Paso 3.1, que escribe `marcas.csv`. Lo marcan sin mirar las categorías y lo vuelven a subir.
+**Primero marcan, después corren los modelos de texto.** El sábado, la meta del bloque de grupo es llegar al Paso 3.1, que escribe `marcas.csv` con 60 a 67 artículos, unos 15 a 21 por persona. Marquen leyendo la entradilla, sin mirar las categorías, y vuelvan a subir el archivo.
 
 **Entrega Moodle (martes 17 nov 2026, 23:59 Colombia).** ZIP `week-2-<group_id>.zip` con `week-2-group-<group_id>.ipynb` (este cuaderno ejecutado y renombrado), `pregunta.json`, `marcas.csv`, `outputs/grupos.csv`, `outputs/texto.csv` y `outputs/en_vista.csv`.
 
@@ -65,7 +65,7 @@ print(f"Grupo {GROUP}: secretaría de {SECRETARIAT}, {len(articles)} artículos"
 
 | Qué copiar | Dónde está |
 |------------|------------|
-| Los parámetros de L3 (`SUPPORT_SHARE`, `SUPPORT_MIN`, `SEED`, `MIN_SUPPORTS`, `MAX_WORD_SHARE` a `TOP_WORDS`), sin cambiar sus valores | L3, Parte 1, Paso 1 |
+| Los parámetros de L3 (`SUPPORT_SHARE`, `SUPPORT_MIN`, `SEED`, `MIN_SUPPORTS`, `MAX_WORD_SHARE` a `TOP_WORDS`), sin cambiar sus valores. `MIN_SUPPORTS` empieza en 2 y pueden cambiarlo si lo justifican | L3, Parte 1, Paso 1 |
 | Los parámetros de L4 (`FLAGGED_SHARE` a `PREFIX` y `N_FOLDS`), sin cambiar sus valores | L4, Parte 1, Paso 1 |
 | Las importaciones y la instalación de `sentence-transformers` | L3, Parte 1, Paso 1, y L4, Parte 1, Paso 1 |
 | `support_floor`, `n_flagged` y `min_positives` | L4, Parte 1, Paso 1 |
@@ -249,7 +249,7 @@ print("Paso 2.5: OK")
 
 ## Ejercicio 3. Filtro de texto (L4)
 
-### Paso 3.1. La etiqueta, el conjunto marcado y `marcas.csv` (meta de las 10:00)
+### Paso 3.1. La etiqueta, el conjunto marcado y `marcas.csv` (meta del sábado)
 
 | Qué copiar | Dónde está en L4 |
 |------------|------------------|
@@ -264,7 +264,7 @@ print("Paso 2.5: OK")
 **Listo cuando:**
 - `y` sale de la columna `categories` (separadas por `|`) y tiene al menos `min_positives(N)` positivos.
 - `marcas.csv` tiene `n_flagged(N)` filas con `title`, `lead` y `marca` vacía. Si ya tiene marcas, no se sobrescribe.
-- El grupo marca leyendo la entradilla, sin mirar categorías ni resultados: `1` si la persona nueva **debe abrir** la entrada, `0` si no. Excel en español guarda el CSV con punto y coma; Google Sheets (Archivo, Descargar, CSV) evita ese problema.
+- El grupo marca leyendo la entradilla, sin mirar categorías ni resultados: `1` si la persona nueva **debe abrir** la entrada, `0` si no. Excel en español guarda el CSV con punto y coma. Google Sheets (Archivo, Descargar, CSV) evita ese problema.
 
 **Comprobar:**
 
@@ -351,7 +351,7 @@ print("Paso 3.4: OK")
 
 ## Ejercicio 4. Despliegue
 
-### Paso 4.1. Tres apoyos por artículo y `outputs/en_vista.csv`
+### Paso 4.1. Los resultados de cada artículo y `outputs/en_vista.csv`
 
 | Qué copiar | Dónde está en L4 |
 |------------|------------------|
@@ -364,7 +364,7 @@ print("Paso 3.4: OK")
 ```
 
 **Listo cuando:**
-- Los apoyos son `has_pattern` (un par con `kept_lift2` y una palabra de `TOPIC_WORDS`), `read_group` (un grupo de HDBSCAN que se lee) y `text_says_read` (TF-IDF dice abrir).
+- Las columnas de resultados son `has_pattern` (un par con `kept_lift2` y una palabra de `TOPIC_WORDS`), `read_group` (un grupo de HDBSCAN que se lee) y `text_says_read` (TF-IDF dice abrir). `in_view` usa `MIN_SUPPORTS`. El código empieza en 2. Cambien el valor si lo justifican, 0 o 1 también valen. Muestran una tabla pequeña con cuántos artículos tienen 0, 1, 2 y 3 o más resultados a favor, y con ella explican su elección.
 - `outputs/en_vista.csv` tiene una fila por artículo con `title`, `has_pattern`, `read_group`, `text_says_read`, `prob_texto`, `supports`, `in_view` y `recortado`.
 - `recortado` solo es verdadero en artículos en vista. Si quedan menos de `standard["min_articles"]`, no rellenan: imprimen que es un resultado débil.
 
@@ -412,14 +412,15 @@ print("Paso 4.2: OK. Armen el ZIP.")
 
 ## Para la reflexión individual
 
-La reflexión de la semana 2 va con la plantilla Word de la semana. Estas son sus preguntas:
+Use la [plantilla de la reflexión de la semana 2](https://cabrerac.github.io/assets/documents/26-udenar-data-mining/reflection-week-2-template.docx) y mantenga sus títulos. Extensión: entre 700 y 1000 palabras. Por debajo de 500 palabras el texto queda corto.
 
-| Parte | Pregunta |
-|-------|----------|
-| **Proceso** | Qué hizo el grupo en el cuaderno de la semana 2, en orden. Diga cuál fue su línea en el registro de contribución. |
-| **Elección** | Una elección del grupo, por qué esa elección y un límite de esa elección. |
-| **Decisión** | Un artículo de `outputs/en_vista.csv` con dos apoyos. Diga cuáles son y cómo cambia quién queda en la lista de inicio si uno de los dos falla. |
-| **Ética** | Nombre una elección técnica de esta semana. Diga a quién ayuda o perjudica, o cómo se podría usar mal la lista. Relacione el punto con Jain (2010) o con Devlin, Chang, Lee y Toutanova (2019). |
+| Título | Qué escribir |
+|--------|--------------|
+| **Metadatos** | Nombre, grupo, semana 2 (L3 + L4), conteo aproximado de palabras y la lectura que cita. |
+| **Proceso** | Qué hizo el grupo en el cuaderno de la semana 2. Diga cuál fue su contribución. |
+| **Decisión** | Describa los grupos que encontró el grupo y los resultados del filtro de texto. Diga qué artículo le parece más útil para la persona nueva y por qué. |
+| **Métodos** | Explique cuáles fueron los métodos utilizados en esta semana (k-means, mezcla gaussiana, HDBSCAN, TF-IDF y el codificador de texto) y cómo se comparan entre ellos. |
+| **Ética** | Nombre una elección técnica de esta semana. Diga a quién ayuda o perjudica, o cómo se podría usar mal un resultado de esta semana. Relacione el punto con Jain (2010) o con Devlin, Chang, Lee y Toutanova (2019). |
 
 ## Entrega
 
@@ -430,8 +431,8 @@ La reflexión de la semana 2 va con la plantilla Word de la semana. Estas son su
 | `marcas.csv` | Su conjunto marcado, con `marca` en 1 o 0 |
 | `outputs/grupos.csv` | Los grupos de los tres métodos |
 | `outputs/texto.csv` | Las predicciones de texto de cada artículo y sus marcas |
-| `outputs/en_vista.csv` | Los tres apoyos, `prob_texto`, si el artículo queda en vista y si quedó `recortado` |
+| `outputs/en_vista.csv` | Los resultados de las semanas 1 y 2, `prob_texto`, si el artículo queda en vista y si quedó `recortado` |
 
-Los grupos y el texto cuentan como dos apoyos de la lista de inicio. En la semana 3 se suman el lugar en el grafo y la predicción.
+Estos archivos son la segunda iteración. En la semana 3 el grupo añade el lugar en el grafo y la predicción, y los compara con lo que ya tiene.
 
 <!-- end NOTEBOOK: -->

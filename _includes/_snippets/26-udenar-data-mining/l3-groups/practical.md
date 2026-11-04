@@ -58,6 +58,10 @@ print(f"Coseno: {u @ v:.3f}. Repaso de Python: OK")
  
 **Qué hacer.** Ejecute las celdas de arriba hacia abajo. Cada paso empieza con **En este paso**. Los pasos que crean algo nuevo terminan con una celda **Comprobar**. Si un `assert` falla, revise la celda anterior antes de seguir. Los nombres del código están en inglés, como en todos los cuadernos del curso. Las explicaciones están en español.
  
+**El sábado 14 nov.** A las 08:45 el docente ejecuta este cuaderno en vivo y ustedes lo ejecutan al mismo tiempo. Ejecútelo una vez antes del sábado y anote las celdas que no pudo ejecutar. Hacia las 09:20 seguimos con la L4. Lo que falte se termina en casa.
+ 
+**Del laboratorio al proyecto.** Desde las 10:00 el cuaderno de grupo de la semana 2 repite estos pasos con las entradillas de su secretaría: G1 Agricultura, G2 Salud mental, G3 Medio ambiente, G4 Inclusión Social y G5 Vivienda. Cada paso del cuaderno de grupo dice qué parte de este cuaderno adaptar.
+ 
 **Mapa del cuaderno**
  
 | Parte | Fase CRISP-DM | Qué sale |
@@ -75,7 +79,7 @@ print(f"Coseno: {u @ v:.3f}. Repaso de Python: OK")
 ## Parte 1. Configuración
  
 ### Paso 1. Librerías, carpetas y parámetros
-En este paso importamos las librerías y fijamos los parámetros. El bloque de la L2 se copia sin cambios. Los parámetros nuevos de la L3 se definen aquí una sola vez y son los mismos en el cuaderno de grupo y en el script de control del curso. No los cambie aquí.
+En este paso importamos las librerías y fijamos los parámetros. El bloque de la L2 se copia sin cambios. Los parámetros nuevos de la L3 se definen aquí una sola vez y son los mismos en el cuaderno de grupo. No los cambie aquí.
  
 **Una sola regla de umbral para el curso.** El grupo más chico que HDBSCAN puede formar tiene el mismo tamaño que el patrón más chico que la L2 puede conservar: `support_floor(n)`.
  
@@ -115,7 +119,7 @@ SUPPORT_SHARE = 0.03   # proporción de textos
 SUPPORT_MIN = 5        # mínimo de textos
 SEED = 7
 
-# L3 (compartidos con el cuaderno de grupo y el script de control, no cambiar)
+# L3 (compartidos con el cuaderno de grupo, no cambiar)
 MAX_WORD_SHARE = 0.5         # palabras en más de la mitad de los textos no separan grupos
 MIXTURE_COMPONENTS = 5       # dimensiones para la mezcla gaussiana
 DENSITY_COMPONENTS = 10      # dimensiones para HDBSCAN
@@ -125,7 +129,7 @@ MIN_SAMPLES = SUPPORT_MIN    # min_samples de HDBSCAN
 N_SHUFFLES = 30              # tablas al azar de la línea base
 
 # Decisión, L3 en adelante
-MIN_SUPPORTS = 2             # un artículo queda en vista con al menos dos apoyos
+MIN_SUPPORTS = 2             # el código empieza en 2, cámbielo si lo justifica (0 o 1 también valen)
 
 # Propios de este cuaderno
 MIXTURE_K = range(1, 9)      # números de grupos que prueba la mezcla
@@ -134,7 +138,7 @@ STABILITY_SEEDS = range(5)   # semillas 0 a 4 para la estabilidad
 TOP_WORDS = 8                # palabras que mostramos por grupo
 
 
-# support_floor: mismo código que scripts/data-mining-course/swap_randomization.py, salvo docstrings y comentarios en español.
+# support_floor: la misma función de la L2.
 def support_floor(n_texts: int) -> int:
     """Soporte mínimo que necesita una palabra o un par: max(SUPPORT_MIN, ceil(SUPPORT_SHARE * n))."""
     return max(SUPPORT_MIN, math.ceil(SUPPORT_SHARE * n_texts))
@@ -266,7 +270,7 @@ else:
             "may": ["decidir qué artículos abrir primero para el trabajo del equipo"],
             "may_not": ["citar la lista como evidencia de la alcaldía", "elegir artículos solo por sus citas"],
         },
-        "pattern_use": {"rule": "Un artículo entra en la lista cuando lo apoyan al menos dos resultados del curso."},
+        "pattern_use": {"rule": "El equipo explica por qué cada artículo está en la lista y qué resultados lo apoyan. Un artículo puede tener varios, uno o ninguno, si el equipo lo justifica."},
     }
     QUESTION_PATH.write_text(json.dumps(question_card, ensure_ascii=False, indent=2), encoding="utf-8")
     print("pregunta.json no estaba. Escribimos la tarjeta de la Lección 2.")
@@ -289,7 +293,7 @@ print("Pregunta y palabras del tema: OK")
 ```
 
 ### Paso 2. Recuperar los patrones de la Lección 2
-En este paso leemos `outputs/patrones_l2.csv`, la tabla que guardó la L2. Usaremos los patrones que **destacan** (`kept_lift2`) en la Parte 7, como el primer apoyo de cada artículo. Si el archivo no está (un Colab nuevo), súbalo desde su cuaderno de la L2 a la carpeta `outputs/`. Sin él, el cuaderno sigue, pero la columna de patrones queda vacía.
+En este paso leemos `outputs/patrones_l2.csv`, la tabla que guardó la L2. Usaremos los patrones que **destacan** (`kept_lift2`) en la Parte 7, como uno de los resultados de cada artículo. Si el archivo no está (un Colab nuevo), súbalo desde su cuaderno de la L2 a la carpeta `outputs/`. Sin él, el cuaderno sigue, pero la columna de patrones queda vacía.
 
 
 
@@ -311,7 +315,7 @@ patterns.head(3)
 
 
 ```python
-assert list(patterns.columns) == PATTERN_COLUMNS
+assert set(PATTERN_COLUMNS) <= set(patterns.columns)
 print("Patrones de la L2: OK")
 ```
 
@@ -690,7 +694,7 @@ En este paso preguntamos qué silueta daría una tabla **sin grupos**. El azar d
  
 **Una diferencia con la L2.** El intercambio (swap) de la L2 conservaba también el largo de cada texto. Este azar no lo conserva. No hace falta: las filas se escalan a largo 1, así que lo que se compara es la mezcla de palabras, no el largo.
  
-**Tiempo.** La celda corre k-means 30 veces con 10 arranques. En la máquina de prueba del curso tardó unos 10 s. En Colab gratuito calcule entre 20 s y un minuto.
+**Tiempo.** La celda corre k-means 30 veces con 10 arranques. En Colab gratuito calcule entre 20 s y un minuto.
 
 
 
@@ -785,7 +789,7 @@ print("Acuerdo: OK")
 ```
 
 ### Paso 4. Qué significa un grupo para el equipo
-En este paso decidimos qué grupos **lee el equipo**. Los grupos de la decisión son los de **HDBSCAN**, porque HDBSCAN no obliga a ningún artículo a entrar en un grupo: un artículo de ruido no recibe apoyo, y se mira a mano. k-means, con k = 8, nos sirvió para la estabilidad y el acuerdo entre métodos, no para decidir.
+En este paso decidimos qué grupos **lee el equipo**. Los grupos de la decisión son los de **HDBSCAN**, porque HDBSCAN no obliga a ningún artículo a entrar en un grupo: un artículo de ruido no recibe el resultado del grupo, y se mira a mano. k-means, con k = 8, nos sirvió para la estabilidad y el acuerdo entre métodos, no para decidir.
  
 El tema del equipo es la dieta y las enfermedades que dependen de ella. Sus palabras, `TOPIC_WORDS`, las escribimos en la Parte 2, antes de mirar ningún grupo. Aquí no las tocamos. El equipo lee un grupo de HDBSCAN si alguna de esas palabras está entre sus 8 palabras de más peso. La celda muestra todos los grupos con sus palabras, para que se vea qué se lee y qué no.
 
@@ -798,10 +802,10 @@ for g, group_words in hdbscan_words.items():
     mark = "lee" if g in team_groups else "no lee"
     print(f"Grupo {g} ({(hdbscan_labels == g).sum()} artículos, {mark}): {', '.join(group_words)}")
 print(f"Grupos que lee el equipo: {team_groups}. Artículos en ellos: {read_group.sum()}")
-print(f"Ruido, sin apoyo y para mirar a mano: {(~in_group).sum()} artículos")
+print(f"Ruido, sin resultado del grupo y para mirar a mano: {(~in_group).sum()} artículos")
 ```
 
-Solo uno de los 5 grupos de HDBSCAN toca el tema por sus palabras: el de diabetes, con 10 artículos. Los otros cuatro (cáncer, guías clínicas, carga global de enfermedad y un grupo amplio de datos e investigación) no lo tocan, aunque traten de salud. Muchos artículos del tema, como los de obesidad, quedan en el ruido: 108 artículos no tienen grupo, no reciben este apoyo y se miran a mano.
+Solo uno de los 5 grupos de HDBSCAN toca el tema por sus palabras: el de diabetes, con 10 artículos. Los otros cuatro (cáncer, guías clínicas, carga global de enfermedad y un grupo amplio de datos e investigación) no lo tocan, aunque traten de salud. Muchos artículos del tema, como los de obesidad, quedan en el ruido: 108 artículos no tienen grupo, no reciben este resultado y se miran a mano.
  
 **Comprobar:**
 
@@ -842,7 +846,7 @@ Tres comprobaciones nos dicen cuánto confiar en los grupos:
 2. **Estabilidad.** Repetimos k-means con 5 semillas fijas (de 0 a 4) y comparamos los resultados con el índice de Rand ajustado. Un valor bajo dice que los grupos cambian con la semilla. En nuestros extractos la media queda entre 0,37 y 0,57.
 3. **Ruido.** HDBSCAN no obliga a ningún artículo a entrar en un grupo. Entre el 29 % y el 52 % de los textos queda como ruido, según el extracto. Ese número dice cuántos textos no tienen vecinos claros.
  
-Un grupo débil no es un resultado inútil. Nos dice que no debemos decidir con un grupo solo. Por eso la regla de la decisión pide al menos dos apoyos para dejar un artículo en vista.
+Un grupo débil no es un resultado inútil. Nos dice que no debemos decidir con un grupo solo. Por eso la lista muestra qué resultados apoyan cada artículo, y no solo el grupo.
 
 
 
@@ -866,7 +870,7 @@ structure_finding = """
 print(structure_finding)
 ```
 
-Ejemplo de una frase final: "En nuestro extracto los grupos son débiles. La silueta supera al azar por poco y cambia con la semilla. No usamos un grupo solo para decidir qué leer. Un artículo queda en vista solo si lo apoyan al menos dos resultados."
+Ejemplo de una frase final: "En nuestro extracto los grupos son débiles. La silueta supera al azar por poco y cambia con la semilla. No usamos un grupo solo para decidir qué leer. La lista muestra qué otros resultados apoyan cada artículo."
  
 **Qué cambiaría esta lectura.** Otro valor de k, otro umbral de soporte, otra preparación del texto (por ejemplo TF-IDF, que veremos en L4), o una pregunta que pida grupos más amplios.
 
@@ -874,13 +878,13 @@ Ejemplo de una frase final: "En nuestro extracto los grupos son débiles. La sil
  
 ## Parte 7. Despliegue
  
-### Paso 1. La tabla de apoyos
-En este paso juntamos los dos resultados que tenemos hasta ahora. Cada uno da un **apoyo** a un artículo, en su propia columna de `SUPPORT_COLUMNS`:
+### Paso 1. La tabla de resultados
+En este paso juntamos los dos resultados que tenemos hasta ahora. Cada **resultado** dice, en su propia columna de `SUPPORT_COLUMNS`, si cuenta a favor de un artículo:
  
 - **`has_pattern` (L2).** El resumen tiene las dos palabras de un patrón que destaca (`kept_lift2`) y que toca el tema (al menos una palabra de `TOPIC_WORDS`).
-- **`read_group` (L3).** El artículo está en un grupo de HDBSCAN que el equipo lee. El ruido no recibe este apoyo.
+- **`read_group` (L3).** El artículo está en un grupo de HDBSCAN que el equipo lee. El ruido no recibe este resultado.
  
-Un artículo queda **en vista** cuando tiene al menos `MIN_SUPPORTS` (2) apoyos. Con dos resultados, eso pide los dos. En la L4 sumaremos un tercero.
+Un artículo queda **en vista** con al menos `MIN_SUPPORTS` resultados a favor. El código empieza en 2. Cambie el valor si lo justifica, 0 o 1 también valen. La tabla de la celda cuenta cuántos artículos tienen 0, 1, 2 y 3 o más resultados a favor. Con ella el equipo decide el valor y explica su elección. En la L4 sumaremos un tercer resultado.
 
 
 
@@ -897,10 +901,12 @@ supports["supports"] = supports[SUPPORT_COLUMNS].astype(int).sum(axis=1)
 supports["in_view"] = supports["supports"] >= MIN_SUPPORTS
 print(f"Patrones del tema que destacan: {len(topic_pairs)}")
 print(f"Con patrón: {supports['has_pattern'].sum()}. En grupo del tema: {supports['read_group'].sum()}. En vista: {supports['in_view'].sum()}")
+counts = supports["supports"].clip(upper=3).value_counts().reindex(range(4), fill_value=0).rename(index={3: "3 o más"})
+print(counts.rename_axis("resultados a favor").to_frame("artículos").T.to_string())
 supports[supports["in_view"]].head(10)
 ```
 
-**Lo que aprendemos aquí.** Quedan en vista 8 artículos, menos de los 10 que pide el estándar. Es un resultado honesto, no un error. Los grupos por densidad son estrictos: HDBSCAN deja 108 artículos como ruido, y solo uno de sus cinco grupos, el de diabetes con 10 artículos, toca el tema del equipo. Con los grupos de k-means habrían quedado 56 artículos en vista, porque k-means obliga a cada artículo a entrar en un grupo. Pero un apoyo solo cuenta cuando el equipo puede leer el grupo y decir de qué trata. No agregamos grupos para inflar la cuenta. Hay un caso que muestra qué cambiaría el resultado. El grupo 4, el más grande con 87 artículos, tiene *food* entre sus 8 palabras de más peso, pero no se lee: *food* no está en `TOPIC_WORDS`. Escribimos esas palabras en la Parte 2, antes de mirar los grupos, y no las cambiamos después para que un grupo entre. Si el equipo hubiera puesto *food* en su lista desde el principio, ese grupo daría apoyo y la cuenta cambiaría. Por eso la lista de palabras se anota en la tarjeta como algo que cambia la decisión. La L4 suma el texto como tercer resultado: con él quedan 52 de los 317 en vista, y un artículo puede entrar con un patrón y el texto aunque HDBSCAN lo deje como ruido.
+**Lo que aprendemos aquí.** Con `MIN_SUPPORTS = 2` quedan en vista 8 artículos, menos de los 10 que pide el estándar. Es un resultado honesto, no un error. Los grupos por densidad son estrictos: HDBSCAN deja 108 artículos como ruido, y solo uno de sus cinco grupos, el de diabetes con 10 artículos, toca el tema del equipo. Con los grupos de k-means habrían quedado 56 artículos en vista, porque k-means obliga a cada artículo a entrar en un grupo. Pero el resultado del grupo solo cuenta cuando el equipo puede leer el grupo y decir de qué trata. No agregamos grupos para inflar la cuenta. Hay un caso que muestra qué cambiaría el resultado. El grupo 4, el más grande con 87 artículos, tiene *food* entre sus 8 palabras de más peso, pero no se lee: *food* no está en `TOPIC_WORDS`. Escribimos esas palabras en la Parte 2, antes de mirar los grupos, y no las cambiamos después para que un grupo entre. Si el equipo hubiera puesto *food* en su lista desde el principio, ese grupo contaría a favor y la cuenta cambiaría. Por eso la lista de palabras se anota en la tarjeta como algo que cambia la decisión. La L4 suma el texto como tercer resultado: con él quedan 52 de los 317 en vista, y un artículo puede entrar con un patrón y el texto aunque HDBSCAN lo deje como ruido.
  
 **Comprobar:**
 
@@ -908,12 +914,12 @@ supports[supports["in_view"]].head(10)
 
 ```python
 assert supports["supports"].between(0, len(SUPPORT_COLUMNS)).all()
-assert 1 <= supports["in_view"].sum() < N and not supports.loc[~in_group, "read_group"].any()
-print("Apoyos: OK")
+assert supports["in_view"].dtype == bool and not supports.loc[~in_group, "read_group"].any()
+print("Resultados: OK")
 ```
 
 ### Paso 2. Guardar los grupos
-En este paso guardamos `outputs/grupos_l3.csv`, con una fila por artículo. Los artículos que HDBSCAN deja como ruido llevan `-1` en la columna `hdbscan`. No se borran: siguen en la tabla para que alguien los mire. La L4 lee este archivo para sumar el tercer apoyo.
+En este paso guardamos `outputs/grupos_l3.csv`, con una fila por artículo. Los artículos que HDBSCAN deja como ruido llevan `-1` en la columna `hdbscan`. No se borran: siguen en la tabla para que alguien los mire. La L4 lee este archivo para sumar el tercer resultado.
 
 
 
@@ -940,23 +946,23 @@ print(f"Guardado: {groups_path} ({len(groups_table)} filas)")
 
 ```python
 saved = pd.read_csv(groups_path)
-assert list(saved.columns) == ["title", "kmeans", "mezcla", "prob_mezcla", "hdbscan", "has_pattern", "read_group", "supports", "in_view"]
+assert {"title", "kmeans", "mezcla", "prob_mezcla", "hdbscan", "has_pattern", "read_group", "supports", "in_view"} <= set(saved.columns)
 assert len(saved) == N
 print("grupos_l3.csv: OK")
 ```
 
 ### Paso 3. Qué cambiaría la decisión
-En este paso escribimos en la tarjeta cómo entra un grupo en la decisión y qué la cambiaría. Otro umbral cambia el vocabulario y el tamaño mínimo de un grupo de HDBSCAN. Más direcciones de la SVD cambian las distancias. Otra lectura de las palabras de un grupo cambia qué artículos reciben el apoyo.
+En este paso escribimos en la tarjeta cómo entra un grupo en la decisión y qué la cambiaría. Otro umbral cambia el vocabulario y el tamaño mínimo de un grupo de HDBSCAN. Más direcciones de la SVD cambian las distancias. Otra lectura de las palabras de un grupo cambia qué artículos reciben el resultado del grupo.
 
 
 
 ```python
 question_card["group_use"] = {
-    "how_it_enters": "Un artículo recibe un apoyo si está en un grupo de HDBSCAN que el equipo lee (sus palabras tocan el tema). El ruido no recibe apoyo.",
+    "how_it_enters": "El resultado del grupo cuenta a favor de un artículo si está en un grupo de HDBSCAN que el equipo lee (sus palabras tocan el tema). El ruido no lo recibe.",
     "reading": "Los grupos son débiles: la silueta apenas supera al azar y cambia con la semilla. Un grupo solo no decide.",
     "k_chosen": int(K_CHOSEN),
     "team_groups": [int(g) for g in team_groups],
-    "noise": "Los artículos que HDBSCAN deja como ruido no tienen apoyo. Se miran a mano, no se borran.",
+    "noise": "Los artículos que HDBSCAN deja como ruido no tienen el resultado del grupo. Se miran a mano, no se borran.",
     "what_changes_it": ["otro umbral de soporte", "más direcciones de la SVD", "otra lectura de las palabras de un grupo"],
 }
 QUESTION_PATH.write_text(json.dumps(question_card, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -994,7 +1000,7 @@ checks = [
     ("pregunta.json con uso de grupos", lambda: "group_use" in json.loads(QUESTION_PATH.read_text(encoding="utf-8"))),
     ("outputs/grupos_l3.csv", lambda: groups_path.is_file()),
     ("Gráficos de varianza, silueta y dispersión", lambda: all((OUTPUTS_DIR / f).is_file() for f in ["varianza_l3.png", "silueta_l3.png", "dispersion_l3.png"])),
-    ("Patrones de la L2 en los apoyos", lambda: len(topic_pairs) > 0),
+    ("Patrones de la L2 en los resultados", lambda: len(topic_pairs) > 0),
     ("Hallazgo sobre la estructura escrito", lambda: "___" not in structure_finding),
 ]
 passed = sum(_check_ok(n, f) for n, f in checks)

@@ -21,7 +21,7 @@
                     <li>Links among items in a graph</li>
                     <li>Degree, PageRank, betweenness, node2vec</li>
                     <li>An item's place among the others</li>
-                    <li>A fourth result for the two-results rule</li>
+                    <li>A fourth result for the list</li>
                 </ul>
             </div>
         </div>

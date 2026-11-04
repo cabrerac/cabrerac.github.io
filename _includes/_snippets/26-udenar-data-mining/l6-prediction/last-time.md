@@ -37,7 +37,7 @@
                     <li><b>Data preparation</b> - one table of attributes, scaled, encoded, missing values flagged</li>
                     <li><b>Modeling</b> - logistic regression, a random forest, one hidden layer</li>
                     <li><b>Evaluation</b> - right and wrong counts on rows kept apart, against the majority</li>
-                    <li><b>Deployment</b> - the fifth support and the starter list</li>
+                    <li><b>Deployment</b> - the fifth result and the starter list</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">

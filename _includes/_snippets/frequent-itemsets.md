@@ -180,6 +180,7 @@ vocabulary = sorted(w for w, c in word_count.items() if c >= FLOOR)
 
 ```python
 from itertools import combinations
+import pandas as pd
 
 def count_pairs(word_sets, word_count, floor):
     pairs = Counter()
@@ -189,7 +190,11 @@ def count_pairs(word_sets, word_count, floor):
     return {pair: c for pair, c in pairs.items() if c >= floor}
 
 candidates = count_pairs(word_sets, word_count, FLOOR)
-top = sorted(candidates, key=candidates.get, reverse=True)[:10]
+table = pd.DataFrame(
+    [(a, b, c) for (a, b), c in candidates.items()],
+    columns=["word_a", "word_b", "support"],
+)
+table["pair"] = table["word_a"] + " + " + table["word_b"]
 ```
 
             </div>

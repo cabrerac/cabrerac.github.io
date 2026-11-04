@@ -9,7 +9,8 @@
                 <p><b>In this course</b></p>
                 <p>A kept pair such as diabetes + obesity names a reading theme.</p>
                 <p>The papers that hold the pair are candidates for the reading list.</p>
-                <p>From Lecture 3, a paper stays in view only when two results support it.</p>
+                <p>A kept pair is one result. Every paper on the final list must rest on the results of the whole iterative process.</p>
+                <p>For each paper, ask which fact would take it off the list.</p>
                 <p>Abstract labels such as background + methods were a pattern from the format, so preparation removes them.</p>
             </div>
         </div>

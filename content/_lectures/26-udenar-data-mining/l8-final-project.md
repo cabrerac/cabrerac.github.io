@@ -30,13 +30,13 @@ visible: false
 | Slot | Colombia | UK | Group | Secretaría | Talk title |
 |------|----------|----|-------|------------|------------|
 | Setup | 07:00-07:30 | 12:00-12:30 | All | Sound and screen check per group | |
-| Talk 1 | 07:30-08:00 | 12:30-13:00 | G1 | Agricultura | [POR CONFIRMAR] |
-| Talk 2 | 08:00-08:30 | 13:00-13:30 | G2 | Salud mental | [POR CONFIRMAR] |
-| Talk 3 | 08:30-09:00 | 13:30-14:00 | G3 | Medio ambiente | [POR CONFIRMAR] |
+| Talk 1 | 07:30-08:00 | 12:30-13:00 | G1 | Agricultura | to be confirmed |
+| Talk 2 | 08:00-08:30 | 13:00-13:30 | G2 | Salud mental | to be confirmed |
+| Talk 3 | 08:30-09:00 | 13:30-14:00 | G3 | Medio ambiente | to be confirmed |
 | Break | 09:00-09:08 | 14:00-14:08 | | | |
-| Talk 4 | 09:08-09:38 | 14:08-14:38 | G4 | Inclusión Social | [POR CONFIRMAR] |
+| Talk 4 | 09:08-09:38 | 14:08-14:38 | G4 | Inclusión Social | to be confirmed |
 | Break | 09:38-09:45 | 14:38-14:45 | | | |
-| Talk 5 | 09:45-10:15 | 14:45-15:15 | G5 | Vivienda | [POR CONFIRMAR] |
+| Talk 5 | 09:45-10:15 | 14:45-15:15 | G5 | Vivienda | to be confirmed |
 | Break | 10:15-10:30 | 15:15-15:30 | | | |
 | Optional talk | 10:30-11:30 | 15:30-16:30 | | Future research directions in data mining (if used) | |
 | Close | 11:30-12:00 | 16:30-17:00 | | Moodle survey and final deadlines | |
@@ -51,7 +51,7 @@ Upload the slides as a PDF on Moodle, as `project-slides-<group_id>.pdf`, by **F
 
 1. The secretaría and the new person's question.
 2. The starter list, short enough to read aloud.
-3. Two supports per article.
+3. What results support each article.
 4. An article described by its place among the others.
 5. What fact would remove an article, and what would change on the list.
 6. What the list cannot decide.
@@ -63,7 +63,7 @@ Upload the slides as a PDF on Moodle, as `project-slides-<group_id>.pdf`, by **F
 | What | When (Colombia) |
 |------|-----------------|
 | Slides `project-slides-<group_id>.pdf` (Moodle) | Fri 27 Nov, 23:59 |
-| Project zip `project-<group_id>.zip` | Tue 1 Dec, 23:59 |
+| Project zip `project-<group_id>.zip` (the report includes the requirements section) | Tue 1 Dec, 23:59 |
 | Project reflection `project-reflection-<apellido>-<inicial>.pdf` (first surname and first initial) | Wed 2 Dec, 23:59 |
 
 The slides and both final items go through Moodle.
@@ -75,5 +75,9 @@ The slides and both final items go through Moodle.
 | Resource | Link |
 |---------|--------|
 | Saturday plan (PDF, Spanish) | [week-4-session-plan-es.pdf](/assets/documents/26-udenar-data-mining/week-4-session-plan-es.pdf) |
-| Week 3 hub (templates and talk examples) | [week-3-hub](/teaching/26-udenar-data-mining/week-3-hub/) |
+| Week 3 hub | [week-3-hub](/teaching/26-udenar-data-mining/week-3-hub/) |
+| Project report (Word) | [project-report-template.docx](/assets/documents/26-udenar-data-mining/project-report-template.docx) |
+| Project presentation (PowerPoint, six slides) | added before Mon 16 Nov |
+| Project reflection (Word) | [project-reflection-template.docx](/assets/documents/26-udenar-data-mining/project-reflection-template.docx) |
+| Project requirements (Word) | [project-requirements-template.docx](/assets/documents/26-udenar-data-mining/project-requirements-template.docx) |
 | Course home | [/teaching/26-udenar-data-mining/](/teaching/26-udenar-data-mining/) |

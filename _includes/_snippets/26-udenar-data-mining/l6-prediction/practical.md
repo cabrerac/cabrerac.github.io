@@ -26,7 +26,7 @@ print(f"Dijo {said.tolist()}, era {y_te.tolist()}. Aciertos: {int((said == y_te)
  
 ## Instrucciones
  
-**La historia.** Seguimos con el equipo interno de la secretaría de salud y sus artículos de nutrición. Ya tenemos cuatro resultados: patrones (L2), grupos (L3), texto (L4) y el lugar en la red (L5). Hoy sumamos el último: **predecir una etiqueta dada** a partir de los atributos de cada artículo. La etiqueta del laboratorio es `internacional`: un artículo con autores de al menos dos países. No sale del texto y no es una cuenta de citas. Al final de la lección el equipo tiene una lista de lectura corta, con cinco apoyos detrás de cada artículo, y sabe qué parte de la lista depende de cada uno.
+**La historia.** Seguimos con el equipo interno de la secretaría de salud y sus artículos de nutrición. Ya tenemos cuatro resultados: patrones (L2), grupos (L3), texto (L4) y el lugar en la red (L5). Hoy sumamos el último: **predecir una etiqueta dada** a partir de los atributos de cada artículo. La etiqueta del laboratorio es `internacional`: un artículo con autores de al menos dos países. No sale del texto y no es una cuenta de citas. Al final de la lección el equipo tiene una lista de lectura corta, con los resultados que apoyan cada artículo, y sabe qué parte de la lista depende de cada uno.
  
 **La idea central.** La etiqueta está dada, no la buscamos. Aprendemos con una parte de los artículos y contamos aciertos y errores en otra parte que ningún modelo vio. Cada modelo se compara con la **clase mayor**: decir siempre la clase más común. Un modelo que no le gana a eso no aporta. Y ponemos al lado una regla de una línea, sin modelo, para ver si los modelos ganan algo sobre lo obvio.
  
@@ -40,17 +40,21 @@ print(f"Dijo {said.tolist()}, era {y_te.tolist()}. Aciertos: {int((said == y_te)
  
 **Qué hacer.** Ejecute las celdas de arriba hacia abajo. Cada paso empieza con **En este paso**. Los pasos que crean algo nuevo terminan con una celda `# Comprobar`. Si un `assert` falla, revise la celda anterior antes de seguir. Los nombres del código están en inglés, como en todos los cuadernos del curso. Las explicaciones están en español.
  
+**El sábado 21 nov.** Hacia las 09:20 seguimos en vivo con este cuaderno, hasta las 10:00. La meta en clase es ver una predicción con sus errores. Lo que falte se termina en casa.
+ 
+**Del laboratorio al proyecto.** Desde las 10:00 el cuaderno de grupo de la semana 3 repite estos pasos con los atributos de los artículos de su secretaría y arma la lista de inicio.
+ 
 **Mapa del cuaderno**
  
 | Parte | Fase CRISP-DM | Qué sale |
 |-------|---------------|----------|
 | 1 | Configuración | Librerías, parámetros y la función contra la fuga |
-| 2 | Comprensión del negocio | `pregunta.json` y los cuatro apoyos de las lecciones 2 a 5 |
+| 2 | Comprensión del negocio | `pregunta.json` y los cuatro resultados de las lecciones 2 a 5 |
 | 3 | Comprensión de los datos | La etiqueta y los atributos |
 | 4 | Preparación de los datos | La tabla, el conjunto apartado y la preparación |
 | 5 | Modelado | Clase mayor, regresión logística, bosque y una capa oculta |
 | 6 | Evaluación | Aciertos y errores, cinco pliegues y la regla de una línea |
-| 7 | Despliegue | El apoyo de la predicción y la lista inicial |
+| 7 | Despliegue | El resultado de la predicción y la lista inicial |
 
 ---
  
@@ -99,7 +103,7 @@ C_REG = 10                  # penalización de la regresión logística (más al
 N_FOLDS = 5
 
 # Decisión, L3 en adelante
-MIN_SUPPORTS = 2
+MIN_SUPPORTS = 2             # el código empieza en 2, cámbielo si lo justifica (0 o 1 también valen)
 
 # L6 (compartidos con el cuaderno de grupo, no cambiar)
 LABEL = "internacional"     # laboratorio: autores de al menos dos países
@@ -191,7 +195,7 @@ print("Fuga quitada con una etiqueta que es una propiedad: OK")
 
 ```python
 # Comprobar
-assert (n_claims_without(toy_table, "label") == toy_table["n_claims"]).all()
+assert (n_claims_without(toy_table, "categoria") == toy_table["n_claims"]).all()
 print("Con otra etiqueta, n_claims queda igual: OK")
 ```
 
@@ -250,15 +254,15 @@ else:
 print(question_card["question"])
 ```
 
-### Paso 2. Los cuatro apoyos de las lecciones 2 a 5
-En este paso armamos la tabla de apoyos. Los tres de la semana 2 salen de `outputs/grupos_l3.csv` y `outputs/texto_l4.csv`, unidos por título como en la L5. El del grafo sale de `outputs/grafo_l5.csv` con la misma regla de la L5: un artículo con enlaces, en el cuarto superior por intermediación, que no es un nodo central. Si falta algún archivo, el apoyo queda en falso. Recalculamos el apoyo del grafo en vez de leerlo, para que la regla quede a la vista en este cuaderno.
+### Paso 2. Los cuatro resultados de las lecciones 2 a 5
+En este paso armamos la tabla de resultados. Los tres de la semana 2 salen de `outputs/grupos_l3.csv` y `outputs/texto_l4.csv`, unidos por título como en la L5. El del grafo sale de `outputs/grafo_l5.csv` con la misma regla de la L5: un artículo con enlaces, en el cuarto superior por intermediación, que no es un nodo central. Si falta algún archivo, el resultado queda en falso. Recalculamos el resultado del grafo en vez de leerlo, para que la regla quede a la vista en este cuaderno.
 
 ```python
 def read_or_empty(path, columns):
     """Lee un CSV de una lección anterior, o una tabla vacía si el archivo no está.
 
     Qué hace: si falta el archivo, avisa y devuelve una tabla vacía con las columnas
-    pedidas, así el resto del cuaderno corre y esos apoyos quedan en falso.
+    pedidas, así el resto del cuaderno corre y esos resultados quedan en falso.
 
     Entrada:
         path: la ruta del CSV. columns: las columnas que esperamos.
@@ -268,7 +272,7 @@ def read_or_empty(path, columns):
     """
     if path.is_file():
         return pd.read_csv(path, keep_default_na=False)
-    print(f"Falta {path}. Sus apoyos quedan en falso.")
+    print(f"Falta {path}. Sus resultados quedan en falso.")
     return pd.DataFrame(columns=columns)
 
 
@@ -297,19 +301,19 @@ print(table.sum().to_dict())
 ```python
 # Comprobar
 SUPPORT_COLUMNS = ["has_pattern", "read_group", "text_says_read", "graph_support"]
-assert len(table) == N and list(table.columns) == SUPPORT_COLUMNS
+assert len(table) == N and set(SUPPORT_COLUMNS) <= set(table.columns)
 assert (table[SUPPORT_COLUMNS].astype(int).sum(axis=1) == graph_l5["supports"].fillna(0).astype(int)).all()
-print(f"Cuatro apoyos, iguales a los de grafo_l5.csv: OK ({(table.astype(int).sum(axis=1) >= MIN_SUPPORTS).sum()} en vista)")
+print(f"Cuatro resultados, iguales a los de grafo_l5.csv: OK ({(table.astype(int).sum(axis=1) >= MIN_SUPPORTS).sum()} en vista)")
 ```
 
-**Lo que vemos.** Con cuatro apoyos hay 69 artículos en vista, los mismos de la L5. El grupo leído de la L3 apoya solo a 10 artículos, y el patrón de la L2 a 87. Hoy agregamos el quinto apoyo.
+**Lo que vemos.** Con cuatro resultados hay 69 artículos en vista con `MIN_SUPPORTS = 2`, los mismos de la L5. El grupo leído de la L3 apoya solo a 10 artículos, y el patrón de la L2 a 87. Hoy agregamos el quinto resultado.
 
 ---
  
 ## Parte 3. Comprensión de los datos
  
 ### Paso 1. La etiqueta `internacional`
-En este paso construimos la etiqueta: `n_countries >= 2`. Los artículos con `n_countries = 0` no traen datos de afiliación, aunque la mayoría tiene autores. No sabemos si son internacionales, así que los dejamos fuera de la L6 como faltantes. No reciben apoyo de la predicción. Un cero en `n_countries` no quiere decir un país. Quiere decir que OpenAlex no encontró la afiliación.
+En este paso construimos la etiqueta: `n_countries >= 2`. Los artículos con `n_countries = 0` no traen datos de afiliación, aunque la mayoría tiene autores. No sabemos si son internacionales, así que los dejamos fuera de la L6 como faltantes. No reciben el resultado de la predicción. Un cero en `n_countries` no quiere decir un país. Quiere decir que OpenAlex no encontró la afiliación.
 
 ```python
 papers["n_countries"] = pd.to_numeric(papers["n_countries"], errors="coerce").fillna(0).astype(int)
@@ -330,7 +334,7 @@ print(f"Clase menor con al menos {min_positives(labelled_count)} filas: OK")
 **Lo que vemos.** Quedan 276 artículos con etiqueta, y 145 (53%) son internacionales. Las dos clases son casi del mismo tamaño, así que la clase mayor acierta poco más de la mitad. Un modelo útil tiene que ganarle con claridad.
 
 ### Paso 2. Los atributos
-En este paso elegimos las entradas: año, número de autores, tipo de revista, acceso abierto y tipo de trabajo. No usamos el resumen ni los temas (eso fue la L4), ni las citas, ni los enlaces (eso fue la L5), ni `n_countries`, porque define la etiqueta. Tampoco el idioma: casi todos están en inglés. La regla es usar solo lo que el equipo sabría de un artículo antes de leerlo y que no repite un resultado anterior. Si una entrada ya fue un apoyo, el modelo contaría dos veces la misma señal.
+En este paso elegimos las entradas: año, número de autores, tipo de revista, acceso abierto y tipo de trabajo. No usamos el resumen ni los temas (eso fue la L4), ni las citas, ni los enlaces (eso fue la L5), ni `n_countries`, porque define la etiqueta. Tampoco el idioma: casi todos están en inglés. La regla es usar solo lo que el equipo sabría de un artículo antes de leerlo y que no repite un resultado anterior. Si una entrada ya fue un resultado, el modelo contaría dos veces la misma señal.
 
 ```python
 print("Idioma:", papers["language"].value_counts().to_dict())
@@ -598,7 +602,7 @@ print(f"{'regla n_authors >= 4':20s} exactitud en las {len(train)} filas de entr
 **Lo que vemos.** En cinco pliegues los tres quedan entre 0,61 y 0,65, contra 0,53 de la clase mayor. La regla acierta 0,69 en las mismas 220 filas. La regla solo fija un número, 4, y es el mejor en estas filas en las cinco particiones, así que este 0,69 es un poco optimista. El bosque baja de 0,71 a 0,62. La diferencia es la suerte de las 56 filas apartadas, y por eso no leemos un solo número.
 
 ### Paso 4. ¿Cuenta la L6?
-En este paso decidimos si la predicción suma un apoyo. Cuenta (`l6_counts`) solo si los tres métodos quedan más de `MARGIN` por encima de la clase mayor en las filas apartadas. 0,02 es una o dos filas de unas 60: sirve para desempatar, no es una prueba. La línea de `l6_counts` es la de la diapositiva y escribe 0,02 a mano. Ese 0,02 es `MARGIN`. Los modelos ya están entrenados con `train`, así que la línea solo predice. En el bucle de particiones usamos `clone`, una copia sin entrenar de cada modelo, para no tocar los modelos ya entrenados. Después repetimos con otras cuatro particiones para ver si el resultado se sostiene.
+En este paso decidimos si la predicción suma un resultado. Cuenta (`l6_counts`) solo si los tres métodos quedan más de `MARGIN` por encima de la clase mayor en las filas apartadas. 0,02 es una o dos filas de unas 60: sirve para desempatar, no es una prueba. La línea de `l6_counts` es la de la diapositiva y escribe 0,02 a mano. Ese 0,02 es `MARGIN`. Los modelos ya están entrenados con `train`, así que la línea solo predice. En el bucle de particiones usamos `clone`, una copia sin entrenar de cada modelo, para no tocar los modelos ya entrenados. Después repetimos con otras cuatro particiones para ver si el resultado se sostiene.
 
 ```python
 majority = max(np.mean(y_test), 1 - np.mean(y_test))
@@ -615,7 +619,7 @@ if seeds_holding < len(SPLIT_SEEDS):
     print("Con otra partición de los datos este resultado cambia: tómalo como débil.")
 ```
 
-**Lo que vemos.** La L6 cuenta, y se sostiene en las cinco particiones. La predicción suma un apoyo. Falta saber de dónde sale la señal.
+**Lo que vemos.** La L6 cuenta, y se sostiene en las cinco particiones. La predicción suma un resultado. Falta saber de dónde sale la señal. En otros datos puede salir `l6_counts = False`. Eso es un resultado normal y válido: la predicción no apoya la lista, y en el proyecto se informa así, con la razón (los métodos no le ganan a la clase mayor por más de `MARGIN`).
 
 ### Paso 5. ¿De dónde sale la señal?
 En este paso probamos dos variantes con los mismos modelos: solo `n_authors`, y todo menos `n_authors`. Así vemos qué atributo lleva la señal. Cada variante arma su propia preparación con las columnas que usa, y entrena copias nuevas de los modelos con `clone`.
@@ -688,8 +692,8 @@ print(my_errors)
  
 ## Parte 7. Despliegue
  
-### Paso 1. El apoyo de la predicción
-En este paso definimos el apoyo de la predicción. Un artículo se predice positivo cuando **al menos 2 de los 3 métodos** dicen que sí. Las filas de entrenamiento usan las predicciones fuera del pliegue y las apartadas usan las predicciones de los modelos entrenados sin ellas. Así ningún artículo lo puntúa un modelo que vio su etiqueta. Los artículos sin etiqueta no reciben apoyo. El código es el de la diapositiva: `pd.concat` junta los votos de las dos partes, con el título como índice, y `reindex` los pone en el orden de `table`, con falso para las filas sin etiqueta.
+### Paso 1. El resultado de la predicción
+En este paso definimos el resultado de la predicción. Un artículo se predice positivo cuando **al menos 2 de los 3 métodos** dicen que sí. Las filas de entrenamiento usan las predicciones fuera del pliegue y las apartadas usan las predicciones de los modelos entrenados sin ellas. Así ningún artículo lo puntúa un modelo que vio su etiqueta. Los artículos sin etiqueta no reciben este resultado. El código es el de la diapositiva: `pd.concat` junta los votos de las dos partes, con el título como índice, y `reindex` los pone en el orden de `table`, con falso para las filas sin etiqueta.
 
 ```python
 folds = StratifiedKFold(n_splits=5, shuffle=True, random_state=SEED)
@@ -714,22 +718,22 @@ print(f"Predichos positivos: {table['prediction'].sum()} de {len(labelled)} con 
 # Comprobar
 assert not table.loc[~table.index.isin(labelled.index), "prediction"].any()
 assert table.loc[labelled.index, "prediction"].sum() == (train_votes >= 2).sum() + (test_votes >= 2).sum()
-print("Apoyo de la predicción sin filas vistas: OK")
+print("Resultado de la predicción sin filas vistas: OK")
 ```
 
 ### Paso 2. ¿Se repite con el texto?
-En este paso medimos si la etiqueta repite el texto de la L4 (phi entre la etiqueta y `text_says_read`), en las filas con etiqueta. Medimos la etiqueta y no la predicción: si la etiqueta misma sigue al texto, predecirla no es un resultado nuevo. Si phi es al menos 0,30 en valor absoluto, las dos cuentan como **un** apoyo (`text_or_prediction`). Si no, son dos. phi es la correlación de dos columnas de 0 y 1: vale 0 si no tienen relación.
+En este paso medimos si la etiqueta repite el texto de la L4 (phi entre la etiqueta y `text_says_read`), en las filas con etiqueta. Medimos la etiqueta y no la predicción: si la etiqueta misma sigue al texto, predecirla no es un resultado nuevo. Si phi es al menos 0,30 en valor absoluto, las dos cuentan como **un** resultado (`text_or_prediction`). Si no, son dos. phi es la correlación de dos columnas de 0 y 1: vale 0 si no tienen relación.
 
 ```python
 phi = np.corrcoef(y, table.loc[labelled.index, "text_says_read"].astype(int))[0, 1]
 one_support = abs(phi) >= 0.30
-print(f"phi entre la etiqueta y el texto de la L4: {phi:.2f}. {'Un solo apoyo' if one_support else 'Dos apoyos separados'}")
+print(f"phi entre la etiqueta y el texto de la L4: {phi:.2f}. {'Un solo resultado' if one_support else 'Dos resultados separados'}")
 ```
 
-**Lo que vemos.** phi es casi 0. Ser internacional no tiene nada que ver con que el texto diga leer, así que el texto y la predicción cuentan como dos apoyos separados.
+**Lo que vemos.** phi es casi 0. Ser internacional no tiene nada que ver con que el texto diga leer, así que el texto y la predicción cuentan como dos resultados separados.
 
 ### Paso 3. La lista inicial
-En este paso sumamos los cinco resultados. Un artículo entra en la lista inicial con al menos dos apoyos. Mostramos cuántos artículos agrega la predicción que el texto no tenía, y el tamaño con tres apoyos. Si la L6 no cuenta, la predicción no suma a nadie.
+En este paso sumamos los cinco resultados. Un artículo entra en la lista inicial con al menos `MIN_SUPPORTS` resultados a favor. El código empieza en 2. Cambie el valor si lo justifica, 0 o 1 también valen. La tabla de la celda cuenta cuántos artículos tienen 0, 1, 2 y 3 o más resultados a favor. Mostramos cuántos artículos agrega la predicción que el texto no tenía, y el tamaño con tres resultados a favor. Si la L6 no cuenta, la predicción no suma a nadie, y eso también se informa como resultado.
 
 ```python
 added = table["prediction"] & l6_counts & ~table["text_says_read"]
@@ -742,12 +746,13 @@ else:
 
 table["supports"] = table[SUPPORT_COLUMNS].astype(int).sum(axis=1)
 table["in_view"] = table["supports"] >= MIN_SUPPORTS
-print(f"En vista: {table['in_view'].sum()}. Con tres apoyos: {(table['supports'] >= 3).sum()}. La predicción agrega {added.sum()} que el texto no tenía")
-print(table["supports"].value_counts().sort_index().to_dict())
+print(f"En vista: {table['in_view'].sum()}. Con tres resultados a favor: {(table['supports'] >= 3).sum()}. La predicción agrega {added.sum()} que el texto no tenía")
+counts = table["supports"].clip(upper=3).value_counts().reindex(range(4), fill_value=0).rename(index={3: "3 o más"})
+print(counts.rename_axis("resultados a favor").to_frame("artículos").T.to_string())
 ```
 
 ### Paso 4. Quitar cada resultado una vez
-En este paso quitamos cada resultado y contamos quién sale de la lista. Es lo que cambiaría la decisión. Un artículo sale si sin ese resultado le quedan menos de dos apoyos. Un resultado que saca a muchos artículos es uno del que la lista depende mucho. Si ese resultado fuera débil, la lista también lo sería.
+En este paso quitamos cada resultado y contamos quién sale de la lista. Es lo que cambiaría la decisión. Un artículo sale si sin ese resultado le quedan menos de `MIN_SUPPORTS` resultados a favor. Aquí usamos `MIN_SUPPORTS = 2`, el valor con que empieza el código. Si el equipo cambia el valor, esta cuenta cambia. Un resultado que saca a muchos artículos es uno del que la lista depende mucho. Si ese resultado fuera débil, la lista también lo sería.
 
 ```python
 drop_one = {}
@@ -764,10 +769,10 @@ assert set(drop_one) == set(SUPPORT_COLUMNS)
 print("Lista inicial y sensibilidad: OK")
 ```
 
-**Lo que vemos.** Con cinco apoyos hay 98 artículos en vista, 29 más que con cuatro. Si quitamos la predicción salen 29, y si quitamos el patrón de la L2 salen 35. El grupo leído casi no mueve la lista (2).
+**Lo que vemos.** Con cinco resultados y `MIN_SUPPORTS = 2` hay 98 artículos en vista, 29 más que con cuatro. Si quitamos la predicción salen 29, y si quitamos el patrón de la L2 salen 35. El grupo leído casi no mueve la lista (2).
 
 ### Paso 5. Una lista que se pueda leer
-En este paso recortamos la lista con la regla de la semana 2. El máximo es `standard["max_papers"]` de `pregunta.json`. Ordenamos por apoyos, después por `prob_texto` (la probabilidad de TF-IDF y regresión logística en `outputs/texto_l4.csv`) y después por título. Nos quedamos con los primeros y marcamos el resto con `recortado = True`, sin borrarlo. Los 3 artículos sin texto van al final dentro de su número de apoyos. El orden no es un puntaje nuevo: solo decide qué se lee primero cuando hay demasiados.
+En este paso recortamos la lista con la regla de la semana 2. El máximo es `standard["max_papers"]` de `pregunta.json`. Ordenamos por número de resultados a favor, después por `prob_texto` (la probabilidad de TF-IDF y regresión logística en `outputs/texto_l4.csv`) y después por título. Nos quedamos con los primeros y marcamos el resto con `recortado = True`, sin borrarlo. Los 3 artículos sin texto van al final dentro de su número de resultados a favor. El orden no es un puntaje nuevo: solo decide qué se lee primero cuando hay demasiados.
 
 ```python
 MAX_LIST = question_card["standard"]["max_papers"]
@@ -775,7 +780,7 @@ if "prob_texto" in text_l4.columns:
     prob_text = text_l4.assign(prob_texto=pd.to_numeric(text_l4["prob_texto"], errors="coerce")).groupby("title")["prob_texto"].max()
 else:
     prob_text = pd.Series(dtype=float)
-    print("texto_l4.csv no trae prob_texto. Dentro de cada número de apoyos se ordena por título.")
+    print("texto_l4.csv no trae prob_texto. Dentro de cada número de resultados a favor se ordena por título.")
 table["prob_texto"] = prob_text.reindex(table.index)
 starter_list = (table.loc[table["in_view"], SUPPORT_COLUMNS + ["supports", "prob_texto"]].reset_index()
                 .sort_values(["supports", "prob_texto", "title"], ascending=[False, False, True], na_position="last"))
@@ -793,12 +798,12 @@ assert starter_list["supports"].is_monotonic_decreasing
 print("Lista recortada: OK")
 ```
 
-**Lo que vemos.** De 98 artículos en vista se leen 30 y quedan 68 recortados. Los recortados siguen en el archivo con `recortado = True`, así que el equipo puede volver a ellos si la lista corta no alcanza. Primero van los artículos con más apoyos, y dentro de cada número de apoyos los que el texto de la L4 puntuó más alto.
+**Lo que vemos.** De 98 artículos en vista se leen 30 y quedan 68 recortados. Los recortados siguen en el archivo con `recortado = True`, así que el equipo puede volver a ellos si la lista corta no alcanza. Primero van los artículos con más resultados a favor, y dentro de cada número de resultados los que el texto de la L4 puntuó más alto.
 
 **Lo que aprendemos aquí.** La lista crece mucho con la predicción, porque más de la mitad de los artículos con etiqueta (146 de 276, el 53%) se predice internacional y eso no tiene que ver con el tema del equipo. Ser internacional es un atributo del artículo, no una razón para leerlo. Por eso la lista inicial es un punto de partida para leer, y la tabla de "quitar cada resultado" dice qué parte de la lista depende de cada método.
  
 ### Paso 6. Guardar la predicción y la lista
-En este paso guardamos `outputs/prediccion_l6.csv` (una fila por artículo) y `outputs/lista_inicial.csv` (los artículos en vista, primero los de más apoyos). `votos` es cuántos de los tres métodos dijeron internacional, y queda vacío en las filas sin etiqueta.
+En este paso guardamos `outputs/prediccion_l6.csv` (una fila por artículo) y `outputs/lista_inicial.csv` (los artículos en vista, primero los de más resultados a favor). `votos` es cuántos de los tres métodos dijeron internacional, y queda vacío en las filas sin etiqueta.
 
 ```python
 prediction_table = pd.DataFrame({
@@ -821,7 +826,7 @@ En este paso anotamos en `pregunta.json` cómo entra la predicción, si la L6 cu
 ```python
 question_card["prediction_use"] = {
     "label": LABEL,
-    "how_it_enters": "Un artículo recibe un apoyo si al menos 2 de los 3 métodos lo predicen positivo, con un modelo que no vio su etiqueta, y solo si la L6 cuenta.",
+    "how_it_enters": "La predicción cuenta a favor de un artículo si al menos 2 de los 3 métodos lo predicen positivo, con un modelo que no vio su etiqueta, y solo si la L6 cuenta.",
     "l6_counts": bool(l6_counts),
     "starter_list": {"in_view": int(len(starter_list)), "read": kept, "cut": int(starter_list["recortado"].sum())},
     "seeds_holding": f"{seeds_holding} de {len(SPLIT_SEEDS)}",
@@ -857,7 +862,7 @@ checks = [
     ("outputs/prediccion_l6.csv", lambda: prediction_path.is_file()),
     ("outputs/lista_inicial.csv", lambda: starter_path.is_file()),
     ("Matrices de confusión", lambda: all((OUTPUTS_DIR / f).is_file() for f in ["confusion_regresion.png", "confusion_bosque.png", "confusion_red.png"])),
-    ("Apoyos de las lecciones 2 a 5", lambda: len(groups_l3) > 0 and len(graph_l5.dropna(how="all")) > 0),
+    ("Resultados de las lecciones 2 a 5", lambda: len(groups_l3) > 0 and len(graph_l5.dropna(how="all")) > 0),
     ("Tres errores leídos a mano", lambda: "Escriba aquí" not in my_errors),
 ]
 passed = sum(_check_ok(n, f) for n, f in checks)
@@ -870,9 +875,9 @@ if passed == len(checks):
 
 ## Conclusiones
 
-El equipo de la secretaría de salud empezó la semana 2 con 318 artículos y una pregunta: ¿qué leer para su tema, y qué filtro puso cada artículo en la lista? Ahora tiene una lista de 30 para leer, recortada de 98 en vista. Cada artículo de la lista tiene al menos dos de cinco apoyos: el patrón de la L2, el grupo leído de la L3, el texto de la L4, el lugar en la red de la L5 y la predicción de la L6.
+El equipo de la secretaría de salud empezó la semana 2 con 318 artículos y una pregunta: ¿qué leer para su tema, y qué filtro puso cada artículo en la lista? Ahora tiene una lista de 30 para leer, recortada de 98 en vista. La lista muestra qué resultados apoyan cada artículo: el patrón de la L2, el grupo leído de la L3, el texto de la L4, el lugar en la red de la L5 y la predicción de la L6.
 
-Cada apoyo agregó algo distinto. El patrón de la L2 es el que más pesa: si lo quitamos salen 35 artículos. Sin el texto salen 22 y sin el grafo 14. El grafo agrega puentes que una cuenta de citas no vería. Si quitamos la predicción salen 29, pero su señal es el número de autores. Tres modelos no le ganan con claridad a contar autores. Con otras semillas la ventaja cambia, por eso miramos varias. Ser internacional no es una razón para leer un artículo, y el equipo lo sabe porque la tabla de "quitar cada resultado" lo muestra.
+Cada resultado agregó algo distinto. El patrón de la L2 es el que más pesa: si lo quitamos salen 35 artículos. Sin el texto salen 22 y sin el grafo 14. El grafo agrega puentes que una cuenta de citas no vería. Si quitamos la predicción salen 29, pero su señal es el número de autores. Tres modelos no le ganan con claridad a contar autores. Con otras semillas la ventaja cambia, por eso miramos varias. Ser internacional no es una razón para leer un artículo, y el equipo lo sabe porque la tabla de "quitar cada resultado" lo muestra.
 
 Lo que cambiaría la lista: otra etiqueta para la L6, otra partición de los datos, los 42 artículos sin afiliación, u otro margen que 0,02. Esta es la lista que el equipo lleva al sábado.
 
@@ -881,7 +886,7 @@ reading_list = starter_list.loc[~starter_list["recortado"], ["title", "supports"
 reading_list.index += 1
 print(f"Lista de lectura del equipo: {len(reading_list)} artículos")
 for i, row in reading_list.iterrows():
-    print(f"{i:2d}. ({row['supports']} apoyos) {row['title'][:90]}")
+    print(f"{i:2d}. ({row['supports']} resultados) {row['title'][:90]}")
 ```
 
 Esta lista no es la respuesta final. Es un punto de partida para leer, con el porqué de cada artículo escrito al lado. En el cuaderno de grupo cada grupo hace lo mismo con los artículos de Wikipedia de su secretaría.

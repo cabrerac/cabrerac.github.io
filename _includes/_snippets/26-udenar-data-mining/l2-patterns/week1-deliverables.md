@@ -5,29 +5,26 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-top text-left" style="width: 50%">
                 <p><b>Group zip by Tuesday 10 November, 23:59 Colombia time</b></p>
                 <ul>
-                    <li>week-1-&lt;group_id&gt;.zip</li>
-                    <li>The executed week 1 group notebook</li>
-                    <li>pregunta.json</li>
-                    <li>outputs/patrones.csv</li>
+                    <li>One file, week-1-&lt;group_id&gt;.zip</li>
+                    <li>week-1-group-&lt;group_id&gt;.ipynb, the group notebook executed and renamed</li>
+                    <li>pregunta.json, with the question to answer, the standard of the solution, and its use</li>
+                    <li>outputs/patrones.csv, with the word pairs, their support and lift, and which pairs were kept</li>
                 </ul>
-                <p><b>Saturday 7 November, 07:00 to 13:00</b></p>
-                <ul>
-                    <li>Colombia time. Shared block for Lecture 1 and Lecture 2</li>
-                    <li>Reading discussion, group notebook, project work</li>
-                    <li>Full timetable: <a href="{{ site.url }}/assets/documents/26-udenar-data-mining/week-1-session-plan-es.pdf" target="_blank" rel="noopener noreferrer">Week 1 session plan (PDF)</a></li>
-                </ul>
+                <p>pregunta.json and outputs/patrones.csv are the result of the first iteration of the project.</p>
             </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Individual reflection by Wednesday 11 November, 23:59</b></p>
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p><b>Individual reflection by Wednesday 11 November, 23:59 Colombia time</b></p>
                 <ul>
                     <li>One PDF, week-1-reflection-&lt;apellido&gt;-&lt;inicial&gt;.pdf</li>
-                    <li>Covers Lecture 1 and Lecture 2</li>
-                    <li>Use the week 1 reflection template on the course page</li>
+                    <li>Between 700 and 1000 words, using the week 1 reflection template</li>
+                    <li>Keep the headings Metadatos, Proceso, Decisión, Métodos, and Ética</li>
                 </ul>
-                <p>Both go through Moodle.</p>
+                <p><b>Requirements draft</b></p>
+                <p>Section 2 of project-report-&lt;group_id&gt;.pdf, with feedback on Saturday 14 November.</p>
+                <p>Submissions go through Moodle. Templates are on the <a href="https://cabrerac.github.io/teaching/26-udenar-data-mining/week-1-hub/" target="_blank">Week 1 page</a>.</p>
             </div>
         </div>
     </div>

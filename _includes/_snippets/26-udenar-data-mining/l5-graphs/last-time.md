@@ -10,7 +10,7 @@
                 <ul>
                     <li>Keywords, TF-IDF and a frozen encoder</li>
                     <li>Papers kept apart, right and wrong counts</li>
-                    <li>A paper stays in view with at least two supports</li>
+                    <li>The list shows which results support each paper</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -37,7 +37,7 @@
                     <li><b>Data preparation</b> - an edge list inside the set, a directed and an undirected graph, walks on the largest component</li>
                     <li><b>Modeling</b> - degree and PageRank, betweenness, node2vec</li>
                     <li><b>Evaluation</b> - no labels: against citations, across seeds, against random pairs</li>
-                    <li><b>Deployment</b> - the graph result as a fourth support</li>
+                    <li><b>Deployment</b> - the graph result as a fourth result for the list</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">

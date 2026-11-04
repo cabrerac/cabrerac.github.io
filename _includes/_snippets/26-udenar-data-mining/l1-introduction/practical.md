@@ -58,6 +58,10 @@ print("Repaso de Python: OK")
  
 **Qué hacer.** Ejecute las celdas de arriba hacia abajo. Cada paso empieza con **En este paso** y termina con una celda **Comprobar**. Algunas celdas le piden escribir con sus palabras. Hágalo, porque el cuaderno de grupo le pedirá lo mismo para su secretaría.
  
+**El sábado 7 nov.** A las 08:45 el docente ejecuta este cuaderno en vivo y ustedes lo ejecutan al mismo tiempo. Ejecútelo una vez antes del sábado y anote las celdas que no pudo ejecutar. En clase paramos cuando `pregunta.json` está guardado y hemos visto el perfil de los datos. Lo demás se termina en casa.
+ 
+**Del laboratorio al proyecto.** Aquí trabajamos con artículos de nutrición. Desde las 10:00 su grupo hace lo mismo en el cuaderno de grupo, con el archivo de su secretaría: G1 Agricultura, G2 Salud mental, G3 Medio ambiente, G4 Inclusión Social y G5 Vivienda. La Parte 1 también es el punto de partida de los requerimientos del proyecto, que van en la sección 2 del reporte `project-report-<group_id>.pdf`.
+ 
 **Mapa del cuaderno**
  
 | Parte | Fase CRISP-DM | Qué sale |
@@ -86,6 +90,8 @@ En este paso escribimos quién decide, qué decide y qué no puede decidir. Esto
 | ¿Qué filtro no sirve? | Un número alto de citas por sí solo |
  
 La última fila importa. Un artículo muy citado puede ser un manual general o un artículo de otro tema que cita todo el mundo. La cantidad de citas mide popularidad, no si el artículo sirve para el trabajo del equipo.
+ 
+En los requerimientos del proyecto (sección 2 del reporte `project-report-<group_id>.pdf`), estas respuestas van en **Objetivos del negocio**: quién necesita la lista, qué puede decidir y qué no.
  
 ### Paso 2. Configuración
 En este paso importamos las librerías y creamos las carpetas.

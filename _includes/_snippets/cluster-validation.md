@@ -67,7 +67,7 @@
                 <p><b>Shuffled baseline</b></p>
                 <p>Each word keeps its number of items.</p>
                 <p>Its items are drawn at random.</p>
-                <p>Real silhouette against the 95th percentile, p95() rank rule, no interpolation.</p>
+                <p>Real silhouette against the 95th percentile of the shuffled silhouettes, read as in Lecture 2.</p>
                 <p>Unlike a swap null, item length is not kept. Rows have length 1, so the mix of words is compared.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 64%">

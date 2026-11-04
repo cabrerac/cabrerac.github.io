@@ -50,14 +50,12 @@ $$
                 <p>5 swap attempts per 1 in the table.</p>
                 <p>100 random tables, seed 7. Sorting each text's words makes the seed repeatable.</p>
                 <p>Keep pairs at the floor and strictly above the 95th percentile.</p>
-                <p>p95, swap_null_counts and kept_pairs come from the course module swap_randomization.py.</p>
+                <p>pair_counts, swap_null_counts and kept_pairs are defined in the notebook, Part 6, Step 4.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
 
 
 ```python
-from swap_randomization import p95, swap_null_counts, kept_pairs
-
 def swap_randomize(transactions, n_swaps, rng):
     rows = [set(t) for t in transactions]
     cells = [(i, w) for i, t in enumerate(rows) for w in sorted(t)]
@@ -73,8 +71,9 @@ def swap_randomize(transactions, n_swaps, rng):
         cells[a], cells[b] = (t1, w2), (t2, w1)
     return rows
 
-transactions = [s & set(vocabulary) for s in word_sets]   # words at the floor only
-null = swap_null_counts(transactions, candidates)          # 100 tables, 5 swaps per 1, SEED
+frequent_words = set(vocabulary)
+transactions = [s & frequent_words for s in word_sets]
+null = swap_null_counts(transactions, candidates)   # N_SAMPLES tables, SWAPS_PER_ONE, SEED
 kept = kept_pairs(candidates, null)
 ```
 

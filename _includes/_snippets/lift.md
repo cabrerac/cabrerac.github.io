@@ -131,9 +131,11 @@
 def compute_lift(pair_support, n_a, n_b, n):
     return pair_support * n / (n_a * n_b)
 
-lift = {(a, b): compute_lift(c, word_count[a], word_count[b], N)
-        for (a, b), c in candidates.items()}
-top = sorted(lift, key=lift.get, reverse=True)[:10]
+table["lift"] = [
+    compute_lift(c, word_count[a], word_count[b], N)
+    for a, b, c in zip(table["word_a"], table["word_b"], table["support"])
+]
+table.sort_values("lift", ascending=False).head(10)
 ```
 
             </div>

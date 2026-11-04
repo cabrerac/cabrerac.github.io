@@ -1,105 +1,51 @@
 <!-- RENDER: -->
 
-**Saturday 21 Nov 2026, 07:00 to 13:00 (Colombia)**. Lectures **L5** (Graphs and an item's place among the others) and **L6** (Classification, regression, and a given label). The week 3 group notebook is the project.
+**Saturday 21 Nov 2026, 07:00 to 13:00 (Colombia)**. Lectures **L5** and **L6**.
 
 ---
 
-### Lectures and Saturday plan
+### Lectures and readings
 
 | Resource | Link |
 |---------|--------|
-| Lecture 5 - Graphs and an item's place among the others | [l5-graphs](/teaching/26-udenar-data-mining/l5-graphs/) |
-| Lecture 6 - Classification, regression, and a given label | [l6-prediction](/teaching/26-udenar-data-mining/l6-prediction/) |
-| Recording L5 | link added when recorded |
-| Recording L6 | link added when recorded |
-| Saturday plan (PDF, Spanish) | [week-3-session-plan-es.pdf](/assets/documents/26-udenar-data-mining/week-3-session-plan-es.pdf) |
+| Lecture 5 | [l5-graphs](/teaching/26-udenar-data-mining/l5-graphs/) |
+| Lecture 6 | [l6-prediction](/teaching/26-udenar-data-mining/l6-prediction/) |
+| Saturday plan | [week-3-session-plan-es.pdf](/assets/documents/26-udenar-data-mining/week-3-session-plan-es.pdf) |
+| Page, L., Brin, S., Motwani, R. and Winograd, T. (1998). The PageRank citation ranking: Bringing order to the web | [Archived copy](https://web.archive.org/web/20241231011600/http://ilpubs.stanford.edu:8090/422/) |
+| LeCun, Y., Bengio, Y. and Hinton, G. (2015). Deep learning | [DOI](https://doi.org/10.1038/nature14539) |
+| Learning journal week 3 (Word) | [learning-journal-week-3.docx](/assets/documents/26-udenar-data-mining/learning-journal-week-3.docx) |
 | Course home | [/teaching/26-udenar-data-mining/](/teaching/26-udenar-data-mining/) |
 
-Watch both recordings before Saturday. Each recording has the theory and a step-by-step pass through that lecture's notebook. The recording links are in the table above.
-
 ---
 
-### Colabs
+### Notebooks
 
-| Notebook | Colab |
-|----------|-------|
-| L5 individual | [l5-graphs](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l5-graphs.ipynb) |
-| L6 individual | [l6-prediction](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l6-prediction.ipynb) |
-| Week 3 group (the project) | [week-3-group](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/week-3-group.ipynb) |
+| Notebook | Colab | To run locally |
+|----------|-------|----------------|
+| L5 individual | [Open in Colab](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l5-graphs.ipynb) | [requirements](/assets/notebooks/26-udenar-data-mining/l5-graphs-requirements.txt) |
+| L6 individual | [Open in Colab](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l6-prediction.ipynb) | [requirements](/assets/notebooks/26-udenar-data-mining/l6-prediction-requirements.txt) |
+| Week 3 group | [Open in Colab](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/week-3-group.ipynb) | [requirements](/assets/notebooks/26-udenar-data-mining/week-3-group-requirements.txt) |
 
-The L5 and L6 notebooks read `outputs/grupos_l3.csv` and `outputs/texto_l4.csv` from your L3 and L4 notebooks. The group notebook reads `pregunta.json` and `outputs/en_vista.csv` from your week 2 group zip. Keep them at hand. `marcas.csv` goes only in the week 3 zip.
-
----
-
-### Local installation
-
-To run locally, install each notebook's dependencies from:
-
-| Notebook | Requirements |
-|----------|--------------------|
-| L5 individual | [l5-graphs-requirements.txt](/assets/notebooks/26-udenar-data-mining/l5-graphs-requirements.txt) |
-| L6 individual | [l6-prediction-requirements.txt](/assets/notebooks/26-udenar-data-mining/l6-prediction-requirements.txt) |
-| Week 3 group | [week-3-group-requirements.txt](/assets/notebooks/26-udenar-data-mining/week-3-group-requirements.txt) |
-
-The notebooks download the course data themselves. The files are also listed below.
+The notebooks download the course data themselves. The L5 and L6 notebooks read `outputs/grupos_l3.csv` and `outputs/texto_l4.csv` from L3 and L4. The group notebook reads `pregunta.json` and `outputs/en_vista.csv` from week 2.
 
 ---
 
 ### Course data
 
 | Data | File |
-|------|------|
-| Papers on nutrition (labs) | [nutricion-papers.csv](/assets/data/26-udenar-data-mining/nutricion-papers.csv) |
-| G1 Agricultura | [agricultura.csv](/assets/data/26-udenar-data-mining/agricultura.csv) |
-| G2 Salud mental | [salud-mental.csv](/assets/data/26-udenar-data-mining/salud-mental.csv) |
-| G3 Medio ambiente | [medio-ambiente.csv](/assets/data/26-udenar-data-mining/medio-ambiente.csv) |
-| G4 Inclusión Social | [inclusion-social.csv](/assets/data/26-udenar-data-mining/inclusion-social.csv) |
-| G5 Vivienda | [vivienda.csv](/assets/data/26-udenar-data-mining/vivienda.csv) |
-| Sources and credit | [README](https://github.com/cabrerac/cabrerac.github.io/blob/gh-pages/assets/data/26-udenar-data-mining/README.md) |
+|
 
 ---
 
-### Readings and journal
+### Deliverables
 
-| Resource | Link |
-|---------|--------|
-| Page, L., Brin, S., Motwani, R. and Winograd, T. (1998). The PageRank citation ranking: Bringing order to the web | [Stanford InfoLab record (archived copy)](https://web.archive.org/web/20241231011600/http://ilpubs.stanford.edu:8090/422/) |
-| LeCun, Y., Bengio, Y. and Hinton, G. (2015). Deep learning | [DOI](https://doi.org/10.1038/nature14539) |
-| Learning journal week 3 (Word) | [learning-journal-week-3.docx](/assets/documents/26-udenar-data-mining/learning-journal-week-3.docx) |
+| Deliverable | Template | Due (Colombia) |
+|-------------|----------|----------------|
+| Group zip `week-3-<group_id>.zip`, with the talk title and abstract | [title example](/assets/documents/26-udenar-data-mining/project-title-es.example.txt) · [abstract example](/assets/documents/26-udenar-data-mining/project-abstract-es.example.txt) | Tue 24 Nov 2026, 23:59 |
+| Reflection `week-3-reflection-<surname>-<initial>.pdf` | [reflection-week-3-template.docx](/assets/documents/26-udenar-data-mining/reflection-week-3-template.docx) | Wed 25 Nov 2026, 23:59 |
+| Project talk, zip and reflection | [week 4 page](/teaching/26-udenar-data-mining/l8-final-project/) | From Fri 27 Nov 2026 |
 
-Fill in the journal before Saturday and bring it to the reading discussion. It is not graded. Both readings are also attached to the course email.
-
----
-
-### Templates and deliverables
-
-| Resource | Link |
-|---------|--------|
-| Week 3 reflection (Word) | [reflection-week-3-template.docx](/assets/documents/26-udenar-data-mining/reflection-week-3-template.docx) |
-| Project report (Word) | [project-report-template.docx](/assets/documents/26-udenar-data-mining/project-report-template.docx) |
-| Project presentation (PowerPoint, six slides) | added before Mon 16 Nov |
-| Project reflection (Word) | [project-reflection-template.docx](/assets/documents/26-udenar-data-mining/project-reflection-template.docx) |
-| Talk title example (papers lab) | [project-title-es.example.txt](/assets/documents/26-udenar-data-mining/project-title-es.example.txt) |
-| Talk abstract example (papers lab) | [project-abstract-es.example.txt](/assets/documents/26-udenar-data-mining/project-abstract-es.example.txt) |
-| Project requirements (Word) | [project-requirements-template.docx](/assets/documents/26-udenar-data-mining/project-requirements-template.docx) |
-| Talk order (L8) | [l8-final-project](/teaching/26-udenar-data-mining/l8-final-project/) |
-
-| Deliverable | Due (Colombia) |
-|-------------|----------------|
-| Group zip `week-3-<group_id>.zip` with `week-3-group-<group_id>.ipynb`, `pregunta.json`, `marcas.csv`, `outputs/grafo.csv`, `outputs/prediccion.csv`, `outputs/lista_inicial.csv`, `project-title-es.txt` and `project-abstract-es.txt` | Tue 24 Nov 2026, 23:59 |
-| Reflection `week-3-reflection-<surname>-<initial>.pdf` (first surname and first initial) | Wed 25 Nov 2026, 23:59 |
-| Talk slides `project-slides-<group_id>.pdf` | Fri 27 Nov 2026, 23:59 |
-| Project zip `project-<group_id>.zip` (the same group notebook, with fixes after feedback) | Tue 1 Dec 2026, 23:59 |
-| Project reflection `project-reflection-<apellido>-<inicial>.pdf` | Wed 2 Dec 2026, 23:59 |
-
-`outputs/grafo.csv` and `outputs/prediccion.csv` give the last two supports (place in the graph and prediction). `outputs/lista_inicial.csv` is the starter list: every article has at least two supports and, if it is read, the fact that would remove it. An article central only because it links to many others carries `alerta_centro`. It is a warning, not a support. The list to read has at most `max_articles` from your `pregunta.json`. The rest stay in the file with `recortado`. If fewer than `min_articles` qualify, the list is not padded. It is read in full and reported as a weak result.
-
-The talk title is under 15 words. The abstract is one paragraph of about 120 words: the secretaría, the newcomer's question, two supports on the list, and what fact would remove an article. Your group writes both files. They go in the week 3 zip only. Talks are on Sat 28 Nov, in the order G1 to G5.
-
-Project week open hours on Teams (23 to 27 Nov): [POR CONFIRMAR] one hour on Wed 25 Nov, time [POR CONFIRMAR].
-
-Submissions go through Moodle. Your group's Teams link is in Moodle.
+Submissions go through Moodle.
 
 ---
-
 <!-- end RENDER: -->

@@ -118,13 +118,27 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 35%">
                 <p><b>Small models share rows</b></p>
-                <p>A medium spaCy model keeps 20,000 vectors for about 685,000 words.</p>
-                <p>Many words point to the same row.</p>
-                <p>Then high and low get a cosine of 1.0, which means nothing.</p>
+                <p>A medium spaCy model keeps 20,000 vectors for about 685,000 words. Many words share a row, so high and low get a cosine of 1.0.</p>
                 <p>The large model has about 343,000 vectors. High and low get 0.76.</p>
-                <p>In one collection of health papers, 58 of the 150 most frequent words shared a row in the medium model and none in the large one.</p>
+                <p>Words with exactly the same vector are read apart.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 65%">
+
+
+```python
+def shared_vectors(vocab_words, nlp):
+    by_vector = {}
+    for w in vocab_words:
+        if nlp.vocab.has_vector(w):
+            by_vector.setdefault(nlp.vocab.get_vector(w).tobytes(), []).append(w)
+    return [group for group in by_vector.values() if len(group) > 1]
+
+shared_groups = shared_vectors(vocabulary, nlp)
+group_of = {w: i for i, group in enumerate(shared_groups) for w in group}
+```
+
             </div>
         </div>
     </div>
@@ -140,7 +154,7 @@
                 <ul>
                     <li>Load the large model</li>
                     <li>No closeness when a word has no vector</li>
-                    <li>Words with exactly the same vector (a shared or copied row) are read apart</li>
+                    <li>Unit vectors turn the cosine into a dot product</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
@@ -151,21 +165,13 @@ import numpy as np
 import spacy
 
 nlp = spacy.load("en_core_web_lg")
-
-def shared_vectors(vocab_words, nlp):
-    by_vector = {}
-    for w in vocab_words:
-        if nlp.vocab.has_vector(w):
-            by_vector.setdefault(nlp.vocab.get_vector(w).tobytes(), []).append(w)
-    return [group for group in by_vector.values() if len(group) > 1]
-
-group_of = {w: i for i, g in enumerate(shared_vectors(vocabulary, nlp)) for w in g}
+no_vector = [w for w in vocabulary if not nlp.vocab.has_vector(w)]
 
 def unit_vector(word, nlp):
     v = nlp.vocab.get_vector(word)
     return v / np.linalg.norm(v)
 
-VECTORS = {w: unit_vector(w, nlp) for w in vocabulary if nlp.vocab.has_vector(w)}
+VECTORS = {w: unit_vector(w, nlp) for w in vocabulary if w not in no_vector}
 
 def pair_cosine(a, b):
     if a not in VECTORS or b not in VECTORS:

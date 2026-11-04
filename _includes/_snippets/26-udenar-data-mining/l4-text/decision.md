@@ -8,18 +8,18 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 55%">
                 <p><b>Three results now</b></p>
-                <table class="table" style="font-size: 0.75em">
+                <table class="table" style="font-size: 0.7em">
                     <thead>
-                        <tr><th>Paper</th><th>Pattern</th><th>Group</th><th>Text</th><th>Supports</th><th>In view</th></tr>
+                        <tr><th>Paper</th><th>Pattern</th><th>Group</th><th>Text</th><th>Results in favour</th><th>In view to start</th></tr>
                     </thead>
                     <tbody>
                         <tr><td>A</td><td>yes</td><td>yes</td><td>yes</td><td>3</td><td>yes</td></tr>
                         <tr><td>B</td><td>no</td><td>yes</td><td>yes</td><td>2</td><td>yes</td></tr>
                         <tr><td>C</td><td>yes</td><td>no</td><td>no</td><td>1</td><td>no</td></tr>
-                        <tr><td>D</td><td>no</td><td>noise</td><td>yes</td><td>1</td><td>no, but listed for a look</td></tr>
+                        <tr><td>D</td><td>no</td><td>noise</td><td>yes</td><td>1</td><td>no, listed for a look</td></tr>
                     </tbody>
                 </table>
-                <p>In view with at least 2 supports: 52 of 317 papers</p>
+                <p>In view with MIN_SUPPORTS = 2: 52 of 317 papers</p>
 
 
 ```python
@@ -35,7 +35,8 @@ SUPPORT_COLUMNS = ["has_pattern", "read_group", "text_says_read"]
                     <li>Another target</li>
                     <li>Another threshold than 0.5</li>
                 </ul>
-                <p>The text result is one support, like the others. It does not decide alone.</p>
+                <p>The text result is one result, like the others. It does not decide alone.</p>
+                <p>The group can keep other papers if it explains why.</p>
             </div>
         </div>
     </div>
