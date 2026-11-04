@@ -1,7 +1,5 @@
 <!-- SLIDES: -->
 
-<!-- PLACEHOLDER. Depends on the L6 label (week-3-spec.md section 9, open question 1). Filled after Christian decides. -->
-
 ## The Label and the Attributes
 
 <div class="rows" style="height: 100%">
@@ -23,7 +21,7 @@
                     <li><b>has_image</b></li>
                     <li><b>n_claims_without(...)</b> - P18, the image, comes out of n_claims only when it is the label</li>
                 </ul>
-                <p>Inputs for the papers lab, and missing values per column: [TBD label, open question 1]</p>
+                <p>The Lecture 6 notebook lists the inputs for the papers lab and the missing values per column.</p>
             </div>
         </div>
     </div>
@@ -35,12 +33,12 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Overlap with Lecture 4: [TBD label, open question 1]</b></p>
+                <p><b>Overlap with Lecture 4</b></p>
                 <p>A label that repeats the text result is not a new result.</p>
                 <p>How strong the overlap is, and what the course does about it.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Leakage on our data: [TBD label, open question 1]</b></p>
+                <p><b>Leakage on our data</b></p>
                 <p>Which input is built from the label, and what is taken out.</p>
                 <p>The same model with and without it.</p>
             </div>

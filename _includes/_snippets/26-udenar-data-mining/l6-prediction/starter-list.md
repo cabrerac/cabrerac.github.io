@@ -1,7 +1,5 @@
 <!-- SLIDES: -->
 
-<!-- PLACEHOLDER. Depends on the L6 label (week-3-spec.md section 9, open question 1). Filled after Christian decides. -->
-
 ## The Prediction Support
 
 <div class="rows" style="height: 100%">
@@ -53,10 +51,9 @@ table["prediction"] = (voted >= 2).reindex(table.index, fill_value=False)
                 <ul>
                     <li>The prediction counts only when the three methods beat the majority class</li>
                     <li>In the group notebooks the label repeats the text, so both share text_or_prediction</li>
-                    <li>Print how many papers the prediction adds</li>
+                    <li>Print how many papers the prediction adds, and the size of the list</li>
                     <li>MIN_SUPPORTS gives a first list. Any article can stay if the group says why</li>
                 </ul>
-                <p>Sizes for our label: [TBD label, open question 1]</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 60%">
 
