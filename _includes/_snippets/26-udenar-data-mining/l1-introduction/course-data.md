@@ -29,9 +29,13 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>The lab question</b></p>
                 <p>We are an internal team in a municipality, the city hall, working for the health department. A new colleague must decide which papers on nutrition to read first.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/pasto-buildings.png" alt="Building footprints in Pasto" style="height: 380px">
+                <div class="footnote">Building footprints in Pasto, OpenStreetMap</div>
             </div>
         </div>
     </div>
@@ -47,8 +51,8 @@
                 <p>Your group is an internal team in the municipality that builds a starter reading list of Wikipedia articles for new colleagues in a department. Each group works on the Wikipedia file of its department. The list changes over the three weeks and is presented on Saturday 28 November. Read the <a href="{{ site.url }}/assets/documents/26-udenar-data-mining/project-brief-es.pdf" target="_blank" rel="noopener noreferrer">project brief</a>. On Saturday we start the <a href="{{ site.url }}/assets/documents/26-udenar-data-mining/project-requirements-template.docx" target="_blank" rel="noopener noreferrer">requirements</a>. That document is part of the final report.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Wikipedia-logo-v2-es.svg" alt="Spanish Wikipedia logo" style="height: 320px">
-                <div class="footnote">Spanish Wikipedia logo, Wikimedia Foundation, CC BY-SA 3.0, via Wikimedia Commons</div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Wikipedia-logo-v2-en.svg" alt="English Wikipedia logo" style="height: 320px">
+                <div class="footnote">English Wikipedia logo, Wikimedia Foundation, CC BY-SA 3.0, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
