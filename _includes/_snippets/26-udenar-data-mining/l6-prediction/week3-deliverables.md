@@ -13,7 +13,6 @@
                     <li>The talk title and abstract, project-title-es.txt and project-abstract-es.txt</li>
                 </ul>
                 <p>outputs/lista_inicial.csv is the starter list, with the results that support each article and the fact that would remove it.</p>
-                <p>Submissions go through Moodle.</p>
             </div>
             <div class="column vertical-top text-left" style="width: 50%">
                 <p><b>Individual reflection by Wednesday 25 November, 23:59 Colombia time</b></p>

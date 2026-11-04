@@ -22,9 +22,7 @@
                     <li>Between 700 and 1000 words, using the week 1 reflection template</li>
                     <li>Keep the headings Metadatos, Proceso, Decisión, Métodos, and Ética</li>
                 </ul>
-                <p><b>Requirements draft</b></p>
-                <p>Not in the Tuesday zip. The finished document is 350 to 600 words. The canvas does not count. Feedback is on Saturday 14 November, and the document is handed in with the final report.</p>
-                <p>Submissions go through Moodle. Templates are on the <a href="https://cabrerac.github.io/teaching/26-udenar-data-mining/week-1-hub/" target="_blank">Week 1 page</a>.</p>
+                <p>Templates are on the <a href="https://cabrerac.github.io/teaching/26-udenar-data-mining/week-1-hub/" target="_blank">Week 1 page</a>.</p>
             </div>
         </div>
     </div>

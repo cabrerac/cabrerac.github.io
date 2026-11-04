@@ -58,7 +58,6 @@ The slides and both final items go through Moodle.
 | Project report (Word) | [project-report-template.docx](/assets/documents/26-udenar-data-mining/project-report-template.docx) |
 | Project presentation (PowerPoint, six slides) | added before Mon 16 Nov |
 | Project reflection (Word) | [project-reflection-template.docx](/assets/documents/26-udenar-data-mining/project-reflection-template.docx) |
-| Project requirements (Word) | [project-requirements-template.docx](/assets/documents/26-udenar-data-mining/project-requirements-template.docx) |
 | Course home | [/teaching/26-udenar-data-mining/](/teaching/26-udenar-data-mining/) |
 
 <!-- end RENDER: -->
