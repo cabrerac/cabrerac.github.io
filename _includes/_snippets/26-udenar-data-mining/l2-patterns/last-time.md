@@ -29,10 +29,10 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>A data mining question</b></p>
                 <ul>
-                    <li><b>Question</b> - which papers must the team read?</li>
-                    <li><b>Steps</b> - the six phases, one line each</li>
-                    <li><b>Standard</b> - set before the results, such as 10 to 30 papers</li>
-                    <li><b>Use</b> - a starter reading list, not evidence to cite</li>
+                    <li><b>Question:</b> which papers must the team read?</li>
+                    <li><b>Steps:</b> the six phases, one line each</li>
+                    <li><b>Standard:</b> set before the results, such as 10 to 30 papers</li>
+                    <li><b>Use:</b> a starter reading list, not evidence to cite</li>
                 </ul>
                 <p>This week you should be able to state a data mining question and place each step in CRISP-DM.</p>
             </div>
@@ -57,10 +57,10 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <ul>
-                    <li><b>Data preparation</b> - one set of words per paper, pair and word counts, a vocabulary match</li>
-                    <li><b>Modeling</b> - frequent word pairs, lift, embedding closeness</li>
-                    <li><b>Evaluation</b> - a swap randomisation baseline and a random pair baseline</li>
-                    <li><b>Deployment</b> - how a kept pattern will be used</li>
+                    <li><b>Data preparation:</b> one set of words per paper, pair and word counts, a vocabulary match</li>
+                    <li><b>Modeling:</b> frequent word pairs, lift, embedding closeness</li>
+                    <li><b>Evaluation:</b> a swap randomisation baseline and a random pair baseline</li>
+                    <li><b>Deployment:</b> how a kept pattern will be used</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">

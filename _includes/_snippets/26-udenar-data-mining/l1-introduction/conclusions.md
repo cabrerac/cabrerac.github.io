@@ -8,10 +8,10 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <h3><a href="https://cabrerac.github.io/teaching/26-udenar-data-mining/l1-introduction/" target="_blank">Lecture 1</a></h3>
                 <ul>
-                    <li>What data mining is and where it came from</li>
-                    <li>CRISP-DM and its six phases</li>
-                    <li>Data preparation depends on the method</li>
-                    <li>Question, steps, standard, and use</li>
+                    <li>The Data Mining concept</li>
+                    <li>Data Mining methodologies</li>
+                    <li>The Data Mining question</li>
+                    <li>The course data and project</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">

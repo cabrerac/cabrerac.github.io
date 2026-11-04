@@ -7,7 +7,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p>
-                   We are learning to <i>answer a stated question with data mining</i>, from the question to the use of the answer. We use real data, current tools, and collaborative work. We should continuously reflect about the learning process with respect to our own domains and professional practice.
+                   We are learning to <i>answer a stated question with data mining</i>, from the question to the use of the answer. We should continuously reflect about the learning process with respect to our own domains and professional practice.
                 </p>
             </div>
         </div>
@@ -19,16 +19,16 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p>
                    A combination of theory and practicals, relying strongly on collaborative and deliberative work. Resources are available on the <a href="https://cabrerac.github.io/teaching/26-udenar-data-mining/" target="_blank">course website</a>.
                 </p>
                 <br>
                 <p>
-                   <b>Async sessions released on Mondays</b>
+                   <b>Async sessions, during the week</b>
                    <ul>
+                      <li>Reading relevant papers and reports</li>
                       <li>Async videos with theoretical concepts and demos of the individual notebooks</li>
-                      <li>Students go through individual notebooks themselves before Saturday</li>
                    </ul>
                 </p>
                 <p>
@@ -50,14 +50,15 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Homework</b></p>
                    <ul>
                       <li>Personal learning journal with your answers to the reading questions, before Saturday sessions</li>
-                      <li>Group zip with the week's group notebook and its output files. Started on Saturday and due on Tuesday at 23:59 Colombia time</li>
-                      <li>Reference outputs and a solution video are shared on Wednesday morning</li>
-                      <li>Individual reflection on the week's learning, between 700 and 1000 words. Due on Wednesday at 23:59 using the provided template</li>
+                      <li>Group zip with the week's group notebook and its output files. Started on Saturday and due on Tuesday at 23:59 Colombia time.</li>
+                      <li>Individual reflection on the week's learning, between 700 and 1000 words. Due on Wednesday at 23:59 using the provided template.</li>
                       <li>Course project presented on our final day: Saturday, 28 November</li>
+                      <li>Project report due on Tuesday 1st of December</li>
+                      <li>Individual reflection due on Wednesday 2nd of December</li>
                       <li>Submissions through Moodle</li>
                    </ul>
             </div>
@@ -70,7 +71,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Assessment</b></p>
                    <ul>
                       <li><b>Course mark:</b> 60% formative (weeks 1 to 3) + 40% final project</li>
@@ -98,16 +99,19 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>A few comments</b></p>
                    <ul>
-                      <li>The course follows an active learning approach. <b>Your participation</b> is crucial for everyone to succeed</li>
-                      <li>Turn on your camera during Saturday sync sessions unless you have agreed an exception with the instructor</li>
-                      <li>Complete async videos and run the individual notebooks in Colab before Saturday. Note the cells that did not run</li>
-                      <li>Bring your learning journal to reading discussions. Both readings of each week come in the course email the week before</li>
+                      <li>The course follows an active learning approach. <b>Your participation</b> is crucial for everyone to succeed.</li>
+                      <li>Turn on your camera during Saturday sync sessions</li>
+                      <li>Complete async videos and run the individual notebooks in Colab before Saturday</li>
+                      <li>Bring your learning journal to reading discussions</li>
                       <li>Use your group Microsoft Teams link for in-group work during sync sessions</li>
-                      <li>You may use AI during the course. Do not submit a reflection that is only generated text</li>
+                      <li>Report your contributions honestly</li>
+                      <li>You may use AI during the course. Do not submit a reflection that is only generated text.</li>
                       <li>Respect data ethics on the explored datasets</li>
+                      <li>Respect provided templates and word limits</li>
+                      <li>The project report must show the data mining process.</li>
                    </ul>
             </div>
         </div>
@@ -119,12 +123,12 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Week 1:</b> <a href="https://cabrerac.github.io/teaching/26-udenar-data-mining/l1-introduction/" target="_blank">Lecture 1</a> and <a href="https://cabrerac.github.io/teaching/26-udenar-data-mining/l2-patterns/" target="_blank">Lecture 2</a>, then one Saturday session.</p>
                 <p><b>Saturday 7 November, 07:00 to 13:00 Colombia time</b></p>
                 <ul>
-                    <li><b>07:00</b> Opening. Each group gets one question from the learning journal</li>
-                    <li><b>07:15</b> Reading discussion in groups. Each group prepares one slide that answers its question</li>
+                    <li><b>07:00</b> Opening. Each group gets one question from the learning journal.</li>
+                    <li><b>07:15</b> Reading discussion in groups. Each group prepares one slide that answers its question.</li>
                     <li><b>08:00</b> Plenary with one speaker per group</li>
                     <li><b>08:45</b> Live run of the Lecture 1 and Lecture 2 notebooks, each student in their own Colab</li>
                     <li><b>10:00</b> Group notebook</li>

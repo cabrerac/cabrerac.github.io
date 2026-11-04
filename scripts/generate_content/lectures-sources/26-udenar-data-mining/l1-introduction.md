@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-data-mining
-title: Introduction to data mining, questions, and methodology
-description: Lecture 1 introduces the course and how we will work along it. We present CRISP-DM as the methodology for the course. Its six steps are business understanding, data understanding, data preparation, modeling, evaluation, and deployment. We set those steps next to Access, Assess, Address, the methodology from the Big Data course. Data preparation is one of those steps, and each later method asks for its own preparation. The lecture then states what a data-mining question needs. That is the steps to answer it, a standard for a good answer, and a use for that answer.
+title: Introduction to Data Mining, methodologies, and questions
+description: Lecture 1 introduces the course and how we will work along it. We introduce the Data Mining concept and its methodologies. We present CRISP-DM as the methodology for the course. Its six steps are business understanding, data understanding, data preparation, modeling, evaluation, and deployment. The lecture then states what a data-mining question needs. That is the steps to answer it, a standard for a good answer, and a use for that answer. We end this lecture introducing the data we will use in our labs and the course project.
 session: 1
 start_time: 07:00 am
 end_time: 01:00 pm
@@ -31,21 +31,29 @@ notebook_description: Práctica individual de la Lección 1. Formular la pregunt
 
 <!-- SLIDES: -->
 
-# The Data Science Process
+# Last Course
 
 <!-- end SLIDES: -->
-
-{% include _snippets/data-science-process.md %}
 
 {% include _snippets/26-udenar-data-mining/l1-introduction/last-course.md %}
 
+{% include _snippets/data-science-process.md %}
+
 <!-- SLIDES: -->
 
-# What is Data Mining
+# The Data Mining Concept
 
 <!-- end SLIDES: -->
 
-{% include _snippets/data-mining-history.md %}
+{% include _snippets/data-mining-concept.md %}
+
+<!-- SLIDES: -->
+
+# Data Mining Methodologies
+
+<!-- end SLIDES: -->
+
+{% include _snippets/data-mining-methodologies.md %}
 
 <!-- SLIDES: -->
 
@@ -54,14 +62,6 @@ notebook_description: Práctica individual de la Lección 1. Formular la pregunt
 <!-- end SLIDES: -->
 
 {% include _snippets/crisp-dm.md %}
-
-<!-- SLIDES: -->
-
-# CRISP-DM and the Data Science Process
-
-<!-- end SLIDES: -->
-
-{% include _snippets/crisp-dm-and-data-science-process.md %}
 
 <!-- SLIDES: -->
 
