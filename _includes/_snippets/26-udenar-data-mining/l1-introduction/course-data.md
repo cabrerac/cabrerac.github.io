@@ -45,7 +45,7 @@
                 <p><b>The course project</b></p>
                 <p>Your group is an internal team in an alcaldía. It builds a lista de inicio, a starter reading list of Wikipedia articles for new colleagues in one secretaría.</p>
                 <p>Each group works on the Wikipedia file of its secretaría. The list grows over the three weeks and is presented on Saturday 28 November.</p>
-                <p>Read the <a href="{{ site.url }}/assets/documents/26-udenar-data-mining/project-brief-es.pdf" target="_blank" rel="noopener noreferrer">project brief</a>. On Saturday we start the <a href="{{ site.url }}/assets/documents/26-udenar-data-mining/project-requirements-template.docx" target="_blank" rel="noopener noreferrer">requirements</a>, section 2 of the project report, with feedback on Saturday 14 November.</p>
+                <p>Read the <a href="{{ site.url }}/assets/documents/26-udenar-data-mining/project-brief-es.pdf" target="_blank" rel="noopener noreferrer">project brief</a>. On Saturday we start the <a href="{{ site.url }}/assets/documents/26-udenar-data-mining/project-requirements-template.docx" target="_blank" rel="noopener noreferrer">requirements</a>. That document is part of the final report. Feedback is on Saturday 14 November.</p>
             </div>
         </div>
     </div>

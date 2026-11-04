@@ -106,7 +106,7 @@
                       <li>Complete async videos and run the individual notebooks in Colab before Saturday. Note the cells that did not run</li>
                       <li>Bring your learning journal to reading discussions. Both readings of each week come in the course email the week before</li>
                       <li>Use your group Microsoft Teams link for in-group work during sync sessions</li>
-                      <li>You are free to use AI during the course but declare your use honestly in every reflection. Do not submit wholesale AI-generated reflections</li>
+                      <li>You may use AI during the course. Do not submit a reflection that is only generated text</li>
                       <li>Respect data ethics on the explored datasets</li>
                    </ul>
             </div>
@@ -128,7 +128,7 @@
                     <li><b>08:00</b> Plenary with one speaker per group</li>
                     <li><b>08:45</b> Live run of the Lecture 1 and Lecture 2 notebooks, each student in their own Colab</li>
                     <li><b>10:00</b> Group notebook</li>
-                    <li><b>11:00</b> Project definition, the requirements (section 2 of the report) and the canvas</li>
+                    <li><b>11:00</b> Project definition. Start the requirements document and the canvas</li>
                     <li><b>12:20</b> Plenary on the project</li>
                     <li><b>12:50</b> Closing and deadlines</li>
                 </ul>

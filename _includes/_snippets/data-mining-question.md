@@ -28,7 +28,14 @@
                 <p>We write all four before we run any method.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/diagrams/ml-project-canvas.svg" alt="Project canvas" style="height: 420px">
+                <p><b>The canvas they draw</b></p>
+                <ul>
+                    <li>Business objectives</li>
+                    <li>Situation</li>
+                    <li>Mining objectives</li>
+                    <li>Plan</li>
+                </ul>
+                <p>One box for each. A sketch is enough on Saturday.</p>
             </div>
         </div>
     </div>
