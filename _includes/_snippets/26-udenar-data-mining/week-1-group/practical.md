@@ -46,8 +46,8 @@ import pandas as pd
 import requests
 
 GROUP = "G1"   # cambie a G2, G3, G4 o G5
-EXTRACTS = {"G1": ("Pobreza", "pobreza.csv"), "G2": ("Vivienda", "vivienda.csv"), "G3": ("Medio ambiente", "medio-ambiente.csv"),
-            "G4": ("Agricultura", "agricultura.csv"), "G5": ("Salud mental", "salud-mental.csv")}
+EXTRACTS = {"G1": ("Agricultura", "agricultura.csv"), "G2": ("Salud mental", "salud-mental.csv"), "G3": ("Medio ambiente", "medio-ambiente.csv"),
+            "G4": ("Inclusión Social", "inclusion-social.csv"), "G5": ("Vivienda", "vivienda.csv")}
 SECRETARIAT, FILENAME = EXTRACTS[GROUP]
 Path("outputs").mkdir(exist_ok=True)
 path = Path("data") / FILENAME

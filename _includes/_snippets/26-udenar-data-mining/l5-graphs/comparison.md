@@ -97,7 +97,7 @@
                     </thead>
                     <tbody>
                         <tr><td>Nutrition papers</td><td>170 (53%)</td><td>0.75</td><td>0.197 / 0.043</td></tr>
-                        <tr><td>Pobreza</td><td>68 (23%)</td><td>0.79</td><td>0.162 / 0.030</td></tr>
+                        <tr><td>Inclusión Social</td><td>68 (23%)</td><td>0.79</td><td>0.162 / 0.030</td></tr>
                         <tr><td>Vivienda</td><td>100 (31%)</td><td>0.81</td><td>0.168 / 0.029</td></tr>
                         <tr><td>Medio ambiente</td><td>94 (28%)</td><td>0.75</td><td>0.129 / 0.031</td></tr>
                         <tr><td>Agricultura</td><td>84 (27%)</td><td>0.73</td><td>0.127 / 0.045</td></tr>

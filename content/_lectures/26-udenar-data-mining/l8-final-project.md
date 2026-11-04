@@ -30,13 +30,13 @@ visible: false
 | Slot | Colombia | UK | Group | Secretaría | Talk title |
 |------|----------|----|-------|------------|------------|
 | Setup | 07:00-07:30 | 12:00-12:30 | All | Sound and screen check per group | |
-| Talk 1 | 07:30-08:00 | 12:30-13:00 | G1 | Pobreza | [POR CONFIRMAR] |
-| Talk 2 | 08:00-08:30 | 13:00-13:30 | G2 | Vivienda | [POR CONFIRMAR] |
+| Talk 1 | 07:30-08:00 | 12:30-13:00 | G1 | Agricultura | [POR CONFIRMAR] |
+| Talk 2 | 08:00-08:30 | 13:00-13:30 | G2 | Salud mental | [POR CONFIRMAR] |
 | Talk 3 | 08:30-09:00 | 13:30-14:00 | G3 | Medio ambiente | [POR CONFIRMAR] |
 | Break | 09:00-09:08 | 14:00-14:08 | | | |
-| Talk 4 | 09:08-09:38 | 14:08-14:38 | G4 | Agricultura | [POR CONFIRMAR] |
+| Talk 4 | 09:08-09:38 | 14:08-14:38 | G4 | Inclusión Social | [POR CONFIRMAR] |
 | Break | 09:38-09:45 | 14:38-14:45 | | | |
-| Talk 5 | 09:45-10:15 | 14:45-15:15 | G5 | Salud mental | [POR CONFIRMAR] |
+| Talk 5 | 09:45-10:15 | 14:45-15:15 | G5 | Vivienda | [POR CONFIRMAR] |
 | Break | 10:15-10:30 | 15:15-15:30 | | | |
 | Optional talk | 10:30-11:30 | 15:30-16:30 | | Future research directions in data mining (if used) | |
 | Close | 11:30-12:00 | 16:30-17:00 | | Moodle survey and final deadlines | |

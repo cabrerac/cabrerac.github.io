@@ -38,7 +38,7 @@
                         <tr><th>Extract</th><th>Nodes</th><th>Edges</th><th>Isolated</th><th>Largest</th><th>Top node, share</th><th>Hubs</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td>Pobreza</td><td>298</td><td>515</td><td>23%</td><td>230 (77%)</td><td>Pobreza, 22%</td><td>2</td></tr>
+                        <tr><td>Inclusión Social</td><td>298</td><td>515</td><td>23%</td><td>230 (77%)</td><td>Pobreza, 22%</td><td>2</td></tr>
                         <tr><td>Vivienda</td><td>324</td><td>457</td><td>27%</td><td>224 (69%)</td><td>Vivienda, 17%</td><td>1</td></tr>
                         <tr><td>Medio ambiente</td><td>335</td><td>685</td><td>25%</td><td>241 (72%)</td><td>Medio ambiente natural, 14%</td><td>3</td></tr>
                         <tr><td>Agricultura</td><td>315</td><td>547</td><td>25%</td><td>231 (73%)</td><td>Agricultura, 30%</td><td>3</td></tr>

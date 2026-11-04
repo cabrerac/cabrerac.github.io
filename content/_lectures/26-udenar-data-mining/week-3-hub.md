@@ -67,11 +67,11 @@ The notebooks download the course data themselves. The files are also listed bel
 | Data | File |
 |------|------|
 | Papers on nutrition (labs) | [nutricion-papers.csv](/assets/data/26-udenar-data-mining/nutricion-papers.csv) |
-| G1 Pobreza | [pobreza.csv](/assets/data/26-udenar-data-mining/pobreza.csv) |
-| G2 Vivienda | [vivienda.csv](/assets/data/26-udenar-data-mining/vivienda.csv) |
+| G1 Agricultura | [agricultura.csv](/assets/data/26-udenar-data-mining/agricultura.csv) |
+| G2 Salud mental | [salud-mental.csv](/assets/data/26-udenar-data-mining/salud-mental.csv) |
 | G3 Medio ambiente | [medio-ambiente.csv](/assets/data/26-udenar-data-mining/medio-ambiente.csv) |
-| G4 Agricultura | [agricultura.csv](/assets/data/26-udenar-data-mining/agricultura.csv) |
-| G5 Salud mental | [salud-mental.csv](/assets/data/26-udenar-data-mining/salud-mental.csv) |
+| G4 Inclusión Social | [inclusion-social.csv](/assets/data/26-udenar-data-mining/inclusion-social.csv) |
+| G5 Vivienda | [vivienda.csv](/assets/data/26-udenar-data-mining/vivienda.csv) |
 | Sources and credit | [README](https://github.com/cabrerac/cabrerac.github.io/blob/gh-pages/assets/data/26-udenar-data-mining/README.md) |
 
 ---

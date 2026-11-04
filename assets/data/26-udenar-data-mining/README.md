@@ -6,11 +6,11 @@ They are built by a private build script.
 | File | Items | Use |
 | --- | ---: | --- |
 | nutricion-papers.csv | 320 | Individual lab notebooks |
-| pobreza.csv | 298 | Group G1 |
-| vivienda.csv | 324 | Group G2 |
+| inclusion-social.csv | 298 | Group G4 |
+| vivienda.csv | 324 | Group G5 |
 | medio-ambiente.csv | 335 | Group G3 |
-| agricultura.csv | 315 | Group G4 |
-| salud-mental.csv | 332 | Group G5 |
+| agricultura.csv | 315 | Group G1 |
+| salud-mental.csv | 332 | Group G2 |
 
 ## Sources and credit
 

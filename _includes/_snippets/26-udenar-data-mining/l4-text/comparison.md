@@ -48,7 +48,7 @@
                     </thead>
                     <tbody>
                         <tr><td>Nutrition papers</td><td>64 (19)</td><td>0.63</td><td>0.91 [0.80, 1.00]</td><td>0.89 [0.76, 0.98]</td><td>[-0.09, 0.00]</td></tr>
-                        <tr><td>Pobreza</td><td>60 (14)</td><td>0.85</td><td>0.97 [0.87, 1.00]</td><td>0.90 [0.77, 1.00]</td><td>[-0.17, 0.00]</td></tr>
+                        <tr><td>Inclusión Social</td><td>60 (14)</td><td>0.85</td><td>0.97 [0.87, 1.00]</td><td>0.90 [0.77, 1.00]</td><td>[-0.17, 0.00]</td></tr>
                         <tr><td>Vivienda</td><td>65 (14)</td><td>0.48</td><td>0.70 [0.42, 0.89]</td><td>0.81 [0.62, 0.94]</td><td>[-0.11, 0.37]</td></tr>
                         <tr><td>Medio ambiente</td><td>67 (12)</td><td>0.52</td><td>0.80 [0.53, 0.95]</td><td>0.73 [0.52, 0.88]</td><td>[-0.32, 0.19]</td></tr>
                         <tr><td>Agricultura</td><td>63 (17)</td><td>0.67</td><td>0.90 [0.77, 1.00]</td><td>0.83 [0.68, 0.95]</td><td>[-0.20, 0.05]</td></tr>

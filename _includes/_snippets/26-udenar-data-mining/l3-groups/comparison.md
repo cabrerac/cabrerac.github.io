@@ -50,7 +50,7 @@
                     </thead>
                     <tbody>
                         <tr><td>Nutrition papers</td><td>0.075 (k = 8)</td><td>0.054</td><td>0.45</td><td>5</td><td>34%</td></tr>
-                        <tr><td>Pobreza</td><td>0.123 (k = 8)</td><td>0.094</td><td>0.49</td><td>10</td><td>29%</td></tr>
+                        <tr><td>Inclusión Social</td><td>0.123 (k = 8)</td><td>0.094</td><td>0.49</td><td>10</td><td>29%</td></tr>
                         <tr><td>Vivienda</td><td>0.121 (k = 8)</td><td>0.082</td><td>0.57</td><td>7</td><td>35%</td></tr>
                         <tr><td>Medio ambiente</td><td>0.063 (k = 7)</td><td>0.046</td><td>0.38</td><td>6</td><td>52%</td></tr>
                         <tr><td>Agricultura</td><td>0.055 (k = 7)</td><td>0.053</td><td>0.37</td><td>5</td><td>45%</td></tr>

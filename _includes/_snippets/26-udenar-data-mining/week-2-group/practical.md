@@ -46,11 +46,11 @@ import pandas as pd
 import requests
 
 GROUP = "G1"   # cambie a G2, G3, G4 o G5
-EXTRACTS = {"G1": ("Pobreza", "pobreza.csv"), "G2": ("Vivienda", "vivienda.csv"), "G3": ("Medio ambiente", "medio-ambiente.csv"),
-            "G4": ("Agricultura", "agricultura.csv"), "G5": ("Salud mental", "salud-mental.csv")}
-TARGETS = {"G1": ["Hambrunas", "Hambre", "Bancos de alimentos"], "G2": ["Hipotecas", "Arrendamiento", "Huelgas de alquileres",
-           "Vivienda asequible", "Vivienda pública"], "G3": ["Conservacionismo"], "G4": ["Agrarismo", "Organizaciones agrícolas"],
-           "G5": ["Trastornos mentales", "Psiquiatría"]}
+EXTRACTS = {"G1": ("Agricultura", "agricultura.csv"), "G2": ("Salud mental", "salud-mental.csv"), "G3": ("Medio ambiente", "medio-ambiente.csv"),
+            "G4": ("Inclusión Social", "inclusion-social.csv"), "G5": ("Vivienda", "vivienda.csv")}
+TARGETS = {"G1": ["Agrarismo", "Organizaciones agrícolas"], "G2": ["Trastornos mentales", "Psiquiatría"], "G3": ["Conservacionismo"],
+           "G4": ["Hambrunas", "Hambre", "Bancos de alimentos"], "G5": ["Hipotecas", "Arrendamiento", "Huelgas de alquileres",
+           "Vivienda asequible", "Vivienda pública"]}
 SECRETARIAT, FILENAME = EXTRACTS[GROUP]
 Path("outputs").mkdir(exist_ok=True)
 path = Path("data") / FILENAME
