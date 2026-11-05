@@ -143,7 +143,7 @@ print(json.dumps(question_card, ensure_ascii=False, indent=2))
 ```
 
 ### Paso 4. Guardar `pregunta.json`
-En este paso guardamos la tarjeta en un archivo. La Lección 2 la lee al empezar y le añade cómo se usan los patrones.
+En este paso guardamos la descripción en un archivo. La Lección 2 la lee al empezar y le añade cómo se usan los patrones.
 
 ```python
 QUESTION_PATH = Path("pregunta.json")
@@ -458,11 +458,11 @@ print("Vista previa de preparación: OK")
 ## Parte 5. Evaluación
 
 ### Paso 1. El estándar como función
-En este paso convertimos el estándar de la tarjeta en una función. Así cualquier lista se puede comprobar igual, hoy y en las lecciones siguientes. Una lista es una tabla con al menos las columnas `title` y `filter` (el nombre del filtro que puso cada artículo).
+En este paso convertimos el estándar de la descripción en una función. Así cualquier lista se puede comprobar igual, hoy y en las lecciones siguientes. Una lista es una tabla con al menos las columnas `title` y `filter` (el nombre del filtro que puso cada artículo).
 
 ```python
 def meets_standard(reading_list: pd.DataFrame, standard: dict = question_card["standard"], collection: pd.DataFrame = papers) -> tuple[bool, list[str]]:
-    """Comprueba si una lista de artículos cumple el estándar de la tarjeta.
+    """Comprueba si una lista de artículos cumple el estándar de la descripción.
 
     Qué hace: revisa el tamaño de la lista, que cada artículo diga qué filtro lo puso
     y que no más de la proporción permitida venga solo de las citas.
