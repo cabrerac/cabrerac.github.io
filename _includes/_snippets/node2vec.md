@@ -20,9 +20,11 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Walks as sentences <a href="https://doi.org/10.1145/2623330.2623732" target="_blank" rel="noopener noreferrer">(Perozzi et al., 2014)</a> <a href="https://doi.org/10.1145/2939672.2939754" target="_blank" rel="noopener noreferrer">(Grover and Leskovec, 2016)</a></b></p>
                 <p>Walk from node to node along the edges, at random.</p>
-                <p>Write the walk down as a sentence, one word per node.</p>
-                <p>Train word2vec on the walks, as word2vec does on sentences.</p>
-                <p>Nodes that appear in the same walks get close vectors.</p>
+                <ul>
+                    <li>Write the walk down as a sentence, one word per node.</li>
+                    <li>Train word2vec on the walks, as word2vec does on sentences.</li>
+                    <li>Nodes that appear in the same walks get close vectors.</li>
+                </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/skip-gram.svg" alt="Skip-gram model" style="height: 300px">
@@ -37,7 +39,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 55%">
+            <div class="column vertical-middle text-left" style="width: 55%">
                 <p><b>A biased walk</b></p>
                 <p>After moving from $t$ to $v$, the next node $x$ gets a weight</p>
                 <p>$$\alpha(t, x) = \begin{cases} 1/p & \text{if } x = t \\ 1 & \text{if } x \text{ is a neighbour of } t \\ 1/q & \text{otherwise} \end{cases}$$</p>
@@ -45,9 +47,11 @@
             <div class="column vertical-middle text-left" style="width: 45%">
                 <p><b>Two knobs</b></p>
                 <p>$p$, return: a large $p$ makes going back rare.</p>
-                <p>$q$, in-out: $q < 1$ pushes the walk outwards, $q > 1$ keeps it close.</p>
-                <p>$p = q = 1$ is the plain random walk of DeepWalk.</p>
-                <p>Each step picks $x$ with probability proportional to $\alpha(t, x)$.</p>
+                <ul>
+                    <li><p>$q$, in-out: $q < 1$ pushes the walk outwards, $q > 1$ keeps it close.</p></li>
+                    <li><p>$p = q = 1$ is the plain random walk of DeepWalk.</p></li>
+                    <li><p>Each step picks $x$ with probability proportional to $\alpha(t, x)$.</p></li>
+                </ul>
             </div>
         </div>
     </div>
@@ -63,7 +67,7 @@
                 <p>For each node in a walk, predict the nodes within the window around it.</p>
                 <p>The same objective as word2vec on sentences.</p>
             </div>
-            <div class="column vertical-top text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Cosine of node vectors</b></p>
                 <p>$$\cos(\mathbf{u}, \mathbf{v}) = \frac{\mathbf{u} \cdot \mathbf{v}}{\lVert \mathbf{u} \rVert \, \lVert \mathbf{v} \rVert}$$</p>
                 <p>Nearest neighbours are the nodes with the highest cosine.</p>
@@ -81,14 +85,18 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Only the largest component</b></p>
                 <p>A walk never leaves its component.</p>
-                <p>An isolated item has no walk at all.</p>
-                <p>Items with no vector are counted and reported.</p>
+                <ul>
+                    <li>An isolated item has no walk at all.</li>
+                    <li>Items with no vector are counted and reported.</li>
+                </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>No vector</b></p>
                 <p>No vector, so never used in a cosine.</p>
-                <p>Drawn at the origin in a plot, labelled no vector.</p>
-                <p>Small components give noisy walks.</p>
+                <ul>
+                    <li>Drawn at the origin in a plot, labelled no vector.</li>
+                    <li>Small components give noisy walks.</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -105,7 +113,6 @@
                 <p>Back with weight 1/p, close with 1, out with 1/q.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 60%">
-
 
 ```python
 import random
@@ -149,7 +156,6 @@ def node2vec_walks(adj, walks_per_node, walk_length, p, q, seed):
             </div>
             <div class="column vertical-middle text-left" style="width: 60%">
 
-
 ```python
 import networkx as nx
 from gensim.models import Word2Vec
@@ -188,16 +194,16 @@ print(model.wv.most_similar(str(some_item), topn=5))
                 <ul>
                     <li>Dimensions of the vector</li>
                     <li>Walks per node and walk length</li>
-                    <li>$p$ and $q$, and the window</li>
+                    <li><p>$p$ and $q$, and the window</p></li>
                 </ul>
                 <p>Set before looking at the result, never tuned on it.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Checks, no labels needed</b></p>
                 <ul>
-                    <li><b>Stability</b> - the top 5 neighbours across three seeds overlap</li>
-                    <li><b>Against chance</b> - neighbours share more topics than random pairs</li>
-                    <li><b>Coverage</b> - how many items got no vector</li>
+                    <li><b>Stability:</b> the top 5 neighbours across three seeds overlap</li>
+                    <li><b>Against chance:</b> neighbours share more topics than random pairs</li>
+                    <li><b>Coverage:</b> how many items got no vector</li>
                 </ul>
             </div>
         </div>

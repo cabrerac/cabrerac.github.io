@@ -1,13 +1,11 @@
 <!-- NOTEBOOK: -->
 
 ## Repaso de Python para este cuaderno
- 
-Este repaso es corto. Solo muestra las cuatro piezas de Python que usamos en la lección. Si ya las conoce, ejecute las celdas rápido y siga.
- 
+
+Este cuaderno utiliza los siguientes métodos de Python. Si ya los conoce, ejecute estas celdas rápido.
+
 ### Conjuntos con `set`
-Un **conjunto** guarda elementos sin repetir. Nos sirve para decir qué palabras aparecen en un artículo, sin importar cuántas veces. El operador `&` devuelve lo que dos conjuntos tienen en común.
-
-
+Un **conjunto** guarda elementos sin repetir. El operador `&` devuelve lo que dos conjuntos tienen en común.
 
 ```python
 a = {"obesity", "diet", "risk"}
@@ -17,9 +15,7 @@ print(len(a | b))     # palabras distintas entre los dos
 ```
 
 ### Contar con `Counter` y formar pares con `combinations`
-`Counter` cuenta cuántas veces aparece cada elemento. Con `most_common(k)` vemos los `k` más frecuentes. `itertools.combinations(lista, 2)` genera todos los pares posibles, una sola vez cada uno. Si la lista está ordenada, el par `("a", "b")` nunca aparece también como `("b", "a")`.
-
-
+`Counter` cuenta cada elemento y `most_common(k)` muestra los `k` más frecuentes. `itertools.combinations(lista, 2)` genera cada par una sola vez.
 
 ```python
 from collections import Counter
@@ -31,9 +27,7 @@ print(list(combinations(sorted({"risk", "diet", "obesity"}), 2)))
 ```
 
 ### Coseno con `numpy`
-El **coseno** entre dos vectores mide si apuntan en la misma dirección. Vale 1 si son paralelos, 0 si no tienen nada en común. Es el producto punto dividido por el largo de cada vector.
-
-
+El **coseno** mide si dos vectores apuntan en la misma dirección. Vale 1 si son paralelos y 0 si no tienen nada en común.
 
 ```python
 import numpy as np
@@ -46,49 +40,56 @@ print(f"Coseno: {cosine:.2f}. Repaso de Python: OK")
 ```
 
 ---
- 
+
 ## Instrucciones
- 
-**La historia.** Seguimos con el mismo equipo interno de la secretaría de salud de la Lección 1. Tiene una colección de 320 artículos sobre nutrición y debe decidir cuáles tiene que leer. En la Lección 1 escribimos la pregunta, los pasos, el estándar y el uso. Hoy damos el primer paso de minería: buscar **patrones que se repiten** en los resúmenes (`abstract`).
- 
-**La idea central.** Un patrón es un par de palabras que aparece junto en muchos artículos. Un solo artículo famoso no es un patrón. Un patrón vale la pena mirarlo cuando supera a una **línea base** (lo que veríamos por azar). Entre los que la superan, destacan los que aparecen mucho más de lo esperado.
- 
-**Tres métodos, tres preparaciones.** Cada método pide sus propios datos. Por eso la preparación va método por método.
- 
+
+Seguimos con el equipo interno de la secretaría de salud y sus 320 artículos sobre nutrición. El equipo debe decidir **qué artículos tiene que leer** un colega que llega al equipo. En la Lección 1 escribimos la descripción de la pregunta.
+
+Hoy buscamos **patrones que se repiten** en los resúmenes (`abstract`). La idea viene de las tiendas: Agrawal, Imielinski y Swami (1993) preguntaron qué productos se repiten juntos en los recibos. Aquí la canasta es un resumen y los productos son sus palabras. Un patrón es un par de palabras que aparece junto en muchos artículos, y vale la pena mirarlo cuando supera a una **línea base**, lo que veríamos por azar.
+
+**Tres métodos, tres preparaciones.**
+
 | Método | Pregunta | Preparación que necesita | Línea base |
 |--------|----------|--------------------------|------------|
 | M1. Pares frecuentes | ¿En cuántos artículos aparecen juntas dos palabras? | Un conjunto de palabras por artículo | Tablas al azar que conservan el largo de cada artículo y el soporte de cada palabra (swap randomization) |
 | M2. Lift | ¿Aparecen juntas más de lo que esperaríamos si fueran independientes? | Conteo de pares y conteo de cada palabra sola | Independencia (lift 1) y las mismas tablas al azar |
 | M3. Cercanía en un embedding | ¿Un modelo entrenado con mucho texto las pone cerca? | Palabras que el modelo conoce | Coseno de pares de palabras al azar |
- 
-**Qué hacer.** Ejecute las celdas de arriba hacia abajo. Cada paso empieza con **En este paso** y termina con una celda **Comprobar**. Si un `assert` falla, revise la celda anterior antes de seguir. Los nombres del código están en inglés, como en todos los cuadernos del curso. Las explicaciones están en español.
- 
-**El sábado 7 nov.** Hacia las 09:20 seguimos en vivo con este cuaderno, hasta las 10:00. La meta en clase es ver el soporte, el lift y por qué un par se conserva. No hace falta terminar la Parte 6 en clase. Lo que falte se termina en casa. Ejecute la Parte 1 antes del sábado para que el modelo de vectores ya esté probado.
- 
-**Del laboratorio al proyecto.** Desde las 10:00 el cuaderno de grupo repite estos pasos con las entradillas de Wikipedia de su secretaría. Cada paso del cuaderno de grupo dice qué parte de este cuaderno adaptar.
- 
+
+**Qué hacer.** Ejecute las celdas de arriba hacia abajo. Cada paso empieza con **En este paso** y termina con una celda **Comprobar**.
+
 **Mapa del cuaderno**
- 
+
 | Parte | Fase CRISP-DM | Qué sale |
 |-------|---------------|----------|
-| 1 | Configuración | Librerías, parámetros y modelo de vectores |
-| 2 | Comprensión del negocio | `pregunta.json` de la Lección 1 |
-| 3 | Comprensión de los datos | Los 320 artículos en memoria |
-| 4 | Preparación de los datos | Conjuntos de palabras, conteos y vectores |
-| 5 | Modelado | Pares por soporte, lift y coseno |
-| 6 | Evaluación | Líneas base, tabla comparativa y `outputs/patrones_l2.csv` |
-| 7 | Despliegue | Cómo usaremos un patrón conservado |
- 
+| 1 | Comprensión del negocio | La pregunta de hoy, los parámetros, el modelo de vectores y `pregunta.json` |
+| 2 | Comprensión de los datos | Los 320 artículos en memoria |
+| 3 | Preparación de los datos | Conjuntos de palabras, conteos y vectores |
+| 4 | Modelado | Pares por soporte, lift y coseno |
+| 5 | Evaluación | Líneas base, tabla comparativa y `outputs/patrones_l2.csv` |
+| 6 | Despliegue | Cómo usaremos un patrón conservado |
+
+**Carpetas.** La celda de configuración crea `data/` (datos descargados) y `outputs/` (tablas y gráficos).
+
 ---
- 
-## Parte 1. Configuración
- 
-### Paso 1. Librerías, carpetas y parámetros
-En este paso importamos las librerías y fijamos los parámetros que usa todo el cuaderno. Los parámetros son **los mismos** en este cuaderno y en el cuaderno de grupo. No los cambie aquí.
- 
-El **umbral de soporte** es un solo parámetro: una proporción de los artículos con un mínimo absoluto. Con 317 artículos da 10. Con un extracto de 298 artículos da 9. Así ningún grupo trabaja con una regla distinta.
 
+## Parte 1. Comprensión del negocio
 
+### Paso 1. La pregunta de esta lección
+En este paso escribimos qué buscamos hoy. La decisión no cambia: qué artículos debe leer el colega nuevo.
+
+| Pregunta | Respuesta para el laboratorio |
+|----------|-------------------------------|
+| ¿Qué buscamos? | Pares de palabras que se repiten en los resúmenes más de lo que daría el azar |
+| ¿Con qué los medimos? | Soporte, lift y cercanía en un embedding |
+| ¿Contra qué los comparamos? | Contra tablas al azar y contra la independencia |
+| ¿Cómo entra un patrón en la lista? | Como un filtro con nombre, por ejemplo "artículos que contienen *fasting + plasma*" |
+
+Un patrón no elige artículos. Es una pista que el equipo puede revisar.
+
+### Paso 2. Configuración
+En este paso importamos las librerías, creamos las carpetas y fijamos los parámetros. No los cambie.
+
+El **umbral de soporte** es una proporción de los artículos con un mínimo. Con 317 artículos da 10.
 
 ```python
 import json          # leer y escribir pregunta.json
@@ -112,7 +113,7 @@ OUTPUTS_DIR = Path("outputs")
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 
-# Parámetros compartidos con el cuaderno de grupo (no cambiar)
+# Parámetros del curso (no cambiar)
 SUPPORT_SHARE = 0.03   # proporción de textos
 SUPPORT_MIN = 5        # mínimo de textos
 SWAPS_PER_ONE = 5      # intentos de intercambio por cada 1 de la tabla, en cada tabla al azar
@@ -133,7 +134,7 @@ print(f"Umbral para 298 artículos: {support_floor(298)}")
 
 **Comprobar:**
 
-
+En este paso comprobamos que el umbral de soporte da 10 artículos para nuestra colección.
 
 ```python
 assert support_floor(317) == 10
@@ -141,14 +142,12 @@ assert support_floor(100) == SUPPORT_MIN
 print("Parámetros: OK")
 ```
 
-### Paso 2. Modelo de vectores de palabras
-En este paso cargamos el modelo de **spaCy** que usa el Método 3. Preferimos el modelo grande `en_core_web_lg`, porque da a cada palabra frecuente su propio vector.
- 
-**Tiempo de instalación.** En un Colab nuevo hay que descargarlo en cada sesión. El archivo pesa 401 MB. En Colab gratuito calcule hasta un par de minutos, según la conexión del momento.
- 
-**Si la descarga falla.** Con una conexión débil la descarga del modelo grande puede fallar. La celda intenta entonces el modelo mediano `en_core_web_md` (unos 33 MB). También puede elegirlo a propósito con `USE_MEDIUM_MODEL = True`. La celda imprime qué modelo cargó. En la Parte 4, Paso 7, verá qué cambia con el mediano.
+### Paso 3. Modelo de vectores de palabras
+En este paso cargamos el modelo de **spaCy** del Método 3, `en_core_web_lg`, de unos 400 MB. Da a cada palabra frecuente su propio vector.
 
+**Tiempo.** Colab lo descarga en cada sesión. Calcule hasta un par de minutos.
 
+**Si la descarga falla**, la celda carga el modelo mediano `en_core_web_md` (unos 33 MB). También puede elegirlo con `USE_MEDIUM_MODEL = True`. En la Parte 3, Paso 7, verá qué cambia.
 
 ```python
 import importlib
@@ -197,7 +196,7 @@ if MODEL == "en_core_web_md":
 
 **Comprobar:**
 
-
+En este paso comprobamos que cargó un modelo con vectores de 300 dimensiones.
 
 ```python
 assert MODEL in ("en_core_web_lg", "en_core_web_md")
@@ -205,16 +204,8 @@ assert nlp.vocab.vectors.shape[1] == 300
 print(f"Modelo {MODEL}: OK")
 ```
 
----
- 
-## Parte 2. Comprensión del negocio
- 
-### Paso 1. Recuperar la pregunta de la Lección 1
-En este paso leemos `pregunta.json`, la tarjeta que escribimos en la Lección 1. Si abre este cuaderno en un Colab nuevo, el archivo no está. En ese caso la celda escribe la misma tarjeta para que pueda seguir.
- 
-La tarjeta nos recuerda **para qué** buscamos patrones. Un patrón no decide qué leer. Un patrón es una pista que se suma a otras en las lecciones siguientes.
-
-
+### Paso 4. La descripción de la pregunta
+En este paso leemos `pregunta.json`, la descripción de la pregunta de la Lección 1. Si `pregunta.json` no está, este cuaderno escribe la descripción del laboratorio para que pueda seguir.
 
 ```python
 QUESTION_PATH = Path("pregunta.json")
@@ -233,7 +224,7 @@ else:
         },
     }
     QUESTION_PATH.write_text(json.dumps(question_card, ensure_ascii=False, indent=2), encoding="utf-8")
-    print("pregunta.json no estaba. Escribimos la tarjeta de la Lección 1.")
+    print("pregunta.json no estaba. Escribimos la descripción del laboratorio.")
 
 print(question_card["question"])
 print("Estándar:", question_card["standard"])
@@ -241,7 +232,7 @@ print("Estándar:", question_card["standard"])
 
 **Comprobar:**
 
-
+En este paso comprobamos que la descripción de la pregunta tiene sus cuatro partes.
 
 ```python
 assert {"question", "steps", "standard", "use"} <= set(question_card)
@@ -249,13 +240,11 @@ print("Pregunta: OK")
 ```
 
 ---
- 
-## Parte 3. Comprensión de los datos
- 
+
+## Parte 2. Comprensión de los datos
+
 ### Paso 1. Descargar y cargar los artículos
-En este paso descargamos `nutricion-papers.csv` del sitio del curso, como en la Lección 1. La función guarda el archivo en `data/` y no lo vuelve a descargar si ya está.
-
-
+En este paso descargamos `nutricion-papers.csv`, como en la Lección 1.
 
 ```python
 BASE_URL = "https://cabrerac.github.io/assets/data/26-udenar-data-mining"
@@ -286,11 +275,11 @@ print(papers.shape)
 papers[["title", "year", "cited_by_count"]].head(3)
 ```
 
-Cada fila es un artículo. Para los patrones solo usamos la columna `abstract`. El título, los temas y las citas no entran. Las citas ya ordenaron la colección (Lección 1) y no queremos que vuelvan a decidir por la puerta de atrás.
- 
+Para los patrones solo usamos la columna `abstract`. Las citas ya ordenaron la colección en la Lección 1 y no deben volver a decidir.
+
 **Comprobar:**
 
-
+En este paso comprobamos la forma de los datos y que está la columna `abstract`.
 
 ```python
 assert papers.shape == (320, 13)
@@ -299,17 +288,15 @@ print("Datos: OK")
 ```
 
 ---
- 
-## Parte 4. Preparación de los datos
- 
-Esta parte prepara los datos **para cada método**. Los tres métodos parten del mismo texto, pero cada uno pide algo distinto. M1 pide un conjunto de palabras por artículo. M2 pide además el conteo de cada palabra sola. M3 pide que el modelo conozca las palabras.
- 
-En el lenguaje de la minería de patrones, cada artículo es una **transacción** y cada palabra distinta es un **ítem**. Es la misma idea de la canasta del supermercado: la canasta es la transacción y los productos son los ítems.
- 
+
+## Parte 3. Preparación de los datos
+
+Cada método pide algo distinto. M1 pide un conjunto de palabras por artículo, M2 además el conteo de cada palabra y M3 que el modelo conozca las palabras.
+
+Cada artículo es una **transacción** y cada palabra es un **ítem**, como la canasta y sus productos.
+
 ### Paso 1. De texto a palabras
-En este paso convertimos un resumen en un **conjunto de palabras**. Pasamos a minúsculas, separamos en palabras de letras, quitamos las palabras cortas (menos de 3 letras) y las **palabras vacías** de spaCy para inglés ("the", "of", "and"...). Las palabras vacías aparecen en casi todos los artículos y formarían pares sin significado.
-
-
+En este paso convertimos un resumen en un **conjunto de palabras**. Pasamos a minúsculas, quitamos las palabras de menos de 3 letras y las **palabras vacías** de spaCy ("the", "of", "and"...), que formarían pares sin significado.
 
 ```python
 from spacy.lang.en.stop_words import STOP_WORDS as STOP_WORDS_EN
@@ -325,7 +312,6 @@ def words(text: str, stop_words: set[str]) -> set[str]:
     Entrada: text (un resumen o una entradilla) y stop_words, el conjunto de palabras vacías.
     Salida: un set con cada palabra una sola vez.
     Por qué: M1 y M2 solo preguntan si una palabra está en un texto, no cuántas veces.
-    La misma función sirve para los artículos (inglés) y para Wikipedia (español).
     """
     text = (text or "").lower().replace("[cita requerida]", " ")
     return {w for w in WORD_RE.findall(text) if len(w) >= 3 and w not in stop_words}
@@ -338,7 +324,7 @@ print(sorted(words(example, STOP_WORDS_EN))[:20])
 
 **Comprobar:**
 
-
+En este paso comprobamos que `words` deja solo las palabras útiles de una frase de prueba.
 
 ```python
 assert words("The diet and the RISK of obesity", STOP_WORDS_EN) == {"diet", "risk", "obesity"}
@@ -346,11 +332,9 @@ print("Palabras: OK")
 ```
 
 ### Paso 2. Texto de relleno: las etiquetas del resumen
-En este paso buscamos **texto de relleno**. Muchas revistas piden resúmenes estructurados con etiquetas como *Background*, *Methods*, *Findings*, *Interpretation* y *Funding*. Además, decenas de artículos terminan con la misma línea de financiación (*Bill & Melinda Gates Foundation*). Esas palabras se repiten mucho, pero dicen cómo se escribió el resumen, no de qué trata.
- 
-Veamos qué pasa si no las quitamos. Contamos en cuántos artículos aparecen juntas *background* y *methods*, y calculamos su lift (lo explicamos en la Parte 5).
+En este paso buscamos **texto de relleno**: etiquetas como *Background*, *Methods* y *Funding*, y la misma línea de financiación en decenas de artículos. Dicen cómo se escribió el resumen, no de qué trata.
 
-
+Contamos *background* y *methods* juntas y calculamos su lift (Parte 4).
 
 ```python
 dirty_sets = [s for s in (words(t, STOP_WORDS_EN) for t in papers["abstract"]) if len(s) >= 5]
@@ -363,9 +347,7 @@ print(f"background + methods: {together} artículos, lift {filler_lift:.1f}")
 print(f"bill + gates: {sum(1 for s in dirty_sets if {'bill', 'gates'} <= s)} artículos")
 ```
 
-El par *background + methods* aparece en 77 artículos y casi triplica lo esperado por azar. Sería uno de los "patrones" más fuertes de la colección, y es puro formato. Por eso lo quitamos **antes** de minar. Añadimos las etiquetas y la línea de financiación a las palabras vacías.
-
-
+El par aparece en 77 artículos y casi triplica lo esperado por azar. Es puro formato, así que lo quitamos **antes** de minar.
 
 ```python
 ABSTRACT_LABELS = {
@@ -378,7 +360,7 @@ print(f"Etiquetas de resumen y financiación: {len(ABSTRACT_LABELS)} palabras")
 
 **Comprobar:**
 
-
+En este paso comprobamos cuántos artículos tienen *background* y *methods* y el tamaño de la lista de relleno.
 
 ```python
 assert together == 77
@@ -387,9 +369,7 @@ print("Texto de relleno: OK")
 ```
 
 ### Paso 3. Restos de direcciones web
-En este paso miramos otro tipo de relleno: pedazos de direcciones web. Algunos resúmenes terminan con un enlace al registro del ensayo o a los datos (`https://www.who.int/...`). Al partir el texto en palabras, el enlace deja *http*, *https*, *www* y *org*. Son palabras de formato, como las etiquetas, y no dicen nada del tema.
-
-
+En este paso quitamos los pedazos de direcciones web (*http*, *https*, *www*, *org*). Son formato y no dicen nada del tema.
 
 ```python
 URL_TOKENS = {"http", "https", "www", "org"}
@@ -400,11 +380,11 @@ STOP_WORDS = set(STOP_WORDS_EN) | ABSTRACT_LABELS | URL_TOKENS
 print(f"Palabras vacías: {len(STOP_WORDS_EN)} de spaCy + {len(ABSTRACT_LABELS)} de relleno + {len(URL_TOKENS)} de direcciones web")
 ```
 
-Varias de estas aparecen en más de 10 resúmenes, así que pasarían el umbral y formarían pares entre ellas. Las quitamos junto con las palabras vacías. Desde aquí, `STOP_WORDS` es la lista que usa todo el cuaderno.
- 
+Desde aquí, `STOP_WORDS` es la lista que usa todo el cuaderno.
+
 **Comprobar:**
 
-
+En este paso comprobamos que las etiquetas del resumen y los restos de direcciones web ya no pasan como palabras.
 
 ```python
 assert "background" not in words(example + " Background", STOP_WORDS)
@@ -413,9 +393,7 @@ print("Direcciones web: OK")
 ```
 
 ### Paso 4. Un conjunto de palabras por artículo (preparación de M1)
-En este paso construimos la entrada de M1: una lista con un conjunto de palabras por artículo. Dejamos fuera los resúmenes con menos de 5 palabras útiles. Son portadas o notas sueltas, no resúmenes, y no pueden aportar pares.
-
-
+En este paso construimos la entrada de M1: un conjunto de palabras por artículo. Dejamos fuera los resúmenes con menos de 5 palabras útiles.
 
 ```python
 word_sets = [words(t, STOP_WORDS) for t in papers["abstract"]]
@@ -429,11 +407,11 @@ print(f"Palabras distintas por artículo: mediana {sizes.median():.0f}, mínimo 
 print(f"Umbral de soporte: {FLOOR} artículos")
 ```
 
-Fíjese en el largo. Hay resúmenes con unas pocas palabras útiles y otros con cientos. Un resumen largo forma muchos pares por sí solo. Esto va a importar en la Parte 6, cuando preguntemos qué daría el azar.
- 
+Hay resúmenes cortos y otros con cientos de palabras. Un resumen largo forma muchos pares por sí solo, y eso importa en la Parte 5.
+
 **Comprobar:**
 
-
+En este paso comprobamos el número de artículos usados y el umbral de soporte.
 
 ```python
 assert N == 317
@@ -442,11 +420,9 @@ print("Conjuntos: OK")
 ```
 
 ### Paso 5. Conteo de cada palabra sola (preparación de M2)
-En este paso contamos en **cuántos artículos** aparece cada palabra. Este conteo es el que pide el lift, porque compara un par con sus dos palabras por separado.
- 
-Aplicamos ya el umbral. Una palabra que aparece en menos de 10 artículos no puede formar un par que aparezca en 10. Esta es la **propiedad Apriori**: un par nunca es más frecuente que la menos frecuente de sus palabras. Así descartamos miles de pares sin contarlos.
+En este paso contamos en **cuántos artículos** aparece cada palabra. El lift necesita este conteo.
 
-
+Una palabra en menos de 10 artículos no puede formar un par en 10. Es la **propiedad Apriori**, y así descartamos miles de pares sin contarlos.
 
 ```python
 word_count = Counter(w for s in word_sets for w in s)
@@ -459,7 +435,7 @@ print(word_count.most_common(10))
 
 **Comprobar:**
 
-
+En este paso comprobamos el tamaño del vocabulario y que cada palabra llega al umbral.
 
 ```python
 assert len(vocabulary) == 870
@@ -468,9 +444,7 @@ print("Conteo de palabras: OK")
 ```
 
 ### Paso 6. Conteo de pares
-En este paso contamos, para cada par de palabras del vocabulario, en cuántos artículos aparecen juntas. Ese número es el **soporte** del par. Nos quedamos con los pares que llegan al umbral. Son los **candidatos** que evaluaremos.
-
-
+En este paso contamos en cuántos artículos aparece cada par. Ese número es el **soporte**. Los pares que llegan al umbral son los **candidatos**.
 
 ```python
 def count_pairs(word_sets: list[set[str]], word_count: Counter, floor: int) -> dict:
@@ -497,7 +471,7 @@ print(f"Pares candidatos (soporte de {FLOOR} o más): {len(candidates):,}")
 
 **Comprobar:**
 
-
+En este paso comprobamos el número de pares candidatos y que todos llegan al umbral.
 
 ```python
 assert len(candidates) == 16271
@@ -506,9 +480,7 @@ print("Pares: OK")
 ```
 
 ### Paso 7. Palabras que el modelo conoce (preparación de M3)
-En este paso cruzamos el vocabulario con el modelo de vectores. Una palabra que el modelo no conoce no tiene vector, y M3 no puede decir nada de ella. Reportamos esas pérdidas en vez de esconderlas.
-
-
+En este paso cruzamos el vocabulario con el modelo de vectores. M3 no puede decir nada de una palabra sin vector, y lo reportamos.
 
 ```python
 no_vector = [w for w in vocabulary if not nlp.vocab.has_vector(w)]
@@ -516,13 +488,11 @@ print(f"Palabras sin vector en {MODEL}: {len(no_vector)} de {len(vocabulary)} ({
 print(no_vector)
 ```
 
-Las palabras que faltan son siglas del campo (*dalys*, *ylls*) o términos muy recientes (*covid*). El modelo se entrenó con texto general anterior a la pandemia. Salen de la vista del embedding, pero no del soporte ni del lift. M3 no ve esos pares, M1 y M2 sí.
- 
-**Revisión de vectores compartidos.** Un modelo de spaCy guarda una tabla de vectores. Cada palabra apunta a una fila. Para ahorrar espacio, el modelo mediano `en_core_web_md` tiene unas 20.000 filas para unas 685.000 palabras, así que muchas palabras **comparten vector**. Dos palabras con el mismo vector tienen coseno 1.0 aunque signifiquen cosas opuestas. Con el mediano, *obesity* comparte vector con 18 palabras del vocabulario, entre ellas *diabetes*, *disease* y *health*. El modelo grande da a cada una su propio vector.
- 
-La celda siguiente agrupa las palabras del vocabulario que reciben exactamente el mismo vector. Con el modelo grande no debería encontrar grupos. Si cargó el modelo mediano, verá grupos. Los pares de un mismo grupo saldrán con coseno 1.0. Ese 1.0 no dice que las palabras se parezcan. Dice que el modelo no las distingue. Por eso los marcamos con `shared_vector` y no los contamos como cercanía en la Parte 6.
+Faltan siglas (*dalys*, *ylls*) y términos recientes (*covid*). M3 no ve esos pares, M1 y M2 sí.
 
+**Vectores compartidos.** El modelo mediano tiene unas 20.000 filas para 685.000 palabras, así que muchas palabras **comparten vector** y salen con coseno 1.0. El modelo grande da a cada una su propio vector.
 
+La celda siguiente busca palabras con el mismo vector. Con el modelo grande no debería encontrar grupos. Esos pares van marcados con `shared_vector` y no cuentan como cercanía.
 
 ```python
 def shared_vectors(vocab_words: list[str], nlp) -> list[list[str]]:
@@ -551,7 +521,7 @@ print(shared_groups[:5])
 
 **Comprobar:**
 
-
+En este paso comprobamos que faltan pocos vectores y que el modelo grande no comparte vectores.
 
 ```python
 assert len(no_vector) < 0.02 * len(vocabulary)
@@ -560,17 +530,15 @@ print("Vectores: OK")
 ```
 
 ---
- 
-## Parte 5. Modelado
- 
+
+## Parte 4. Modelado
+
 ### M1. Pares frecuentes (soporte)
-En este paso ordenamos los candidatos por **soporte**. El soporte de un par $A, B$ es la proporción de artículos donde aparecen las dos palabras:
- 
+En este paso ordenamos los candidatos por **soporte**, la proporción de artículos con las dos palabras:
+
 $\displaystyle s(A,B) = \frac{n(A,B)}{N}$
- 
-Los artículos científicos reportan el soporte como proporción. Aquí lo mostramos como conteo $n(A,B)$, que es más fácil de leer: 10 de 317 artículos es una proporción de 3,2 %.
 
-
+Lo mostramos como conteo $n(A,B)$: 10 de 317 artículos es 3,2 %.
 
 ```python
 table = pd.DataFrame(
@@ -581,9 +549,7 @@ table["pair"] = table["word_a"] + " + " + table["word_b"]
 table.sort_values("support", ascending=False).head(10)
 ```
 
-Los pares con más soporte son palabras muy generales: *disease + health*, *health + risk*. Aparecen juntas porque cada una aparece en casi todo. El soporte solo no distingue un patrón de dos palabras comunes. Ese es el problema que resuelve M2.
-
-
+Arriba quedan palabras muy generales, como *disease + health*. El soporte solo no distingue un patrón de dos palabras comunes. Eso lo resuelve M2.
 
 ```python
 top_support = table.nlargest(15, "support").iloc[::-1]
@@ -600,7 +566,7 @@ plt.show()
 
 **Comprobar:**
 
-
+En este paso comprobamos que la tabla tiene un par por candidato y el soporte más alto.
 
 ```python
 assert len(table) == len(candidates)
@@ -609,15 +575,11 @@ print("M1: OK")
 ```
 
 ### M2. Lift
-En este paso comparamos cada par con lo que esperaríamos si sus palabras fueran **independientes**. Si fueran independientes, la probabilidad de verlas juntas sería el producto de sus probabilidades. El **lift** divide lo observado por lo esperado:
- 
+En este paso comparamos cada par con lo esperado si sus palabras fueran **independientes**. El **lift** divide lo observado por lo esperado:
+
 $\displaystyle \text{lift}(A,B) = \frac{P(A,B)}{P(A)\,P(B)} = \frac{n(A,B)\cdot N}{n(A)\cdot n(B)}$
- 
-Un lift de 1 es lo que da el azar. Un lift de 2 dice que el par aparece el doble de lo esperado.
- 
-Las herramientas de reglas de asociación (mlxtend, arules) muestran primero la **confianza**, la proporción de textos con A que también tienen B. La confianza ignora cuán común es B, así que aquí usamos soporte y lift.
 
-
+Un lift de 1 es lo que da el azar. Un lift de 2 es el doble de lo esperado.
 
 ```python
 def compute_lift(pair_support: int, n_a: int, n_b: int, n: int) -> float:
@@ -641,11 +603,9 @@ table["lift"] = [
 table.sort_values("lift", ascending=False).head(10)
 ```
 
-Ahora suben pares con significado propio: *saharan + sub*, *fasting + plasma*, *cross + sectional*. Son expresiones del campo ("sub-Saharan Africa", "fasting plasma glucose", "cross-sectional study").
- 
-**Por qué hace falta el umbral.** El lift crece sin límite con palabras raras. Si dos palabras aparecen en un solo artículo, juntas, su lift es $N$, el máximo posible. Veamos qué pasaría con un umbral de 2 artículos.
+Ahora suben expresiones del campo: *saharan + sub*, *fasting + plasma*, *cross + sectional*.
 
-
+**Por qué hace falta el umbral.** El lift crece con palabras raras. Veamos un umbral de 2 artículos.
 
 ```python
 rare_pair_count = Counter()
@@ -656,11 +616,11 @@ print(f"Pares de palabras que solo aparecen en 2 artículos, siempre juntas: {le
 print(f"Lift de cada uno: {compute_lift(2, 2, 2, N):.1f}. Ejemplos: {rare[:4]}")
 ```
 
-Más de 600 pares tendrían un lift de 158,5, ocho veces el más alto que vemos con el umbral, solo por venir de dos resúmenes. Eso es un artículo que destaca, no un patrón. El umbral de soporte exige que el par se repita en al menos 10 artículos distintos.
- 
+Más de 600 pares tendrían lift 158,5 solo por venir de dos resúmenes. Eso no es un patrón. El umbral exige 10 artículos.
+
 **Comprobar:**
 
-
+En este paso comprobamos que el lift es positivo y el valor de *saharan + sub*.
 
 ```python
 assert table["lift"].min() > 0
@@ -669,11 +629,9 @@ print("M2: OK")
 ```
 
 ### M3. Cercanía en un embedding
-En este paso medimos si el modelo pone cerca las dos palabras de cada par. El modelo aprendió sus vectores de mucho texto general. La idea es la **hipótesis distribucional**: palabras que aparecen en contextos parecidos reciben vectores parecidos. Medimos la cercanía con el coseno:
- 
+En este paso medimos si el modelo pone cerca las dos palabras de cada par. Palabras en contextos parecidos reciben vectores parecidos (**hipótesis distribucional**). Medimos la cercanía con el coseno:
+
 $\displaystyle \cos(u,v) = \frac{u \cdot v}{\|u\|\,\|v\|}$
-
-
 
 ```python
 def unit_vector(word: str, nlp) -> np.ndarray:
@@ -703,11 +661,9 @@ table["shared_vector"] = [a in group_of and group_of.get(a) == group_of.get(b) f
 table.sort_values("cosine", ascending=False).head(10)
 ```
 
-Los pares más cercanos son variantes de una palabra (*estimate + estimates*) u opuestos que se usan en el mismo contexto (*increased + decreased*, *females + males*). El embedding mide si dos palabras **se usan igual**, no si forman un tema en estos artículos. Si cargó el modelo mediano, arriba de esta tabla verá pares con coseno 1.0 y `shared_vector` en `True`. Léalos como "el modelo no distingue estas palabras", no como "son sinónimos".
- 
-Otra forma de leer un embedding es buscar los **vecinos** de una palabra semilla. Tomamos *obesity*, el tema del equipo. Dejamos fuera las palabras que comparten vector con la semilla, porque su coseno 1.0 no es cercanía.
+Los pares más cercanos son variantes de una palabra (*estimate + estimates*) u opuestos del mismo contexto (*females + males*). El embedding mide si dos palabras **se usan igual**, no si forman un tema.
 
-
+También buscamos los **vecinos** de *obesity*, sin las palabras que comparten su vector.
 
 ```python
 SEED_WORD = "obesity"
@@ -720,7 +676,7 @@ for c, w in neighbours:
 
 **Comprobar:**
 
-
+En este paso comprobamos que casi todos los pares tienen coseno y los vecinos de *obesity*.
 
 ```python
 assert table["cosine"].notna().mean() > 0.95
@@ -729,22 +685,20 @@ print("M3: OK")
 ```
 
 ---
- 
-## Parte 6. Evaluación
- 
-Un número alto no basta. Para conservar un patrón pedimos que **supere a su línea base**: que no sea lo que veríamos por azar. Entre los conservados, miramos primero los que **destacan**, los que aparecen al menos el doble de lo esperado.
- 
+
+## Parte 5. Evaluación
+
+Para conservar un patrón pedimos que **supere a su línea base**. Entre los conservados miramos primero los que **destacan**, con al menos el doble de lo esperado.
+
 ### Paso 1. Qué debe conservar el azar
-En este paso decidimos qué es "el azar" para nuestros artículos. Pensemos en los datos como una tabla de ceros y unos: una fila por artículo (transacción), una columna por palabra (ítem), un 1 si la palabra está en el artículo. La tabla tiene dos **márgenes**:
- 
+En este paso decidimos qué es "el azar". Los datos son una tabla de ceros y unos: una fila por artículo y una columna por palabra. La tabla tiene dos **márgenes**:
+
 - el margen de cada fila: cuántas palabras tiene el artículo, su **largo**,
 - el margen de cada columna: en cuántos artículos aparece la palabra, su **soporte**.
- 
-Un azar justo tiene que conservar los dos. Si solo conserva el soporte de cada palabra y la reparte en artículos al azar, olvida que un resumen largo forma cientos de pares por sí solo. Ese azar da muy pocas coincidencias, y casi cualquier par parece un patrón. Con ese azar, casi tres de cada cuatro pares candidatos pasaban la prueba.
- 
-Como solo las palabras del vocabulario pueden formar un par candidato, la tabla lleva solo esas palabras. El largo de un artículo es entonces su número de palabras frecuentes.
 
+Un azar justo conserva los dos. Si solo conserva el soporte, olvida que un resumen largo forma cientos de pares, y casi tres de cada cuatro pares pasarían.
 
+La tabla lleva solo las palabras del vocabulario.
 
 ```python
 frequent_words = set(vocabulary)
@@ -754,11 +708,11 @@ print(f"Tabla: {len(transactions)} artículos x {len(vocabulary)} palabras, {len
 print(f"Largo de cada artículo (palabras frecuentes): mínimo {lengths.min()}, mediana {lengths.median():.0f}, máximo {lengths.max()}")
 ```
 
-El artículo más largo tiene más de cien veces las palabras del más corto. El azar que usamos debe respetar esa diferencia.
- 
+El artículo más largo tiene más de cien veces las palabras del más corto.
+
 **Comprobar:**
 
-
+En este paso comprobamos que la tabla conserva el soporte de cada palabra y la diferencia de largos.
 
 ```python
 assert lengths.sum() == sum(word_count[w] for w in vocabulary)
@@ -767,16 +721,14 @@ print("Tabla de transacciones: OK")
 ```
 
 ### Paso 2. Un intercambio (swap)
-En este paso vemos la herramienta que conserva los dos márgenes: la **swap randomization** de Gionis, Mannila, Mielikäinen y Tsaparas (2007). Un intercambio hace esto:
- 
+En este paso vemos la **swap randomization** de Gionis, Mannila, Mielikäinen y Tsaparas (2007). Un intercambio:
+
 1. Elige dos unos de la tabla: la palabra $w_1$ en el texto $t_1$ y la palabra $w_2$ en el texto $t_2$.
 2. Si $t_1$ no tiene $w_2$ y $t_2$ no tiene $w_1$, cambia las palabras de texto: $t_1$ se queda con $w_2$ y $t_2$ con $w_1$.
- 
-Cada texto sigue con el mismo número de palabras y cada palabra sigue en el mismo número de textos. Después de muchos intercambios, la tabla es una tabla al azar con los mismos márgenes. Contamos los pares en esa tabla y obtenemos un valor de lo que daría el azar.
- 
-Esta celda define las funciones de la línea base. Lea qué hace cada una en su docstring. No hace falta memorizar el código.
 
+Los dos márgenes no cambian. Después de muchos intercambios tenemos una tabla al azar y contamos sus pares.
 
+Lea qué hace cada función en su docstring.
 
 ```python
 # p95 y swap_randomize. pair_counts, swap_null_counts y kept_pairs van en el Paso 4.
@@ -823,11 +775,11 @@ print("Antes:  ", [sorted(t) for t in toy])
 print("Después:", [sorted(t) for t in toy_random])
 ```
 
-Mire las dos tablas. Las canastas cambiaron de contenido, pero cada una tiene el mismo número de productos que antes, y cada producto está en el mismo número de canastas.
- 
+Las canastas cambiaron de contenido, pero los dos márgenes son los mismos.
+
 **Comprobar:**
 
-
+En este paso comprobamos que el intercambio conserva los dos márgenes de la tabla de ejemplo.
 
 ```python
 assert [len(t) for t in toy_random] == [len(t) for t in toy]
@@ -836,11 +788,9 @@ print("Intercambio: OK")
 ```
 
 ### Paso 3. Una lista corta antes del azar
-En este paso miramos lo que ya tenemos, antes de preguntarle nada al azar. La primera lista son los 20 pares con más lift. La segunda toma solo los pares con soporte de 20 o más, que se apoyan en más artículos, y los ordena también por lift.
- 
-Fíjese en el soporte de la primera lista. Casi todos están cerca del umbral: el lift premia a los pares que aparecen poco. La segunda lista tiene pares más generales, pero cada uno se repite en muchos resúmenes. En el paso siguiente veremos cuáles de estos pares sobreviven al azar.
+En este paso miramos los 20 pares con más lift, y después los de soporte 20 o más, también por lift.
 
-
+La primera lista está cerca del umbral: el lift premia a los pares raros. La segunda tiene pares más generales.
 
 ```python
 shortlist = table.nlargest(20, "lift")[["pair", "support", "lift"]]
@@ -853,7 +803,7 @@ display(common)
 
 **Comprobar:**
 
-
+En este paso comprobamos el tamaño y el soporte de las dos listas cortas.
 
 ```python
 assert len(shortlist) == 20 and shortlist["support"].min() >= FLOOR
@@ -862,13 +812,11 @@ print("Listas cortas: OK")
 ```
 
 ### Paso 4. Cien tablas al azar para nuestros artículos
-En este paso construimos 100 tablas al azar (`N_SAMPLES`). Cada una parte de la tabla real y recibe 5 intentos de intercambio por cada uno de la tabla (`SWAPS_PER_ONE`). En cada tabla contamos el soporte de los 16.271 pares candidatos. Así cada par tiene 100 valores de lo que daría el azar.
- 
-La celda define tres funciones más: `pair_counts` cuenta todos los pares de una vez con un producto de matrices, `swap_null_counts` arma las 100 tablas y `kept_pairs` aplica la regla.
- 
-**Tiempo.** Esta es la celda más lenta del cuaderno. En Colab gratuito calcule entre 20 y 40 s, menos de un minuto. Mientras trabaja, la celda imprime una línea cada 20 tablas (`random tables: 20 of 100`) para que vea que avanza.
+En este paso construimos 100 tablas al azar (`N_SAMPLES`), con 5 intentos de intercambio por cada uno (`SWAPS_PER_ONE`). Cada uno de los 16.271 pares recibe 100 valores del azar.
 
+`pair_counts` cuenta los pares, `swap_null_counts` arma las tablas y `kept_pairs` aplica la regla.
 
+**Tiempo.** Es la celda más lenta, entre 20 y 40 s en Colab. Imprime una línea cada 20 tablas.
 
 ```python
 def pair_counts(transactions: Sequence[set], pairs: Sequence[tuple], vocab: Sequence[str]) -> np.ndarray:
@@ -942,11 +890,11 @@ kept_names = set(kept_table["pair"])
 print(f"De la lista corta por lift sobreviven {shortlist['pair'].isin(kept_names).sum()} de 20. De la lista con soporte de 20 o más, {common['pair'].isin(kept_names).sum()} de 20.")
 ```
 
-**Una nota sobre el número exacto.** Con `SEED = 7` todos deben obtener el mismo número: 7.311 pares conservados, con un p95 mediano de 14. Para eso `swap_randomize` ordena las palabras de cada texto antes de empezar (`sorted(t)`): Python no guarda los conjuntos en un orden fijo, y sin ese orden la misma semilla daría tablas distintas en cada sesión. Con otra semilla el número cambia en unas decenas y los pares de arriba son los mismos. Lo que importa es el orden de magnitud y qué pares quedan arriba, no el último dígito.
- 
+Con `SEED = 7` todos obtienen 7.311 pares conservados, con un p95 mediano de 14. Con otra semilla cambia en unas decenas.
+
 **Comprobar:**
 
-
+En este paso comprobamos el número de pares conservados y que cada uno supera su percentil 95.
 
 ```python
 assert len(kept) == 7311
@@ -956,9 +904,7 @@ print("Línea base por swap randomization: OK")
 ```
 
 ### Paso 5. Un par visto de cerca
-En este paso miramos los 100 valores al azar de un par muy común, *disease + health*, y los comparamos con su soporte real. Hacemos lo mismo con un par del tema del equipo, *children + obesity*.
-
-
+En este paso miramos el azar de un par común, *disease + health*, y de un par del tema, *children + obesity*.
 
 ```python
 for pair in [("disease", "health"), ("children", "obesity")]:
@@ -980,14 +926,12 @@ plt.savefig(OUTPUTS_DIR / "nulo_un_par.png", dpi=120)
 plt.show()
 ```
 
-*disease + health* aparece en 84 artículos, el soporte más alto de la colección. Las dos palabras son tan comunes, y los resúmenes largos las juntan tan a menudo, que el azar ya da unos 72 en promedio. El par pasa, pero por poco: 84 contra un p95 de 80. Su lift es 1,3. Superar al azar no lo hace interesante. Por eso, entre los conservados, leemos primero los de lift alto. El par del tema, *children + obesity*, tiene un soporte chico (11), pero su azar es aún más chico (p95 8).
+*disease + health* aparece en 84 artículos y su p95 es 80. Pasa por poco y su lift es 1,3. *children + obesity* tiene soporte 11 y p95 8. Por eso leemos primero los de lift alto.
 
 ### Paso 6. ¿Por qué pasan tantos pares?
-En este paso leemos el número con cuidado. Probamos más de 16.000 pares, cada uno contra su percentil 95. Aunque ningún par tuviera nada especial, cerca del 5 % pasaría por pura suerte. Eso son unos 800 pares.
- 
-Por eso leemos **conservado** como **vale la pena mirarlo**, no como **probado**. Un par conservado entra en la lista de cosas para revisar. No es una prueba de que las dos palabras formen un tema.
+En este paso leemos el número con cuidado. Con más de 16.000 pares, cerca del 5 %, unos 800, pasaría por suerte.
 
-
+Por eso **conservado** quiere decir **vale la pena mirarlo**, no **probado**.
 
 ```python
 by_luck = round(0.05 * len(candidates))
@@ -996,12 +940,8 @@ print(f"Pares conservados: {len(kept):,}, unas {len(kept) / by_luck:.0f} veces l
 table[~table["kept"]].nlargest(5, "support")[["pair", "support", "null_p95", "lift"]]
 ```
 
-Los descartados con más soporte son pares de palabras comunes, como *factors + health* o *health + including*: el azar ya explica lo que vemos.
-
 ### Paso 7. Destacar frente a los otros patrones (M2)
-En este paso ordenamos los conservados. Un par **destaca** cuando, además de superar al azar, su lift es al menos `LIFT_MIN` (2): aparece al menos el doble de lo que daría la independencia. Son los primeros que el equipo debería mirar.
-
-
+En este paso ordenamos los conservados. Un par **destaca** si además su lift es al menos `LIFT_MIN` (2).
 
 ```python
 table["kept_lift2"] = table["kept"] & (table["lift"] >= LIFT_MIN)
@@ -1009,11 +949,11 @@ print(f"Conservados: {table['kept'].sum():,}. Conservados con lift de 2 o más: 
 kept_table[["pair", "support", "null_p95", "lift", "cosine"]].head(10)
 ```
 
-Deben salir 6.507 conservados con lift de 2 o más. Arriba están *intervals + uis* (intervalos de incertidumbre, del Global Burden of Disease) y *saharan + sub*.
- 
+Deben salir 6.507. Arriba están *intervals + uis* y *saharan + sub*.
+
 **Comprobar:**
 
-
+En este paso comprobamos cuántos conservados destacan y que no queda texto de relleno entre ellos.
 
 ```python
 assert table["kept_lift2"].sum() == 6507
@@ -1022,9 +962,7 @@ print("Patrones conservados: OK")
 ```
 
 ### Paso 8. Línea base de pares al azar (M3)
-En este paso construimos la línea base de M3. Tomamos 1.000 pares de palabras del vocabulario al azar y calculamos su coseno. El percentil 95 de esos cosenos es el valor que un par debe superar para contar como cercano. Dejamos fuera los pares con vector compartido, porque su coseno no mide cercanía.
-
-
+En este paso construimos la línea base de M3: el percentil 95 del coseno de 1.000 pares al azar, sin los de vector compartido.
 
 ```python
 rng_cosine = random.Random(SEED)
@@ -1044,7 +982,7 @@ print(f"Pares con vector compartido (coseno 1.0 que no cuenta): {table['shared_v
 
 **Comprobar:**
 
-
+En este paso comprobamos que el percentil 95 del coseno al azar está en un rango razonable.
 
 ```python
 assert 0.2 < RANDOM_COSINE_P95 < 0.8
@@ -1052,9 +990,7 @@ print("Línea base de coseno: OK")
 ```
 
 ### Paso 9. Tabla comparativa de los tres métodos
-En este paso ponemos los tres métodos lado a lado sobre los mismos artículos. No es una competencia. Cada método responde una pregunta distinta y la tabla muestra qué ve cada uno.
-
-
+En este paso ponemos los tres métodos lado a lado. Cada uno responde una pregunta distinta.
 
 ```python
 TOP = 10
@@ -1073,13 +1009,11 @@ in_all_three.nlargest(8, "lift")[["pair", "support", "lift", "cosine"]]
 ```
 
 Cómo leer la tabla:
- 
-- **M1** encuentra el vocabulario general de la colección. Útil para describirla, poco útil para filtrar.
-- **M2** encuentra expresiones del campo. Es el método que más sirve al equipo, siempre con el umbral y la línea base.
-- **M3** encuentra palabras que se usan igual en cualquier texto. Confirma un par de M2, pero sola no encuentra temas.
-- Un par que destaca en M2 **y** es cercano en M3 destaca con dos métodos distintos. Es el candidato más fuerte para la decisión, y aun así es un candidato para mirar.
 
-
+- **M1** encuentra el vocabulario general. Sirve para describir, poco para filtrar.
+- **M2** encuentra expresiones del campo. Es el que más sirve al equipo.
+- **M3** encuentra palabras que se usan igual. Confirma un par de M2.
+- Un par que destaca en M2 **y** es cercano en M3 es el candidato más fuerte.
 
 ```python
 top_lift = kept_table.nlargest(15, "lift").iloc[::-1]
@@ -1096,7 +1030,7 @@ plt.show()
 
 **Comprobar:**
 
-
+En este paso comprobamos la forma de la tabla comparativa y que algún par destaca con dos métodos.
 
 ```python
 assert comparison.shape == (TOP, 3)
@@ -1105,9 +1039,7 @@ print("Comparación: OK")
 ```
 
 ### Paso 10. Guardar los patrones
-En este paso guardamos `outputs/patrones_l2.csv`. Una fila por par candidato, con las columnas que usaremos en las próximas lecciones. `kept` dice si el par superó al azar y `kept_lift2` si además destaca.
-
-
+En este paso guardamos `outputs/patrones_l2.csv`, una fila por par. `kept` dice si superó al azar y `kept_lift2` si además destaca.
 
 ```python
 columns = ["pair", "support", "null_p95", "lift", "cosine", "kept", "kept_lift2", "beats_cosine", "shared_vector"]
@@ -1118,7 +1050,7 @@ print(f"Guardado: {patterns_path} ({len(table):,} filas)")
 
 **Comprobar:**
 
-
+En este paso comprobamos que el archivo guardado tiene los mismos pares conservados.
 
 ```python
 saved = pd.read_csv(patterns_path)
@@ -1126,16 +1058,25 @@ assert saved["kept"].sum() == len(kept)
 print("patrones_l2.csv: OK")
 ```
 
+### Paso 11. Para ir más lejos: Benjamini y Hochberg (1995)
+En este paso, opcional, miramos los conservados con Benjamini y Hochberg, que controla la **proporción de falsos descubrimientos**. No cambia `kept`. Con 100 tablas el valor p más chico es 1/101, así que léalo como una segunda opinión.
+
+```python
+# Para ir más lejos: no cambia kept ni los números del curso
+p_values = sorted((1 + sum(v >= candidates[p] for v in null[p])) / (N_SAMPLES + 1) for p in candidates)
+m = len(p_values)
+bh_passed = max((rank for rank, p in enumerate(p_values, start=1) if p <= 0.05 * rank / m), default=0)
+print(f"Pares que pasan Benjamini-Hochberg al 5 %: {bh_passed:,} de {m:,} (conservados por la regla del curso: {len(kept):,})")
+```
+
 ---
- 
-## Parte 7. Despliegue
- 
+
+## Parte 6. Despliegue
+
 ### Paso 1. Cómo usaremos un patrón conservado
-En este paso escribimos, en la tarjeta de la pregunta, cómo entra un patrón en la decisión. Un patrón no elige artículos. Un patrón se convierte en un **filtro con nombre**: "artículos que contienen *fasting + plasma*". Ese filtro se suma a los resultados de las lecciones siguientes (grupos, texto, enlaces). El equipo explica por qué cada artículo está en la lista y qué resultados lo apoyan. Un artículo puede tener varios resultados a favor, uno o ninguno, si el equipo lo justifica.
- 
-Y escribimos qué cambiaría ese uso. Si un patrón solo aparece por un formato de revista, como pasó con *background + methods*, se descarta. Si deja de superar al azar con datos nuevos, también. Si el equipo cambia de tema, cambian los patrones que importan.
+En este paso escribimos en la descripción de la pregunta cómo entra un patrón. Un patrón se vuelve un **filtro con nombre**, por ejemplo "artículos con *fasting + plasma*", que se suma a otros resultados.
 
-
+Lo cambiaría un patrón que sale de un formato de revista, que deja de superar al azar con datos nuevos o un cambio de tema.
 
 ```python
 question_card["pattern_use"] = {
@@ -1156,11 +1097,11 @@ covered = sum(1 for s in word_sets if {first["word_a"], first["word_b"]} <= s)
 print(f"Ejemplo de filtro: {first['pair']} selecciona {covered} artículos")
 ```
 
-Un filtro de 10 o 15 artículos tiene el tamaño que pide el estándar de la Lección 1 (entre 10 y 30). Por eso un patrón puede ser una pieza útil de la lista final.
- 
+Un filtro de 10 o 15 artículos cabe en el estándar de la Lección 1 (entre 10 y 30).
+
 **Comprobar:**
 
-
+En este paso comprobamos que `pregunta.json` tiene el uso de los patrones y que el filtro de ejemplo llega al umbral.
 
 ```python
 assert "pattern_use" in json.loads(QUESTION_PATH.read_text(encoding="utf-8"))
@@ -1168,22 +1109,8 @@ assert covered >= FLOOR
 print("Despliegue: OK")
 ```
 
-### Paso 2. Su turno
-En este paso escribe en dos o tres frases qué par conservado le parece más útil para el equipo y qué revisaría antes de usarlo como filtro. Piense en el azar: ¿podría ser uno de los 800 que pasan por suerte?
-
-
-
-```python
-my_pair = """
-Escriba aquí el par, por qué le sirve al equipo y qué revisaría.
-"""
-print(my_pair)
-```
-
-### Paso 3. Comprobación final
-En este paso revisamos que el cuaderno completo dejó lo que la Lección 3 necesita.
-
-
+### Paso 2. Comprobación final
+En este paso revisamos que el cuaderno dejó lo que la Lección 3 necesita.
 
 ```python
 def _check_ok(name, predicate):
@@ -1205,22 +1132,7 @@ checks = [
 passed = sum(_check_ok(n, f) for n, f in checks)
 print(f"\nL2_CHECKS={passed}/{len(checks)}")
 if passed == len(checks):
-    print("L2_OK. Lleve sus patrones al sábado. En el cuaderno de grupo hará lo mismo con Wikipedia, en español.")
+    print("L2_OK. Siga con la Lección 3.")
 ```
-
-### Para ir más lejos: Benjamini y Hochberg (1995)
-En este paso, que es opcional, miramos los conservados con otra regla. Esta celda no es parte de la regla del curso y no cambia `kept`. Si quiere ir más allá de "unos 800 por suerte", el procedimiento de Benjamini y Hochberg ordena los pares por su valor p y controla la **proporción de falsos descubrimientos** entre los que pasan. El valor p de un par es la parte de sus 100 tablas al azar que llegó a su soporte real. Con 100 tablas el valor p más chico posible es 1/101, así que la corrección es gruesa. Léala como una segunda opinión.
-
-
-
-```python
-# Para ir más lejos: no cambia kept ni los números del curso
-p_values = sorted((1 + sum(v >= candidates[p] for v in null[p])) / (N_SAMPLES + 1) for p in candidates)
-m = len(p_values)
-bh_passed = max((rank for rank, p in enumerate(p_values, start=1) if p <= 0.05 * rank / m), default=0)
-print(f"Pares que pasan Benjamini-Hochberg al 5 %: {bh_passed:,} de {m:,} (conservados por la regla del curso: {len(kept):,})")
-```
-
-
 
 <!-- end NOTEBOOK: -->

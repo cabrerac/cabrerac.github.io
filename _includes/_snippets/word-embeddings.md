@@ -17,12 +17,18 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 55%">
                 <p><b>Counts only see our texts</b></p>
                 <p>Two words with close meanings may rarely share a text.</p>
-                <p>Counting cannot tell that car and automobile are close.</p>
-                <p>A pretrained embedding learned from far more text can.</p>
-                <p>Closeness in an embedding is a third way to judge a pair.</p>
+                <ul>
+                    <li>Counting cannot tell that car and automobile are close.</li>
+                    <li>A pretrained embedding learned from far more text can.</li>
+                    <li>Closeness in an embedding is a third way to judge a pair.</li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 45%">
+                <img src="{{ site.url }}/assets/media/images/cosine-similarity.png" alt="Cosine similarity" style="height: 320px">
+                <div class="footnote">CosineSimilarity - StandingFuture, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
@@ -54,16 +60,10 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Skip-gram</b></p>
-                <table class="table">
-                    <tr>
-                        <td>
-                            <p>"We propose two novel model architectures for computing continuous vector representations of words from very large data sets."</p>
-                            <p><a href="https://arxiv.org/abs/1301.3781" target="_blank" rel="noopener noreferrer">(Mikolov et al., 2013)</a></p>
-                        </td>
-                    </tr>
-                </table>
                 <p>Take a word and predict its neighbours.</p>
                 <p>The weights learned for each word are its vector.</p>
+                <br>
+                <p>"We propose two novel model architectures for computing continuous vector representations of words from very large data sets." <a href="https://arxiv.org/abs/1301.3781" target="_blank" rel="noopener noreferrer">(Mikolov et al., 2013)</a></p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/images/skip-gram.svg" alt="Skip-gram model" style="height: 360px">
@@ -78,12 +78,14 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Cosine similarity</b></p>
                 <p>$$\cos(\mathbf{u}, \mathbf{v}) = \frac{\mathbf{u} \cdot \mathbf{v}}{\lVert \mathbf{u} \rVert \, \lVert \mathbf{v} \rVert}$$</p>
-                <p><b>Close to 1</b> - the words are used in similar ways.</p>
-                <p><b>Close to 0</b> - no relation.</p>
-                <p><b>Below 0</b> - rare, and usually weak.</p>
+                <ul>
+                    <li><b>Close to 1:</b> the words are used in similar ways.</li>
+                    <li><b>Close to 0:</b> no relation.</li>
+                    <li><b>Below 0:</b> rare, and usually weak.</li>
+                </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/cosine-similarity.png" alt="Cosine similarity" style="height: 300px">
@@ -121,11 +123,12 @@
             <div class="column vertical-middle text-left" style="width: 35%">
                 <p><b>Small models share rows</b></p>
                 <p>A medium spaCy model keeps 20,000 vectors for about 685,000 words. Many words share a row, so high and low get a cosine of 1.0.</p>
-                <p>The large model has about 343,000 vectors. High and low get 0.76.</p>
-                <p>Words with exactly the same vector are read apart.</p>
+                <ul>
+                    <li>The large model has about 343,000 vectors. High and low get 0.76.</li>
+                    <li>Words with exactly the same vector are read apart.</li>
+                </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
-
 
 ```python
 def shared_vectors(vocab_words, nlp):
@@ -159,7 +162,6 @@ group_of = {w: i for i, group in enumerate(shared_groups) for w in group}
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
 
-
 ```python
 import numpy as np
 import spacy
@@ -192,9 +194,11 @@ def pair_cosine(a, b):
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Bias</b></p>
                 <p>Embeddings learn from human text, with its stereotypes.</p>
-                <p>"Man is to Computer Programmer as Woman is to Homemaker?" <a href="https://arxiv.org/abs/1607.06520" target="_blank" rel="noopener noreferrer">(Bolukbasi et al., 2016)</a>.</p>
-                <p>Word vectors carry human-like biases, measured like implicit association tests <a href="https://doi.org/10.1126/science.aal4230" target="_blank" rel="noopener noreferrer">(Caliskan et al., 2017)</a>.</p>
-                <p>A close pair can reflect the web, not our texts.</p>
+                <ul>
+                    <li>"Man is to Computer Programmer as Woman is to Homemaker?" <a href="https://arxiv.org/abs/1607.06520" target="_blank" rel="noopener noreferrer">(Bolukbasi et al., 2016)</a>.</li>
+                    <li>Word vectors carry human-like biases, measured like implicit association tests <a href="https://doi.org/10.1126/science.aal4230" target="_blank" rel="noopener noreferrer">(Caliskan et al., 2017)</a>.</li>
+                    <li>A close pair can reflect the web, not our texts.</li>
+                </ul>
             </div>
         </div>
     </div>

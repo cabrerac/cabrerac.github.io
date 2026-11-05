@@ -1,6 +1,6 @@
 <!-- SLIDES: -->
 
-## Combining Results
+## The Project
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -12,29 +12,47 @@
     </div>
 </div>
 
-## Combining Results
+## The Project
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Each result is a reason</b></p>
-                <p>Each method sees the items in its own way, and each one is weak alone.</p>
-                <p>The list shows which results support each item. An item can stay with one result or none, if you explain why it is on the list.</p>
-                <p>Items left out are not deleted, they wait for another result or a reason.</p>
+                <p>Each method sees the papers in its own way, and each one is weak alone.</p>
+                <ul>
+                    <li>The list shows which results support each paper</li>
+                    <li>A paper can stay with one result or none if the group explains why</li>
+                    <li>Papers left out wait for another result or a reason</li>
+                </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>What would change it</b></p>
-                <p>Another setting of any method.</p>
-                <p>Another reading of a result.</p>
-                <p>A new result that supports or drops an item.</p>
-                <p>We write these down next to the result, before anyone uses it.</p>
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/crisp-dm-process-diagram.png" alt="CRISP-DM process diagram" style="height: 360px">
+                <div class="footnote">CRISP-DM Process Diagram - Kenneth Jensen, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
 </div>
 
-## Combining Results
+## The Project
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <p><b>What would change it</b></p>
+                <ul>
+                    <li>Another setting of any method</li>
+                    <li>Another reading of a result</li>
+                    <li>A new result that supports or drops a paper</li>
+                </ul>
+                <p>We write these down before anyone uses the result.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## The Project
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -52,10 +70,9 @@
                         <tr><td>4</td><td>no</td><td>no</td><td>0</td><td>out, not deleted</td></tr>
                     </tbody>
                 </table>
-                <p>A new result adds a column. The count is only a starting point. You can keep or drop any item if you say why.</p>
+                <p>A new result adds a column. The count is only a starting point. The group can keep or drop any item if it says why.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 55%">
-
 
 ```python
 SUPPORT_COLUMNS = ["result_a", "result_b"]   # one per result

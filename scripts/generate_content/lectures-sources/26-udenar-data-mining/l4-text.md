@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-data-mining
 title: Text extraction and marked examples
-description: Lecture 4 introduces extraction from text. The data are texts. We give a short history of text mining, then three methods, each with its own data preparation. The basic method is a keyword list, prepared as a normalized word list for the stated question. The intermediate method is TF-IDF with logistic regression, prepared as a document-term matrix and a split into marked examples. The advanced method is a frozen multilingual transformer encoder with logistic regression, prepared as the text itself, truncated to the encoder's length. Each method is taught with its mathematics, its preparation, and a Python implementation. The result is judged by how many marked examples it gets right and how many it gets wrong. The lecture closes by adding this result to the earlier ones. An item stays in view only when at least two results support it, and we state what would change that.
+description: Lecture 4 introduces extraction from text. The data are texts. We give a short history of text mining, then three methods, each with its own data preparation. The basic method is a keyword list, prepared as a normalized word list for the stated question. The intermediate method is TF-IDF with logistic regression, prepared as a document-term matrix and a split into marked examples. The advanced method is a frozen multilingual transformer encoder with logistic regression, prepared as the text itself, truncated to the encoder's length. Each method is taught with its mathematics, its preparation, and a Python implementation. The result is judged by how many marked examples it gets right and how many it gets wrong. The lecture closes by adding this result to the earlier ones. Each item shows how many results support it, and we state what would change its place on the list.
 session: 4
 start_time: 07:00 am
 end_time: 01:00 pm
@@ -76,7 +76,7 @@ notebook_description: Práctica individual de la Lección 4. Extraer de los res�
 
 <!-- end SLIDES: -->
 
-{% include _snippets/cross-validation.md %}
+{% include _snippets/26-udenar-data-mining/l4-text/cross-validation.md %}
 
 <!-- SLIDES: -->
 
@@ -96,11 +96,17 @@ notebook_description: Práctica individual de la Lección 4. Extraer de los res�
 
 {% include _snippets/26-udenar-data-mining/l4-text/five-folds.md %}
 
+<!-- SLIDES: -->
+
+# The Question and the Data
+
+<!-- end SLIDES: -->
+
 {% include _snippets/26-udenar-data-mining/l4-text/comparison.md %}
 
 <!-- SLIDES: -->
 
-# Adding the Text Result
+# The Project
 
 <!-- end SLIDES: -->
 

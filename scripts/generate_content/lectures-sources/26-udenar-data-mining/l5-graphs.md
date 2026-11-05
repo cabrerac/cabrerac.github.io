@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-data-mining
 title: Graphs and an item's place among the others
-description: Lecture 5 introduces the links among items in a graph. The data are items and the links among them. We give a short history of graph methods, then three methods, each with its own data preparation. The basic method is degree, prepared as an edge list of links that stay inside the set. A node that links to a large share of the others is a warning, not an automatic pick. The intermediate method is betweenness, prepared as an undirected graph on that edge list. The advanced method is node2vec, prepared as that graph plus the walks that build the embedding, with a fixed place for a node that has no neighbour. Each method is taught with its mathematics, its preparation, and a Python implementation. We characterise an item by its place among the other items. The lecture closes by adding this result to the earlier ones. An item stays in view only when at least two results support it, and we state what would change that.
+description: Lecture 5 introduces the links among items in a graph. The data are items and the links among them. We give a short history of graph methods, then three methods, each with its own data preparation. The basic method is degree, prepared as an edge list of links that stay inside the set. A node that links to a large share of the others is a warning, not an automatic pick. The intermediate method is betweenness, prepared as an undirected graph on that edge list. The advanced method is node2vec, prepared as that graph plus the walks that build the embedding, with a fixed place for a node that has no neighbour. Each method is taught with its mathematics, its preparation, and a Python implementation. We characterise an item by its place among the other items. The lecture closes by adding this result to the earlier ones. Each item shows how many results support it, and we state what would change its place on the list.
 session: 5
 start_time: 07:00 am
 end_time: 01:00 pm
@@ -37,8 +37,6 @@ notebook_description: Práctica individual de la Lección 5. Describir un artíc
 <!-- end SLIDES: -->
 
 {% include _snippets/graphs.md %}
-
-{% include _snippets/26-udenar-data-mining/l5-graphs/course-data.md %}
 
 <!-- SLIDES: -->
 
@@ -82,7 +80,15 @@ notebook_description: Práctica individual de la Lección 5. Describir un artíc
 
 <!-- SLIDES: -->
 
-# Adding the Graph Result
+# The Question and the Data
+
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-data-mining/l5-graphs/course-data.md %}
+
+<!-- SLIDES: -->
+
+# The Project
 
 <!-- end SLIDES: -->
 

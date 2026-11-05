@@ -11,9 +11,9 @@ description: Lecture 5 introduces the links among items in a graph. The data are
   prepared as that graph plus the walks that build the embedding, with a fixed place
   for a node that has no neighbour. Each method is taught with its mathematics, its
   preparation, and a Python implementation. We characterise an item by its place among
-  the other items. The lecture closes by adding this result to the earlier ones. An
-  item stays in view only when at least two results support it, and we state what
-  would change that.
+  the other items. The lecture closes by adding this result to the earlier ones. Each
+  item shows how many results support it, and we state what would change its place
+  on the list.
 email: chc79@cam.ac.uk
 end_time: 01:00 pm
 group_notebook: week-3-group

@@ -20,9 +20,11 @@
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Preparation</b></p>
                 <p>One set of words per text.</p>
-                <p>All pairs of words inside each set.</p>
-                <p>A count of texts for each pair.</p>
-                <p>{diet, obesity, risk} gives three pairs: diet + obesity, diet + risk, obesity + risk.</p>
+                <ul>
+                    <li>All pairs of words inside each set.</li>
+                    <li>A count of texts for each pair.</li>
+                    <li>{diet, obesity, risk} gives three pairs: diet + obesity, diet + risk, obesity + risk.</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -33,7 +35,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Support</b></p>
                 <p>The support of a pair is the number of texts that hold both words.</p>
                 <p>$$\text{support}(A,B) = \left|\{\, i : A \in T_i \text{ and } B \in T_i \,\}\right|$$</p>
@@ -67,9 +69,9 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Support</b></p>
                 <ul>
-                    <li>diet + risk - 3 texts</li>
-                    <li>obesity + risk - 3 texts</li>
-                    <li>diet + obesity - 2 texts</li>
+                    <li><b>diet + risk:</b> 3 texts</li>
+                    <li><b>obesity + risk:</b> 3 texts</li>
+                    <li><b>diet + obesity:</b> 2 texts</li>
                 </ul>
             </div>
         </div>
@@ -81,28 +83,33 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>The support floor</b></p>
                 <p>A pair needs at least $k$ texts, a share of the collection with a minimum count.</p>
                 <p>$$k = \max\left(5,\ \lceil 0.03 \cdot N \rceil\right)$$</p>
                 <p>With 100 texts, k is 5.</p>
                 <p>With 300 texts, k is 9.</p>
                 <p>With 1,000 texts, k is 30.</p>
-                <table class="table">
-                    <tr>
-                        <td>
-                            <p>"This is used to make sure that the items this rule applies to actually occur frequently enough for someone to care."</p>
-                            <p><a href="https://doi.org/10.1145/253262.253325" target="_blank" rel="noopener noreferrer">(Brin et al., 1997)</a></p>
-                        </td>
-                    </tr>
-                </table>
+                <br>
+                <p>"This is used to make sure that the items this rule applies to actually occur frequently enough for someone to care." <a href="https://doi.org/10.1145/253262.253325" target="_blank" rel="noopener noreferrer">(Brin et al., 1997)</a></p>
             </div>
-            <div class="column vertical-top text-left" style="width: 50%">
+        </div>
+    </div>
+</div>
+
+## Frequent Word Pairs
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Why a floor</b></p>
                 <p>One standout text cannot make a pattern alone.</p>
-                <p>Rare pairs look strong by luck.</p>
-                <p>The list stays small enough to read.</p>
-                <p>1,000 words give 499,500 possible pairs.</p>
+                <ul>
+                    <li>Rare pairs look strong by luck.</li>
+                    <li>The list stays small enough to read.</li>
+                    <li>1,000 words give 499,500 possible pairs.</li>
+                </ul>
                 <p>$$\binom{V}{2} = \frac{V(V-1)}{2}$$</p>
             </div>
         </div>
@@ -136,11 +143,12 @@
             <div class="column vertical-middle text-left" style="width: 35%">
                 <p><b>Python: the floor</b></p>
                 <p>The floor from the number of texts.</p>
-                <p>Count each word once per text.</p>
-                <p>Keep the words at the floor.</p>
+                <ul>
+                    <li>Count each word once per text.</li>
+                    <li>Keep the words at the floor.</li>
+                </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
-
 
 ```python
 import math
@@ -172,11 +180,12 @@ vocabulary = sorted(w for w, c in word_count.items() if c >= FLOOR)
             <div class="column vertical-middle text-left" style="width: 35%">
                 <p><b>Python: the pairs</b></p>
                 <p>Pairs from the kept words only.</p>
-                <p>combinations gives each pair once.</p>
-                <p>Keep the pairs at the floor.</p>
+                <ul>
+                    <li>combinations gives each pair once.</li>
+                    <li>Keep the pairs at the floor.</li>
+                </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
-
 
 ```python
 from itertools import combinations

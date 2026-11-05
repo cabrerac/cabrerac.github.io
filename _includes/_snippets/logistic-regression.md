@@ -17,7 +17,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 55%">
+            <div class="column vertical-middle text-left" style="width: 55%">
                 <p><b>A probability from a weighted sum</b> <a href="https://doi.org/10.1111/j.2517-6161.1958.tb00292.x" target="_blank" rel="noopener noreferrer">(Cox, 1958)</a></p>
                 <p>$$P(y = 1 \mid \mathbf{x}) = \sigma(\mathbf{w} \cdot \mathbf{x} + b)$$</p>
                 <p>$$\sigma(z) = \frac{1}{1 + e^{-z}}$$</p>
@@ -39,7 +39,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Log loss</b></p>
                 <p>$$\mathcal{L}(\mathbf{w}, b) = -\sum_{i=1}^{n} \left[ y_i \log p_i + (1 - y_i) \log (1 - p_i) \right]$$</p>
                 <p>$p_i$ is the predicted probability for item $i$.</p>
@@ -55,7 +55,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>L2 penalty and class weights</b></p>
                 <p>$$\min_{\mathbf{w}, b} \ \frac{1}{2} \lVert \mathbf{w} \rVert^2 + C \sum_{i} s_{y_i} \, \ell_i$$</p>
                 <p>With many columns, weights can grow to fit noise.</p>
@@ -81,7 +81,6 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
-
 
 ```python
 from sklearn.linear_model import LogisticRegression
@@ -112,7 +111,6 @@ pred_lr = lr.predict(X_test)
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
-
 
 ```python
 import pandas as pd

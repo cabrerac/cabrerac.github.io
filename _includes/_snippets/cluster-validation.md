@@ -17,16 +17,20 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 55%">
                 <p><b>No labels to check against</b></p>
                 <ul>
-                    <li><b>Silhouette</b> - compare it with a shuffled baseline</li>
-                    <li><b>Stability</b> - rerun with other seeds</li>
-                    <li><b>Agreement</b> - do different methods find the same groups</li>
-                    <li><b>Noise share</b> - how many items fit no group</li>
-                    <li><b>Top words</b> - can someone in the field name each group</li>
+                    <li><b>Silhouette:</b> compare it with a shuffled baseline</li>
+                    <li><b>Stability:</b> rerun with other seeds</li>
+                    <li><b>Agreement:</b> do different methods find the same groups</li>
+                    <li><b>Noise share:</b> how many items fit no group</li>
+                    <li><b>Top words:</b> can someone in the field name each group</li>
                 </ul>
                 <p>Weak structure is a finding, not something to hide.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 45%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/cluster-analysis-mouse.svg" alt="Three groups of points" style="height: 300px">
+                <div class="footnote">ClusterAnalysis Mouse - Chire, Public domain, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
@@ -39,20 +43,20 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Weak structure is a finding</b></p>
-                <p>A silhouette near 1 says each item is much closer to its group than to any other.</p>
-                <p>A silhouette near 0 says many items sit halfway between two groups.</p>
-                <p>That is not a bug in the code. It is a fact about the data.</p>
-                <p>Texts on one topic share many words, and their subtopics mix.</p>
+                <p>A silhouette near 0 says many papers sit halfway between two groups.</p>
+                <ul>
+                    <li>That is a fact about the data, not a bug in the code</li>
+                    <li>Texts on one topic share many words, and their subtopics mix</li>
+                </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>How much to trust the groups</b></p>
                 <ul>
-                    <li><b>Baseline</b> - is the silhouette above the 95th percentile of shuffled data, and by how much</li>
-                    <li><b>Stability</b> - do the groups survive a new seed</li>
-                    <li><b>Noise</b> - how many items have no clear neighbours</li>
-                    <li>A weak group is not useless. It says: do not decide with one group alone</li>
+                    <li><b>Baseline:</b> is the silhouette above the shuffled 95th percentile</li>
+                    <li><b>Stability:</b> do the groups survive a new seed</li>
+                    <li><b>Noise:</b> how many items have no clear neighbours</li>
                 </ul>
-                <p>What would change it: another k, another floor, another preparation such as TF-IDF, or a question that asks for broader groups.</p>
+                <p>A weak group says: do not decide with one group alone.</p>
             </div>
         </div>
     </div>
@@ -66,12 +70,13 @@
             <div class="column vertical-middle text-left" style="width: 36%">
                 <p><b>Shuffled baseline</b></p>
                 <p>Each word keeps its number of items.</p>
-                <p>Its items are drawn at random.</p>
-                <p>Real silhouette against the 95th percentile of the shuffled silhouettes, read as in Lecture 2.</p>
-                <p>Unlike a swap null, item length is not kept. Rows have length 1, so the mix of words is compared.</p>
+                <ul>
+                    <li>Its items are drawn at random.</li>
+                    <li>Real silhouette against the 95th percentile of the shuffled silhouettes, read as in Lecture 2.</li>
+                    <li>Unlike a swap null, item length is not kept. Rows have length 1, so the mix of words is compared.</li>
+                </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 64%">
-
 
 ```python
 import numpy as np
@@ -126,7 +131,6 @@ print(round(silhouettes[K_CHOSEN], 3), round(p95(shuffled_silhouettes), 3))
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
-
 
 ```python
 from itertools import combinations

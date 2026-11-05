@@ -1,13 +1,11 @@
 <!-- NOTEBOOK: -->
 
 ## Repaso de Python para este cuaderno
- 
-Este repaso es corto. Muestra las dos ideas que usamos en toda la lección: separar filas para probar, y contar aciertos y errores. Si ya las conoce, ejecute las celdas rápido y siga.
- 
+
+Este cuaderno utiliza los siguientes métodos de Python. Si ya los conoce, ejecute estas celdas rápido.
+
 ### Separar filas para probar
-Para saber si un método funciona, lo probamos con filas que **no vio** al aprender. `train_test_split` separa las filas en dos partes. Con `stratify`, las dos partes tienen la misma proporción de cada clase.
-
-
+Para saber si un método funciona, lo probamos con filas que **no vio**. `train_test_split` separa las filas, y `stratify` mantiene la proporción de cada clase.
 
 ```python
 import numpy as np
@@ -20,9 +18,7 @@ print("Proporción de 1 en cada parte:", y_toy[rows_train].mean(), y_toy[rows_te
 ```
 
 ### Aciertos y errores a mano
-Comparamos lo que dice un método con lo que marcó una persona. Hay cuatro casos: el método dice sí y era sí (**verdadero positivo**, TP), dice sí y era no (**falso positivo**, FP), dice no y era sí (**falso negativo**, FN), dice no y era no (**verdadero negativo**, TN).
-
-
+Frente a la marca de una persona hay cuatro casos: **verdadero positivo** (TP), **falso positivo** (FP), **falso negativo** (FN) y **verdadero negativo** (TN).
 
 ```python
 marked = np.array([1, 0, 1, 1, 0, 0])
@@ -36,47 +32,54 @@ print(f"TP {tp}, FP {fp}, FN {fn}, TN {tn}. Repaso de Python: OK")
 ```
 
 ---
- 
+
 ## Instrucciones
- 
-**La historia.** Seguimos con el equipo interno de la secretaría de salud y sus 320 artículos de nutrición. En la Lección 2 encontramos patrones y en la Lección 3 grupos débiles. Con los dos resultados de la L2 y la L3, y `MIN_SUPPORTS = 2`, el valor con que empieza el código, solo 8 artículos quedaron en vista, menos de los 10 que pide el estándar, porque el resultado del grupo lo reciben solo los 10 artículos del grupo de HDBSCAN que lee el equipo. Hoy sumamos un tercer resultado: **leer el texto** de cada resumen y decir si trata del tema del equipo.
- 
-**La idea central.** Para enseñarle a un método qué es "un artículo del tema", necesitamos **ejemplos marcados**. Las marcas se escriben **antes** de correr cualquier método, para que los resultados no nos cambien la vara. Separamos un conjunto de artículos marcados que ningún método ve al aprender, y medimos ahí los aciertos y los errores.
- 
+
+Seguimos con el equipo interno de la secretaría de salud y sus 320 artículos sobre nutrición. El equipo debe decidir **qué artículos tiene que leer** un colega que llega al equipo. En la Lección 3 los grupos salieron débiles, y con `MIN_SUPPORTS = 2` solo 8 artículos quedaron en vista.
+
+Los grupos no miran qué pregunta el equipo. Por años, buscar en textos fue buscar palabras clave. Hoy hay modelos que ya leyeron mucho texto antes de ver el nuestro, el preentrenamiento (Devlin et al., 2019). Aun así, una persona marca primero unos ejemplos. Hoy sumamos un tercer resultado: **leer el texto** y decir si trata del tema. Las marcas se escriben **antes** de correr los métodos, y medimos aciertos y errores en artículos que ningún método vio.
+
 **Tres métodos, tres preparaciones.**
- 
+
 | Método | Pregunta | Preparación que necesita | Cuánto aprende de las marcas |
 |--------|----------|--------------------------|------------------------------|
 | M1. Lista de palabras clave | ¿El texto tiene alguna palabra de la lista? | Una lista escrita desde la pregunta, antes de ver resultados | Nada: la regla la escribimos nosotros |
 | M2. TF-IDF y regresión logística | ¿Qué palabras pesan a favor y en contra? | Conteos con peso TF-IDF, ajustados solo con las filas de entrenamiento | Un peso por palabra |
 | M3. Codificador y regresión logística | ¿Qué dice un modelo de lenguaje sobre el texto entero? | El texto con el prefijo `"query: "`, cortado a 512 tokens | Un peso por dimensión del vector |
- 
-**Qué hacer.** Ejecute las celdas de arriba hacia abajo. Cada paso empieza con **En este paso**. Los pasos que crean algo nuevo terminan con una celda **Comprobar**. Si un `assert` falla, revise la celda anterior antes de seguir. Los nombres del código están en inglés, como en todos los cuadernos del curso. Las explicaciones están en español.
- 
-**El sábado 14 nov.** Hacia las 09:20 seguimos en vivo con este cuaderno, hasta las 10:00. La meta en clase es ver un filtro de texto con sus aciertos y errores. Lo que falte se termina en casa. Ejecute la celda del codificador antes del sábado, porque descarga un modelo de texto (`multilingual-e5-small`) de unos 470 MB.
- 
-**Del laboratorio al proyecto.** Desde las 10:00 el cuaderno de grupo de la semana 2 repite estos pasos con las entradillas de su secretaría. Primero marcan, después corren los modelos de texto.
- 
+
+**Qué hacer.** Ejecute las celdas de arriba hacia abajo. Cada paso empieza con **En este paso** y termina con una celda **Comprobar**.
+
 **Mapa del cuaderno**
- 
+
 | Parte | Fase CRISP-DM | Qué sale |
 |-------|---------------|----------|
-| 1 | Configuración | Librerías, parámetros, el codificador y la función del intervalo |
-| 2 | Comprensión del negocio | `pregunta.json` y `outputs/grupos_l3.csv` de la Lección 3 |
-| 3 | Comprensión de los datos | Los artículos, la etiqueta de entrenamiento y el largo de los resúmenes |
-| 4 | Preparación de los datos | La lista de palabras, el conjunto marcado, TF-IDF y los textos del codificador |
-| 5 | Modelado | Las predicciones de los tres métodos |
-| 6 | Evaluación | Aciertos y errores, F1 con intervalo y cinco pliegues |
-| 7 | Despliegue | Tres resultados en `supports` y `outputs/texto_l4.csv` |
+| 1 | Comprensión del negocio | La pregunta de hoy, los parámetros, el codificador, `pregunta.json` y `outputs/grupos_l3.csv` |
+| 2 | Comprensión de los datos | Los artículos, la etiqueta de entrenamiento y el largo de los resúmenes |
+| 3 | Preparación de los datos | La lista de palabras, el conjunto marcado, TF-IDF y los textos del codificador |
+| 4 | Modelado | Las predicciones de los tres métodos |
+| 5 | Evaluación | Aciertos y errores, F1 con intervalo y cinco pliegues |
+| 6 | Despliegue | Tres resultados en `supports` y `outputs/texto_l4.csv` |
+
+**Carpetas.** La celda de configuración crea `data/` (datos descargados) y `outputs/` (tablas y gráficos).
 
 ---
- 
-## Parte 1. Configuración
- 
-### Paso 1. Librerías, carpetas y parámetros
-En este paso instalamos lo que falte, importamos las librerías y fijamos los parámetros. En Colab, scikit-learn ya viene instalado. La celda revisa si está `sentence-transformers` y lo instala solo si falta. Los parámetros de la L2 y la L3 se copian sin cambios. Los de la L4 se definen aquí una sola vez y son los mismos en el cuaderno de grupo y en el script de control. No los cambie aquí.
 
+## Parte 1. Comprensión del negocio
 
+### Paso 1. La pregunta de esta lección
+En este paso escribimos qué buscamos hoy. La decisión no cambia: qué artículos debe leer el colega nuevo.
+
+| Pregunta | Respuesta para el laboratorio |
+|----------|-------------------------------|
+| ¿Qué buscamos? | Qué artículos tratan del tema del equipo, según su resumen |
+| ¿Con qué lo medimos? | Una lista de palabras clave, TF-IDF con regresión logística y un codificador ya entrenado |
+| ¿Contra qué los comparamos? | Contra la clase mayor, en un conjunto marcado que ningún método ve al aprender |
+| ¿Cómo entra el texto en la lista? | Un artículo recibe el resultado del texto si un modelo que no lo vio dice leerlo |
+
+Un acierto solo tiene sentido frente a una marca escrita antes de ver resultados.
+
+### Paso 2. Configuración
+En este paso importamos las librerías, creamos las carpetas y fijamos los parámetros. La celda instala `sentence-transformers` solo si falta. No cambie los parámetros. La excepción es `MIN_SUPPORTS`, que empieza en 2 y se puede cambiar. Cada grupo fija y justifica este número en su proyecto.
 
 ```python
 import importlib.util
@@ -116,7 +119,7 @@ SUPPORT_SHARE = 0.03
 SUPPORT_MIN = 5
 SEED = 7
 
-# L4 (compartidos con el cuaderno de grupo, no cambiar)
+# L4 (no cambiar)
 FLAGGED_SHARE = 0.20        # proporción de textos en el conjunto marcado
 FLAGGED_MIN = 40            # mínimo de textos marcados
 POSITIVE_SHARE = 0.10       # proporción mínima de positivos en la etiqueta
@@ -159,7 +162,7 @@ print(f"Con 317 artículos: {n_flagged(317)} marcados, al menos {min_positives(3
 
 **Comprobar:**
 
-
+En este paso comprobamos el tamaño del conjunto marcado, el mínimo de positivos y la versión de scikit-learn.
 
 ```python
 assert n_flagged(317) == 64 and min_positives(317) == 32
@@ -167,10 +170,8 @@ assert tuple(int(v) for v in sklearn.__version__.split(".")[:2]) >= (1, 3)
 print("Parámetros: OK")
 ```
 
-### Paso 2. Funciones de las Lecciones 2 y 3
-En este paso traemos, sin cambios, lo que ya conocemos: la descarga, las palabras vacías de la L2, `words` (un conjunto de palabras) y `word_list` (la lista con repeticiones de la L3). Los tres métodos parten de esta misma preparación.
-
-
+### Paso 3. Funciones de las Lecciones 2 y 3
+En este paso traemos sin cambios la descarga, las palabras vacías, `words` y `word_list` de las Lecciones 2 y 3.
 
 ```python
 from spacy.lang.en.stop_words import STOP_WORDS as STOP_WORDS_EN
@@ -234,19 +235,17 @@ print(sorted(words("The diet and the DIET of obese children", STOP_WORDS)))
 
 **Comprobar:**
 
-
+En este paso comprobamos que `word_list` cuenta las repeticiones.
 
 ```python
 assert word_list("The diet, the DIET and the risk", STOP_WORDS) == ["diet", "diet", "risk"]
 print("Funciones de la L2 y la L3: OK")
 ```
 
-### Paso 3. El codificador de texto
-En este paso cargamos el **codificador** `intfloat/multilingual-e5-small`. Es un modelo de lenguaje ya entrenado con mucho texto en muchos idiomas. Lo usamos **congelado**: no lo ajustamos, solo le pedimos un vector por texto. El mismo modelo sirve para inglés (este cuaderno) y para español (el cuaderno de grupo).
- 
-**Tiempo y tamaño.** El modelo se descarga al cargarlo, en esta celda. En un Colab nuevo se descargan unos 470 MB, menos de un minuto. Después queda en la sesión.
+### Paso 4. El codificador de texto
+En este paso cargamos el **codificador** `intfloat/multilingual-e5-small`, ya entrenado con texto en muchos idiomas. Lo usamos **congelado**: solo le pedimos un vector por texto.
 
-
+**Tiempo y tamaño.** `multilingual-e5-small` pesa unos 470 MB y se descarga en esta celda, en menos de un minuto.
 
 ```python
 from sentence_transformers import SentenceTransformer
@@ -260,7 +259,7 @@ print(f"Codificador cargado en {time.time() - start:.1f} s. Vectores de {VECTOR_
 
 **Comprobar:**
 
-
+En este paso comprobamos el largo máximo que lee el codificador y el tamaño de sus vectores.
 
 ```python
 assert encoder.max_seq_length == MAX_LENGTH
@@ -268,10 +267,8 @@ assert VECTOR_SIZE == 384
 print("Codificador: OK")
 ```
 
-### Paso 4. Una función dada: el intervalo del F1
-En este paso definimos una función que usaremos en la Parte 6. **Es una celda dada**: no hace falta entender cada línea ahora. La función toma las marcas y las predicciones de un método, sortea 2.000 veces las filas marcadas con reemplazo (un **bootstrap**) y devuelve los percentiles 2,5 y 97,5 del F1. Con dos métodos, devuelve el intervalo de la **diferencia** de F1 sobre las mismas filas.
-
-
+### Paso 5. Una función dada: el intervalo del F1
+En este paso definimos una función para la Parte 5. **Es una celda dada.** Sortea 2.000 veces las filas marcadas (un **bootstrap**) y devuelve el intervalo del 95 % del F1, o de la **diferencia** de F1 entre dos métodos.
 
 ```python
 def f1_interval(y, pred_a, pred_b=None, n_resamples=N_RESAMPLES, seed=SEED):
@@ -299,14 +296,8 @@ def f1_interval(y, pred_a, pred_b=None, n_resamples=N_RESAMPLES, seed=SEED):
 print(f1_interval([1, 1, 0, 0, 1, 0], [1, 0, 0, 0, 1, 1]).round(2))
 ```
 
----
- 
-## Parte 2. Comprensión del negocio
- 
-### Paso 1. Recuperar la pregunta
-En este paso leemos `pregunta.json`. Si abre este cuaderno en un Colab nuevo, la celda escribe la tarjeta para que pueda seguir. La pregunta no cambia. Lo nuevo es **qué cuenta como un artículo del tema**: un artículo sobre dieta, obesidad o las enfermedades que dependen de la dieta.
-
-
+### Paso 6. La descripción de la pregunta
+En este paso leemos `pregunta.json`, la descripción de la pregunta. Si `pregunta.json` no está, este cuaderno escribe la descripción del laboratorio para que pueda seguir. Lo nuevo es **qué cuenta como artículo del tema**: dieta, obesidad o las enfermedades que dependen de la dieta.
 
 ```python
 QUESTION_PATH = Path("pregunta.json")
@@ -321,23 +312,21 @@ else:
         "pattern_use": {"rule": "El equipo explica por qué cada artículo está en la lista y qué resultados lo apoyan. Un artículo puede tener varios, uno o ninguno, si el equipo lo justifica."},
     }
     QUESTION_PATH.write_text(json.dumps(question_card, ensure_ascii=False, indent=2), encoding="utf-8")
-    print("pregunta.json no estaba. Escribimos la tarjeta.")
+    print("pregunta.json no estaba. Escribimos la descripción del laboratorio.")
 print(question_card["question"])
 ```
 
 **Comprobar:**
 
-
+En este paso comprobamos que la descripción de la pregunta tiene la pregunta y el estándar.
 
 ```python
 assert {"question", "standard"} <= set(question_card)
 print("Pregunta: OK")
 ```
 
-### Paso 2. Recuperar los grupos de la Lección 3
-En este paso leemos `outputs/grupos_l3.csv`. Trae, para cada artículo, los dos resultados de la L2 y la L3. En la Parte 7 sumaremos el tercero. Si el archivo no está (un Colab nuevo), súbalo desde su cuaderno de la L3 a la carpeta `outputs/`. Sin él, el cuaderno sigue, pero los resultados anteriores quedan en 0.
-
-
+### Paso 7. Los grupos de la Lección 3
+En este paso leemos `outputs/grupos_l3.csv`, con los resultados de las Lecciones 2 y 3. Si el archivo no está, el cuaderno sigue con esos resultados en 0. Para tenerlos, suba a `outputs/` el archivo de la Lección 3.
 
 ```python
 GROUPS_PATH = OUTPUTS_DIR / "grupos_l3.csv"
@@ -346,12 +335,12 @@ if GROUPS_PATH.is_file():
     print(f"grupos_l3.csv: {len(groups_l3)} artículos, {groups_l3['in_view'].sum()} en vista en la L3")
 else:
     groups_l3 = pd.DataFrame(columns=["title", "kmeans", "mezcla", "prob_mezcla", "hdbscan", "has_pattern", "read_group", "supports", "in_view"])
-    print("No encontramos outputs/grupos_l3.csv. Súbalo desde la L3 y vuelva a ejecutar esta celda.")
+    print("No encontramos outputs/grupos_l3.csv. Sin él, los resultados anteriores quedan en 0.")
 ```
 
 **Comprobar:**
 
-
+En este paso comprobamos que la tabla de la Lección 3 tiene las columnas de los dos resultados.
 
 ```python
 assert {"title", "has_pattern", "read_group", "supports", "in_view"} <= set(groups_l3.columns)
@@ -359,13 +348,11 @@ print("Grupos de la L3: OK")
 ```
 
 ---
- 
-## Parte 3. Comprensión de los datos
- 
+
+## Parte 2. Comprensión de los datos
+
 ### Paso 1. Los artículos con resumen útil
-En este paso cargamos los artículos con la regla de la L2 y la L3: fuera los resúmenes con menos de 5 palabras distintas. El archivo tiene 320 filas. Tres son fragmentos como "Peer Reviewed", así que quedan 317.
-
-
+En este paso cargamos los artículos y dejamos fuera los resúmenes con menos de 5 palabras distintas. Quedan 317.
 
 ```python
 papers = pd.read_csv(download_data("nutricion-papers.csv"), keep_default_na=False)
@@ -378,7 +365,7 @@ print(f"Artículos usados: {N} de {len(useful)}")
 
 **Comprobar:**
 
-
+En este paso comprobamos el número de artículos usados.
 
 ```python
 assert N == 317
@@ -386,11 +373,9 @@ print("Datos: OK")
 ```
 
 ### Paso 2. La etiqueta de entrenamiento
-En este paso armamos la **etiqueta de entrenamiento**: un 1 para cada artículo del tema y un 0 para el resto. No marcamos a mano 317 artículos. Usamos los temas que OpenAlex asigna a cada artículo (`topics`): un artículo es del tema si alguno de sus temas menciona obesidad, dieta, nutrición, diabetes, salud cardiovascular, lipoproteínas, presión arterial o hipertensión.
- 
-Es una etiqueta **dada, no encontrada**: la escribió otro, con su propio criterio. Por eso no medimos los métodos contra ella sino contra las marcas del Paso 2 de la Parte 4.
+En este paso armamos la **etiqueta de entrenamiento**: 1 si alguno de los temas de OpenAlex (`topics`) menciona obesidad, dieta, nutrición, diabetes, salud cardiovascular, lipoproteínas, presión arterial o hipertensión, y 0 si no.
 
-
+Es una etiqueta **dada, no encontrada**. Por eso medimos los métodos contra las marcas de la Parte 3, Paso 2.
 
 ```python
 TARGET_TOPICS = ["obesity", "diet", "nutrition", "nutritional", "diabetes", "cardiovascular", "lipoproteins", "blood pressure", "hypertension"]
@@ -402,7 +387,7 @@ papers.loc[y == 1, ["title", "topics"]].head(3)
 
 **Comprobar:**
 
-
+En este paso comprobamos el número de artículos del tema y que llega al mínimo de positivos.
 
 ```python
 assert y.sum() == 96
@@ -411,9 +396,7 @@ print("Etiqueta: OK")
 ```
 
 ### Paso 3. El largo de los resúmenes
-En este paso medimos el largo de cada resumen en palabras. El codificador de la Parte 4 lee hasta 512 tokens, así que los resúmenes muy largos se cortan.
-
-
+En este paso medimos el largo de cada resumen. El codificador lee hasta 512 tokens.
 
 ```python
 n_words = pd.Series([len(t.split()) for t in texts])
@@ -421,16 +404,14 @@ print(f"Palabras por resumen: mediana {n_words.median():.0f}, máximo {n_words.m
 print(f"Resúmenes con más de 400 palabras: {(n_words > 400).sum()}")
 ```
 
-La mediana es de unas 245 palabras, pero hay resúmenes de miles de palabras. Son textos que OpenAlex guardó con parte del artículo. Contaremos cuántos corta el codificador.
+La mediana es de unas 245 palabras, pero hay resúmenes de miles.
 
 ---
- 
-## Parte 4. Preparación de los datos
- 
+
+## Parte 3. Preparación de los datos
+
 ### Paso 1. La lista de palabras clave (preparación de M1)
-En este paso escribimos la lista **desde la pregunta**, antes de ver ningún resultado. Pensamos qué palabras usaría un artículo del tema. Normalizamos: todo en minúsculas, singular y plural, y formas cercanas (*diabetes*, *diabetic*). No miramos la etiqueta ni los resultados para armarla: una lista hecha mirando las respuestas parece buena y no lo es.
-
-
+En este paso escribimos la lista de palabras clave **desde la pregunta**, antes de ver resultados. Todo en minúsculas, con singular, plural y formas cercanas. Una lista hecha mirando las respuestas parece buena y no lo es.
 
 ```python
 KEYWORDS = {"obesity", "obese", "diet", "diets", "dietary",
@@ -441,11 +422,11 @@ for word in sorted(KEYWORDS):
     print(f"{word:13s} en {has_word.sum():2d} resúmenes, {(has_word & (y == 0)).sum():2d} fuera del tema según OpenAlex")
 ```
 
-Una lista más larga encuentra más artículos del tema, y también más artículos que no lo son. Una lista más corta se equivoca menos pero se pierde más. Mire *dietary*, *diabetes* y *obesity*: cada una aparece en una decena de resúmenes fuera del tema. *diet*, en cambio, casi siempre cae en el tema.
- 
+Una lista larga encuentra más y se equivoca más. *dietary*, *diabetes* y *obesity* aparecen en una decena de resúmenes fuera del tema.
+
 **Comprobar:**
 
-
+En este paso comprobamos que la lista de palabras está en minúsculas y tiene las formas de *diet*.
 
 ```python
 assert all(w == w.lower() for w in KEYWORDS)
@@ -454,11 +435,9 @@ print("Lista de palabras: OK")
 ```
 
 ### Paso 2. El conjunto marcado
-En este paso separamos el **conjunto marcado**: `n_flagged(N)` artículos, 64 aquí, que ningún método ve al aprender. Usamos `stratify=y` para que tengan la misma proporción de artículos del tema que el resto. Los otros 253 son las **filas de entrenamiento**.
- 
-**Las marcas.** El profesor marca a mano esos 64 artículos: 1 si el equipo debe leerlo para su tema, 0 si no. Marca antes de correr los métodos. Si sus marcas están publicadas (`marcas-nutricion-l4.csv`), la celda las usa. Si no, usa la etiqueta de OpenAlex en esas filas, y lo dice.
+En este paso separamos el **conjunto marcado**: `n_flagged(N)` artículos, 64 aquí, que ningún método ve al aprender, con `stratify=y`. Los otros 253 son las **filas de entrenamiento**.
 
-
+**Las marcas.** El profesor marca esos 64 artículos antes de correr los métodos. Si `marcas-nutricion-l4.csv` está publicado, la celda lo usa. Si no, usa la etiqueta de OpenAlex y lo dice.
 
 ```python
 rows = np.arange(N)
@@ -485,7 +464,7 @@ print(f"Marcados: {len(marked_rows)} filas, {y_test.sum()} del tema. Fuente de l
 
 **Comprobar:**
 
-
+En este paso comprobamos el tamaño de las dos partes, que no comparten filas y que las marcas son 0 o 1.
 
 ```python
 assert len(train_rows) == 253 and len(marked_rows) == n_flagged(N)
@@ -495,15 +474,13 @@ print("Conjunto marcado: OK")
 ```
 
 ### Paso 3. TF-IDF (preparación de M2)
-En este paso pesamos las palabras con **TF-IDF**. Una palabra pesa más si se repite en un texto (TF) y si aparece en pocos textos de la colección (IDF):
- 
+En este paso pesamos las palabras con **TF-IDF**: pesa más una palabra que se repite en un texto y aparece en pocos textos:
+
 $\displaystyle \text{tf} = 1 + \log(\text{conteo}) \qquad \text{idf} = \log\frac{1 + N}{1 + \text{df}} + 1$
- 
-donde df es el número de textos con la palabra. Una palabra que está en casi todos los resúmenes, como *health*, recibe un idf bajo. Después cada fila se escala a largo 1, como en la L3.
- 
-**Solo con las filas de entrenamiento.** `fit_transform` aprende el vocabulario y los idf de las 253 filas de entrenamiento. Las filas marcadas solo se transforman. Si el idf viera las filas marcadas, el método sabría algo de ellas antes de la prueba.
 
+df es el número de textos con la palabra. Después cada fila se escala a largo 1.
 
+**Solo con las filas de entrenamiento.** `fit_transform` aprende de las 253 filas. Las marcadas solo se transforman, para que el método no sepa nada de ellas.
 
 ```python
 train_tokens = [word_list(t, STOP_WORDS) for t in train_texts]   # una lista de palabras por texto, con repeticiones
@@ -519,7 +496,7 @@ print("idf más bajos:", idf.nsmallest(5).round(2).to_dict())
 
 **Comprobar:**
 
-
+En este paso comprobamos el número de filas de TF-IDF y que cada fila quedó de largo 1.
 
 ```python
 assert X_train.shape[0] == 253 and X_test.shape[1] == X_train.shape[1]
@@ -528,9 +505,7 @@ print("TF-IDF: OK")
 ```
 
 ### Paso 4. El texto para el codificador (preparación de M3)
-En este paso preparamos la entrada de M3: el resumen tal como está, con el prefijo `"query: "` que pide e5. El codificador no usa nuestras palabras vacías. Parte el texto en **tokens**, pedazos de palabras de su propio vocabulario, y lee como máximo 512. Contamos cuántos resúmenes pasan de 512 tokens y se cortan.
-
-
+En este paso preparamos la entrada de M3: el resumen con el prefijo `"query: "` que pide e5. El codificador parte el texto en **tokens** y lee como máximo 512.
 
 ```python
 lengths = [len(encoder.tokenizer(PREFIX + t)["input_ids"]) for t in texts]
@@ -539,11 +514,11 @@ print(f"Tokens por resumen: mediana {np.median(lengths):.0f}, máximo {max(lengt
 print(f"{n_cut} de {N} resúmenes se cortan a {MAX_LENGTH} tokens")
 ```
 
-93 de los 317 resúmenes se cortan. El codificador lee su comienzo, que en un resumen suele decir el tema. En las entradillas de Wikipedia del cuaderno de grupo, más cortas, se cortan pocas: entre 6 y 41 por extracto.
- 
+93 de los 317 resúmenes se cortan. El codificador lee su comienzo.
+
 **Comprobar:**
 
-
+En este paso comprobamos cuántos resúmenes corta el codificador.
 
 ```python
 assert n_cut == 93
@@ -551,13 +526,11 @@ print("Textos del codificador: OK")
 ```
 
 ---
- 
-## Parte 5. Modelado
- 
+
+## Parte 4. Modelado
+
 ### M1. La lista de palabras clave
-En este paso aplicamos la lista. La regla es simple: 1 si el texto tiene alguna palabra de la lista, 0 si no. No aprende nada de las marcas.
-
-
+En este paso aplicamos la lista: 1 si el texto tiene alguna palabra de la lista, 0 si no.
 
 ```python
 def keyword_match(text):
@@ -572,7 +545,7 @@ print(f"La lista dice sí en {sum(pred_keywords)} de {len(test_texts)} marcados"
 
 **Comprobar:**
 
-
+En este paso comprobamos que la lista de palabras da una predicción por artículo marcado.
 
 ```python
 assert len(pred_keywords) == n_flagged(N)
@@ -580,13 +553,11 @@ print("M1: OK")
 ```
 
 ### M2. Regresión logística sobre TF-IDF
-En este paso entrenamos una **regresión logística**. El modelo da un peso a cada palabra y calcula la probabilidad de que un texto sea del tema:
- 
+En este paso entrenamos una **regresión logística**, que da un peso a cada palabra:
+
 $\displaystyle P(y = 1 \mid x) = \sigma(w \cdot x + b) = \frac{1}{1 + e^{-(w \cdot x + b)}}$
- 
-Aprende los pesos minimizando la **pérdida logarítmica** más una penalización $L_2$ que evita pesos enormes. `C_REG` controla esa penalización: más alto, menos penalización. `class_weight="balanced"` da más peso a los artículos del tema, que son menos. El modelo dice 1 cuando la probabilidad pasa de 0,5.
 
-
+Minimiza la **pérdida logarítmica** con una penalización $L_2$ (`C_REG`). `class_weight="balanced"` pesa más la clase menor. Dice 1 si la probabilidad pasa de 0,5.
 
 ```python
 lr = LogisticRegression(class_weight="balanced", C=C_REG, max_iter=1000)
@@ -597,7 +568,7 @@ print(f"TF-IDF dice sí en {pred_lr.sum()} de {len(test_texts)} marcados")
 
 **Comprobar:**
 
-
+En este paso comprobamos que TF-IDF da una predicción de 0 o 1 por artículo marcado.
 
 ```python
 assert len(pred_lr) == n_flagged(N) and set(np.unique(pred_lr)) <= {0, 1}
@@ -605,9 +576,7 @@ print("M2: OK")
 ```
 
 ### M2. Leer los pesos
-En este paso leemos las palabras de más peso, a favor y en contra. Un modelo que acierta por una palabra rara merece una mirada.
-
-
+En este paso leemos las palabras de más peso, a favor y en contra.
 
 ```python
 weights = pd.Series(lr.coef_[0], index=feature_names)
@@ -615,14 +584,12 @@ display(weights.nlargest(15).round(2).to_frame("a favor"))
 display(weights.nsmallest(15).round(2).to_frame("en contra"))
 ```
 
-A favor salen las palabras del tema: *obesity*, *diet*, *diabetes*, *cardiovascular*. En contra salen palabras de otros temas de la colección: *cancer*, *mental*, *liver*, *infections*, *dementia*, *agricultural*. El modelo aprendió lo que dice la etiqueta de OpenAlex, con sus aciertos y sus límites.
+A favor salen *obesity*, *diet*, *diabetes*, *cardiovascular*. En contra, otros temas: *cancer*, *mental*, *liver*. El modelo aprendió la etiqueta de OpenAlex.
 
 ### M3. Los vectores del codificador
-En este paso pedimos al codificador un vector por resumen. El codificador lee los tokens, los pasa por sus capas y promedia los vectores de los tokens (**mean pooling**) en un solo vector de 384 números. `normalize_embeddings=True` lo deja de largo 1. Guardamos los vectores en `outputs/vectores_l4.npy` para no volver a calcularlos si repite la celda.
- 
-**Tiempo.** En Colab gratuito, unos 30 a 60 s para los 317 resúmenes. La descarga ya ocurrió al cargar el modelo, en la Parte 1.
+En este paso pedimos al codificador un vector de 384 números por resumen (**mean pooling**), de largo 1. Se guardan en `outputs/vectores_l4.npy`.
 
-
+**Tiempo.** Unos 30 a 60 s en Colab.
 
 ```python
 VECTORS_PATH = OUTPUTS_DIR / "vectores_l4.npy"
@@ -640,7 +607,7 @@ V_test = vectors[marked_rows]
 
 **Comprobar:**
 
-
+En este paso comprobamos la forma de los vectores y que cada uno tiene largo 1.
 
 ```python
 assert vectors.shape == (N, 384)
@@ -649,9 +616,7 @@ print("Vectores: OK")
 ```
 
 ### M3. Regresión logística sobre los vectores
-En este paso usamos la misma regresión logística, ahora sobre los vectores. El codificador no cambia: solo aprendemos un peso por dimensión.
-
-
+En este paso usamos la misma regresión logística sobre los vectores.
 
 ```python
 lr_enc = LogisticRegression(class_weight="balanced", C=C_REG, max_iter=1000).fit(V_train, y_train)
@@ -661,7 +626,7 @@ print(f"El codificador dice sí en {pred_encoder.sum()} de {len(test_texts)} mar
 
 **Comprobar:**
 
-
+En este paso comprobamos que el codificador da una predicción por artículo marcado.
 
 ```python
 assert len(pred_encoder) == n_flagged(N)
@@ -669,19 +634,17 @@ print("M3: OK")
 ```
 
 ---
- 
-## Parte 6. Evaluación
- 
+
+## Parte 5. Evaluación
+
 ### Paso 1. Aciertos y errores en el conjunto marcado
-En este paso contamos, para cada método, TP, FP, FN y TN sobre los 64 marcados. De ahí salen tres medidas:
- 
+En este paso contamos TP, FP, FN y TN sobre los 64 marcados. De ahí salen tres medidas:
+
 - **Precisión** $= \text{TP} / (\text{TP} + \text{FP})$: de lo que el método dice sí, cuánto era sí.
 - **Exhaustividad** (*recall*) $= \text{TP} / (\text{TP} + \text{FN})$: de lo que era sí, cuánto encontró.
 - **F1**, la media armónica de las dos: $2 \cdot P \cdot R / (P + R)$.
- 
-La **línea base** es la clase mayor: decir "no" a todo. Acierta en 7 de cada 10 artículos y no encuentra ninguno del tema.
 
-
+La **línea base** es la clase mayor: decir "no" a todo. Acierta 7 de cada 10 y no encuentra ninguno del tema.
 
 ```python
 def counts_of(y, pred):
@@ -705,11 +668,11 @@ print(f"Marcas: {MARKS_SOURCE}")
 results.round(2)
 ```
 
-TF-IDF y el codificador encuentran casi todos los artículos del tema y se equivocan poco. La lista de palabras encuentra menos y se equivoca más: dice sí en 7 artículos que no son del tema, por *dietary*, *diabetes* u *obesity*, y no encuentra 7 artículos del tema que no usan ninguna palabra de la lista.
- 
+TF-IDF y el codificador encuentran casi todos y se equivocan poco. La lista de palabras se equivoca en 7 y no encuentra otros 7.
+
 **Comprobar:**
 
-
+En este paso comprobamos que los cuatro casos suman los marcados y que TF-IDF supera a la clase mayor.
 
 ```python
 assert (results[["TP", "FP", "FN", "TN"]].sum(axis=1) == n_flagged(N)).all()
@@ -718,9 +681,7 @@ print("Aciertos y errores: OK")
 ```
 
 ### Paso 2. Las matrices de confusión
-En este paso dibujamos los cuatro conteos de cada método como una **matriz de confusión**: filas para la marca, columnas para lo que dice el método.
-
-
+En este paso dibujamos la **matriz de confusión** de cada método.
 
 ```python
 for name, file_name in [("palabras clave", "confusion_palabras_clave.png"), ("TF-IDF", "confusion_tfidf.png"), ("codificador", "confusion_codificador.png")]:
@@ -734,9 +695,7 @@ for name, file_name in [("palabras clave", "confusion_palabras_clave.png"), ("TF
 ```
 
 ### Paso 3. El F1 con su intervalo
-En este paso ponemos a cada F1 su intervalo del 95 %, con la función dada de la Parte 1. Solo 19 de los 64 marcados son del tema. Con tan pocos, un artículo mal clasificado mueve mucho el F1.
-
-
+En este paso ponemos a cada F1 su intervalo del 95 %. Solo 19 de los 64 marcados son del tema, así que un error mueve mucho el F1.
 
 ```python
 for name in ["palabras clave", "TF-IDF", "codificador"]:
@@ -744,11 +703,11 @@ for name in ["palabras clave", "TF-IDF", "codificador"]:
     print(f"{name:15s} F1 {results.loc[name, 'F1']:.2f} [{low:.2f}, {high:.2f}]")
 ```
 
-Los intervalos de TF-IDF y del codificador se tocan casi por completo. Varios llegan a 1,00. El de la lista de palabras queda claramente más abajo.
- 
+Los intervalos de TF-IDF y del codificador se tocan casi por completo. El de la lista queda más abajo.
+
 **Comprobar:**
 
-
+En este paso comprobamos que el F1 de TF-IDF cae dentro de su intervalo.
 
 ```python
 assert f1_interval(y_test, pred_lr)[0] <= results.loc["TF-IDF", "F1"] <= f1_interval(y_test, pred_lr)[1]
@@ -756,9 +715,7 @@ print("Intervalos: OK")
 ```
 
 ### Paso 4. Cinco pliegues en las filas de entrenamiento
-En este paso miramos los métodos de otra forma: con **validación cruzada** en las 253 filas de entrenamiento. Partimos esas filas en 5 pliegues. Cada pliegue se predice con un modelo que aprendió de los otros cuatro. Para TF-IDF usamos una tubería (`make_pipeline`): los pesos de las palabras se aprenden dentro de cada pliegue. Así cada fila de entrenamiento se predice una vez, sin que el modelo la haya visto.
-
-
+En este paso usamos **validación cruzada** con 5 pliegues en las 253 filas de entrenamiento. Con `make_pipeline`, TF-IDF aprende dentro de cada pliegue, así que cada fila se predice sin haberla visto.
 
 ```python
 folds = StratifiedKFold(n_splits=N_FOLDS, shuffle=True, random_state=SEED)
@@ -780,11 +737,11 @@ cv_results = pd.DataFrame({
 cv_results[["F1", "accuracy"]].round(2)
 ```
 
-En los cinco pliegues el F1 baja (alrededor de 0,77 para los dos modelos) respecto del conjunto marcado. Es lo esperado: 64 filas son pocas, y el conjunto marcado tuvo suerte. Los dos números juntos dan una idea más honesta que cualquiera solo.
- 
+El F1 baja a cerca de 0,77. 64 filas son pocas. Los dos números juntos son más honestos.
+
 **Comprobar:**
 
-
+En este paso comprobamos que hay una predicción por fila de entrenamiento y que TF-IDF supera a la clase mayor.
 
 ```python
 assert len(cv_tfidf) == 253
@@ -793,9 +750,7 @@ print("Cinco pliegues: OK")
 ```
 
 ### Paso 5. ¿Gana el codificador?
-En este paso preguntamos si el conjunto marcado puede distinguir al codificador de TF-IDF. Usamos la misma función con los dos métodos: el intervalo de la **diferencia** de F1 sobre las mismas filas. Si el intervalo incluye el 0, los datos no alcanzan para decir que uno gana.
-
-
+En este paso calculamos el intervalo de la **diferencia** de F1 entre el codificador y TF-IDF. Si incluye el 0, no podemos decir que uno gana.
 
 ```python
 low, high = f1_interval(y_test, pred_encoder, pred_lr)
@@ -803,12 +758,10 @@ print(f"F1 del codificador menos F1 de TF-IDF: {results.loc['codificador', 'F1']
 print("El intervalo incluye el 0." if low <= 0 <= high else "El intervalo no incluye el 0.")
 ```
 
-El intervalo incluye el 0. Con 19 artículos del tema en el conjunto marcado, no podemos decir que el codificador gane, ni que pierda. En los cinco extractos de los grupos pasa lo mismo: todos los intervalos incluyen el 0. El codificador puede ayudar cuando las palabras del tema varían mucho, y no agrega nada cuando unas pocas palabras deciden, como aquí *obesity* o *diabetes*. No es una competencia.
+El intervalo incluye el 0. Con 19 artículos del tema no podemos decir que el codificador gane ni que pierda.
 
 ### Paso 6. Leer tres errores por método
-En este paso leemos a mano tres artículos mal clasificados por cada método. Un error puede ser del método, o puede ser de la marca. Leerlos es la única forma de saberlo.
-
-
+En este paso leemos tres errores de cada método. Un error puede ser del método o de la marca.
 
 ```python
 for name in ["palabras clave", "TF-IDF", "codificador"]:
@@ -819,27 +772,14 @@ for name in ["palabras clave", "TF-IDF", "codificador"]:
         print(f"  {kind}: {papers.loc[marked_rows[i], 'title'][:90]}")
 ```
 
-**Su turno.** Elija uno de esos errores. Lea el resumen (`papers.loc[marked_rows[i], "abstract"]`) y escriba en dos frases si el error es del método o de la marca, y por qué.
-
-
-
-```python
-my_error = """
-Escriba aquí el título, si el error es del método o de la marca, y por qué.
-"""
-print(my_error)
-```
-
 ---
- 
-## Parte 7. Despliegue
- 
+
+## Parte 6. Despliegue
+
 ### Paso 1. Tres resultados en la tabla
-En este paso sumamos el texto como tercer resultado. Cada artículo recibe una predicción de TF-IDF de un modelo que no lo vio: los 64 marcados, del modelo entrenado con las 253 filas (`pred_lr`), y las 253 filas de entrenamiento, de los cinco pliegues (`cv_tfidf`). Usamos TF-IDF porque es el método más simple que funciona, y el codificador no lo supera con claridad.
- 
-Ahora hay tres columnas en `SUPPORT_COLUMNS`. Un artículo queda **en vista** con al menos `MIN_SUPPORTS` resultados a favor de los tres. El código empieza en 2. Cambie el valor si lo justifica, 0 o 1 también valen. La tabla de la celda cuenta cuántos artículos tienen 0, 1, 2 y 3 o más resultados a favor.
+En este paso sumamos el texto como tercer resultado. Cada artículo recibe la predicción de TF-IDF de un modelo que no lo vio: `pred_lr` para los 64 marcados y `cv_tfidf` para los 253. Usamos TF-IDF porque es el más simple que funciona.
 
-
+Ahora hay tres columnas en `SUPPORT_COLUMNS`. Un artículo queda **en vista** según `MIN_SUPPORTS`, el número de resultados a favor que pide el código. `MIN_SUPPORTS` empieza en 2 y se puede cambiar. Cada grupo fija y justifica este número en su proyecto. 0 o 1 valen si se explica. La celda cuenta cuántos artículos tienen 0, 1, 2 y 3 o más resultados a favor.
 
 ```python
 SUPPORT_COLUMNS = ["has_pattern", "read_group", "text_says_read"]   # una columna por resultado
@@ -866,11 +806,11 @@ counts = supports["supports"].clip(upper=3).value_counts().reindex(range(4), fil
 print(counts.rename_axis("resultados a favor").to_frame("artículos").T.to_string())
 ```
 
-`grupos_l3.csv` guarda los dos resultados de la L2 y la L3 en `has_pattern` y `read_group`. Aquí les sumamos `text_says_read`, una columna por resultado, como en la L3. `MIN_SUPPORTS` sigue en 2. Con el texto, la lista crece, porque ahora un artículo puede entrar con patrón y texto, o con grupo y texto. Los artículos con los tres resultados a favor son los primeros para abrir.
- 
+Con el texto la lista crece, porque un artículo puede entrar con patrón y texto, o con grupo y texto.
+
 **Comprobar:**
 
-
+En este paso comprobamos que el número de resultados a favor está en su rango y que la lista no se achica con el texto.
 
 ```python
 assert supports["supports"].between(0, len(SUPPORT_COLUMNS)).all()
@@ -879,14 +819,12 @@ print("Resultados: OK")
 ```
 
 ### Paso 2. El largo de la lista
-En este paso comparamos la lista con el estándar de la tarjeta. La L1 fijó un máximo, `standard["max_papers"]` (30): una lista más larga no se alcanza a leer. Si hay más artículos en vista, los ordenamos y nos quedamos con los primeros. Primero van los de más resultados a favor. Entre los que tienen el mismo número de resultados, primero va el de `prob_texto` más alta. `prob_texto` dice qué tan seguro está TF-IDF de que conviene abrir el artículo. Como `text_says_read`, sale de un modelo que no vio ese artículo. Al final desempata el título, para que el corte sea el mismo en cada corrida.
- 
-Los que no entran no se borran. Quedan en la tabla con `recortado` en verdadero.
+En este paso aplicamos el máximo del estándar, `standard["max_papers"]` (30). Ordenamos por resultados a favor, después por `prob_texto` y al final por título.
 
-
+Los que no entran siguen en la tabla con `recortado` en verdadero.
 
 ```python
-MAX_PAPERS = question_card["standard"]["max_papers"]   # el máximo de la tarjeta de la L1
+MAX_PAPERS = question_card["standard"]["max_papers"]   # el máximo de la descripción de la pregunta (Lección 1)
 
 prob_texto = np.zeros(N)
 prob_texto[marked_rows] = lr.predict_proba(X_test)[:, 1]   # marcados: el modelo entrenado sin ellos
@@ -896,18 +834,18 @@ supports.insert(4, "prob_texto", prob_texto)
 order = supports[supports["in_view"]].sort_values(["supports", "prob_texto", "title"], ascending=[False, False, True], kind="mergesort")
 kept = order.index[:MAX_PAPERS]
 supports["recortado"] = supports["in_view"] & ~supports.index.isin(kept)
-print(f"En vista: {supports['in_view'].sum()}. Máximo de la tarjeta: {MAX_PAPERS}. Quedan {len(kept)}, recortados: {supports['recortado'].sum()}")
+print(f"En vista: {supports['in_view'].sum()}. Máximo de la descripción: {MAX_PAPERS}. Quedan {len(kept)}, recortados: {supports['recortado'].sum()}")
 print(f"De los que quedan: {(supports.loc[kept, 'supports'] == 3).sum()} con tres resultados y {(supports.loc[kept, 'supports'] == 2).sum()} con dos")
 if len(kept) < 5:
     print("Quedan menos de 5 artículos en vista. Es un resultado débil: no rellenamos la lista.")
 supports.loc[kept, ["title", "supports", "prob_texto"]].head(10).round(3)
 ```
 
-Con `MIN_SUPPORTS = 2` quedan en vista 52 artículos y la tarjeta pide como máximo 30. Arriba quedan los 8 con los tres resultados a favor, y después 22 de los 44 con dos, los de `prob_texto` más alta. Los otros 22 no se borran: siguen en la tabla con `recortado` en verdadero. La lista para leer es la de `in_view` sin `recortado`. En ella quedan varias ediciones de la misma guía: los *Standards of Medical Care in Diabetes* de la ADA de 2011, 2013, 2020, 2022 y 2023, y el consenso ADA y EASD de 2018 y 2022. El equipo abre la más reciente de cada una. Si quedaran menos de 5 en vista, no rellenaríamos la lista: la celda lo diría, y sería un resultado débil.
- 
+Quedan en vista 52 y se leen 30: los 8 con tres resultados y 22 de los 44 con dos. En la lista hay varias ediciones de la misma guía de la ADA. El equipo abre la más reciente.
+
 **Comprobar:**
 
-
+En este paso comprobamos el corte de la lista, que solo se recortan artículos en vista y que `prob_texto` coincide con el resultado del texto.
 
 ```python
 assert (supports["in_view"] & ~supports["recortado"]).sum() == min(supports["in_view"].sum(), MAX_PAPERS)
@@ -917,9 +855,7 @@ print("Lista recortada: OK")
 ```
 
 ### Paso 3. Guardar el texto
-En este paso guardamos `outputs/texto_l4.csv`. La columna `marca` lleva las marcas en los 64 artículos marcados y queda vacía en el resto. `prob_texto` y `recortado` guardan el orden y el corte de la lista.
-
-
+En este paso guardamos `outputs/texto_l4.csv`. `marca` lleva las 64 marcas, y `prob_texto` y `recortado` guardan el orden y el corte.
 
 ```python
 marca = pd.Series(pd.NA, index=range(N), dtype="Int64")
@@ -942,7 +878,7 @@ print(f"Guardado: {text_path} ({len(text_table)} filas, {text_table['marca'].not
 
 **Comprobar:**
 
-
+En este paso comprobamos que el archivo guardado tiene sus columnas y las marcas de los artículos marcados.
 
 ```python
 saved = pd.read_csv(text_path)
@@ -952,17 +888,15 @@ print("texto_l4.csv: OK")
 ```
 
 ### Paso 4. Qué cambiaría la decisión
-En este paso escribimos en la tarjeta cómo entra el texto y qué lo cambiaría: otra lista de palabras, otro conjunto marcado (o las marcas del profesor en lugar de los temas de OpenAlex), otra etiqueta de entrenamiento, otro umbral que 0,5 para decir "leer", otro máximo de la lista u otro orden del recorte.
-
-
+En este paso escribimos en la descripción de la pregunta cómo entra el texto y qué lo cambiaría: otra lista de palabras, otras marcas, otra etiqueta, otro umbral que 0,5 u otro máximo de la lista.
 
 ```python
 question_card["text_use"] = {
     "how_it_enters": "El resultado del texto cuenta a favor de un artículo si TF-IDF con regresión logística dice leer, con un modelo que no lo vio.",
     "marks": MARKS_SOURCE,
     "reading": "TF-IDF y el codificador no se distinguen con este conjunto marcado: el intervalo de la diferencia incluye el 0.",
-    "rule": "El código empieza con MIN_SUPPORTS = 2 de tres resultados: patrón (L2), grupo (L3) y texto (L4). El equipo puede cambiar el valor si lo justifica, 0 o 1 también valen.",
-    "reading_list": "Si hay más en vista que el máximo de la tarjeta, se ordena por número de resultados a favor, luego por prob_texto y luego por título. El resto queda con recortado = True.",
+    "rule": "MIN_SUPPORTS empieza en 2, de tres resultados: patrón (L2), grupo (L3) y texto (L4). Se puede cambiar. Cada grupo fija y justifica este número en su proyecto. 0 o 1 valen si se explica.",
+    "reading_list": "Si hay más en vista que el máximo de la descripción, se ordena por número de resultados a favor, luego por prob_texto y luego por título. El resto queda con recortado = True.",
     "what_changes_it": ["otra lista de palabras", "otro conjunto marcado", "otra etiqueta de entrenamiento", "otro umbral que 0,5", "otro máximo de la lista", "otro orden del recorte"],
 }
 QUESTION_PATH.write_text(json.dumps(question_card, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -970,9 +904,7 @@ print(json.dumps(question_card["text_use"], ensure_ascii=False, indent=1))
 ```
 
 ### Paso 5. Comprobación final
-En este paso revisamos que el cuaderno dejó todo lo que el cuaderno de grupo y las lecciones siguientes necesitan.
-
-
+En este paso revisamos que el cuaderno dejó lo que la Lección 5 necesita.
 
 ```python
 def _check_ok(name, predicate):
@@ -991,14 +923,11 @@ checks = [
     ("outputs/vectores_l4.npy", lambda: VECTORS_PATH.is_file()),
     ("Matrices de confusión", lambda: all((OUTPUTS_DIR / f).is_file() for f in ["confusion_palabras_clave.png", "confusion_tfidf.png", "confusion_codificador.png"])),
     ("Resultados de la L3", lambda: len(groups_l3) == N),
-    ("Un error leído a mano", lambda: "Escriba aquí" not in my_error),
 ]
 passed = sum(_check_ok(n, f) for n, f in checks)
 print(f"\nL4_CHECKS={passed}/{len(checks)}")
 if passed == len(checks):
-    print("L4_OK. Lleve sus tres resultados al sábado. En el cuaderno de grupo hará lo mismo con Wikipedia, en español.")
+    print("L4_OK. Siga con la Lección 5.")
 ```
-
-
 
 <!-- end NOTEBOOK: -->

@@ -39,7 +39,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 55%">
+            <div class="column vertical-middle text-left" style="width: 55%">
                 <p><b>Singular value decomposition</b></p>
                 <p>$$X = U \, S \, V^{\top}$$</p>
                 <p>$V$ holds directions over the words.</p>
@@ -88,7 +88,6 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
-
 
 ```python
 from sklearn.decomposition import TruncatedSVD

@@ -8,20 +8,19 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <h3><a href="https://cabrerac.github.io/teaching/26-udenar-data-mining/l3-groups/" target="_blank">Lecture 3</a></h3>
                 <ul>
-                    <li>Groups of similar items, cosine on scaled vectors</li>
-                    <li>SVD before distances</li>
+                    <li>Groups of similar papers</li>
                     <li>k-means, Gaussian mixtures, HDBSCAN</li>
-                    <li>Weak structure is a finding</li>
-                    <li>The list shows which results support each paper</li>
+                    <li>Papers that fit no group</li>
+                    <li>Judging groups</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <h3><a href="https://cabrerac.github.io/teaching/26-udenar-data-mining/l4-text/" target="_blank">Lecture 4</a></h3>
                 <ul>
-                    <li>Extraction from text</li>
-                    <li>Keyword lists, TF-IDF, logistic regression</li>
-                    <li>A frozen multilingual encoder</li>
-                    <li>Right and wrong counts on marked examples</li>
+                    <li>Text mining</li>
+                    <li>Keyword lists and TF-IDF</li>
+                    <li>Logistic regression and text encoders</li>
+                    <li>Judging text results</li>
                 </ul>
             </div>
         </div>

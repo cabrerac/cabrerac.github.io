@@ -1,11 +1,11 @@
 <!-- SLIDES: -->
 
-## Comparing the Methods
+## The Question and the Data
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 60%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>What each method sees</b></p>
                 <table class="table">
                     <thead>
@@ -18,7 +18,16 @@
                     </tbody>
                 </table>
             </div>
-            <div class="column vertical-middle text-left" style="width: 40%">
+        </div>
+    </div>
+</div>
+
+## The Question and the Data
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>How to compare them</b></p>
                 <ul>
                     <li>Run every method on the same texts, after the same preparation</li>

@@ -14,8 +14,8 @@ description: Lecture 6 introduces classification. The data are a table of item a
   values filled. Each method is taught with its mathematics, its preparation, and
   a Python implementation. The prediction is judged by how many marked examples it
   gets right and how many it gets wrong. The lecture closes by adding this result
-  to the earlier ones. An item stays in view only when at least two results support
-  it, and we state what would change that.
+  to the earlier ones. Each item shows how many results support it, and we state what
+  would change its place on the list.
 email: chc79@cam.ac.uk
 end_time: 01:00 pm
 group_notebook: week-3-group

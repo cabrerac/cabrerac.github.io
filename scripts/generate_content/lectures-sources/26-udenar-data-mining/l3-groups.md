@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-data-mining
 title: Groups, outliers, and what a group means
-description: Lecture 3 introduces groups of similar items. The data are items for which similarity can be stated. We give a short history of grouping, then three methods, each with its own data preparation. The basic method is k-means, prepared as scaled vectors. The intermediate method is a Gaussian mixture, prepared as those vectors reduced to a few dimensions. The advanced method is HDBSCAN, prepared as distances on the same vectors. The points it leaves out are the items that fit no group. Each method is taught with its mathematics, its preparation, and a Python implementation. We state what a group means for a decision. The lecture closes by adding this result to the pattern result. An item stays in view only when at least two results support it, and we state what would change that.
+description: Lecture 3 introduces groups of similar items. The data are items for which similarity can be stated. We give a short history of grouping, then three methods, each with its own data preparation. The basic method is k-means, prepared as scaled vectors. The intermediate method is a Gaussian mixture, prepared as those vectors reduced to a few dimensions. The advanced method is HDBSCAN, prepared as distances on the same vectors. The points it leaves out are the items that fit no group. Each method is taught with its mathematics, its preparation, and a Python implementation. We state what a group means for a decision. The lecture closes by adding this result to the pattern result. Each item shows how many results support it, and we state what would change its place on the list.
 session: 3
 start_time: 07:00 am
 end_time: 01:00 pm
@@ -82,11 +82,17 @@ notebook_description: Práctica individual de la Lección 3. Agrupar artículos 
 
 {% include _snippets/cluster-validation.md %}
 
+<!-- SLIDES: -->
+
+# The Question and the Data
+
+<!-- end SLIDES: -->
+
 {% include _snippets/26-udenar-data-mining/l3-groups/comparison.md %}
 
 <!-- SLIDES: -->
 
-# Using a Group
+# The Project
 
 <!-- end SLIDES: -->
 

@@ -6,21 +6,17 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Lecture 3</b></p>
                 <ul>
-                    <li>k-means, Gaussian mixtures and HDBSCAN on the papers</li>
-                    <li>Low silhouette, no natural k</li>
-                    <li>Many papers fit no group, they are listed for a look</li>
-                    <li>The list shows which results support each paper</li>
+                    <li><b>Groups of similar papers:</b> k-means, Gaussian mixtures and HDBSCAN</li>
+                    <li><b>Noise:</b> papers that fit no group are listed for a look</li>
+                    <li><b>Silhouette:</b> weak structure, judged against a shuffled table</li>
+                    <li><b>The project:</b> read_group joins has_pattern as a second result</li>
                 </ul>
+                <p>Groups ignore what the question means. This lecture reads the text for it.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Two results so far</b></p>
-                <ul>
-                    <li>Has a kept pattern from Lecture 2</li>
-                    <li>Sits in a group the team reads, from Lecture 3</li>
-                    <li>Today a third result, read from the text itself</li>
-                </ul>
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/clusters-with-noise.svg" alt="Groups with noise points" style="height: 380px">
+                <div class="footnote">Cluster-2 - hellisp and Wgabrie, Public domain, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
@@ -33,10 +29,10 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <ul>
-                    <li><b>Data preparation</b> - a keyword list, a TF-IDF matrix, the text cut to 512 tokens, marked examples</li>
-                    <li><b>Modeling</b> - keyword match, TF-IDF with logistic regression, a frozen encoder with logistic regression</li>
-                    <li><b>Evaluation</b> - right and wrong counts on the marked papers</li>
-                    <li><b>Deployment</b> - the text result as a third result for the list</li>
+                    <li><b>Data preparation:</b> a keyword list, a TF-IDF matrix, the text cut to 512 tokens, marked examples</li>
+                    <li><b>Modeling:</b> keyword match, TF-IDF with logistic regression, a frozen encoder with logistic regression</li>
+                    <li><b>Evaluation:</b> right and wrong counts on the marked papers</li>
+                    <li><b>Deployment:</b> the text result as a third result for the list</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">

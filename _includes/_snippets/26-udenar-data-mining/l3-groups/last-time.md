@@ -6,23 +6,17 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Lecture 2</b></p>
                 <ul>
-                    <li>Word pairs in at least the support floor of papers</li>
-                    <li>Lift against independence</li>
-                    <li>Closeness in a word embedding</li>
-                    <li>A swap randomisation baseline for each pair</li>
-                    <li>One standout text is not a pattern</li>
+                    <li><b>Frequent word pairs:</b> pairs in at least the support floor of papers</li>
+                    <li><b>Lift:</b> a pair against independence</li>
+                    <li><b>Word embeddings:</b> closeness learned from other texts</li>
+                    <li><b>Baselines:</b> swap randomisation says which pairs beat chance</li>
                 </ul>
+                <p>Each paper now has or has not a kept pair. This lecture groups whole papers.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>What we kept</b></p>
-                <ul>
-                    <li>Pairs at the floor and strictly above the 95th percentile of the swap null, read in lift order</li>
-                    <li>Each paper now has or has not a kept pattern</li>
-                    <li>That is the first result for the reading list</li>
-                    <li>In Lecture 2 a word was an item in a text's basket. From now on, the item is the text we group</li>
-                </ul>
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/frequent-itemsets-lattice.png" alt="Itemset lattice" style="height: 380px">
+                <div class="footnote">FrequentItems - Xodarap00, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
@@ -35,10 +29,10 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <ul>
-                    <li><b>Data preparation</b> - word counts per paper scaled to length 1, then SVD</li>
-                    <li><b>Modeling</b> - k-means, a Gaussian mixture, HDBSCAN</li>
-                    <li><b>Evaluation</b> - silhouette against a shuffled baseline, stability, agreement, noise</li>
-                    <li><b>Deployment</b> - the group result for each paper, saved in outputs/grupos_l3.csv</li>
+                    <li><b>Data preparation:</b> word counts per paper scaled to length 1, then SVD</li>
+                    <li><b>Modeling:</b> k-means, a Gaussian mixture, HDBSCAN</li>
+                    <li><b>Evaluation:</b> silhouette against a shuffled baseline, stability, agreement, noise</li>
+                    <li><b>Deployment:</b> the group result for each paper, saved in outputs/grupos_l3.csv</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">

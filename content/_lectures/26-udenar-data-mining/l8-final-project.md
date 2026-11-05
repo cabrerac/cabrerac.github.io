@@ -63,7 +63,7 @@ Upload the slides as a PDF on Moodle, as `project-slides-<group_id>.pdf`, by **F
 | What | When (Colombia) |
 |------|-----------------|
 | Slides `project-slides-<group_id>.pdf` (Moodle) | Fri 27 Nov, 23:59 |
-| Project zip `project-<group_id>.zip` (the report includes the requirements section) | Tue 1 Dec, 23:59 |
+| Project zip `project-<group_id>.zip` (the report includes the requirements section, and `week-3-group-<group_id>.ipynb`) | Tue 1 Dec, 23:59 |
 | Project reflection `project-reflection-<apellido>-<inicial>.pdf` (first surname and first initial) | Wed 2 Dec, 23:59 |
 
 The slides and both final items go through Moodle.

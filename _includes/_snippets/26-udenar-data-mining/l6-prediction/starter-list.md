@@ -1,6 +1,6 @@
 <!-- SLIDES: -->
 
-## The Prediction Support
+## The Project
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -12,11 +12,9 @@
                     <li>Training rows: out-of-fold predictions from five folds</li>
                     <li>Rows kept apart: the held-out predictions</li>
                     <li>So no paper is scored by a model that saw its label</li>
-                    <li>Rows without a label get no prediction</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 60%">
-
 
 ```python
 import pandas as pd
@@ -41,22 +39,22 @@ table["prediction"] = (voted >= 2).reindex(table.index, fill_value=False)
     </div>
 </div>
 
-## The Starter List
+## The Project
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 40%">
-                <p><b>Five results</b></p>
+                <p><b>The starter reading list</b></p>
                 <ul>
                     <li>The prediction counts only when the three methods beat the majority class</li>
                     <li>In the group notebooks the label repeats the text, so both share text_or_prediction</li>
-                    <li>Print how many papers the prediction adds, and the size of the list</li>
-                    <li>MIN_SUPPORTS gives a first list. Any article can stay if the group says why</li>
+                    <li>MIN_SUPPORTS starts at 2 and can change. Each group sets and justifies this number in its project</li>
+                    <li>The notebook prints how many papers have 0, 1, 2, and 3 or more results</li>
+                    <li>It also prints how many papers the prediction adds</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 60%">
-
 
 ```python
 added = table["prediction"] & ~table["text_says_read"]
@@ -73,7 +71,7 @@ print(table["in_view"].sum(), "in view,", added.sum(), "added")
     </div>
 </div>
 
-## The Starter List
+## The Project
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">

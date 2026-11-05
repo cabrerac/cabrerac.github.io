@@ -1,6 +1,6 @@
 <!-- SLIDES: -->
 
-## Using a Pattern
+## The Project
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -12,19 +12,30 @@
     </div>
 </div>
 
-## Using a Pattern
+## The Project
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>From a pattern to a decision</b></p>
                 <p>A kept pattern names a theme.</p>
-                <p>The records that hold it become candidates.</p>
-                <p>A candidate is not a pick until other results support it.</p>
-                <p>The reason travels with each record: which pattern, which method, which baseline.</p>
+                <ul>
+                    <li>The records that hold it become candidates.</li>
+                    <li>A candidate is not a pick until other results support it.</li>
+                    <li>The reason travels with each record: which pattern, which method, which baseline.</li>
+                </ul>
             </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
+        </div>
+    </div>
+</div>
+
+## The Project
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>What would change that use</b></p>
                 <ul>
                     <li>The pattern comes from the format of the data, not its content</li>

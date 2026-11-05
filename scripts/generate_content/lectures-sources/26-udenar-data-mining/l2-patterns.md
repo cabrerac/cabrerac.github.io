@@ -86,7 +86,7 @@ notebook_description: Práctica individual de la Lección 2. Encontrar patrones 
 
 <!-- SLIDES: -->
 
-# Comparing the Methods
+# The Question and the Data
 
 <!-- end SLIDES: -->
 
@@ -96,7 +96,7 @@ notebook_description: Práctica individual de la Lección 2. Encontrar patrones 
 
 <!-- SLIDES: -->
 
-# Using a Pattern
+# The Project
 
 <!-- end SLIDES: -->
 

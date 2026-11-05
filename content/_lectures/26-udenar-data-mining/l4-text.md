@@ -11,8 +11,8 @@ description: Lecture 4 introduces extraction from text. The data are texts. We g
   the text itself, truncated to the encoder's length. Each method is taught with its
   mathematics, its preparation, and a Python implementation. The result is judged
   by how many marked examples it gets right and how many it gets wrong. The lecture
-  closes by adding this result to the earlier ones. An item stays in view only when
-  at least two results support it, and we state what would change that.
+  closes by adding this result to the earlier ones. Each item shows how many results
+  support it, and we state what would change its place on the list.
 email: chc79@cam.ac.uk
 end_time: 01:00 pm
 group_notebook: week-2-group

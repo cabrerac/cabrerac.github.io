@@ -6,15 +6,13 @@
 
 **Esta semana.** El grupo genera dos archivos: `pregunta.json` (la pregunta a resolver, el estándar de la solución y el uso) y `outputs/patrones.csv` (los pares de palabras con soporte, lift y cuáles se conservan frente a su línea base). Esos dos archivos son el resultado de la primera iteración del proyecto.
 
-**Requisito.** Ejecute primero los cuadernos individuales **L1** y **L2**. Este cuaderno lo escribe el grupo. Cada paso dice qué código de L1 o L2 adaptar. No pegue sin entender. El sábado 7 nov el grupo lo empieza de 10:00 a 10:45 y lo termina en casa.
+**Antes de empezar.** Ejecuten primero los cuadernos individuales de las Lecciones 1 y 2. Este cuaderno lo escribe el grupo. Cada paso dice qué código de la Lección 1 o de la Lección 2 adaptar. No peguen sin entender.
 
 **Datos de entrada.** El archivo de su secretaría: G1 Agricultura, G2 Salud mental, G3 Medio ambiente, G4 Inclusión Social y G5 Vivienda. Cada fila es un artículo de Wikipedia en español. El texto para los patrones es la columna `lead`, la **entradilla** del artículo.
 
 **Materiales.** [L1 Introducción](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l1-introduction.ipynb) y [L2 Patrones](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l2-patterns.ipynb).
 
 **Pregunta del grupo.** ¿Qué artículos de su secretaría debe leer primero una persona nueva en el equipo, y qué pares de palabras de las entradillas superan a la línea base?
-
-**Entrega Moodle (martes 10 nov 2026, 23:59 Colombia).** ZIP `week-1-<group_id>.zip` con `week-1-group-<group_id>.ipynb` (este cuaderno ejecutado y renombrado), `pregunta.json` y `outputs/patrones.csv`.
 
 **Mapa del cuaderno**
 
@@ -28,7 +26,7 @@
 | **5** | Evaluación | Su línea base y los pares conservados |
 | **6** | Despliegue | Uso de un patrón y `outputs/patrones.csv` |
 
-**Celdas Comprobar.** Ejecute de arriba abajo. Una Comprobar revisa que exista lo pedido, con su forma. No revisa su respuesta. Si falla, corrija la celda anterior y vuelva a ejecutar desde ahí.
+**Cómo leer cada paso.** Cada paso empieza con **En este paso**, dice qué copiar y dónde está, y termina con una celda **Comprobar**. Ejecuten de arriba abajo. Una Comprobar revisa que exista lo pedido, con su forma. No revisa su respuesta. Si falla, corrijan la celda anterior y vuelvan a ejecutar desde ahí.
 
 ---
 
@@ -36,7 +34,9 @@
 
 ### Paso 0.1. Grupo y datos
 
-Cambie solo `GROUP`.
+En este paso eligen el grupo y descargan el archivo de su secretaría.
+
+Cambien solo `GROUP`.
 
 ```python
 import json
@@ -60,11 +60,13 @@ print(f"Grupo {GROUP}: secretaría de {SECRETARIAT}, {len(articles)} artículos"
 
 ### Paso 0.2. Parámetros, librerías y modelo de vectores
 
+En este paso copian los parámetros, las importaciones y el modelo de vectores de la Lección 2. El modelo de español `es_core_news_lg` pesa unos 570 MB y se descarga en esta celda.
+
 | Qué copiar | Dónde está en L2 |
 |------------|------------------|
-| Los parámetros (`SUPPORT_SHARE`, `SUPPORT_MIN`, `LIFT_MIN`, `SWAPS_PER_ONE`, `N_SAMPLES`, `SEED`, `PROGRESS_EVERY`), sin cambiar sus valores | Parte 1, Paso 1 |
-| Las importaciones y `support_floor` | Parte 1, Paso 1 |
-| `UNUSED_PIPES`, `load_vector_model` y la carga de `nlp, MODEL` | Parte 1, Paso 2 |
+| Los parámetros (`SUPPORT_SHARE`, `SUPPORT_MIN`, `LIFT_MIN`, `SWAPS_PER_ONE`, `N_SAMPLES`, `SEED`, `PROGRESS_EVERY`), sin cambiar sus valores | Parte 1, Paso 2 |
+| Las importaciones y `support_floor` | Parte 1, Paso 2 |
+| `UNUSED_PIPES`, `load_vector_model` y la carga de `nlp, MODEL` | Parte 1, Paso 3 |
 
 ```python
 # SU CÓDIGO. Paso 0.2: parámetros, rutas de la entrega, importaciones, support_floor, load_vector_model y nlp, MODEL en español
@@ -72,11 +74,13 @@ print(f"Grupo {GROUP}: secretaría de {SECRETARIAT}, {len(articles)} artículos"
 ```
 
 **Listo cuando:**
-- Los parámetros tienen los valores de la L2.
+- Los parámetros tienen los valores de la Lección 2.
 - `QUESTION_PATH` es `pregunta.json` y `PATTERNS_PATH` es `outputs/patrones.csv`.
-- `nlp` y `MODEL` cargan un modelo de español: `MODELS = ["es_core_news_lg", "es_core_news_md"]`. El grande pesa unos 570 MB. Si Colab falla, reinicie el entorno y repita la celda.
+- `nlp` y `MODEL` cargan un modelo de español: `MODELS = ["es_core_news_lg", "es_core_news_md"]`. Si Colab falla, reinicie el entorno y repita la celda.
 
 **Comprobar:**
+
+En este paso comprobamos que `support_floor` existe y que cargó un modelo de español.
 
 ```python
 assert callable(support_floor) and MODEL.startswith("es_core_news")
@@ -87,11 +91,13 @@ print("Paso 0.2: OK")
 
 ## Ejercicio 1. Comprensión del negocio
 
-### Paso 1.1. La tarjeta de la pregunta
+### Paso 1.1. La descripción de la pregunta
+
+En este paso escriben la descripción de la pregunta de su secretaría y la guardan en `pregunta.json`. Es la del grupo, no la del laboratorio de nutrición.
 
 | Qué copiar | Dónde está en L1 |
 |------------|------------------|
-| La tarjeta `question_card` con `question`, `steps`, `standard` y `use` | Parte 1, Paso 3 |
+| La descripción `question_card` con `question`, `steps`, `standard` y `use` | Parte 1, Paso 3 |
 | Guardar `pregunta.json` | Parte 1, Paso 4 |
 
 ```python
@@ -100,10 +106,12 @@ print("Paso 0.2: OK")
 ```
 
 **Listo cuando:**
-- La tarjeta es de su secretaría y el estándar se escribió **antes** de mirar resultados.
+- La descripción es de su secretaría y el estándar se escribió **antes** de mirar resultados.
 - `pregunta.json` tiene `question`, `steps`, `standard` (con `min_articles`, `max_articles` enteros y una regla más del grupo) y `use` (con `may` y `may_not`).
 
 **Comprobar:**
+
+En este paso comprobamos que `pregunta.json` tiene sus cuatro partes y el tamaño de la lista en el estándar.
 
 ```python
 card = json.loads(Path("pregunta.json").read_text(encoding="utf-8"))
@@ -116,6 +124,8 @@ print("Paso 1.1: OK")
 ## Ejercicio 2. Comprensión de los datos
 
 ### Paso 2.1. El perfil de la columna `lead`
+
+En este paso describen la columna `lead` con el perfil de la Lección 1.
 
 | Qué copiar | Dónde está en L1 |
 |------------|------------------|
@@ -134,6 +144,8 @@ print("Paso 1.1: OK")
 
 **Comprobar:**
 
+En este paso comprobamos que existe el largo de cada entradilla y una fila de perfil por columna.
+
 ```python
 assert "lead_words" in articles and len(profile) == articles.shape[1]
 print("Paso 2.1: OK")
@@ -145,10 +157,12 @@ print("Paso 2.1: OK")
 
 ### Paso 3.1. Palabras útiles en español
 
+En este paso preparan las palabras útiles en español y deciden qué hacer con las palabras de relleno.
+
 | Qué copiar | Dónde está en L2 |
 |------------|------------------|
-| `WORD_RE` y `words` | Parte 4, Paso 1 |
-| `URL_TOKENS` y la suma en `STOP_WORDS` | Parte 4, Paso 3 |
+| `WORD_RE` y `words` | Parte 3, Paso 1 |
+| `URL_TOKENS` y la suma en `STOP_WORDS` | Parte 3, Paso 3 |
 
 ```python
 # SU CÓDIGO. Paso 3.1: words, STOP_WORDS, FILLER_WORDS y FILLER_DECISION
@@ -161,6 +175,8 @@ print("Paso 2.1: OK")
 
 **Comprobar:**
 
+En este paso comprobamos que `words` devuelve un conjunto y que escribieron las dos palabras de relleno y su decisión.
+
 ```python
 assert isinstance(words("Texto de prueba", STOP_WORDS), set) and len(FILLER_WORDS) == 2 and FILLER_DECISION.strip()
 print("Paso 3.1: OK")
@@ -168,11 +184,13 @@ print("Paso 3.1: OK")
 
 ### Paso 3.2. Conjuntos, conteos y pares candidatos
 
+En este paso arman un conjunto de palabras por entradilla, los conteos y los pares candidatos.
+
 | Qué copiar | Dónde está en L2 |
 |------------|------------------|
-| `word_sets`, `N` y `FLOOR` (fuera las de menos de 5 palabras útiles) | Parte 4, Paso 4 |
-| `word_count` y `vocabulary` | Parte 4, Paso 5 |
-| `count_pairs` y `candidates` | Parte 4, Paso 6 |
+| `word_sets`, `N` y `FLOOR` (fuera las de menos de 5 palabras útiles) | Parte 3, Paso 4 |
+| `word_count` y `vocabulary` | Parte 3, Paso 5 |
+| `count_pairs` y `candidates` | Parte 3, Paso 6 |
 
 ```python
 # SU CÓDIGO. Paso 3.2: word_sets, N, FLOOR, word_count, vocabulary y candidates
@@ -185,6 +203,8 @@ print("Paso 3.1: OK")
 
 **Comprobar:**
 
+En este paso comprobamos que hay un conjunto por entradilla y que todos los pares llegan al umbral.
+
 ```python
 assert len(word_sets) == N and min(candidates.values()) >= FLOOR == support_floor(N)
 print(f"Paso 3.2: OK ({len(candidates)} pares)")
@@ -192,9 +212,11 @@ print(f"Paso 3.2: OK ({len(candidates)} pares)")
 
 ### Paso 3.3. Palabras que el modelo conoce
 
+En este paso cruzan el vocabulario con el modelo de vectores.
+
 | Qué copiar | Dónde está en L2 |
 |------------|------------------|
-| `no_vector`, `shared_vectors`, `shared_groups` y `group_of` | Parte 4, Paso 7 |
+| `no_vector`, `shared_vectors`, `shared_groups` y `group_of` | Parte 3, Paso 7 |
 
 ```python
 # SU CÓDIGO. Paso 3.3: no_vector, shared_groups y group_of
@@ -205,6 +227,8 @@ print(f"Paso 3.2: OK ({len(candidates)} pares)")
 - `no_vector` es una lista y `group_of` un diccionario.
 
 **Comprobar:**
+
+En este paso comprobamos que existen `no_vector` y `group_of`.
 
 ```python
 assert isinstance(no_vector, list) and isinstance(group_of, dict)
@@ -217,10 +241,12 @@ print("Paso 3.3: OK")
 
 ### Paso 4.1. Soporte y lift (M1 y M2)
 
+En este paso calculan el soporte y el lift de cada par candidato.
+
 | Qué copiar | Dónde está en L2 |
 |------------|------------------|
-| `table` con `word_a`, `word_b`, `support` y `pair` | Parte 5, M1 |
-| `compute_lift` y la columna `lift` | Parte 5, M2 |
+| `table` con `word_a`, `word_b`, `support` y `pair` | Parte 4, M1 |
+| `compute_lift` y la columna `lift` | Parte 4, M2 |
 
 ```python
 # SU CÓDIGO. Paso 4.1: table con support, pair y lift
@@ -232,6 +258,8 @@ print("Paso 3.3: OK")
 
 **Comprobar:**
 
+En este paso comprobamos que la tabla tiene sus columnas y una fila por par candidato.
+
 ```python
 assert {"word_a", "word_b", "support", "pair", "lift"} <= set(table.columns) and len(table) == len(candidates)
 print("Paso 4.1: OK")
@@ -239,10 +267,12 @@ print("Paso 4.1: OK")
 
 ### Paso 4.2. Coseno y vecinos (M3)
 
+En este paso calculan el coseno de cada par y los vecinos de una palabra de su secretaría.
+
 | Qué copiar | Dónde está en L2 |
 |------------|------------------|
-| `unit_vector`, `VECTORS`, `pair_cosine` y las columnas `cosine` y `shared_vector` | Parte 5, M3 |
-| `SEED_WORD`, `same_vector` y `neighbours` | Parte 5, M3 |
+| `unit_vector`, `VECTORS`, `pair_cosine` y las columnas `cosine` y `shared_vector` | Parte 4, M3 |
+| `SEED_WORD`, `same_vector` y `neighbours` | Parte 4, M3 |
 
 ```python
 # SU CÓDIGO. Paso 4.2: columnas cosine y shared_vector, SEED_WORD y neighbours
@@ -255,6 +285,8 @@ print("Paso 4.1: OK")
 
 **Comprobar:**
 
+En este paso comprobamos las columnas `shared_vector` y `cosine`.
+
 ```python
 assert table["shared_vector"].dtype == bool and table["cosine"].dropna().between(-1.001, 1.001).all()
 print("Paso 4.2: OK")
@@ -266,11 +298,13 @@ print("Paso 4.2: OK")
 
 ### Paso 5.1. La línea base del grupo
 
+En este paso escriben su línea base y cuentan cada par en tablas al azar.
+
 | Qué copiar | Dónde está en L2 |
 |------------|------------------|
-| `frequent_words` y `transactions` | Parte 6, Paso 1 |
-| `p95` y `swap_randomize` | Parte 6, Paso 2 |
-| `pair_counts`, `swap_null_counts`, `kept_pairs`, `null` y la columna `null_p95` | Parte 6, Paso 4 |
+| `frequent_words` y `transactions` | Parte 5, Paso 1 |
+| `p95` y `swap_randomize` | Parte 5, Paso 2 |
+| `pair_counts`, `swap_null_counts`, `kept_pairs`, `null` y la columna `null_p95` | Parte 5, Paso 4 |
 
 ```python
 # SU CÓDIGO. Paso 5.1: BASELINE (texto), transactions, null y la columna null_p95
@@ -278,10 +312,12 @@ print("Paso 4.2: OK")
 ```
 
 **Listo cuando:**
-- `BASELINE` (texto) dice qué conserva su azar y por qué es justo para su extracto. La referencia es la de la L2. Otra vale si la justifican.
+- `BASELINE` (texto) dice qué conserva su azar y por qué es justo para su extracto. La referencia es la de la Lección 2. Otra vale si la justifican.
 - `null` tiene los conteos al azar de cada par y `table` tiene `null_p95`.
 
 **Comprobar:**
+
+En este paso comprobamos que escribieron su línea base y que cada par tiene sus conteos al azar.
 
 ```python
 assert BASELINE.strip() and len(null) == len(candidates) and "null_p95" in table
@@ -290,11 +326,13 @@ print("Paso 5.1: OK")
 
 ### Paso 5.2. Pares conservados y su lectura
 
+En este paso marcan los pares que superan la línea base y leen uno en sus textos.
+
 | Qué copiar | Dónde está en L2 |
 |------------|------------------|
-| `kept`, la columna `kept` y `kept_table` | Parte 6, Paso 4 |
-| Leer un par en sus textos | Parte 6, Paso 5 |
-| Cuántos pasan por azar | Parte 6, Paso 6 |
+| `kept`, la columna `kept` y `kept_table` | Parte 5, Paso 4 |
+| Leer un par en sus textos | Parte 5, Paso 5 |
+| Cuántos pasan por azar | Parte 5, Paso 6 |
 
 ```python
 # SU CÓDIGO. Paso 5.2: columna kept, kept_table, PAIR_READING y FORMULA_DECISION
@@ -307,6 +345,8 @@ print("Paso 5.1: OK")
 
 **Comprobar:**
 
+En este paso comprobamos la columna `kept` y que escribieron su lectura y su decisión.
+
 ```python
 assert table["kept"].dtype == bool and PAIR_READING.strip() and FORMULA_DECISION.strip()
 print("Paso 5.2: OK")
@@ -314,11 +354,13 @@ print("Paso 5.2: OK")
 
 ### Paso 5.3. Destacar y comparar los tres métodos
 
+En este paso marcan los pares que destacan y comparan los tres métodos.
+
 | Qué copiar | Dónde está en L2 |
 |------------|------------------|
-| La columna `kept_lift2` | Parte 6, Paso 7 |
-| `random_cosines`, `RANDOM_COSINE_P95` y la columna `beats_cosine` | Parte 6, Paso 8 |
-| La tabla `comparison` | Parte 6, Paso 9 |
+| La columna `kept_lift2` | Parte 5, Paso 7 |
+| `random_cosines`, `RANDOM_COSINE_P95` y la columna `beats_cosine` | Parte 5, Paso 8 |
+| La tabla `comparison` | Parte 5, Paso 9 |
 
 ```python
 # SU CÓDIGO. Paso 5.3: columnas kept_lift2 y beats_cosine, RANDOM_COSINE_P95 y comparison
@@ -331,6 +373,8 @@ print("Paso 5.2: OK")
 
 **Comprobar:**
 
+En este paso comprobamos que solo destacan pares conservados y la columna `beats_cosine`.
+
 ```python
 assert not (table["kept_lift2"] & ~table["kept"]).any() and table["beats_cosine"].dtype == bool
 print("Paso 5.3: OK")
@@ -342,10 +386,12 @@ print("Paso 5.3: OK")
 
 ### Paso 6.1. El uso de un patrón y `outputs/patrones.csv`
 
+En este paso escriben cómo entra un patrón en la decisión y guardan `outputs/patrones.csv`.
+
 | Qué copiar | Dónde está en L2 |
 |------------|------------------|
-| `pattern_use` con `how_it_enters`, `what_changes_it` y `examples` | Parte 7, Paso 1 |
-| Guardar la tabla de pares | Parte 6, Paso 10 (aquí el archivo es `PATTERNS_PATH`) |
+| `pattern_use` con `how_it_enters`, `what_changes_it` y `examples` | Parte 6, Paso 1 |
+| Guardar la tabla de pares | Parte 5, Paso 10 (aquí el archivo es `PATTERNS_PATH`) |
 
 ```python
 # SU CÓDIGO. Paso 6.1: question_card["pattern_use"], pregunta.json y PATTERNS_PATH
@@ -358,6 +404,8 @@ print("Paso 5.3: OK")
 
 **Comprobar:**
 
+En este paso comprobamos que `pregunta.json` tiene `pattern_use` y que `outputs/patrones.csv` tiene sus columnas.
+
 ```python
 assert "pattern_use" in json.loads(Path("pregunta.json").read_text(encoding="utf-8"))
 assert {"pair", "support", "null_p95", "kept", "kept_lift2"} <= set(pd.read_csv("outputs/patrones.csv").columns)
@@ -367,6 +415,8 @@ print("Paso 6.1: OK. Armen el ZIP.")
 ---
 
 ## Registro de contribución
+
+En este paso cada integrante anota su tarea concreta y el grupo dice quién consolida el ZIP.
 
 ```python
 # SU CÓDIGO. Registro: contribution_log, una línea por integrante y quién consolida el ZIP
@@ -390,10 +440,12 @@ Use la [plantilla de la reflexión de la semana 1](https://cabrerac.github.io/as
 
 ## Entrega
 
+El ZIP se entrega el martes 10 nov 2026, 23:59 (hora de Colombia), con el cuaderno ejecutado y renombrado.
+
 | Archivo del ZIP `week-1-<group_id>.zip` | Descripción |
 |-----------------------------------------|-------------|
 | `week-1-group-<group_id>.ipynb` | Este cuaderno ejecutado |
-| `pregunta.json` | La tarjeta del grupo con `pattern_use` |
+| `pregunta.json` | La descripción de la pregunta del grupo, con `pattern_use` |
 | `outputs/patrones.csv` | Una fila por par candidato, con sus columnas de evaluación |
 
 `pregunta.json` y `outputs/patrones.csv` son la primera iteración. En la semana 2 el grupo añade lo que encuentre y lo compara con estos pares.

@@ -17,12 +17,16 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 55%">
                 <p><b>Tokens and subwords</b> <a href="https://doi.org/10.18653/v1/P16-1162" target="_blank" rel="noopener noreferrer">(Sennrich et al., 2016)</a></p>
                 <p>An encoder reads tokens, not words.</p>
                 <p>Rare words are split into known pieces.</p>
                 <p>One vocabulary covers many languages.</p>
                 <p>Each model reads at most a fixed number of tokens.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 45%">
+                <img src="{{ site.url }}/assets/media/images/transformer-full-architecture.png" alt="Transformer architecture" style="height: 380px">
+                <div class="footnote">Transformer, full architecture - dvgodoy, CC BY 4.0 <https://creativecommons.org/licenses/by/4.0>, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
@@ -35,15 +39,9 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 55%">
                 <p><b>The encoder</b></p>
-                <table class="table">
-                    <tr>
-                        <td>
-                            <p>"BERT is designed to pre-train deep bidirectional representations from unlabeled text by jointly conditioning on both left and right context in all layers."</p>
-                            <p><a href="https://doi.org/10.18653/v1/N19-1423" target="_blank" rel="noopener noreferrer">(Devlin et al., 2019, abstract)</a></p>
-                        </td>
-                    </tr>
-                </table>
                 <p>Each token gets a vector that depends on the whole text.</p>
+                <br>
+                <p>"BERT is designed to pre-train deep bidirectional representations from unlabeled text by jointly conditioning on both left and right context in all layers." <a href="https://doi.org/10.18653/v1/N19-1423" target="_blank" rel="noopener noreferrer">(Devlin et al., 2019, abstract)</a></p>
             </div>
             <div class="column vertical-middle text-center" style="width: 45%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/transformer-full-architecture.png" alt="Transformer architecture, encoder on the left" style="height: 400px">
@@ -58,7 +56,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Mean pooling</b></p>
                 <p>$$\mathbf{v}(t) = \frac{1}{T} \sum_{j=1}^{T} \mathbf{h}_j \qquad \hat{\mathbf{v}} = \frac{\mathbf{v}}{\lVert \mathbf{v} \rVert}$$</p>
                 <p>$\mathbf{h}_j$ is the vector of token $j$, $T$ the tokens read.</p>
@@ -76,18 +74,12 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Frozen versus fine-tuned</b></p>
-                <table class="table">
-                    <tr>
-                        <td>
-                            <p>"there are major computational benefits to pre-compute an expensive representation of the training data once and then run many experiments with cheaper models on top of this representation."</p>
-                            <p><a href="https://doi.org/10.18653/v1/N19-1423" target="_blank" rel="noopener noreferrer">(Devlin et al., 2019, section 5.3)</a></p>
-                        </td>
-                    </tr>
-                </table>
                 <ul>
-                    <li><b>Frozen</b> - the encoder is a fixed function, a small model learns on its vectors</li>
-                    <li><b>Fine-tuned</b> - the encoder itself changes, needs more marked texts and a GPU</li>
+                    <li><b>Frozen:</b> the encoder is a fixed function, a small model learns on its vectors</li>
+                    <li><b>Fine-tuned:</b> the encoder itself changes, needs more marked texts and a GPU</li>
                 </ul>
+                <br>
+                <p>"there are major computational benefits to pre-compute an expensive representation of the training data once and then run many experiments with cheaper models on top of this representation." <a href="https://doi.org/10.18653/v1/N19-1423" target="_blank" rel="noopener noreferrer">(Devlin et al., 2019, section 5.3)</a></p>
             </div>
         </div>
     </div>
@@ -100,18 +92,14 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>One model for many languages</b></p>
-                <table class="table">
-                    <tr>
-                        <td>
-                            <p>"The training procedure adheres to the English E5 model recipe, involving contrastive pre-training on 1 billion multilingual text pairs, followed by fine-tuning on a combination of labeled datasets."</p>
-                            <p><a href="https://arxiv.org/abs/2402.05672" target="_blank" rel="noopener noreferrer">(Wang et al., 2024, abstract)</a></p>
-                        </td>
-                    </tr>
-                </table>
                 <p>English and Spanish texts with the same model.</p>
-                <p>Each text starts with the prefix "query: " <a href="https://huggingface.co/intfloat/multilingual-e5-small" target="_blank" rel="noopener noreferrer">(multilingual-e5-small model card)</a>.</p>
-                <p>Texts longer than 512 tokens are cut, count how many.</p>
-                <p>Cost on free Colab CPU: about 470 MB to download, then about a minute for a few hundred abstracts.</p>
+                <ul>
+                    <li>Each text starts with the prefix "query: " <a href="https://huggingface.co/intfloat/multilingual-e5-small" target="_blank" rel="noopener noreferrer">(multilingual-e5-small model card)</a>.</li>
+                    <li>Texts longer than 512 tokens are cut, count how many.</li>
+                    <li>multilingual-e5-small is about 470 MB to download, then about a minute for a few hundred abstracts on a free Colab CPU.</li>
+                </ul>
+                <br>
+                <p>"The training procedure adheres to the English E5 model recipe, involving contrastive pre-training on 1 billion multilingual text pairs, followed by fine-tuning on a combination of labeled datasets." <a href="https://arxiv.org/abs/2402.05672" target="_blank" rel="noopener noreferrer">(Wang et al., 2024, abstract)</a></p>
             </div>
         </div>
     </div>
@@ -132,7 +120,6 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 70%">
-
 
 ```python
 from sentence_transformers import SentenceTransformer

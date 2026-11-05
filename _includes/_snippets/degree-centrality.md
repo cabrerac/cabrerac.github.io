@@ -17,7 +17,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>How many links</b></p>
                 <p>$$\deg(v) = |N(v)|$$</p>
                 <p>$$\text{share}(v) = \frac{\deg(v)}{n - 1}$$</p>
@@ -27,8 +27,10 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Reading the degree</b></p>
                 <p>Most items have few links and a few have many.</p>
-                <p>A histogram of degree shows this long tail.</p>
-                <p>Isolated items sit at degree 0, often a large bar.</p>
+                <ul>
+                    <li>A histogram of degree shows this long tail.</li>
+                    <li>Isolated items sit at degree 0, often a large bar.</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -39,13 +41,28 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 55%">
                 <p><b>The hub warning</b></p>
                 <p>A node linked to a large share of the others is a <b>hub</b>.</p>
-                <p>Often it is the topic itself, the article everything else points to.</p>
-                <p>A hub is a warning, not an automatic pick.</p>
+                <ul>
+                    <li>Often it is the topic itself, the article everything else points to.</li>
+                    <li>A hub is a warning, not an automatic pick.</li>
+                </ul>
             </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 45%">
+                <img src="{{ site.url }}/assets/media/images/social-network-analysis.jpg" alt="Social network analysis" style="height: 340px">
+                <div class="footnote">Social Network Analysis Visualization - Martin Grandjean, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Degree
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>One rule for a hub</b></p>
                 <ul>
                     <li><p>A node is a hub when it is linked to at least 10% of the others</p></li>
@@ -72,7 +89,6 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 60%">
-
 
 ```python
 import math

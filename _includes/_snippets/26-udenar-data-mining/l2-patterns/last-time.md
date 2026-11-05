@@ -6,45 +6,17 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Lecture 1</b></p>
                 <ul>
-                    <li>CRISP-DM and its six phases</li>
-                    <li>Next to Access, Assess, Address</li>
-                    <li>Data preparation depends on the method</li>
+                    <li><b>The concept:</b> data mining searches for valid, new and useful patterns</li>
+                    <li><b>The methodologies:</b> KDD, SEMMA and CRISP-DM, the one we follow</li>
+                    <li><b>The question:</b> a question, its steps, a standard and a use</li>
+                    <li><b>The data and the project:</b> nutrition papers for the labs, a department file for the project</li>
                 </ul>
+                <p>This lecture starts the modeling phase with patterns that repeat.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/crisp-dm-process-diagram.png" alt="CRISP-DM process diagram" style="height: 400px">
                 <div class="footnote">CRISP-DM Process Diagram - Kenneth Jensen, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Last Time
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>A data mining question</b></p>
-                <ul>
-                    <li><b>Question:</b> which papers must the team read?</li>
-                    <li><b>Steps:</b> the six phases, one line each</li>
-                    <li><b>Standard:</b> set before the results, such as 10 to 30 papers</li>
-                    <li><b>Use:</b> a starter reading list, not evidence to cite</li>
-                </ul>
-                <p>This week you should be able to state a data mining question and place each step in CRISP-DM.</p>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>The canvas they draw</b></p>
-                <ul>
-                    <li>Business objectives</li>
-                    <li>Situation</li>
-                    <li>Mining objectives</li>
-                    <li>Plan</li>
-                </ul>
-                <p>One box for each. A sketch is enough on Saturday.</p>
             </div>
         </div>
     </div>

@@ -5,7 +5,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>What must chance keep?</b></p>
                 <ul>
                     <li>The data is a 0/1 table: one row per text, one column per word</li>
@@ -15,26 +15,35 @@
                     <li>Swap randomisation keeps both margins <a href="https://doi.org/10.1145/1297332.1297338" target="_blank" rel="noopener noreferrer">(Gionis et al., 2007)</a></li>
                 </ul>
             </div>
-            <div class="column vertical-top text-left" style="width: 50%">
-                <p><b>One swap</b></p>
+        </div>
+    </div>
+</div>
 
-$$
-\begin{array}{c|cc}
- & w_1 & w_2 \\ \hline
-t_1 & 1 & 0 \\
-t_2 & 0 & 1
-\end{array}
-\quad \Longrightarrow \quad
-\begin{array}{c|cc}
- & w_1 & w_2 \\ \hline
-t_1 & 0 & 1 \\
-t_2 & 1 & 0
-\end{array}
-$$
+## Baselines
 
-<p>Text 1 keeps its length, text 2 keeps its length.</p>
-<p>Word 1 and word 2 keep their support.</p>
-<p>Many swaps give one random table with the same margins.</p>
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                                <p><b>One swap</b></p>
+
+                $$
+                \begin{array}{c|cc}
+                 & w_1 & w_2 \\ \hline
+                t_1 & 1 & 0 \\
+                t_2 & 0 & 1
+                \end{array}
+                \quad \Longrightarrow \quad
+                \begin{array}{c|cc}
+                 & w_1 & w_2 \\ \hline
+                t_1 & 0 & 1 \\
+                t_2 & 1 & 0
+                \end{array}
+                $$
+
+                <p>Text 1 keeps its length, text 2 keeps its length.</p>
+                <p>Word 1 and word 2 keep their support.</p>
+                <p>Many swaps give one random table with the same margins.</p>
             </div>
         </div>
     </div>
@@ -48,12 +57,13 @@ $$
             <div class="column vertical-middle text-left" style="width: 35%">
                 <p><b>Python: swap null</b></p>
                 <p>5 swap attempts per 1 in the table.</p>
-                <p>100 random tables, seed 7. Sorting each text's words makes the seed repeatable.</p>
-                <p>Keep pairs at the floor and strictly above the 95th percentile.</p>
-                <p>pair_counts, swap_null_counts and kept_pairs are defined in the notebook, Part 6, Step 4.</p>
+                <ul>
+                    <li>100 random tables, seed 7. Sorting each text's words makes the seed repeatable.</li>
+                    <li>Keep pairs at the floor and strictly above the 95th percentile.</li>
+                    <li>pair_counts, swap_null_counts and kept_pairs are defined in the notebook, Part 6, Step 4.</li>
+                </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
-
 
 ```python
 def swap_randomize(transactions, n_swaps, rng):

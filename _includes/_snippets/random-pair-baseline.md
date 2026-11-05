@@ -16,7 +16,6 @@
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
 
-
 ```python
 import random
 

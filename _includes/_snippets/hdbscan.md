@@ -39,7 +39,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Core distance and mutual reachability</b> <a href="https://doi.org/10.1007/978-3-642-37456-2_14" target="_blank" rel="noopener noreferrer">(Campello et al., 2013)</a></p>
                 <p>$$\text{core}(a) = \text{distance from } a \text{ to its } m\text{-th nearest item}$$</p>
                 <p>$$d_{\text{mreach}}(a, b) = \max\{\text{core}(a),\ \text{core}(b),\ d(a, b)\}$$</p>
@@ -58,7 +58,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>From distances to a tree</b></p>
                 <ol>
                     <li><p>Join all items with a minimum spanning tree on $d_{\text{mreach}}$</p></li>
@@ -77,13 +77,19 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 55%">
                 <p><b>Stability and noise</b></p>
                 <p>A group is stable when it lives across a wide range of densities.</p>
-                <p>HDBSCAN keeps the most stable groups in the tree.</p>
-                <p>Items in no kept group get the label -1, noise.</p>
-                <p>Noise is a result, a list of items that fit no group.</p>
-                <p><a href="https://doi.org/10.21105/joss.00205" target="_blank" rel="noopener noreferrer">(McInnes et al., 2017)</a></p>
+                <ul>
+                    <li>HDBSCAN keeps the most stable groups in the tree.</li>
+                    <li>Items in no kept group get the label -1, noise.</li>
+                    <li>Noise is a result, a list of items that fit no group.</li>
+                    <li><a href="https://doi.org/10.21105/joss.00205" target="_blank" rel="noopener noreferrer">(McInnes et al., 2017)</a></li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 45%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/dbscan-illustration.svg" alt="Core points, border points and noise" style="height: 320px">
+                <div class="footnote">DBSCAN-Illustration - Chire, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
@@ -97,18 +103,20 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Two parameters</b></p>
                 <ul>
-                    <li><b>min_cluster_size</b> - the smallest group we accept</li>
-                    <li><b>min_samples</b> - how many neighbours make a point core</li>
+                    <li><b>min_cluster_size:</b> the smallest group we accept</li>
+                    <li><b>min_samples:</b> how many neighbours make a point core</li>
                     <li>A larger min_samples marks more items as noise</li>
-                    <li>A good min_cluster_size is the smallest group you would accept as a finding</li>
+                    <li>A good min_cluster_size is the smallest group we would accept as a finding</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Preparation</b></p>
                 <p>Density needs distances that mean something.</p>
-                <p>On all word columns, almost every item looks alone.</p>
-                <p>So HDBSCAN runs on a few SVD directions.</p>
-                <p>With cosine distance, given as a precomputed matrix.</p>
+                <ul>
+                    <li>On all word columns, almost every item looks alone.</li>
+                    <li>So HDBSCAN runs on a few SVD directions.</li>
+                    <li>With cosine distance, given as a precomputed matrix.</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -128,7 +136,6 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
-
 
 ```python
 from sklearn.cluster import HDBSCAN

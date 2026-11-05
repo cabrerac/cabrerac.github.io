@@ -10,8 +10,8 @@ description: Lecture 3 introduces groups of similar items. The data are items fo
   distances on the same vectors. The points it leaves out are the items that fit no
   group. Each method is taught with its mathematics, its preparation, and a Python
   implementation. We state what a group means for a decision. The lecture closes by
-  adding this result to the pattern result. An item stays in view only when at least
-  two results support it, and we state what would change that.
+  adding this result to the pattern result. Each item shows how many results support
+  it, and we state what would change its place on the list.
 email: chc79@cam.ac.uk
 end_time: 01:00 pm
 group_notebook: week-2-group

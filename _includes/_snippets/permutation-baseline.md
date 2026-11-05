@@ -20,9 +20,11 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>What would chance give?</b></p>
                 <p>Keep fixed what chance must not change.</p>
-                <p>Shuffle the rest at random.</p>
-                <p>Compute the same number again, many times.</p>
-                <p>A result is worth a look when it is strictly above the 95th percentile of the shuffled results.</p>
+                <ul>
+                    <li>Shuffle the rest at random.</li>
+                    <li>Compute the same number again, many times.</li>
+                    <li>A result is worth a look when it is strictly above the 95th percentile of the shuffled results.</li>
+                </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/permutation-test-animation.gif" alt="Permutation test" style="height: 360px">

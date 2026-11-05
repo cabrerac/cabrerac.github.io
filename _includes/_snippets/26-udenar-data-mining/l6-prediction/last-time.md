@@ -6,22 +6,17 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Lecture 5</b></p>
                 <ul>
-                    <li>The links among papers as a graph</li>
-                    <li>Degree, the hub warning and PageRank</li>
-                    <li>Betweenness and bridges</li>
+                    <li><b>Degree:</b> how many links, and a hub is a warning</li>
+                    <li><b>PageRank:</b> a link from a well placed paper counts more</li>
+                    <li><b>Betweenness:</b> bridges between parts of the graph</li>
+                    <li><b>node2vec:</b> papers that share a neighbourhood</li>
                 </ul>
+                <p>Every result so far came from the data itself. This lecture starts from a given label.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Four results so far</b></p>
-                <ul>
-                    <li>A kept pattern, from Lecture 2</li>
-                    <li>A group the team reads, from Lecture 3</li>
-                    <li>The text matches the question, from Lecture 4</li>
-                    <li>A bridge in the graph, from Lecture 5</li>
-                    <li>Today a fifth result, a given label</li>
-                </ul>
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/pagerank-example.svg" alt="PageRank example" style="height: 380px">
+                <div class="footnote">PageRanks Example - 345Kai and Stannered, Public domain, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
@@ -34,10 +29,10 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <ul>
-                    <li><b>Data preparation</b> - one table of attributes, scaled, encoded, missing values flagged</li>
-                    <li><b>Modeling</b> - logistic regression, a random forest, one hidden layer</li>
-                    <li><b>Evaluation</b> - right and wrong counts on rows kept apart, against the majority</li>
-                    <li><b>Deployment</b> - the fifth result and the starter list</li>
+                    <li><b>Data preparation:</b> one table of attributes, scaled, encoded, missing values flagged</li>
+                    <li><b>Modeling:</b> logistic regression, a random forest, one hidden layer</li>
+                    <li><b>Evaluation:</b> right and wrong counts on rows kept apart, against the majority</li>
+                    <li><b>Deployment:</b> the fifth result and the starter list</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">

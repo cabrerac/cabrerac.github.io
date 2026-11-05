@@ -1,84 +1,100 @@
 <!-- SLIDES: -->
-<!-- L2 numbers: confirmed planner table, 30 Oct 2026 (swap null with sorted(t), seed 7, 100 tables. PC wvenv run of check_week1_patterns.py --shortlist, repeatable across hash seeds). health, use p95 65 from the same fixed run. Random pair cosine p95 0.457 with the p95() rank rule: box run on rebuilt data, en_core_web_lg. All null-dependent numbers of L2 live only in this file. -->
 
-## Comparing the Methods
+## The Question and the Data
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 40%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p><b>Our question:</b> which word pairs repeat in the nutrition abstracts more often than chance would give?</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## The Question and the Data
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 60%">
                 <p><b>The nutrition papers</b></p>
+                <p>The same OpenAlex papers as in Lecture 1, one set of words per abstract.</p>
                 <ul>
                     <li>317 papers with five words or more</li>
-                    <li>Floor of 10 papers</li>
-                    <li>870 words at the floor</li>
+                    <li>A floor of 10 papers</li>
                     <li>16,271 candidate pairs at the floor</li>
-                    <li>100 swap randomised tables, about 20 to 40 s on Colab</li>
+                    <li>100 swap randomised tables</li>
                 </ul>
-                <p>Kept = at the floor and strictly above the 95th percentile of its 100 swap randomised counts.</p>
+                <p>A pair is kept when it is at the floor and above the 95th percentile of its swapped counts.</p>
             </div>
-            <div class="column vertical-middle text-left" style="width: 60%">
-                <p><b>Kept pairs, highest lift first</b></p>
-                <table class="table">
-                    <thead>
-                        <tr><th>Pair</th><th>Papers</th><th>Lift</th><th>p95 of chance</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>intervals + uis</td><td>11</td><td>19.8</td><td>3</td></tr>
-                        <tr><td>saharan + sub</td><td>16</td><td>18.6</td><td>3</td></tr>
-                        <tr><td>females + males</td><td>14</td><td>17.6</td><td>3</td></tr>
-                        <tr><td>fasting + plasma</td><td>10</td><td>17.4</td><td>3</td></tr>
-                        <tr><td>cross + sectional</td><td>12</td><td>15.8</td><td>4</td></tr>
-                    </tbody>
-                </table>
-                <p>Fixed phrases: uncertainty intervals (UIs), sub Saharan, fasting plasma glucose, cross sectional.</p>
+            <div class="column vertical-middle text-left" style="width: 40%">
+                <img src="{{ site.url }}/assets/media/images/openalex-mark.png" alt="OpenAlex mark" style="height: 300px">
+                <div class="footnote">OpenAlex mark, OpenAlex</div>
             </div>
         </div>
     </div>
 </div>
 
-## Comparing the Methods
+## The Question and the Data
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 55%">
-                <p><b>A selection of kept pairs with 20 papers or more, highest lift first</b></p>
-                <table class="table" style="font-size: 0.7em">
-                    <thead>
-                        <tr><th>Rank</th><th>Pair</th><th>Papers</th><th>Lift</th><th>p95</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>1</td><td>lived + ylds</td><td>20</td><td>11.3</td><td>6</td></tr>
-                        <tr><td>2</td><td>sdi + socio</td><td>20</td><td>10.6</td><td>5</td></tr>
-                        <tr><td>3</td><td>demographic + sdi</td><td>20</td><td>10.2</td><td>5</td></tr>
-                        <tr><td>5</td><td>lost + ylls</td><td>20</td><td>9.9</td><td>7</td></tr>
-                        <tr><td>6</td><td>blood + pressure</td><td>22</td><td>9.2</td><td>7</td></tr>
-                        <tr><td>10</td><td>men + women</td><td>28</td><td>7.8</td><td>9</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 45%">
-                <p>Twice the floor shows Global Burden of Disease terms: YLDs (years lived with disability), YLLs (years of life lost), SDI (socio-demographic index).</p>
-                <p>Then plain topics: blood + pressure, men + women.</p>
-                <p><b>The count, last</b></p>
-                <p>7,311 pairs kept, 6,507 of them with lift 2 or more.</p>
-                <p>The 95th percentile of chance has median 14, range 2 to 80.</p>
-                <p>About 800 of 16,000 candidates pass by luck alone. Read from the top.</p>
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <p><b>Kept pairs, highest lift first</b></p>
+                                <table class="table">
+                                    <thead>
+                                        <tr><th>Pair</th><th>Papers</th><th>Lift</th><th>p95 of chance</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>intervals + uis</td><td>11</td><td>19.8</td><td>3</td></tr>
+                                        <tr><td>saharan + sub</td><td>16</td><td>18.6</td><td>3</td></tr>
+                                        <tr><td>females + males</td><td>14</td><td>17.6</td><td>3</td></tr>
+                                        <tr><td>fasting + plasma</td><td>10</td><td>17.4</td><td>3</td></tr>
+                                        <tr><td>cross + sectional</td><td>12</td><td>15.8</td><td>4</td></tr>
+                                    </tbody>
+                                </table>
+                <p>Fixed phrases come first: uncertainty intervals (UIs), sub Saharan, fasting plasma glucose, cross sectional.</p>
             </div>
         </div>
     </div>
 </div>
 
-## Comparing the Methods
+## The Question and the Data
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <p><b>Kept pairs with 20 papers or more</b></p>
+                <table class="table" style="font-size: 0.7em">
+                                    <thead>
+                                        <tr><th>Rank</th><th>Pair</th><th>Papers</th><th>Lift</th><th>p95</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>1</td><td>lived + ylds</td><td>20</td><td>11.3</td><td>6</td></tr>
+                                        <tr><td>2</td><td>sdi + socio</td><td>20</td><td>10.6</td><td>5</td></tr>
+                                        <tr><td>3</td><td>demographic + sdi</td><td>20</td><td>10.2</td><td>5</td></tr>
+                                        <tr><td>5</td><td>lost + ylls</td><td>20</td><td>9.9</td><td>7</td></tr>
+                                        <tr><td>6</td><td>blood + pressure</td><td>22</td><td>9.2</td><td>7</td></tr>
+                                        <tr><td>10</td><td>men + women</td><td>28</td><td>7.8</td><td>9</td></tr>
+                                    </tbody>
+                                </table>
+                <p>Global Burden of Disease terms come first, then plain topics such as blood + pressure. About 800 of the 16,271 candidates would pass by luck alone, so we read from the top.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## The Question and the Data
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 32%">
                 <p><b>Highest support</b></p>
-                <p>Common words. Lift stays close to 1.</p>
-                <p>All four are kept. For common words the 95th percentile of chance is high, 58 to 80.</p>
+                <p>Common words. Lift stays close to 1, and chance is high for them too.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 68%">
                 <table class="table">
@@ -97,7 +113,7 @@
     </div>
 </div>
 
-## Comparing the Methods
+## The Question and the Data
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">

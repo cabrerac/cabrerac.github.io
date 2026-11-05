@@ -1,5 +1,4 @@
 <!-- SLIDES: -->
-<!-- Course piece (round 2, M10). The TF-IDF pipeline moved out of the shared classification-evaluation.md. These are the five-fold numbers of the comparison slide, on the training rows only (S2). -->
 
 ## Right and Wrong Counts
 
@@ -9,12 +8,13 @@
             <div class="column vertical-middle text-left" style="width: 30%">
                 <p><b>Five folds on the papers</b></p>
                 <p>TF-IDF inside the model, so word weights are learned in each fold.</p>
-                <p>The encoder vectors do not learn from the marks, so they go in as they are.</p>
-                <p>Training rows only, never the kept apart papers.</p>
-                <p>First line: the kept apart intervals.</p>
+                <ul>
+                    <li>The encoder vectors do not learn from the marks, so they go in as they are.</li>
+                    <li>Training rows only, never the kept apart papers.</li>
+                    <li>First line: the kept apart intervals.</li>
+                </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 70%">
-
 
 ```python
 from sklearn.pipeline import make_pipeline

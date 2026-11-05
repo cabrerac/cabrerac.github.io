@@ -39,7 +39,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>What k-means minimises</b></p>
                 <p>$$J = \sum_{j=1}^{k} \sum_{i \in C_j} \lVert \mathbf{x}_i - \boldsymbol{\mu}_j \rVert^2$$</p>
                 <p>$C_j$ is the set of items in group $j$.</p>
@@ -55,7 +55,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Lloyd steps</b> <a href="https://doi.org/10.1109/TIT.1982.1056489" target="_blank" rel="noopener noreferrer">(Lloyd, 1982)</a></p>
                 <ol>
                     <li><p>Place $k$ centres</p></li>
@@ -77,7 +77,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Silhouette</b> <a href="https://doi.org/10.1016/0377-0427(87)90125-7" target="_blank" rel="noopener noreferrer">(Rousseeuw, 1987)</a></p>
                 <p>$$s(i) = \frac{b(i) - a(i)}{\max\{a(i),\, b(i)\}}$$</p>
                 <ul>
@@ -96,7 +96,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 55%">
                 <p><b>Choosing k</b></p>
                 <ul>
                     <li><p>Run k-means for a short range of $k$</p></li>
@@ -105,6 +105,10 @@
                     <li><p>A flat, low line means there is no natural $k$</p></li>
                     <li><p>Then $k$ is chosen for the use, and we say so</p></li>
                 </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 45%">
+                <img src="{{ site.url }}/assets/media/images/k-means-convergence.gif" alt="k-means convergence" style="height: 320px">
+                <div class="footnote">K-means convergence - Chire, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
@@ -118,9 +122,11 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Limits</b></p>
                 <p>Groups come out round and of similar spread.</p>
-                <p>Every item is forced into a group.</p>
-                <p>A different start can give different groups.</p>
-                <p>The number of groups is ours, not the data's.</p>
+                <ul>
+                    <li>Every item is forced into a group.</li>
+                    <li>A different start can give different groups.</li>
+                    <li>The number of groups is ours, not the data's.</li>
+                </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/k-means-versus-k-medoids.png" alt="k-means on groups that are not round" style="height: 380px">
@@ -144,7 +150,6 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
-
 
 ```python
 from sklearn.cluster import KMeans
@@ -171,11 +176,12 @@ K_CHOSEN = max(silhouettes, key=silhouettes.get)   # or a k chosen for the use
             <div class="column vertical-middle text-left" style="width: 35%">
                 <p><b>Reading a group</b></p>
                 <p>The centre weights each word.</p>
-                <p>Its top words name the group.</p>
-                <p>Size next to the words.</p>
+                <ul>
+                    <li>Its top words name the group.</li>
+                    <li>Size next to the words.</li>
+                </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
-
 
 ```python
 vocabulary = vectorizer.get_feature_names_out()

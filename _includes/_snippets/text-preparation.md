@@ -20,12 +20,12 @@
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>From a text to a set of words</b></p>
                 <ul>
-                    <li><b>Lower case</b> - Obesity and obesity are one word</li>
-                    <li><b>Tokens</b> - keep runs of letters, drop numbers and signs</li>
-                    <li><b>Short words</b> - drop words under three letters</li>
-                    <li><b>Stop words</b> - drop the, of, and, which appear everywhere</li>
-                    <li><b>Boilerplate</b> - drop words that come from the format</li>
-                    <li><b>Set</b> - keep each word once per text</li>
+                    <li><b>Lower case:</b> Obesity and obesity are one word</li>
+                    <li><b>Tokens:</b> keep runs of letters, drop numbers and signs</li>
+                    <li><b>Short words:</b> drop words under three letters</li>
+                    <li><b>Stop words:</b> drop the, of, and, which appear everywhere</li>
+                    <li><b>Boilerplate:</b> drop words that come from the format</li>
+                    <li><b>Set:</b> keep each word once per text</li>
                 </ul>
             </div>
         </div>
@@ -40,10 +40,12 @@
             <div class="column vertical-middle text-left" style="width: 55%">
                 <p><b>Boilerplate</b></p>
                 <p>Words that repeat because of how texts are written, not what they say.</p>
-                <p>Section labels such as background, methods, findings.</p>
-                <p>Funding lines that name the same funder again and again.</p>
-                <p>Web addresses: http, https, www, org.</p>
-                <p>http and www appear together in many texts, beat every baseline, and mean nothing. A baseline will not catch boilerplate. Preparation must.</p>
+                <ul>
+                    <li>Section labels such as background, methods, findings.</li>
+                    <li>Funding lines that name the same funder again and again.</li>
+                    <li>Web addresses: http, https, www, org.</li>
+                    <li>http and www appear together in many texts, beat every baseline, and mean nothing. A baseline will not catch boilerplate. Preparation must.</li>
+                </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 45%">
                 <p><b>The words we remove</b></p>
@@ -67,11 +69,12 @@
             <div class="column vertical-middle text-left" style="width: 35%">
                 <p><b>Python</b></p>
                 <p>One set of words per text.</p>
-                <p>spaCy stop words plus the boilerplate list.</p>
-                <p>Drop texts with fewer than five words.</p>
+                <ul>
+                    <li>spaCy stop words plus the boilerplate list.</li>
+                    <li>Drop texts with fewer than five words.</li>
+                </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
-
 
 ```python
 import re

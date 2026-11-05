@@ -1,13 +1,11 @@
 <!-- NOTEBOOK: -->
 
 ## Repaso de Python para este cuaderno
- 
-Este repaso es corto. Muestra las tres piezas de `numpy` que usamos en la lección. Si ya las conoce, ejecute las celdas rápido y siga.
- 
+
+Este cuaderno utiliza los siguientes métodos de Python. Si ya los conoce, ejecute estas celdas rápido.
+
 ### Arreglos de `numpy`
-Un **arreglo** guarda números en filas y columnas. En este cuaderno cada fila será un artículo y cada columna una palabra. `shape` dice cuántas filas y columnas tiene.
-
-
+Un **arreglo** guarda números en filas y columnas. Aquí cada fila es un artículo y cada columna una palabra. `shape` dice el tamaño.
 
 ```python
 import numpy as np
@@ -18,9 +16,7 @@ print(counts_toy[0])          # la primera fila: el primer artículo
 ```
 
 ### El largo de un vector
-El **largo** (la norma) de un vector es la raíz de la suma de sus valores al cuadrado. Dividir un vector por su largo lo deja de largo 1 y conserva su dirección.
-
-
+El **largo** de un vector es la raíz de la suma de sus valores al cuadrado. Dividir por el largo deja el vector de largo 1.
 
 ```python
 row = counts_toy[0].astype(float)
@@ -29,9 +25,7 @@ print(f"Largo: {length:.3f}. Después de escalar: {np.linalg.norm(row / length):
 ```
 
 ### Coseno de vectores de largo 1
-Si los dos vectores tienen largo 1, el **coseno** es solo el producto punto `u @ v`. Vale 1 si apuntan igual y 0 si no comparten ninguna palabra. Así comparamos un artículo largo con uno corto: cuenta la mezcla de palabras, no el largo.
-
-
+Con dos vectores de largo 1, el **coseno** es el producto punto `u @ v`. Así cuenta la mezcla de palabras, no el largo del artículo.
 
 ```python
 u = counts_toy[0] / np.linalg.norm(counts_toy[0])
@@ -41,51 +35,58 @@ print(f"Coseno: {u @ v:.3f}. Repaso de Python: OK")
 ```
 
 ---
- 
+
 ## Instrucciones
- 
-**La historia.** Seguimos con el equipo interno de la secretaría de salud. Tiene 320 artículos sobre nutrición y debe decidir cuáles leer. En la Lección 1 escribimos la pregunta y el estándar (una lista de 10 a 30 artículos). En la Lección 2 encontramos patrones: pares de palabras que se repiten más que por azar. Hoy buscamos **grupos**: artículos que usan palabras parecidas. Y buscamos los artículos que **no encajan en ningún grupo**.
- 
-**La idea central.** Un grupo es un conjunto de artículos más parecidos entre sí que con el resto. No sabemos de antemano cuántos grupos hay ni qué significan. Por eso juzgamos los grupos sin etiquetas: contra una línea base al azar, con varias semillas y comparando métodos. Un grupo sirve a la decisión solo si el equipo puede leerlo.
- 
-**Tres métodos, tres preparaciones.** Los tres parten del mismo conteo de palabras. Cada uno pide su propia forma de los datos.
- 
+
+Seguimos con el equipo interno de la secretaría de salud y sus 320 artículos sobre nutrición. El equipo debe decidir **qué artículos tiene que leer** un colega que llega al equipo. En la Lección 2 encontramos pares de palabras que se repiten más que por azar.
+
+Los pares describen palabras, pero el colega lee artículos enteros. Las bibliotecas ordenaban sus libros a mano, por tema. El agrupamiento deja que los textos parecidos se encuentren solos (Jain, 2010). Hoy buscamos **grupos** de artículos con palabras parecidas, y los artículos que **no encajan en ningún grupo**. No hay etiquetas, así que juzgamos los grupos contra el azar, con varias semillas y entre métodos. Un grupo sirve solo si el equipo puede leerlo.
+
+**Tres métodos, tres preparaciones.** Los tres parten del mismo conteo de palabras.
+
 | Método | Pregunta | Preparación que necesita | Qué deja fuera |
 |--------|----------|--------------------------|----------------|
 | M1. k-means | ¿Qué $k$ centros resumen mejor los artículos? | Los conteos, cada fila escalada a largo 1 | Nada: todo artículo entra en un grupo |
 | M2. Mezcla gaussiana | ¿Qué probabilidad tiene cada artículo de venir de cada grupo? | Las 5 primeras componentes de la SVD, estandarizadas | Nada, pero marca a los dudosos |
 | M3. HDBSCAN | ¿Dónde hay zonas densas de artículos? | Distancias coseno sobre las 10 primeras componentes | Los artículos sin vecinos claros (ruido) |
- 
-**Qué hacer.** Ejecute las celdas de arriba hacia abajo. Cada paso empieza con **En este paso**. Los pasos que crean algo nuevo terminan con una celda **Comprobar**. Si un `assert` falla, revise la celda anterior antes de seguir. Los nombres del código están en inglés, como en todos los cuadernos del curso. Las explicaciones están en español.
- 
-**El sábado 14 nov.** A las 08:45 el docente ejecuta este cuaderno en vivo y ustedes lo ejecutan al mismo tiempo. Ejecútelo una vez antes del sábado y anote las celdas que no pudo ejecutar. Hacia las 09:20 seguimos con la L4. Lo que falte se termina en casa.
- 
-**Del laboratorio al proyecto.** Desde las 10:00 el cuaderno de grupo de la semana 2 repite estos pasos con las entradillas de su secretaría: G1 Agricultura, G2 Salud mental, G3 Medio ambiente, G4 Inclusión Social y G5 Vivienda. Cada paso del cuaderno de grupo dice qué parte de este cuaderno adaptar.
- 
+
+**Qué hacer.** Ejecute las celdas de arriba hacia abajo. Cada paso empieza con **En este paso** y termina con una celda **Comprobar**.
+
 **Mapa del cuaderno**
- 
+
 | Parte | Fase CRISP-DM | Qué sale |
 |-------|---------------|----------|
-| 1 | Configuración | Librerías, parámetros y funciones de la L2 |
-| 2 | Comprensión del negocio | `pregunta.json` y `outputs/patrones_l2.csv` de la Lección 2 |
-| 3 | Comprensión de los datos | Los artículos con resumen útil |
-| 4 | Preparación de los datos | Conteos escalados, SVD y distancias |
-| 5 | Modelado | Grupos de k-means, de la mezcla y de HDBSCAN |
-| 6 | Evaluación | Línea base, estabilidad, acuerdo y qué significa cada grupo |
-| 7 | Despliegue | La tabla de `supports` y `outputs/grupos_l3.csv` |
+| 1 | Comprensión del negocio | La pregunta de hoy, los parámetros, `pregunta.json` y `outputs/patrones_l2.csv` |
+| 2 | Comprensión de los datos | Los artículos con resumen útil |
+| 3 | Preparación de los datos | Conteos escalados, SVD y distancias |
+| 4 | Modelado | Grupos de k-means, de la mezcla y de HDBSCAN |
+| 5 | Evaluación | Línea base, estabilidad, acuerdo y qué significa cada grupo |
+| 6 | Despliegue | La tabla de `supports` y `outputs/grupos_l3.csv` |
+
+**Carpetas.** La celda de configuración crea `data/` (datos descargados) y `outputs/` (tablas y gráficos).
 
 ---
- 
-## Parte 1. Configuración
- 
-### Paso 1. Librerías, carpetas y parámetros
-En este paso importamos las librerías y fijamos los parámetros. El bloque de la L2 se copia sin cambios. Los parámetros nuevos de la L3 se definen aquí una sola vez y son los mismos en el cuaderno de grupo. No los cambie aquí.
- 
-**Una sola regla de umbral para el curso.** El grupo más chico que HDBSCAN puede formar tiene el mismo tamaño que el patrón más chico que la L2 puede conservar: `support_floor(n)`.
- 
-**Nada que instalar.** Colab ya trae spaCy y scikit-learn. HDBSCAN necesita scikit-learn 1.3 o más nuevo, y la celda de comprobación lo revisa.
 
+## Parte 1. Comprensión del negocio
 
+### Paso 1. La pregunta de esta lección
+En este paso escribimos qué buscamos hoy. La decisión no cambia: qué artículos debe leer el colega nuevo.
+
+| Pregunta | Respuesta para el laboratorio |
+|----------|-------------------------------|
+| ¿Qué buscamos? | Grupos de artículos que usan palabras parecidas, y los artículos que no encajan en ninguno |
+| ¿Con qué los buscamos? | k-means, una mezcla gaussiana y HDBSCAN, sobre los conteos de palabras |
+| ¿Contra qué los comparamos? | Contra una tabla barajada sin grupos, entre semillas y entre métodos |
+| ¿Cómo entra un grupo en la lista? | Un artículo recibe el resultado del grupo si está en un grupo que el equipo lee |
+
+Un artículo sin grupo no se borra. Se mira a mano.
+
+### Paso 2. Configuración
+En este paso importamos las librerías, creamos las carpetas y fijamos los parámetros. No los cambie. La excepción es `MIN_SUPPORTS`, que empieza en 2 y se puede cambiar. Cada grupo fija y justifica este número en su proyecto.
+
+**Un solo umbral.** El grupo más chico de HDBSCAN tiene el tamaño del patrón más chico de la Lección 2: `support_floor(n)`.
+
+**Nada que instalar.** Colab trae spaCy y scikit-learn.
 
 ```python
 import json          # leer y escribir pregunta.json
@@ -119,7 +120,7 @@ SUPPORT_SHARE = 0.03   # proporción de textos
 SUPPORT_MIN = 5        # mínimo de textos
 SEED = 7
 
-# L3 (compartidos con el cuaderno de grupo, no cambiar)
+# L3 (no cambiar)
 MAX_WORD_SHARE = 0.5         # palabras en más de la mitad de los textos no separan grupos
 MIXTURE_COMPONENTS = 5       # dimensiones para la mezcla gaussiana
 DENSITY_COMPONENTS = 10      # dimensiones para HDBSCAN
@@ -150,7 +151,7 @@ print(f"Umbral para 317 artículos: {support_floor(317)}")
 
 **Comprobar:**
 
-
+En este paso comprobamos el umbral de soporte, los valores de k que vamos a probar y la versión de scikit-learn.
 
 ```python
 assert support_floor(317) == 10
@@ -159,10 +160,8 @@ assert tuple(int(v) for v in sklearn.__version__.split(".")[:2]) >= (1, 3)
 print("Parámetros: OK")
 ```
 
-### Paso 2. Funciones de la Lección 2
-En este paso traemos lo que volvemos a usar de la L2: la descarga, las palabras vacías, la función `words` y el percentil 95 por rango. La función `words` devuelve un **conjunto** (cada palabra una vez). Para agrupar necesitamos **cuántas veces** aparece cada palabra, así que `word_list` hace la misma limpieza y devuelve una lista con repeticiones. Las dos usan `STOP_WORDS` de la L2, con las etiquetas del resumen y los restos de direcciones web.
-
-
+### Paso 3. Funciones de la Lección 2
+En este paso traemos de la Lección 2 la descarga, las palabras vacías, `words` y `p95`. Para agrupar necesitamos cuántas veces aparece cada palabra, así que `word_list` hace la misma limpieza y devuelve una lista con repeticiones.
 
 ```python
 from spacy.lang.en.stop_words import STOP_WORDS as STOP_WORDS_EN
@@ -235,7 +234,7 @@ print(word_list("The diet, the DIET and the risk of obesity, see https://www.who
 
 **Comprobar:**
 
-
+En este paso comprobamos que `word_list` cuenta repeticiones y limpia igual que `words`, y la regla del percentil 95.
 
 ```python
 assert word_list("The diet, the DIET and the risk", STOP_WORDS) == ["diet", "diet", "risk"]
@@ -244,16 +243,10 @@ assert p95(list(range(30))) == 28
 print("Funciones de la L2: OK")
 ```
 
----
- 
-## Parte 2. Comprensión del negocio
- 
-### Paso 1. Recuperar la pregunta
-En este paso leemos `pregunta.json`, la tarjeta de las Lecciones 1 y 2. Si abre este cuaderno en un Colab nuevo, el archivo no está. En ese caso la celda escribe la misma tarjeta para que pueda seguir.
- 
-Aquí también escribimos `TOPIC_WORDS`, las palabras del tema del equipo: la dieta y las enfermedades que dependen de ella. Las escribimos ahora, desde la pregunta y antes de ver ningún grupo, porque en la Parte 6 decidimos con ellas qué grupos lee el equipo. Si las escribiéramos después de ver los grupos, elegiríamos las palabras que hacen entrar a un grupo.
+### Paso 4. La descripción de la pregunta
+En este paso leemos `pregunta.json`, la descripción de la pregunta. Si `pregunta.json` no está, este cuaderno escribe la descripción del laboratorio para que pueda seguir.
 
-
+Aquí escribimos también `TOPIC_WORDS`, las palabras del tema del equipo. Las escribimos antes de ver ningún grupo, porque en la Parte 5 deciden qué grupos se leen.
 
 ```python
 QUESTION_PATH = Path("pregunta.json")
@@ -273,7 +266,7 @@ else:
         "pattern_use": {"rule": "El equipo explica por qué cada artículo está en la lista y qué resultados lo apoyan. Un artículo puede tener varios, uno o ninguno, si el equipo lo justifica."},
     }
     QUESTION_PATH.write_text(json.dumps(question_card, ensure_ascii=False, indent=2), encoding="utf-8")
-    print("pregunta.json no estaba. Escribimos la tarjeta de la Lección 2.")
+    print("pregunta.json no estaba. Escribimos la descripción del laboratorio.")
 
 TOPIC_WORDS = {"obesity", "obese", "overweight", "diet", "dietary", "diabetes", "cardiovascular", "hypertension"}
 
@@ -284,7 +277,7 @@ print("Palabras del tema:", ", ".join(sorted(TOPIC_WORDS)))
 
 **Comprobar:**
 
-
+En este paso comprobamos que la descripción de la pregunta tiene el uso de los patrones y que las palabras del tema están escritas.
 
 ```python
 assert {"question", "standard", "pattern_use"} <= set(question_card)
@@ -292,10 +285,8 @@ assert len(TOPIC_WORDS) >= 5 and all(w == w.lower() for w in TOPIC_WORDS)
 print("Pregunta y palabras del tema: OK")
 ```
 
-### Paso 2. Recuperar los patrones de la Lección 2
-En este paso leemos `outputs/patrones_l2.csv`, la tabla que guardó la L2. Usaremos los patrones que **destacan** (`kept_lift2`) en la Parte 7, como uno de los resultados de cada artículo. Si el archivo no está (un Colab nuevo), súbalo desde su cuaderno de la L2 a la carpeta `outputs/`. Sin él, el cuaderno sigue, pero la columna de patrones queda vacía.
-
-
+### Paso 5. Los patrones de la Lección 2
+En este paso leemos `outputs/patrones_l2.csv` de la Lección 2. Si el archivo no está, el cuaderno sigue con la columna de patrones vacía. Para tenerla, suba a `outputs/` el archivo de la Lección 2.
 
 ```python
 PATTERNS_PATH = OUTPUTS_DIR / "patrones_l2.csv"
@@ -306,13 +297,13 @@ if PATTERNS_PATH.is_file():
     print(f"patrones_l2.csv: {len(patterns):,} pares, {patterns['kept_lift2'].sum():,} destacan")
 else:
     patterns = pd.DataFrame(columns=PATTERN_COLUMNS)
-    print("No encontramos outputs/patrones_l2.csv. Súbalo desde la L2 y vuelva a ejecutar esta celda.")
+    print("No encontramos outputs/patrones_l2.csv. Sin él, la columna de patrones queda vacía.")
 patterns.head(3)
 ```
 
 **Comprobar:**
 
-
+En este paso comprobamos que la tabla de patrones tiene las columnas que vamos a usar.
 
 ```python
 assert set(PATTERN_COLUMNS) <= set(patterns.columns)
@@ -320,13 +311,11 @@ print("Patrones de la L2: OK")
 ```
 
 ---
- 
-## Parte 3. Comprensión de los datos
- 
+
+## Parte 2. Comprensión de los datos
+
 ### Paso 1. Los artículos con resumen útil
-En este paso cargamos los artículos y aplicamos la regla de la L2: dejamos fuera los resúmenes con menos de 5 palabras distintas. Son fragmentos como "Peer Reviewed", no resúmenes. El archivo tiene 320 filas y quedan 317.
-
-
+En este paso cargamos los artículos y dejamos fuera los resúmenes con menos de 5 palabras distintas. De 320 quedan 317.
 
 ```python
 papers = pd.read_csv(download_data("nutricion-papers.csv"), keep_default_na=False)
@@ -341,7 +330,7 @@ print(f"Artículos usados: {N} de {len(useful)}. Umbral: {FLOOR} artículos")
 
 **Comprobar:**
 
-
+En este paso comprobamos el número de artículos usados y el umbral de soporte.
 
 ```python
 assert N == 317 and FLOOR == 10
@@ -350,20 +339,18 @@ print("Datos: OK")
 ```
 
 ---
- 
-## Parte 4. Preparación de los datos
- 
-Los tres métodos parten de la misma tabla: una fila por artículo, una columna por palabra, y en cada celda cuántas veces aparece la palabra. Después cada método pide algo más. k-means usa esa tabla escalada. La mezcla y HDBSCAN usan una versión con pocas dimensiones.
- 
-**Una palabra nueva para "ítem".** En la L2 una palabra era un ítem en la canasta de un texto. Desde ahora, el ítem es el texto que agrupamos.
- 
+
+## Parte 3. Preparación de los datos
+
+Los tres métodos parten de una tabla con una fila por artículo y una columna por palabra. k-means usa la tabla escalada. La mezcla y HDBSCAN usan pocas dimensiones.
+
+**Una palabra nueva para "ítem".** Desde ahora el ítem es el texto que agrupamos.
+
 ### Paso 1. Conteo de palabras con un vocabulario útil
-En este paso contamos las palabras con `CountVectorizer` de scikit-learn. Primero hacemos una lista de palabras por artículo con `word_list`, la regla de la L2. Luego `analyzer=lambda tokens: tokens` le dice a `CountVectorizer` que el texto ya viene partido. Le damos dos límites:
- 
-- `min_df=FLOOR`: una palabra debe aparecer en al menos 10 artículos, el mismo umbral de la L2. Una palabra rara no puede formar un grupo.
-- `max_df=MAX_WORD_SHARE`: una palabra que aparece en más de la mitad de los artículos tampoco separa grupos. Está en todos lados.
+En este paso contamos las palabras con `CountVectorizer`. `word_list` parte el texto y `analyzer=lambda tokens: tokens` lo pasa tal cual. Hay dos límites:
 
-
+- `min_df=FLOOR`: la palabra aparece en al menos 10 artículos.
+- `max_df=MAX_WORD_SHARE`: una palabra en más de la mitad de los artículos no separa grupos.
 
 ```python
 token_lists = [word_list(t, STOP_WORDS) for t in texts]
@@ -374,11 +361,11 @@ print(f"Tabla de conteos: {counts.shape[0]} artículos x {counts.shape[1]} palab
 print(f"Celdas distintas de 0: {counts.nnz:,} ({counts.nnz / (counts.shape[0] * counts.shape[1]):.1%})")
 ```
 
-La tabla es casi toda ceros. Cada artículo usa unas pocas decenas de las 869 palabras. Por eso scikit-learn la guarda como **matriz dispersa**: solo anota las celdas distintas de 0. Las palabras *http*, *https*, *www* y *org* no están: `STOP_WORDS` las quitó, como en la L2.
- 
+La tabla es casi toda ceros, así que se guarda como **matriz dispersa**.
+
 **Comprobar:**
 
-
+En este paso comprobamos la forma de la tabla de conteos y que no quedan restos de direcciones web.
 
 ```python
 assert counts.shape == (317, 869)
@@ -387,9 +374,7 @@ print("Conteos: OK")
 ```
 
 ### Paso 2. Escalar cada artículo a largo 1
-En este paso dividimos cada fila por su largo con `normalize`. Un resumen de 500 palabras tiene conteos mucho más grandes que uno de 50. Sin escalar, el largo pesaría más que el tema. Con filas de largo 1, el coseno entre dos artículos es su producto punto, como en el repaso.
-
-
+En este paso dividimos cada fila por su largo con `normalize`. Así el largo del resumen no pesa más que el tema.
 
 ```python
 X = normalize(counts)   # cada fila queda de largo 1
@@ -399,7 +384,7 @@ print(f"Largo de las filas: mínimo {row_lengths.min():.3f}, máximo {row_length
 
 **Comprobar:**
 
-
+En este paso comprobamos que cada fila quedó de largo 1.
 
 ```python
 assert np.allclose(row_lengths, 1)
@@ -407,11 +392,9 @@ print("Filas de largo 1: OK")
 ```
 
 ### Paso 3. Pocas dimensiones con la SVD
-En este paso reducimos las 869 columnas a unas pocas con la **descomposición en valores singulares** (SVD). La SVD escribe la tabla como $X = U S V^T$. Cada componente es una mezcla de palabras que suelen ir juntas. Aplicada a textos, se llama **análisis semántico latente** (LSA).
- 
-Usamos `TruncatedSVD`, que trabaja con matrices dispersas y calcula solo las primeras 10 componentes (`DENSITY_COMPONENTS`). `fit_transform` devuelve $Z = U S$: una fila por artículo, una columna por componente. `explained_variance_ratio_` dice qué parte de la variación de la tabla explica cada componente.
+En este paso reducimos las 869 columnas con la **descomposición en valores singulares** (SVD), $X = U S V^T$. Cada componente mezcla palabras que suelen ir juntas. En textos se llama **análisis semántico latente** (LSA).
 
-
+`TruncatedSVD` calcula las primeras 10 componentes (`DENSITY_COMPONENTS`) y devuelve $Z = U S$. `explained_variance_ratio_` dice cuánto explica cada una.
 
 ```python
 svd = TruncatedSVD(n_components=DENSITY_COMPONENTS, random_state=SEED)
@@ -432,11 +415,11 @@ plt.savefig(OUTPUTS_DIR / "varianza_l3.png", dpi=120)
 plt.show()
 ```
 
-La curva sube despacio. Con 10 componentes explicamos menos de una cuarta parte de la variación. Es una primera señal: los artículos no se ordenan en pocos temas claros. Aun así, las primeras componentes guardan la parte más grande de la variación y quitan mucho ruido.
- 
+La curva sube despacio. 10 componentes explican menos de una cuarta parte. Es una primera señal de que no hay pocos temas claros.
+
 **Comprobar:**
 
-
+En este paso comprobamos la forma de `Z` y qué parte de la variación explican sus componentes.
 
 ```python
 assert Z.shape == (317, DENSITY_COMPONENTS)
@@ -446,11 +429,9 @@ print("SVD: OK")
 
 ### Paso 4. La preparación de la mezcla y de HDBSCAN
 En este paso armamos la entrada de M2 y de M3.
- 
-- **M2.** Las 5 primeras componentes, estandarizadas con `StandardScaler` (media 0 y desviación 1 en cada columna). La mezcla gaussiana estima una forma por grupo. Con 5 columnas tiene pocas cosas que estimar.
-- **M3.** La distancia coseno entre artículos, $1 - \cos$, sobre las 10 componentes de `Z`. HDBSCAN recibe la matriz de distancias ya hecha (`metric="precomputed"`).
 
-
+- **M2.** Las 5 primeras componentes, estandarizadas con `StandardScaler`.
+- **M3.** La distancia coseno, $1 - \cos$, sobre las 10 componentes, con `metric="precomputed"`.
 
 ```python
 Z_mixture = StandardScaler().fit_transform(Z[:, :MIXTURE_COMPONENTS])
@@ -461,7 +442,7 @@ print(f"Distancia coseno: mediana {np.median(distances):.2f}, de {distances.min(
 
 **Comprobar:**
 
-
+En este paso comprobamos la forma de las entradas de M2 y M3.
 
 ```python
 assert Z_mixture.shape == (317, MIXTURE_COMPONENTS) and abs(Z_mixture.mean()) < 1e-9
@@ -470,9 +451,7 @@ print("Preparación de M2 y M3: OK")
 ```
 
 ### Paso 5. ¿Por qué no usar todas las palabras?
-En este paso vemos qué pasa si HDBSCAN trabaja sobre las 869 palabras, sin la SVD. Con muchas dimensiones, casi todos los artículos quedan a distancias parecidas entre sí. Los vecinos dejan de ser claros. Es la **maldición de la dimensión**.
-
-
+En este paso vemos HDBSCAN sobre las 869 palabras, sin SVD. Con muchas dimensiones todas las distancias se parecen. Es la **maldición de la dimensión**.
 
 ```python
 D_all_words = pairwise_distances(X, metric="cosine")
@@ -481,22 +460,20 @@ print(f"Con todas las palabras: {all_words_labels.max() + 1} grupos, {(all_words
 print(f"Distancia coseno con todas las palabras: mediana {np.median(D_all_words):.2f}. Con 10 componentes: {np.median(distances):.2f}")
 ```
 
-Con todas las palabras, la distancia mediana entre artículos está cerca de 1: casi ningún par comparte vocabulario. HDBSCAN encuentra solo 2 grupos y deja el 40 % como ruido. En los extractos de Wikipedia es peor: en dos de ellos no encuentra ningún grupo y en los otros deja entre el 50 % y el 75 % como ruido. Por eso M3 trabaja sobre 10 componentes.
+La distancia mediana queda cerca de 1, HDBSCAN encuentra 2 grupos y deja el 40 % como ruido. Por eso M3 usa 10 componentes.
 
 ---
- 
-## Parte 5. Modelado
- 
+
+## Parte 4. Modelado
+
 ### M1. k-means
-En este paso agrupamos con **k-means**. El método busca $k$ centros y pone cada artículo con el centro más cercano. Minimiza la suma de distancias al cuadrado de cada artículo a su centro:
- 
+En este paso agrupamos con **k-means**: $k$ centros, y cada artículo con el centro más cercano. Minimiza:
+
 $\displaystyle J = \sum_{i=1}^{N} \lVert x_i - \mu_{c(i)} \rVert^2$
- 
-Los pasos de Lloyd alternan dos cosas: asignar cada artículo a su centro más cercano y mover cada centro al promedio de sus artículos. `KMeans` de scikit-learn empieza con k-means++ y prueba 10 arranques (`n_init=10`).
- 
-**Cómo elegir k: la silueta.** Para cada artículo, $a$ es su distancia media a los de su grupo y $b$ la distancia media al grupo vecino más cercano. Su silueta es $s = (b - a) / \max(a, b)$. Cerca de 1, el artículo está bien en su grupo. Cerca de 0, está entre dos grupos. Promediamos sobre todos los artículos, con distancia coseno.
 
+Lloyd alterna asignar cada artículo a su centro y mover cada centro al promedio. `KMeans` usa k-means++ y 10 arranques (`n_init=10`).
 
+**Cómo elegir k: la silueta.** $a$ es la distancia media a su grupo y $b$ al grupo vecino. La silueta es $s = (b - a) / \max(a, b)$. Cerca de 1 está bien en su grupo, cerca de 0 está entre dos.
 
 ```python
 silhouettes = {}
@@ -523,11 +500,11 @@ plt.savefig(OUTPUTS_DIR / "silueta_l3.png", dpi=120)
 plt.show()
 ```
 
-**La silueta es baja y plana.** Va de 0,06 a 0,08 para todos los $k$. No hay un $k$ natural en estos artículos. Tomamos el $k$ con la silueta más alta, 8, porque da grupos de unos 40 artículos, un tamaño que el equipo puede revisar. Elegimos $k$ **para el uso**, no porque los datos lo digan. Lo dejamos escrito. La línea base, la estabilidad y el acuerdo de la Parte 6 usan este $k = 8$.
- 
+**La silueta es baja y plana**, de 0,06 a 0,08. No hay un $k$ natural. Tomamos el más alto, 8, que da grupos de unos 40 artículos. Elegimos $k$ **para el uso** y lo dejamos escrito.
+
 **Comprobar:**
 
-
+En este paso comprobamos el k elegido y que la silueta es baja.
 
 ```python
 assert K_CHOSEN == 8
@@ -536,9 +513,7 @@ print("M1: OK")
 ```
 
 ### M1. Las palabras de cada grupo
-En este paso leemos cada grupo por sus palabras. El centro de un grupo es el promedio de sus artículos escalados. Las palabras con más peso en el centro dicen de qué habla el grupo.
-
-
+En este paso leemos cada grupo por las palabras de más peso en su centro.
 
 ```python
 def top_words(weights: np.ndarray, vocabulary: Sequence[str], n: int = TOP_WORDS) -> list[str]:
@@ -558,11 +533,11 @@ for g, group_words in kmeans_words.items():
     print(f"Grupo {g} ({(kmeans_labels == g).sum()} artículos): {', '.join(group_words)}")
 ```
 
-Algunos grupos se leen bien: uno sobre obesidad y alimentos, otro sobre diabetes, otro sobre riesgo cardiovascular, otro sobre la carga global de enfermedad (*burden*). Otros mezclan palabras de método (*data*, *studies*, *research*). Un grupo de método no dice de qué tema trata un artículo, dice cómo se escribió.
- 
+Unos grupos se leen bien (obesidad y alimentos, diabetes, riesgo cardiovascular, carga global). Otros mezclan palabras de método, que dicen cómo se escribió un artículo, no de qué trata.
+
 **Comprobar:**
 
-
+En este paso comprobamos que hay palabras para cada grupo y que ningún grupo es diminuto.
 
 ```python
 assert len(kmeans_words) == K_CHOSEN
@@ -571,15 +546,13 @@ print("Palabras de M1: OK")
 ```
 
 ### M2. Mezcla gaussiana
-En este paso ajustamos una **mezcla gaussiana**. Suponemos que cada artículo viene de uno de $K$ grupos, y cada grupo tiene forma de campana (una normal con su media y su covarianza):
- 
+En este paso ajustamos una **mezcla gaussiana**: cada grupo es una campana con su media y su covarianza.
+
 $\displaystyle p(x) = \sum_{k=1}^{K} \pi_k \, \mathcal{N}(x \mid \mu_k, \Sigma_k)$
- 
-El algoritmo EM alterna dos pasos. Primero calcula, para cada artículo, la probabilidad de venir de cada grupo (las **responsabilidades**). Después mueve los pesos $\pi_k$, las medias y las covarianzas. A diferencia de k-means, los grupos pueden ser alargados.
- 
-**Cómo elegir K: el BIC.** El criterio de información bayesiano premia el ajuste y castiga los parámetros: $\text{BIC} = -2 \log L + p \log N$. Elegimos el $K$ con el BIC más bajo.
 
+EM alterna dos pasos: calcula la probabilidad de cada grupo para cada artículo (**responsabilidades**) y mueve pesos, medias y covarianzas. Los grupos pueden ser alargados.
 
+**Cómo elegir K: el BIC**, $\text{BIC} = -2 \log L + p \log N$. Elegimos el más bajo.
 
 ```python
 # La mezcla usa n_init=1 (el valor por defecto), como en las diapositivas: se ajusta una vez por K.
@@ -598,7 +571,7 @@ print(f"K elegido por el BIC: {K_MIXTURE}")
 
 **Comprobar:**
 
-
+En este paso comprobamos el número de grupos que elige el BIC.
 
 ```python
 assert K_MIXTURE == 4
@@ -606,9 +579,7 @@ print("M2: OK")
 ```
 
 ### M2. Pertenencia suave
-En este paso leemos la **pertenencia suave**. `predict_proba` da, para cada artículo, la probabilidad de cada grupo. Un artículo cuya probabilidad más alta queda bajo 0,6 (`UNSURE_PROB`) no encaja bien en ningún grupo. Lo llamamos **dudoso**.
-
-
+En este paso leemos la **pertenencia suave** con `predict_proba`. Un artículo con probabilidad más alta bajo 0,6 (`UNSURE_PROB`) es **dudoso**.
 
 ```python
 membership = mixture.predict_proba(Z_mixture)
@@ -620,11 +591,11 @@ print(f"Artículos dudosos (probabilidad más alta bajo {UNSURE_PROB}): {unsure.
 papers.loc[unsure, ["title"]].head(5)
 ```
 
-Pocos artículos son dudosos. Eso no quiere decir que los grupos sean claros. La mezcla trabaja sobre 5 componentes que explican solo una parte chica de la variación, y en tan pocas dimensiones casi todo artículo queda cerca de una campana. La seguridad de la mezcla es la seguridad del modelo, no de los datos.
- 
+Pocos son dudosos, pero eso es seguridad del modelo, no de los datos. 5 componentes explican poco.
+
 **Comprobar:**
 
-
+En este paso comprobamos que las probabilidades suman 1 y que hay pocos dudosos.
 
 ```python
 assert np.allclose(membership.sum(axis=1), 1)
@@ -633,16 +604,14 @@ print("Pertenencia suave: OK")
 ```
 
 ### M3. HDBSCAN
-En este paso buscamos **zonas densas** con HDBSCAN. La idea, en cuatro pasos:
- 
-1. La **distancia de núcleo** de un artículo es la distancia a su vecino número `min_samples`. Es chica en zonas densas.
-2. La **distancia de alcance mutuo** entre dos artículos es la mayor entre su distancia y las dos distancias de núcleo. Aleja a los artículos de zonas poco densas.
-3. Con esa distancia arma un árbol que une a todos los artículos y lo corta a distintas alturas.
-4. Se queda con los grupos más **estables** a lo largo de los cortes, con al menos `min_cluster_size` artículos. Los que no entran en ninguno reciben la etiqueta $-1$: **ruido**.
- 
+En este paso buscamos **zonas densas** con HDBSCAN:
+
+1. La **distancia de núcleo** es la distancia al vecino número `min_samples`.
+2. La **distancia de alcance mutuo** aleja a los artículos de zonas poco densas.
+3. Con ella arma un árbol y lo corta a distintas alturas.
+4. Se queda con los grupos más **estables**, de al menos `min_cluster_size`. El resto es **ruido** ($-1$).
+
 Usamos `min_cluster_size = FLOOR` (10) y `min_samples = MIN_SAMPLES` (5).
-
-
 
 ```python
 hdb = HDBSCAN(min_cluster_size=FLOOR, min_samples=MIN_SAMPLES, metric="precomputed", copy=True).fit(distances)
@@ -658,11 +627,11 @@ for g, group_words in hdbscan_words.items():
     print(f"Grupo {g} ({(hdbscan_labels == g).sum()} artículos): {', '.join(group_words)}")
 ```
 
-Cuatro de los cinco grupos densos se leen con claridad: cáncer (16), diabetes (10), guías clínicas (38) y la carga global de enfermedad (58). El quinto, con 87 artículos, es más grande que cualquier grupo de k-means y mezcla palabras de método (*studies*, *data*, *research*). Ninguno es solo de obesidad. Los artículos de obesidad quedan repartidos o como ruido.
- 
+Cuatro de los cinco grupos se leen: cáncer (16), diabetes (10), guías clínicas (38) y carga global (58). El quinto, de 87, mezcla palabras de método. Ninguno es solo de obesidad.
+
 **Comprobar:**
 
-
+En este paso comprobamos el número de grupos densos y la parte de ruido.
 
 ```python
 assert n_groups == 5
@@ -671,9 +640,7 @@ print("M3: OK")
 ```
 
 ### M3. La lista de ruido
-En este paso miramos los artículos que HDBSCAN deja como ruido. **No los borramos.** Un artículo sin vecinos claros puede ser el único sobre un tema, o un artículo que mezcla varios. Para el equipo es una lista para mirar a mano.
-
-
+En este paso miramos el ruido. **No lo borramos.** Un artículo sin vecinos claros puede ser el único de su tema.
 
 ```python
 noise_list = papers.loc[~in_group, ["title", "year", "cited_by_count"]]
@@ -681,22 +648,20 @@ print(f"Artículos sin grupo: {len(noise_list)}")
 noise_list.sort_values("cited_by_count", ascending=False).head(10)
 ```
 
-Uno de cada tres artículos queda fuera de todo grupo denso. k-means los mete igual en alguno de sus 8 grupos, porque no tiene otra opción. HDBSCAN dice lo que k-means esconde.
+Uno de cada tres artículos queda fuera. k-means los mete igual en un grupo.
 
 ---
- 
-## Parte 6. Evaluación
- 
-No tenemos etiquetas, así que no hay "respuesta correcta" con la que comparar. Juzgamos los grupos de cuatro maneras: contra el azar, entre semillas, entre métodos y por lo que dicen sus palabras.
- 
+
+## Parte 5. Evaluación
+
+Sin etiquetas, juzgamos los grupos contra el azar, entre semillas, entre métodos y por sus palabras.
+
 ### Paso 1. Silueta contra una línea base al azar
-En este paso preguntamos qué silueta daría una tabla **sin grupos**. El azar debe conservar algo de los datos: aquí, cada palabra aparece en el mismo número de artículos y con los mismos conteos. Barajamos cada columna por separado, 30 veces (`N_SHUFFLES`), y corremos k-means con el $k$ elegido en cada tabla barajada. El percentil 95 de esas siluetas, con la regla `p95()` de la L2, es la línea base.
- 
-**Una diferencia con la L2.** El intercambio (swap) de la L2 conservaba también el largo de cada texto. Este azar no lo conserva. No hace falta: las filas se escalan a largo 1, así que lo que se compara es la mezcla de palabras, no el largo.
- 
-**Tiempo.** La celda corre k-means 30 veces con 10 arranques. En Colab gratuito calcule entre 20 s y un minuto.
+En este paso preguntamos qué silueta da una tabla **sin grupos**. Barajamos cada columna 30 veces (`N_SHUFFLES`) y corremos k-means con el $k$ elegido. El percentil 95, con `p95()`, es la línea base.
 
+Este azar no conserva el largo de cada texto, como sí hacía el de la Lección 2. No hace falta, porque las filas tienen largo 1.
 
+**Tiempo.** Entre 20 s y un minuto en Colab.
 
 ```python
 start = time.time()
@@ -713,13 +678,11 @@ print(f"{N_SHUFFLES} tablas al azar en {time.time() - start:.1f} s")
 print(f"Silueta real con k = {K_CHOSEN}: {silhouettes[K_CHOSEN]:.3f}. Percentil 95 del azar: {BASELINE_P95:.3f}")
 ```
 
-`np.apply_along_axis(rng.permutation, 0, dense)` baraja cada columna por separado: cada palabra conserva sus conteos, pero en otros artículos. Desaparece cualquier relación entre palabras.
- 
-La silueta real supera al azar, pero por poco: 0,075 contra 0,054. Hasta una tabla sin ningún grupo da una silueta de 0,05. Los grupos de k-means existen, pero son débiles.
- 
+La silueta real supera al azar por poco: 0,075 contra 0,054. Los grupos existen, pero son débiles.
+
 **Comprobar:**
 
-
+En este paso comprobamos que hay una silueta por tabla barajada y que la silueta real supera al azar.
 
 ```python
 assert len(shuffled_silhouettes) == N_SHUFFLES
@@ -728,9 +691,7 @@ print("Línea base: OK")
 ```
 
 ### Paso 2. Estabilidad entre semillas
-En este paso repetimos k-means con 5 semillas fijas, de 0 a 4, con los mismos 10 arranques del modelo que usamos. Comparamos los 10 pares de resultados con el **índice de Rand ajustado** (ARI). El ARI vale 1 si dos agrupaciones son iguales y cerca de 0 si coinciden como por azar. No importa el número que cada grupo recibe, solo quién queda con quién.
-
-
+En este paso repetimos k-means con 5 semillas (0 a 4) y comparamos los 10 pares con el **índice de Rand ajustado** (ARI). Vale 1 si dos agrupaciones son iguales y cerca de 0 si coinciden por azar.
 
 ```python
 # n_init=10 en cada semilla: vea el comentario de la mezcla (M2)
@@ -739,11 +700,11 @@ seed_ari = [adjusted_rand_score(a, b) for a, b in combinations(seed_labels, 2)] 
 print(f"ARI entre semillas (10 pares): media {np.mean(seed_ari):.2f}, de {min(seed_ari):.2f} a {max(seed_ari):.2f}")
 ```
 
-Con otra semilla, k-means arma grupos bastante distintos. El ARI medio está cerca de 0,45, mucho más cerca del azar (0) que de dos agrupaciones iguales (1). Con un solo arranque por semilla sería aún más bajo.
- 
+El ARI medio está cerca de 0,45. Con otra semilla los grupos cambian bastante.
+
 **Comprobar:**
 
-
+En este paso comprobamos que hay un ARI por cada par de semillas y su valor medio.
 
 ```python
 assert len(seed_ari) == 10
@@ -752,9 +713,7 @@ print("Estabilidad: OK")
 ```
 
 ### Paso 3. Tamaños y acuerdo entre los tres métodos
-En este paso ponemos los tres métodos lado a lado. Primero los tamaños de sus grupos. Después el acuerdo, con el mismo ARI. Para HDBSCAN usamos solo los artículos que no son ruido, porque el ruido no es un grupo.
-
-
+En este paso comparamos los tamaños y el acuerdo de los tres métodos. Para HDBSCAN usamos solo los artículos que no son ruido.
 
 ```python
 sizes = pd.DataFrame({
@@ -776,11 +735,11 @@ agreement = pd.DataFrame({
 agreement
 ```
 
-La columna `left_out` dice qué deja fuera cada método: k-means nada, la mezcla marca a los dudosos y HDBSCAN deja el ruido. Los métodos coinciden más en los artículos que HDBSCAN pone en un grupo. Son los artículos de zonas densas, y ahí cualquier método los junta. En el resto cada método decide distinto. No es una competencia: cada método responde una pregunta distinta.
- 
+`left_out` dice qué deja fuera cada método. Los métodos coinciden en las zonas densas y difieren en el resto.
+
 **Comprobar:**
 
-
+En este paso comprobamos los tamaños de los tres métodos y que coinciden más fuera del ruido.
 
 ```python
 assert sizes["groups"].tolist() == [K_CHOSEN, K_MIXTURE, n_groups]
@@ -789,11 +748,9 @@ print("Acuerdo: OK")
 ```
 
 ### Paso 4. Qué significa un grupo para el equipo
-En este paso decidimos qué grupos **lee el equipo**. Los grupos de la decisión son los de **HDBSCAN**, porque HDBSCAN no obliga a ningún artículo a entrar en un grupo: un artículo de ruido no recibe el resultado del grupo, y se mira a mano. k-means, con k = 8, nos sirvió para la estabilidad y el acuerdo entre métodos, no para decidir.
- 
-El tema del equipo es la dieta y las enfermedades que dependen de ella. Sus palabras, `TOPIC_WORDS`, las escribimos en la Parte 2, antes de mirar ningún grupo. Aquí no las tocamos. El equipo lee un grupo de HDBSCAN si alguna de esas palabras está entre sus 8 palabras de más peso. La celda muestra todos los grupos con sus palabras, para que se vea qué se lee y qué no.
+En este paso decidimos qué grupos **lee el equipo**. Usamos los de **HDBSCAN**, porque no obliga a ningún artículo a entrar en un grupo.
 
-
+El equipo lee un grupo si alguna de sus `TOPIC_WORDS`, escritas en la Parte 1, está entre sus 8 palabras de más peso.
 
 ```python
 team_groups = sorted(g for g, group_words in hdbscan_words.items() if TOPIC_WORDS & set(group_words))
@@ -805,11 +762,11 @@ print(f"Grupos que lee el equipo: {team_groups}. Artículos en ellos: {read_grou
 print(f"Ruido, sin resultado del grupo y para mirar a mano: {(~in_group).sum()} artículos")
 ```
 
-Solo uno de los 5 grupos de HDBSCAN toca el tema por sus palabras: el de diabetes, con 10 artículos. Los otros cuatro (cáncer, guías clínicas, carga global de enfermedad y un grupo amplio de datos e investigación) no lo tocan, aunque traten de salud. Muchos artículos del tema, como los de obesidad, quedan en el ruido: 108 artículos no tienen grupo, no reciben este resultado y se miran a mano.
- 
+Solo el grupo de diabetes, con 10 artículos, toca el tema. Los 108 artículos de ruido no reciben este resultado y se miran a mano.
+
 **Comprobar:**
 
-
+En este paso comprobamos que el equipo lee algún grupo, no todos, y que el ruido no recibe el resultado.
 
 ```python
 assert 1 <= len(team_groups) < n_groups and not read_group[~in_group].any()
@@ -817,9 +774,7 @@ print("Grupos del tema: OK")
 ```
 
 ### Paso 5. Una vista de los grupos
-En este paso dibujamos los artículos sobre las dos primeras componentes de la SVD, con el color de su grupo de HDBSCAN. El ruido va en gris. Los artículos de un grupo que lee el equipo llevan borde negro. Es una sombra de 869 dimensiones en 2, así que grupos que se tocan aquí pueden estar separados en otras componentes.
-
-
+En este paso dibujamos los artículos sobre las dos primeras componentes, con el color de su grupo de HDBSCAN. El ruido va en gris. Es una sombra de 869 dimensiones en 2.
 
 ```python
 plt.figure(figsize=(7, 5))
@@ -836,19 +791,13 @@ plt.show()
 ```
 
 ### Paso 6. Lo que encontramos: una estructura débil
-En este paso leemos los números con calma. En los artículos, la silueta de k-means queda entre 0,06 y 0,08 según el valor de k. En los extractos de Wikipedia de los grupos queda entre 0,03 y 0,12. Una silueta de 1 diría que cada artículo está mucho más cerca de su grupo que de cualquier otro. Una silueta cerca de 0 dice que muchos artículos quedan a medio camino entre dos grupos. Nuestros valores están cerca de 0.
- 
-Esto no es un error del código. Es un hallazgo sobre los datos. Los textos de un mismo tema comparten mucho vocabulario, y los subtemas se mezclan. Un artículo sobre obesidad también habla de dieta y de diabetes.
- 
-Tres comprobaciones nos dicen cuánto confiar en los grupos:
- 
-1. **Línea base.** Repartimos al azar las palabras entre los artículos, 30 veces, y medimos la silueta cada vez. Cada palabra conserva el número de artículos en que aparece. Si la silueta real apenas supera el percentil 95 del azar, los grupos son débiles.
-2. **Estabilidad.** Repetimos k-means con 5 semillas fijas (de 0 a 4) y comparamos los resultados con el índice de Rand ajustado. Un valor bajo dice que los grupos cambian con la semilla. En nuestros extractos la media queda entre 0,37 y 0,57.
-3. **Ruido.** HDBSCAN no obliga a ningún artículo a entrar en un grupo. Entre el 29 % y el 52 % de los textos queda como ruido, según el extracto. Ese número dice cuántos textos no tienen vecinos claros.
- 
-Un grupo débil no es un resultado inútil. Nos dice que no debemos decidir con un grupo solo. Por eso la lista muestra qué resultados apoyan cada artículo, y no solo el grupo.
+En este paso juntamos lo que dicen los números. La silueta queda entre 0,06 y 0,08, cerca de 0.
 
+No es un error del código. Los subtemas comparten vocabulario y se mezclan.
 
+1. **Línea base.** La silueta real apenas supera el percentil 95 del azar.
+2. **Estabilidad.** El ARI entre semillas queda cerca de 0,45.
+3. **Ruido.** Uno de cada tres artículos no tiene vecinos claros.
 
 ```python
 print(f"Silueta con k = {K_CHOSEN}: {silhouettes[K_CHOSEN]:.3f}. Percentil 95 de la línea base: {BASELINE_P95:.3f}")
@@ -856,37 +805,21 @@ print(f"Estabilidad entre semillas (ARI medio): {np.mean(seed_ari):.2f}")
 print(f"Ruido de HDBSCAN: {noise:.0%} de los artículos")
 ```
 
-**Hallazgo sobre la estructura (completen con sus números).** Copie los números de la celda anterior y escriba qué significan para la lista del equipo.
+**Lo que leemos.** Los grupos son débiles. No decidimos con un grupo solo. La lista muestra qué otros resultados apoyan cada artículo.
 
-
-
-```python
-structure_finding = """
-- Silueta con k = ___: ___. Percentil 95 de la línea base: ___.
-- Estabilidad entre semillas (índice de Rand ajustado medio): ___.
-- Ruido de HDBSCAN: ___ % de los artículos.
-- Qué significa para nuestra lista: ___.
-"""
-print(structure_finding)
-```
-
-Ejemplo de una frase final: "En nuestro extracto los grupos son débiles. La silueta supera al azar por poco y cambia con la semilla. No usamos un grupo solo para decidir qué leer. La lista muestra qué otros resultados apoyan cada artículo."
- 
-**Qué cambiaría esta lectura.** Otro valor de k, otro umbral de soporte, otra preparación del texto (por ejemplo TF-IDF, que veremos en L4), o una pregunta que pida grupos más amplios.
+**Qué cambiaría esta lectura.** Otro $k$, otro umbral, otra preparación del texto o una pregunta que pida grupos más amplios.
 
 ---
- 
-## Parte 7. Despliegue
- 
+
+## Parte 6. Despliegue
+
 ### Paso 1. La tabla de resultados
-En este paso juntamos los dos resultados que tenemos hasta ahora. Cada **resultado** dice, en su propia columna de `SUPPORT_COLUMNS`, si cuenta a favor de un artículo:
- 
-- **`has_pattern` (L2).** El resumen tiene las dos palabras de un patrón que destaca (`kept_lift2`) y que toca el tema (al menos una palabra de `TOPIC_WORDS`).
-- **`read_group` (L3).** El artículo está en un grupo de HDBSCAN que el equipo lee. El ruido no recibe este resultado.
- 
-Un artículo queda **en vista** con al menos `MIN_SUPPORTS` resultados a favor. El código empieza en 2. Cambie el valor si lo justifica, 0 o 1 también valen. La tabla de la celda cuenta cuántos artículos tienen 0, 1, 2 y 3 o más resultados a favor. Con ella el equipo decide el valor y explica su elección. En la L4 sumaremos un tercer resultado.
+En este paso juntamos los dos resultados que tenemos. Cada uno es una columna de `SUPPORT_COLUMNS`:
 
+- **`has_pattern` (Lección 2).** El resumen tiene un patrón que destaca y toca el tema.
+- **`read_group` (Lección 3).** El artículo está en un grupo de HDBSCAN que el equipo lee.
 
+Un artículo queda **en vista** según `MIN_SUPPORTS`, el número de resultados a favor que pide el código. `MIN_SUPPORTS` empieza en 2 y se puede cambiar. Cada grupo fija y justifica este número en su proyecto. 0 o 1 valen si se explica. La celda cuenta cuántos artículos tienen 0, 1, 2 y 3 o más resultados a favor.
 
 ```python
 SUPPORT_COLUMNS = ["has_pattern", "read_group"]   # una columna por resultado
@@ -906,11 +839,11 @@ print(counts.rename_axis("resultados a favor").to_frame("artículos").T.to_strin
 supports[supports["in_view"]].head(10)
 ```
 
-**Lo que aprendemos aquí.** Con `MIN_SUPPORTS = 2` quedan en vista 8 artículos, menos de los 10 que pide el estándar. Es un resultado honesto, no un error. Los grupos por densidad son estrictos: HDBSCAN deja 108 artículos como ruido, y solo uno de sus cinco grupos, el de diabetes con 10 artículos, toca el tema del equipo. Con los grupos de k-means habrían quedado 56 artículos en vista, porque k-means obliga a cada artículo a entrar en un grupo. Pero el resultado del grupo solo cuenta cuando el equipo puede leer el grupo y decir de qué trata. No agregamos grupos para inflar la cuenta. Hay un caso que muestra qué cambiaría el resultado. El grupo 4, el más grande con 87 artículos, tiene *food* entre sus 8 palabras de más peso, pero no se lee: *food* no está en `TOPIC_WORDS`. Escribimos esas palabras en la Parte 2, antes de mirar los grupos, y no las cambiamos después para que un grupo entre. Si el equipo hubiera puesto *food* en su lista desde el principio, ese grupo contaría a favor y la cuenta cambiaría. Por eso la lista de palabras se anota en la tarjeta como algo que cambia la decisión. La L4 suma el texto como tercer resultado: con él quedan 52 de los 317 en vista, y un artículo puede entrar con un patrón y el texto aunque HDBSCAN lo deje como ruido.
- 
+**Lo que aprendemos aquí.** Con `MIN_SUPPORTS = 2` quedan 8 artículos, menos de los 10 del estándar. Es un resultado honesto. Con k-means serían 56, pero un grupo solo cuenta si el equipo lo puede leer. El grupo 4, de 87 artículos, tiene *food* entre sus palabras, pero *food* no está en `TOPIC_WORDS`. Esas palabras se escribieron antes y no se cambian para que un grupo entre. Por eso van en la descripción de la pregunta como algo que cambia la decisión.
+
 **Comprobar:**
 
-
+En este paso comprobamos que el número de resultados a favor está en su rango y que el ruido no recibe el resultado del grupo.
 
 ```python
 assert supports["supports"].between(0, len(SUPPORT_COLUMNS)).all()
@@ -919,9 +852,7 @@ print("Resultados: OK")
 ```
 
 ### Paso 2. Guardar los grupos
-En este paso guardamos `outputs/grupos_l3.csv`, con una fila por artículo. Los artículos que HDBSCAN deja como ruido llevan `-1` en la columna `hdbscan`. No se borran: siguen en la tabla para que alguien los mire. La L4 lee este archivo para sumar el tercer resultado.
-
-
+En este paso guardamos `outputs/grupos_l3.csv`, una fila por artículo. El ruido lleva `-1` en `hdbscan` y sigue en la tabla.
 
 ```python
 groups_table = pd.DataFrame({
@@ -942,7 +873,7 @@ print(f"Guardado: {groups_path} ({len(groups_table)} filas)")
 
 **Comprobar:**
 
-
+En este paso comprobamos que el archivo guardado tiene una fila por artículo y sus columnas.
 
 ```python
 saved = pd.read_csv(groups_path)
@@ -952,9 +883,7 @@ print("grupos_l3.csv: OK")
 ```
 
 ### Paso 3. Qué cambiaría la decisión
-En este paso escribimos en la tarjeta cómo entra un grupo en la decisión y qué la cambiaría. Otro umbral cambia el vocabulario y el tamaño mínimo de un grupo de HDBSCAN. Más direcciones de la SVD cambian las distancias. Otra lectura de las palabras de un grupo cambia qué artículos reciben el resultado del grupo.
-
-
+En este paso escribimos en la descripción de la pregunta cómo entra un grupo y qué lo cambiaría: otro umbral, más componentes de la SVD u otra lectura de las palabras.
 
 ```python
 question_card["group_use"] = {
@@ -969,21 +898,8 @@ QUESTION_PATH.write_text(json.dumps(question_card, ensure_ascii=False, indent=2)
 print(json.dumps(question_card["group_use"], ensure_ascii=False, indent=1))
 ```
 
-**Su turno.** En dos o tres frases: ¿qué grupo de HDBSCAN le parece más útil para el equipo, y qué artículo de la lista de ruido miraría primero? ¿Por qué?
-
-
-
-```python
-my_group = """
-Escriba aquí el grupo, por qué le sirve al equipo y qué artículo del ruido miraría.
-"""
-print(my_group)
-```
-
 ### Paso 4. Comprobación final
 En este paso revisamos que el cuaderno dejó lo que la Lección 4 necesita.
-
-
 
 ```python
 def _check_ok(name, predicate):
@@ -1001,14 +917,11 @@ checks = [
     ("outputs/grupos_l3.csv", lambda: groups_path.is_file()),
     ("Gráficos de varianza, silueta y dispersión", lambda: all((OUTPUTS_DIR / f).is_file() for f in ["varianza_l3.png", "silueta_l3.png", "dispersion_l3.png"])),
     ("Patrones de la L2 en los resultados", lambda: len(topic_pairs) > 0),
-    ("Hallazgo sobre la estructura escrito", lambda: "___" not in structure_finding),
 ]
 passed = sum(_check_ok(n, f) for n, f in checks)
 print(f"\nL3_CHECKS={passed}/{len(checks)}")
 if passed == len(checks):
-    print("L3_OK. Lleve sus grupos a la Lección 4. Allí sumaremos el texto como tercer resultado.")
+    print("L3_OK. Siga con la Lección 4.")
 ```
-
-
 
 <!-- end NOTEBOOK: -->

@@ -6,7 +6,7 @@
 
 **Esta semana.** Cada resultado queda en un archivo con nombre. Los grupos van en `outputs/grupos.csv`. El filtro de texto va en `outputs/texto.csv`, con la marca del grupo al lado para contar aciertos y errores. La tabla `outputs/en_vista.csv` junta los resultados de la semana 1 y de la semana 2 para cada artículo: el par, el grupo y el texto.
 
-**Requisito.** Ejecute primero los cuadernos individuales **L3** y **L4**. Este cuaderno lo escribe el grupo. Cada paso dice qué código de L3 o L4 adaptar. No pegue sin entender. Suba `pregunta.json` y `outputs/patrones.csv` de su semana 1 antes de empezar. El sábado 14 nov el grupo lo empieza de 10:00 a 10:45 y lo termina en casa.
+**Antes de empezar.** Ejecuten primero los cuadernos individuales de las Lecciones 3 y 4. Este cuaderno lo escribe el grupo. Cada paso dice qué código de la Lección 3 o de la Lección 4 adaptar. No peguen sin entender.
 
 **Datos de entrada.** El mismo archivo de la semana 1: G1 Agricultura, G2 Salud mental, G3 Medio ambiente, G4 Inclusión Social y G5 Vivienda. El texto es la columna `lead`, la **entradilla**. La etiqueta del filtro sale de las categorías que pusieron quienes editan Wikipedia.
 
@@ -14,21 +14,19 @@
 
 **Pregunta del grupo.** ¿Qué grupos de artículos debe leer la persona nueva, y cuántos aciertos y errores tiene un filtro de texto frente a las marcas del grupo?
 
-**Primero marcan, después corren los modelos de texto.** El sábado, la meta del bloque de grupo es llegar al Paso 3.1, que escribe `marcas.csv` con 60 a 67 artículos, unos 15 a 21 por persona. Marquen leyendo la entradilla, sin mirar las categorías, y vuelvan a subir el archivo.
-
-**Entrega Moodle (martes 17 nov 2026, 23:59 Colombia).** ZIP `week-2-<group_id>.zip` con `week-2-group-<group_id>.ipynb` (este cuaderno ejecutado y renombrado), `pregunta.json`, `marcas.csv`, `outputs/grupos.csv`, `outputs/texto.csv` y `outputs/en_vista.csv`.
+**Primero marcan, después corren los modelos de texto.** El Paso 3.1 escribe `marcas.csv` con 60 a 67 artículos, unos 15 a 21 por persona. Marquen leyendo la entradilla, sin mirar las categorías, y vuelvan a subir el archivo.
 
 **Mapa del cuaderno**
 
 | Ejercicio | Tema | Entregable clave |
 |-----------|------|------------------|
 | **0** | Configuración | Grupo, datos, parámetros, librerías, codificador y funciones de L3 y L4 |
-| **1** | Comprensión del negocio y de los datos | La tarjeta, los pares de la semana 1 y las entradillas útiles |
+| **1** | Comprensión del negocio y de los datos | La descripción de la pregunta, los pares de la semana 1 y las entradillas útiles |
 | **2** | Grupos de artículos parecidos (L3) | `outputs/grupos.csv` y el hallazgo sobre la estructura |
 | **3** | Filtro de texto (L4) | `marcas.csv` y `outputs/texto.csv` |
 | **4** | Despliegue | `outputs/en_vista.csv` y `pregunta.json` con `group_use` y `text_use` |
 
-**Celdas Comprobar.** Ejecute de arriba abajo. Una Comprobar revisa que exista lo pedido, con su forma. No revisa su respuesta. Si falla, corrija la celda anterior y vuelva a ejecutar desde ahí.
+**Cómo leer cada paso.** Cada paso empieza con **En este paso**, dice qué copiar y dónde está, y termina con una celda **Comprobar**. Ejecuten de arriba abajo. Una Comprobar revisa que exista lo pedido, con su forma. No revisa su respuesta. Si falla, corrijan la celda anterior y vuelvan a ejecutar desde ahí.
 
 ---
 
@@ -36,7 +34,9 @@
 
 ### Paso 0.1. Grupo y datos
 
-Cambie solo `GROUP`. `TARGETS` son las categorías de la etiqueta del filtro, elegidas por el profesor.
+En este paso eligen el grupo y descargan el archivo de su secretaría. Suban el `pregunta.json` y los archivos de salida de su ZIP de la semana anterior (`outputs/patrones.csv`) antes de seguir.
+
+Cambien solo `GROUP`. `TARGETS` son las categorías de la etiqueta del filtro, elegidas por el profesor.
 
 ```python
 import json
@@ -63,16 +63,18 @@ print(f"Grupo {GROUP}: secretaría de {SECRETARIAT}, {len(articles)} artículos"
 
 ### Paso 0.2. Parámetros, librerías, codificador y funciones
 
+En este paso copian los parámetros, las librerías, el codificador y las funciones de las Lecciones 3 y 4. El codificador `multilingual-e5-small` pesa unos 470 MB y se descarga en esta celda.
+
 | Qué copiar | Dónde está |
 |------------|------------|
-| Los parámetros de L3 (`SUPPORT_SHARE`, `SUPPORT_MIN`, `SEED`, `MIN_SUPPORTS`, `MAX_WORD_SHARE` a `TOP_WORDS`), sin cambiar sus valores. `MIN_SUPPORTS` empieza en 2 y pueden cambiarlo si lo justifican | L3, Parte 1, Paso 1 |
-| Los parámetros de L4 (`FLAGGED_SHARE` a `PREFIX` y `N_FOLDS`), sin cambiar sus valores | L4, Parte 1, Paso 1 |
-| Las importaciones y la instalación de `sentence-transformers` | L3, Parte 1, Paso 1, y L4, Parte 1, Paso 1 |
-| `support_floor`, `n_flagged` y `min_positives` | L4, Parte 1, Paso 1 |
-| `WORD_RE`, `words`, `word_list` y `p95` | L3, Parte 1, Paso 2 |
-| `encoder` | L4, Parte 1, Paso 3 |
-| `f1_interval` | L4, Parte 1, Paso 4 |
-| `counts_of` | L4, Parte 6, Paso 1 |
+| Los parámetros de L3 (`SUPPORT_SHARE`, `SUPPORT_MIN`, `SEED`, `MIN_SUPPORTS`, `MAX_WORD_SHARE` a `TOP_WORDS`), sin cambiar sus valores. `MIN_SUPPORTS` empieza en 2 y se puede cambiar. Cada grupo fija y justifica este número en su proyecto. 0 o 1 valen si se explica | L3, Parte 1, Paso 2 |
+| Los parámetros de L4 (`FLAGGED_SHARE` a `PREFIX` y `N_FOLDS`), sin cambiar sus valores | L4, Parte 1, Paso 2 |
+| Las importaciones y la instalación de `sentence-transformers` | L3, Parte 1, Paso 2, y L4, Parte 1, Paso 2 |
+| `support_floor`, `n_flagged` y `min_positives` | L4, Parte 1, Paso 2 |
+| `WORD_RE`, `words`, `word_list` y `p95` | L3, Parte 1, Paso 3 |
+| `encoder` | L4, Parte 1, Paso 4 |
+| `f1_interval` | L4, Parte 1, Paso 5 |
+| `counts_of` | L4, Parte 5, Paso 1 |
 
 ```python
 # SU CÓDIGO. Paso 0.2: parámetros, rutas de la entrega, importaciones, encoder, STOP_WORDS y las funciones de la tabla
@@ -80,12 +82,14 @@ print(f"Grupo {GROUP}: secretaría de {SECRETARIAT}, {len(articles)} artículos"
 ```
 
 **Listo cuando:**
-- Los parámetros tienen los valores de L3 y L4.
+- Los parámetros tienen los valores de las Lecciones 3 y 4.
 - Las rutas son `pregunta.json`, `marcas.csv` y, en `outputs/`, `patrones.csv`, `grupos.csv`, `texto.csv` y `en_vista.csv`.
 - `STOP_WORDS` son las del español más `URL_TOKENS` (y sus `FILLER_WORDS` si las quitaron), y `words` y `word_list` quitan "[cita requerida]".
 - `encoder` lee hasta `MAX_LENGTH` tokens.
 
 **Comprobar:**
+
+En este paso comprobamos que existe `counts_of`, que el codificador lee hasta `MAX_LENGTH` tokens y que las palabras vacías son del español.
 
 ```python
 assert callable(counts_of) and encoder.max_seq_length == MAX_LENGTH and "también" in STOP_WORDS
@@ -96,14 +100,16 @@ print("Paso 0.2: OK")
 
 ## Ejercicio 1. Comprensión del negocio y de los datos
 
-### Paso 1.1. La tarjeta, los pares y las entradillas útiles
+### Paso 1.1. La descripción de la pregunta, los pares y las entradillas útiles
+
+En este paso leen la descripción de la pregunta y los pares de la semana 1, y dejan las entradillas útiles.
 
 | Qué copiar | Dónde está |
 |------------|------------|
-| Leer `pregunta.json` en `question_card` | L3, Parte 2, Paso 1 |
-| Leer los pares en `patterns` | L3, Parte 2, Paso 2 (aquí el archivo es `outputs/patrones.csv`) |
-| `texts`, `N` y `FLOOR` | L3, Parte 3, Paso 1 (use `lead` en lugar de `abstract`) |
-| `n_cut`, las entradillas que el codificador corta | L4, Parte 4, Paso 4 |
+| Leer `pregunta.json` en `question_card` | L3, Parte 1, Paso 4 |
+| Leer los pares en `patterns` | L3, Parte 1, Paso 5 (aquí el archivo es `outputs/patrones.csv`) |
+| `texts`, `N` y `FLOOR` | L3, Parte 2, Paso 1 (use `lead` en lugar de `abstract`) |
+| `n_cut`, las entradillas que el codificador corta | L4, Parte 3, Paso 4 |
 
 ```python
 # SU CÓDIGO. Paso 1.1: question_card, patterns, articles sin las entradillas cortas, texts, N, FLOOR, n_cut y group_meaning
@@ -116,6 +122,8 @@ print("Paso 0.2: OK")
 
 **Comprobar:**
 
+En este paso comprobamos que leyeron los pares, que los textos y los artículos tienen las mismas filas y que escribieron `group_meaning`.
+
 ```python
 assert "kept_lift2" in patterns and len(texts) == N == len(articles) and group_meaning.strip()
 print("Paso 1.1: OK")
@@ -123,14 +131,16 @@ print("Paso 1.1: OK")
 
 ---
 
-## Ejercicio 2. Grupos de artículos parecidos (L3)
+## Ejercicio 2. Grupos de artículos parecidos (Lección 3)
 
 ### Paso 2.1. Las palabras del tema y la lista de palabras clave
 
+En este paso escriben las palabras del tema y la lista de palabras clave antes de ver resultados.
+
 | Qué copiar | Dónde está |
 |------------|------------|
-| `TOPIC_WORDS` | L3, Parte 2, Paso 1 |
-| `KEYWORDS` | L4, Parte 4, Paso 1 |
+| `TOPIC_WORDS` | L3, Parte 1, Paso 4 |
+| `KEYWORDS` | L4, Parte 3, Paso 1 |
 
 ```python
 # SU CÓDIGO. Paso 2.1: TOPIC_WORDS y KEYWORDS, con un comentario por palabra
@@ -143,6 +153,8 @@ print("Paso 1.1: OK")
 
 **Comprobar:**
 
+En este paso comprobamos el tamaño de la lista de palabras clave y que todo está en minúsculas.
+
 ```python
 assert len(KEYWORDS) >= 5 and all(w == w.lower() for w in KEYWORDS | TOPIC_WORDS)
 print("Paso 2.1: OK")
@@ -150,12 +162,14 @@ print("Paso 2.1: OK")
 
 ### Paso 2.2. Conteos, escala y pocas dimensiones
 
+En este paso cuentan las palabras, llevan cada entradilla a largo 1 y reducen las dimensiones.
+
 | Qué copiar | Dónde está en L3 |
 |------------|------------------|
-| `token_lists`, `vectorizer`, `counts` y `vocabulary` | Parte 4, Paso 1 |
-| `X` con cada fila de largo 1 | Parte 4, Paso 2 |
-| `svd` y `Z` | Parte 4, Paso 3 |
-| `Z_mixture` y `distances` | Parte 4, Paso 4 |
+| `token_lists`, `vectorizer`, `counts` y `vocabulary` | Parte 3, Paso 1 |
+| `X` con cada fila de largo 1 | Parte 3, Paso 2 |
+| `svd` y `Z` | Parte 3, Paso 3 |
+| `Z_mixture` y `distances` | Parte 3, Paso 4 |
 
 ```python
 # SU CÓDIGO. Paso 2.2: token_lists, counts, vocabulary, X, svd, Z, Z_mixture y distances
@@ -168,6 +182,8 @@ print("Paso 2.1: OK")
 
 **Comprobar:**
 
+En este paso comprobamos la forma de `X`, de `Z` y de las distancias.
+
 ```python
 assert X.shape == (N, len(vocabulary)) and Z.shape[1] == DENSITY_COMPONENTS and distances.shape == (N, N)
 print("Paso 2.2: OK")
@@ -175,11 +191,13 @@ print("Paso 2.2: OK")
 
 ### Paso 2.3. Los tres métodos de grupos
 
+En este paso corren k-means, la mezcla gaussiana y HDBSCAN.
+
 | Qué copiar | Dónde está en L3 |
 |------------|------------------|
-| `silhouettes`, `K_CHOSEN`, `kmeans`, `kmeans_labels`, `top_words` y `kmeans_words` | Parte 5, M1 |
-| `bic`, `K_MIXTURE`, `mixture`, `membership`, `mixture_labels`, `top_prob` y `unsure` | Parte 5, M2 |
-| `hdbscan_labels`, `n_groups`, `in_group`, `noise` y `hdbscan_words` | Parte 5, M3 |
+| `silhouettes`, `K_CHOSEN`, `kmeans`, `kmeans_labels`, `top_words` y `kmeans_words` | Parte 4, M1 |
+| `bic`, `K_MIXTURE`, `mixture`, `membership`, `mixture_labels`, `top_prob` y `unsure` | Parte 4, M2 |
+| `hdbscan_labels`, `n_groups`, `in_group`, `noise` y `hdbscan_words` | Parte 4, M3 |
 
 ```python
 # SU CÓDIGO. Paso 2.3: k-means, mezcla gaussiana y HDBSCAN
@@ -192,6 +210,8 @@ print("Paso 2.2: OK")
 
 **Comprobar:**
 
+En este paso comprobamos que cada método da un grupo por entradilla.
+
 ```python
 assert len(kmeans_labels) == len(hdbscan_labels) == N and membership.shape == (N, K_MIXTURE)
 print("Paso 2.3: OK")
@@ -199,11 +219,13 @@ print("Paso 2.3: OK")
 
 ### Paso 2.4. Línea base, estabilidad y acuerdo
 
+En este paso comparan los grupos con el azar, entre semillas y entre métodos.
+
 | Qué copiar | Dónde está en L3 |
 |------------|------------------|
-| `shuffled_silhouettes` y `BASELINE_P95` | Parte 6, Paso 1 |
-| `seed_ari` | Parte 6, Paso 2 |
-| `agreement` | Parte 6, Paso 3 |
+| `shuffled_silhouettes` y `BASELINE_P95` | Parte 5, Paso 1 |
+| `seed_ari` | Parte 5, Paso 2 |
+| `agreement` | Parte 5, Paso 3 |
 
 ```python
 # SU CÓDIGO. Paso 2.4: shuffled_silhouettes, BASELINE_P95, seed_ari y agreement
@@ -215,6 +237,8 @@ print("Paso 2.3: OK")
 
 **Comprobar:**
 
+En este paso comprobamos el número de siluetas al azar y de pares de semillas.
+
 ```python
 assert len(shuffled_silhouettes) == N_SHUFFLES and len(seed_ari) == 10
 print("Paso 2.4: OK")
@@ -222,11 +246,13 @@ print("Paso 2.4: OK")
 
 ### Paso 2.5. Qué grupos lee la persona nueva y `outputs/grupos.csv`
 
+En este paso deciden qué grupos lee la persona nueva, escriben lo que encontraron y guardan `outputs/grupos.csv`.
+
 | Qué copiar | Dónde está en L3 |
 |------------|------------------|
-| `team_groups` y `read_group` con sus `TOPIC_WORDS` sin cambiarlas | Parte 6, Paso 4 |
-| El hallazgo `structure_finding` | Parte 6, Paso 6 |
-| Guardar los grupos | Parte 7, Paso 2 (aquí en `outputs/grupos.csv`) |
+| `team_groups` y `read_group` con sus `TOPIC_WORDS` sin cambiarlas | Parte 5, Paso 4 |
+| El hallazgo `structure_finding` | Parte 5, Paso 6 |
+| Guardar los grupos | Parte 6, Paso 2 (aquí en `outputs/grupos.csv`) |
 
 ```python
 # SU CÓDIGO. Paso 2.5: team_groups, read_group, structure_finding y outputs/grupos.csv
@@ -240,6 +266,8 @@ print("Paso 2.4: OK")
 
 **Comprobar:**
 
+En este paso comprobamos que el ruido nunca se lee y que `outputs/grupos.csv` tiene la columna `hdbscan`.
+
 ```python
 assert not read_group[hdbscan_labels == -1].any() and "hdbscan" in pd.read_csv("outputs/grupos.csv")
 print("Paso 2.5: OK")
@@ -247,14 +275,16 @@ print("Paso 2.5: OK")
 
 ---
 
-## Ejercicio 3. Filtro de texto (L4)
+## Ejercicio 3. Filtro de texto (Lección 4)
 
-### Paso 3.1. La etiqueta, el conjunto marcado y `marcas.csv` (meta del sábado)
+### Paso 3.1. La etiqueta, el conjunto marcado y `marcas.csv`
+
+En este paso arman la etiqueta, apartan el conjunto marcado y escriben `marcas.csv` para marcar.
 
 | Qué copiar | Dónde está en L4 |
 |------------|------------------|
-| La etiqueta `y` (aquí: 1 si el artículo tiene alguna categoría de `TARGETS[GROUP]`) | Parte 3, Paso 2 |
-| `train_rows`, `marked_rows`, `train_texts`, `test_texts` y `y_train` | Parte 4, Paso 2 |
+| La etiqueta `y` (aquí: 1 si el artículo tiene alguna categoría de `TARGETS[GROUP]`) | Parte 2, Paso 2 |
+| `train_rows`, `marked_rows`, `train_texts`, `test_texts` y `y_train` | Parte 3, Paso 2 |
 
 ```python
 # SU CÓDIGO. Paso 3.1: y, train_rows, marked_rows, train_texts, test_texts, y_train y marcas.csv
@@ -268,6 +298,8 @@ print("Paso 2.5: OK")
 
 **Comprobar:**
 
+En este paso comprobamos el tamaño del conjunto marcado y que `marcas.csv` tiene la columna `marca`.
+
 ```python
 assert len(marked_rows) == n_flagged(N) and "marca" in pd.read_csv("marcas.csv", sep=None, engine="python")
 print("Paso 3.1: OK. Ya pueden marcar.")
@@ -275,12 +307,14 @@ print("Paso 3.1: OK. Ya pueden marcar.")
 
 ### Paso 3.2. Los tres métodos de texto
 
+En este paso corren los tres métodos de texto sobre el conjunto marcado.
+
 | Qué copiar | Dónde está en L4 |
 |------------|------------------|
-| `train_tokens`, `test_tokens`, `tfidf`, `X_train`, `X_test` y `feature_names` | Parte 4, Paso 3 |
-| `keyword_match`, `pred_keywords` y `cv_keywords` | Parte 5, M1 |
-| `lr`, `pred_lr` y `weights` | Parte 5, M2 |
-| `vectors`, `V_train`, `V_test`, `lr_enc` y `pred_encoder` | Parte 5, M3 (guarde los vectores en `outputs/vectores.npy`) |
+| `train_tokens`, `test_tokens`, `tfidf`, `X_train`, `X_test` y `feature_names` | Parte 3, Paso 3 |
+| `keyword_match`, `pred_keywords` y `cv_keywords` | Parte 4, M1 |
+| `lr`, `pred_lr` y `weights` | Parte 4, M2 |
+| `vectors`, `V_train`, `V_test`, `lr_enc` y `pred_encoder` | Parte 4, M3 (guarde los vectores en `outputs/vectores.npy`) |
 
 ```python
 # SU CÓDIGO. Paso 3.2: TF-IDF, las tres predicciones y los vectores
@@ -292,6 +326,8 @@ print("Paso 3.1: OK. Ya pueden marcar.")
 
 **Comprobar:**
 
+En este paso comprobamos que los tres métodos dan una predicción por fila marcada.
+
 ```python
 assert len(pred_keywords) == len(pred_lr) == len(pred_encoder) == len(marked_rows)
 print("Paso 3.2: OK")
@@ -299,13 +335,15 @@ print("Paso 3.2: OK")
 
 ### Paso 3.3. Aciertos y errores con sus marcas
 
+En este paso cuentan aciertos y errores frente a sus marcas.
+
 | Qué copiar | Dónde está en L4 |
 |------------|------------------|
-| Leer las marcas en `y_test`, en el orden de `marked_rows` | Parte 4, Paso 2 |
-| `predictions` y `results` con `counts_of` | Parte 6, Paso 1 |
-| `intervals` con `f1_interval` | Parte 6, Paso 3 |
-| `folds`, `model_tfidf`, `model_encoder`, `cv_tfidf` y `cv_encoder` | Parte 6, Paso 4 |
-| El intervalo de la diferencia de F1 | Parte 6, Paso 5 |
+| Leer las marcas en `y_test`, en el orden de `marked_rows` | Parte 3, Paso 2 |
+| `predictions` y `results` con `counts_of` | Parte 5, Paso 1 |
+| `intervals` con `f1_interval` | Parte 5, Paso 3 |
+| `folds`, `model_tfidf`, `model_encoder`, `cv_tfidf` y `cv_encoder` | Parte 5, Paso 4 |
+| El intervalo de la diferencia de F1 | Parte 5, Paso 5 |
 
 ```python
 # SU CÓDIGO. Paso 3.3: y_test, predictions, results, intervals, cv_tfidf, cv_encoder y error_reading
@@ -319,6 +357,8 @@ print("Paso 3.2: OK")
 
 **Comprobar:**
 
+En este paso comprobamos que hay una marca por fila marcada, los cuatro métodos en `results` y su lectura de errores.
+
 ```python
 assert len(y_test) == len(marked_rows) and len(results) == 4 and error_reading.strip()
 print("Paso 3.3: OK")
@@ -326,10 +366,12 @@ print("Paso 3.3: OK")
 
 ### Paso 3.4. Guardar el filtro de texto
 
+En este paso guardan el filtro de texto de cada artículo en `outputs/texto.csv`.
+
 | Qué copiar | Dónde está en L4 |
 |------------|------------------|
-| `text_says_read`, `encoder_says_read` y `marca` por artículo | Parte 7, Paso 1, y Parte 7, Paso 3 |
-| La tabla de texto | Parte 7, Paso 3 (aquí en `outputs/texto.csv`) |
+| `text_says_read`, `encoder_says_read` y `marca` por artículo | Parte 6, Paso 1, y Parte 6, Paso 3 |
+| La tabla de texto | Parte 6, Paso 3 (aquí en `outputs/texto.csv`) |
 
 ```python
 # SU CÓDIGO. Paso 3.4: text_says_read, encoder_says_read, marca y outputs/texto.csv
@@ -342,6 +384,8 @@ print("Paso 3.3: OK")
 
 **Comprobar:**
 
+En este paso comprobamos que las marcas guardadas son 0 o 1.
+
 ```python
 assert pd.read_csv("outputs/texto.csv")["marca"].dropna().isin([0, 1]).all()
 print("Paso 3.4: OK")
@@ -353,10 +397,12 @@ print("Paso 3.4: OK")
 
 ### Paso 4.1. Los resultados de cada artículo y `outputs/en_vista.csv`
 
+En este paso juntan los resultados de cada artículo y guardan `outputs/en_vista.csv`.
+
 | Qué copiar | Dónde está en L4 |
 |------------|------------------|
-| `supports` con las tres columnas, `supports` e `in_view` | Parte 7, Paso 1 |
-| `prob_texto`, el orden y `recortado` con `MAX_ARTICLES` y `MIN_ARTICLES` de su tarjeta | Parte 7, Paso 2 |
+| `supports` con las tres columnas, `supports` e `in_view` | Parte 6, Paso 1 |
+| `prob_texto`, el orden y `recortado` con `MAX_ARTICLES` y `MIN_ARTICLES` de su descripción de la pregunta | Parte 6, Paso 2 |
 
 ```python
 # SU CÓDIGO. Paso 4.1: supports, prob_texto, recortado y outputs/en_vista.csv
@@ -364,11 +410,13 @@ print("Paso 3.4: OK")
 ```
 
 **Listo cuando:**
-- Las columnas de resultados son `has_pattern` (un par con `kept_lift2` y una palabra de `TOPIC_WORDS`), `read_group` (un grupo de HDBSCAN que se lee) y `text_says_read` (TF-IDF dice abrir). `in_view` usa `MIN_SUPPORTS`. El código empieza en 2. Cambien el valor si lo justifican, 0 o 1 también valen. Muestran una tabla pequeña con cuántos artículos tienen 0, 1, 2 y 3 o más resultados a favor, y con ella explican su elección.
+- Las columnas de resultados son `has_pattern` (un par con `kept_lift2` y una palabra de `TOPIC_WORDS`), `read_group` (un grupo de HDBSCAN que se lee) y `text_says_read` (TF-IDF dice abrir). `in_view` usa `MIN_SUPPORTS`, el número de resultados a favor que pide el código. `MIN_SUPPORTS` empieza en 2 y se puede cambiar. Cada grupo fija y justifica este número en su proyecto. 0 o 1 valen si se explica. Muestran una tabla pequeña con cuántos artículos tienen 0, 1, 2 y 3 o más resultados a favor, y con ella explican su elección.
 - `outputs/en_vista.csv` tiene una fila por artículo con `title`, `has_pattern`, `read_group`, `text_says_read`, `prob_texto`, `supports`, `in_view` y `recortado`.
 - `recortado` solo es verdadero en artículos en vista. Si quedan menos de `standard["min_articles"]`, no rellenan: imprimen que es un resultado débil.
 
 **Comprobar:**
+
+En este paso comprobamos que `outputs/en_vista.csv` tiene una fila por artículo y que solo se recortan artículos en vista.
 
 ```python
 saved = pd.read_csv("outputs/en_vista.csv")
@@ -378,10 +426,12 @@ print("Paso 4.1: OK")
 
 ### Paso 4.2. Qué cambiaría la decisión
 
+En este paso escriben en `pregunta.json` cómo entran los grupos y el texto, y qué los cambiaría.
+
 | Qué copiar | Dónde está |
 |------------|------------|
-| `group_use` con `how_it_enters`, `reading` y `what_changes_it` | L3, Parte 7, Paso 3 |
-| `text_use` con las mismas claves | L4, Parte 7, Paso 4 |
+| `group_use` con `how_it_enters`, `reading` y `what_changes_it` | L3, Parte 6, Paso 3 |
+| `text_use` con las mismas claves | L4, Parte 6, Paso 4 |
 
 ```python
 # SU CÓDIGO. Paso 4.2: group_use, text_use y pregunta.json guardado
@@ -393,6 +443,8 @@ print("Paso 4.1: OK")
 
 **Comprobar:**
 
+En este paso comprobamos que `pregunta.json` tiene `group_use` y `text_use`.
+
 ```python
 assert {"group_use", "text_use"} <= set(json.loads(Path("pregunta.json").read_text(encoding="utf-8")))
 print("Paso 4.2: OK. Armen el ZIP.")
@@ -401,6 +453,8 @@ print("Paso 4.2: OK. Armen el ZIP.")
 ---
 
 ## Registro de contribución
+
+En este paso cada integrante anota su tarea concreta, quién repartió las marcas y quién consolida el ZIP.
 
 ```python
 # SU CÓDIGO. Registro: contribution_log, una línea por integrante, quién reparte las marcas y quién consolida el ZIP
@@ -424,10 +478,12 @@ Use la [plantilla de la reflexión de la semana 2](https://cabrerac.github.io/as
 
 ## Entrega
 
+El ZIP se entrega el martes 17 nov 2026, 23:59 (hora de Colombia), con el cuaderno ejecutado y renombrado.
+
 | Archivo del ZIP `week-2-<group_id>.zip` | Descripción |
 |-----------------------------------------|-------------|
 | `week-2-group-<group_id>.ipynb` | Este cuaderno ejecutado |
-| `pregunta.json` | La tarjeta con `group_use` y `text_use` |
+| `pregunta.json` | La descripción de la pregunta con `group_use` y `text_use` |
 | `marcas.csv` | Su conjunto marcado, con `marca` en 1 o 0 |
 | `outputs/grupos.csv` | Los grupos de los tres métodos |
 | `outputs/texto.csv` | Las predicciones de texto de cada artículo y sus marcas |

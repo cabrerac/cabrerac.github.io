@@ -17,7 +17,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Scaling</b></p>
                 <p>$$z = \frac{x - \mu}{\sigma}$$</p>
                 <p>$\mu$ and $\sigma$ are the mean and standard deviation of the column on the training rows.</p>
@@ -38,14 +38,25 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Missing values</b></p>
                 <p>Fill a missing number with the median of the training rows.</p>
-                <p>Fill a missing category with the most frequent one.</p>
-                <p>Add a flag column: 1 if the value was missing.</p>
-                <p>The flag keeps that the value was missing.</p>
+                <ul>
+                    <li>Fill a missing category with the most frequent one.</li>
+                    <li>Add a flag column: 1 if the value was missing.</li>
+                    <li>The flag keeps that the value was missing.</li>
+                </ul>
             </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
+        </div>
+    </div>
+</div>
+
+## Tabular Preparation
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>When missing is the information</b></p>
                 <p>If a value is missing for most rows, the filled value is almost constant.</p>
                 <p>Then the flag carries what the column says.</p>
@@ -65,7 +76,6 @@
                 <p>Learn them on the training rows, then reuse them on the test rows.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 60%">
-
 
 ```python
 from sklearn.compose import ColumnTransformer
@@ -98,14 +108,18 @@ feature_names = prepare.get_feature_names_out()
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>An input that already contains the label <a href="https://doi.org/10.1145/2382577.2382579" target="_blank" rel="noopener noreferrer">(Kaufman et al., 2012)</a></b></p>
                 <p>A column that is filled in after the label is known, or computed from it.</p>
-                <p>Example: predicting whether a loan is repaid, with a column for late fees.</p>
-                <p>Late fees exist only because the loan was not repaid on time.</p>
+                <ul>
+                    <li>Example: predicting whether a loan is repaid, with a column for late fees.</li>
+                    <li>Late fees exist only because the loan was not repaid on time.</li>
+                </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>How to check</b></p>
                 <p>For each input, ask how and when it was made.</p>
-                <p>Train the same model with and without the suspect input.</p>
-                <p>A large drop without it means it was carrying the label.</p>
+                <ul>
+                    <li>Train the same model with and without the suspect input.</li>
+                    <li>A large drop without it means it was carrying the label.</li>
+                </ul>
             </div>
         </div>
     </div>

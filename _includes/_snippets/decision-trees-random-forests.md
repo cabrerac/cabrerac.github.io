@@ -20,8 +20,10 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Questions in a row</b></p>
                 <p>A tree asks one question about one attribute at each node.</p>
-                <p>A leaf predicts the majority class of its training rows.</p>
-                <p>The path from the root to a leaf can be read as a rule.</p>
+                <ul>
+                    <li>A leaf predicts the majority class of its training rows.</li>
+                    <li>The path from the root to a leaf can be read as a rule.</li>
+                </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/images/decision-tree.jpg" alt="A small decision tree" style="height: 330px">
@@ -36,14 +38,14 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Gini impurity</b></p>
                 <p>$$G(S) = 1 - \sum_{c} p_c^2$$</p>
                 <p>$p_c$ is the share of class $c$ among the rows $S$ in a node.</p>
                 <p>$G = 0$ when all rows have one class.</p>
                 <p>$G = 0.5$ for two classes in equal shares.</p>
             </div>
-            <div class="column vertical-top text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>A greedy split</b></p>
                 <p>$$\frac{|L|}{|S|} G(L) + \frac{|R|}{|S|} G(R)$$</p>
                 <p>Keep the split with the lowest weighted impurity of the two sides $L$ and $R$.</p>
@@ -64,7 +66,6 @@
                 <p>The best threshold for one attribute.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 60%">
-
 
 ```python
 def gini(labels):
@@ -92,18 +93,27 @@ best = min(sorted(set(x))[:-1], key=lambda t: split_score(x, y, t))   # 3
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>One tree overfits</b></p>
                 <p>A deep tree can give every training row its own leaf.</p>
-                <p>It is right on the training rows and unstable on new ones.</p>
-                <p>A minimum leaf size limits this.</p>
+                <ul>
+                    <li>It is right on the training rows and unstable on new ones.</li>
+                    <li>A minimum leaf size limits this.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Decision Trees
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Many trees that vote <a href="https://doi.org/10.1023/A:1010933404324" target="_blank" rel="noopener noreferrer">(Breiman, 2001)</a></b></p>
                 <p>Grow many trees, each a little different, and let them vote.</p>
                 <p>Errors of single trees partly cancel out.</p>
-            </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/random-forest-explain.png" alt="A random forest: several trees vote" style="height: 300px">
-                <div class="footnote">Random forest explain - TseKiChun, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
@@ -117,14 +127,18 @@ best = min(sorted(set(x))[:-1], key=lambda t: split_score(x, y, t))   # 3
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Bootstrap, bagging</b></p>
                 <p>Each tree is trained on $n$ rows drawn with replacement.</p>
-                <p>About $1 - 1/e$ of the rows, roughly 63 percent, appear in each draw.</p>
-                <p>The rest are <b>out of bag</b> for that tree.</p>
+                <ul>
+                    <li><p>About 63 percent of the rows appear in each draw.</p></li>
+                    <li>The rest are <b>out of bag</b> for that tree.</li>
+                </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>A random subset of attributes</b></p>
                 <p>At each split, only a random subset of the attributes is tried.</p>
-                <p>Often about $\sqrt{d}$ of the $d$ attributes.</p>
-                <p>So the trees do not all pick the same strong attribute first.</p>
+                <ul>
+                    <li><p>Often about $\sqrt{d}$ of the $d$ attributes.</p></li>
+                    <li>So the trees do not all pick the same strong attribute first.</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -157,11 +171,12 @@ best = min(sorted(set(x))[:-1], key=lambda t: split_score(x, y, t))   # 3
             <div class="column vertical-middle text-left" style="width: 40%">
                 <p><b>Python</b></p>
                 <p>The same table as for the linear model, no scaling needed.</p>
-                <p>A fixed number of trees and a minimum leaf size.</p>
-                <p>Predict on the rows kept apart.</p>
+                <ul>
+                    <li>A fixed number of trees and a minimum leaf size.</li>
+                    <li>Predict on the rows kept apart.</li>
+                </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 60%">
-
 
 ```python
 from sklearn.ensemble import RandomForestClassifier
