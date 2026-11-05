@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-data-mining
 title: Repeating patterns and baselines
-description: Lecture 2 introduces repeating patterns. The data are items that carry text. We give a short history of pattern mining, then three methods, each with its own data preparation. The basic method is frequent word pairs, prepared as a set of words per item. The intermediate method is lift, prepared from those pairs plus the count of each word alone, so a pair can be compared with an independence baseline. The advanced method is closeness in a pretrained word embedding, prepared by matching the words to that embedding's vocabulary. Each method is taught with its mathematics, its preparation, and a Python implementation. A pattern is worth keeping when it beats the other patterns and a baseline. One standout item is not a pattern. The lecture closes by stating how a kept pattern will be used in the later decision, and what would change that use.
+description: Lecture 2 is the pattern task. The question is which sets of items repeat together more often than chance. Transactions, event sets, and texts as bags of words can feed the task. Three methods are taught in general terms. Support, lift, and closeness of item vectors. Each method has its theory, its preparation, and a count. A pair is kept when it passes a support floor and beats a baseline. The methods can disagree. The lecture closes by stating how a kept pattern will be used in the later decision.
 session: 2
 start_time: 07:00 am
 end_time: 01:00 pm
@@ -32,7 +32,7 @@ notebook_description: Práctica individual de la Lección 2. Encontrar patrones 
 
 <!-- SLIDES: -->
 
-# Repeating Patterns
+# The Task
 
 <!-- end SLIDES: -->
 
@@ -40,15 +40,7 @@ notebook_description: Práctica individual de la Lección 2. Encontrar patrones 
 
 <!-- SLIDES: -->
 
-# Text Preparation
-
-<!-- end SLIDES: -->
-
-{% include _snippets/text-preparation.md %}
-
-<!-- SLIDES: -->
-
-# Frequent Word Pairs
+# Support
 
 <!-- end SLIDES: -->
 
@@ -64,7 +56,7 @@ notebook_description: Práctica individual de la Lección 2. Encontrar patrones 
 
 <!-- SLIDES: -->
 
-# Word Embeddings
+# Item Vectors
 
 <!-- end SLIDES: -->
 
@@ -72,7 +64,7 @@ notebook_description: Práctica individual de la Lección 2. Encontrar patrones 
 
 <!-- SLIDES: -->
 
-# Baselines
+# Evaluation
 
 <!-- end SLIDES: -->
 
@@ -84,19 +76,11 @@ notebook_description: Práctica individual de la Lección 2. Encontrar patrones 
 
 {% include _snippets/random-pair-baseline.md %}
 
-<!-- SLIDES: -->
-
-# The Question and the Data
-
-<!-- end SLIDES: -->
-
 {% include _snippets/pattern-methods-comparison.md %}
 
-{% include _snippets/26-udenar-data-mining/l2-patterns/comparison.md %}
-
 <!-- SLIDES: -->
 
-# The Project
+# Use
 
 <!-- end SLIDES: -->
 

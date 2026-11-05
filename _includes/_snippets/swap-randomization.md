@@ -1,6 +1,6 @@
 <!-- SLIDES: -->
 
-## Baselines
+## Evaluation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -8,10 +8,10 @@
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>What must chance keep?</b></p>
                 <ul>
-                    <li>The data is a 0/1 table: one row per text, one column per word</li>
-                    <li>Row margin: how many words (at the floor) each text has, its length</li>
-                    <li>Column margin: in how many texts each word appears (its support)</li>
-                    <li>Shuffling words uniformly keeps only the columns. Long texts lose their extra pairs, so chance looks too weak and most pairs pass</li>
+                    <li>The data is a 0/1 table: one row per transaction, one column per item</li>
+                    <li>Row margin: how many items (at the floor) each transaction has, its length</li>
+                    <li>Column margin: in how many transactions each item appears (its support)</li>
+                    <li>Shuffling items uniformly keeps only the columns. Long transactions lose their extra pairs, so chance looks too weak and most pairs pass</li>
                     <li>Swap randomisation keeps both margins <a href="https://doi.org/10.1145/1297332.1297338" target="_blank" rel="noopener noreferrer">(Gionis et al., 2007)</a></li>
                 </ul>
             </div>
@@ -19,7 +19,7 @@
     </div>
 </div>
 
-## Baselines
+## Evaluation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -41,15 +41,15 @@
                 \end{array}
                 $$
 
-                <p>Text 1 keeps its length, text 2 keeps its length.</p>
-                <p>Word 1 and word 2 keep their support.</p>
+                <p>Transaction 1 keeps its length, and transaction 2 keeps its length.</p>
+                <p>Item 1 and item 2 keep their support.</p>
                 <p>Many swaps give one random table with the same margins.</p>
             </div>
         </div>
     </div>
 </div>
 
-## Baselines
+## Evaluation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -58,9 +58,9 @@
                 <p><b>Python: swap null</b></p>
                 <p>5 swap attempts per 1 in the table.</p>
                 <ul>
-                    <li>100 random tables, seed 7. Sorting each text's words makes the seed repeatable.</li>
-                    <li>Keep pairs at the floor and strictly above the 95th percentile.</li>
-                    <li>pair_counts, swap_null_counts and kept_pairs are defined in the notebook, Part 6, Step 4.</li>
+                    <li>100 random tables, seed 7. Sorting each transaction's items makes the seed repeatable</li>
+                    <li>Keep pairs at the floor and strictly above the 95th percentile</li>
+                    <li>The notebook runs this count on texts</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
@@ -81,9 +81,9 @@ def swap_randomize(transactions, n_swaps, rng):
         cells[a], cells[b] = (t1, w2), (t2, w1)
     return rows
 
-frequent_words = set(vocabulary)
-transactions = [s & frequent_words for s in word_sets]
-null = swap_null_counts(transactions, candidates)   # N_SAMPLES tables, SWAPS_PER_ONE, SEED
+frequent_items = set(vocabulary)
+baskets = [set(t) & frequent_items for t in transactions]
+null = swap_null_counts(baskets, candidates)
 kept = kept_pairs(candidates, null)
 ```
 

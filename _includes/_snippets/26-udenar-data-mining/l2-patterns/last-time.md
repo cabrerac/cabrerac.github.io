@@ -12,7 +12,7 @@
                     <li><b>The question:</b> a question, its steps, a standard and a use</li>
                     <li><b>The data and the project:</b> nutrition papers for the labs, a department file for the project</li>
                 </ul>
-                <p>This lecture starts the modeling phase with patterns that repeat.</p>
+                <p>This lecture is the pattern task.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/crisp-dm-process-diagram.png" alt="CRISP-DM process diagram" style="height: 400px">
@@ -29,10 +29,11 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <ul>
-                    <li><b>Data preparation:</b> one set of words per paper, pair and word counts, a vocabulary match</li>
-                    <li><b>Modeling:</b> frequent word pairs, lift, embedding closeness</li>
-                    <li><b>Evaluation:</b> a swap randomisation baseline and a random pair baseline</li>
-                    <li><b>Deployment:</b> how a kept pattern will be used</li>
+                    <li><b>The task:</b> which sets of items repeat together more often than chance?</li>
+                    <li><b>The data:</b> transactions, event sets, and texts as bags of words</li>
+                    <li><b>Modeling:</b> support, lift, and closeness of item vectors</li>
+                    <li><b>Evaluation:</b> a support floor and a baseline</li>
+                    <li><b>Use:</b> a kept pattern is one result toward the decision</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">

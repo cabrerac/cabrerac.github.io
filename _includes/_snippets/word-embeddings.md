@@ -1,30 +1,31 @@
 <!-- SLIDES: -->
 
-## Word Embeddings
+## Item Vectors
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <p>A <b>word embedding</b> gives each word a vector learned from a large body of text, so that words used in similar contexts get close vectors.</p>
+                <p>An <b>item vector</b> places each item in a space learned from a large collection, so that items used in similar situations get close vectors.</p>
             </div>
         </div>
     </div>
 </div>
 
-## Word Embeddings
+## Item Vectors
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 55%">
-                <p><b>Counts only see our texts</b></p>
-                <p>Two words with close meanings may rarely share a text.</p>
+                <p><b>Counts only see this collection</b></p>
+                <p>Two items that play the same role may rarely share a transaction.</p>
                 <ul>
-                    <li>Counting cannot tell that car and automobile are close.</li>
-                    <li>A pretrained embedding learned from far more text can.</li>
-                    <li>Closeness in an embedding is a third way to judge a pair.</li>
+                    <li>Products that substitute for each other</li>
+                    <li>Codes that mark the same event</li>
+                    <li>Words such as car and automobile</li>
                 </ul>
+                <p>A vector learned from a larger collection can still place them near each other.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 45%">
                 <img src="{{ site.url }}/assets/media/images/cosine-similarity.png" alt="Cosine similarity" style="height: 320px">
@@ -34,16 +35,18 @@
     </div>
 </div>
 
-## Word Embeddings
+## Item Vectors
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>The distributional hypothesis</b> <a href="https://doi.org/10.1080/00437956.1954.11659520" target="_blank" rel="noopener noreferrer">(Harris, 1954, p. 156)</a></p>
+                <p><b>The word case</b> <a href="https://doi.org/10.1080/00437956.1954.11659520" target="_blank" rel="noopener noreferrer">(Harris, 1954, p. 156)</a></p>
                 <p>A word is described by the words around it.</p>
                 <p>Words with similar neighbours get similar vectors.</p>
-                <p>Close vectors mean similar use, not the same meaning.</p>
+                <p>The same training on receipts learns a vector per product, from the products around it.</p>
+                <br>
+                <p>"Difference of meaning correlates with difference of distribution." <a href="https://doi.org/10.1080/00437956.1954.11659520" target="_blank" rel="noopener noreferrer">(Harris, 1954)</a></p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/images/word-vector-illustration.jpg" alt="Word vectors" style="height: 380px">
@@ -53,13 +56,13 @@
     </div>
 </div>
 
-## Word Embeddings
+## Item Vectors
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Skip-gram</b></p>
+                <p><b>Skip-gram, the word case</b></p>
                 <p>Take a word and predict its neighbours.</p>
                 <p>The weights learned for each word are its vector.</p>
                 <br>
@@ -73,7 +76,7 @@
     </div>
 </div>
 
-## Word Embeddings
+## Item Vectors
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -82,9 +85,9 @@
                 <p><b>Cosine similarity</b></p>
                 <p>$$\cos(\mathbf{u}, \mathbf{v}) = \frac{\mathbf{u} \cdot \mathbf{v}}{\lVert \mathbf{u} \rVert \, \lVert \mathbf{v} \rVert}$$</p>
                 <ul>
-                    <li><b>Close to 1:</b> the words are used in similar ways.</li>
-                    <li><b>Close to 0:</b> no relation.</li>
-                    <li><b>Below 0:</b> rare, and usually weak.</li>
+                    <li><b>Close to 1:</b> the items are used in similar ways</li>
+                    <li><b>Close to 0:</b> no relation</li>
+                    <li><b>Below 0:</b> rare, and usually weak</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -95,51 +98,47 @@
     </div>
 </div>
 
-## Word Embeddings
+## Item Vectors
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Preparation: match the vocabulary</b></p>
+                <p><b>Preparation: match the vector table</b></p>
                 <ul>
-                    <li>The model has its own list of words</li>
-                    <li>Each of our words must be found in that list</li>
-                    <li>Report the words with no vector, such as new terms or acronyms</li>
-                    <li>Domain words such as covid and DALYs have no vector in a general English model. They drop out of the embedding view, but not out of support and lift</li>
-                    <li>The vectors come from web text, not from our texts</li>
+                    <li>The table has its own list of items</li>
+                    <li>Each of our items must be found in that list</li>
+                    <li>Items with no vector drop out of this method and stay in support and lift</li>
+                    <li>The vectors come from another collection, not from these transactions</li>
                 </ul>
-                <p>spaCy English models <a href="https://spacy.io/models/en#en_core_web_lg" target="_blank" rel="noopener noreferrer">(spaCy models)</a></p>
+                <p>The notebook fills the table from a word model.</p>
             </div>
         </div>
     </div>
 </div>
 
-## Word Embeddings
+## Item Vectors
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 35%">
-                <p><b>Small models share rows</b></p>
-                <p>A medium spaCy model keeps 20,000 vectors for about 685,000 words. Many words share a row, so high and low get a cosine of 1.0.</p>
+                <p><b>Shared rows</b></p>
+                <p>Some tables store one vector for many items. Those items get a cosine of 1. That is not a pattern.</p>
                 <ul>
-                    <li>The large model has about 343,000 vectors. High and low get 0.76.</li>
-                    <li>Words with exactly the same vector are read apart.</li>
+                    <li>Read those pairs apart from the rest</li>
+                    <li>The notebook checks this for the word model</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
 
 ```python
-def shared_vectors(vocab_words, nlp):
-    by_vector = {}
-    for w in vocab_words:
-        if nlp.vocab.has_vector(w):
-            by_vector.setdefault(nlp.vocab.get_vector(w).tobytes(), []).append(w)
-    return [group for group in by_vector.values() if len(group) > 1]
-
-shared_groups = shared_vectors(vocabulary, nlp)
-group_of = {w: i for i, group in enumerate(shared_groups) for w in group}
+def shared_rows(vocabulary, vectors):
+    by_row = {}
+    for item in vocabulary:
+        if item in vectors:
+            by_row.setdefault(vectors[item].tobytes(), []).append(item)
+    return [group for group in by_row.values() if len(group) > 1]
 ```
 
             </div>
@@ -147,7 +146,7 @@ group_of = {w: i for i, group in enumerate(shared_groups) for w in group}
     </div>
 </div>
 
-## Word Embeddings
+## Item Vectors
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -155,8 +154,7 @@ group_of = {w: i for i, group in enumerate(shared_groups) for w in group}
             <div class="column vertical-middle text-left" style="width: 35%">
                 <p><b>Python</b></p>
                 <ul>
-                    <li>Load the large model</li>
-                    <li>No closeness when a word has no vector</li>
+                    <li>No closeness when an item has no vector</li>
                     <li>Unit vectors turn the cosine into a dot product</li>
                 </ul>
             </div>
@@ -164,21 +162,15 @@ group_of = {w: i for i, group in enumerate(shared_groups) for w in group}
 
 ```python
 import numpy as np
-import spacy
 
-nlp = spacy.load("en_core_web_lg")
-no_vector = [w for w in vocabulary if not nlp.vocab.has_vector(w)]
+def unit_vector(item, vectors):
+    vector = vectors[item]
+    return vector / np.linalg.norm(vector)
 
-def unit_vector(word, nlp):
-    v = nlp.vocab.get_vector(word)
-    return v / np.linalg.norm(v)
-
-VECTORS = {w: unit_vector(w, nlp) for w in vocabulary if w not in no_vector}
-
-def pair_cosine(a, b):
-    if a not in VECTORS or b not in VECTORS:
+def pair_cosine(a, b, vectors):
+    if a not in vectors or b not in vectors:
         return float("nan")
-    return float(VECTORS[a] @ VECTORS[b])
+    return float(unit_vector(a, vectors) @ unit_vector(b, vectors))
 ```
 
             </div>
@@ -186,18 +178,18 @@ def pair_cosine(a, b):
     </div>
 </div>
 
-## Word Embeddings
+## Item Vectors
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Bias</b></p>
-                <p>Embeddings learn from human text, with its stereotypes.</p>
+                <p>Vectors learn the habits of the collection they were trained on.</p>
                 <ul>
-                    <li>"Man is to Computer Programmer as Woman is to Homemaker?" <a href="https://arxiv.org/abs/1607.06520" target="_blank" rel="noopener noreferrer">(Bolukbasi et al., 2016)</a>.</li>
-                    <li>Word vectors carry human-like biases, measured like implicit association tests <a href="https://doi.org/10.1126/science.aal4230" target="_blank" rel="noopener noreferrer">(Caliskan et al., 2017)</a>.</li>
-                    <li>A close pair can reflect the web, not our texts.</li>
+                    <li>"Man is to Computer Programmer as Woman is to Homemaker?" <a href="https://arxiv.org/abs/1607.06520" target="_blank" rel="noopener noreferrer">(Bolukbasi et al., 2016)</a></li>
+                    <li>Word vectors carry human-like biases <a href="https://doi.org/10.1126/science.aal4230" target="_blank" rel="noopener noreferrer">(Caliskan et al., 2017)</a></li>
+                    <li>A close pair can reflect that training collection</li>
                 </ul>
             </div>
         </div>

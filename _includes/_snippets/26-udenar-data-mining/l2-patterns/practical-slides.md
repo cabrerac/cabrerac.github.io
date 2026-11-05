@@ -7,6 +7,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>The <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l2-patterns.ipynb" target="_blank">Lecture 2 notebook</a> follows CRISP-DM</b></p>
+                <p>The notebook runs this task on texts. Each text is one bag of words.</p>
                 <ul>
                     <li><b>Part 1, Business understanding:</b> the question description and the English word vector model, en_core_web_lg of about 400 MB</li>
                     <li><b>Part 2, Data understanding:</b> the nutrition papers in memory</li>

@@ -1,18 +1,17 @@
 <!-- SLIDES: -->
 
-## The Project
+## Use
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Kept pairs in the project</b></p>
-                <p>A kept pair such as diabetes + obesity names a reading theme.</p>
+                <p><b>A kept pattern in this course</b></p>
                 <ul>
-                    <li><b>has_pattern:</b> marks each paper that holds a kept pair</li>
-                    <li>A kept pair is one result, and later lectures add more</li>
-                    <li>Pairs from the format, such as background + methods, are removed in preparation</li>
-                    <li>The week 1 group notebook does the same on the department file</li>
+                    <li>The records that hold it are candidates</li>
+                    <li>This lecture contributes one result</li>
+                    <li>Later lectures add other results before a record is kept</li>
+                    <li>A pattern that comes from the format of the data is removed in preparation</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">

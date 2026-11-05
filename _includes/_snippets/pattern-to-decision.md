@@ -1,18 +1,18 @@
 <!-- SLIDES: -->
 
-## The Project
+## Use
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <p>A kept pattern <b>names candidates</b>, and a candidate becomes a pick only when other results support it.</p>
+                <p>A kept pattern <b>names candidates</b>. A candidate becomes a pick only when other results support it.</p>
             </div>
         </div>
     </div>
 </div>
 
-## The Project
+## Use
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -21,16 +21,16 @@
                 <p><b>From a pattern to a decision</b></p>
                 <p>A kept pattern names a theme.</p>
                 <ul>
-                    <li>The records that hold it become candidates.</li>
-                    <li>A candidate is not a pick until other results support it.</li>
-                    <li>The reason travels with each record: which pattern, which method, which baseline.</li>
+                    <li>The records that hold it become candidates</li>
+                    <li>A candidate is not a pick until other results support it</li>
+                    <li>The reason travels with each record: which pattern, which method, which baseline</li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
 
-## The Project
+## Use
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
