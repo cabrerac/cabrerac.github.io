@@ -68,7 +68,7 @@ Esta lección trata de lo que pasa **antes** de minar: escribir la pregunta, mir
 ## Parte 1. Comprensión del negocio
 
 ### Paso 1. El equipo y la decisión
-En este paso escribimos quién decide, qué decide y qué no puede decidir. Esto va primero porque influencia todo lo demás. El mismo conjunto de artículos sirve para decisiones muy distintas, y cada decisión pide un estándar distinto.
+En este paso escribimos quién decide, qué decide y qué no puede decidir. Esto va primero porque influye todo lo demás. El mismo conjunto de artículos sirve para decisiones muy distintas, y cada decisión pide un estándar distinto.
 
 | Pregunta | Respuesta para el laboratorio |
 |----------|-------------------------------|
@@ -309,7 +309,7 @@ median_citations = papers["cited_by_count"].median()
 print(f"\nMediana de citas: {median_citations:,.0f}")
 ```
 
-Una vez calculamos la media podemos gráficar el resultado.
+Una vez calculamos la mediana podemos graficar el resultado.
 
 ```python
 plt.figure(figsize=(7, 4))
