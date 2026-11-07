@@ -20,7 +20,7 @@ hours: 5
 institution: University of Cambridge
 layout: lecture
 lecture_code: l2-patterns
-lecture_date: 07/11/2026
+lecture_date: 14/11/2026
 notebook_description: "Pr\xE1ctica individual de la Lecci\xF3n 2. Encontrar patrones\
   \ que se repiten en la colecci\xF3n de art\xEDculos y comparar cada uno con los\
   \ otros patrones y con una l\xEDnea base."

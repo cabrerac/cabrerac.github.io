@@ -13,7 +13,7 @@ department: Department of Computer Science and Technology
 institution: University of Cambridge
 layout: lecture
 lecture_code: l5-graphs
-lecture_date: 21/11/2026
+lecture_date: 28/11/2026
 permalink: /teaching/26-udenar-data-mining/l5-graphs/
 visible: false
 group_notebook: week-3-group

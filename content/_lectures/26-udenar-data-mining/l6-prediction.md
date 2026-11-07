@@ -23,7 +23,7 @@ hours: 5
 institution: University of Cambridge
 layout: lecture
 lecture_code: l6-prediction
-lecture_date: 21/11/2026
+lecture_date: 28/11/2026
 notebook_description: "Pr\xE1ctica individual de la Lecci\xF3n 6. Predecir una etiqueta\
   \ dada a partir de los atributos del art\xEDculo, sin usar el texto ni un conteo\
   \ de popularidad, y contar aciertos y errores sobre ejemplos marcados."

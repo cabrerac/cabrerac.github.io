@@ -13,7 +13,7 @@ department: Department of Computer Science and Technology
 institution: University of Cambridge
 layout: lecture
 lecture_code: l4-text
-lecture_date: 14/11/2026
+lecture_date: 21/11/2026
 permalink: /teaching/26-udenar-data-mining/l4-text/
 visible: false
 group_notebook: week-2-group

@@ -13,7 +13,7 @@ department: Department of Computer Science and Technology
 institution: University of Cambridge
 layout: lecture
 lecture_code: l3-groups
-lecture_date: 14/11/2026
+lecture_date: 21/11/2026
 permalink: /teaching/26-udenar-data-mining/l3-groups/
 visible: false
 group_notebook: week-2-group

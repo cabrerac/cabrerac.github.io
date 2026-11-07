@@ -63,8 +63,8 @@ Upload the slides as a PDF on Moodle, as `project-slides-<group_id>.pdf`, by **F
 | What | When (Colombia) |
 |------|-----------------|
 | Slides `project-slides-<group_id>.pdf` (Moodle) | Fri 27 Nov, 23:59 |
-| Project zip `project-<group_id>.zip` (the report includes the requirements section, and `week-3-group-<group_id>.ipynb`) | Tue 1 Dec, 23:59 |
-| Project reflection `project-reflection-<apellido>-<inicial>.pdf` (first surname and first initial) | Wed 2 Dec, 23:59 |
+| Project zip `project-<group_id>.zip` (the report includes the requirements section, and `week-3-group-<group_id>.ipynb`) | Fri 5 Dec, 23:59 |
+| Project reflection `project-reflection-<apellido>-<inicial>.pdf` (first surname and first initial) | Fri 5 Dec, 23:59 |
 
 The slides and both final items go through Moodle.
 
@@ -77,6 +77,6 @@ The slides and both final items go through Moodle.
 | Saturday plan (PDF, Spanish) | [week-4-session-plan-es.pdf](/assets/documents/26-udenar-data-mining/week-4-session-plan-es.pdf) |
 | Week 3 hub | [week-3-hub](/teaching/26-udenar-data-mining/week-3-hub/) |
 | Project report (Word) | [project-report-template.docx](/assets/documents/26-udenar-data-mining/project-report-template.docx) |
-| Project presentation (PowerPoint, six slides) | added before Mon 16 Nov |
+| Project presentation (PowerPoint, six slides) | added before Mon 23 Nov |
 | Project reflection (Word) | [project-reflection-template.docx](/assets/documents/26-udenar-data-mining/project-reflection-template.docx) |
 | Course home | [/teaching/26-udenar-data-mining/](/teaching/26-udenar-data-mining/) |

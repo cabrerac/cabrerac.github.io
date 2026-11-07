@@ -13,7 +13,7 @@ department: Department of Computer Science and Technology
 institution: University of Cambridge
 layout: lecture
 lecture_code: week-1-group
-lecture_date: 07/11/2026
+lecture_date: 14/11/2026
 visible: false
 skip_slides: true
 skip_lecture_page: true

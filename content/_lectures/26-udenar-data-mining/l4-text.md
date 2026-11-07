@@ -20,7 +20,7 @@ hours: 5
 institution: University of Cambridge
 layout: lecture
 lecture_code: l4-text
-lecture_date: 14/11/2026
+lecture_date: 21/11/2026
 notebook_description: "Pr\xE1ctica individual de la Lecci\xF3n 4. Extraer de los res\xFA\
   menes lo que la pregunta pide y contar aciertos y errores sobre ejemplos marcados."
 notebook_language: es

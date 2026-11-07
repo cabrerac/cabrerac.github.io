@@ -6,7 +6,7 @@ email: chc79@cam.ac.uk
 institution: University of Cambridge
 layout: lecture
 lecture_code: week-2-hub
-lecture_date: 14/11/2026
+lecture_date: 21/11/2026
 permalink: /teaching/26-udenar-data-mining/week-2-hub/
 position: Assistant Research Professor
 session: 2
@@ -17,7 +17,7 @@ visible: false
 ---
 
 <link rel="stylesheet" href="/assets/css/lecture-article.css">
-**Saturday 14 Nov 2026, 07:00 to 13:00 (Colombia)**. Lectures **L3** and **L4**.
+**Saturday 21 Nov 2026, 07:00 to 13:00 (Colombia)**. Lectures **L3** and **L4**.
 
 ---
 
@@ -43,7 +43,7 @@ visible: false
 
 ### Deliverables
 
-- Group zip `week-2-<group_id>.zip`, due Tue 17 Nov 2026, 23:59
-- Reflection `week-2-reflection-<surname>-<initial>.pdf`, [template](/assets/documents/26-udenar-data-mining/reflection-week-2-template.docx), due Wed 18 Nov 2026, 23:59
+- Group zip `week-2-<group_id>.zip`, due Tue 24 Nov 2026, 23:59
+- Reflection `week-2-reflection-<surname>-<initial>.pdf`, [template](/assets/documents/26-udenar-data-mining/reflection-week-2-template.docx), due Wed 25 Nov 2026, 23:59
 
 ---

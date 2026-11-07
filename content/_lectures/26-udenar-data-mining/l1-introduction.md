@@ -15,7 +15,7 @@ hours: 5
 institution: University of Cambridge
 layout: lecture
 lecture_code: l1-introduction
-lecture_date: 07/11/2026
+lecture_date: 14/11/2026
 notebook_description: "Pr\xE1ctica individual de la Lecci\xF3n 1. Formular la pregunta,\
   \ los pasos y el est\xE1ndar, y ver c\xF3mo se construye la colecci\xF3n de art\xED\
   culos cient\xEDficos que utilizaremos a lo largo del curso."

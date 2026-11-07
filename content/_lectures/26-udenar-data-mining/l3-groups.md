@@ -19,7 +19,7 @@ hours: 5
 institution: University of Cambridge
 layout: lecture
 lecture_code: l3-groups
-lecture_date: 14/11/2026
+lecture_date: 21/11/2026
 notebook_description: "Pr\xE1ctica individual de la Lecci\xF3n 3. Agrupar art\xED\
   culos parecidos, marcar los que no encajan en ning\xFAn grupo y decir qu\xE9 significa\
   \ un grupo para la lectura."

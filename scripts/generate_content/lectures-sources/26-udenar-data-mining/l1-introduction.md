@@ -13,7 +13,7 @@ department: Department of Computer Science and Technology
 institution: University of Cambridge
 layout: lecture
 lecture_code: l1-introduction
-lecture_date: 07/11/2026
+lecture_date: 14/11/2026
 permalink: /teaching/26-udenar-data-mining/l1-introduction/
 visible: false
 notebook_language: es

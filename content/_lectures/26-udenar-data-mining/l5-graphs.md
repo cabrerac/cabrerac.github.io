@@ -21,7 +21,7 @@ hours: 5
 institution: University of Cambridge
 layout: lecture
 lecture_code: l5-graphs
-lecture_date: 21/11/2026
+lecture_date: 28/11/2026
 notebook_description: "Pr\xE1ctica individual de la Lecci\xF3n 5. Describir un art\xED\
   culo por su lugar en las citas, no por cu\xE1ntas veces se lo nombra."
 notebook_language: es
