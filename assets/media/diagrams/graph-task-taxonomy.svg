@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Taxonomy of methods for the graph task. Proposal for Lecture 5. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 420" width="1280" height="420">
+  <defs>
+    <style type="text/css"><![CDATA[
+      .root-box { fill:#224466; stroke:#224466; stroke-width:2; }
+      .root-txt { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:22px; font-weight:600; fill:#ffffff; text-anchor:middle; dominant-baseline:middle; }
+      .fam-box { fill:#ffffff; stroke:#224466; stroke-width:2; }
+      .fam-txt { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:16px; font-weight:600; fill:#224466; text-anchor:middle; dominant-baseline:middle; }
+      .taught-box { fill:#0e73b8; stroke:#0e73b8; stroke-width:2; }
+      .taught-txt { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:15px; font-weight:600; fill:#ffffff; text-anchor:middle; dominant-baseline:middle; }
+      .leaf-box { fill:#f6f8fa; stroke:#224466; stroke-width:1.5; }
+      .leaf-txt { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:15px; fill:#224466; text-anchor:middle; dominant-baseline:middle; }
+      .edge { stroke:#224466; stroke-width:2; fill:none; }
+      .note { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:14px; fill:#224466; text-anchor:middle; }
+    ]]></style>
+  </defs>
+
+  <rect x="490" y="12" width="300" height="46" rx="8" class="root-box"/>
+  <text x="640" y="35" class="root-txt">Graph task</text>
+
+  <path class="edge" d="M 640 58 V 86 H 164 V 112"/>
+  <path class="edge" d="M 640 86 H 476 V 112"/>
+  <path class="edge" d="M 640 86 H 788 V 112"/>
+  <path class="edge" d="M 640 86 H 1108 V 112"/>
+
+  <rect x="24" y="112" width="280" height="48" rx="8" class="fam-box"/>
+  <text x="164" y="136" class="fam-txt">Link counts</text>
+  <path class="edge" d="M 164 160 V 178"/>
+  <rect x="24" y="178" width="280" height="40" rx="8" class="taught-box"/>
+  <text x="164" y="198" class="taught-txt">Degree</text>
+  <path class="edge" d="M 164 218 V 236"/>
+  <rect x="24" y="236" width="280" height="40" rx="8" class="taught-box"/>
+  <text x="164" y="256" class="taught-txt">PageRank</text>
+  <path class="edge" d="M 164 276 V 294"/>
+  <rect x="24" y="294" width="280" height="40" rx="8" class="leaf-box"/>
+  <text x="164" y="314" class="leaf-txt">Eigenvector centrality</text>
+
+  <rect x="336" y="112" width="280" height="48" rx="8" class="fam-box"/>
+  <text x="476" y="136" class="fam-txt">Paths</text>
+  <path class="edge" d="M 476 160 V 178"/>
+  <rect x="336" y="178" width="280" height="40" rx="8" class="leaf-box"/>
+  <text x="476" y="198" class="leaf-txt">Betweenness</text>
+  <path class="edge" d="M 476 218 V 236"/>
+  <rect x="336" y="236" width="280" height="40" rx="8" class="leaf-box"/>
+  <text x="476" y="256" class="leaf-txt">Closeness</text>
+
+  <rect x="648" y="112" width="280" height="48" rx="8" class="fam-box"/>
+  <text x="788" y="136" class="fam-txt">Node embeddings</text>
+  <path class="edge" d="M 788 160 V 178"/>
+  <rect x="648" y="178" width="280" height="40" rx="8" class="taught-box"/>
+  <text x="788" y="198" class="taught-txt">node2vec</text>
+  <path class="edge" d="M 788 218 V 236"/>
+  <rect x="648" y="236" width="280" height="40" rx="8" class="leaf-box"/>
+  <text x="788" y="256" class="leaf-txt">DeepWalk</text>
+  <path class="edge" d="M 788 276 V 294"/>
+  <rect x="648" y="294" width="280" height="40" rx="8" class="leaf-box"/>
+  <text x="788" y="314" class="leaf-txt">Graph neural networks</text>
+
+  <rect x="960" y="112" width="296" height="48" rx="8" class="fam-box"/>
+  <text x="1108" y="136" class="fam-txt">Communities</text>
+  <path class="edge" d="M 1108 160 V 178"/>
+  <rect x="960" y="178" width="296" height="40" rx="8" class="leaf-box"/>
+  <text x="1108" y="198" class="leaf-txt">Louvain</text>
+  <path class="edge" d="M 1108 218 V 236"/>
+  <rect x="960" y="236" width="296" height="40" rx="8" class="leaf-box"/>
+  <text x="1108" y="256" class="leaf-txt">Label propagation</text>
+
+</svg>

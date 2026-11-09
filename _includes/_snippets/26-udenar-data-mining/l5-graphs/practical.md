@@ -34,7 +34,7 @@ assert steps == {"A": 0, "B": 1, "C": 1, "D": 2}
 print(f"Pasos desde A: {steps}. E no se alcanza. Repaso de Python: OK")
 ```
 
-**Lo que vemos.** D está a dos pasos de A porque hay que pasar por C. Esa idea es la intermediación de la Parte 4.
+**Lo que vemos.** D está a dos pasos de A porque hay que pasar por C. La Parte 4 usa esta búsqueda al margen de los tres métodos.
 
 ---
 
@@ -42,14 +42,14 @@ print(f"Pasos desde A: {steps}. E no se alcanza. Repaso de Python: OK")
 
 Seguimos con el equipo interno de la secretaría de salud y sus 320 artículos sobre nutrición. El equipo debe decidir **qué artículos tiene que leer** un colega que llega al equipo. Con los tres resultados de las Lecciones 2 a 4, 52 artículos quedaron en vista.
 
-Los artículos se citan entre ellos. Los índices de citas guardaron esos enlaces para las bibliotecas, y la web los volvió a usar entre páginas. Page et al. (1998) propusieron que un enlace desde una página importante pese más. Hoy describimos un artículo por su **lugar entre los demás**. Un artículo enlazado con muchos es una **alerta**, porque puede ser una revisión que todos citan. Un artículo que **une dos partes de la red** puede ser el que el colega necesita.
+Los artículos se citan entre ellos. Los índices de citas guardaron esos enlaces para las bibliotecas, y la web los volvió a usar entre páginas. Page et al. (1998) propusieron que un enlace desde una página importante pese más. Hoy describimos un artículo por su **lugar entre los demás**. Un artículo enlazado con muchos es una **alerta**, porque puede ser una revisión que todos citan. Un artículo **citado por artículos importantes** puede ser el que el colega necesita.
 
 **Tres métodos, tres preparaciones.**
 
 | Método | Pregunta | Preparación que necesita |
 |--------|----------|--------------------------|
-| M1. Grado y PageRank | ¿Con cuántos se enlaza, y quién lo cita? | Una lista de enlaces dentro del conjunto. Un grafo dirigido para PageRank |
-| M2. Intermediación | ¿Está en el camino entre otros? | El grafo sin dirección |
+| M1. Grado | ¿Con cuántos se enlaza? | Una lista de enlaces dentro del conjunto, sin dirección |
+| M2. PageRank | ¿Lo citan artículos que también son citados? | La misma lista con dirección, un grafo dirigido |
 | M3. node2vec | ¿Quiénes están cerca en la red? | El componente mayor y caminatas al azar sobre él |
 
 **Qué hacer.** Ejecute las celdas de arriba hacia abajo. Cada paso empieza con **En este paso** y termina con una celda **Comprobar**.
@@ -61,7 +61,7 @@ Los artículos se citan entre ellos. Los índices de citas guardaron esos enlace
 | 1 | Comprensión del negocio | La pregunta de hoy, los parámetros, los artículos, `pregunta.json` y los tres resultados anteriores |
 | 2 | Comprensión de los datos | Los artículos y sus enlaces |
 | 3 | Preparación de los datos | La lista de enlaces, los dos grafos y el componente mayor |
-| 4 | Modelado | Grado, PageRank, intermediación y node2vec |
+| 4 | Modelado | Grado, PageRank y node2vec |
 | 5 | Evaluación | Contra las citas, un artículo descrito por su lugar, estabilidad de node2vec |
 | 6 | Despliegue | El resultado del grafo en `supports` y `outputs/grafo_l5.csv` |
 
@@ -77,9 +77,9 @@ En este paso escribimos qué buscamos hoy. La decisión no cambia: qué artícul
 | Pregunta | Respuesta para el laboratorio |
 |----------|-------------------------------|
 | ¿Qué buscamos? | El lugar de cada artículo en la red de citas dentro de la colección |
-| ¿Con qué lo medimos? | Grado, PageRank, intermediación y node2vec |
+| ¿Con qué lo medimos? | Grado, PageRank y node2vec |
 | ¿Contra qué lo comparamos? | Contra las citas en el mundo y contra pares de artículos al azar |
-| ¿Cómo entra el grafo en la lista? | Un artículo recibe el resultado del grafo si es un puente entre partes de la red |
+| ¿Cómo entra el grafo en la lista? | Un artículo recibe el resultado del grafo si tiene PageRank alto: el cuarto superior entre los artículos con enlaces |
 
 Un nodo central es una alerta. Un artículo aislado no recibe el resultado, pero tampoco sale de la lista.
 
@@ -275,8 +275,8 @@ print("Ejemplo:", papers.loc[papers["links"] != "", "links"].iloc[0][:150])
 
 ## Parte 3. Preparación de los datos
 
-### Paso 1. La lista de enlaces dentro del conjunto (preparación de M1)
-En este paso guardamos cada enlace dos veces: `links_out` con dirección, para PageRank, y `neighbours` sin dirección, para el grado, la intermediación y node2vec. Un artículo que se cita a sí mismo no cuenta.
+### Paso 1. La lista de enlaces dentro del conjunto (preparación de M1 y M2)
+En este paso guardamos cada enlace dos veces: `links_out` con dirección, para PageRank, y `neighbours` sin dirección, para el grado y node2vec. Un artículo que se cita a sí mismo no cuenta.
 
 ```python
 df = papers
@@ -394,8 +394,8 @@ print(f"Grado: OK ({len(hubs)} nodos centrales, el más enlazado tiene {max(degr
 
 **Lo que vemos.** El más enlazado tiene 25 enlaces y no llega a la alerta. Arriba están los estudios de carga global, que todos usan de referencia.
 
-### M1. PageRank a mano
-En este paso calculamos PageRank a mano, con el código de las diapositivas (Page et al., 1998, en la [copia archivada del informe](https://web.archive.org/web/20241231011600/http://ilpubs.stanford.edu:8090/422/)). Con probabilidad `DAMPING` el navegante sigue un enlace, y si no, salta a cualquier artículo.
+### M2. PageRank a mano
+En este paso calculamos PageRank a mano, con el código de las diapositivas (Page et al., 1998, en la [copia archivada del informe](https://web.archive.org/web/20241231011600/http://ilpubs.stanford.edu:8090/422/)). Un artículo sube si lo citan artículos que a su vez tienen puntaje alto. Con probabilidad `DAMPING` el navegante sigue un enlace, y si no, salta a cualquier artículo.
 
 ```python
 DAMPING = 0.85
@@ -433,7 +433,19 @@ hand_rank = rank
 print(f"Suma de los puntajes: {sum(rank.values()):.6f}")
 ```
 
-### M1. PageRank con networkx
+### M2. El sumidero de puntaje
+En este paso vemos por qué hace falta el salto al azar. Un **sumidero** es un grupo de nodos que se enlazan entre ellos y no enlazan a nadie más: el puntaje entra y no sale. En el grafo de juguete A cita a B, y B y C se citan entre ellos.
+
+```python
+sink = {"A": {"B"}, "B": {"C"}, "C": {"B"}}
+for d in (1.0, DAMPING):
+    toy_rank = pagerank(sink, d=d)
+    print(f"d = {d}: A {toy_rank['A']:.3f}, B y C juntos {toy_rank['B'] + toy_rank['C']:.3f}")
+```
+
+**Lo que vemos.** Sin salto (d = 1) B y C se quedan con todo y A queda en 0. Con el salto A conserva su parte del azar, 0,15 / 3 = 0,05.
+
+### M2. PageRank con networkx
 En este paso usamos `networkx.pagerank`, lo comparamos con el cálculo a mano y ponemos los 10 primeros por PageRank junto a los 10 primeros por grado.
 
 ```python
@@ -461,69 +473,26 @@ print(f"PageRank: OK ({len(top_rank) - len(not_by_degree)} de los 10 primeros ta
 
 **Lo que vemos.** PageRank premia que te cite alguien importante. "Obesity in children and young people" tiene grado 6 y está entre los 3 primeros.
 
-### M2. Distancias por niveles
-En este paso escribimos la búsqueda en anchura como función y la usamos desde el primer artículo por PageRank.
+### M2. Los artículos con PageRank alto
+En este paso marcamos los artículos con **PageRank alto**: tienen enlaces, están en el cuarto superior por PageRank entre los artículos con enlaces y no son un nodo central. Usamos PageRank redondeado a 6 decimales, el mismo valor que guarda `grafo_l5.csv`, para que la Lección 6 obtenga la misma lista.
 
 ```python
-def distances_from(source, neighbours):
-    """Búsqueda en anchura: cuántos pasos hay desde source hasta cada nodo alcanzable.
-
-    Qué hace: visita primero a los vecinos de source, después a los vecinos de esos vecinos,
-    y así, con una cola. Cada nodo se visita una sola vez, la primera vez que se
-    encuentra, y esa es su distancia más corta. Los nodos que no se alcanzan no
-    aparecen en el resultado.
-
-    Entrada:
-        source: el nodo de partida.
-        neighbours: diccionario de cada nodo a su conjunto de vecinos, sin dirección.
-
-    Salida:
-        Un diccionario de cada nodo alcanzable a su número de pasos desde source.
-    """
-    dist = {source: 0}
-    queue = deque([source])
-    while queue:
-        u = queue.popleft()
-        for v in neighbours[u]:
-            if v not in dist:
-                dist[v] = dist[u] + 1
-                queue.append(v)
-    return dist
-
-first = top_rank[0]
-reach = distances_from(first, neighbours)
-print(f"Desde el primero por PageRank se alcanzan {len(reach) - 1} artículos. El más lejano está a {max(reach.values())} pasos")
-```
-
-**Lo que vemos.** Se llega a los otros 147 del componente mayor, en 5 pasos como máximo. Los otros 170 no se alcanzan.
-
-### M2. Intermediación y puentes
-En este paso calculamos la **intermediación**: qué parte de los caminos más cortos pasa por cada artículo. Redondeamos a 9 decimales para que la cuenta de puentes no cambie entre sesiones. Un **puente** es un artículo con enlaces, en el cuarto superior por intermediación, que no es un nodo central.
-
-```python
-between = nx.betweenness_centrality(graph, normalized=True)
-between = {v: round(b, 9) for v, b in between.items()}   # puntajes iguales siguen iguales
-
+score = {v: round(rank[v], 6) for v in rank}   # el valor que se guarda en grafo_l5.csv
 connected = [v for v in graph if degree[v] > 0]
-cut = sorted(between[v] for v in connected)[int(0.75 * len(connected))]
-bridges = [v for v in connected if between[v] >= cut and v not in hubs]
-top_between = sorted(between, key=lambda v: -between[v])[:5]
-print(f"Artículos con enlaces: {len(connected)}. Corte del cuarto superior: {cut:.4f}. Puentes: {len(bridges)}")
-for v in top_between:
-    print(f"  intermediación {between[v]:.3f}, grado {degree[v]:3d}  {v[:70]}")
+cut = sorted(score[v] for v in connected)[int(0.75 * len(connected))]
+high_rank = [v for v in connected if score[v] >= cut and v not in hubs]
+print(f"Artículos con enlaces: {len(connected)}. Corte del cuarto superior: {cut:.6f}. Con PageRank alto: {len(high_rank)}")
 ```
 
 **Comprobar:**
 
-En este paso comprobamos que hay puentes, que son pocos y que ninguno es un nodo central.
+En este paso comprobamos que hay artículos con PageRank alto, que son pocos y que ninguno es un nodo central.
 
 ```python
-assert 0 < len(bridges) <= len(connected) - int(0.75 * len(connected))
-assert not set(bridges) & set(hubs)
-print(f"Puentes: OK ({len(bridges)})")
+assert 0 < len(high_rank) <= len(connected) - int(0.75 * len(connected))
+assert not set(high_rank) & set(hubs)
+print(f"PageRank alto: OK ({len(high_rank)})")
 ```
-
-**Lo que vemos.** Un puente no necesita muchos enlaces. Aparecen artículos con grado 11 o 12 que unen partes de la red.
 
 ### M3. Las caminatas de node2vec
 En este paso escribimos las caminatas de las diapositivas. Volver atrás pesa 1/p, quedarse cerca 1 y alejarse 1/q. Con `Q_INOUT = 0.5`, alejarse pesa el doble.
@@ -598,14 +567,50 @@ print("Vectores de node2vec: OK (ningún artículo sin vector tiene coseno)")
 
 **Lo que vemos.** Los vecinos comparten lugar en la red, no siempre un tema. En la Parte 5 lo medimos.
 
+### Al margen. Distancias por niveles
+En este paso, fuera de los tres métodos, escribimos la búsqueda en anchura como función y la usamos desde el primer artículo por PageRank.
+
+```python
+def distances_from(source, neighbours):
+    """Búsqueda en anchura: cuántos pasos hay desde source hasta cada nodo alcanzable.
+
+    Qué hace: visita primero a los vecinos de source, después a los vecinos de esos vecinos,
+    y así, con una cola. Cada nodo se visita una sola vez, la primera vez que se
+    encuentra, y esa es su distancia más corta. Los nodos que no se alcanzan no
+    aparecen en el resultado.
+
+    Entrada:
+        source: el nodo de partida.
+        neighbours: diccionario de cada nodo a su conjunto de vecinos, sin dirección.
+
+    Salida:
+        Un diccionario de cada nodo alcanzable a su número de pasos desde source.
+    """
+    dist = {source: 0}
+    queue = deque([source])
+    while queue:
+        u = queue.popleft()
+        for v in neighbours[u]:
+            if v not in dist:
+                dist[v] = dist[u] + 1
+                queue.append(v)
+    return dist
+
+first = top_rank[0]
+reach = distances_from(first, neighbours)
+print(f"Desde el primero por PageRank se alcanzan {len(reach) - 1} artículos. El más lejano está a {max(reach.values())} pasos")
+```
+
+**Lo que vemos.** Se llega a los otros 147 del componente mayor, en 5 pasos como máximo. Los otros 170 no se alcanzan.
+
 ---
 
 ## Parte 5. Evaluación
 
-Aquí no hay marcas ni ganador. Miramos qué dice cada método que los otros no dicen, y si node2vec es estable.
+Aquí no hay marcas ni ganador. Miramos qué dicen el grado, PageRank y node2vec que los otros no dicen, y si node2vec es estable.
 
 ### Paso 1. Grado y PageRank contra las citas
-En este paso comparamos el orden por PageRank con el grado, el grado de entrada y las citas en el mundo (`cited_by_count`), con la correlación de rangos de Spearman.
+En este paso comparamos el orden por PageRank y por grado con el grado de entrada y las citas en el mundo (`cited_by_count`), con la correlación de rangos de Spearman. node2vec no da un puntaje, así que lo evaluamos por sus vecinos en los pasos 3 y 4.
 
 ```python
 cites = dict(zip(titles, pd.to_numeric(papers["cited_by_count"], errors="coerce").fillna(0)))
@@ -615,19 +620,23 @@ rho_degree = spearmanr(pr, [degree[t] for t in titles])[0]
 rho_in = spearmanr(pr, [in_degree[t] for t in titles])[0]
 rho_cites = spearmanr(pr, [cites[t] for t in titles])[0]
 print(f"Spearman de PageRank con el grado {rho_degree:.2f}, con el grado de entrada {rho_in:.2f}, con las citas {rho_cites:.2f}")
+deg = [degree[t] for t in titles]
+rho_degree_in = spearmanr(deg, [in_degree[t] for t in titles])[0]
+rho_degree_cites = spearmanr(deg, [cites[t] for t in titles])[0]
+print(f"Spearman del grado con el grado de entrada {rho_degree_in:.2f}, con las citas {rho_degree_cites:.2f}")
 ```
 
 **Lo que vemos.** PageRank sigue al grado de entrada (0,97), menos al grado (0,75) y poco a las citas (0,30). El grafo mide el lugar dentro de lo que el equipo va a leer.
 
 ### Paso 2. Un artículo descrito por su lugar
-En este paso describimos un artículo por su lugar: grado y puestos por PageRank, intermediación y citas. Es una guía clínica elegida antes de ver la lista final.
+En este paso describimos un artículo por su lugar: puestos por grado, PageRank y citas, y sus vecinos de node2vec. Es una guía clínica elegida antes de ver la lista final.
 
 ```python
 def place_of(score):
     """Puesto de cada artículo según un puntaje, de mayor a menor.
 
     Qué hace: el artículo con el puntaje más alto tiene el puesto 1. Sirve para comparar
-    medidas con escalas distintas (PageRank, intermediación, citas) en una misma
+    medidas con escalas distintas (grado, PageRank, citas) en una misma
     línea. Los empates quedan en el orden de titles.
 
     Entrada:
@@ -638,10 +647,10 @@ def place_of(score):
     """
     return {t: i + 1 for i, t in enumerate(sorted(titles, key=lambda t: -score[t]))}
 
-by_rank, by_between, by_cites = place_of(rank), place_of(between), place_of(cites)
+by_degree, by_rank, by_cites = place_of(degree), place_of(rank), place_of(cites)
 print(EXAMPLE)
-print(f"  grado {degree[EXAMPLE]}, puesto {by_rank[EXAMPLE]} por PageRank, puesto {by_between[EXAMPLE]} de {N} por intermediación")
-print(f"  puesto {by_cites[EXAMPLE]} de {N} por citas ({int(cites[EXAMPLE]):,}). Puente: {'sí' if EXAMPLE in bridges else 'no'}")
+print(f"  grado {degree[EXAMPLE]}, puesto {by_degree[EXAMPLE]} por grado, puesto {by_rank[EXAMPLE]} por PageRank, puesto {by_cites[EXAMPLE]} de {N} por citas ({int(cites[EXAMPLE]):,})")
+print(f"  PageRank alto: {'sí' if EXAMPLE in high_rank else 'no'}")
 ```
 
 ```python
@@ -653,15 +662,15 @@ for t in example_neighbours:
 
 **Comprobar:**
 
-En este paso comprobamos que el artículo de ejemplo es un puente y sube por intermediación frente a las citas.
+En este paso comprobamos que el artículo de ejemplo está en el componente mayor, que tiene PageRank alto y que sube por PageRank frente a las citas.
 
 ```python
-assert EXAMPLE in adj and EXAMPLE in bridges
-assert by_between[EXAMPLE] < by_cites[EXAMPLE]
+assert EXAMPLE in adj and EXAMPLE in high_rank
+assert by_rank[EXAMPLE] < by_cites[EXAMPLE]
 print("Artículo descrito por su lugar: OK")
 ```
 
-**Lo que vemos.** La guía tiene grado 10, puesto 10 de 318 por intermediación y 187 por citas. Une partes del conjunto.
+**Lo que vemos.** La guía tiene grado 10. Está en el puesto 48 por PageRank y en el 187 por citas: dentro del conjunto pesa más que en el mundo. Recibe el resultado del grafo.
 
 ### Paso 3. ¿Son estables los vecinos de node2vec?
 En este paso repetimos node2vec con tres semillas y contamos cuántos de los 5 vecinos se repiten.
@@ -727,7 +736,7 @@ print("node2vec estable y con sentido: OK")
 **Lo que vemos.** Tres de cada cuatro vecinos se repiten, y comparten 4,6 veces más temas que al azar.
 
 ### Paso 5. Un dibujo del componente mayor
-En este paso dibujamos el componente mayor. El color es la intermediación y los puentes llevan borde negro. La posición cambia con la semilla del dibujo.
+En este paso dibujamos el componente mayor. El tamaño es el grado, el color es PageRank y los artículos con PageRank alto llevan borde negro. La posición cambia con la semilla del dibujo.
 
 ```python
 # Nodos y aristas en orden: vienen de sets, y sin orden el dibujo cambia de una ejecución a otra
@@ -738,10 +747,10 @@ pos = nx.spring_layout(sub, seed=SEED)
 fig, ax = plt.subplots(figsize=(7, 6))
 nx.draw_networkx_edges(sub, pos, ax=ax, alpha=0.3)
 nodes_drawn = nx.draw_networkx_nodes(sub, pos, ax=ax, node_size=[20 + 8 * degree[v] for v in sub],
-                                     node_color=[between[v] for v in sub], cmap="viridis",
-                                     edgecolors=["black" if v in bridges else "none" for v in sub])
-fig.colorbar(nodes_drawn, ax=ax, label="Intermediación")
-ax.set_title(f"Componente mayor ({len(largest)} artículos). Borde negro: puente")
+                                     node_color=[rank[v] for v in sub], cmap="viridis",
+                                     edgecolors=["black" if v in high_rank else "none" for v in sub])
+fig.colorbar(nodes_drawn, ax=ax, label="PageRank")
+ax.set_title(f"Componente mayor ({len(largest)} artículos). Borde negro: PageRank alto")
 ax.axis("off")
 fig.tight_layout()
 fig.savefig(OUTPUTS_DIR / "componente_l5.png", dpi=120)
@@ -755,7 +764,7 @@ plt.show()
 ## Parte 6. Despliegue
 
 ### Paso 1. El resultado del grafo en la tabla
-En este paso armamos `table`, una fila por título, con los tres resultados anteriores y `graph_support`, ser un **puente**. Los 3 resúmenes cortos van como "sin texto". Un artículo queda **en vista** según `MIN_SUPPORTS`, el número de resultados a favor que pide el código. `MIN_SUPPORTS` empieza en 2 y se puede cambiar. Cada grupo fija y justifica este número en su proyecto. 0 o 1 valen si se explica. La celda cuenta cuántos artículos tienen 0, 1, 2 y 3 o más resultados a favor.
+En este paso armamos `table`, una fila por título, con los tres resultados anteriores y `graph_support`, tener **PageRank alto** (Parte 4, M2). Los 3 resúmenes cortos van como "sin texto". Un artículo queda **en vista** según `MIN_SUPPORTS`, el número de resultados a favor que pide el código. `MIN_SUPPORTS` empieza en 2 y se puede cambiar. Cada grupo fija y justifica este número en su proyecto. 0 o 1 valen si se explica. La celda cuenta cuántos artículos tienen 0, 1, 2 y 3 o más resultados a favor.
 
 ```python
 supports_w2 = week2.groupby("title")[["has_pattern", "read_group", "text_says_read"]].any()
@@ -766,7 +775,7 @@ print(f"Sin texto en las Lecciones 3 y 4: {len(no_text)}")
 for t in no_text:
     print("  ", t[:70])
 
-table["graph_support"] = table.index.isin(bridges)   # cuarto superior, sin nodos centrales
+table["graph_support"] = table.index.isin(high_rank)   # cuarto superior por PageRank, sin nodos centrales
 SUPPORT_COLUMNS = ["has_pattern", "read_group", "text_says_read", "graph_support"]
 table["supports"] = table[SUPPORT_COLUMNS].astype(int).sum(axis=1)
 table["in_view"] = table["supports"] >= MIN_SUPPORTS
@@ -778,15 +787,15 @@ print(counts.rename_axis("resultados a favor").to_frame("artículos").T.to_strin
 
 **Comprobar:**
 
-En este paso comprobamos que la tabla tiene un artículo por fila y que el grafo suma un resultado a cada puente.
+En este paso comprobamos que la tabla tiene un artículo por fila y que el grafo suma un resultado a cada artículo con PageRank alto.
 
 ```python
 assert len(table) == N and table.index.is_unique
-assert table["in_view"].sum() >= before and table["graph_support"].sum() == len(bridges)
+assert table["in_view"].sum() >= before and table["graph_support"].sum() == len(high_rank)
 print("Tabla de resultados con el grafo: OK")
 ```
 
-**Lo que aprendemos aquí.** El grafo apoya a unos pocos puentes. Los aislados y los sin vector no reciben el resultado, pero no salen de la lista. Con el grafo, la lista pasa de 52 a 69 artículos en vista.
+**Lo que aprendemos aquí.** El grafo apoya a los 49 artículos con PageRank alto. Los aislados y los sin vector no reciben el resultado, pero no salen de la lista. Con el grafo, la lista pasa de 52 a 66 artículos en vista.
 
 ### Paso 2. Guardar el grafo
 En este paso guardamos `outputs/grafo_l5.csv`. `vecinos_n2v` lleva los 5 vecinos separados por `|`.
@@ -796,7 +805,6 @@ graph_table = pd.DataFrame({
     "title": titles,
     "grado": [degree[t] for t in titles],
     "pagerank": [round(rank[t], 6) for t in titles],
-    "intermediacion": [between[t] for t in titles],
     "aislado": [degree[t] == 0 for t in titles],
     "alerta_centro": [t in hubs for t in titles],
     "sin_vector_n2v": [t not in adj for t in titles],
@@ -815,7 +823,7 @@ En este paso comprobamos que el archivo guardado tiene sus columnas y una fila p
 
 ```python
 saved = pd.read_csv(graph_path, keep_default_na=False)
-assert {"title", "grado", "pagerank", "intermediacion", "aislado", "alerta_centro", "sin_vector_n2v", "vecinos_n2v", "supports", "in_view"} <= set(saved.columns)
+assert {"title", "grado", "pagerank", "aislado", "alerta_centro", "sin_vector_n2v", "vecinos_n2v", "supports", "in_view"} <= set(saved.columns)
 assert len(saved) == N
 print("grafo_l5.csv: OK")
 ```
@@ -825,9 +833,9 @@ En este paso anotamos en `pregunta.json` cómo entra el grafo y qué lo cambiar�
 
 ```python
 question_card["graph_use"] = {
-    "how_it_enters": "El resultado del grafo cuenta a favor de un artículo si es un puente: está en el cuarto superior por intermediación entre los artículos con enlaces, y no es un nodo central.",
+    "how_it_enters": "El resultado del grafo cuenta a favor de un artículo si tiene PageRank alto: está en el cuarto superior por PageRank entre los artículos con enlaces, y no es un nodo central.",
     "reading": "El grafo solo ve las citas dentro del conjunto. Un artículo aislado no tiene lugar, no es malo.",
-    "bridges": len(bridges),
+    "high_rank": len(high_rank),
     "what_changes_it": ["otro corte que el cuarto superior", "otra regla para los nodos centrales", "más artículos o más enlaces en el conjunto"],
 }
 QUESTION_PATH.write_text(json.dumps(question_card, ensure_ascii=False, indent=2), encoding="utf-8")

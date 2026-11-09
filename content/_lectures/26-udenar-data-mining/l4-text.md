@@ -2,17 +2,12 @@
 author: Christian Cabrera Jojoa
 course_code: 26-udenar-data-mining
 department: Department of Computer Science and Technology
-description: Lecture 4 introduces extraction from text. The data are texts. We give
-  a short history of text mining, then three methods, each with its own data preparation.
-  The basic method is a keyword list, prepared as a normalized word list for the stated
-  question. The intermediate method is TF-IDF with logistic regression, prepared as
-  a document-term matrix and a split into marked examples. The advanced method is
-  a frozen multilingual transformer encoder with logistic regression, prepared as
-  the text itself, truncated to the encoder's length. Each method is taught with its
-  mathematics, its preparation, and a Python implementation. The result is judged
-  by how many marked examples it gets right and how many it gets wrong. The lecture
-  closes by adding this result to the earlier ones. Each item shows how many results
-  support it, and we state what would change its place on the list.
+description: Lecture 4 is the text extraction task. The question is what short answer
+  each text gives to a question. Emails, reviews, and abstracts, with a sample marked
+  by a person, can feed the task. We explore three methods for this task. A keyword
+  list, TF-IDF with logistic regression, and a text encoder. For each method we go
+  through its theory, implementation and evaluation. We end with what deploying an
+  extraction means and its limits.
 email: chc79@cam.ac.uk
 end_time: 01:00 pm
 group_notebook: week-2-group

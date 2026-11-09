@@ -40,10 +40,10 @@
                 <p><b>Evaluation</b></p>
                 <p>A support floor and a baseline</p>
             </div>
-            <div class="column vertical-middle text-center" style="width: 33%; opacity: 0.4">
+            <div class="column vertical-middle text-center" style="width: 33%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/crisp-dm-process-diagram.png" alt="CRISP-DM process diagram" style="max-height: 155px; max-width: 100%; width: auto;">
                 <p><b>Deployment</b></p>
-                <p>Next, at the end of the course</p>
+                <p>What using a pattern would mean</p>
             </div>
         </div>
     </div>
@@ -60,7 +60,7 @@
                     <li>The pattern task</li>
                     <li>Data and methods</li>
                     <li>Support, lift, and item-vector closeness</li>
-                    <li>Evaluation</li>
+                    <li>Evaluation and deployment</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -70,7 +70,7 @@
                     <li>Data and methods</li>
                     <li>k-means, Gaussian mixtures, HDBSCAN</li>
                     <li>Items that fit no group</li>
-                    <li>Evaluation</li>
+                    <li>Evaluation and deployment</li>
                 </ul>
             </div>
         </div>

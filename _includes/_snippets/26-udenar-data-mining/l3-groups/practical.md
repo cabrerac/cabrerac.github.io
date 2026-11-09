@@ -473,7 +473,7 @@ $\displaystyle J = \sum_{i=1}^{N} \lVert x_i - \mu_{c(i)} \rVert^2$
 
 Lloyd alterna asignar cada artículo a su centro y mover cada centro al promedio. `KMeans` usa k-means++ y 10 arranques (`n_init=10`).
 
-**Cómo elegir k: la silueta.** $a$ es la distancia media a su grupo y $b$ al grupo vecino. La silueta es $s = (b - a) / \max(a, b)$. Cerca de 1 está bien en su grupo, cerca de 0 está entre dos.
+**Cómo elegir k.** Usamos la silueta, una medida de la evaluación que la Parte 5 compara con el azar. $a$ es la distancia media a su grupo y $b$ al grupo vecino. La silueta es $s = (b - a) / \max(a, b)$. Cerca de 1 está bien en su grupo, cerca de 0 está entre dos.
 
 ```python
 silhouettes = {}

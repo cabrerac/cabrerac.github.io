@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-data-mining
 title: Text extraction and marked examples
-description: Lecture 4 introduces extraction from text. The data are texts. We give a short history of text mining, then three methods, each with its own data preparation. The basic method is a keyword list, prepared as a normalized word list for the stated question. The intermediate method is TF-IDF with logistic regression, prepared as a document-term matrix and a split into marked examples. The advanced method is a frozen multilingual transformer encoder with logistic regression, prepared as the text itself, truncated to the encoder's length. Each method is taught with its mathematics, its preparation, and a Python implementation. The result is judged by how many marked examples it gets right and how many it gets wrong. The lecture closes by adding this result to the earlier ones. Each item shows how many results support it, and we state what would change its place on the list.
+description: Lecture 4 is the text extraction task. The question is what short answer each text gives to a question. Emails, reviews, and abstracts, with a sample marked by a person, can feed the task. We explore three methods for this task. A keyword list, TF-IDF with logistic regression, and a text encoder. For each method we go through its theory, implementation and evaluation. We end with what deploying an extraction means and its limits.
 session: 4
 start_time: 07:00 am
 end_time: 01:00 pm
@@ -32,85 +32,41 @@ notebook_description: Práctica individual de la Lección 4. Extraer de los res�
 
 <!-- SLIDES: -->
 
-# Text Mining
+# The Task
 
 <!-- end SLIDES: -->
 
 {% include _snippets/text-mining.md %}
 
-<!-- SLIDES: -->
-
-# Text Preparation
-
-<!-- end SLIDES: -->
-
-{% include _snippets/text-preparation.md %}
-
-<!-- SLIDES: -->
-
-# Keyword Lists
-
-<!-- end SLIDES: -->
-
 {% include _snippets/keyword-lists.md %}
 
-<!-- SLIDES: -->
-
-# TF-IDF
-
-<!-- end SLIDES: -->
-
 {% include _snippets/tf-idf.md %}
-
-<!-- SLIDES: -->
-
-# Logistic Regression
-
-<!-- end SLIDES: -->
-
-{% include _snippets/logistic-regression.md %}
-
-<!-- SLIDES: -->
-
-# Cross-validation
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-data-mining/l4-text/cross-validation.md %}
-
-<!-- SLIDES: -->
-
-# Text Encoders
-
-<!-- end SLIDES: -->
 
 {% include _snippets/text-encoders.md %}
 
 <!-- SLIDES: -->
 
-# Judging Text Results
+# Evaluation
 
 <!-- end SLIDES: -->
 
 {% include _snippets/classification-evaluation.md %}
 
-{% include _snippets/26-udenar-data-mining/l4-text/five-folds.md %}
+{% include _snippets/26-udenar-data-mining/l4-text/cross-validation.md %}
+
+{% include _snippets/five-folds-code.md %}
+
+{% include _snippets/text-methods-comparison.md %}
 
 <!-- SLIDES: -->
 
-# The Question and the Data
+# Deployment
 
 <!-- end SLIDES: -->
 
-{% include _snippets/26-udenar-data-mining/l4-text/comparison.md %}
+{% include _snippets/extraction-to-decision.md %}
 
-<!-- SLIDES: -->
-
-# The Project
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-data-mining/l4-text/decision.md %}
+{% include _snippets/26-udenar-data-mining/l4-text/decision-use.md %}
 
 <!-- SLIDES: -->
 
@@ -122,7 +78,8 @@ notebook_description: Práctica individual de la Lección 4. Extraer de los res�
 
 {% include _snippets/26-udenar-data-mining/l4-text/practical-slides.md %}
 
-{% include _snippets/26-udenar-data-mining/l4-text/week2-deliverables.md %}
+{% include _snippets/26-udenar-data-mining/l4-text/week2-saturday.md %}
 
 {% include _snippets/26-udenar-data-mining/l4-text/resources.md %}
+
 {% include _snippets/26-udenar-data-mining/l4-text/practical.md %}

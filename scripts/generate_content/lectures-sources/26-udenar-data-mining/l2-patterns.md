@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-data-mining
-title: Repeating patterns
-description: Lecture 2 is the pattern task. The question is which sets of items repeat together more often than chance. Transactions, event sets, and texts as bags of words can feed the task. We explore three methods for this task. Support, lift, and closeness of item vectors. For each method we go through its theory, implementation, evaluation and use.
+title: Repeating Patterns
+description: Lecture 2 is the pattern task. The question is which sets of items repeat together more often than chance. Transactions, event sets, and texts as bags of words can feed the task. We explore three methods for this task. Support, lift, and closeness of item vectors. For each method we go through its theory, implementation and evaluation. We end with what deploying a pattern means and its limits.
 session: 2
 start_time: 07:00 am
 end_time: 01:00 pm
@@ -18,7 +18,7 @@ permalink: /teaching/26-udenar-data-mining/l2-patterns/
 visible: false
 group_notebook: week-1-group
 notebook_language: es
-notebook_title: Patrones que se repiten y líneas base
+notebook_title: Patrones que se repiten
 notebook_description: Práctica individual de la Lección 2. Encontrar patrones que se repiten en la colección de artículos y comparar cada uno con los otros patrones y con una línea base.
 ---
 
@@ -62,20 +62,13 @@ notebook_description: Práctica individual de la Lección 2. Encontrar patrones 
 
 <!-- SLIDES: -->
 
-## Evaluation
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <p><b>What would we do with this pattern?</b></p>
-                <p>We come back to this in Deployment, at the end of the course.</p>
-            </div>
-        </div>
-    </div>
-</div>
+# Deployment
 
 <!-- end SLIDES: -->
+
+{% include _snippets/pattern-to-decision.md %}
+
+{% include _snippets/26-udenar-data-mining/l2-patterns/decision-use.md %}
 
 <!-- SLIDES: -->
 

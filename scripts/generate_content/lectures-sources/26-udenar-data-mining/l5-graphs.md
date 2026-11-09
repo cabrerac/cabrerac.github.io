@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-data-mining
 title: Graphs and an item's place among the others
-description: Lecture 5 introduces the links among items in a graph. The data are items and the links among them. We give a short history of graph methods, then three methods, each with its own data preparation. The basic method is degree, prepared as an edge list of links that stay inside the set. A node that links to a large share of the others is a warning, not an automatic pick. The intermediate method is betweenness, prepared as an undirected graph on that edge list. The advanced method is node2vec, prepared as that graph plus the walks that build the embedding, with a fixed place for a node that has no neighbour. Each method is taught with its mathematics, its preparation, and a Python implementation. We characterise an item by its place among the other items. The lecture closes by adding this result to the earlier ones. Each item shows how many results support it, and we state what would change its place on the list.
+description: Lecture 5 is the graph task. The question is where each item sits among the others. Papers and their citations, people and their friendships, and web pages and their links can feed the task. We explore three methods for this task. Degree, PageRank, and node2vec. For each method we go through its theory, implementation and evaluation. We end with what deploying an item's place means and its limits.
 session: 5
 start_time: 07:00 am
 end_time: 01:00 pm
@@ -32,69 +32,35 @@ notebook_description: Práctica individual de la Lección 5. Describir un artíc
 
 <!-- SLIDES: -->
 
-# Graphs
+# The Task
 
 <!-- end SLIDES: -->
 
 {% include _snippets/graphs.md %}
 
-<!-- SLIDES: -->
-
-# Degree
-
-<!-- end SLIDES: -->
-
 {% include _snippets/degree-centrality.md %}
 
-<!-- SLIDES: -->
-
-# PageRank
-
-<!-- end SLIDES: -->
-
 {% include _snippets/pagerank.md %}
-
-<!-- SLIDES: -->
-
-# Betweenness
-
-<!-- end SLIDES: -->
-
-{% include _snippets/betweenness.md %}
-
-<!-- SLIDES: -->
-
-# node2vec
-
-<!-- end SLIDES: -->
 
 {% include _snippets/node2vec.md %}
 
 <!-- SLIDES: -->
 
-# Judging Graph Results
+# Evaluation
 
 <!-- end SLIDES: -->
 
-{% include _snippets/26-udenar-data-mining/l5-graphs/comparison.md %}
+{% include _snippets/graph-evaluation.md %}
 
 <!-- SLIDES: -->
 
-# The Question and the Data
+# Deployment
 
 <!-- end SLIDES: -->
 
-{% include _snippets/26-udenar-data-mining/l5-graphs/course-data.md %}
+{% include _snippets/graph-to-decision.md %}
 
-<!-- SLIDES: -->
-
-# The Project
-
-<!-- end SLIDES: -->
-
-{% include _snippets/combining-results.md %}
-
-{% include _snippets/26-udenar-data-mining/l5-graphs/graph-support.md %}
+{% include _snippets/26-udenar-data-mining/l5-graphs/decision-use.md %}
 
 <!-- SLIDES: -->
 
@@ -107,4 +73,5 @@ notebook_description: Práctica individual de la Lección 5. Describir un artíc
 {% include _snippets/26-udenar-data-mining/l5-graphs/practical-slides.md %}
 
 {% include _snippets/26-udenar-data-mining/l5-graphs/resources.md %}
+
 {% include _snippets/26-udenar-data-mining/l5-graphs/practical.md %}

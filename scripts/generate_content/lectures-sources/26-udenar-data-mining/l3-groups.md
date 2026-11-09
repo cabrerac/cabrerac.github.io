@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-data-mining
 title: Groups, outliers, and what a group means
-description: Lecture 3 introduces groups of similar items. The data are items for which similarity can be stated. We give a short history of grouping, then three methods, each with its own data preparation. The basic method is k-means, prepared as scaled vectors. The intermediate method is a Gaussian mixture, prepared as those vectors reduced to a few dimensions. The advanced method is HDBSCAN, prepared as distances on the same vectors. The points it leaves out are the items that fit no group. Each method is taught with its mathematics, its preparation, and a Python implementation. We state what a group means for a decision. The lecture closes by adding this result to the pattern result. Each item shows how many results support it, and we state what would change its place on the list.
+description: Lecture 3 is the grouping task. The question is which items are similar enough to share a group, and which fit no group. Customers, patients, and texts described by the same attributes can feed the task. We explore three methods for this task. k-means, Gaussian mixtures, and HDBSCAN. For each method we go through its theory, implementation and evaluation. We end with what deploying a group means and its limits.
 session: 3
 start_time: 07:00 am
 end_time: 01:00 pm
@@ -32,49 +32,21 @@ notebook_description: Práctica individual de la Lección 3. Agrupar artículos 
 
 <!-- SLIDES: -->
 
-# Groups of Similar Items
+# The Task
 
 <!-- end SLIDES: -->
 
 {% include _snippets/clustering.md %}
 
-{% include _snippets/26-udenar-data-mining/l3-groups/word-counts.md %}
-
-<!-- SLIDES: -->
-
-# Reducing the Dimensions
-
-<!-- end SLIDES: -->
-
-{% include _snippets/svd-lsa.md %}
-
-<!-- SLIDES: -->
-
-# k-means
-
-<!-- end SLIDES: -->
-
 {% include _snippets/k-means.md %}
 
-<!-- SLIDES: -->
-
-# Gaussian Mixtures
-
-<!-- end SLIDES: -->
-
 {% include _snippets/gaussian-mixtures.md %}
-
-<!-- SLIDES: -->
-
-# HDBSCAN
-
-<!-- end SLIDES: -->
 
 {% include _snippets/hdbscan.md %}
 
 <!-- SLIDES: -->
 
-# Judging Groups
+# Evaluation
 
 <!-- end SLIDES: -->
 
@@ -82,23 +54,17 @@ notebook_description: Práctica individual de la Lección 3. Agrupar artículos 
 
 {% include _snippets/cluster-validation.md %}
 
-<!-- SLIDES: -->
-
-# The Question and the Data
-
-<!-- end SLIDES: -->
-
-{% include _snippets/26-udenar-data-mining/l3-groups/comparison.md %}
+{% include _snippets/group-methods-comparison.md %}
 
 <!-- SLIDES: -->
 
-# The Project
+# Deployment
 
 <!-- end SLIDES: -->
 
-{% include _snippets/combining-results.md %}
+{% include _snippets/group-to-decision.md %}
 
-{% include _snippets/26-udenar-data-mining/l3-groups/decision.md %}
+{% include _snippets/26-udenar-data-mining/l3-groups/decision-use.md %}
 
 <!-- SLIDES: -->
 

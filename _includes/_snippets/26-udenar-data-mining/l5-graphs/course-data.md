@@ -58,9 +58,8 @@
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Against citations</b></p>
                 <ul>
-                    <li>Spearman of PageRank with the citation count: 0.30</li>
+                    <li>Spearman of PageRank with the citation count, printed by the notebook</li>
                     <li>Citations count the whole literature, PageRank only this set</li>
-                    <li><b>Guidelines for the Primary Prevention of Stroke:</b> 10th by betweenness, 187th by citations</li>
                 </ul>
             </div>
         </div>

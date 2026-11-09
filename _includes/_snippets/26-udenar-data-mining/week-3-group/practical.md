@@ -22,7 +22,7 @@
 | **1** | Comprensión del negocio | La descripción de la pregunta y los resultados de la semana 2 |
 | **2** | Comprensión de los datos | Títulos únicos y enlaces dentro del extracto |
 | **3** | Preparación de los datos | Los grafos y la tabla de la L6 |
-| **4** | Modelado | Grado, PageRank, puentes, node2vec y los tres métodos de la L6 |
+| **4** | Modelado | Grado, PageRank, node2vec y los tres métodos de la L6 |
 | **5** | Evaluación | Un artículo por su lugar y si la L6 cuenta |
 | **6** | Despliegue | `outputs/grafo.csv`, `outputs/prediccion.csv`, `outputs/lista_inicial.csv`, título y resumen |
 
@@ -226,31 +226,31 @@ print("Paso 3.2: OK")
 
 ## Ejercicio 4. Modelado
 
-### Paso 4.1. Grado, PageRank y puentes
+### Paso 4.1. Grado y PageRank
 
-En este paso calculan el grado, el PageRank y los puentes.
+En este paso calculan el grado, el PageRank y los artículos con PageRank alto.
 
 | Qué copiar | Dónde está en L5 |
 |------------|------------------|
 | `degree`, `hubs` con `hub_threshold(N)` y `top_degree` | Parte 4, M1. El grado y la alerta de nodo central |
-| `rank` con `nx.pagerank(directed, alpha=DAMPING)` y `top_rank` | Parte 4, M1. PageRank con networkx |
-| `between`, redondeado a 9 decimales, y `bridges` | Parte 4, M2. Intermediación y puentes |
+| `rank` con `nx.pagerank(directed, alpha=DAMPING)` y `top_rank` | Parte 4, M2. PageRank con networkx |
+| `score`, PageRank redondeado a 6 decimales, y `high_rank` | Parte 4, M2. Los artículos con PageRank alto |
 
 ```python
-# SU CÓDIGO. Paso 4.1: degree, hubs, top_degree, rank, top_rank, between y bridges
+# SU CÓDIGO. Paso 4.1: degree, hubs, top_degree, rank, top_rank, score y high_rank
 
 ```
 
 **Listo cuando:**
-- Un puente es un artículo con enlaces, en el cuarto superior por intermediación entre los artículos con enlaces, que **no** es nodo central.
+- Un artículo con PageRank alto tiene enlaces, está en el cuarto superior por PageRank entre los artículos con enlaces y **no** es nodo central.
 - Un nodo central (`hubs`) es una alerta, no una razón para leerlo.
 
 **Comprobar:**
 
-En este paso comprobamos que hay al menos un puente y que ningún puente es nodo central.
+En este paso comprobamos que hay al menos un artículo con PageRank alto y que ninguno es nodo central.
 
 ```python
-assert len(bridges) >= 1 and not set(bridges) & set(hubs)
+assert len(high_rank) >= 1 and not set(high_rank) & set(hubs)
 print("Paso 4.1: OK")
 ```
 
@@ -321,7 +321,7 @@ En este paso miden si los vecinos se repiten y describen un artículo por su lug
 |------------|------------------|
 | `overlap`, la parte de los 5 vecinos que se repite entre semillas | Parte 5, Paso 3 |
 | `near` y `far`, el Jaccard de categorías con vecinos y con pares al azar | Parte 5, Paso 4 (aquí las categorías están en `categories`) |
-| `MY_ARTICLE` y su descripción por grado, PageRank, intermediación y vecinos | Parte 5, Paso 2 |
+| `MY_ARTICLE` y su descripción por grado, PageRank y vecinos | Parte 5, Paso 2 |
 
 ```python
 # SU CÓDIGO. Paso 5.1: overlap, near, far, MY_ARTICLE y place_reading
@@ -382,7 +382,7 @@ En este paso juntan los cinco resultados de cada artículo en una tabla.
 | Columna | De dónde sale | Dónde está |
 |---------|---------------|------------|
 | `has_pattern`, `read_group`, `text_says_read` | `week2`, unidas por título | L5, Parte 6, Paso 1 |
-| `graph_support` | el artículo está en `bridges` | L5, Parte 6, Paso 1 |
+| `graph_support` | el artículo está en `high_rank` | L5, Parte 6, Paso 1 |
 | `prediction` | al menos 2 de 3 métodos, con `vote_of`, fuera del pliegue o apartada | L6, Parte 6, Paso 1 |
 | `one_support` | si la etiqueta repite el texto de la L4 | L6, Parte 6, Paso 2 |
 
@@ -464,7 +464,7 @@ En este paso guardan los archivos y escriben en `pregunta.json` cómo entran el 
 
 | Archivo | Columnas | Dónde está |
 |---------|----------|------------|
-| `outputs/grafo.csv` | `title`, `grado`, `pagerank`, `intermediacion`, `aislado`, `alerta_centro`, `graph_support`, `supports` e `in_view`. Pueden sumar `sin_vector_n2v` y `vecinos_n2v` | L5, Parte 6, Paso 2 |
+| `outputs/grafo.csv` | `title`, `grado`, `pagerank`, `aislado`, `alerta_centro`, `graph_support`, `supports` e `in_view`. Pueden sumar `sin_vector_n2v` y `vecinos_n2v` | L5, Parte 6, Paso 2 |
 | `outputs/prediccion.csv` | `title`, `etiqueta`, `apartada`, `clase_votada` y `prediction` | L6, Parte 6, Paso 6 |
 | `outputs/lista_inicial.csv` | las de `SUPPORT_COLUMNS` y `title`, `supports`, `prob_texto`, `recortado`, `alerta_centro` y `hecho_que_saca` | L6, Parte 6, Paso 6 |
 
@@ -534,7 +534,7 @@ Use la [plantilla de la reflexión de la semana 3](https://cabrerac.github.io/as
 | **Metadatos** | Nombre, grupo, semana 3 (L5 + L6), conteo aproximado de palabras y la lectura que cita. |
 | **Proceso** | Qué hizo el grupo en el cuaderno de la semana 3. Diga cuál fue su contribución. |
 | **Decisión** | Describa la lista de inicio de su grupo. Elija un artículo de `outputs/lista_inicial.csv` y diga por qué está en la lista y qué hecho lo sacaría. |
-| **Métodos** | Explique cuáles fueron los métodos utilizados en esta semana (grado, PageRank, puentes y los modelos de predicción) y cómo se comparan entre ellos. |
+| **Métodos** | Explique cuáles fueron los métodos utilizados en esta semana (grado, PageRank, node2vec y los modelos de predicción) y cómo se comparan entre ellos. |
 | **Ética** | Nombre una elección técnica de esta semana. Diga a quién ayuda o perjudica, o cómo se podría usar mal un resultado de esta semana. Relacione el punto con Page, Brin, Motwani y Winograd (1998) o con LeCun, Bengio y Hinton (2015). |
 
 ## Entrega

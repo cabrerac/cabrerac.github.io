@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-data-mining
 title: Week 3 group notebook
-description: The week 3 group notebook is the project. Each group places the articles of its secretaría in the links graph (degree with PageRank, betweenness, node2vec), predicts a given label from the article attributes (logistic regression, a random forest, one hidden layer), and builds the starter list of articles with at least two supports, with the fact that would take each one off the list.
+description: The week 3 group notebook is the project. Each group places the articles of its secretaría in the links graph (degree, PageRank, node2vec), predicts a given label from the article attributes (logistic regression, a random forest, one hidden layer), and builds the starter list of articles with at least two supports, with the fact that would take each one off the list.
 session: 3
 start_time: async
 end_time: async

@@ -1,6 +1,6 @@
 <!-- SLIDES: -->
 
-## Cross-validation
+## Evaluation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -12,7 +12,7 @@
     </div>
 </div>
 
-## Cross-validation
+## Evaluation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -35,7 +35,7 @@
     </div>
 </div>
 
-## Cross-validation
+## Evaluation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -56,7 +56,7 @@
     </div>
 </div>
 
-## Cross-validation
+## Evaluation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">

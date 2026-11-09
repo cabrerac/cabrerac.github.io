@@ -7,16 +7,16 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <ul>
-                    <li><b>Keyword lists:</b> words taken from the question</li>
-                    <li><b>TF-IDF:</b> word weights with logistic regression</li>
-                    <li><b>Text encoders:</b> a frozen pretrained model with logistic regression</li>
-                    <li><b>Right and wrong counts:</b> marked papers against the majority class</li>
+                    <li><b>The task:</b> what short answer each text gives to a question, judged against marks</li>
+                    <li><b>The data:</b> texts and a sample marked by a person</li>
+                    <li><b>The methods:</b> a keyword list, TF-IDF with logistic regression, and a text encoder</li>
+                    <li><b>Evaluation and deployment:</b> right and wrong counts, a majority baseline, and what using an extraction would mean</li>
                 </ul>
-                <p>Each paper now has three results. This lecture reads the links among papers.</p>
+                <p>This lecture is the graph task.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/precision-recall.svg" alt="Precision and recall" style="height: 400px">
-                <div class="footnote">Precisionrecall - Walber, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/crisp-dm-process-diagram.png" alt="CRISP-DM process diagram" style="height: 400px">
+                <div class="footnote">CRISP-DM Process Diagram - Kenneth Jensen, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
@@ -29,10 +29,11 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <ul>
-                    <li><b>Data preparation:</b> an edge list inside the set, a directed and an undirected graph, walks on the largest component</li>
-                    <li><b>Modeling:</b> degree and PageRank, betweenness, node2vec</li>
-                    <li><b>Evaluation:</b> no labels: against citations, across seeds, against random pairs</li>
-                    <li><b>Deployment:</b> the graph result as a fourth result for the list</li>
+                    <li><b>The task:</b> where does each item sit among the others?</li>
+                    <li><b>The data:</b> items and the links among them, such as citations, friendships, and web links</li>
+                    <li><b>Modeling:</b> degree, PageRank, and node2vec</li>
+                    <li><b>Evaluation:</b> an outside measure, stability across seeds, and random pairs</li>
+                    <li><b>Deployment:</b> what using an item's place would mean, and its limits</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">

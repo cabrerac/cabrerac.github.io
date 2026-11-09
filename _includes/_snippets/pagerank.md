@@ -3,6 +3,28 @@
 ## PageRank
 
 <div class="rows" style="height: 100%">
+    <div class="row" style="height: 70%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/graph-task-taxonomy.svg" alt="Taxonomy of graph methods" style="width: 100%; height: 100%">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 30%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <p><b>Link counts:</b> how many links an item has, and from whom.</p>
+                <p><b>Paths:</b> how an item sits on the shortest paths between others.</p>
+                <p><b>Node embeddings:</b> one vector per item, learned from the links.</p>
+                <p><b>Communities:</b> groups of items with more links inside than outside.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## PageRank
+
+<div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
@@ -44,11 +66,14 @@
                 <p><b>The formula</b></p>
                 <p>$$PR(v) = \frac{1 - d}{n} + d \sum_{u \to v} \frac{PR(u)}{\text{out}(u)}$$</p>
                 <ul>
+                    <li><p>$PR(v)$ is the score of item $v$, the share of time the surfer spends on it</p></li>
+                    <li><p>$n$ is the number of items in the graph</p></li>
+                    <li><p>$(1-d)/n$ is the jump share. Every item gets it, whatever links it has</p></li>
+                    <li><p>The sum runs over every item $u$ that links to $v$, and each adds a part of its own score</p></li>
                     <li><p>$d = 0.85$ is the damping, the chance to follow a link</p></li>
                     <li><p>$\text{out}(u)$ is the number of links $u$ makes. Its score is split among them</p></li>
-                    <li><p>An item with no links out passes its score to every item</p></li>
-                    <li><p>Items that link only among themselves would trap the surfer, a <b>rank sink</b></p></li>
                 </ul>
+                <p>An item with no links out passes its score to every item. Items that link only among themselves would trap the surfer, a <b>rank sink</b>.</p>
             </div>
         </div>
     </div>
@@ -66,6 +91,31 @@
                     <li>Apply the formula to all items until the scores stop changing.</li>
                     <li><p>The scores add up to 1, so compare them with $1/n$.</p></li>
                 </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+## PageRank
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>A rank sink</b></p>
+                <p>A cites B, and B and C cite each other. Nothing cites A.</p>
+                <ul>
+                    <li><p><b>Without the jump:</b> A drops to 0 after one step, and B and C keep all the score between them</p></li>
+                    <li><p><b>With the jump:</b> every item gets the first term of the formula, so A keeps a small share and the loop cannot hold it all</p></li>
+                    <li><p>A small closed loop can still rank high with few links</p></li>
+                </ul>
+                <br>
+                <p>"Consider two web pages that point to each other but to no other page." <a href="https://web.archive.org/web/20241231011600/http://ilpubs.stanford.edu:8090/422/" target="_blank" rel="noopener noreferrer">(Page et al., 1998, p. 4)</a></p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/pagerank-abc.svg" alt="Three nodes sized by PageRank. A cites B, and B and C cite each other" style="height: 220px">
+                <div class="footnote">PageRank on a small graph, A cites B, and B and C cite each other</div>
             </div>
         </div>
     </div>
@@ -108,12 +158,23 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 40%">
-                <p><b>Python, by hand</b></p>
-                <p>The directed links as a dict of sets.</p>
-                <p>One loop is one step of the surfer for every item.</p>
+            <div class="column vertical-middle text-left" style="width: 47.5%">
+
+```text
+give every item the score 1 / n
+repeat for a fixed number of steps
+    give every item the jump share (1 - d) / n
+    for each item u
+        targets = the items u links to
+        if u links to nothing, targets = all items
+        give each target d * score of u / size of targets
+    the new scores replace the old ones
+```
+
             </div>
-            <div class="column vertical-middle text-left" style="width: 60%">
+            <div class="column vertical-middle text-left" style="width: 5%">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 47.5%">
 
 ```python
 DAMPING = 0.85
@@ -125,7 +186,7 @@ def pagerank(links_out, d=DAMPING, steps=100):
     for _ in range(steps):
         new = {v: (1 - d) / n for v in nodes}
         for u in nodes:
-            targets = links_out[u] or nodes   # no links: jump anywhere
+            targets = links_out[u] or nodes
             for v in targets:
                 new[v] += d * rank[u] / len(targets)
         rank = new
@@ -134,40 +195,6 @@ def pagerank(links_out, d=DAMPING, steps=100):
 rank = pagerank(links_out)
 ```
 
-</div>
-        </div>
-    </div>
-</div>
-
-## PageRank
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 55%">
-                <p><b>Python, networkx</b></p>
-
-```python
-import networkx as nx
-
-directed = nx.DiGraph()
-directed.add_nodes_from(links_out)
-directed.add_edges_from((u, v) for u, vs in links_out.items() for v in vs)
-
-rank = nx.pagerank(directed, alpha=DAMPING)
-top_rank = sorted(rank, key=rank.get, reverse=True)[:10]
-not_by_degree = [v for v in top_rank if v not in top_degree]
-```
-
-</div>
-            <div class="column vertical-middle text-left" style="width: 45%">
-                <p><b>Reading question</b></p>
-                <p>When do degree and PageRank disagree?</p>
-                <ul>
-                    <li>When an item gets few links, but from well placed items.</li>
-                    <li>When an item gets many links from items nobody links to.</li>
-                    <li>A hub tops both, so the hub warning holds for PageRank too.</li>
-                </ul>
             </div>
         </div>
     </div>

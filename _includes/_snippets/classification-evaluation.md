@@ -1,18 +1,18 @@
 <!-- SLIDES: -->
 
-## Right and Wrong Counts
+## Evaluation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <p>A <b>confusion matrix</b> counts the right and wrong answers of a prediction on marked examples that the model never saw.</p>
+                <p>A <b>confusion matrix</b> counts the right and wrong answers of a prediction on marked items that the model never saw.</p>
             </div>
         </div>
     </div>
 </div>
 
-## Right and Wrong Counts
+## Evaluation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -28,13 +28,13 @@
                         <tr><td><b>Said no</b></td><td>FN, wrong</td><td>TN, right</td></tr>
                     </tbody>
                 </table>
-                <p>Four counts on the test items. Report all four.</p>
+                <p>Four counts on the items kept apart. We report all four.</p>
             </div>
         </div>
     </div>
 </div>
 
-## Right and Wrong Counts
+## Evaluation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -43,30 +43,30 @@
                 <p><b>Precision, recall, F1</b></p>
                 <p>$$\text{precision} = \frac{TP}{TP + FP} \qquad \text{recall} = \frac{TP}{TP + FN}$$</p>
                 <p>$$F_1 = \frac{2 \cdot \text{precision} \cdot \text{recall}}{\text{precision} + \text{recall}}$$</p>
-                <p>Precision, how many of the yes answers were right.</p>
-                <p>Recall, how many of the actual yes were found.</p>
+                <p>Precision divides the right yes answers by all yes answers. Recall divides them by all actual yes items. F1 is their harmonic mean, low when either one is low.</p>
+                <p>With $TP = 8$, $FP = 2$ and $FN = 4$: precision 0.80, recall 0.67, and F1 0.73.</p>
             </div>
-            <div class="column vertical-middle text-center" style="width: 45%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/precision-recall.svg" alt="Precision and recall" style="height: 400px">
+            <div class="column vertical-middle text-left" style="width: 45%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/precision-recall.svg" alt="Precision and recall" style="height: 360px">
                 <div class="footnote">Precisionrecall - Walber, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
 </div>
 
-## Right and Wrong Counts
+## Evaluation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 55%">
+                <p>A <b>baseline</b> tells us what an answer with no work would give.</p>
                 <p><b>The majority baseline</b></p>
                 <ul>
                     <li>Say no to every item</li>
                     <li>If 70% are actual no, accuracy is 0.70 with no work</li>
                     <li>Its recall and F1 are 0</li>
                     <li>A method must beat it on the counts that matter for the use</li>
-                    <li>With few actual yes items, one more or one less moves the numbers a lot</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 45%">
@@ -77,7 +77,7 @@
     </div>
 </div>
 
-## Right and Wrong Counts
+## Evaluation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -85,7 +85,7 @@
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>How sure is an F1? <a href="https://doi.org/10.1214/aos/1176344552" target="_blank" rel="noopener noreferrer">(Efron, 1979)</a></b></p>
                 <ul>
-                    <li><p>The test set is small, so one item more or less moves F1 a lot</p></li>
+                    <li><p>The items kept apart are few, so one item more or less moves F1 a lot</p></li>
                     <li><p>Draw the kept apart items again with replacement, the same number, and compute F1. Repeat 2,000 times</p></li>
                     <li><p>The 2.5th and 97.5th percentiles give a 95% interval</p></li>
                     <li><p>For two methods, use the same draws and take the interval of the difference. If it includes 0, the kept apart set cannot tell them apart</p></li>
@@ -95,7 +95,7 @@
     </div>
 </div>
 
-## Right and Wrong Counts
+## Evaluation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -126,8 +126,8 @@ def f1_interval(y, pred_a, pred_b=None, n_resamples=N_RESAMPLES, seed=SEED):
         values.append(v)
     return np.percentile(values, [2.5, 97.5])
 
-# f1_interval(y_test, pred)             one method
-# f1_interval(y_test, pred_b, pred_a)   b minus a on the same rows
+# f1_interval(y_test, pred)            one method
+# f1_interval(y_test, pred_b, pred_a)  b minus a, same rows
 ```
 
             </div>
@@ -135,17 +135,17 @@ def f1_interval(y, pred_a, pred_b=None, n_resamples=N_RESAMPLES, seed=SEED):
     </div>
 </div>
 
-## Right and Wrong Counts
+## Evaluation
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 35%">
-                <p><b>Python</b></p>
+                <p><b>Python: the counts</b></p>
                 <p>The four counts and the three scores.</p>
                 <ul>
-                    <li>The same function for every method.</li>
-                    <li>Then read three wrong items per method by hand.</li>
+                    <li>The same function for every method</li>
+                    <li>Then read three wrong items per method by hand</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 65%">
@@ -161,38 +161,7 @@ def counts_of(y, pred):
     return {"TP": tp, "FP": fp, "FN": fn, "TN": tn,
             "precision": p, "recall": r, "F1": f1}
 
-pred_majority = [0] * len(y_test)   # the baseline: always the larger class, here 0
-```
-
-            </div>
-        </div>
-    </div>
-</div>
-
-## Right and Wrong Counts
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 30%">
-                <p><b>Five folds on the training rows</b></p>
-                <p>Any preparation learned from data sits inside the model, so each fold learns it again.</p>
-                <ul>
-                    <li>Every training row is predicted once.</li>
-                    <li>Shown next to the kept apart counts.</li>
-                </ul>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 70%">
-
-```python
-from sklearn.model_selection import StratifiedKFold, cross_val_predict
-from sklearn.metrics import accuracy_score, f1_score
-
-folds = StratifiedKFold(n_splits=5, shuffle=True, random_state=SEED)
-
-# model: the method with its preparation inside it
-# train_inputs: the training rows before any learned preparation
-# pred_cv = cross_val_predict(model, train_inputs, y_train, cv=folds)
+pred_majority = [0] * len(y_test)   # always the larger class
 ```
 
             </div>

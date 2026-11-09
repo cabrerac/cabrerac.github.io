@@ -5,29 +5,14 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <p><b>Logistic regression</b> turns a weighted sum of an item's attributes into the probability that the item belongs to a class.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Logistic Regression
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 55%">
-                <p><b>A probability from a weighted sum</b> <a href="https://doi.org/10.1111/j.2517-6161.1958.tb00292.x" target="_blank" rel="noopener noreferrer">(Cox, 1958)</a></p>
+                <p><b>From Lecture 4</b></p>
+                <p>Logistic regression turns a weighted sum of an item's attributes into the probability of a class.</p>
                 <p>$$P(y = 1 \mid \mathbf{x}) = \sigma(\mathbf{w} \cdot \mathbf{x} + b)$$</p>
-                <p>$$\sigma(z) = \frac{1}{1 + e^{-z}}$$</p>
-                <ul>
-                    <li><p>One weight per column</p></li>
-                    <li><p>Predict 1 when the probability is at least 0.5</p></li>
-                </ul>
+                <p>Here $\mathbf{x}$ is a row of attributes, not of words. The same log loss, penalty $C$, and balanced class weights apply.</p>
             </div>
-            <div class="column vertical-middle text-center" style="width: 45%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/logistic-curve.svg" alt="The logistic curve" style="height: 300px">
+            <div class="column vertical-middle text-left" style="width: 45%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/logistic-curve.svg" alt="Logistic curve" style="height: 360px">
                 <div class="footnote">Logistic-curve - Qef, Public domain, via Wikimedia Commons</div>
             </div>
         </div>
@@ -39,86 +24,81 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Log loss</b></p>
-                <p>$$\mathcal{L}(\mathbf{w}, b) = -\sum_{i=1}^{n} \left[ y_i \log p_i + (1 - y_i) \log (1 - p_i) \right]$$</p>
-                <p>$p_i$ is the predicted probability for item $i$.</p>
-                <p>A confident wrong answer costs a lot.</p>
-                <p>The weights are found by minimising the loss.</p>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Preparation: scaling</b></p>
+                <p>$$z = \frac{x - \mu}{\sigma}$$</p>
+                <p>$x$ is one value of a column. $\mu$ and $\sigma$ are the mean and the standard deviation of that column on the training rows. The numerator centres the value and the denominator puts every column on the same scale, so the penalty treats the weights alike.</p>
             </div>
-        </div>
-    </div>
-</div>
-
-## Logistic Regression
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>L2 penalty and class weights</b></p>
-                <p>$$\min_{\mathbf{w}, b} \ \frac{1}{2} \lVert \mathbf{w} \rVert^2 + C \sum_{i} s_{y_i} \, \ell_i$$</p>
-                <p>With many columns, weights can grow to fit noise.</p>
-                <p>The penalty keeps them small, a larger $C$ means a weaker penalty.</p>
-                <p>$s_y = n / (2\, n_y)$ gives the rare class the same total weight.</p>
-                <p>Without it, a model can do well by saying no to everything.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Logistic Regression
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 35%">
-                <p><b>Python</b></p>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Preparation: categories and missing values</b></p>
                 <ul>
-                    <li>Balanced class weights</li>
-                    <li>The penalty is a setting, fixed before looking at the test set</li>
-                    <li>Predict on the test rows</li>
+                    <li><b>One-hot:</b> one column per category, 1 for the item's category and 0 for the others. Never 1, 2, 3, which invents an order</li>
+                    <li><b>Missing number:</b> the median of the training rows, plus a flag column that is 1 when the value was missing</li>
+                    <li><b>Missing category:</b> the most frequent one, plus the same flag</li>
                 </ul>
             </div>
-            <div class="column vertical-middle text-left" style="width: 65%">
+        </div>
+    </div>
+</div>
 
-```python
-from sklearn.linear_model import LogisticRegression
+## Logistic Regression
 
-lr = LogisticRegression(class_weight="balanced", C=C_REG,
-                        max_iter=1000)
-lr.fit(X_train, y_train)
-pred_lr = lr.predict(X_test)
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <ul>
+                    <li>A column with mean 50 and standard deviation 10</li>
+                    <li>A value of 65</li>
+                    <li>A colour column with red, blue, and green</li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>$$z = \frac{65 - 50}{10} = 1.5$$</p>
+                <p>65 is one and a half standard deviations above the mean. Red becomes three columns, 1, 0, 0. A missing value of the first column becomes its median, with the flag set to 1. All of it is learned on the training rows, then reused on the rows kept apart.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Logistic Regression
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 47.5%">
+
+```text
+split the labelled rows, before any fit
+on the training rows only
+    learn medians, means, scales, and categories
+    learn one weight per prepared column
+on the rows kept apart
+    the same preparation
+    yes when the probability is at least 0.5
 ```
 
             </div>
-        </div>
-    </div>
-</div>
-
-## Logistic Regression
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 35%">
-                <p><b>Reading the weights</b></p>
-                <ul>
-                    <li>Each column has one weight</li>
-                    <li>Positive pushes towards 1</li>
-                    <li>Negative pushes towards 0</li>
-                    <li>A strange column near the top is worth a look</li>
-                </ul>
+            <div class="column vertical-middle text-left" style="width: 5%">
             </div>
-            <div class="column vertical-middle text-left" style="width: 65%">
+            <div class="column vertical-middle text-left" style="width: 47.5%">
 
 ```python
-import pandas as pd
+from sklearn.compose import ColumnTransformer
+from sklearn.impute import SimpleImputer
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
-# feature_names: one name per column of X_train
-weights = pd.Series(lr.coef_[0], index=feature_names)
-print(weights.nlargest(15))    # push towards 1
-print(weights.nsmallest(15))   # push towards 0
+numbers = make_pipeline(SimpleImputer(strategy="median",
+                        add_indicator=True), StandardScaler())
+categories = make_pipeline(SimpleImputer(strategy="most_frequent"),
+                           OneHotEncoder(handle_unknown="ignore"))
+prepare = ColumnTransformer([("num", numbers, NUMBER_COLUMNS),
+                             ("cat", categories, CATEGORY_COLUMNS)])
+logistic = make_pipeline(prepare, LogisticRegression(
+    class_weight="balanced", max_iter=1000))
+predictions = logistic.fit(X_train, y_train).predict(X_test)
 ```
 
             </div>

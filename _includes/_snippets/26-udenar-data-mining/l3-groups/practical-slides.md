@@ -7,6 +7,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>The <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l3-groups.ipynb" target="_blank">Lecture 3 notebook</a> follows CRISP-DM</b></p>
+                <p>The notebook runs this task on texts. Each text is one vector of word counts.</p>
                 <ul>
                     <li><b>Part 1, Business understanding:</b> the question description and the patterns from Lecture 2</li>
                     <li><b>Part 2, Data understanding:</b> the papers with a useful abstract</li>

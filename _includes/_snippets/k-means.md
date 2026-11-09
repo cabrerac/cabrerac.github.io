@@ -21,13 +21,13 @@
                 <p><b>The idea</b></p>
                 <ul>
                     <li><p>Choose $k$, the number of groups</p></li>
-                    <li>Each group has a centre</li>
-                    <li>Each item goes to its closest centre</li>
-                    <li>Move the centres, repeat</li>
+                    <li><p>Each group has a centre</p></li>
+                    <li><p>Each item goes to its closest centre</p></li>
+                    <li><p>Move the centres, and repeat</p></li>
                 </ul>
             </div>
-            <div class="column vertical-middle text-center" style="width: 55%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/k-means-convergence.gif" alt="k-means moving its centres" style="height: 400px">
+            <div class="column vertical-middle text-left" style="width: 55%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/k-means-convergence.gif" alt="k-means moving its centres" style="height: 360px">
                 <div class="footnote">K-means convergence - Chire, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
         </div>
@@ -39,12 +39,16 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>What k-means minimises</b></p>
-                <p>$$J = \sum_{j=1}^{k} \sum_{i \in C_j} \lVert \mathbf{x}_i - \boldsymbol{\mu}_j \rVert^2$$</p>
-                <p>$C_j$ is the set of items in group $j$.</p>
-                <p>$\boldsymbol{\mu}_j$ is the mean of those items.</p>
-                <p>Small $J$ means items sit near their centre.</p>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Preparation: each item scaled to length 1</b></p>
+                <p>$$\hat{\mathbf{x}} = \frac{\mathbf{x}}{\lVert \mathbf{x} \rVert}$$</p>
+                <p>$\mathbf{x}$ is the vector of one item, one number per attribute. $\lVert \mathbf{x} \rVert$ is its length, the square root of the sum of its squared values. After the division, every item has length 1.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>A long text has big counts and a short one small counts. After scaling, only the mix of attributes matters.</p>
+                <br>
+                <p>$$\cos(\mathbf{x}, \mathbf{y}) = \frac{\mathbf{x} \cdot \mathbf{y}}{\lVert \mathbf{x} \rVert \, \lVert \mathbf{y} \rVert}$$</p>
+                <p>The numerator adds the products of matching attributes. The denominator is the product of the two lengths. For scaled items, $\lVert \hat{\mathbf{x}} - \hat{\mathbf{y}} \rVert^2 = 2\,(1 - \cos)$, so plain distance follows cosine.</p>
             </div>
         </div>
     </div>
@@ -55,18 +59,22 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Lloyd steps</b> <a href="https://doi.org/10.1109/TIT.1982.1056489" target="_blank" rel="noopener noreferrer">(Lloyd, 1982)</a></p>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>k-means looks for the centres that make the items closest to them.</p>
+                <br>
+                <p>$$J = \sum_{j=1}^{k} \sum_{i \in C_j} \lVert \mathbf{x}_i - \boldsymbol{\mu}_j \rVert^2$$</p>
+                <br>
+                <p>The outer sum runs over the $k$ groups. The inner sum runs over the items of one group. $C_j$ is the set of items in group $j$. $\boldsymbol{\mu}_j$ is the mean of those items, the centre. Each term is the squared distance from an item to its centre.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Lloyd steps <a href="https://doi.org/10.1109/TIT.1982.1056489" target="_blank" rel="noopener noreferrer">(Lloyd, 1982)</a></b></p>
                 <ol>
                     <li><p>Place $k$ centres</p></li>
                     <li>Assign each item to the closest centre</li>
                     <li>Move each centre to the mean of its items</li>
                     <li>Repeat 2 and 3 until nothing changes</li>
                 </ol>
-                <p><b>k-means++</b> <a href="https://dl.acm.org/doi/10.5555/1283383.1283494" target="_blank" rel="noopener noreferrer">(Arthur &amp; Vassilvitskii, 2007)</a></p>
-                <p>Pick the first centre at random.</p>
-                <p>Pick each next one far from those already picked.</p>
-                <p>Run several starts and keep the lowest $J$.</p>
+                <p><b>k-means++</b> picks each next starting centre far from those already picked <a href="https://dl.acm.org/doi/10.5555/1283383.1283494" target="_blank" rel="noopener noreferrer">(Arthur &amp; Vassilvitskii, 2007)</a>.</p>
             </div>
         </div>
     </div>
@@ -77,15 +85,19 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Silhouette</b> <a href="https://doi.org/10.1016/0377-0427(87)90125-7" target="_blank" rel="noopener noreferrer">(Rousseeuw, 1987)</a></p>
-                <p>$$s(i) = \frac{b(i) - a(i)}{\max\{a(i),\, b(i)\}}$$</p>
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <ul>
-                    <li><p>$a(i)$ is the mean distance to items in its own group</p></li>
-                    <li><p>$b(i)$ is the mean distance to items in the nearest other group</p></li>
-                    <li><p>Close to 1, well placed. Close to 0, on a border. Below 0, likely in the wrong group</p></li>
-                    <li><p>The score of a result is the mean over all items</p></li>
+                    <li>Five items on one attribute</li>
+                    <li>A = 1, B = 2, C = 3, D = 8, E = 9</li>
+                    <li><p>$k = 2$, starting centres at 1 and 9</p></li>
                 </ul>
+                <br>
+                <p>A, B and C are closer to 1. D and E are closer to 9. The centres move to the means, 2 and 8.5. Assigning again changes nothing, so the steps stop.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>$$J = (1-2)^2 + 0^2 + (3-2)^2 + (8-8.5)^2 + (9-8.5)^2 = 2.5$$</p>
+                <br>
+                <p>Each term is the squared distance of one item to its centre. The first three terms are the group around 2, the last two the group around 8.5. Any other split of these five items into two groups gives a larger $J$.</p>
             </div>
         </div>
     </div>
@@ -99,15 +111,14 @@
             <div class="column vertical-middle text-left" style="width: 55%">
                 <p><b>Choosing k</b></p>
                 <ul>
-                    <li><p>Run k-means for a short range of $k$</p></li>
-                    <li>Compute the silhouette for each one</li>
-                    <li><p>A clear peak suggests a natural $k$</p></li>
-                    <li><p>A flat, low line means there is no natural $k$</p></li>
-                    <li><p>Then $k$ is chosen for the use, and we say so</p></li>
+                    <li><p>A short range of $k$, set before the results</p></li>
+                    <li><p>One run of k-means for each $k$</p></li>
+                    <li><p>$J$ always falls as $k$ grows, so $J$ alone cannot choose</p></li>
+                    <li><p>Evaluation compares the values of $k$ with the silhouette. When none stands out, $k$ is chosen for the use, and we say so</p></li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 45%">
-                <img src="{{ site.url }}/assets/media/images/k-means-convergence.gif" alt="k-means convergence" style="height: 320px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/k-means-convergence.gif" alt="k-means moving its centres" style="height: 360px">
                 <div class="footnote">K-means convergence - Chire, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
         </div>
@@ -121,15 +132,15 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Limits</b></p>
-                <p>Groups come out round and of similar spread.</p>
                 <ul>
-                    <li>Every item is forced into a group.</li>
-                    <li>A different start can give different groups.</li>
-                    <li>The number of groups is ours, not the data's.</li>
+                    <li>Groups come out round and of similar spread</li>
+                    <li>Every item is forced into a group</li>
+                    <li>Another start can give other groups</li>
+                    <li>The number of groups is ours, not the data's</li>
                 </ul>
             </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/k-means-versus-k-medoids.png" alt="k-means on groups that are not round" style="height: 380px">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/k-means-versus-k-medoids.png" alt="k-means on groups that are not round" style="height: 360px">
                 <div class="footnote">K-means versus k-medoids - Agor153, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
             </div>
         </div>
@@ -141,58 +152,35 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 35%">
-                <p><b>Python</b></p>
-                <ul>
-                    <li><p>One run per $k$ in the range</p></li>
-                    <li>Silhouette with cosine</li>
-                    <li>Fixed seed so the run repeats</li>
-                </ul>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 65%">
+            <div class="column vertical-middle text-left" style="width: 47.5%">
 
-```python
-from sklearn.cluster import KMeans
-from sklearn.metrics import silhouette_score
-
-silhouettes = {}
-for k in K_CANDIDATES:
-    km = KMeans(n_clusters=k, n_init=10, random_state=SEED).fit(X)
-    silhouettes[k] = silhouette_score(X, km.labels_, metric="cosine")
-print({k: round(s, 3) for k, s in silhouettes.items()})
-K_CHOSEN = max(silhouettes, key=silhouettes.get)   # or a k chosen for the use
+```text
+scale each item to length 1
+for each k in the range set before the results
+    place k centres with k-means++
+    repeat
+        assign each item to its closest centre
+        move each centre to the mean of its items
+    until nothing changes
+    keep the run of this k for Evaluation
 ```
 
             </div>
-        </div>
-    </div>
-</div>
-
-## k-means
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 35%">
-                <p><b>Reading a group</b></p>
-                <p>The centre weights each word.</p>
-                <ul>
-                    <li>Its top words name the group.</li>
-                    <li>Size next to the words.</li>
-                </ul>
+            <div class="column vertical-middle text-left" style="width: 5%">
             </div>
-            <div class="column vertical-middle text-left" style="width: 65%">
+            <div class="column vertical-middle text-left" style="width: 47.5%">
 
 ```python
-vocabulary = vectorizer.get_feature_names_out()
-kmeans = KMeans(n_clusters=K_CHOSEN, n_init=10, random_state=SEED).fit(X)
-kmeans_labels = kmeans.labels_
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import normalize
 
-def top_words(weights, vocabulary, n=TOP_WORDS):
-    return [str(vocabulary[j]) for j in np.argsort(weights)[::-1][:n]]
+def kmeans_range(X, ks, seed):
+    X = normalize(X)
+    return {k: KMeans(n_clusters=k, n_init=10,
+                      random_state=seed).fit(X)
+            for k in ks}
 
-kmeans_words = {g: top_words(centre, vocabulary)
-                for g, centre in enumerate(kmeans.cluster_centers_)}
+models = kmeans_range(X, range(2, 9), seed=0)
 ```
 
             </div>

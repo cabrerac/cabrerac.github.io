@@ -26,7 +26,7 @@ print(f"Dijo {said.tolist()}, era {y_te.tolist()}. Aciertos: {int((said == y_te)
 
 ## Instrucciones
 
-Seguimos con el equipo interno de la secretaría de salud y sus artículos sobre nutrición. El equipo debe decidir **qué artículos tiene que leer** un colega que llega al equipo. Con los cuatro resultados de las Lecciones 2 a 5, 69 artículos quedaron en vista.
+Seguimos con el equipo interno de la secretaría de salud y sus artículos sobre nutrición. El equipo debe decidir **qué artículos tiene que leer** un colega que llega al equipo. Con los cuatro resultados de las Lecciones 2 a 5, 66 artículos quedaron en vista.
 
 Hasta ahora cada resultado salió de los datos mismos. Ahora alguien nos da una etiqueta. Por años, los programas que clasificaban seguían reglas escritas a mano. Después se pasó a aprender la regla desde ejemplos etiquetados (LeCun, Bengio y Hinton, 2015). Hoy sumamos el último resultado: **predecir una etiqueta dada**. La etiqueta es `internacional`: autores de al menos dos países (`n_countries >= 2`).
 
@@ -155,7 +155,7 @@ def min_positives(n: int) -> int:
     return max(POSITIVES_MIN, math.ceil(POSITIVE_SHARE * n))
 
 
-print(f"Etiqueta: {LABEL}. Una capa oculta de {HIDDEN_UNITS} unidades, {N_TREES} árboles")
+print(f"Etiqueta: {LABEL} (n_countries >= 2). Una capa oculta de {HIDDEN_UNITS} unidades con penalización {PENALTY}, {N_TREES} árboles")
 ```
 
 ### Paso 3. La fuga de la respuesta
@@ -291,7 +291,7 @@ def read_or_empty(path, columns):
 
 groups_l3 = read_or_empty(OUTPUTS_DIR / "grupos_l3.csv", ["title", "has_pattern", "read_group"])
 text_l4 = read_or_empty(OUTPUTS_DIR / "texto_l4.csv", ["title", "tfidf_lr"])
-graph_l5 = read_or_empty(OUTPUTS_DIR / "grafo_l5.csv", ["title", "grado", "intermediacion", "alerta_centro", "supports"])
+graph_l5 = read_or_empty(OUTPUTS_DIR / "grafo_l5.csv", ["title", "grado", "pagerank", "alerta_centro", "supports"])
 
 week2 = pd.DataFrame({
     "title": groups_l3["title"],
@@ -305,9 +305,9 @@ table.index.name = "title"   # table: una fila por artículo, el título es el �
 
 graph_l5 = graph_l5.set_index("title").reindex(titles)
 linked = graph_l5["grado"].fillna(0).astype(int) > 0
-between = graph_l5["intermediacion"].astype(float)
-cut = np.sort(between[linked].to_numpy())[int(0.75 * linked.sum())] if linked.any() else np.inf
-table["graph_support"] = linked & (between >= cut) & (graph_l5["alerta_centro"].astype(str) != "True")
+rank_l5 = graph_l5["pagerank"].astype(float)
+cut = np.sort(rank_l5[linked].to_numpy())[int(0.75 * linked.sum())] if linked.any() else np.inf
+table["graph_support"] = linked & (rank_l5 >= cut) & (graph_l5["alerta_centro"].astype(str) != "True")
 print(table.sum().to_dict())
 ```
 
@@ -322,7 +322,7 @@ assert (table[SUPPORT_COLUMNS].astype(int).sum(axis=1) == graph_l5["supports"].f
 print(f"Cuatro resultados, iguales a los de grafo_l5.csv: OK ({(table.astype(int).sum(axis=1) >= MIN_SUPPORTS).sum()} en vista)")
 ```
 
-**Lo que vemos.** Con cuatro resultados hay 69 artículos en vista, los mismos de la Lección 5.
+**Lo que vemos.** Con cuatro resultados hay 66 artículos en vista, los mismos de la Lección 5.
 
 ---
 
@@ -760,7 +760,7 @@ En este paso medimos si la etiqueta repite el texto de la Lección 4, con phi en
 ```python
 phi = np.corrcoef(y, table.loc[labelled.index, "text_says_read"].astype(int))[0, 1]
 one_support = abs(phi) >= 0.30
-print(f"phi entre la etiqueta y el texto de la L4: {phi:.2f}. {'Un solo resultado' if one_support else 'Dos resultados separados'}")
+print(f"phi entre la etiqueta y el texto de la L4: {phi:.2f} (límite 0.30). {'Un solo resultado' if one_support else 'Dos resultados separados'}")
 ```
 
 **Lo que vemos.** phi es casi 0, así que el texto y la predicción cuentan por separado.
@@ -805,7 +805,7 @@ assert set(drop_one) == set(SUPPORT_COLUMNS)
 print("Lista inicial y sensibilidad: OK")
 ```
 
-**Lo que vemos.** Hay 98 artículos en vista, 29 más que con cuatro. Sin la predicción salen 29 y sin el patrón salen 35.
+**Lo que vemos.** Hay 97 artículos en vista, 31 más que con cuatro. Sin la predicción salen 31 y sin el patrón salen 32.
 
 ### Paso 5. Una lista que se pueda leer
 En este paso recortamos la lista con la regla de la Lección 4: el máximo `standard["max_papers"]`, ordenando por resultados a favor, `prob_texto` y título. El resto queda con `recortado = True`.
@@ -837,7 +837,7 @@ assert starter_list["supports"].is_monotonic_decreasing
 print("Lista recortada: OK")
 ```
 
-**Lo que vemos.** De 98 en vista se leen 30 y quedan 68 recortados, que siguen en el archivo.
+**Lo que vemos.** De 97 en vista se leen 30 y quedan 67 recortados, que siguen en el archivo.
 
 **Lo que aprendemos aquí.** La lista crece mucho con la predicción, porque el 53% se predice internacional. Ser internacional no es una razón para leer. La lista inicial es un punto de partida.
 

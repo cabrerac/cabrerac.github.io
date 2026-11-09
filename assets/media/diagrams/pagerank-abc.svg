@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- PageRank on a small graph: A cites B, and B and C cite each other. Node area follows PageRank with d = 0.85. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20 90 620 220" width="620" height="220">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#224466"/>
+    </marker>
+    <style type="text/css"><![CDATA[
+      .edge { stroke:#224466; stroke-width:3; fill:none; marker-end:url(#arrow); }
+      .low { fill:#f6f8fa; stroke:#224466; stroke-width:2; }
+      .high { fill:#0e73b8; stroke:#224466; stroke-width:2; }
+      .lbl-dark { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:26px; font-weight:600; fill:#224466; text-anchor:middle; dominant-baseline:middle; }
+      .lbl-light { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:30px; font-weight:600; fill:#ffffff; text-anchor:middle; dominant-baseline:middle; }
+      .note { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:18px; fill:#224466; text-anchor:middle; }
+    ]]></style>
+  </defs>
+  <!-- A to B -->
+  <path class="edge" d="M 112 200 L 246 200"/>
+  <!-- B to C, upper arc -->
+  <path class="edge" d="M 372 154 Q 432 100 488 152"/>
+  <!-- C to B, lower arc -->
+  <path class="edge" d="M 492 246 Q 432 300 374 246"/>
+  <circle cx="80" cy="200" r="30" class="low"/>
+  <text x="80" y="201" class="lbl-dark">A</text>
+  <circle cx="318" cy="200" r="70" class="high"/>
+  <text x="318" y="201" class="lbl-light">B</text>
+  <circle cx="545" cy="200" r="68" class="high"/>
+  <text x="545" y="201" class="lbl-light">C</text>
+</svg>

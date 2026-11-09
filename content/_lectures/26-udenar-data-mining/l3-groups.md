@@ -2,16 +2,12 @@
 author: Christian Cabrera Jojoa
 course_code: 26-udenar-data-mining
 department: Department of Computer Science and Technology
-description: Lecture 3 introduces groups of similar items. The data are items for
-  which similarity can be stated. We give a short history of grouping, then three
-  methods, each with its own data preparation. The basic method is k-means, prepared
-  as scaled vectors. The intermediate method is a Gaussian mixture, prepared as those
-  vectors reduced to a few dimensions. The advanced method is HDBSCAN, prepared as
-  distances on the same vectors. The points it leaves out are the items that fit no
-  group. Each method is taught with its mathematics, its preparation, and a Python
-  implementation. We state what a group means for a decision. The lecture closes by
-  adding this result to the pattern result. Each item shows how many results support
-  it, and we state what would change its place on the list.
+description: Lecture 3 is the grouping task. The question is which items are similar
+  enough to share a group, and which fit no group. Customers, patients, and texts
+  described by the same attributes can feed the task. We explore three methods for
+  this task. k-means, Gaussian mixtures, and HDBSCAN. For each method we go through
+  its theory, implementation and evaluation. We end with what deploying a group means
+  and its limits.
 email: chc79@cam.ac.uk
 end_time: 01:00 pm
 group_notebook: week-2-group
