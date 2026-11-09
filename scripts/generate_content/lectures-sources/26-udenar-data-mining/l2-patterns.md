@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-data-mining
-title: Repeating patterns and baselines
-description: Lecture 2 is the pattern task. The question is which sets of items repeat together more often than chance. Transactions, event sets, and texts as bags of words can feed the task. Three methods are taught in general terms. Support, lift, and closeness of item vectors. Each method has its theory, its preparation, and a count. A pair is kept when it passes a support floor and beats a baseline. The methods can disagree. The lecture closes by stating how a kept pattern will be used in the later decision.
+title: Repeating patterns
+description: Lecture 2 is the pattern task. The question is which sets of items repeat together more often than chance. Transactions, event sets, and texts as bags of words can feed the task. We explore three methods for this task. Support, lift, and closeness of item vectors. For each method we go through its theory, implementation, evaluation and use.
 session: 2
 start_time: 07:00 am
 end_time: 01:00 pm
@@ -38,27 +38,9 @@ notebook_description: Práctica individual de la Lección 2. Encontrar patrones 
 
 {% include _snippets/pattern-mining.md %}
 
-<!-- SLIDES: -->
-
-# Support
-
-<!-- end SLIDES: -->
-
 {% include _snippets/frequent-itemsets.md %}
 
-<!-- SLIDES: -->
-
-# Lift
-
-<!-- end SLIDES: -->
-
 {% include _snippets/lift.md %}
-
-<!-- SLIDES: -->
-
-# Item Vectors
-
-<!-- end SLIDES: -->
 
 {% include _snippets/word-embeddings.md %}
 
@@ -80,13 +62,20 @@ notebook_description: Práctica individual de la Lección 2. Encontrar patrones 
 
 <!-- SLIDES: -->
 
-# Use
+## Evaluation
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <p><b>What would we do with this pattern?</b></p>
+                <p>We come back to this in Deployment, at the end of the course.</p>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- end SLIDES: -->
-
-{% include _snippets/pattern-to-decision.md %}
-
-{% include _snippets/26-udenar-data-mining/l2-patterns/decision-use.md %}
 
 <!-- SLIDES: -->
 
@@ -97,8 +86,6 @@ notebook_description: Práctica individual de la Lección 2. Encontrar patrones 
 {% include _snippets/26-udenar-data-mining/l2-patterns/conclusions.md %}
 
 {% include _snippets/26-udenar-data-mining/l2-patterns/practical-slides.md %}
-
-{% include _snippets/26-udenar-data-mining/l2-patterns/week1-deliverables.md %}
 
 {% include _snippets/26-udenar-data-mining/l2-patterns/resources.md %}
 {% include _snippets/26-udenar-data-mining/l2-patterns/practical.md %}

@@ -43,13 +43,25 @@
     </div>
 </div>
 
-## Data for this Task
+# The Data
+
+## The Data
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Transactions that can feed the task</b></p>
+            <div class="column vertical-middle text-left" style="width: 55%">
+                <p><b>A set of transactions</b></p>
+                <p>The data is many transactions over one shared pool of items.</p>
+                <ul>
+                    <li><b>Transaction:</b> one record, the items that occurred together</li>
+                    <li><b>Item:</b> a member of that pool, present or absent in a transaction</li>
+                    <li><b>Co-occurrence:</b> two items co-occur when one transaction contains both</li>
+                </ul>
+                <p>A repeated item inside one transaction counts once. A pattern is a set that co-occurs in many transactions.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 45%">
+                <p><b>Examples</b></p>
                 <table class="table">
                     <thead>
                         <tr><th>Data</th><th>One transaction</th><th>Items</th></tr>
@@ -60,19 +72,30 @@
                         <tr><td>Texts</td><td>one text</td><td>its distinct words</td></tr>
                     </tbody>
                 </table>
-                <p>A transaction is a set of items. A repeated item counts once.</p>
             </div>
         </div>
     </div>
 </div>
 
+# Modeling
+
 ## Methods
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 70%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/pattern-task-taxonomy.svg" alt="Taxonomy of pattern methods" style="width: 100%; height: 460px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/pattern-task-taxonomy.svg" alt="Taxonomy of pattern methods" style="width: 100%; height: 100%">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 30%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
+                <p><b>Frequent itemsets:</b> sets that occur in many transactions, found by counting.</p>
+                <p><b>Interestingness:</b> a score that compares a count with chance.</p>
+                <p><b>Sequential patterns:</b> patterns that keep the order of the items.</p>
+                <p><b>Item vectors:</b> one vector per item, so closeness is a score.</p>
             </div>
         </div>
     </div>
@@ -83,14 +106,17 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>The three methods</b></p>
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <ul>
-                    <li><b>Support:</b> a count inside this collection. You write this count</li>
+                    <li><b>Support:</b> a count inside this collection.</li>
                     <li><b>Lift:</b> that count against what chance would give</li>
                     <li><b>Item-vector closeness:</b> a score learned outside this collection</li>
                 </ul>
-                <p>The same three apply to products, to codes, and to words.</p>
+                <p>These apply to different data sources (e.g., products, codes, words, etc).</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/supermarket-checkout.jpg" alt="Supermarket checkout" style="height: 400px">
+                <div class="footnote">Supermarket checkout Tegut Tauberbischofsheim - Triplec85, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
             </div>
         </div>
     </div>

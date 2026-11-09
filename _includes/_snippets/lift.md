@@ -3,6 +3,28 @@
 ## Lift
 
 <div class="rows" style="height: 100%">
+    <div class="row" style="height: 70%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/pattern-task-taxonomy.svg" alt="Taxonomy of pattern methods" style="width: 100%; height: 100%">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 30%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
+                <p><b>Frequent itemsets:</b> sets that occur in many transactions, found by counting.</p>
+                <p><b>Interestingness:</b> a score that compares a count with chance.</p>
+                <p><b>Sequential patterns:</b> patterns that keep the order of the items.</p>
+                <p><b>Item vectors:</b> one vector per item, so closeness is a score.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Lift
+
+<div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
@@ -17,14 +39,18 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Support favours common items</b></p>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>Support favours common items.</p>
                 <p>If A is in half the transactions and B is in half the transactions.</p>
                 <ul>
                     <li>They meet in about a quarter of the transactions by chance alone</li>
                     <li>A high support can mean nothing more than two common items</li>
                     <li>Compare a pair with what chance would give</li>
                 </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/frequent-itemsets-lattice.png" alt="Itemset lattice" style="height: 360px">
+                <div class="footnote">FrequentItems - Xodarap00, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
@@ -35,11 +61,16 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Confidence, and why we skip it</b></p>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>Confidence is the share of transactions with A that also contain B.</p>
+                <br>
                 <p>$$\text{conf}(A \Rightarrow B) = \frac{\text{support}(A \cup B)}{\text{support}(A)}$$</p>
-                <p>The share of transactions with A that also contain B.</p>
-                <p>It ignores how common B is. If most transactions contain B, a rule toward B looks strong even when the items are unrelated <a href="https://doi.org/10.1145/253262.253325" target="_blank" rel="noopener noreferrer">(Brin et al., 1997)</a>.</p>
+                <br>
+                <p>The numerator is the transactions with both items. The denominator is the transactions with A. How often B appears on its own is not in the formula.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>If most transactions contain B, a rule toward B looks strong even when the items are unrelated <a href="https://doi.org/10.1145/253262.253325" target="_blank" rel="noopener noreferrer">(Brin et al., 1997)</a>.</p>
+                <br>
                 <p>Lift divides by what independence predicts.</p>
                 <br>
                 <p>"It has the flaw that it ignores P(B)." <a href="https://doi.org/10.1145/253262.253325" target="_blank" rel="noopener noreferrer">(Brin et al., 1997)</a></p>
@@ -54,14 +85,13 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Lift</b> <a href="https://doi.org/10.1145/253262.253325" target="_blank" rel="noopener noreferrer">(Brin et al., 1997)</a></p>
+                <p>Lift divides the observed co-occurrence by the co-occurrence independence would give <a href="https://doi.org/10.1145/253262.253325" target="_blank" rel="noopener noreferrer">(Brin et al., 1997)</a>.</p>
+                <br>
                 <p>$$\text{lift}(A,B) = \frac{P(A,B)}{P(A)\,P(B)} = \frac{n_{AB} \cdot N}{n_A \cdot n_B}$$</p>
-                <p>$n_A$ and $n_B$ are the transactions with each item.</p>
-                <p>$n_{AB}$ is the support of the pair.</p>
-                <p>$N$ is the number of transactions.</p>
+                <br>
+                <p>$n_{AB}$ is the transactions with both items. $n_A$ and $n_B$ are the transactions with each item. $N$ is the number of transactions. The numerator scales the observed count by $N$. The denominator is the count independence would give.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Independence</b></p>
                 <p>If A and B are independent, $P(A,B) = P(A)\,P(B)$.</p>
                 <ul>
                     <li><b>Lift = 1:</b> the pair meets as often as chance</li>
@@ -79,17 +109,18 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>A worked example</b></p>
                 <ul>
-                    <li><p>$N = {300}$ transactions</p></li>
-                    <li><p>$n_A = {60}$ and $n_B = {30}$</p></li>
-                    <li><p>$n_{AB} = {18}$</p></li>
+                    <li>$N = 300$ transactions</li>
+                    <li>$n_A = 60$ and $n_B = 30$</li>
+                    <li>$n_{AB} = 18$</li>
                 </ul>
+                <br>
+                <p>Chance would put them together in $\frac{60 \cdot 30}{300} = 6$ transactions.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>Expected by chance: $\frac{60 \cdot 30}{300} = {6}$</p>
                 <p>$$\text{lift} = \frac{18 \cdot 300}{60 \cdot 30} = 3$$</p>
-                <p>The pair meets three times more often than chance.</p>
+                <br>
+                <p>$18 \cdot 300$ scales the observed count by $N$. $60 \cdot 30$ is the product of the two item counts. 18 is three times the 6 transactions chance would give, so the lift is 3.</p>
             </div>
         </div>
     </div>
@@ -100,11 +131,16 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Rare items inflate lift</b></p>
-                <p>Two items in 2 transactions each, together in both, with $N = {300}$:</p>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>Two items in 2 transactions each, together in both, with $N = 300$.</p>
+                <br>
                 <p>$$\text{lift} = \frac{2 \cdot 300}{2 \cdot 2} = 150$$</p>
-                <p>A huge lift from two transactions. Lift is computed only on pairs that pass the support floor.</p>
+                <br>
+                <p>The pair is perfect, and the items are rare, so the fraction is huge. Lift is computed only on pairs that pass the support floor.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/frequent-itemsets-lattice.png" alt="Itemset lattice" style="height: 360px">
+                <div class="footnote">FrequentItems - Xodarap00, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
@@ -115,24 +151,30 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 35%">
-                <p><b>Python</b></p>
-                <p>Preparation: the pair counts, each item alone, and the number of transactions.</p>
-                <ul>
-                    <li>Only for the pairs at the floor</li>
-                    <li>Support and lift often rank pairs differently <a href="https://doi.org/10.1145/775047.775053" target="_blank" rel="noopener noreferrer">(Tan et al., 2002)</a></li>
-                </ul>
+            <div class="column vertical-middle text-left" style="width: 47.5%">
+
+```text
+for each pair kept by support
+    n_ab = pair_count of that pair
+    n_a = item_count of the first item
+    n_b = item_count of the second item
+    lift = n_ab * N / (n_a * n_b)
+```
+
             </div>
-            <div class="column vertical-middle text-left" style="width: 65%">
+            <div class="column vertical-middle text-left" style="width: 5%">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 47.5%">
 
 ```python
-def compute_lift(pair_support, n_a, n_b, n):
-    return pair_support * n / (n_a * n_b)
+def compute_lift(n_ab, n_a, n_b, n):
+    return n_ab * n / (n_a * n_b)
 
-table["lift"] = [
-    compute_lift(count, item_count[a], item_count[b], n)
-    for a, b, count in zip(table["item_a"], table["item_b"], table["support"])
-]
+lifts = {}
+for (a, b), n_ab in candidates.items():
+    lifts[(a, b)] = compute_lift(
+        n_ab, item_count[a], item_count[b], n
+    )
 ```
 
             </div>
