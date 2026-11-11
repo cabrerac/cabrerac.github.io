@@ -64,16 +64,18 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>What a deployed pattern implies</b></p>
                 <ul>
                     <li><b>Co-occurrence, not cause:</b> A and B together does not mean A leads to B</li>
                     <li><b>Tied to the data:</b> other transactions or another floor give other support and lift</li>
                     <li><b>Goes stale:</b> we re-check counts and the baseline on new transactions</li>
                     <li><b>People:</b> who acts on it, who is affected, and who falls below the floor</li>
+                    <li><b>Training habits:</b> a close pair can reflect the collection the vectors were trained on <a href="https://arxiv.org/abs/1607.06520" target="_blank" rel="noopener noreferrer">(Bolukbasi et al., 2016)</a> <a href="https://doi.org/10.1126/science.aal4230" target="_blank" rel="noopener noreferrer">(Caliskan et al., 2017)</a></li>
                 </ul>
-                <br>
-                <p>Rare items never reach the floor. A deployed pattern says nothing about them.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/context-people.png" alt="People affected by a data system" style="height: 400px">
             </div>
         </div>
     </div>

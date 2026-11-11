@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Show the chance overlap when each item is in half the transactions. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 500" width="760" height="500">
+  <defs>
+    <style type="text/css"><![CDATA[
+      .label { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:22px; font-weight:600; fill:#224466; text-anchor:middle; }
+      .cell { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:20px; font-weight:600; fill:#224466; text-anchor:middle; }
+      .cell-light { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:20px; font-weight:600; fill:#ffffff; text-anchor:middle; }
+      .note { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:18px; fill:#224466; text-anchor:middle; }
+      .frame { fill:none; stroke:#224466; stroke-width:2; }
+    ]]></style>
+  </defs>
+
+  <text x="380" y="36" class="label">Each item is in half the transactions</text>
+
+  <rect x="170" y="70" width="200" height="160" fill="#e8f2fa"/>
+  <rect x="370" y="70" width="200" height="160" fill="#f4f6f8"/>
+  <rect x="170" y="230" width="200" height="160" fill="#0e73b8"/>
+  <rect x="370" y="230" width="200" height="160" fill="#d6e4f0"/>
+  <rect x="170" y="70" width="400" height="320" class="frame"/>
+  <line x1="370" y1="70" x2="370" y2="390" stroke="#224466" stroke-width="2"/>
+  <line x1="170" y1="230" x2="570" y2="230" stroke="#224466" stroke-width="2"/>
+
+  <text x="270" y="155" class="cell">A only</text>
+  <text x="470" y="155" class="cell">neither</text>
+  <text x="270" y="300" class="cell-light">A and B</text>
+  <text x="270" y="332" class="cell-light">about 1/4</text>
+  <text x="470" y="315" class="cell">B only</text>
+
+  <text x="270" y="424" class="label">A</text>
+  <text x="470" y="424" class="label">not A</text>
+  <text x="110" y="160" class="label">not B</text>
+  <text x="110" y="320" class="label">B</text>
+
+  <text x="380" y="470" class="note">The dark cell is what chance would give.</text>
+</svg>

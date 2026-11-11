@@ -49,31 +49,7 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/frequent-itemsets-lattice.png" alt="Itemset lattice" style="height: 360px">
-                <div class="footnote">FrequentItems - Xodarap00, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Lift
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p>Confidence is the share of transactions with A that also contain B.</p>
-                <br>
-                <p>$$\text{conf}(A \Rightarrow B) = \frac{\text{support}(A \cup B)}{\text{support}(A)}$$</p>
-                <br>
-                <p>The numerator is the transactions with both items. The denominator is the transactions with A. How often B appears on its own is not in the formula.</p>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p>If most transactions contain B, a rule toward B looks strong even when the items are unrelated <a href="https://doi.org/10.1145/253262.253325" target="_blank" rel="noopener noreferrer">(Brin et al., 1997)</a>.</p>
-                <br>
-                <p>Lift divides by what independence predicts.</p>
-                <br>
-                <p>"It has the flaw that it ignores P(B)." <a href="https://doi.org/10.1145/253262.253325" target="_blank" rel="noopener noreferrer">(Brin et al., 1997)</a></p>
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/lift-chance-overlap.svg" alt="Chance overlap of two common items" style="height: 360px">
             </div>
         </div>
     </div>
@@ -89,7 +65,10 @@
                 <br>
                 <p>$$\text{lift}(A,B) = \frac{P(A,B)}{P(A)\,P(B)} = \frac{n_{AB} \cdot N}{n_A \cdot n_B}$$</p>
                 <br>
-                <p>$n_{AB}$ is the transactions with both items. $n_A$ and $n_B$ are the transactions with each item. $N$ is the number of transactions. The numerator scales the observed count by $N$. The denominator is the count independence would give.</p>
+                <p>The joint probability is $n_{AB} / N$.</p>
+                <p>Each marginal is a count over $N$ as well, $n_A / N$ and $n_B / N$.</p>
+                <p>Dividing the joint by the product of the marginals leaves $n_{AB} \cdot N$ on top and $n_A \cdot n_B$ below.</p>
+                <p>Confidence, the share of A that also contains B, ignores how common B is. "It has the flaw that it ignores P(B)." <a href="https://doi.org/10.1145/253262.253325" target="_blank" rel="noopener noreferrer">(Brin et al., 1997)</a></p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p>If A and B are independent, $P(A,B) = P(A)\,P(B)$.</p>
@@ -109,38 +88,21 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <ul>
-                    <li>$N = 300$ transactions</li>
-                    <li>$n_A = 60$ and $n_B = 30$</li>
-                    <li>$n_{AB} = 18$</li>
-                </ul>
+                <p>$N = 300$ transactions</p>
+                <p>$n_A = 60$</p>
+                <p>$n_B = 30$</p>
+                <p>$n_{AB} = 18$</p>
                 <br>
                 <p>Chance would put them together in $\frac{60 \cdot 30}{300} = 6$ transactions.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p>$$\text{lift} = \frac{18 \cdot 300}{60 \cdot 30} = 3$$</p>
                 <br>
-                <p>$18 \cdot 300$ scales the observed count by $N$. $60 \cdot 30$ is the product of the two item counts. 18 is three times the 6 transactions chance would give, so the lift is 3.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Lift
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>18 is three times the 6 transactions chance would give, so the lift is 3.</p>
+                <br>
                 <p>Two items in 2 transactions each, together in both, with $N = 300$.</p>
-                <br>
                 <p>$$\text{lift} = \frac{2 \cdot 300}{2 \cdot 2} = 150$$</p>
-                <br>
-                <p>The pair is perfect, and the items are rare, so the fraction is huge. Lift is computed only on pairs that pass the support floor.</p>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/frequent-itemsets-lattice.png" alt="Itemset lattice" style="height: 360px">
-                <div class="footnote">FrequentItems - Xodarap00, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
+                <p>The pair is perfect and the items are rare, so the fraction is huge. Lift is computed only on pairs that pass the support floor.</p>
             </div>
         </div>
     </div>

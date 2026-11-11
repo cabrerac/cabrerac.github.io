@@ -928,6 +928,8 @@ plt.show()
 
 *disease + health* aparece en 84 artículos y su p95 es 80. Pasa por poco y su lift es 1,3. *children + obesity* tiene soporte 11 y p95 8. Por eso leemos primero los de lift alto.
 
+La línea naranja es el percentil 95. El par se conserva solo si el conteo real queda a la derecha.
+
 ### Paso 6. ¿Por qué pasan tantos pares?
 En este paso leemos el número con cuidado. Con más de 16.000 pares, cerca del 5 %, unos 800, pasaría por suerte.
 
@@ -938,6 +940,14 @@ by_luck = round(0.05 * len(candidates))
 print(f"Pares que pasarían solo por suerte: unos {by_luck:,}")
 print(f"Pares conservados: {len(kept):,}, unas {len(kept) / by_luck:.0f} veces lo que daría la suerte")
 table[~table["kept"]].nlargest(5, "support")[["pair", "support", "null_p95", "lift"]]
+
+plt.figure(figsize=(7, 3.5))
+plt.bar(["pasarían por suerte", "conservados"], [by_luck, len(kept)], color=["lightgray", "steelblue"])
+plt.ylabel("Pares en el umbral")
+plt.title(f"{len(candidates):,} pares en el umbral")
+plt.tight_layout()
+plt.savefig(OUTPUTS_DIR / "suerte_y_conservados.png", dpi=120)
+plt.show()
 ```
 
 ### Paso 7. Destacar frente a los otros patrones (M2)
@@ -1015,6 +1025,64 @@ Cómo leer la tabla:
 - **M3** encuentra palabras que se usan igual. Confirma un par de M2.
 - Un par que destaca en M2 **y** es cercano en M3 es el candidato más fuerte.
 
+En este paso dibujamos los tres pares de la diapositiva. *food + nutrition* queda bajo el umbral, así que no entra en `table` y hay que contarlo aparte. Su lift no se lee.
+
+```python
+def focus_cosine(a: str, b: str) -> float:
+    """Devuelve el coseno de dos palabras.
+
+    Usa el vector guardado cuando la palabra está en la tabla.
+    Si no, lee el vector del modelo.
+    Devuelve un valor faltante cuando una palabra no tiene vector.
+    """
+    if a in VECTORS and b in VECTORS:
+        return pair_cosine(a, b)
+    vector_a = nlp.vocab.get_vector(a)
+    vector_b = nlp.vocab.get_vector(b)
+    norm_a = float(np.linalg.norm(vector_a))
+    norm_b = float(np.linalg.norm(vector_b))
+    if norm_a == 0 or norm_b == 0:
+        return float("nan")
+    return float(vector_a @ vector_b / (norm_a * norm_b))
+
+
+focus_pairs = [("diabetes", "obesity"), ("health", "years"), ("food", "nutrition")]
+focus_labels = [f"{a} + {b}" for a, b in focus_pairs]
+focus_papers = []
+focus_lifts = []
+focus_cosines = []
+for a, b in focus_pairs:
+    n_ab = sum(1 for s in word_sets if a in s and b in s)
+    focus_papers.append(n_ab)
+    n_a = word_count.get(a, 0)
+    n_b = word_count.get(b, 0)
+    if n_ab >= FLOOR and n_a and n_b:
+        focus_lifts.append(compute_lift(n_ab, n_a, n_b, N))
+    else:
+        focus_lifts.append(np.nan)
+    focus_cosines.append(focus_cosine(a, b))
+
+fig, axes = plt.subplots(1, 3, figsize=(10.5, 3.4), sharey=True)
+y = np.arange(len(focus_labels))
+axes[0].barh(y, focus_papers, color="steelblue")
+axes[0].axvline(FLOOR, color="gray", linestyle="--", label=f"umbral = {FLOOR}")
+axes[0].set_xlabel("Artículos")
+axes[0].legend(loc="lower right")
+lift_ok = ~np.isnan(focus_lifts)
+axes[1].barh(y[lift_ok], np.array(focus_lifts)[lift_ok], color="darkorange")
+axes[1].axvline(1, color="gray", linestyle="--", label="lift = 1")
+axes[1].set_xlabel("Lift")
+axes[1].legend(loc="lower right")
+axes[2].barh(y, focus_cosines, color="seagreen")
+axes[2].axvline(RANDOM_COSINE_P95, color="gray", linestyle="--", label="percentil 95")
+axes[2].set_xlabel("Coseno")
+axes[2].legend(loc="lower right")
+axes[0].set_yticks(y, focus_labels)
+fig.tight_layout()
+fig.savefig(OUTPUTS_DIR / "comparacion_metodos.png", dpi=120)
+plt.show()
+```
+
 ```python
 top_lift = kept_table.nlargest(15, "lift").iloc[::-1]
 plt.figure(figsize=(7, 5))
@@ -1035,6 +1103,8 @@ En este paso comprobamos la forma de la tabla comparativa y que algún par desta
 ```python
 assert comparison.shape == (TOP, 3)
 assert len(in_all_three) > 0
+assert focus_papers == [19, 81, 9]
+assert np.isnan(focus_lifts[2])
 print("Comparación: OK")
 ```
 
@@ -1126,7 +1196,7 @@ def _check_ok(name, predicate):
 checks = [
     ("pregunta.json con uso de patrones", lambda: "pattern_use" in json.loads(QUESTION_PATH.read_text(encoding="utf-8"))),
     ("outputs/patrones_l2.csv", lambda: patterns_path.is_file()),
-    ("Gráficos de M1, M2 y el par de cerca", lambda: all((OUTPUTS_DIR / f).is_file() for f in ["m1_soporte.png", "m2_lift.png", "nulo_un_par.png"])),
+    ("Gráficos de la evaluación", lambda: all((OUTPUTS_DIR / f).is_file() for f in ["m1_soporte.png", "m2_lift.png", "nulo_un_par.png", "suerte_y_conservados.png", "comparacion_metodos.png"])),
     ("Patrones conservados", lambda: len(kept) > 0),
 ]
 passed = sum(_check_ok(n, f) for n, f in checks)

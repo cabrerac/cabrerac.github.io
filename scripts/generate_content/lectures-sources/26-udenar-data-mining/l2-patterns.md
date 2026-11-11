@@ -50,15 +50,7 @@ notebook_description: Práctica individual de la Lección 2. Encontrar patrones 
 
 <!-- end SLIDES: -->
 
-{% include _snippets/permutation-baseline.md %}
-
-{% include _snippets/multiple-testing.md %}
-
-{% include _snippets/swap-randomization.md %}
-
-{% include _snippets/random-pair-baseline.md %}
-
-{% include _snippets/pattern-methods-comparison.md %}
+{% include _snippets/pattern-evaluation.md %}
 
 <!-- SLIDES: -->
 
@@ -67,8 +59,6 @@ notebook_description: Práctica individual de la Lección 2. Encontrar patrones 
 <!-- end SLIDES: -->
 
 {% include _snippets/pattern-to-decision.md %}
-
-{% include _snippets/26-udenar-data-mining/l2-patterns/decision-use.md %}
 
 <!-- SLIDES: -->
 
