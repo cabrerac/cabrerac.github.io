@@ -53,7 +53,7 @@ Los grupos no miran qué pregunta el equipo. Por años, buscar en textos fue bus
 
 | Parte | Fase CRISP-DM | Qué sale |
 |-------|---------------|----------|
-| 1 | Comprensión del negocio | La pregunta de hoy, los parámetros, el codificador, `pregunta.json` y `outputs/grupos_l3.csv` |
+| 1 | Comprensión del negocio | La pregunta de hoy, los parámetros, el codificador y `outputs/grupos_l3.csv` |
 | 2 | Comprensión de los datos | Los artículos, la etiqueta de entrenamiento y el largo de los resúmenes |
 | 3 | Preparación de los datos | La lista de palabras, el conjunto marcado, TF-IDF y los textos del codificador |
 | 4 | Modelado | Las predicciones de los tres métodos |
@@ -90,7 +90,6 @@ if importlib.util.find_spec("sentence_transformers") is None:
     print("Instalando sentence-transformers (una sola vez por sesión)...")
     subprocess.run([sys.executable, "-m", "pip", "install", "-q", "sentence-transformers"], check=True)
 
-import json          # leer y escribir pregunta.json
 import math          # techo (ceil) para los mínimos
 import re            # partir el texto en palabras
 import time          # medir cuánto tarda cada paso
@@ -296,32 +295,24 @@ def f1_interval(y, pred_a, pred_b=None, n_resamples=N_RESAMPLES, seed=SEED):
 print(f1_interval([1, 1, 0, 0, 1, 0], [1, 0, 0, 0, 1, 1]).round(2))
 ```
 
-### Paso 6. La descripción de la pregunta
-En este paso leemos `pregunta.json`, la descripción de la pregunta. Si `pregunta.json` no está, este cuaderno escribe la descripción del laboratorio para que pueda seguir. Lo nuevo es **qué cuenta como artículo del tema**: dieta, obesidad o las enfermedades que dependen de la dieta.
+### Paso 6. La pregunta
+La pregunta es la de la Lección 1.
+El equipo decide qué artículos de nutrición leer, y qué filtro los puso en la lista.
+La lista tiene entre 10 y 30 artículos.
+Lo nuevo es qué cuenta como artículo del tema: dieta, obesidad o las enfermedades que dependen de la dieta.
 
 ```python
-QUESTION_PATH = Path("pregunta.json")
-
-if QUESTION_PATH.is_file():
-    question_card = json.loads(QUESTION_PATH.read_text(encoding="utf-8"))
-    print("pregunta.json leído de la Lección 3")
-else:
-    question_card = {
-        "question": "¿Qué artículos de nutrición debe leer el equipo para su tema, y qué filtro los puso en la lista?",
-        "standard": {"min_papers": 10, "max_papers": 30, "max_share_citations_only": 0.5},
-        "pattern_use": {"rule": "El equipo explica por qué cada artículo está en la lista y qué resultados lo apoyan. Un artículo puede tener varios, uno o ninguno, si el equipo lo justifica."},
-    }
-    QUESTION_PATH.write_text(json.dumps(question_card, ensure_ascii=False, indent=2), encoding="utf-8")
-    print("pregunta.json no estaba. Escribimos la descripción del laboratorio.")
-print(question_card["question"])
+MIN_PAPERS = 10
+MAX_PAPERS = 30
+print(f"Lista: entre {MIN_PAPERS} y {MAX_PAPERS} artículos")
 ```
 
 **Comprobar:**
 
-En este paso comprobamos que la descripción de la pregunta tiene la pregunta y el estándar.
+En este paso comprobamos el tamaño de la lista.
 
 ```python
-assert {"question", "standard"} <= set(question_card)
+assert MIN_PAPERS < MAX_PAPERS
 print("Pregunta: OK")
 ```
 
@@ -819,12 +810,12 @@ print("Resultados: OK")
 ```
 
 ### Paso 2. El largo de la lista
-En este paso aplicamos el máximo del estándar, `standard["max_papers"]` (30). Ordenamos por resultados a favor, después por `prob_texto` y al final por título.
+En este paso aplicamos el máximo de la lista, 30. Ordenamos por resultados a favor, después por `prob_texto` y al final por título.
 
 Los que no entran siguen en la tabla con `recortado` en verdadero.
 
 ```python
-MAX_PAPERS = question_card["standard"]["max_papers"]   # el máximo de la descripción de la pregunta (Lección 1)
+MAX_PAPERS = 30   # el máximo de la lista, el de la Lección 1
 
 prob_texto = np.zeros(N)
 prob_texto[marked_rows] = lr.predict_proba(X_test)[:, 1]   # marcados: el modelo entrenado sin ellos
@@ -888,20 +879,13 @@ print("texto_l4.csv: OK")
 ```
 
 ### Paso 4. Qué cambiaría la decisión
-En este paso escribimos en la descripción de la pregunta cómo entra el texto y qué lo cambiaría: otra lista de palabras, otras marcas, otra etiqueta, otro umbral que 0,5 u otro máximo de la lista.
+En este paso escribimos cómo entra el texto y qué lo cambiaría.
 
-```python
-question_card["text_use"] = {
-    "how_it_enters": "El resultado del texto cuenta a favor de un artículo si TF-IDF con regresión logística dice leer, con un modelo que no lo vio.",
-    "marks": MARKS_SOURCE,
-    "reading": "TF-IDF y el codificador no se distinguen con este conjunto marcado: el intervalo de la diferencia incluye el 0.",
-    "rule": "MIN_SUPPORTS empieza en 2, de tres resultados: patrón (L2), grupo (L3) y texto (L4). Se puede cambiar. Cada grupo fija y justifica este número en su proyecto. 0 o 1 valen si se explica.",
-    "reading_list": "Si hay más en vista que el máximo de la descripción, se ordena por número de resultados a favor, luego por prob_texto y luego por título. El resto queda con recortado = True.",
-    "what_changes_it": ["otra lista de palabras", "otro conjunto marcado", "otra etiqueta de entrenamiento", "otro umbral que 0,5", "otro máximo de la lista", "otro orden del recorte"],
-}
-QUESTION_PATH.write_text(json.dumps(question_card, ensure_ascii=False, indent=2), encoding="utf-8")
-print(json.dumps(question_card["text_use"], ensure_ascii=False, indent=1))
-```
+| Qué | Respuesta |
+|-----|-----------|
+| Cómo entra | El resultado cuenta a favor si TF-IDF con regresión logística dice leer, con un modelo que no vio el artículo |
+| Cómo se lee | TF-IDF y el codificador no se distinguen con este conjunto marcado. El intervalo de la diferencia incluye el 0 |
+| Qué lo cambia | Otra lista de palabras. Otras marcas. Otra etiqueta. Otro umbral que 0,5. Otro máximo de la lista |
 
 ### Paso 5. Comprobación final
 En este paso revisamos que el cuaderno dejó lo que la Lección 5 necesita.
@@ -918,7 +902,6 @@ def _check_ok(name, predicate):
 
 
 checks = [
-    ("pregunta.json con uso del texto", lambda: "text_use" in json.loads(QUESTION_PATH.read_text(encoding="utf-8"))),
     ("outputs/texto_l4.csv", lambda: text_path.is_file()),
     ("outputs/vectores_l4.npy", lambda: VECTORS_PATH.is_file()),
     ("Matrices de confusión", lambda: all((OUTPUTS_DIR / f).is_file() for f in ["confusion_palabras_clave.png", "confusion_tfidf.png", "confusion_codificador.png"])),

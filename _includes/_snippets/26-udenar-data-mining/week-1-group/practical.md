@@ -4,7 +4,9 @@
 
 **Propósito.** Cuaderno de grupo de la semana 1 (Lecciones 1 y 2). Su grupo es un equipo interno de una alcaldía y trabaja para una secretaría. El producto del proyecto es una lista de artículos para los nuevos integrantes del equipo.
 
-**Esta semana.** El grupo genera dos archivos: `pregunta.json` (la pregunta a resolver, el estándar de la solución y el uso) y `outputs/patrones.csv` (los pares de palabras con soporte, lift y cuáles se conservan frente a su línea base). Esos dos archivos son el resultado de la primera iteración del proyecto.
+**Esta semana.** El grupo escribe la pregunta en este cuaderno y genera `outputs/patrones.csv` (los pares de palabras con soporte, lift y cercanía).
+La evaluación compara los tres métodos sobre las mismas entradillas.
+El archivo de pares es el resultado de la primera iteración del proyecto.
 
 **Antes de empezar.** Ejecuten primero los cuadernos individuales de las Lecciones 1 y 2. Este cuaderno lo escribe el grupo. Cada paso dice qué código de la Lección 1 o de la Lección 2 adaptar. No peguen sin entender.
 
@@ -12,18 +14,19 @@
 
 **Materiales.** [L1 Introducción](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l1-introduction.ipynb) y [L2 Patrones](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l2-patterns.ipynb).
 
-**Pregunta del grupo.** ¿Qué artículos de su secretaría debe leer primero una persona nueva en el equipo, y qué pares de palabras de las entradillas superan a la línea base?
+**Pregunta del grupo.** ¿Qué artículos de su secretaría debe leer primero una persona nueva en el equipo?
+Comparen los pares de las entradillas con soporte, lift y cercanía.
 
 **Mapa del cuaderno**
 
 | Ejercicio | Tema | Entregable clave |
 |-----------|------|------------------|
 | **0** | Configuración | Grupo, datos, parámetros, librerías y modelo de vectores |
-| **1** | Comprensión del negocio | `pregunta.json` con pregunta, pasos, estándar y uso |
+| **1** | Comprensión del negocio | La pregunta y el problema, en texto, para el documento de requerimientos |
 | **2** | Comprensión de los datos | Perfil de la columna `lead` |
 | **3** | Preparación de los datos | Conjuntos de palabras, conteos y vectores |
 | **4** | Modelado | Pares por soporte, lift y coseno |
-| **5** | Evaluación | Su línea base y los pares conservados |
+| **5** | Evaluación | Comparación de soporte, lift y cercanía |
 | **6** | Despliegue | Uso de un patrón y `outputs/patrones.csv` |
 
 **Cómo leer cada paso.** Cada paso empieza con **En este paso**, dice qué copiar y dónde está, y termina con una celda **Comprobar**. Ejecuten de arriba abajo. Una Comprobar revisa que exista lo pedido, con su forma. No revisa su respuesta. Si falla, corrijan la celda anterior y vuelvan a ejecutar desde ahí.
@@ -39,7 +42,6 @@ En este paso eligen el grupo y descargan el archivo de su secretaría.
 Cambien solo `GROUP`.
 
 ```python
-import json
 from pathlib import Path
 
 import pandas as pd
@@ -64,9 +66,9 @@ En este paso copian los parámetros, las importaciones y el modelo de vectores d
 
 | Qué copiar | Dónde está en L2 |
 |------------|------------------|
-| Los parámetros (`SUPPORT_SHARE`, `SUPPORT_MIN`, `LIFT_MIN`, `SWAPS_PER_ONE`, `N_SAMPLES`, `SEED`, `PROGRESS_EVERY`), sin cambiar sus valores | Parte 1, Paso 2 |
-| Las importaciones y `support_floor` | Parte 1, Paso 2 |
-| `UNUSED_PIPES`, `load_vector_model` y la carga de `nlp, MODEL` | Parte 1, Paso 3 |
+| Los parámetros (`SUPPORT_SHARE`, `SUPPORT_MIN`, `LIFT_MIN`, `SWAPS_PER_ONE`, `N_SAMPLES`, `SEED`, `PROGRESS_EVERY`), sin cambiar sus valores | Parte 2, Paso 1 |
+| Las importaciones y `support_floor` | Parte 2, Paso 1 |
+| `UNUSED_PIPES`, `load_vector_model` y la carga de `nlp, MODEL` | Parte 2, Paso 2 |
 
 ```python
 # SU CÓDIGO. Paso 0.2: parámetros, rutas de la entrega, importaciones, support_floor, load_vector_model y nlp, MODEL en español
@@ -75,7 +77,7 @@ En este paso copian los parámetros, las importaciones y el modelo de vectores d
 
 **Listo cuando:**
 - Los parámetros tienen los valores de la Lección 2.
-- `QUESTION_PATH` es `pregunta.json` y `PATTERNS_PATH` es `outputs/patrones.csv`.
+- `PATTERNS_PATH` es `outputs/patrones.csv`.
 - `nlp` y `MODEL` cargan un modelo de español: `MODELS = ["es_core_news_lg", "es_core_news_md"]`. Si Colab falla, reinicie el entorno y repita la celda.
 
 **Comprobar:**
@@ -91,31 +93,33 @@ print("Paso 0.2: OK")
 
 ## Ejercicio 1. Comprensión del negocio
 
-### Paso 1.1. La descripción de la pregunta
+### Paso 1.1. La pregunta y el problema
 
-En este paso escriben la descripción de la pregunta de su secretaría y la guardan en `pregunta.json`. Es la del grupo, no la del laboratorio de nutrición.
+En este paso escriben la pregunta y el problema de su secretaría.
+Ese texto alimenta las secciones 2 y 3 del documento de requerimientos del proyecto.
+No se guarda en un archivo.
+El ejemplo de laboratorio está en la Lección 1, Parte 1, Paso 1.
 
-| Qué copiar | Dónde está en L1 |
-|------------|------------------|
-| La descripción `question_card` con `question`, `steps`, `standard` y `use` | Parte 1, Paso 3 |
-| Guardar `pregunta.json` | Parte 1, Paso 4 |
+| Qué escribir | Sección del documento |
+|--------------|------------------------|
+| `QUESTION` | 2. Objetivos del negocio |
+| `PROBLEM` | 3. Situación |
 
 ```python
-# SU CÓDIGO. Paso 1.1: question_card y QUESTION_PATH guardado
+# SU CÓDIGO. Paso 1.1: QUESTION y PROBLEM
 
 ```
 
 **Listo cuando:**
-- La descripción es de su secretaría y el estándar se escribió **antes** de mirar resultados.
-- `pregunta.json` tiene `question`, `steps`, `standard` (con `min_articles`, `max_articles` enteros y una regla más del grupo) y `use` (con `may` y `may_not`).
+- `QUESTION` (texto) dice la pregunta de una persona nueva, quién necesita la lista, qué puede decidir y qué no.
+- `PROBLEM` (texto) nombra la secretaría y el archivo, y dice que la lista es un inicio de lectura.
 
 **Comprobar:**
 
-En este paso comprobamos que `pregunta.json` tiene sus cuatro partes y el tamaño de la lista en el estándar.
+En este paso comprobamos que escribieron la pregunta y el problema.
 
 ```python
-card = json.loads(Path("pregunta.json").read_text(encoding="utf-8"))
-assert {"question", "steps", "standard", "use"} <= set(card) and {"min_articles", "max_articles"} <= set(card["standard"])
+assert QUESTION.strip() and PROBLEM.strip()
 print("Paso 1.1: OK")
 ```
 
@@ -129,9 +133,9 @@ En este paso describen la columna `lead` con el perfil de la Lección 1.
 
 | Qué copiar | Dónde está en L1 |
 |------------|------------------|
-| Forma, tipos y valores faltantes | Parte 2, Pasos 2 y 3 |
-| Largo del texto en palabras | Parte 2, Paso 4 (use `lead` en lugar de `abstract`) |
-| `profile_column` y la tabla `profile` | Parte 2, Paso 8 |
+| Forma, tipos y valores faltantes | Parte 2, Pasos 3 y 4 |
+| Largo del texto en palabras | Parte 2, Paso 5 (use `lead` en lugar de `abstract`) |
+| `profile_column` y la tabla `profile` | Parte 2, Paso 9 |
 
 ```python
 # SU CÓDIGO. Paso 2.1: articles["lead_words"], short_leads y profile
@@ -352,9 +356,12 @@ assert table["kept"].dtype == bool and PAIR_READING.strip() and FORMULA_DECISION
 print("Paso 5.2: OK")
 ```
 
-### Paso 5.3. Destacar y comparar los tres métodos
+### Paso 5.3. Comparar los tres métodos
 
-En este paso marcan los pares que destacan y comparan los tres métodos.
+En este paso comparan el soporte, el lift y la cercanía sobre las mismas entradillas.
+Un par que los tres métodos conservan es un candidato más fuerte.
+Un par que solo un método conserva no es el ganador.
+El par de solo cercanía puede quedar bajo el umbral, así que no tiene que ser una fila de `table`.
 
 | Qué copiar | Dónde está en L2 |
 |------------|------------------|
@@ -363,21 +370,43 @@ En este paso marcan los pares que destacan y comparan los tres métodos.
 | La tabla `comparison` | Parte 5, Paso 9 |
 
 ```python
-# SU CÓDIGO. Paso 5.3: columnas kept_lift2 y beats_cosine, RANDOM_COSINE_P95 y comparison
+# SU CÓDIGO. Paso 5.3: columnas kept_lift2 y beats_cosine, RANDOM_COSINE_P95, comparison y COMPARISON_READING
 
 ```
 
 **Listo cuando:**
 - `kept_lift2` solo es verdadero en pares conservados.
 - `beats_cosine` es verdadero o falso para cada par.
+- `COMPARISON_READING` (texto) nombra un par de cada tipo en sus entradillas: los tres métodos, solo los conteos y solo la cercanía.
 
 **Comprobar:**
 
-En este paso comprobamos que solo destacan pares conservados y la columna `beats_cosine`.
+En este paso comprobamos que solo destacan pares conservados, la columna `beats_cosine` y que escribieron la comparación.
 
 ```python
-assert not (table["kept_lift2"] & ~table["kept"]).any() and table["beats_cosine"].dtype == bool
+assert not (table["kept_lift2"] & ~table["kept"]).any() and table["beats_cosine"].dtype == bool and COMPARISON_READING.strip()
 print("Paso 5.3: OK")
+```
+
+### Paso 5.4. Dos pares y los artículos que seleccionan
+
+En este paso toman dos pares conservados y listan artículos cuya entradilla contiene las dos palabras.
+
+```python
+# SU CÓDIGO. Paso 5.4: PAIR_ARTICLES
+
+```
+
+**Listo cuando:**
+- `PAIR_ARTICLES` (texto) nombra dos pares conservados y, para cada uno, artículos de su secretaría.
+
+**Comprobar:**
+
+En este paso comprobamos que escribieron los dos pares y sus artículos.
+
+```python
+assert PAIR_ARTICLES.strip()
+print("Paso 5.4: OK")
 ```
 
 ---
@@ -388,26 +417,27 @@ print("Paso 5.3: OK")
 
 En este paso escriben cómo entra un patrón en la decisión y guardan `outputs/patrones.csv`.
 
-| Qué copiar | Dónde está en L2 |
-|------------|------------------|
-| `pattern_use` con `how_it_enters`, `what_changes_it` y `examples` | Parte 6, Paso 1 |
+| Qué escribir o copiar | Dónde está en L2 |
+|--------------------|------------------|
+| Cómo entra un patrón, en `PATTERN_USE` y `WHAT_CHANGES_IT` | Parte 6, Paso 1 |
 | Guardar la tabla de pares | Parte 5, Paso 10 (aquí el archivo es `PATTERNS_PATH`) |
 
 ```python
-# SU CÓDIGO. Paso 6.1: question_card["pattern_use"], pregunta.json y PATTERNS_PATH
+# SU CÓDIGO. Paso 6.1: PATTERN_USE, WHAT_CHANGES_IT y PATTERNS_PATH
 
 ```
 
 **Listo cuando:**
-- `pregunta.json` tiene `pattern_use`, y `what_changes_it` dice qué hecho sacaría un par de la lista.
+- `PATTERN_USE` (texto) dice cómo un patrón conservado entra en la lista.
+- `WHAT_CHANGES_IT` (texto) dice qué hecho sacaría un par de la lista.
 - `outputs/patrones.csv` tiene una fila por par candidato con `pair`, `support`, `null_p95`, `lift`, `cosine`, `kept`, `kept_lift2`, `beats_cosine` y `shared_vector`.
 
 **Comprobar:**
 
-En este paso comprobamos que `pregunta.json` tiene `pattern_use` y que `outputs/patrones.csv` tiene sus columnas.
+En este paso comprobamos que escribieron el uso del patrón y que `outputs/patrones.csv` tiene sus columnas.
 
 ```python
-assert "pattern_use" in json.loads(Path("pregunta.json").read_text(encoding="utf-8"))
+assert PATTERN_USE.strip() and WHAT_CHANGES_IT.strip()
 assert {"pair", "support", "null_p95", "kept", "kept_lift2"} <= set(pd.read_csv("outputs/patrones.csv").columns)
 print("Paso 6.1: OK. Armen el ZIP.")
 ```
@@ -440,14 +470,15 @@ Use la [plantilla de la reflexión de la semana 1](https://cabrerac.github.io/as
 
 ## Entrega
 
-El ZIP se entrega el martes 10 nov 2026, 23:59 (hora de Colombia), con el cuaderno ejecutado y renombrado.
+El ZIP se entrega el martes 17 nov 2026, 23:59 (hora de Colombia), con el cuaderno ejecutado y renombrado.
 
 | Archivo del ZIP `week-1-<group_id>.zip` | Descripción |
 |-----------------------------------------|-------------|
-| `week-1-group-<group_id>.ipynb` | Este cuaderno ejecutado |
-| `pregunta.json` | La descripción de la pregunta del grupo, con `pattern_use` |
+| `week-1-group-<group_id>.ipynb` | Este cuaderno ejecutado, con la pregunta escrita en el Paso 1.1 |
 | `outputs/patrones.csv` | Una fila por par candidato, con sus columnas de evaluación |
 
-`pregunta.json` y `outputs/patrones.csv` son la primera iteración. En la semana 2 el grupo añade lo que encuentre y lo compara con estos pares.
+La pregunta queda en el cuaderno.
+`outputs/patrones.csv` es el resultado de esta semana.
+En la semana 2 el grupo lo compara con lo que encuentre.
 
 <!-- end NOTEBOOK: -->

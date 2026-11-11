@@ -58,7 +58,7 @@ Los artículos se citan entre ellos. Los índices de citas guardaron esos enlace
 
 | Parte | Fase CRISP-DM | Qué sale |
 |-------|---------------|----------|
-| 1 | Comprensión del negocio | La pregunta de hoy, los parámetros, los artículos, `pregunta.json` y los tres resultados anteriores |
+| 1 | Comprensión del negocio | La pregunta de hoy, los parámetros, los artículos y los tres resultados anteriores |
 | 2 | Comprensión de los datos | Los artículos y sus enlaces |
 | 3 | Preparación de los datos | La lista de enlaces, los dos grafos y el componente mayor |
 | 4 | Modelado | Grado, PageRank y node2vec |
@@ -95,7 +95,6 @@ if importlib.util.find_spec("gensim") is None:
     print("Instalando gensim (una sola vez por sesión)...")
     subprocess.run([sys.executable, "-m", "pip", "install", "-q", "gensim"], check=True)
 
-import json          # leer y escribir pregunta.json
 import math          # techo (ceil) para los mínimos
 import random        # caminatas de node2vec
 import time          # medir cuánto tarda cada paso
@@ -192,23 +191,16 @@ raw = pd.read_csv(download_data("nutricion-papers.csv"), keep_default_na=False)
 print(f"{len(raw)} filas, columnas: {list(raw.columns)}")
 ```
 
-### Paso 4. La descripción de la pregunta
-En este paso leemos `pregunta.json`, la descripción de la pregunta. Si `pregunta.json` no está, este cuaderno escribe la descripción del laboratorio para que pueda seguir. Lo nuevo es el grafo: un artículo recibe el resultado si **une partes de la red** y no es solo un nodo central.
+### Paso 4. La pregunta
+La pregunta es la de la Lección 1.
+El equipo decide qué artículos de nutrición leer, y qué filtro los puso en la lista.
+La lista tiene entre 10 y 30 artículos.
+Lo nuevo es el grafo: un artículo recibe el resultado si une partes de la red y no es solo un nodo central.
 
 ```python
-QUESTION_PATH = Path("pregunta.json")
-
-if QUESTION_PATH.is_file():
-    question_card = json.loads(QUESTION_PATH.read_text(encoding="utf-8"))
-    print("pregunta.json leído de la Lección 4")
-else:
-    question_card = {
-        "question": "¿Qué artículos de nutrición debe leer el equipo para su tema, y qué filtro los puso en la lista?",
-        "standard": {"min_papers": 10, "max_papers": 30, "max_share_citations_only": 0.5},
-    }
-    QUESTION_PATH.write_text(json.dumps(question_card, ensure_ascii=False, indent=2), encoding="utf-8")
-    print("pregunta.json no estaba. Escribimos la descripción del laboratorio.")
-print(question_card["question"])
+MIN_PAPERS = 10
+MAX_PAPERS = 30
+print(f"Lista: entre {MIN_PAPERS} y {MAX_PAPERS} artículos")
 ```
 
 ### Paso 5. Los tres resultados de las Lecciones 2 a 4
@@ -235,12 +227,11 @@ else:
 
 **Comprobar:**
 
-En este paso comprobamos que la descripción de la pregunta y los tres resultados anteriores tienen sus columnas.
+En este paso comprobamos que los tres resultados anteriores tienen sus columnas.
 
 ```python
-assert {"question", "standard"} <= set(question_card)
 assert {"title", "has_pattern", "read_group", "text_says_read"} <= set(week2.columns)
-print("Pregunta y resultados anteriores: OK")
+print("Resultados anteriores: OK")
 ```
 
 ---
@@ -829,18 +820,13 @@ print("grafo_l5.csv: OK")
 ```
 
 ### Paso 3. Qué cambiaría la decisión
-En este paso anotamos en `pregunta.json` cómo entra el grafo y qué lo cambiaría.
+En este paso escribimos cómo entra el grafo y qué lo cambiaría.
 
-```python
-question_card["graph_use"] = {
-    "how_it_enters": "El resultado del grafo cuenta a favor de un artículo si tiene PageRank alto: está en el cuarto superior por PageRank entre los artículos con enlaces, y no es un nodo central.",
-    "reading": "El grafo solo ve las citas dentro del conjunto. Un artículo aislado no tiene lugar, no es malo.",
-    "high_rank": len(high_rank),
-    "what_changes_it": ["otro corte que el cuarto superior", "otra regla para los nodos centrales", "más artículos o más enlaces en el conjunto"],
-}
-QUESTION_PATH.write_text(json.dumps(question_card, ensure_ascii=False, indent=2), encoding="utf-8")
-print(json.dumps(question_card["graph_use"], ensure_ascii=False, indent=1))
-```
+| Qué | Respuesta |
+|-----|-----------|
+| Cómo entra | El resultado cuenta a favor si el artículo está en el cuarto superior por PageRank entre los que tienen enlaces, y no es un nodo central |
+| Cómo se lee | El grafo solo ve las citas dentro del conjunto. Un artículo aislado no tiene lugar. No es un artículo malo |
+| Qué lo cambia | Otro corte que el cuarto superior. Otra regla para los nodos centrales. Más artículos o más enlaces |
 
 ### Paso 4. Comprobación final
 En este paso revisamos que el cuaderno dejó lo que la Lección 6 necesita.
@@ -861,7 +847,6 @@ def _check_ok(name, predicate):
 
 
 checks = [
-    ("pregunta.json con uso del grafo", lambda: "graph_use" in json.loads(QUESTION_PATH.read_text(encoding="utf-8"))),
     ("outputs/grafo_l5.csv", lambda: graph_path.is_file()),
     ("Histograma de grado y dibujo del componente", lambda: all((OUTPUTS_DIR / f).is_file() for f in ["grado_l5.png", "componente_l5.png"])),
     ("Resultados de las Lecciones 2 a 4", lambda: len(week2) > 0),

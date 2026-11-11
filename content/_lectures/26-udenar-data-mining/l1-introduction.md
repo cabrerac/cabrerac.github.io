@@ -26,7 +26,7 @@ permalink: /teaching/26-udenar-data-mining/l1-introduction/
 position: Assistant Research Professor
 session: 1
 start_time: 07:00 am
-title: Introduction to Data Mining, methodologies, and questions
+title: Introduction to Data Mining
 visible: false
 ---
 

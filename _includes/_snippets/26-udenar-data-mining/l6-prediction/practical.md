@@ -46,7 +46,7 @@ Medimos aciertos y errores en artículos que ningún modelo vio. Cada modelo se 
 
 | Parte | Fase CRISP-DM | Qué sale |
 |-------|---------------|----------|
-| 1 | Comprensión del negocio | La pregunta de hoy, los parámetros, la función contra la fuga, `pregunta.json` y los cuatro resultados anteriores |
+| 1 | Comprensión del negocio | La pregunta de hoy, los parámetros, la función contra la fuga y los cuatro resultados anteriores |
 | 2 | Comprensión de los datos | La etiqueta y los atributos |
 | 3 | Preparación de los datos | La tabla, el conjunto apartado y la preparación |
 | 4 | Modelado | Clase mayor, regresión logística, bosque y una capa oculta |
@@ -75,7 +75,6 @@ Después juntamos los cinco resultados en la lista inicial. La cuenta de 0, 1, 2
 En este paso importamos las librerías, creamos las carpetas y fijamos los parámetros. No los cambie. La excepción es `MIN_SUPPORTS`, que empieza en 2 y se puede cambiar. Cada grupo fija y justifica este número en su proyecto.
 
 ```python
-import json          # leer y escribir pregunta.json
 import math          # techo (ceil) para los mínimos
 from pathlib import Path
 
@@ -248,23 +247,15 @@ N = len(papers)
 print(f"{len(raw)} filas, {N} sin títulos repetidos, como en la L5")
 ```
 
-### Paso 5. La descripción de la pregunta
-En este paso leemos `pregunta.json`, la descripción de la pregunta. Si `pregunta.json` no está, este cuaderno escribe la descripción del laboratorio para que pueda seguir. El máximo de la lista, `max_papers`, sale de aquí.
+### Paso 5. La pregunta
+La pregunta es la de la Lección 1.
+El equipo decide qué artículos de nutrición leer, y qué filtro los puso en la lista.
+La lista tiene entre 10 y 30 artículos.
 
 ```python
-QUESTION_PATH = Path("pregunta.json")
-
-if QUESTION_PATH.is_file():
-    question_card = json.loads(QUESTION_PATH.read_text(encoding="utf-8"))
-    print("pregunta.json leído de la Lección 5")
-else:
-    question_card = {
-        "question": "¿Qué artículos de nutrición debe leer el equipo para su tema, y qué filtro los puso en la lista?",
-        "standard": {"min_papers": 10, "max_papers": 30, "max_share_citations_only": 0.5},
-    }
-    QUESTION_PATH.write_text(json.dumps(question_card, ensure_ascii=False, indent=2), encoding="utf-8")
-    print("pregunta.json no estaba. Escribimos la descripción del laboratorio.")
-print(question_card["question"])
+MIN_PAPERS = 10
+MAX_PAPERS = 30
+print(f"Lista: entre {MIN_PAPERS} y {MAX_PAPERS} artículos")
 ```
 
 ### Paso 6. Los cuatro resultados de las Lecciones 2 a 5
@@ -808,10 +799,10 @@ print("Lista inicial y sensibilidad: OK")
 **Lo que vemos.** Hay 97 artículos en vista, 31 más que con cuatro. Sin la predicción salen 31 y sin el patrón salen 32.
 
 ### Paso 5. Una lista que se pueda leer
-En este paso recortamos la lista con la regla de la Lección 4: el máximo `standard["max_papers"]`, ordenando por resultados a favor, `prob_texto` y título. El resto queda con `recortado = True`.
+En este paso recortamos la lista con la regla de la Lección 4: el máximo de 30 artículos, ordenando por resultados a favor, `prob_texto` y título. El resto queda con `recortado = True`.
 
 ```python
-MAX_LIST = question_card["standard"]["max_papers"]
+MAX_LIST = MAX_PAPERS
 if "prob_texto" in text_l4.columns:
     prob_text = text_l4.assign(prob_texto=pd.to_numeric(text_l4["prob_texto"], errors="coerce")).groupby("title")["prob_texto"].max()
 else:
@@ -860,26 +851,18 @@ print(f"Guardado: {prediction_path} ({len(prediction_table)} filas) y {starter_p
 ```
 
 ### Paso 7. Qué cambiaría la decisión
-En este paso anotamos en `pregunta.json` cómo entra la predicción, si cuenta y qué lo cambiaría.
+En este paso escribimos cómo entra la predicción y qué la cambiaría.
 
-```python
-question_card["prediction_use"] = {
-    "label": LABEL,
-    "how_it_enters": "La predicción cuenta a favor de un artículo si al menos 2 de los 3 métodos lo predicen positivo, con un modelo que no vio su etiqueta, y solo si la L6 cuenta.",
-    "l6_counts": bool(l6_counts),
-    "starter_list": {"in_view": int(len(starter_list)), "read": kept, "cut": int(starter_list["recortado"].sum())},
-    "seeds_holding": f"{seeds_holding} de {len(SPLIT_SEEDS)}",
-    "reading": "La señal es el número de autores. Tres modelos no le ganan con claridad a contar autores (la regla de al menos 4 autores). Con otras semillas la ventaja cambia, por eso miramos varias.",
-    "what_changes_it": ["otra etiqueta", "otra partición de los datos", "los artículos sin afiliación", "otro margen que 0,02"],
-}
-QUESTION_PATH.write_text(json.dumps(question_card, ensure_ascii=False, indent=2), encoding="utf-8")
-print(json.dumps(question_card["prediction_use"], ensure_ascii=False, indent=1))
-```
+| Qué | Respuesta |
+|-----|-----------|
+| Cómo entra | La predicción cuenta a favor si al menos 2 de los 3 métodos dicen que sí, con un modelo que no vio la etiqueta, y solo si esta lección cuenta |
+| Cómo se lee | La señal es el número de autores. Tres modelos no le ganan con claridad a contar autores. Con otras semillas la ventaja cambia |
+| Qué lo cambia | Otra etiqueta. Otra partición de los datos. Los artículos sin afiliación. Otro margen que 0,02 |
 
 **Lo que vemos.** Quien lea la lista sabe por qué la predicción apoya a un artículo sin abrir este cuaderno.
 
 ### Paso 8. Comprobación final
-En este paso revisamos que el cuaderno dejó la predicción, la lista inicial y la descripción de la pregunta completa.
+En este paso revisamos que el cuaderno dejó la predicción y la lista inicial.
 
 ```python
 def _check_ok(name, predicate):
@@ -897,7 +880,6 @@ def _check_ok(name, predicate):
 
 
 checks = [
-    ("pregunta.json con uso de la predicción", lambda: "prediction_use" in json.loads(QUESTION_PATH.read_text(encoding="utf-8"))),
     ("outputs/prediccion_l6.csv", lambda: prediction_path.is_file()),
     ("outputs/lista_inicial.csv", lambda: starter_path.is_file()),
     ("Matrices de confusión", lambda: all((OUTPUTS_DIR / f).is_file() for f in ["confusion_regresion.png", "confusion_bosque.png", "confusion_red.png"])),

@@ -65,10 +65,8 @@
                 <br>
                 <p>$$\text{lift}(A,B) = \frac{P(A,B)}{P(A)\,P(B)} = \frac{n_{AB} \cdot N}{n_A \cdot n_B}$$</p>
                 <br>
-                <p>The joint probability is $n_{AB} / N$.</p>
-                <p>Each marginal is a count over $N$ as well, $n_A / N$ and $n_B / N$.</p>
+                <p>The joint probability is $n_{AB} / N$. Each marginal is a count over $N$ as well, $n_A / N$ and $n_B / N$.</p>
                 <p>Dividing the joint by the product of the marginals leaves $n_{AB} \cdot N$ on top and $n_A \cdot n_B$ below.</p>
-                <p>Confidence, the share of A that also contains B, ignores how common B is. "It has the flaw that it ignores P(B)." <a href="https://doi.org/10.1145/253262.253325" target="_blank" rel="noopener noreferrer">(Brin et al., 1997)</a></p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p>If A and B are independent, $P(A,B) = P(A)\,P(B)$.</p>

@@ -21,10 +21,10 @@
 | Ejercicio | Tema | Entregable clave |
 |-----------|------|------------------|
 | **0** | Configuración | Grupo, datos, parámetros, librerías, codificador y funciones de L3 y L4 |
-| **1** | Comprensión del negocio y de los datos | La descripción de la pregunta, los pares de la semana 1 y las entradillas útiles |
+| **1** | Comprensión del negocio y de los datos | Los pares de la semana 1 y las entradillas útiles |
 | **2** | Grupos de artículos parecidos (L3) | `outputs/grupos.csv` y el hallazgo sobre la estructura |
 | **3** | Filtro de texto (L4) | `marcas.csv` y `outputs/texto.csv` |
-| **4** | Despliegue | `outputs/en_vista.csv` y `pregunta.json` con `group_use` y `text_use` |
+| **4** | Despliegue | `outputs/en_vista.csv` y cómo entran el grupo y el texto |
 
 **Cómo leer cada paso.** Cada paso empieza con **En este paso**, dice qué copiar y dónde está, y termina con una celda **Comprobar**. Ejecuten de arriba abajo. Una Comprobar revisa que exista lo pedido, con su forma. No revisa su respuesta. Si falla, corrijan la celda anterior y vuelvan a ejecutar desde ahí.
 
@@ -34,12 +34,11 @@
 
 ### Paso 0.1. Grupo y datos
 
-En este paso eligen el grupo y descargan el archivo de su secretaría. Suban el `pregunta.json` y los archivos de salida de su ZIP de la semana anterior (`outputs/patrones.csv`) antes de seguir.
+En este paso eligen el grupo y descargan el archivo de su secretaría. Suban `outputs/patrones.csv` de la semana anterior antes de seguir. La pregunta y el problema están en el documento de requerimientos.
 
 Cambien solo `GROUP`. `TARGETS` son las categorías de la etiqueta del filtro, elegidas por el profesor.
 
 ```python
-import json
 from pathlib import Path
 
 import pandas as pd
@@ -83,7 +82,7 @@ En este paso copian los parámetros, las librerías, el codificador y las funcio
 
 **Listo cuando:**
 - Los parámetros tienen los valores de las Lecciones 3 y 4.
-- Las rutas son `pregunta.json`, `marcas.csv` y, en `outputs/`, `patrones.csv`, `grupos.csv`, `texto.csv` y `en_vista.csv`.
+- Las rutas son `marcas.csv` y, en `outputs/`, `patrones.csv`, `grupos.csv`, `texto.csv` y `en_vista.csv`.
 - `STOP_WORDS` son las del español más `URL_TOKENS` (y sus `FILLER_WORDS` si las quitaron), y `words` y `word_list` quitan "[cita requerida]".
 - `encoder` lee hasta `MAX_LENGTH` tokens.
 
@@ -100,19 +99,19 @@ print("Paso 0.2: OK")
 
 ## Ejercicio 1. Comprensión del negocio y de los datos
 
-### Paso 1.1. La descripción de la pregunta, los pares y las entradillas útiles
+### Paso 1.1. Los pares y las entradillas útiles
 
-En este paso leen la descripción de la pregunta y los pares de la semana 1, y dejan las entradillas útiles.
+En este paso leen los pares de la semana 1 y dejan las entradillas útiles.
+La pregunta y el problema siguen en el documento de requerimientos.
 
 | Qué copiar | Dónde está |
 |------------|------------|
-| Leer `pregunta.json` en `question_card` | L3, Parte 1, Paso 4 |
 | Leer los pares en `patterns` | L3, Parte 1, Paso 5 (aquí el archivo es `outputs/patrones.csv`) |
 | `texts`, `N` y `FLOOR` | L3, Parte 2, Paso 1 (use `lead` en lugar de `abstract`) |
 | `n_cut`, las entradillas que el codificador corta | L4, Parte 3, Paso 4 |
 
 ```python
-# SU CÓDIGO. Paso 1.1: question_card, patterns, articles sin las entradillas cortas, texts, N, FLOOR, n_cut y group_meaning
+# SU CÓDIGO. Paso 1.1: patterns, articles sin las entradillas cortas, texts, N, FLOOR, n_cut y group_meaning
 
 ```
 
@@ -402,7 +401,7 @@ En este paso juntan los resultados de cada artículo y guardan `outputs/en_vista
 | Qué copiar | Dónde está en L4 |
 |------------|------------------|
 | `supports` con las tres columnas, `supports` e `in_view` | Parte 6, Paso 1 |
-| `prob_texto`, el orden y `recortado` con `MAX_ARTICLES` y `MIN_ARTICLES` de su descripción de la pregunta | Parte 6, Paso 2 |
+| `prob_texto`, el orden y `recortado` con `MAX_ARTICLES` y `MIN_ARTICLES` del documento de requerimientos | Parte 6, Paso 2 |
 
 ```python
 # SU CÓDIGO. Paso 4.1: supports, prob_texto, recortado y outputs/en_vista.csv
@@ -412,7 +411,7 @@ En este paso juntan los resultados de cada artículo y guardan `outputs/en_vista
 **Listo cuando:**
 - Las columnas de resultados son `has_pattern` (un par con `kept_lift2` y una palabra de `TOPIC_WORDS`), `read_group` (un grupo de HDBSCAN que se lee) y `text_says_read` (TF-IDF dice abrir). `in_view` usa `MIN_SUPPORTS`, el número de resultados a favor que pide el código. `MIN_SUPPORTS` empieza en 2 y se puede cambiar. Cada grupo fija y justifica este número en su proyecto. 0 o 1 valen si se explica. Muestran una tabla pequeña con cuántos artículos tienen 0, 1, 2 y 3 o más resultados a favor, y con ella explican su elección.
 - `outputs/en_vista.csv` tiene una fila por artículo con `title`, `has_pattern`, `read_group`, `text_says_read`, `prob_texto`, `supports`, `in_view` y `recortado`.
-- `recortado` solo es verdadero en artículos en vista. Si quedan menos de `standard["min_articles"]`, no rellenan: imprimen que es un resultado débil.
+- `recortado` solo es verdadero en artículos en vista. Si quedan menos de `MIN_ARTICLES`, no rellenan: imprimen que es un resultado débil.
 
 **Comprobar:**
 
@@ -426,27 +425,27 @@ print("Paso 4.1: OK")
 
 ### Paso 4.2. Qué cambiaría la decisión
 
-En este paso escriben en `pregunta.json` cómo entran los grupos y el texto, y qué los cambiaría.
+En este paso escriben cómo entran el grupo y el texto, y qué los cambiaría.
 
 | Qué copiar | Dónde está |
 |------------|------------|
-| `group_use` con `how_it_enters`, `reading` y `what_changes_it` | L3, Parte 6, Paso 3 |
-| `text_use` con las mismas claves | L4, Parte 6, Paso 4 |
+| Cómo entra un grupo, en `GROUP_USE` | L3, Parte 6, Paso 3 |
+| Cómo entra el texto, en `TEXT_USE` | L4, Parte 6, Paso 4 |
 
 ```python
-# SU CÓDIGO. Paso 4.2: group_use, text_use y pregunta.json guardado
+# SU CÓDIGO. Paso 4.2: GROUP_USE y TEXT_USE
 
 ```
 
 **Listo cuando:**
-- `pregunta.json` tiene `group_use` y `text_use`, cada uno con `how_it_enters`, `reading` y `what_changes_it`.
+- `GROUP_USE` y `TEXT_USE` (texto) dicen cómo entra cada resultado y qué hecho lo cambiaría.
 
 **Comprobar:**
 
-En este paso comprobamos que `pregunta.json` tiene `group_use` y `text_use`.
+En este paso comprobamos que escribieron cómo entran el grupo y el texto.
 
 ```python
-assert {"group_use", "text_use"} <= set(json.loads(Path("pregunta.json").read_text(encoding="utf-8")))
+assert GROUP_USE.strip() and TEXT_USE.strip()
 print("Paso 4.2: OK. Armen el ZIP.")
 ```
 
@@ -478,12 +477,11 @@ Use la [plantilla de la reflexión de la semana 2](https://cabrerac.github.io/as
 
 ## Entrega
 
-El ZIP se entrega el martes 17 nov 2026, 23:59 (hora de Colombia), con el cuaderno ejecutado y renombrado.
+El ZIP se entrega el martes 24 nov 2026, 23:59 (hora de Colombia), con el cuaderno ejecutado y renombrado.
 
 | Archivo del ZIP `week-2-<group_id>.zip` | Descripción |
 |-----------------------------------------|-------------|
 | `week-2-group-<group_id>.ipynb` | Este cuaderno ejecutado |
-| `pregunta.json` | La descripción de la pregunta con `group_use` y `text_use` |
 | `marcas.csv` | Su conjunto marcado, con `marca` en 1 o 0 |
 | `outputs/grupos.csv` | Los grupos de los tres métodos |
 | `outputs/texto.csv` | Las predicciones de texto de cada artículo y sus marcas |

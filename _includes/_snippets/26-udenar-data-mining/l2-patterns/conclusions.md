@@ -64,7 +64,7 @@
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <h3><a href="https://cabrerac.github.io/teaching/26-udenar-data-mining/l3-groups/" target="_blank">Lecture 3</a></h3>
+                <h3><a href="#" target="_blank">Lecture 3</a></h3>
                 <ul>
                     <li>Groups of similar items</li>
                     <li>Data and methods</li>

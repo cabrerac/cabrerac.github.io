@@ -19,7 +19,7 @@
 | Ejercicio | Tema | Entregable clave |
 |-----------|------|------------------|
 | **0** | Configuración | Grupo, etiqueta, datos, parámetros y funciones |
-| **1** | Comprensión del negocio | La descripción de la pregunta y los resultados de la semana 2 |
+| **1** | Comprensión del negocio | Los resultados de la semana 2 |
 | **2** | Comprensión de los datos | Títulos únicos y enlaces dentro del extracto |
 | **3** | Preparación de los datos | Los grafos y la tabla de la L6 |
 | **4** | Modelado | Grado, PageRank, node2vec y los tres métodos de la L6 |
@@ -34,12 +34,11 @@
 
 ### Paso 0.1. Grupo, etiqueta y datos
 
-En este paso eligen el grupo, ven la etiqueta de la Lección 6 y descargan el archivo de su secretaría. Suban el `pregunta.json` y los archivos de salida de su ZIP de la semana anterior (`outputs/en_vista.csv` y `marcas.csv`) antes de seguir. `marcas.csv` no se lee aquí, pero va de nuevo en el ZIP.
+En este paso eligen el grupo, ven la etiqueta de la Lección 6 y descargan el archivo de su secretaría. Suban los archivos de salida de su ZIP de la semana anterior (`outputs/en_vista.csv` y `marcas.csv`) antes de seguir. `marcas.csv` no se lee aquí, pero va de nuevo en el ZIP. La pregunta y el problema están en el documento de requerimientos.
 
 Cambien solo `GROUP`. La etiqueta de la Lección 6 es `LABEL = "categoria_objetivo"`: 1 si la categoría del artículo (`categoria`) está en `TARGETS[GROUP]`, y 0 si no. `TARGETS` son las mismas categorías del filtro de la semana 2.
 
 ```python
-import json
 from pathlib import Path
 
 import pandas as pd
@@ -86,7 +85,7 @@ En este paso copian los parámetros, las librerías y las funciones de las Lecci
 
 **Listo cuando:**
 - Los parámetros tienen los valores de las Lecciones 5 y 6.
-- Las rutas son `pregunta.json`, `project-title-es.txt`, `project-abstract-es.txt` y, en `outputs/`, `en_vista.csv` (semana 2), `grafo.csv`, `prediccion.csv` y `lista_inicial.csv`.
+- Las rutas son `project-title-es.txt`, `project-abstract-es.txt` y, en `outputs/`, `en_vista.csv` (semana 2), `grafo.csv`, `prediccion.csv` y `lista_inicial.csv`.
 - `vote_of(predicciones)` recibe las predicciones de los 3 métodos y devuelve, por fila, la clase que dicen al menos 2 como texto, o `None` si los tres dicen algo distinto. La etiqueta puede tener varias clases.
 
 **Comprobar:**
@@ -102,30 +101,30 @@ print("Paso 0.2: OK")
 
 ## Ejercicio 1. Comprensión del negocio
 
-### Paso 1.1. La descripción de la pregunta y los resultados de la semana 2
+### Paso 1.1. Los resultados de la semana 2
 
-En este paso leen la descripción de la pregunta y los resultados de la semana 2, y escriben qué esperan del grafo.
+En este paso leen los resultados de la semana 2 y escriben qué esperan del grafo.
+La pregunta y el problema siguen en el documento de requerimientos.
 
 | Qué copiar | Dónde está en L5 |
 |------------|------------------|
-| Leer la descripción de la pregunta en `question_card` | Parte 1, Paso 4 |
 | Leer los resultados en `week2`, con las tres columnas en verdadero o falso | Parte 1, Paso 5 (aquí el archivo es `outputs/en_vista.csv`) |
 
 ```python
-# SU CÓDIGO. Paso 1.1: question_card, week2 y graph_expectation
+# SU CÓDIGO. Paso 1.1: week2 y graph_expectation
 
 ```
 
 **Listo cuando:**
-- `question_card` tiene `group_use` y `text_use`, y `week2` tiene `title`, `has_pattern`, `read_group`, `text_says_read` y `prob_texto`.
+- `week2` tiene `title`, `has_pattern`, `read_group`, `text_says_read` y `prob_texto`.
 - `graph_expectation` (texto, escrito antes de mirar resultados) dice qué artículo creen que será el más enlazado y si una persona nueva debería abrirlo primero.
 
 **Comprobar:**
 
-En este paso comprobamos que leyeron `text_use` y los resultados de la semana 2, y que escribieron qué esperan del grafo.
+En este paso comprobamos que leyeron los resultados de la semana 2 y que escribieron qué esperan del grafo.
 
 ```python
-assert "text_use" in question_card and "prob_texto" in week2 and graph_expectation.strip()
+assert "prob_texto" in week2 and graph_expectation.strip()
 print("Paso 1.1: OK")
 ```
 
@@ -460,7 +459,7 @@ print("Paso 6.3: OK")
 
 ### Paso 6.4. Guardar los archivos
 
-En este paso guardan los archivos y escriben en `pregunta.json` cómo entran el grafo y la predicción.
+En este paso guardan los archivos y escriben cómo entran el grafo y la predicción.
 
 | Archivo | Columnas | Dónde está |
 |---------|----------|------------|
@@ -469,20 +468,20 @@ En este paso guardan los archivos y escriben en `pregunta.json` cómo entran el 
 | `outputs/lista_inicial.csv` | las de `SUPPORT_COLUMNS` y `title`, `supports`, `prob_texto`, `recortado`, `alerta_centro` y `hecho_que_saca` | L6, Parte 6, Paso 6 |
 
 ```python
-# SU CÓDIGO. Paso 6.4: los tres archivos y pregunta.json
+# SU CÓDIGO. Paso 6.4: los tres archivos, GRAPH_USE y PREDICTION_USE
 
 ```
 
 **Listo cuando:**
 - Los tres archivos existen con sus columnas.
-- `pregunta.json` tiene `graph_use` y `prediction_use`, cada uno con `how_it_enters` y `what_changes_it`, como en la Lección 6, Parte 6, Paso 7.
+- `GRAPH_USE` y `PREDICTION_USE` (texto) dicen cómo entra cada resultado y qué hecho lo cambiaría.
 
 **Comprobar:**
 
-En este paso comprobamos que `pregunta.json` tiene `prediction_use` y que se guardaron la lista y el grafo.
+En este paso comprobamos que escribieron el uso del grafo y de la predicción, y que se guardaron la lista y el grafo.
 
 ```python
-assert "prediction_use" in json.loads(Path("pregunta.json").read_text(encoding="utf-8"))
+assert GRAPH_USE.strip() and PREDICTION_USE.strip()
 assert Path("outputs/lista_inicial.csv").is_file() and Path("outputs/grafo.csv").is_file()
 print("Paso 6.4: OK")
 ```
@@ -539,14 +538,11 @@ Use la [plantilla de la reflexión de la semana 3](https://cabrerac.github.io/as
 
 ## Entrega
 
-El ZIP se entrega el martes 24 nov 2026, 23:59 (hora de Colombia), con el cuaderno ejecutado y renombrado.
-
-El mismo cuaderno, corregido después de la devolución, va en el ZIP del proyecto el martes 1 de diciembre.
+El ZIP del proyecto se entrega el martes 8 dic 2026, 23:59 (hora de Colombia), con el cuaderno ejecutado y renombrado.
 
 | Archivo del ZIP `week-3-<group_id>.zip` | Descripción |
 |-----------------------------------------|-------------|
 | `week-3-group-<group_id>.ipynb` | Este cuaderno ejecutado |
-| `pregunta.json` | La descripción de la pregunta con `graph_use` y `prediction_use` |
 | `marcas.csv` | Su conjunto marcado de la semana 2 |
 | `outputs/grafo.csv` | El lugar de cada artículo en la red, con `graph_support` y `alerta_centro` |
 | `outputs/prediccion.csv` | La clase votada y el resultado de la predicción |

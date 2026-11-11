@@ -36,7 +36,29 @@ u = np.array([1.0, 2.0, 0.0])
 v = np.array([2.0, 4.0, 0.0])
 cosine = u @ v / (np.linalg.norm(u) * np.linalg.norm(v))
 assert abs(cosine - 1.0) < 1e-9
-print(f"Coseno: {cosine:.2f}. Repaso de Python: OK")
+print(f"Coseno: {cosine:.2f}")
+```
+
+### Una lista por comprensión
+La expresión entre corchetes recorre una lista y arma otra.
+
+```python
+sizes = [len(words) for words in [{"diet", "risk"}, {"obesity"}]]
+print(sizes)
+```
+
+### Una columna de verdadero o falso
+Una condición agrega una columna.
+Sirve para marcar las filas que se conservan.
+
+```python
+import pandas as pd
+
+pairs = pd.DataFrame({"pair": ["diet + risk", "a + b"], "count": [12, 3]})
+pairs["kept"] = pairs["count"] >= 10
+assert pairs["kept"].tolist() == [True, False]
+print(pairs)
+print("Repaso de Python: OK")
 ```
 
 ---
@@ -45,7 +67,11 @@ print(f"Coseno: {cosine:.2f}. Repaso de Python: OK")
 
 Seguimos con el equipo interno de la secretaría de salud y sus 320 artículos sobre nutrición. El equipo debe decidir **qué artículos tiene que leer** un colega que llega al equipo. En la Lección 1 escribimos la descripción de la pregunta.
 
-Hoy buscamos **patrones que se repiten** en los resúmenes (`abstract`). La idea viene de las tiendas: Agrawal, Imielinski y Swami (1993) preguntaron qué productos se repiten juntos en los recibos. Aquí la canasta es un resumen y los productos son sus palabras. Un patrón es un par de palabras que aparece junto en muchos artículos, y vale la pena mirarlo cuando supera a una **línea base**, lo que veríamos por azar.
+Hoy buscamos **patrones que se repiten** en los resúmenes (`abstract`).
+La idea viene de las tiendas: Agrawal, Imielinski y Swami (1993) preguntaron qué productos se repiten juntos en los recibos.
+Aquí la canasta es un resumen y los productos son sus palabras.
+Un patrón es un par de palabras que aparece junto en muchos artículos.
+La evaluación compara el soporte, el lift y la cercanía sobre los mismos artículos.
 
 **Tres métodos, tres preparaciones.**
 
@@ -61,11 +87,11 @@ Hoy buscamos **patrones que se repiten** en los resúmenes (`abstract`). La idea
 
 | Parte | Fase CRISP-DM | Qué sale |
 |-------|---------------|----------|
-| 1 | Comprensión del negocio | La pregunta de hoy, los parámetros, el modelo de vectores y `pregunta.json` |
-| 2 | Comprensión de los datos | Los 320 artículos en memoria |
+| 1 | Comprensión del negocio | La pregunta de hoy, escrita en el cuaderno |
+| 2 | Comprensión de los datos | Parámetros, modelo de vectores y los artículos en memoria |
 | 3 | Preparación de los datos | Conjuntos de palabras, conteos y vectores |
 | 4 | Modelado | Pares por soporte, lift y coseno |
-| 5 | Evaluación | Líneas base, tabla comparativa y `outputs/patrones_l2.csv` |
+| 5 | Evaluación | Comparación de los tres métodos y `outputs/patrones_l2.csv` |
 | 6 | Despliegue | Cómo usaremos un patrón conservado |
 
 **Carpetas.** La celda de configuración crea `data/` (datos descargados) y `outputs/` (tablas y gráficos).
@@ -85,14 +111,18 @@ En este paso escribimos qué buscamos hoy. La decisión no cambia: qué artícul
 | ¿Cómo entra un patrón en la lista? | Como un filtro con nombre, por ejemplo "artículos que contienen *fasting + plasma*" |
 
 Un patrón no elige artículos. Es una pista que el equipo puede revisar.
+La lista sigue siendo la de la Lección 1: entre 10 y 30 artículos.
 
-### Paso 2. Configuración
+---
+
+## Parte 2. Comprensión de los datos
+
+### Paso 1. Configuración
 En este paso importamos las librerías, creamos las carpetas y fijamos los parámetros. No los cambie.
 
 El **umbral de soporte** es una proporción de los artículos con un mínimo. Con 317 artículos da 10.
 
 ```python
-import json          # leer y escribir pregunta.json
 import math          # techo (ceil) para el umbral de soporte
 import random        # tablas al azar con semilla fija
 import re            # partir el texto en palabras
@@ -142,7 +172,7 @@ assert support_floor(100) == SUPPORT_MIN
 print("Parámetros: OK")
 ```
 
-### Paso 3. Modelo de vectores de palabras
+### Paso 2. Modelo de vectores de palabras
 En este paso cargamos el modelo de **spaCy** del Método 3, `en_core_web_lg`, de unos 400 MB. Da a cada palabra frecuente su propio vector.
 
 **Tiempo.** Colab lo descarga en cada sesión. Calcule hasta un par de minutos.
@@ -204,46 +234,7 @@ assert nlp.vocab.vectors.shape[1] == 300
 print(f"Modelo {MODEL}: OK")
 ```
 
-### Paso 4. La descripción de la pregunta
-En este paso leemos `pregunta.json`, la descripción de la pregunta de la Lección 1. Si `pregunta.json` no está, este cuaderno escribe la descripción del laboratorio para que pueda seguir.
-
-```python
-QUESTION_PATH = Path("pregunta.json")
-
-if QUESTION_PATH.is_file():
-    question_card = json.loads(QUESTION_PATH.read_text(encoding="utf-8"))
-    print("pregunta.json leído de la Lección 1")
-else:
-    question_card = {
-        "question": "¿Qué artículos de nutrición debe leer el equipo para su tema, y qué filtro los puso en la lista?",
-        "steps": ["comprender el negocio", "comprender los datos", "preparar", "modelar", "evaluar", "desplegar"],
-        "standard": {"min_papers": 10, "max_papers": 30, "max_share_citations_only": 0.5},
-        "use": {
-            "may": ["decidir qué artículos abrir primero para el trabajo del equipo"],
-            "may_not": ["citar la lista como evidencia de la alcaldía", "elegir artículos solo por sus citas"],
-        },
-    }
-    QUESTION_PATH.write_text(json.dumps(question_card, ensure_ascii=False, indent=2), encoding="utf-8")
-    print("pregunta.json no estaba. Escribimos la descripción del laboratorio.")
-
-print(question_card["question"])
-print("Estándar:", question_card["standard"])
-```
-
-**Comprobar:**
-
-En este paso comprobamos que la descripción de la pregunta tiene sus cuatro partes.
-
-```python
-assert {"question", "steps", "standard", "use"} <= set(question_card)
-print("Pregunta: OK")
-```
-
----
-
-## Parte 2. Comprensión de los datos
-
-### Paso 1. Descargar y cargar los artículos
+### Paso 3. Descargar y cargar los artículos
 En este paso descargamos `nutricion-papers.csv`, como en la Lección 1.
 
 ```python
@@ -688,7 +679,10 @@ print("M3: OK")
 
 ## Parte 5. Evaluación
 
-Para conservar un patrón pedimos que **supere a su línea base**. Entre los conservados miramos primero los que **destacan**, con al menos el doble de lo esperado.
+La evaluación compara el soporte, el lift y la cercanía sobre los mismos artículos.
+Un par se conserva cuando el método lo deja por encima de su propio corte.
+El corte del soporte es el percentil 95 de las copias al azar.
+El corte del coseno es el percentil 95 de pares al azar.
 
 ### Paso 1. Qué debe conservar el azar
 En este paso decidimos qué es "el azar". Los datos son una tabla de ceros y unos: una fila por artículo y una columna por palabra. La tabla tiene dos **márgenes**:
@@ -1014,16 +1008,12 @@ display(comparison)
 in_all_three = table[table["kept_lift2"] & table["beats_cosine"]]
 print(f"M1 y M2 comparten {len(set(top_m1) & set(top_m2))} de sus 10 primeros pares")
 print(f"M2 y M3 comparten {len(set(top_m2) & set(top_m3))} de sus 10 primeros pares")
-print(f"Pares que destacan y además son cercanos en el embedding: {len(in_all_three):,}")
+print(f"Pares que conservan los tres métodos: {len(in_all_three):,}")
 in_all_three.nlargest(8, "lift")[["pair", "support", "lift", "cosine"]]
 ```
 
-Cómo leer la tabla:
-
-- **M1** encuentra el vocabulario general. Sirve para describir, poco para filtrar.
-- **M2** encuentra expresiones del campo. Es el que más sirve al equipo.
-- **M3** encuentra palabras que se usan igual. Confirma un par de M2.
-- Un par que destaca en M2 **y** es cercano en M3 es el candidato más fuerte.
+Las tres columnas no tienen que coincidir.
+Un desacuerdo no elige un ganador.
 
 En este paso dibujamos los tres pares de la diapositiva. *food + nutrition* queda bajo el umbral, así que no entra en `table` y hay que contarlo aparte. Su lift no se lee.
 
@@ -1082,6 +1072,13 @@ fig.tight_layout()
 fig.savefig(OUTPUTS_DIR / "comparacion_metodos.png", dpi=120)
 plt.show()
 ```
+
+Cómo leer la figura:
+
+- **Los tres:** *diabetes + obesity* es un candidato más fuerte.
+- **Solo los conteos:** *health + years* se repite en estos resúmenes.
+- **Solo la cercanía:** *food + nutrition* se usan de forma parecida en otros textos. El conteo queda bajo el umbral, así que el lift no se lee.
+- Un par que solo un método conserva no es el ganador.
 
 ```python
 top_lift = kept_table.nlargest(15, "lift").iloc[::-1]
@@ -1144,24 +1141,19 @@ print(f"Pares que pasan Benjamini-Hochberg al 5 %: {bh_passed:,} de {m:,} (conse
 ## Parte 6. Despliegue
 
 ### Paso 1. Cómo usaremos un patrón conservado
-En este paso escribimos en la descripción de la pregunta cómo entra un patrón. Un patrón se vuelve un **filtro con nombre**, por ejemplo "artículos con *fasting + plasma*", que se suma a otros resultados.
+En este paso escribimos cómo entra un patrón.
+Un patrón se vuelve un filtro con nombre, por ejemplo "artículos con *fasting + plasma*", que se suma a otros resultados.
 
-Lo cambiaría un patrón que sale de un formato de revista, que deja de superar al azar con datos nuevos o un cambio de tema.
+| Qué | Respuesta |
+|-----|-----------|
+| Cómo entra | Un patrón conservado nombra un filtro: los artículos que contienen las dos palabras |
+| Cómo se lee | Conservado quiere decir que vale la pena mirarlo, no que esté probado |
+| Qué lo cambia | El patrón es formato o financiación. Deja de superar al azar con datos nuevos. El equipo cambia de tema |
+
+El equipo explica por qué cada artículo está en la lista y qué resultados lo apoyan.
+Un artículo puede tener varios, uno o ninguno, si el equipo lo justifica.
 
 ```python
-question_card["pattern_use"] = {
-    "how_it_enters": "Cada patrón conservado define un filtro con nombre (artículos que contienen las dos palabras).",
-    "reading": "Conservado quiere decir que vale la pena mirarlo, no que esté probado.",
-    "rule": "El equipo explica por qué cada artículo está en la lista y qué resultados lo apoyan. Un artículo puede tener varios, uno o ninguno, si el equipo lo justifica.",
-    "what_changes_it": [
-        "el patrón resulta ser formato o financiación y no contenido",
-        "el patrón ya no supera la línea base con datos nuevos",
-        "el equipo cambia de tema",
-    ],
-    "examples": top_m2[:3],
-}
-QUESTION_PATH.write_text(json.dumps(question_card, ensure_ascii=False, indent=2), encoding="utf-8")
-
 first = kept_table.iloc[0]
 covered = sum(1 for s in word_sets if {first["word_a"], first["word_b"]} <= s)
 print(f"Ejemplo de filtro: {first['pair']} selecciona {covered} artículos")
@@ -1171,10 +1163,9 @@ Un filtro de 10 o 15 artículos cabe en el estándar de la Lección 1 (entre 10 
 
 **Comprobar:**
 
-En este paso comprobamos que `pregunta.json` tiene el uso de los patrones y que el filtro de ejemplo llega al umbral.
+En este paso comprobamos que el filtro de ejemplo llega al umbral.
 
 ```python
-assert "pattern_use" in json.loads(QUESTION_PATH.read_text(encoding="utf-8"))
 assert covered >= FLOOR
 print("Despliegue: OK")
 ```
@@ -1194,7 +1185,6 @@ def _check_ok(name, predicate):
 
 
 checks = [
-    ("pregunta.json con uso de patrones", lambda: "pattern_use" in json.loads(QUESTION_PATH.read_text(encoding="utf-8"))),
     ("outputs/patrones_l2.csv", lambda: patterns_path.is_file()),
     ("Gráficos de la evaluación", lambda: all((OUTPUTS_DIR / f).is_file() for f in ["m1_soporte.png", "m2_lift.png", "nulo_un_par.png", "suerte_y_conservados.png", "comparacion_metodos.png"])),
     ("Patrones conservados", lambda: len(kept) > 0),

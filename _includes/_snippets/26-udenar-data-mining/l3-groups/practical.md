@@ -56,7 +56,7 @@ Los pares describen palabras, pero el colega lee artículos enteros. Las bibliot
 
 | Parte | Fase CRISP-DM | Qué sale |
 |-------|---------------|----------|
-| 1 | Comprensión del negocio | La pregunta de hoy, los parámetros, `pregunta.json` y `outputs/patrones_l2.csv` |
+| 1 | Comprensión del negocio | La pregunta de hoy, los parámetros y `outputs/patrones_l2.csv` |
 | 2 | Comprensión de los datos | Los artículos con resumen útil |
 | 3 | Preparación de los datos | Conteos escalados, SVD y distancias |
 | 4 | Modelado | Grupos de k-means, de la mezcla y de HDBSCAN |
@@ -89,7 +89,6 @@ En este paso importamos las librerías, creamos las carpetas y fijamos los pará
 **Nada que instalar.** Colab trae spaCy y scikit-learn.
 
 ```python
-import json          # leer y escribir pregunta.json
 from itertools import combinations   # los pares de semillas
 import math          # techo (ceil) para el umbral de soporte
 import re            # partir el texto en palabras
@@ -243,44 +242,29 @@ assert p95(list(range(30))) == 28
 print("Funciones de la L2: OK")
 ```
 
-### Paso 4. La descripción de la pregunta
-En este paso leemos `pregunta.json`, la descripción de la pregunta. Si `pregunta.json` no está, este cuaderno escribe la descripción del laboratorio para que pueda seguir.
+### Paso 4. La pregunta y las palabras del tema
+La pregunta es la de la Lección 1.
+El equipo decide qué artículos de nutrición leer, y qué filtro los puso en la lista.
+La lista tiene entre 10 y 30 artículos.
+Un resultado se suma a otros.
+Un artículo puede tener varios, uno o ninguno, si el equipo lo justifica.
 
 Aquí escribimos también `TOPIC_WORDS`, las palabras del tema del equipo. Las escribimos antes de ver ningún grupo, porque en la Parte 5 deciden qué grupos se leen.
 
 ```python
-QUESTION_PATH = Path("pregunta.json")
-
-if QUESTION_PATH.is_file():
-    question_card = json.loads(QUESTION_PATH.read_text(encoding="utf-8"))
-    print("pregunta.json leído de la Lección 2")
-else:
-    question_card = {
-        "question": "¿Qué artículos de nutrición debe leer el equipo para su tema, y qué filtro los puso en la lista?",
-        "steps": ["comprender el negocio", "comprender los datos", "preparar", "modelar", "evaluar", "desplegar"],
-        "standard": {"min_papers": 10, "max_papers": 30, "max_share_citations_only": 0.5},
-        "use": {
-            "may": ["decidir qué artículos abrir primero para el trabajo del equipo"],
-            "may_not": ["citar la lista como evidencia de la alcaldía", "elegir artículos solo por sus citas"],
-        },
-        "pattern_use": {"rule": "El equipo explica por qué cada artículo está en la lista y qué resultados lo apoyan. Un artículo puede tener varios, uno o ninguno, si el equipo lo justifica."},
-    }
-    QUESTION_PATH.write_text(json.dumps(question_card, ensure_ascii=False, indent=2), encoding="utf-8")
-    print("pregunta.json no estaba. Escribimos la descripción del laboratorio.")
-
+MIN_PAPERS = 10
+MAX_PAPERS = 30
 TOPIC_WORDS = {"obesity", "obese", "overweight", "diet", "dietary", "diabetes", "cardiovascular", "hypertension"}
 
-print(question_card["question"])
-print("Regla:", question_card["pattern_use"]["rule"])
 print("Palabras del tema:", ", ".join(sorted(TOPIC_WORDS)))
 ```
 
 **Comprobar:**
 
-En este paso comprobamos que la descripción de la pregunta tiene el uso de los patrones y que las palabras del tema están escritas.
+En este paso comprobamos que las palabras del tema están escritas.
 
 ```python
-assert {"question", "standard", "pattern_use"} <= set(question_card)
+assert MIN_PAPERS < MAX_PAPERS
 assert len(TOPIC_WORDS) >= 5 and all(w == w.lower() for w in TOPIC_WORDS)
 print("Pregunta y palabras del tema: OK")
 ```
@@ -883,20 +867,13 @@ print("grupos_l3.csv: OK")
 ```
 
 ### Paso 3. Qué cambiaría la decisión
-En este paso escribimos en la descripción de la pregunta cómo entra un grupo y qué lo cambiaría: otro umbral, más componentes de la SVD u otra lectura de las palabras.
+En este paso escribimos cómo entra un grupo y qué lo cambiaría: otro umbral, más componentes de la SVD u otra lectura de las palabras.
 
-```python
-question_card["group_use"] = {
-    "how_it_enters": "El resultado del grupo cuenta a favor de un artículo si está en un grupo de HDBSCAN que el equipo lee (sus palabras tocan el tema). El ruido no lo recibe.",
-    "reading": "Los grupos son débiles: la silueta apenas supera al azar y cambia con la semilla. Un grupo solo no decide.",
-    "k_chosen": int(K_CHOSEN),
-    "team_groups": [int(g) for g in team_groups],
-    "noise": "Los artículos que HDBSCAN deja como ruido no tienen el resultado del grupo. Se miran a mano, no se borran.",
-    "what_changes_it": ["otro umbral de soporte", "más direcciones de la SVD", "otra lectura de las palabras de un grupo"],
-}
-QUESTION_PATH.write_text(json.dumps(question_card, ensure_ascii=False, indent=2), encoding="utf-8")
-print(json.dumps(question_card["group_use"], ensure_ascii=False, indent=1))
-```
+| Qué | Respuesta |
+|-----|-----------|
+| Cómo entra | El resultado cuenta a favor si el artículo está en un grupo de HDBSCAN que el equipo lee. El ruido no lo recibe |
+| Cómo se lee | Los grupos son débiles. La silueta apenas supera al azar y cambia con la semilla. Un grupo solo no decide |
+| Qué lo cambia | Otro umbral de soporte. Más direcciones de la SVD. Otra lectura de las palabras de un grupo |
 
 ### Paso 4. Comprobación final
 En este paso revisamos que el cuaderno dejó lo que la Lección 4 necesita.
@@ -913,7 +890,6 @@ def _check_ok(name, predicate):
 
 
 checks = [
-    ("pregunta.json con uso de grupos", lambda: "group_use" in json.loads(QUESTION_PATH.read_text(encoding="utf-8"))),
     ("outputs/grupos_l3.csv", lambda: groups_path.is_file()),
     ("Gráficos de varianza, silueta y dispersión", lambda: all((OUTPUTS_DIR / f).is_file() for f in ["varianza_l3.png", "silueta_l3.png", "dispersion_l3.png"])),
     ("Patrones de la L2 en los resultados", lambda: len(topic_pairs) > 0),
