@@ -3,6 +3,20 @@
 ## The Data Mining Concept
 
 <div class="rows" style="height: 100%">
+   <div class="row" style="height: 10%">
+   </div>
+    <div class="row" style="height: 90%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/images/intake-data-mining-words.png" alt="Word cloud of the group's definitions of data mining" style="width: 80%; height: 80%">
+            </div>
+        </div>
+    </div>
+</div>
+
+## The Data Mining Concept
+
+<div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
@@ -185,26 +199,6 @@
                     <li>This is <b>OLAP</b>: few big reads that scan and group</li>
                 </ul>
                 <p>Keeping history is what made analysis possible. You cannot study a trend you did not store.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-## The Data Mining Concept
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 18%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>What this group wrote</b></p>
-                <p>Ten answers to what data mining is, in their own words.</p>
-            </div>
-        </div>
-    </div>
-    <div class="row" style="height: 82%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <img src="{{ site.url }}/assets/media/images/intake-data-mining-words.png" alt="Word cloud of the group's definitions of data mining" style="width: 100%; height: auto">
             </div>
         </div>
     </div>
