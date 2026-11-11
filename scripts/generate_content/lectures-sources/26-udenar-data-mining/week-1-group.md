@@ -19,7 +19,7 @@ skip_slides: true
 skip_lecture_page: true
 notebook_language: es
 notebook_title: Semana 1, cuaderno de grupo
-notebook_description: Cuaderno de grupo de la semana 1. La pregunta del grupo y los patrones que se repiten en las entradillas de su secretaría en Wikipedia.
+notebook_description: Cuaderno de grupo de la semana 1. La pregunta del grupo y los patrones que se repiten en las descripciones de los artículos de su secretaría en Wikipedia.
 ---
 
 {% include _snippets/26-udenar-data-mining/week-1-group/practical.md %}

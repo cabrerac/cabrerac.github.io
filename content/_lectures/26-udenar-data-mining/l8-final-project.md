@@ -21,7 +21,7 @@ visible: false
 ---
 
 <link rel="stylesheet" href="/assets/css/lecture-article.css">
-**Saturday 28 Nov 2026, 07:00 to 13:00 (Colombia), 12:00 to 18:00 (UK)**. Final project talks. Each group presents its starter list (`outputs/lista_inicial.csv`) and its week 3 notebook. There is no new mining.
+**Saturday 28 Nov 2026, 07:00 to 13:00 (Colombia), 12:00 to 18:00 (UK)**. Final project talks. Each group presents its starter list (`outputs/lista_inicial.csv`) and its project notebook. There is no new mining.
 
 ---
 
@@ -41,7 +41,7 @@ visible: false
 | Optional talk | 10:30-11:30 | 15:30-16:30 | | Future research directions in data mining (if used) | |
 | Close | 11:30-12:00 | 16:30-17:00 | | Moodle survey and final deadlines | |
 
-Each talk is about 20 minutes, then about 10 minutes of questions. The titles come from the week 3 group zips.
+Each talk is about 20 minutes, then about 10 minutes of questions. The titles come from the project notebook.
 
 ---
 
@@ -63,8 +63,8 @@ Upload the slides as a PDF on Moodle, as `project-slides-<group_id>.pdf`, by **F
 | What | When (Colombia) |
 |------|-----------------|
 | Slides `project-slides-<group_id>.pdf` (Moodle) | Fri 27 Nov, 23:59 |
-| Project zip `project-<group_id>.zip` (the report includes the requirements section, and `week-3-group-<group_id>.ipynb`) | Fri 5 Dec, 23:59 |
-| Project reflection `project-reflection-<apellido>-<inicial>.pdf` (first surname and first initial) | Fri 5 Dec, 23:59 |
+| Project zip `project-<group_id>.zip` (requirements PDF, project notebook, `outputs/lista_inicial.csv`, talk title and abstract) | Tue 8 Dec, 23:59 |
+| Project reflection `project-reflection-<apellido>-<inicial>.pdf` (first surname and first initial) | Wed 9 Dec, 23:59 |
 
 The slides and both final items go through Moodle.
 
@@ -76,7 +76,7 @@ The slides and both final items go through Moodle.
 |---------|--------|
 | Saturday plan (PDF, Spanish) | [week-4-session-plan-es.pdf](/assets/documents/26-udenar-data-mining/week-4-session-plan-es.pdf) |
 | Week 3 hub | [week-3-hub](/teaching/26-udenar-data-mining/week-3-hub/) |
-| Project report (Word) | [project-report-template.docx](/assets/documents/26-udenar-data-mining/project-report-template.docx) |
-| Project presentation (PowerPoint, six slides) | added before Mon 23 Nov |
+| Requirements document (Word) | [project-requirements-template.docx](/assets/documents/26-udenar-data-mining/project-requirements-template.docx) |
+| Project presentation (PowerPoint, six slides) | added before Mon 16 Nov |
 | Project reflection (Word) | [project-reflection-template.docx](/assets/documents/26-udenar-data-mining/project-reflection-template.docx) |
 | Course home | [/teaching/26-udenar-data-mining/](/teaching/26-udenar-data-mining/) |

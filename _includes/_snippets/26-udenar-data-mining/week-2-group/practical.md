@@ -487,6 +487,8 @@ El ZIP se entrega el martes 24 nov 2026, 23:59 (hora de Colombia), con el cuader
 | `outputs/texto.csv` | Las predicciones de texto de cada artículo y sus marcas |
 | `outputs/en_vista.csv` | Los resultados de las semanas 1 y 2, `prob_texto`, si el artículo queda en vista y si quedó `recortado` |
 
-Estos archivos son la segunda iteración. En la semana 3 el grupo añade el lugar en el grafo y la predicción, y los compara con lo que ya tiene.
+Estos archivos son la segunda iteración. En la semana 3 el grupo añade el lugar en el grafo y la predicción.
+`outputs/en_vista.csv` marca qué artículos dejan en vista los resultados de esta semana. No es la lista de inicio.
+El cuaderno del proyecto lee este archivo, junto con los de las semanas 1 y 3, y escribe esa lista.
 
 <!-- end NOTEBOOK: -->

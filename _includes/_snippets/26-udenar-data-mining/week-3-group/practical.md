@@ -2,9 +2,9 @@
 
 ## Instrucciones
 
-**Propósito.** Cuaderno de grupo de la semana 3 (Lecciones 5 y 6). Su grupo sigue como equipo interno de una alcaldía, con los artículos de su secretaría. Esta semana se cierra la **lista de inicio**, la lista de artículos para los nuevos integrantes del equipo.
+**Propósito.** Cuaderno de grupo de la semana 3 (Lecciones 5 y 6). Su grupo sigue como equipo interno de una alcaldía, con los artículos de su secretaría. Esta semana produce dos resultados. El cuaderno del proyecto es el que junta las tres semanas y escribe la lista de inicio.
 
-**Esta semana.** Se suman dos resultados: el lugar de cada artículo en la red de enlaces (`outputs/grafo.csv`) y una predicción (`outputs/prediccion.csv`). Después arman la lista en `outputs/lista_inicial.csv`, con los resultados de las tres semanas que apoyan cada artículo y una frase escrita por el grupo: qué hecho lo sacaría de la lista.
+**Esta semana.** Se suman dos resultados: el lugar de cada artículo en la red de enlaces (`outputs/grafo.csv`) y una predicción (`outputs/prediccion.csv`). Esos archivos son una entrada del cuaderno del proyecto. Aquí no se arma la lista.
 
 **Antes de empezar.** Ejecuten primero los cuadernos individuales de las Lecciones 5 y 6. Este cuaderno lo escribe el grupo. Cada paso dice qué código de la Lección 5 o de la Lección 6 adaptar. No peguen sin entender.
 
@@ -12,7 +12,7 @@
 
 **Materiales.** [L5 Grafos](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l5-graphs.ipynb) y [L6 Predicción](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l6-prediction.ipynb).
 
-**Pregunta del grupo.** ¿Qué artículos entran en la lista de inicio de su secretaría, qué resultados apoyan a cada uno y qué hecho lo sacaría?
+**Pregunta del grupo.** ¿Qué lugar ocupa un artículo entre los demás, y la predicción de la Lección 6 cuenta para su secretaría?
 
 **Mapa del cuaderno**
 
@@ -24,7 +24,7 @@
 | **3** | Preparación de los datos | Los grafos y la tabla de la L6 |
 | **4** | Modelado | Grado, PageRank, node2vec y los tres métodos de la L6 |
 | **5** | Evaluación | Un artículo por su lugar y si la L6 cuenta |
-| **6** | Despliegue | `outputs/grafo.csv`, `outputs/prediccion.csv`, `outputs/lista_inicial.csv`, título y resumen |
+| **6** | Despliegue | `outputs/grafo.csv`, `outputs/prediccion.csv` y cómo entraría cada resultado |
 
 **Cómo leer cada paso.** Cada paso empieza con **En este paso**, dice qué copiar y dónde está, y termina con una celda **Comprobar**. Ejecuten de arriba abajo. Una Comprobar revisa que exista lo pedido, con su forma. No revisa su respuesta. Si falla, corrijan la celda anterior y vuelvan a ejecutar desde ahí.
 
@@ -85,7 +85,7 @@ En este paso copian los parámetros, las librerías y las funciones de las Lecci
 
 **Listo cuando:**
 - Los parámetros tienen los valores de las Lecciones 5 y 6.
-- Las rutas son `project-title-es.txt`, `project-abstract-es.txt` y, en `outputs/`, `en_vista.csv` (semana 2), `grafo.csv`, `prediccion.csv` y `lista_inicial.csv`.
+- Las rutas son, en `outputs/`, `en_vista.csv` (semana 2), `grafo.csv` y `prediccion.csv`.
 - `vote_of(predicciones)` recibe las predicciones de los 3 métodos y devuelve, por fila, la clase que dicen al menos 2 como texto, o `None` si los tres dicen algo distinto. La etiqueta puede tener varias clases.
 
 **Comprobar:**
@@ -374,142 +374,38 @@ print("Paso 5.2: OK")
 
 ## Ejercicio 6. Despliegue
 
-### Paso 6.1. La tabla con los cinco resultados
+### Paso 6.1. Guardar el grafo y la predicción
 
-En este paso juntan los cinco resultados de cada artículo en una tabla.
-
-| Columna | De dónde sale | Dónde está |
-|---------|---------------|------------|
-| `has_pattern`, `read_group`, `text_says_read` | `week2`, unidas por título | L5, Parte 6, Paso 1 |
-| `graph_support` | el artículo está en `high_rank` | L5, Parte 6, Paso 1 |
-| `prediction` | al menos 2 de 3 métodos, con `vote_of`, fuera del pliegue o apartada | L6, Parte 6, Paso 1 |
-| `one_support` | si la etiqueta repite el texto de la L4 | L6, Parte 6, Paso 2 |
-
-```python
-# SU CÓDIGO. Paso 6.1: table, graph_support, voted, prediction y one_support
-
-```
-
-**Listo cuando:**
-- `table` tiene una fila por título (el índice) y las cinco columnas en verdadero o falso. `voted` es la clase votada de cada artículo. `alerta_centro` nunca cuenta como resultado a favor.
-- La etiqueta tiene dos clases. `prediction` es verdadero si la clase votada es `"1"`, es decir, si al menos 2 de los 3 métodos dicen que la categoría está en `TARGETS[GROUP]`. `one_support` es `abs(phi) >= 0.30`, con phi entre la etiqueta y `text_says_read`.
-
-**Comprobar:**
-
-En este paso comprobamos que la tabla tiene una fila por artículo y los resultados del grafo y de la predicción.
-
-```python
-assert len(table) == N and table["graph_support"].dtype == table["prediction"].dtype == bool
-print("Paso 6.1: OK")
-```
-
-### Paso 6.2. La lista de inicio
-
-En este paso arman la lista de inicio con `MIN_SUPPORTS` y el largo del estándar.
-
-| Qué copiar | Dónde está en L6 |
-|------------|------------------|
-| `SUPPORT_COLUMNS`, `table["supports"]` y `table["in_view"]`, con la rama de `one_support` | Parte 6, Paso 3 |
-| `drop_one` | Parte 6, Paso 4 |
-| `starter_list`, ordenada por número de resultados a favor, `prob_texto` y título, con `recortado` | Parte 6, Paso 5 |
-
-```python
-# SU CÓDIGO. Paso 6.2: SUPPORT_COLUMNS, supports, in_view, drop_one y starter_list
-
-```
-
-**Listo cuando:**
-- `prob_texto` sale de `week2` y `starter_list` tiene `alerta_centro` (el artículo está en `hubs`). Un artículo con `alerta_centro` solo queda por sus resultados a favor.
-- `starter_list` tiene los artículos que pide `MIN_SUPPORTS`, el número de resultados a favor. `MIN_SUPPORTS` empieza en 2 y se puede cambiar. Cada grupo fija y justifica este número en su proyecto. 0 o 1 valen si se explica. Muestran una tabla pequeña con cuántos artículos tienen 0, 1, 2 y 3 o más resultados a favor, y con ella explican su elección. Los no recortados son como mucho `standard["max_articles"]`. Si quedan menos de `standard["min_articles"]`, no rellenan: imprimen que es un resultado débil.
-
-**Comprobar:**
-
-En este paso comprobamos que el número de resultados a favor está en su rango y la columna `alerta_centro`.
-
-```python
-assert starter_list["supports"].between(0, len(SUPPORT_COLUMNS)).all() and starter_list["alerta_centro"].dtype == bool
-print("Paso 6.2: OK")
-```
-
-### Paso 6.3. Qué hecho sacaría cada artículo
-
-En este paso escriben qué hecho sacaría cada artículo de la lista.
-
-| Qué copiar | Dónde está en L6 |
-|------------|------------------|
-| `drop_one`, para ver de qué resultado depende más la lista | Parte 6, Paso 4 |
-
-```python
-# SU CÓDIGO. Paso 6.3: hecho_que_saca, la columna en starter_list y what_changes
-
-```
-
-**Listo cuando:**
-- `hecho_que_saca` es un diccionario de título a un hecho concreto (por ejemplo, "si el grupo de HDBSCAN que lo apoya se rompe con otra semilla") y está en `starter_list["hecho_que_saca"]`. Ningún no recortado queda vacío.
-- `what_changes` (texto) dice de qué resultado depende más la lista y qué la cambiaría.
-
-**Comprobar:**
-
-En este paso comprobamos la columna `hecho_que_saca` y que escribieron qué cambiaría la decisión.
-
-```python
-assert "hecho_que_saca" in starter_list and what_changes.strip()
-print("Paso 6.3: OK")
-```
-
-### Paso 6.4. Guardar los archivos
-
-En este paso guardan los archivos y escriben cómo entran el grafo y la predicción.
+En este paso guardan los dos resultados de esta semana y escriben cómo entraría cada uno en la lista.
+La lista se escribe en el cuaderno del proyecto.
 
 | Archivo | Columnas | Dónde está |
 |---------|----------|------------|
-| `outputs/grafo.csv` | `title`, `grado`, `pagerank`, `aislado`, `alerta_centro`, `graph_support`, `supports` e `in_view`. Pueden sumar `sin_vector_n2v` y `vecinos_n2v` | L5, Parte 6, Paso 2 |
+| `outputs/grafo.csv` | `title`, `grado`, `pagerank`, `aislado`, `alerta_centro` y `graph_support`. Pueden sumar `sin_vector_n2v` y `vecinos_n2v` | L5, Parte 6, Paso 2 |
 | `outputs/prediccion.csv` | `title`, `etiqueta`, `apartada`, `clase_votada` y `prediction` | L6, Parte 6, Paso 6 |
-| `outputs/lista_inicial.csv` | las de `SUPPORT_COLUMNS` y `title`, `supports`, `prob_texto`, `recortado`, `alerta_centro` y `hecho_que_saca` | L6, Parte 6, Paso 6 |
 
 ```python
-# SU CÓDIGO. Paso 6.4: los tres archivos, GRAPH_USE y PREDICTION_USE
+# SU CÓDIGO. Paso 6.1: outputs/grafo.csv, outputs/prediccion.csv, GRAPH_USE y PREDICTION_USE
 
 ```
 
 **Listo cuando:**
-- Los tres archivos existen con sus columnas.
-- `GRAPH_USE` y `PREDICTION_USE` (texto) dicen cómo entra cada resultado y qué hecho lo cambiaría.
+- `graph_support` es verdadero si el artículo está en `high_rank`.
+- `prediction` es verdadero si la clase votada es `"1"`.
+- `alerta_centro` queda en el archivo del grafo. No es un resultado a favor.
+- `GRAPH_USE` y `PREDICTION_USE` (texto) dicen cómo entraría cada resultado y qué hecho lo cambiaría.
 
 **Comprobar:**
 
-En este paso comprobamos que escribieron el uso del grafo y de la predicción, y que se guardaron la lista y el grafo.
+En este paso comprobamos que escribieron el uso del grafo y de la predicción, y que se guardaron los dos archivos.
 
 ```python
 assert GRAPH_USE.strip() and PREDICTION_USE.strip()
-assert Path("outputs/lista_inicial.csv").is_file() and Path("outputs/grafo.csv").is_file()
-print("Paso 6.4: OK")
-```
-
-### Paso 6.5. El título y el resumen de la charla
-
-En este paso escriben el título y el resumen de la charla del proyecto.
-
-| Qué ver | Dónde está |
-|---------|------------|
-| El formato del título y del resumen | [project-title-es.example.txt](https://cabrerac.github.io/assets/documents/26-udenar-data-mining/project-title-es.example.txt) y [project-abstract-es.example.txt](https://cabrerac.github.io/assets/documents/26-udenar-data-mining/project-abstract-es.example.txt) (sobre el laboratorio de artículos, no sirven para copiar) |
-
-```python
-# SU CÓDIGO. Paso 6.5: project_title y project_abstract, guardados con write_text(..., encoding="utf-8")
-
-```
-
-**Listo cuando:**
-- `project-title-es.txt` tiene el título de la charla del proyecto, con menos de 15 palabras.
-- `project-abstract-es.txt` es un solo párrafo de unas 120 palabras: la secretaría, la pregunta de la persona nueva, los resultados que apoyan la lista y qué hecho sacaría un artículo.
-
-**Comprobar:**
-
-En este paso comprobamos que el título tiene menos de 15 palabras.
-
-```python
-assert 0 < len(Path("project-title-es.txt").read_text(encoding="utf-8").split()) < 15
-print("Paso 6.5: OK")
+grafo = pd.read_csv("outputs/grafo.csv")
+prediccion = pd.read_csv("outputs/prediccion.csv")
+assert {"title", "graph_support", "alerta_centro"} <= set(grafo.columns)
+assert {"title", "prediction"} <= set(prediccion.columns)
+print("Paso 6.1: OK")
 ```
 
 ## Registro de contribución
@@ -532,13 +428,14 @@ Use la [plantilla de la reflexión de la semana 3](https://cabrerac.github.io/as
 |--------|--------------|
 | **Metadatos** | Nombre, grupo, semana 3 (L5 + L6), conteo aproximado de palabras y la lectura que cita. |
 | **Proceso** | Qué hizo el grupo en el cuaderno de la semana 3. Diga cuál fue su contribución. |
-| **Decisión** | Describa la lista de inicio de su grupo. Elija un artículo de `outputs/lista_inicial.csv` y diga por qué está en la lista y qué hecho lo sacaría. |
+| **Decisión** | Elija un artículo y descríbalo por su lugar en la red. Diga si la predicción de esta semana cuenta para ese artículo y por qué. Un artículo en el centro solo porque enlaza con muchos es una alerta, no una razón. |
 | **Métodos** | Explique cuáles fueron los métodos utilizados en esta semana (grado, PageRank, node2vec y los modelos de predicción) y cómo se comparan entre ellos. |
 | **Ética** | Nombre una elección técnica de esta semana. Diga a quién ayuda o perjudica, o cómo se podría usar mal un resultado de esta semana. Relacione el punto con Page, Brin, Motwani y Winograd (1998) o con LeCun, Bengio y Hinton (2015). |
 
 ## Entrega
 
-El ZIP del proyecto se entrega el martes 8 dic 2026, 23:59 (hora de Colombia), con el cuaderno ejecutado y renombrado.
+El ZIP se entrega el martes 1 dic 2026, 23:59 (hora de Colombia), con el cuaderno ejecutado y renombrado.
+La reflexión individual se entrega el miércoles 2 dic 2026, 23:59 (hora de Colombia).
 
 | Archivo del ZIP `week-3-<group_id>.zip` | Descripción |
 |-----------------------------------------|-------------|
@@ -546,10 +443,8 @@ El ZIP del proyecto se entrega el martes 8 dic 2026, 23:59 (hora de Colombia), c
 | `marcas.csv` | Su conjunto marcado de la semana 2 |
 | `outputs/grafo.csv` | El lugar de cada artículo en la red, con `graph_support` y `alerta_centro` |
 | `outputs/prediccion.csv` | La clase votada y el resultado de la predicción |
-| `outputs/lista_inicial.csv` | Los artículos en vista, con los resultados que los apoyan, `recortado`, `alerta_centro` y `hecho_que_saca` |
-| `project-title-es.txt` | El título de la charla, con menos de 15 palabras |
-| `project-abstract-es.txt` | El resumen de la charla, un párrafo de unas 120 palabras |
 
-La lista de inicio es el producto del proyecto. Cada artículo muestra los resultados que lo apoyan y un hecho que lo sacaría. Estos archivos son la tercera iteración.
+Estos archivos son la tercera iteración.
+El cuaderno del proyecto los lee, junto con los de las semanas 1 y 2, y escribe la lista de inicio.
 
 <!-- end NOTEBOOK: -->

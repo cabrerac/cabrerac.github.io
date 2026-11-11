@@ -17,7 +17,8 @@ The course page is `content/_courses/26-udenar-data-mining.md`.
 | `week-2-hub` | Week 2 links hub | 21 Nov 2026 |
 | `l5-graphs` | Graphs and an item's place among the others | 28 Nov 2026 |
 | `l6-prediction` | Classification, regression, and a given label | 28 Nov 2026 |
-| `week-3-group` | Week 3 group notebook | 28 Nov 2026 |
+| `week-3-group` | Week 3 group notebook | 1 Dec 2026 |
+| `project-group` | Project notebook. Joins weeks 1 to 3 and writes the starter list | 8 Dec 2026 |
 | `week-3-hub` | Week 3 links hub | 28 Nov 2026 |
 | `l7-research` | Future research directions in data mining (optional) | 28 Nov 2026 |
 | `l8-final-project` | Final projects | 28 Nov 2026 |

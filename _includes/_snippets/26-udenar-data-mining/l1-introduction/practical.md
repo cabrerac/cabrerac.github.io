@@ -2,7 +2,7 @@
 
 ## Repaso de Python para este cuaderno
 
-Este cuaderno utiliza los siguientes métodos de Python. Si ya las conoce, ejecute estas celdas rápido.
+Este cuaderno utiliza los siguientes métodos de Python.
 
 ### Leer una tabla con `pandas`
 `pd.read_csv` lee un archivo CSV y devuelve un **DataFrame**, una tabla con filas y columnas con nombre. `df.shape` dice cuántas filas y columnas tiene.
@@ -76,7 +76,7 @@ print("Repaso de Python: OK")
 
 ## Instrucciones
 
-Usted es parte de un equipo interno de una alcaldía, en la secretaría de salud. La secretaría tiene una base de artículos científicos sobre nutrición. El equipo debe decidir **qué artículos tiene que leer** un colega que llega al equipo. Durante el curso construiremos esa lista paso a paso, un método por lección.
+Usted es parte de un equipo interno de una alcaldía, en la secretaría de salud. La secretaría tiene una base de artículos científicos sobre nutrición. El equipo debe decidir **qué artículos tiene que leer** un colega que llega al equipo. Durante el curso construiremos esa lista paso a paso, una familia de métodos por lección.
 
 Esta lección trata de lo que pasa **antes** de minar: escribir la pregunta, mirar los datos con calma y decidir qué es una buena respuesta. Seguimos **CRISP-DM**, la metodología del curso. Sus seis fases son las secciones de todos los cuadernos del curso.
 
@@ -100,7 +100,7 @@ Esta lección trata de lo que pasa **antes** de minar: escribir la pregunta, mir
 ## Parte 1. Comprensión del negocio
 
 ### Paso 1. El equipo y la decisión
-En este paso escribimos quién decide, qué decide y qué no puede decidir. Esto va primero porque influye todo lo demás. El mismo conjunto de artículos sirve para decisiones muy distintas, y cada decisión pide un estándar distinto.
+En este paso escribimos quién decide, qué decide y qué no puede decidir. Esto va primero porque influye todo lo demás.
 
 | Pregunta | Respuesta para el laboratorio |
 |----------|-------------------------------|
@@ -110,16 +110,14 @@ En este paso escribimos quién decide, qué decide y qué no puede decidir. Esto
 | ¿Qué filtro no sirve? | Un número alto de citas por sí solo |
 | ¿Cuándo la lista es aceptable? | Tiene entre 10 y 30 artículos, y como máximo la mitad entró solo por las citas |
 
-El estándar se escribe antes de mirar resultados.
-Un artículo muy citado puede ser una revisión de literatura o un artículo de otro tema que cita todo el mundo.
-La cantidad de citas mide popularidad, no si el artículo sirve para el trabajo del equipo.
+El estándar se escribe antes de mirar resultados. Un artículo muy citado puede ser una revisión de literatura o un artículo de otro tema que cita todo el mundo. La cantidad de citas mide popularidad, no si el artículo sirve para el trabajo del equipo.
 
 ---
 
 ## Parte 2. Comprensión de los datos
 
 ### Paso 1. Configuración
-En este paso importamos las librerías y creamos las carpetas.
+En este paso importamos las librerías y creamos las carpetas donde almacenaremos los datos.
 
 ```python
 from pathlib import Path
@@ -155,7 +153,6 @@ def download_data(name: str, folder: Path = DATA_DIR) -> Path:
     Qué hace: si el archivo ya está en la carpeta, lo usa. Si no, lo descarga de BASE_URL.
     Entrada: name, el nombre del archivo (por ejemplo "nutricion-papers.csv"), y folder, la carpeta destino.
     Salida: la ruta local del archivo.
-    Por qué: no queremos depender de la red en cada ejecución ni descargar dos veces.
     """
     dest = folder / name
     if dest.is_file() and dest.stat().st_size > 0:
@@ -189,11 +186,11 @@ print(f"Filas: {papers.shape[0]}  |  Columnas: {papers.shape[1]}")
 papers.head(3)
 ```
 
-Cada fila es un artículo. Estas son las columnas que usaremos en el curso:
+Cada fila es un artículo. Estas son las columnas que usaremos:
 
 | Columna | Qué es | Lección que la usa |
 |---------|--------|--------------------|
-| `title`, `abstract` | Título y resumen | L2 (patrones), L3 (grupos), L4 (texto) |
+| `title`, `abstract` | Título y resumen. El resumen es la descripción del artículo que vamos a leer | L2 (patrones), L3 (grupos), L4 (texto) |
 | `year`, `cited_by_count` | Año y número de citas | L1 (perfil) |
 | `topics`, `links` | Temas de OpenAlex y citas dentro de la colección | L5 (enlaces) |
 | `field` y las demás | Campo y atributos del artículo | L6 (predicción) |
@@ -236,7 +233,7 @@ print("Faltantes: OK")
 En este paso contamos las palabras de cada resumen. Un resumen muy corto no es un resumen. Puede ser una portada o una nota de la revista.
 
 ```python
-papers["abstract_words"] = papers["abstract"].str.split().str.len()
+papers["abstract_words"] = papers["abstract"].str.split().str.len()  # palabras de la descripción de cada artículo
 print(papers["abstract_words"].describe().round(0))
 short_abstracts = papers[papers["abstract_words"] < 20]
 print(f"\nResúmenes de menos de 20 palabras: {len(short_abstracts)}")
@@ -333,7 +330,6 @@ def profile_column(series: pd.Series) -> dict:
     Qué hace: cuenta valores, vacíos y valores distintos, y da un ejemplo.
     Entrada: una columna del DataFrame (pandas Series).
     Salida: un diccionario con tipo, vacíos, distintos y ejemplo.
-    Por qué: una sola tabla permite comparar columnas de un vistazo antes de usarlas.
     """
     non_missing = series.dropna()
     return {
@@ -393,8 +389,8 @@ En este paso vemos, con un solo resumen, que cada método pide algo distinto. Es
 import re
 from collections import Counter
 
-text = papers.loc[1, "abstract"]
-text_words = [w for w in re.findall(r"[^\W\d_]+", text.lower()) if len(w) >= 3]
+text = papers.loc[1, "abstract"]  # la descripción de un artículo
+text_words = [w for w in re.findall(r"[^\W\d_]+", text.lower()) if len(w) >= 3]  # palabras de 3 letras o más
 print(text[:250], "...")
 print(f"\nPalabras: {len(text_words)}")
 ```
@@ -403,7 +399,7 @@ print(f"\nPalabras: {len(text_words)}")
 |--------------------|---------------------------|
 | Pares frecuentes | Un **conjunto**: qué palabras aparecen, sin contar repeticiones |
 | Lift | Además, **cuántos artículos** tienen cada palabra sola |
-| Embedding | Que cada palabra tenga un **vector** en un modelo ya entrenado |
+| Cercanía de las palabras | Que cada palabra tenga un **vector**, una lista de números, en un modelo ya entrenado |
 
 ```python
 word_set = set(text_words)
@@ -440,9 +436,9 @@ Así cualquier lista se puede comprobar igual, hoy y en las lecciones siguientes
 Una lista es una tabla con al menos las columnas `title` y `filter` (el nombre del filtro que puso cada artículo).
 
 ```python
-MIN_PAPERS = 10
-MAX_PAPERS = 30
-MAX_SHARE_CITATIONS_ONLY = 0.5
+MIN_PAPERS = 10  # la lista tiene al menos 10 artículos
+MAX_PAPERS = 30  # y como mucho 30
+MAX_SHARE_CITATIONS_ONLY = 0.5  # como máximo la mitad entró solo por las citas
 
 
 def meets_standard(reading_list: pd.DataFrame, collection: pd.DataFrame = papers) -> tuple[bool, list[str]]:
@@ -462,8 +458,8 @@ def meets_standard(reading_list: pd.DataFrame, collection: pd.DataFrame = papers
         reasons.append(f"tiene {n} artículos, el máximo es {MAX_PAPERS}")
     if reading_list["filter"].isna().any() or (reading_list["filter"].astype(str).str.strip() == "").any():
         reasons.append("algún artículo no dice qué filtro lo puso")
-    most_cited = set(collection.nlargest(MAX_PAPERS, "cited_by_count")["title"])
-    citations_only = reading_list["title"].isin(most_cited) & (reading_list["filter"] == "citas")
+    most_cited = set(collection.nlargest(MAX_PAPERS, "cited_by_count")["title"])  # los 30 más citados de la colección
+    citations_only = reading_list["title"].isin(most_cited) & (reading_list["filter"] == "citas")  # entraron solo por las citas
     if n and citations_only.mean() > MAX_SHARE_CITATIONS_ONLY:
         reasons.append(f"{citations_only.mean():.0%} de la lista viene solo de las citas")
     return len(reasons) == 0, reasons
@@ -475,17 +471,17 @@ En este paso probamos la función con dos listas de ejemplo
 La primera lista toma los 20 artículos más citados. La segunda toma artículos cuyo resumen menciona *obesity* y *children*, con ese filtro escrito.
 
 ```python
-citation_list = papers.nlargest(20, "cited_by_count")[["title"]].assign(filter="citas")
+citation_list = papers.nlargest(20, "cited_by_count")[["title"]].assign(filter="citas")  # los 20 artículos más citados
 citations_ok, citation_reasons = meets_standard(citation_list)
 print("Lista por citas:", "cumple" if citations_ok else "no cumple", citation_reasons)
 
-mentions = papers["abstract"].str.contains("obesity", case=False) & papers["abstract"].str.contains("children", case=False)
-topic_list = papers.loc[mentions, ["title"]].head(30).assign(filter="resumen menciona obesity y children")
+mentions = papers["abstract"].str.contains("obesity", case=False) & papers["abstract"].str.contains("children", case=False)  # la descripción menciona las dos palabras
+topic_list = papers.loc[mentions, ["title"]].head(30).assign(filter="resumen menciona obesity y children")  # como máximo 30 de esos artículos
 topic_ok, topic_reasons = meets_standard(topic_list)
 print(f"Lista por tema ({len(topic_list)} artículos):", "cumple" if topic_ok else "no cumple", topic_reasons)
 ```
 
-La lista por citas no cumple. Tiene buen tamaño, pero solo repite la popularidad con que se armó la colección. La lista por tema cumple el estándar. Eso no la hace buena todavía: falta saber si su filtro supera una línea base. Eso empieza en la Lección 2.
+La lista por citas toma los 20 artículos más citados. Tiene buen tamaño, pero repite cuáles artículos ya eran famosos. No cumple, porque más de la mitad entró solo por las citas. La lista por tema toma artículos cuya descripción menciona obesity y children. Cumple el tamaño. La Lección 2 pregunta si ese par de palabras es más que una coincidencia.
 
 **Comprobar:**
 
