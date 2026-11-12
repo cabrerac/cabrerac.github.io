@@ -54,8 +54,7 @@
     <div class="row" style="height: 20%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <p>The individual notebook runs this comparison on 317 papers abstracts in the nutrition domain. Each abstract is one bag of words.</p>
-                <p>Support stays above the 95th percentile of the chance copies, and cosine stays above the 95th percentile of random pairs.</p>
+                <p>The individual notebook runs this comparison on 317 papers abstracts in the nutrition domain. Each abstract is one bag of words. Support stays above the 95th percentile of the chance copies, and cosine stays above the 95th percentile of random pairs.</p>
             </div>
         </div>
     </div>
