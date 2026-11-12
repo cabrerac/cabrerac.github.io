@@ -38,7 +38,7 @@
             <div class="column vertical-middle text-center" style="width: 33%">
                 <img src="{{ site.url }}/assets/media/images/permutation-test-animation.gif" alt="Permutation test" style="max-height: 155px; max-width: 100%; width: auto;">
                 <p><b>Evaluation</b></p>
-                <p>A support floor and a baseline</p>
+                <p>A support floor and reordered copies</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 33%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/crisp-dm-process-diagram.png" alt="CRISP-DM process diagram" style="max-height: 155px; max-width: 100%; width: auto;">

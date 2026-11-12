@@ -6,11 +6,11 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Group zip by Tuesday 17 November, 23:59 Colombia time</b></p>
+                <p><b>Group zip by Tuesday 24 November, 23:59 Colombia time</b></p>
                 <ul>
                     <li>One file, week-2-&lt;group_id&gt;.zip</li>
                     <li>The executed week 2 group notebook</li>
-                    <li>pregunta.json and marcas.csv, the group's marks</li>
+                    <li>marcas.csv, the group's marks</li>
                     <li>outputs/grupos.csv, the group of each article</li>
                     <li>outputs/texto.csv, what each text filter says, with the marks</li>
                     <li>outputs/en_vista.csv, the results of weeks 1 and 2 for each article</li>
@@ -18,7 +18,7 @@
                 <p>These files are the result of the second iteration of the project.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Individual reflection by Wednesday 18 November, 23:59 Colombia time</b></p>
+                <p><b>Individual reflection by Wednesday 25 November, 23:59 Colombia time</b></p>
                 <ul>
                     <li>One PDF, week-2-reflection-&lt;apellido&gt;-&lt;inicial&gt;.pdf</li>
                     <li>Between 700 and 1000 words, using the <a href="{{ site.url }}/assets/documents/26-udenar-data-mining/reflection-week-2-template.docx" target="_blank" rel="noopener noreferrer">week 2 reflection template</a></li>
@@ -35,7 +35,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Saturday 14 November, 07:00 to 13:00 Colombia time</b></p>
+                <p><b>Saturday 21 November, 07:00 to 13:00 Colombia time</b></p>
                 <ul>
                     <li><b>07:00</b> Opening. Each group gets one question from the learning journal.</li>
                     <li><b>07:15</b> Reading discussion in groups. Each group prepares one slide that answers its question.</li>

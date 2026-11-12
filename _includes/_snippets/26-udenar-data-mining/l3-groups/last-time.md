@@ -10,7 +10,7 @@
                     <li><b>The task:</b> which sets of items repeat together more often than chance</li>
                     <li><b>The data:</b> transactions, event sets, and texts as bags of words</li>
                     <li><b>The methods:</b> support, lift, and item-vector closeness</li>
-                    <li><b>Evaluation and deployment:</b> a support floor, a baseline, and what using a pattern would mean</li>
+                    <li><b>Evaluation and deployment:</b> a support floor, reordered copies, and what using a pattern would mean</li>
                 </ul>
                 <p>This lecture is the grouping task.</p>
             </div>

@@ -13,8 +13,8 @@
                     <li><b>Part 2, Data understanding:</b> the nutrition papers in memory</li>
                     <li><b>Part 3, Data preparation:</b> word sets, counts and vectors</li>
                     <li><b>Part 4, Modeling:</b> pairs by support, lift and cosine</li>
-                    <li><b>Part 5, Evaluation:</b> the baselines, the comparison table and outputs/patrones_l2.csv</li>
-                    <li><b>Part 6, Deployment:</b> how we will use a kept pattern</li>
+                    <li><b>Part 5, Evaluation:</b> the assessment and comparison of the three methods</li>
+                    <li><b>Part 6, Deployment:</b> a reading list of up to 30 articles</li>
                 </ul>
             </div>
         </div>
@@ -28,15 +28,15 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>The <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/week-1-group.ipynb" target="_blank">week 1 group notebook</a></b></p>
-                <p>The same steps on the department file. The text is the opening paragraph of each Wikipedia article.</p>
+                <p>The same steps on the department file. The text is the description of each Wikipedia article.</p>
                 <ul>
-                    <li><b>Exercise 0, Setup:</b> group, data, parameters and the Spanish word vector model, es_core_news_lg of about 570 MB</li>
-                    <li><b>Exercise 1, Business understanding:</b> pregunta.json with question, steps, standard and use</li>
-                    <li><b>Exercise 2, Data understanding:</b> a profile of the opening paragraphs</li>
-                    <li><b>Exercise 3, Data preparation:</b> word sets, counts and vectors</li>
-                    <li><b>Exercise 4, Modeling:</b> pairs by support, lift and cosine</li>
-                    <li><b>Exercise 5, Evaluation:</b> the baseline and the kept pairs</li>
-                    <li><b>Exercise 6, Deployment:</b> the use of a pattern and outputs/patrones.csv</li>
+                    <li><b>Exercise 0, Setup:</b> group, data, parameters and the Spanish word vector model</li>
+                    <li><b>Exercise 1, Business understanding:</b> the question and the problem</li>
+                    <li><b>Exercise 2, Data understanding:</b> shape, missing values, length, duplicates, and a profile</li>
+                    <li><b>Exercise 3, Data preparation:</b> useful words, sets, counts, pairs, and vectors</li>
+                    <li><b>Exercise 4, Modeling:</b> pairs by support, lift, and cosine</li>
+                    <li><b>Exercise 5, Evaluation:</b> assesment and comparison of the three methods</li>
+                    <li><b>Exercise 6, Deployment:</b> outputs/lectura.csv, up to 30 articles</li>
                 </ul>
                 <p>The notebook ends with a contribution log.</p>
             </div>

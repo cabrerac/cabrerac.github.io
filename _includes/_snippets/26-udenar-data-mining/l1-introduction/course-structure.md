@@ -56,9 +56,9 @@
                       <li>Personal learning journal with your answers to the reading questions, before Saturday sessions</li>
                       <li>Group zip with the week's group notebook and its output files. Started on Saturday and due on Tuesday at 23:59 Colombia time.</li>
                       <li>Individual reflection on the week's learning, between 700 and 1000 words. Due on Wednesday at 23:59 using the provided template.</li>
-                      <li>Course project presented on our final day: Saturday, 5 December</li>
-                      <li>Project report due on Tuesday 8th of December</li>
-                      <li>Individual reflection due on Wednesday 9th of December</li>
+                      <li>Project slides due on Friday 27 November, 23:59 Colombia time. Talks on Saturday 28 November.</li>
+                      <li>Project zip due on Tuesday 8 December, 23:59. It holds the requirements, the project notebook, and the starter list.</li>
+                      <li>Individual project reflection due on Wednesday 9 December, 23:59</li>
                       <li>Submissions through Moodle</li>
                    </ul>
             </div>
@@ -83,7 +83,7 @@
                       </li>
                       <li><b>Final project (40% of the course):</b>
                          <ul>
-                            <li>Group project notebook: 70% of the project</li>
+                            <li>Group part, 70% of the project: the project notebook, the requirements, and the slides. The slides are a separate Moodle task and are not inside the zip.</li>
                             <li>Individual project reflection: 30% of the project</li>
                          </ul>
                       </li>
@@ -111,7 +111,7 @@
                       <li>You may use AI during the course. Do not submit a reflection that is only generated text.</li>
                       <li>Respect data ethics on the explored datasets</li>
                       <li>Respect provided templates and word limits</li>
-                      <li>The project report must show the data mining process.</li>
+                      <li>The project notebook must show the data mining process.</li>
                    </ul>
             </div>
         </div>

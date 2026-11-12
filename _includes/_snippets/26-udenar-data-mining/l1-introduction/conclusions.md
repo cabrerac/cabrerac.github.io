@@ -20,7 +20,7 @@
                     <li>Repeating patterns in text</li>
                     <li>Frequent word pairs and lift</li>
                     <li>Word embeddings</li>
-                    <li>Baselines</li>
+                    <li>Evaluation</li>
                 </ul>
             </div>
         </div>

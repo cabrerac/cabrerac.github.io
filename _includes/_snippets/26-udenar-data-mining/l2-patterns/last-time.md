@@ -32,7 +32,7 @@
                     <li><b>The task:</b> which sets of items repeat together more often than chance?</li>
                     <li><b>The data:</b> transactions, event sets, and texts as bags of words</li>
                     <li><b>Modeling:</b> support, lift, and closeness of item vectors</li>
-                    <li><b>Evaluation:</b> a support floor and a baseline</li>
+                    <li><b>Evaluation:</b> a support floor and reordered copies</li>
                     <li><b>Deployment:</b> what using a kept pattern would mean, and its limits</li>
                 </ul>
             </div>
