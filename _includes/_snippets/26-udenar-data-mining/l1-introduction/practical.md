@@ -506,6 +506,4 @@ En este paso el despliegue es entregar la lista al equipo y decir hasta dónde l
 | Usarla para este tema, en esta secretaría | Usarla en otra secretaría, o con otro tema, sin rehacerla |
 | Cambiarla cuando cambia el tema | Tratarla como si la lectura ya estuviera hecha |
 
-La Lección 2 empieza en su propio cuaderno.
-
 <!-- end NOTEBOOK: -->
