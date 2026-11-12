@@ -42,7 +42,7 @@ print(titles.str.contains("diet"))
 ```
 
 ### Un histograma
-`plt.hist` cuenta cuántos valores caen en cada intervalo.
+`plt.hist` cuenta cuántos valores caen en cada intervalo. Parte el rango en intervalos del mismo ancho. La cantidad de valores en cada intervalo puede ser distinta. `bins=4` pide cuatro intervalos. En este caso el valor más pequeño es 1 y el más grande es 8. El ancho de cada intervalo es (8 - 1) / 4 = 1.75. Los cortes quedan en 1, 2.75, 4.5, 6.25 y 8. Cada valor entra en el intervalo que lo contiene. El último intervalo incluye el 8. 1, 2 y 2 caen en el primero. El 3 cae en el segundo. El tercero queda vacío. El 8 cae en el cuarto. La altura de la barra es cuántos valores cayeron ahí. Una barra vacía es un hueco entre valores.
 
 ```python
 import matplotlib.pyplot as plt
@@ -80,7 +80,7 @@ Usted es parte de un equipo interno de una alcaldía, en la secretaría de salud
 
 Esta lección trata de lo que pasa **antes** de minar: escribir la pregunta, mirar los datos con calma y decidir qué es una buena respuesta. Seguimos **CRISP-DM**, la metodología del curso. Sus seis fases son las secciones de todos los cuadernos del curso.
 
-**Qué hacer.** Ejecute las celdas de arriba hacia abajo. Cada paso empieza con **En este paso** y termina con una celda **Comprobar**. El cuaderno de grupo le pedirá escribir la misma pregunta para su secretaría.
+**Qué hacer.** Ejecute las celdas de arriba hacia abajo. Cada paso empieza con **En este paso**. Si el paso tiene código, termina con una celda **Comprobar**. El cuaderno de grupo le pedirá escribir la misma pregunta para su secretaría.
 
 **Mapa del cuaderno**
 
@@ -89,9 +89,9 @@ Esta lección trata de lo que pasa **antes** de minar: escribir la pregunta, mir
 | 1 | Comprensión del negocio | La pregunta y el estándar, escritos en el cuaderno |
 | 2 | Comprensión de los datos | Tabla de perfil y un histograma de citas |
 | 3 | Preparación de los datos | Una revisión, no una limpieza |
-| 4 | Modelado | Nada todavía. Empieza en la Lección 2 |
+| 4 | Modelado | Se explora en las siguiente lecciones |
 | 5 | Evaluación | El estándar como función `meets_standard` |
-| 6 | Despliegue | Cómo se puede usar la lista y cómo no |
+| 6 | Despliegue | El alcance de la lista |
 
 **Carpetas.** La celda de configuración, en la Parte 2, crea `data/` (datos descargados) y `outputs/` (tablas y gráficos).
 
@@ -100,17 +100,16 @@ Esta lección trata de lo que pasa **antes** de minar: escribir la pregunta, mir
 ## Parte 1. Comprensión del negocio
 
 ### Paso 1. El equipo y la decisión
-En este paso escribimos quién decide, qué decide y qué no puede decidir. Esto va primero porque influye todo lo demás.
+En este paso definimos quién decide, qué decide y el alcance de la decisión. Esta definición es clave porque tiene influencia en el resto del proceso.
 
 | Pregunta | Respuesta para el laboratorio |
 |----------|-------------------------------|
 | ¿Quién usa la lista? | El equipo interno de la secretaría de salud |
-| ¿Qué decide con ella? | Qué artículos abrir y leer para su trabajo sobre nutrición |
-| ¿Qué no decide con ella? | No la cita como evidencia oficial de la alcaldía. No reemplaza leer los artículos |
-| ¿Qué filtro no sirve? | Un número alto de citas por sí solo |
+| ¿Qué decide la lista? | Qué artículos abrir y leer para su trabajo sobre nutrición |
+| Alcance de la lista | Elige qué artículos abrir. No es evidencia oficial de la alcaldía y no reemplaza leer los artículos |
 | ¿Cuándo la lista es aceptable? | Tiene entre 10 y 30 artículos, y como máximo la mitad entró solo por las citas |
 
-El estándar se escribe antes de mirar resultados. Un artículo muy citado puede ser una revisión de literatura o un artículo de otro tema que cita todo el mundo. La cantidad de citas mide popularidad, no si el artículo sirve para el trabajo del equipo.
+El estándar se escribe antes de mirar los resultados. Dicho estándar cambia de acuerdo al problema en cuestión y a nuestro conocimiento del mismo. En este caso podríamos incluir artículos dependiendo del número de citaciones. Sin embargo, un artículo muy citado puede ser una revisión de literatura o un artículo de otro tema que cita todo el mundo. La cantidad de citas mide popularidad, no si el artículo sirve para el trabajo del equipo.
 
 ---
 
@@ -118,6 +117,12 @@ El estándar se escribe antes de mirar resultados. Un artículo muy citado puede
 
 ### Paso 1. Configuración
 En este paso importamos las librerías y creamos las carpetas donde almacenaremos los datos.
+`pandas` es la tabla.
+`matplotlib` es la figura.
+`requests` descarga el archivo.
+`Path` es el nombre de una carpeta.
+`data/` guarda el CSV.
+`outputs/` guarda el perfil y el histograma.
 
 ```python
 from pathlib import Path
@@ -126,8 +131,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import requests
 
-DATA_DIR = Path("data")
-OUTPUTS_DIR = Path("outputs")
+DATA_DIR = Path("data")  # aquí queda el CSV
+OUTPUTS_DIR = Path("outputs")  # aquí quedan el perfil y el histograma
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 print("Carpetas listas:", DATA_DIR, OUTPUTS_DIR)
@@ -141,7 +146,7 @@ print("Configuración: OK")
 ```
 
 ### Paso 2. Descargar los artículos
-En este paso descargamos `nutricion-papers.csv` del sitio del curso. La función guarda el archivo en `data/` y no lo vuelve a descargar si ya está. Es el mismo patrón de caché de los cuadernos de Big Data.
+En este paso descargamos `nutricion-papers.csv` del sitio del curso. La función guarda el archivo en `data/` y no lo vuelve a descargar si ya está. Es el mismo patrón de caché de los cuadernos de Big Data pero esta vez asumimos que los datos están disponibles para su análisis.
 
 ```python
 BASE_URL = "https://cabrerac.github.io/assets/data/26-udenar-data-mining"
@@ -155,7 +160,7 @@ def download_data(name: str, folder: Path = DATA_DIR) -> Path:
     Salida: la ruta local del archivo.
     """
     dest = folder / name
-    if dest.is_file() and dest.stat().st_size > 0:
+    if dest.is_file() and dest.stat().st_size > 0:  # usa el archivo si ya está
         print(f"Ya en caché: {dest}")
         return dest
     response = requests.get(f"{BASE_URL}/{name}", timeout=60)
@@ -181,7 +186,7 @@ print("Descarga: OK")
 En este paso cargamos el archivo y miramos su forma y sus columnas.
 
 ```python
-papers = pd.read_csv(papers_path)
+papers = pd.read_csv(papers_path)  # una fila por artículo
 print(f"Filas: {papers.shape[0]}  |  Columnas: {papers.shape[1]}")
 papers.head(3)
 ```
@@ -213,7 +218,7 @@ print("Forma de los datos: OK")
 En este paso contamos las celdas vacías por columna. Un vacío puede ser un error o puede ser normal. Hay que mirarlo antes de decidir.
 
 ```python
-missing = papers.isna().sum()
+missing = papers.isna().sum()  # celdas vacías por columna
 missing[missing > 0]
 ```
 
@@ -283,18 +288,21 @@ median_citations = papers["cited_by_count"].median()
 print(f"\nMediana de citas: {median_citations:,.0f}")
 ```
 
-Una vez calculamos la mediana podemos graficar el resultado.
+El histograma parte el número de citas en 40 intervalos y cuenta cuántos artículos caen en cada uno.
+La línea naranja es la mediana.
+La mayoría de las barras queda a la izquierda, así que unos pocos artículos muy citados estiran la cola.
+El gráfico se guarda en `outputs/histograma_citas.png`.
 
 ```python
 plt.figure(figsize=(7, 4))
-plt.hist(papers["cited_by_count"], bins=40, color="steelblue")
-plt.axvline(median_citations, color="darkorange", linestyle="--", label=f"mediana = {median_citations:,.0f}")
+plt.hist(papers["cited_by_count"], bins=40, color="steelblue")  # 40 intervalos
+plt.axvline(median_citations, color="darkorange", linestyle="--", label=f"mediana = {median_citations:,.0f}")  # la mediana
 plt.xlabel("Citas del artículo")
 plt.ylabel("Número de artículos")
 plt.title("Citas de los 320 artículos")
 plt.legend()
 plt.tight_layout()
-plt.savefig(OUTPUTS_DIR / "histograma_citas.png", dpi=120)
+plt.savefig(OUTPUTS_DIR / "histograma_citas.png", dpi=120)  # la figura guardada
 plt.show()
 ```
 
@@ -339,7 +347,7 @@ def profile_column(series: pd.Series) -> dict:
         "example": str(non_missing.iloc[0])[:40] if len(non_missing) else "",
     }
 
-profile = pd.DataFrame({col: profile_column(papers[col]) for col in papers.columns}).T
+profile = pd.DataFrame({col: profile_column(papers[col]) for col in papers.columns}).T  # una fila por columna
 profile.to_csv(OUTPUTS_DIR / "perfil_datos.csv")
 profile
 ```
@@ -364,7 +372,7 @@ Hoy la preparación es una **revisión, no una limpieza**. La razón es que cada
 En este paso revisamos si hay artículos repetidos.
 
 ```python
-print(f"Títulos repetidos: {papers['title'].duplicated().sum()}")
+print(f"Títulos repetidos: {papers['title'].duplicated().sum()}")  # un título que aparece más de una vez
 print(f"Resúmenes repetidos: {papers['abstract'].duplicated().sum()}")
 papers[papers["title"].duplicated(keep=False)][["title", "year", "cited_by_count"]]
 ```
@@ -383,7 +391,7 @@ print("Duplicados revisados: OK")
 ```
 
 ### Paso 2. Un resumen, tres preparaciones
-En este paso vemos, con un solo resumen, que cada método pide algo distinto. Es solo una vista previa. La Lección 2 lo hace bien, con las herramientas adecuadas.
+En este paso vemos, con un solo resumen, tres diferentes tratamientos. Primero seleccionamos un resumen determinado.
 
 ```python
 import re
@@ -395,15 +403,11 @@ print(text[:250], "...")
 print(f"\nPalabras: {len(text_words)}")
 ```
 
-| Método (Lección 2) | Lo que necesita del texto |
-|--------------------|---------------------------|
-| Pares frecuentes | Un **conjunto**: qué palabras aparecen, sin contar repeticiones |
-| Lift | Además, **cuántos artículos** tienen cada palabra sola |
-| Cercanía de las palabras | Que cada palabra tenga un **vector**, una lista de números, en un modelo ya entrenado |
+Después lo tratamos como una lista, como un conjunto y como conteo de palabras.
 
 ```python
-word_set = set(text_words)
-word_counts = Counter(text_words)
+word_set = set(text_words)  # cada palabra una sola vez
+word_counts = Counter(text_words)  # cuántas veces aparece cada palabra
 print(f"Como lista: {len(text_words)} palabras")
 print(f"Como conjunto: {len(word_set)} palabras distintas")
 print(f"Como conteo, las más repetidas: {word_counts.most_common(5)}")
@@ -424,16 +428,14 @@ print("Vista previa de preparación: OK")
 
 ## Parte 4. Modelado
 
-**Lección 2 en adelante.** En esta lección no hay modelo. La Lección 2 empieza con patrones que se repiten en los resúmenes.
+Esta etapa de la metodología se explorará en detalle en las siguientes lecciones.
 
 ---
 
 ## Parte 5. Evaluación
 
 ### Paso 1. El estándar como función
-En este paso convertimos el estándar escrito arriba en una función.
-Así cualquier lista se puede comprobar igual, hoy y en las lecciones siguientes.
-Una lista es una tabla con al menos las columnas `title` y `filter` (el nombre del filtro que puso cada artículo).
+En este paso convertimos el estándar definido anteriormente en una función. Así cualquier lista se puede comprobar bajo las mismas condiciones. Una lista es una tabla con al menos las columnas `title` y `filter` (el nombre del filtro que puso cada artículo).
 
 ```python
 MIN_PAPERS = 10  # la lista tiene al menos 10 artículos
@@ -466,9 +468,7 @@ def meets_standard(reading_list: pd.DataFrame, collection: pd.DataFrame = papers
 ```
 
 ### Paso 2. Probar el estándar con dos listas ejemplo
-En este paso probamos la función con dos listas de ejemplo
-
-La primera lista toma los 20 artículos más citados. La segunda toma artículos cuyo resumen menciona *obesity* y *children*, con ese filtro escrito.
+En este paso probamos la función con dos listas de ejemplo. a primera lista toma los 20 artículos más citados. La segunda toma artículos cuyo resumen menciona *obesity* y *children*.
 
 ```python
 citation_list = papers.nlargest(20, "cited_by_count")[["title"]].assign(filter="citas")  # los 20 artículos más citados
@@ -481,7 +481,7 @@ topic_ok, topic_reasons = meets_standard(topic_list)
 print(f"Lista por tema ({len(topic_list)} artículos):", "cumple" if topic_ok else "no cumple", topic_reasons)
 ```
 
-La lista por citas toma los 20 artículos más citados. Tiene buen tamaño, pero repite cuáles artículos ya eran famosos. No cumple, porque más de la mitad entró solo por las citas. La lista por tema toma artículos cuya descripción menciona obesity y children. Cumple el tamaño. La Lección 2 pregunta si ese par de palabras es más que una coincidencia.
+La lista por citas toma los 20 artículos más citados. Tiene buen tamaño, pero repite cuáles artículos ya eran famosos. No cumple, porque más de la mitad entró solo por las citas. La lista por tema toma artículos cuya descripción menciona obesity y children. Cumple el tamaño.
 
 **Comprobar:**
 
@@ -497,40 +497,15 @@ print("Estándar: OK")
 
 ## Parte 6. Despliegue
 
-### Paso 1. Cómo se puede usar la lista y cómo no
-En este paso volvemos a la parte `use` de la descripción. Desplegar aquí no es publicar un sistema. Es entregar la lista al equipo con instrucciones claras.
+### Paso 1. El alcance de la lista
+En este paso el despliegue es entregar la lista al equipo y decir hasta dónde llega.
 
-| Se puede | No se puede |
-|----------|-------------|
-| Decidir qué artículos abrir primero | Citar la lista como evidencia de la alcaldía |
-| Saber qué filtro puso cada artículo | Elegir artículos solo por sus citas |
-| Cambiar la lista si cambia el tema | Usar la lista en otra secretaría sin rehacerla |
+| Dentro del alcance | Fuera del alcance |
+|--------------------|-------------------|
+| Decidir qué artículos abre primero el equipo de nutrición | Citar la lista como evidencia de la alcaldía |
+| Usarla para este tema, en esta secretaría | Usarla en otra secretaría, o con otro tema, sin rehacerla |
+| Cambiarla cuando cambia el tema | Tratarla como si la lectura ya estuviera hecha |
 
-
-### Paso 2. Comprobación final
-En este paso revisamos que el cuaderno dejó lo que la Lección 2 necesita.
-
-```python
-def _check_ok(name, predicate):
-    """Ejecuta una comprobación y dice OK o incompleto, sin detener el cuaderno."""
-    try:
-        ok = bool(predicate())
-    except Exception:
-        ok = False
-    print(f"{name}: {'OK' if ok else 'incompleto'}")
-    return ok
-
-
-checks = [
-    ("Datos descargados", lambda: papers_path.is_file()),
-    ("outputs/perfil_datos.csv", lambda: (OUTPUTS_DIR / "perfil_datos.csv").is_file()),
-    ("outputs/histograma_citas.png", lambda: (OUTPUTS_DIR / "histograma_citas.png").is_file()),
-    ("Estándar como función", lambda: meets_standard(topic_list)[0]),
-]
-passed = sum(_check_ok(n, f) for n, f in checks)
-print(f"\nL1_CHECKS={passed}/{len(checks)}")
-if passed == len(checks):
-    print("L1_OK. Siga con la Lección 2.")
-```
+La Lección 2 empieza en su propio cuaderno.
 
 <!-- end NOTEBOOK: -->
