@@ -56,9 +56,9 @@
                       <li>Personal learning journal with your answers to the reading questions, before Saturday sessions</li>
                       <li>Group zip with the week's group notebook and its output files. Started on Saturday and due on Tuesday at 23:59 Colombia time.</li>
                       <li>Individual reflection on the week's learning, between 700 and 1000 words. Due on Wednesday at 23:59 using the provided template.</li>
-                      <li>Course project presented on our final day: Saturday, 28 November</li>
-                      <li>Project report due on Tuesday 1st of December</li>
-                      <li>Individual reflection due on Wednesday 2nd of December</li>
+                      <li>Course project presented on our final day: Saturday, 5 December</li>
+                      <li>Project report due on Tuesday 8th of December</li>
+                      <li>Individual reflection due on Wednesday 9th of December</li>
                       <li>Submissions through Moodle</li>
                    </ul>
             </div>
@@ -125,7 +125,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>Week 1:</b> <a href="https://cabrerac.github.io/teaching/26-udenar-data-mining/l1-introduction/" target="_blank">Lecture 1</a> and <a href="https://cabrerac.github.io/teaching/26-udenar-data-mining/l2-patterns/" target="_blank">Lecture 2</a>, then one Saturday session.</p>
-                <p><b>Saturday 7 November, 07:00 to 13:00 Colombia time</b></p>
+                <p><b>Saturday 14 November, 07:00 to 13:00 Colombia time</b></p>
                 <ul>
                     <li><b>07:00</b> Opening. Each group gets one question from the learning journal.</li>
                     <li><b>07:15</b> Reading discussion in groups. Each group prepares one slide that answers its question.</li>
