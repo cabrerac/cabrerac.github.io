@@ -56,7 +56,7 @@
                       <li>Personal learning journal with your answers to the reading questions, before Saturday sessions</li>
                       <li>Group zip with the week's group notebook and its output files. Started on Saturday and due on Tuesday at 23:59 Colombia time.</li>
                       <li>Individual reflection on the week's learning, between 700 and 1000 words. Due on Wednesday at 23:59 using the provided template.</li>
-                      <li>Project slides due on Friday 27 November, 23:59 Colombia time. Talks on Saturday 28 November.</li>
+                      <li>Project slides due on Friday 4 December, 23:59 Colombia time. Presentations on Saturday 5 December.</li>
                       <li>Project zip due on Tuesday 8 December, 23:59. It holds the requirements, the project notebook, and the starter list.</li>
                       <li>Individual project reflection due on Wednesday 9 December, 23:59</li>
                       <li>Submissions through Moodle</li>
