@@ -16,7 +16,7 @@
                 <p><b>Frequent itemsets:</b> sets that occur in many transactions, found by counting.</p>
                 <p><b>Interestingness:</b> a score that compares a count with chance.</p>
                 <p><b>Sequential patterns:</b> patterns that keep the order of the items.</p>
-                <p><b>Item vectors:</b> one vector per item, so closeness is a score.</p>
+                <p><b>Item vectors:</b> one vector per item in a learned space, so items used alike lie close.</p>
             </div>
         </div>
     </div>
