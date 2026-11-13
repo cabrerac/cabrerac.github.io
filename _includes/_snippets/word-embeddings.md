@@ -3,20 +3,27 @@
 ## Item Vectors
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 70%">
+    <div class="row" style="height: 52%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/pattern-task-taxonomy.svg" alt="Taxonomy of pattern methods" style="width: 100%; height: 100%">
             </div>
         </div>
     </div>
-    <div class="row" style="height: 30%">
+    <div class="row" style="height: 48%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
                 <p><b>Frequent itemsets:</b> sets that occur in many transactions, found by counting.</p>
-                <p><b>Interestingness:</b> a score that compares a count with chance.</p>
+                <p>FP-growth finds them from a compressed tree of the transactions.</p>
+                <p>Eclat finds them by intersecting each item's list of transactions.</p>
+                <p><b>Interestingness:</b> a score on a pair beyond the raw count.</p>
+                <p>Confidence is the share of the first item's transactions that also hold the second.</p>
+                <p>Conviction is high when the first item rarely appears without the second, more rarely than chance.</p>
                 <p><b>Sequential patterns:</b> patterns that keep the order of the items.</p>
-                <p><b>Item vectors:</b> one vector per item, so closeness is a score.</p>
+                <p>GSP builds candidate sequences.</p>
+                <p>PrefixSpan grows a sequence from its prefix.</p>
+                <p>SPADE intersects lists of sequence ids.</p>
+                <p><b>Item vectors:</b> one vector per item in a learned space, so items used alike lie close.</p>
             </div>
         </div>
     </div>
@@ -40,18 +47,18 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>Counts only see this collection.</p>
-                <p>Two items that play the same role may rarely share a transaction.</p>
-                <ul>
-                    <li>Products that substitute for each other</li>
-                    <li>Codes that mark the same event</li>
-                    <li>Words such as car and automobile</li>
-                </ul>
-                <p>A vector learned from a larger collection can still place them near each other.</p>
+                <p>The count says the two words share these abstracts.</p>
+                <p>Closeness asks whether those two meanings are close.</p>
+                <p>The cosine is measured for a pair that is already in the abstracts.</p>
+                <p>A high cosine means the abstract brings two related meanings together.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/cosine-similarity.png" alt="Cosine similarity" style="height: 320px">
-                <div class="footnote">CosineSimilarity - StandingFuture, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
+                <p><b>health + years</b> share 81 abstracts.</p>
+                <p>The model does not place them close.</p>
+                <br>
+                <p><b>diabetes + obesity</b> share 19 abstracts.</p>
+                <p>The model places them close.</p>
+                <p>That is a reason to read the abstract.</p>
             </div>
         </div>
     </div>
@@ -81,14 +88,18 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>Skip-gram takes a word and predicts its neighbours <a href="https://arxiv.org/abs/1301.3781" target="_blank" rel="noopener noreferrer">(Mikolov et al., 2013)</a>.</p>
-                <p>The weights learned for each word are its vector.</p>
-                <br>
-                <p>"We propose two model architectures for computing continuous vector representations of words from very large data sets." <a href="https://arxiv.org/abs/1301.3781" target="_blank" rel="noopener noreferrer">(Mikolov et al., 2013)</a></p>
+                <p>The cut is the 95th percentile of 1,000 random pairs.</p>
+                <p>Each pair is drawn from the words the model knows.</p>
+                <p>A pair that shares one stored list is left out.</p>
+                <p>The cosines are sorted from smallest to largest.</p>
+                <p>The cut is the cosine that leaves 95 of every 100 random pairs behind it.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/skip-gram.svg" alt="Skip-gram model" style="height: 360px">
-                <div class="footnote">Skip-gram - Zhang, Lipton, Li, and Smola, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
+                <p>Only a pair that passed the support floor is compared with the cut.</p>
+                <p>Closeness keeps the pair when its cosine is higher than the cut.</p>
+                <p>On these abstracts the cut is 0.46.</p>
+                <p><b>diabetes + obesity</b> is 0.78, so closeness keeps it.</p>
+                <p><b>health + years</b> is 0.31, so closeness leaves it out.</p>
             </div>
         </div>
     </div>
@@ -108,7 +119,6 @@
                 <ul>
                     <li><b>Close to 1:</b> the items are used in similar ways</li>
                     <li><b>Close to 0:</b> no relation</li>
-                    <li><b>Below 0:</b> rare, and usually weak</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -184,6 +194,21 @@ cosines = {
 }
 ```
 
+            </div>
+        </div>
+    </div>
+</div>
+
+## Item Vectors
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
+                <p>Each pair that closeness keeps gives one point to every abstract that contains both words.</p>
+                <p>The reading list adds that point to the support point and the lift point.</p>
+                <p>The abstracts with the highest total are the ones to read first, up to 30.</p>
+                <p><b>food + nutrition</b> is above the cut and below the support floor, so it selects no abstract.</p>
             </div>
         </div>
     </div>

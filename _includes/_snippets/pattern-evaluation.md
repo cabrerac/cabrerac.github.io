@@ -75,7 +75,7 @@
             <div class="column vertical-middle text-left" style="width: 100%">
                <p><b>All three:</b> diabetes + obesity is a stronger candidate.</p>
                <p><b>Counts only:</b> health + years repeats in these abstracts.</p>
-               <p><b>Closeness only:</b> food + nutrition are used alike elsewhere.</p>
+               <p><b>Below the floor:</b> food + nutrition is above the cosine cut, and no abstract is selected.</p>
             </div>
         </div>
     </div>

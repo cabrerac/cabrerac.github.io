@@ -43,13 +43,22 @@
   <text x="476" y="198" class="taught-txt">Lift</text>
   <path class="edge" d="M 476 218 V 236"/>
   <rect x="336" y="236" width="280" height="40" rx="8" class="leaf-box"/>
-  <text x="476" y="256" class="leaf-txt">Other measures</text>
+  <text x="476" y="256" class="leaf-txt">Confidence</text>
+  <path class="edge" d="M 476 276 V 294"/>
+  <rect x="336" y="294" width="280" height="40" rx="8" class="leaf-box"/>
+  <text x="476" y="314" class="leaf-txt">Conviction</text>
 
   <rect x="648" y="112" width="280" height="48" rx="8" class="fam-box"/>
   <text x="788" y="136" class="fam-txt">Sequential patterns</text>
   <path class="edge" d="M 788 160 V 178"/>
   <rect x="648" y="178" width="280" height="40" rx="8" class="leaf-box"/>
-  <text x="788" y="198" class="leaf-txt">Ordering</text>
+  <text x="788" y="198" class="leaf-txt">GSP</text>
+  <path class="edge" d="M 788 218 V 236"/>
+  <rect x="648" y="236" width="280" height="40" rx="8" class="leaf-box"/>
+  <text x="788" y="256" class="leaf-txt">PrefixSpan</text>
+  <path class="edge" d="M 788 276 V 294"/>
+  <rect x="648" y="294" width="280" height="40" rx="8" class="leaf-box"/>
+  <text x="788" y="314" class="leaf-txt">SPADE</text>
 
   <rect x="960" y="112" width="296" height="48" rx="8" class="fam-box"/>
   <text x="1108" y="136" class="fam-txt">Item vectors</text>

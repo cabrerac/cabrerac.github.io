@@ -92,10 +92,31 @@
     <div class="row" style="height: 30%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-                <p><b>Frequent itemsets:</b> sets that occur in many transactions, found by counting.</p>
-                <p><b>Interestingness:</b> a score that compares a count with chance.</p>
-                <p><b>Sequential patterns:</b> patterns that keep the order of the items.</p>
-                <p><b>Item vectors:</b> one vector per item, so closeness is a score.</p>
+                <p><b>Frequent itemsets:</b> support count, FP-growth, and Eclat.</p>
+                <p><b>Interestingness:</b> lift, confidence, and conviction.</p>
+                <p><b>Sequential patterns:</b> GSP, PrefixSpan, and SPADE.</p>
+                <p><b>Item vectors:</b> one vector per item in a learned space, so items used alike lie close.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Methods
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>FP-growth</b> finds the sets from a compressed tree of the transactions.</p>
+                <p><b>Eclat</b> finds them by intersecting each item's list of transactions.</p>
+                <p><b>Confidence</b> is the share of the first item's transactions that also hold the second.</p>
+                <p><b>Conviction</b> is high when the first item rarely appears without the second, more rarely than chance.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>GSP</b> builds candidate sequences.</p>
+                <p><b>PrefixSpan</b> grows a sequence from its prefix.</p>
+                <p><b>SPADE</b> intersects lists of sequence ids.</p>
+                <p>These names place the three methods we use today.</p>
             </div>
         </div>
     </div>
