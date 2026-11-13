@@ -6,7 +6,7 @@
 
 **Este cuaderno.** Leen los archivos de las tres semanas. No vuelven a calcular pares, grupos, el filtro de texto, el grafo ni la predicción. El texto cuenta el camino, desde la pregunta de la semana 1 hasta la lista. El código escribe `outputs/lista_inicial.csv`.
 
-**Antes de empezar.** Tengan a mano los ZIP de las tres semanas. La primera versión de la lista tiene que existir antes de las diapositivas del viernes 27 nov, porque la charla del sábado 28 nov presenta esa lista. El ZIP calificado es el del martes 8 dic, ya con la corrección después de la charla.
+**Antes de empezar.** Tengan a mano los ZIP de las tres semanas. La primera versión de la lista tiene que existir antes de las diapositivas del viernes 4 de diciembre, porque la charla del sábado 5 de diciembre presenta esa lista. El ZIP calificado es el del martes 8 dic, ya con la corrección después de la charla.
 
 **Datos de entrada.** `outputs/patrones.csv` de la semana 1. `outputs/en_vista.csv` de la semana 2. `outputs/grafo.csv` y `outputs/prediccion.csv` de la semana 3. El documento de requerimientos ya tiene la pregunta y el problema. Aquí los vuelven a escribir, porque un disco de Colab no guarda el cuaderno anterior.
 
@@ -264,8 +264,8 @@ print("Paso 4.4: OK")
 
 ### Paso 5.1. Título y resumen
 
-En este paso escriben el título y el resumen de la charla del sábado 28 nov.
-Las diapositivas se entregan el viernes 27 nov. Este texto es la fuente.
+En este paso escriben el título y el resumen de la charla del sábado 5 de diciembre.
+Las diapositivas se entregan el viernes 4 de diciembre. Este texto es la fuente.
 
 | Qué ver | Dónde está |
 |---------|------------|
@@ -316,7 +316,7 @@ Use la [plantilla de la reflexión del proyecto](https://cabrerac.github.io/asse
 ## Entrega
 
 El ZIP se entrega el martes 8 dic 2026, 23:59 (hora de Colombia), con el cuaderno ejecutado y renombrado.
-Las diapositivas van en su propia tarea, el viernes 27 nov. No van en este ZIP.
+Las diapositivas van en su propia tarea, el viernes 4 de diciembre. No van en este ZIP.
 No hay nota de portada.
 
 | Archivo del ZIP `project-<group_id>.zip` | Descripción |

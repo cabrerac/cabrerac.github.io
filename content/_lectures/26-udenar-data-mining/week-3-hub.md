@@ -6,7 +6,7 @@ email: chc79@cam.ac.uk
 institution: University of Cambridge
 layout: lecture
 lecture_code: week-3-hub
-lecture_date: 28/11/2026
+lecture_date: 01/12/2026
 permalink: /teaching/26-udenar-data-mining/week-3-hub/
 position: Assistant Research Professor
 session: 3
@@ -17,7 +17,7 @@ visible: false
 ---
 
 <link rel="stylesheet" href="/assets/css/lecture-article.css">
-**Saturday 28 Nov 2026, 07:00 to 13:00 (Colombia)**. Lectures **L5** and **L6**.
+Lectures **L5** and **L6** are asynchronous. There is no Saturday class for them. Project talks are **Saturday 5 Dec 2026, 07:00 to 13:00 (Colombia)**.
 
 ---
 
@@ -43,8 +43,8 @@ visible: false
 
 ### Deliverables
 
-- Group zip `week-3-<group_id>.zip`, with the talk title and abstract, [title example](/assets/documents/26-udenar-data-mining/project-title-es.example.txt) ┬╖ [abstract example](/assets/documents/26-udenar-data-mining/project-abstract-es.example.txt), due Fri 5 Dec 2026, 23:59
-- Reflection `week-3-reflection-<surname>-<initial>.pdf`, [template](/assets/documents/26-udenar-data-mining/reflection-week-3-template.docx), due Fri 5 Dec 2026, 23:59
-- Project talk, zip and reflection, [week 4 page](/teaching/26-udenar-data-mining/l8-final-project/), from Fri 27 Nov 2026
+- Group zip `week-3-<group_id>.zip`, with the talk title and abstract, [title example](/assets/documents/26-udenar-data-mining/project-title-es.example.txt), [abstract example](/assets/documents/26-udenar-data-mining/project-abstract-es.example.txt), due Tue 1 Dec 2026, 23:59
+- Reflection `week-3-reflection-<surname>-<initial>.pdf`, [template](/assets/documents/26-udenar-data-mining/reflection-week-3-template.docx), due Wed 2 Dec 2026, 23:59
+- Project slides Fri 4 Dec 2026, talks Sat 5 Dec 2026, project zip Tue 8 Dec 2026, project reflection Wed 9 Dec 2026. [Week 4 page](/teaching/26-udenar-data-mining/l8-final-project/)
 
 ---

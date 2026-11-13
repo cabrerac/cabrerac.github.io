@@ -9,7 +9,7 @@ department: Department of Computer Science and Technology
 institution: University of Cambridge
 layout: lecture
 lecture_code: week-3-hub
-lecture_date: 28/11/2026
+lecture_date: 01/12/2026
 permalink: /teaching/26-udenar-data-mining/week-3-hub/
 visible: false
 skip_slides: true

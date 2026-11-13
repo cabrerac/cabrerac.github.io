@@ -21,7 +21,7 @@
                 </ul>
                 <p><b>Project week</b></p>
                 <ul>
-                    <li>Friday 27 November: project-slides-&lt;group_id&gt;.pdf</li>
+                    <li>Friday 4 December: project-slides-&lt;group_id&gt;.pdf</li>
                     <li>Tuesday 8 December: project-&lt;group_id&gt;.zip, with project-requirements-&lt;group_id&gt;.pdf and project-group-&lt;group_id&gt;.ipynb. No cover note.</li>
                     <li>Wednesday 9 December: project reflection</li>
                 </ul>
@@ -36,14 +36,14 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Asynchronous. Saturday 28 November is the project talks.</b></p>
+                <p><b>Asynchronous. Saturday 5 December is the project talks.</b></p>
                 <ul>
                     <li><b>07:00</b> Opening. Each group gets one question from the learning journal.</li>
                     <li><b>07:15</b> Reading discussion in groups. Each group prepares one slide that answers its question.</li>
                     <li><b>08:00</b> Plenary with one speaker per group</li>
                     <li><b>08:45</b> Live run of the Lecture 5 and Lecture 6 notebooks, each student in their own Colab</li>
                     <li><b>10:00</b> Group notebook. The graph and a yes or no prediction of categoria_objetivo. The starter list is the project notebook.</li>
-                    <li><b>11:00</b> Talk preparation, with the title and abstract for Saturday 28 November</li>
+                    <li><b>11:00</b> Talk preparation, with the title and abstract for Saturday 5 December</li>
                     <li><b>12:20</b> Plenary on the project. Each group reads its title and presents one article from its list.</li>
                     <li><b>12:50</b> Closing and deadlines</li>
                 </ul>

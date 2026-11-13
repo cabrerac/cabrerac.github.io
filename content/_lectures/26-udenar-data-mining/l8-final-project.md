@@ -9,7 +9,7 @@ hours: 3
 institution: University of Cambridge
 layout: lecture
 lecture_code: l8-final-project
-lecture_date: 28/11/2026
+lecture_date: 05/12/2026
 permalink: /teaching/26-udenar-data-mining/l8-final-project/
 position: Assistant Research Professor
 session: 8
@@ -21,7 +21,7 @@ visible: false
 ---
 
 <link rel="stylesheet" href="/assets/css/lecture-article.css">
-**Saturday 28 Nov 2026, 07:00 to 13:00 (Colombia), 12:00 to 18:00 (UK)**. Final project talks. Each group presents its starter list (`outputs/lista_inicial.csv`) and its project notebook. There is no new mining.
+**Saturday 5 Dec 2026, 07:00 to 13:00 (Colombia), 12:00 to 18:00 (UK)**. Final project talks. Each group presents its starter list (`outputs/lista_inicial.csv`) and its project notebook. There is no new mining.
 
 ---
 
@@ -47,7 +47,7 @@ Each talk is about 20 minutes, then about 10 minutes of questions. The titles co
 
 ### Slides
 
-Upload the slides as a PDF on Moodle, as `project-slides-<group_id>.pdf`, by **Friday 27 Nov, 23:59 (Colombia)**. A group that misses it presents from its own laptop. One or more members may speak. Use these six slide headings:
+Upload the slides as a PDF on Moodle, as `project-slides-<group_id>.pdf`, by **Friday 4 Dec, 23:59 (Colombia)**. A group that misses it presents from its own laptop. One or more members may speak. Use these six slide headings:
 
 1. The secretaría and the new person's question.
 2. The starter list, short enough to read aloud.
@@ -62,7 +62,7 @@ Upload the slides as a PDF on Moodle, as `project-slides-<group_id>.pdf`, by **F
 
 | What | When (Colombia) |
 |------|-----------------|
-| Slides `project-slides-<group_id>.pdf` (Moodle) | Fri 27 Nov, 23:59 |
+| Slides `project-slides-<group_id>.pdf` (Moodle) | Fri 4 Dec, 23:59 |
 | Project zip `project-<group_id>.zip` (requirements PDF, project notebook, `outputs/lista_inicial.csv`, talk title and abstract) | Tue 8 Dec, 23:59 |
 | Project reflection `project-reflection-<apellido>-<inicial>.pdf` (first surname and first initial) | Wed 9 Dec, 23:59 |
 

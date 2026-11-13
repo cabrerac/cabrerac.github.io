@@ -1,6 +1,6 @@
 <!-- RENDER: -->
 
-**Saturday 21 Nov 2026, 07:00 to 13:00 (Colombia)**. Lectures **L5** and **L6**.
+Lectures **L5** and **L6** are asynchronous. There is no Saturday class for them. Project talks are **Saturday 5 Dec 2026, 07:00 to 13:00 (Colombia)**.
 
 ---
 
@@ -26,9 +26,9 @@
 
 ### Deliverables
 
-- Group zip `week-3-<group_id>.zip`, with the talk title and abstract, [title example](/assets/documents/26-udenar-data-mining/project-title-es.example.txt) ┬╖ [abstract example](/assets/documents/26-udenar-data-mining/project-abstract-es.example.txt), due Tue 24 Nov 2026, 23:59
-- Reflection `week-3-reflection-<surname>-<initial>.pdf`, [template](/assets/documents/26-udenar-data-mining/reflection-week-3-template.docx), due Wed 25 Nov 2026, 23:59
-- Project talk, zip and reflection, [week 4 page](/teaching/26-udenar-data-mining/l8-final-project/), from Fri 27 Nov 2026
+- Group zip `week-3-<group_id>.zip`, with the talk title and abstract, [title example](/assets/documents/26-udenar-data-mining/project-title-es.example.txt), [abstract example](/assets/documents/26-udenar-data-mining/project-abstract-es.example.txt), due Tue 1 Dec 2026, 23:59
+- Reflection `week-3-reflection-<surname>-<initial>.pdf`, [template](/assets/documents/26-udenar-data-mining/reflection-week-3-template.docx), due Wed 2 Dec 2026, 23:59
+- Project slides Fri 4 Dec 2026, talks Sat 5 Dec 2026, project zip Tue 8 Dec 2026, project reflection Wed 9 Dec 2026. [Week 4 page](/teaching/26-udenar-data-mining/l8-final-project/)
 
 ---
 <!-- end RENDER: -->

@@ -1,6 +1,6 @@
 <!-- RENDER: -->
 
-**Saturday 14 Nov 2026, 07:00 to 13:00 (Colombia)**. Lectures **L3** and **L4**.
+**Saturday 21 Nov 2026, 07:00 to 13:00 (Colombia)**. Lectures **L3** and **L4**.
 
 ---
 
@@ -26,8 +26,8 @@
 
 ### Deliverables
 
-- Group zip `week-2-<group_id>.zip`, due Tue 17 Nov 2026, 23:59
-- Reflection `week-2-reflection-<surname>-<initial>.pdf`, [template](/assets/documents/26-udenar-data-mining/reflection-week-2-template.docx), due Wed 18 Nov 2026, 23:59
+- Group zip `week-2-<group_id>.zip`, due Tue 24 Nov 2026, 23:59
+- Reflection `week-2-reflection-<surname>-<initial>.pdf`, [template](/assets/documents/26-udenar-data-mining/reflection-week-2-template.docx), due Wed 25 Nov 2026, 23:59
 
 ---
 <!-- end RENDER: -->

@@ -13,7 +13,7 @@ department: Department of Computer Science and Technology
 institution: University of Cambridge
 layout: lecture
 lecture_code: l8-final-project
-lecture_date: 28/11/2026
+lecture_date: 05/12/2026
 permalink: /teaching/26-udenar-data-mining/l8-final-project/
 visible: false
 skip_notebook: true
