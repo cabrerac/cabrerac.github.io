@@ -334,47 +334,44 @@ print("Paso 4.2: OK")
 
 ## Ejercicio 5. Evaluación
 
-### Paso 5.1. Los pares que se conservan
+### Paso 5.1. Las tres marcas
 
-En este paso repiten la evaluación de la Lección 2.
-En las descripciones reales, un par aparece en `n` de ellas.
-Armen 100 copias de la colección.
-En cada copia intercambien palabras entre artículos.
-Cada artículo conserva su largo y cada palabra conserva su conteo.
-En la copia 1 el par aparece en `m1` descripciones, en la copia 2 en `m2`, y así hasta `m100`.
-El percentil 95 es el conteo que deja a 95 de esas 100 copias en ese valor o por debajo.
-El par se conserva solo si `n` es mayor que ese conteo.
-`kept_lift2` marca los conservados que además aparecen al menos el doble de lo esperado.
-Muestren los conservados de mayor lift y los conservados con soporte de 20 o más.
-Impriman cuántos pares pasarían ese corte por suerte.
+En este paso marcan cada par con las tres reglas de la Lección 2.
+El soporte lo conserva cuando su conteo llega al piso de esta colección.
+El lift lo conserva cuando es al menos 2.
+La cercanía lo conserva cuando el coseno es al menos 0,5 y las dos palabras no comparten vector.
+La tabla de candidatos ya está en el piso, así que el soporte conserva todas sus filas.
 
 ```python
-# SU CÓDIGO. Paso 5.1: transactions, null, null_p95, kept y kept_lift2
+# SU CÓDIGO. Paso 5.1: kept, kept_lift2 y beats_cosine
 
 ```
 
 **Comprobar:**
 
-En este paso comprobamos que cada par tiene sus 100 conteos y que un par conservado supera su percentil 95.
+En este paso comprobamos las tres marcas.
 
 ```python
-assert len(null) == len(candidates) and "null_p95" in table and table["kept"].dtype == bool
-assert table.loc[table["kept"], "support"].gt(table.loc[table["kept"], "null_p95"]).all()
-assert not (table["kept_lift2"] & ~table["kept"]).any()
+assert table["kept"].dtype == bool and table["kept_lift2"].dtype == bool and table["beats_cosine"].dtype == bool
+assert table.loc[table["kept"], "support"].ge(FLOOR).all()
+assert (table["kept_lift2"] == (table["kept"] & (table["lift"] >= 2))).all()
+assert (table["beats_cosine"] == ((table["cosine"] >= 0.5) & ~table["shared_vector"])).all()
 print("Paso 5.1: OK")
 ```
 
 ### Paso 5.2. Dónde coinciden los tres métodos
 
 En este paso comparan el soporte, el lift y la cercanía sobre las mismas descripciones, como en la Lección 2.
-El corte del coseno es el percentil 95 de 1.000 pares de palabras elegidos al azar.
 Armen la tabla de los 10 pares con más soporte, los 10 con más lift y los 10 con más coseno.
+En la columna del coseno entran solo los pares que la cercanía conserva.
 Elijan tres pares de su tabla y dibujen la misma figura de tres paneles: artículos, lift y coseno.
+La línea del lift va en 2.
+La línea del coseno va en 0,5.
 Un par que los tres métodos conservan es un candidato más fuerte.
 Un par que solo un método conserva no es el ganador.
 
 ```python
-# SU CÓDIGO. Paso 5.2: beats_cosine, RANDOM_COSINE_P95, comparison y la figura
+# SU CÓDIGO. Paso 5.2: comparison y la figura
 
 ```
 
@@ -384,7 +381,6 @@ En este paso comprobamos la columna `beats_cosine` y que la comparación tiene t
 
 ```python
 assert table["beats_cosine"].dtype == bool and comparison.shape == (10, 3)
-assert -1 <= RANDOM_COSINE_P95 <= 1
 print("Paso 5.2: OK")
 ```
 
@@ -398,7 +394,7 @@ En este paso guardan `outputs/patrones.csv`, una fila por par candidato, como en
 ```
 
 **Listo cuando:**
-- El archivo tiene `pair`, `support`, `null_p95`, `lift`, `cosine`, `kept`, `kept_lift2`, `beats_cosine` y `shared_vector`.
+- El archivo tiene `pair`, `support`, `lift`, `cosine`, `kept`, `kept_lift2`, `beats_cosine` y `shared_vector`.
 
 **Comprobar:**
 
@@ -406,7 +402,7 @@ En este paso comprobamos las columnas del archivo.
 
 ```python
 saved = pd.read_csv(OUTPUTS_DIR / "patrones.csv")
-assert {"pair", "support", "null_p95", "lift", "cosine", "kept", "kept_lift2", "beats_cosine", "shared_vector"} <= set(saved.columns)
+assert {"pair", "support", "lift", "cosine", "kept", "kept_lift2", "beats_cosine", "shared_vector"} <= set(saved.columns)
 print("Paso 5.3: OK")
 ```
 

@@ -274,7 +274,7 @@ En este paso leemos `outputs/patrones_l2.csv` de la Lección 2. Si el archivo no
 
 ```python
 PATTERNS_PATH = OUTPUTS_DIR / "patrones_l2.csv"
-PATTERN_COLUMNS = ["pair", "support", "null_p95", "lift", "cosine", "kept", "kept_lift2", "beats_cosine", "shared_vector"]
+PATTERN_COLUMNS = ["pair", "support", "lift", "cosine", "kept", "kept_lift2", "beats_cosine", "shared_vector"]
 
 if PATTERNS_PATH.is_file():
     patterns = pd.read_csv(PATTERNS_PATH)

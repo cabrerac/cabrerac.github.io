@@ -74,6 +74,7 @@
                     <li><b>Lift = 1:</b> the pair meets as often as chance</li>
                     <li><b>Lift above 1:</b> the pair meets more often than chance</li>
                     <li><b>Lift below 1:</b> the items avoid each other</li>
+                    <li><b>In the lab:</b> the pair is kept when the lift is at least 2</li>
                 </ul>
             </div>
         </div>

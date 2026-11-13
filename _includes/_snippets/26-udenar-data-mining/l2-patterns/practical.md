@@ -139,7 +139,7 @@ En este paso escribimos qué buscamos hoy. La decisión no cambia: qué artícul
 | Pregunta | Respuesta para el laboratorio |
 |----------|-------------------------------|
 | ¿Qué buscamos en los resúmenes? | Pares de palabras que aparecen juntas en muchos artículos |
-| ¿Cómo medimos un par? | En cuántos artículos aparece. Si ese número supera las tablas reordenadas. Si el modelo usa las dos palabras en frases parecidas |
+| ¿Cómo medimos un par? | En cuántos artículos aparece. Si el lift es al menos 2. Si el coseno es al menos 0,5 |
 | ¿Qué hacemos con un par que se conserva? | Lo volvemos un filtro con nombre, por ejemplo los artículos que contienen *fasting* y *plasma* |
 
 Un patrón no elige artículos pero es información que el equipo puede utilizar para consolidar la lista.
@@ -150,19 +150,17 @@ Un patrón no elige artículos pero es información que el equipo puede utilizar
 
 ### Paso 1. Configuración
 En este paso importamos las librerías, creamos las carpetas y fijamos los números con los que vamos a leer los conteos.
-`math` tiene funciones numéricas. `random` reordena listas con una semilla fija. `re` encuentra palabras en un texto. `time` mide cuánto tarda un paso. `pandas` es la tabla.
+`math` tiene funciones numéricas. `re` encuentra palabras en un texto. `time` mide cuánto tarda un paso. `pandas` es la tabla.
 `matplotlib` es la figura. `numpy` guarda listas de números. `requests` descarga el archivo. `Path` es el nombre de una carpeta.
 
 Un par tiene que aparecer en bastantes descripciones. Si no, puede ser una casualidad de un solo artículo. Pedimos al menos 5 artículos, y también al menos el 3% de la colección.
-Nos quedamos con el número mayor. La semilla vale 7. Con esa semilla, generamos tablas reordenadas en la sección de evaluación. Estas tablas intercambian palabras entre artículos. De esta forma podemos medir cuando un par aparece junto más que el azar.
+Nos quedamos con el número mayor. El lift conserva el par cuando es al menos 2. La cercanía lo conserva cuando el coseno es al menos 0,5.
 
 ```python
 import math
-import random
 import re
 import time
 from collections import Counter
-from collections.abc import Iterable, Sequence
 from itertools import combinations
 from pathlib import Path
 
@@ -180,11 +178,8 @@ OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 # Números con los que leemos los conteos. No los cambie.
 SUPPORT_SHARE = 0.03   # al menos el 3% de las descripciones
 SUPPORT_MIN = 5        # y nunca menos de 5 artículos
-SWAPS_PER_ONE = 5      # intentos de intercambio por cada 1 de la tabla, en cada tabla al azar
-N_SAMPLES = 100        # cien tablas al azar
-SEED = 7               # la misma semilla para todos, así las tablas al azar coinciden
-PROGRESS_EVERY = 20    # imprime una línea de avance cada 20 tablas (0 = en silencio)
 LIFT_MIN = 2.0         # el par aparece al menos el doble de lo esperado
+COSINE_MIN = 0.5       # las dos listas apuntan más hacia el mismo lado que hacia lados distintos
 
 
 def support_floor(n_texts: int) -> int:
@@ -775,232 +770,75 @@ print("Cercanía: OK")
 
 ## Parte 5. Evaluación
 
-La evaluación compara el soporte, el lift y la cercanía sobre los mismos artículos.
+La evaluación mira dónde coinciden los tres métodos sobre los mismos artículos.
+El soporte conserva el par si aparece en al menos 10 artículos.
+El lift lo conserva si es al menos 2.
+La cercanía lo conserva si el coseno es al menos 0,5.
+Un par que conservan los tres es un candidato más fuerte.
+Un par que solo un método conserva no es el ganador.
 
-En los artículos reales, un par aparece en n de ellos. Luego armamos 100 copias de la colección completa. En cada copia intercambiamos palabras entre artículos. Cada artículo conserva su largo y cada palabra conserva su conteo. Lo que cambia es qué palabras quedan juntas. En la copia 1 el par aparece en m1 artículos, en la copia 2 en m2, y así hasta m100. Esos 100 conteos son lo que ese par haría por azar. Los ordenamos de menor a mayor. El percentil 95 es el conteo que deja a 95 de esas 100 copias en ese valor o por debajo. El par se conserva solo si n es mayor que ese conteo. Un conteo alto puede salir de dos palabras comunes que se encuentran por casualidad. Con más de 16.000 pares, unos 800 superarían ese corte por suerte. Por eso leemos desde los de mayor lift.
-
-### Paso 1. Los pares que se conservan
-En este paso armamos esas 100 copias y marcamos los pares cuyo n supera ese corte. Cada artículo es una canasta de palabras. Una copia intercambia palabras entre canastas.
+### Paso 1. Las tres marcas
+En este paso marcamos cada par con las tres reglas.
+La tabla ya tiene solo pares que llegan al piso, así que el soporte los conserva a todos.
+El lift y el coseno separan las filas.
 
 ```python
-frequent_words = set(vocabulary)  # las palabras que aparecen en al menos 10 artículos
-transactions = []
-for words_here in word_sets:  # por cada artículo que entra al análisis
-    basket = words_here & frequent_words  # su resumen, ya sin las palabras raras
-    transactions.append(basket)  # la canasta de ese artículo
+table["kept"] = table["support"] >= FLOOR  # el par aparece en al menos 10 artículos
+table["kept_lift2"] = table["lift"] >= LIFT_MIN  # aparece al menos el doble de lo esperado
+table["beats_cosine"] = (table["cosine"] >= COSINE_MIN) & ~table["shared_vector"]  # el coseno llega a 0,5 y no es el mismo vector
 
-
-def p95(values: Sequence[float]) -> float:
-    """Devuelve el percentil 95 de una lista, sin interpolar.
-
-    Args:
-        values: Conteos o cosenos de los que se quiere el corte.
-    Returns:
-        El valor que deja por debajo al 95% de la lista.
-    """
-    ordered = sorted(values)  # la lista de conteos, de menor a mayor
-    rank = int(0.95 * len(ordered))  # el lugar que deja al 95% de los conteos en ese valor o por debajo
-    if rank >= len(ordered):
-        rank = len(ordered) - 1  # el último conteo, si la lista es corta
-    return ordered[rank]  # ese conteo es el percentil 95
-
-
-def swap_randomize(transactions: Sequence[set], n_swaps: int, rng: random.Random) -> list[set]:
-    """Devuelve canastas nuevas con el mismo largo y los mismos conteos de palabras.
-
-    Args:
-        transactions: Un conjunto de palabras por artículo. No se modifica.
-        n_swaps: Intentos de intercambio.
-        rng: Generador con semilla, para repetir la corrida.
-    Returns:
-        Las canastas después de los intercambios.
-    """
-    rows = []
-    for basket in transactions:  # por cada artículo
-        rows.append(set(basket))  # una copia de las palabras de su resumen
-    cells = []
-    for i, basket in enumerate(rows):  # por cada copia
-        for word in sorted(basket):  # por cada palabra de esa copia
-            cells.append((i, word))  # un lugar donde esa palabra se puede intercambiar
-    n_cells = len(cells)
-    if n_cells < 2:
-        return rows
-    for _ in range(n_swaps):  # por cada intento de intercambio
-        a = rng.randrange(n_cells)  # un lugar al azar
-        b = rng.randrange(n_cells)  # otro lugar al azar
-        t1, w1 = cells[a]  # el primer artículo y su palabra
-        t2, w2 = cells[b]  # el segundo artículo y su palabra
-        same_article = t1 == t2  # las dos palabras están en el mismo artículo
-        same_word = w1 == w2  # es la misma palabra
-        already_there = w2 in rows[t1] or w1 in rows[t2]  # el otro artículo ya tiene esa palabra
-        if same_article or same_word or already_there:
-            continue  # este intento no cambia qué palabras quedan juntas
-        rows[t1].remove(w1)  # el primer artículo deja su palabra
-        rows[t1].add(w2)  # y recibe la del segundo
-        rows[t2].remove(w2)  # el segundo artículo deja su palabra
-        rows[t2].add(w1)  # y recibe la del primero
-        cells[a] = (t1, w2)  # el primer lugar ahora tiene la palabra recibida
-        cells[b] = (t2, w1)  # el segundo lugar ahora tiene la palabra recibida
-    return rows
-
-
-def pair_counts(transactions: Sequence[set], pairs: Sequence[tuple], vocab: Sequence[str]) -> np.ndarray:
-    """Cuenta en cuántos artículos aparece cada par.
-
-    Args:
-        transactions: Una canasta por artículo.
-        pairs: Los pares que se quieren contar.
-        vocab: Las palabras de esas canastas.
-    Returns:
-        Un conteo por par, en el mismo orden.
-    """
-    index = {}
-    for j, word in enumerate(vocab):  # por cada palabra que vamos a contar
-        index[word] = j  # la columna de esta palabra
-    presence = np.zeros((len(transactions), len(vocab)), dtype=np.float32)
-    for i, basket in enumerate(transactions):  # por cada artículo
-        for word in basket:  # por cada palabra de su canasta
-            if word in index:  # es una palabra que estamos contando
-                presence[i, index[word]] = 1.0  # este artículo contiene esta palabra
-    together = presence.T @ presence  # en cuántos artículos aparece cada par de palabras
-    left = []
-    right = []
-    for word_a, word_b in pairs:  # por cada par candidato
-        left.append(index[word_a])  # la columna de la primera palabra
-        right.append(index[word_b])  # la columna de la segunda
-    left = np.array(left, dtype=np.int64)
-    right = np.array(right, dtype=np.int64)
-    return together[left, right].astype(np.int64)  # el conteo de cada par, en el mismo orden
-
-
-def swap_null_counts(
-    transactions: Sequence[set],
-    pairs: Iterable[tuple],
-    n_samples: int = N_SAMPLES,
-    swaps_per_one: int = SWAPS_PER_ONE,
-    seed: int = SEED,
-    progress_every: int = PROGRESS_EVERY,
-) -> dict[tuple, list[int]]:
-    """Arma las tablas al azar y anota el conteo de cada par.
-
-    Args:
-        transactions: Una canasta por artículo.
-        pairs: Los pares candidatos.
-        n_samples: Cuántas tablas al azar.
-        swaps_per_one: Intentos de intercambio por cada palabra presente.
-        seed: Semilla de la reordenación.
-        progress_every: Cada cuántas tablas se imprime el avance. 0 calla el aviso.
-    Returns:
-        Para cada par, la lista de sus conteos en las tablas al azar.
-    """
-    pairs = list(pairs)
-    vocab_words = set()
-    for pair in pairs:  # por cada par candidato
-        for word in pair:  # por cada una de sus dos palabras
-            vocab_words.add(word)  # entra al vocabulario que vamos a reordenar
-    for basket in transactions:  # por cada artículo
-        for word in basket:  # por cada palabra de su canasta
-            vocab_words.add(word)  # también entra, aunque no forme un par candidato
-    vocab = sorted(vocab_words)
-    n_ones = 0
-    for basket in transactions:  # por cada artículo
-        n_ones = n_ones + len(basket)  # cuántas palabras hay en total, para fijar los intentos de intercambio
-    rng = random.Random(seed)
-    samples = np.empty((n_samples, len(pairs)), dtype=np.int64)
-    for s in range(n_samples):  # por cada una de las 100 copias
-        shuffled = swap_randomize(transactions, swaps_per_one * n_ones, rng)  # una copia con las palabras intercambiadas
-        samples[s] = pair_counts(shuffled, pairs, vocab)  # en cuántos artículos aparece cada par en esta copia
-        if progress_every and (s + 1) % progress_every == 0:
-            print(f"Tablas al azar: {s + 1} de {n_samples}", flush=True)
-    counts = {}
-    for j, pair in enumerate(pairs):  # por cada par candidato
-        counts[pair] = samples[:, j].tolist()  # sus 100 conteos, uno por copia
-    return counts
-
-
-def kept_pairs(observed: dict[tuple, int], null: dict[tuple, list[int]]) -> dict[tuple, int]:
-    """Devuelve los pares cuyo conteo real supera su percentil 95.
-
-    Args:
-        observed: Conteo real de cada par.
-        null: Conteos del mismo par en las tablas al azar.
-    Returns:
-        Los pares conservados y su conteo real.
-    """
-    kept = {}
-    for pair, count in observed.items():  # por cada par candidato
-        cut = p95(null[pair])  # el percentil 95 de sus 100 conteos
-        if count > cut:  # en los artículos reales aparece más veces que ese corte
-            kept[pair] = count  # el par se conserva
-    return kept
-
-
-start = time.time()
-null = swap_null_counts(transactions, candidates)
-kept = kept_pairs(candidates, null)
-print(f"Cien tablas al azar en {time.time() - start:.1f} s")
-
-null_p95 = []
-kept_flags = []
-for word_a, word_b in zip(table["word_a"], table["word_b"]):  # por cada par candidato
-    pair = (word_a, word_b)
-    null_p95.append(p95(null[pair]))  # el percentil 95 de sus 100 copias
-    kept_flags.append(pair in kept)  # verdadero si el conteo real supera ese corte
-table["null_p95"] = null_p95
-table["kept"] = kept_flags
-table["kept_lift2"] = table["kept"] & (table["lift"] >= LIFT_MIN)  # se conserva y además aparece al menos el doble de lo esperado
-
-kept_table = table[table["kept"]].sort_values("lift", ascending=False)
-display(kept_table.head(20)[["pair", "support", "null_p95", "lift"]])
-display(kept_table[kept_table["support"] >= 20].head(20)[["pair", "support", "null_p95", "lift"]])
-
-by_luck = round(0.05 * len(candidates))  # con el corte del 95%, cerca del 5% pasaría por suerte
-print(f"Pares conservados: {len(kept):,} de {len(candidates):,}.")
-print(f"Unos {by_luck:,} pasarían por suerte. Leemos desde los de mayor lift.")
+show = ["pair", "support", "lift", "cosine", "kept", "kept_lift2", "beats_cosine"]
+display(table[show].head(10))
+print(f"Pares en la tabla: {len(table):,}. Todos llegan al piso de {FLOOR}.")
+print(f"Con lift de al menos {LIFT_MIN:g}: {int(table['kept_lift2'].sum()):,}.")
+print(f"Con coseno de al menos {COSINE_MIN}: {int(table['beats_cosine'].sum()):,}.")
 ```
-
-Con la semilla 7 salen 7.311 pares conservados, y 6.507 de ellos tienen lift de al menos 2.
 
 **Comprobar:**
 
-En este paso comprobamos cuántos pares se conservan y que cada uno supera su corte.
+En este paso comprobamos las tres reglas en *diabetes + obesity* y en *health + years*.
 
 ```python
-assert len(kept) == 7311
-assert all(table.loc[table["kept"], "support"] > table.loc[table["kept"], "null_p95"])
-assert table["kept_lift2"].sum() == 6507
-print("Pares conservados: OK")
+assert table["kept"].all()
+assert (table["kept_lift2"] == (table["lift"] >= LIFT_MIN)).all()
+cosine_rule = (table["cosine"] >= COSINE_MIN) & ~table["shared_vector"]
+assert (table["beats_cosine"] == cosine_rule).all()
+diabetes = table.loc[table["pair"] == "diabetes + obesity"].iloc[0]
+health = table.loc[table["pair"] == "health + years"].iloc[0]
+assert diabetes.kept and diabetes.kept_lift2 and diabetes.beats_cosine
+assert health.kept and (not health.kept_lift2) and (not health.beats_cosine)
+print("Tres marcas: OK")
 ```
 
-### Paso 2. Dónde coinciden los tres métodos
-En este paso comparamos los tres métodos en los mismos tres pares de la diapositiva.
-El corte del coseno es el percentil 95 de 1.000 pares de palabras elegidos al azar.
-*diabetes + obesity* queda en los tres.
-*health + years* se repite en estos resúmenes y su cercanía no destaca.
-*food + nutrition* se usan de forma parecida en otros textos.
-Su conteo queda bajo el piso, así que el lift no se lee.
-Un par que solo un método conserva no es el ganador.
+### Paso 2. Los diez de cada método
+En este paso ponemos lado a lado los 10 pares con más soporte, los 10 con más lift y los 10 con más coseno.
+En la columna del coseno entran solo los pares que la cercanía conserva.
 
 ```python
-rng_cosine = random.Random(SEED)
-words_with_vector = sorted(VECTORS)
-random_cosines = []
-for _ in range(1000):  # por cada par de palabras elegido al azar
-    word_a, word_b = rng_cosine.sample(words_with_vector, 2)  # dos palabras que el modelo conoce
-    share_vector = word_a in group_of and group_of.get(word_a) == group_of.get(word_b)  # usan la misma lista de números
-    if not share_vector:  # son dos palabras distintas para el modelo
-        random_cosines.append(pair_cosine(word_a, word_b))  # qué tan parecidas son sus listas
-RANDOM_COSINE_P95 = p95(random_cosines)  # el percentil 95 de esas cercanías al azar
-table["beats_cosine"] = (table["cosine"] > RANDOM_COSINE_P95) & ~table["shared_vector"]  # la cercanía supera ese corte y no es el mismo vector
-
 TOP = 10
-top_support = table[table["kept"]].nlargest(TOP, "support")["pair"].tolist()
-top_lift = kept_table.nlargest(TOP, "lift")["pair"].tolist()
+top_support = table.nlargest(TOP, "support")["pair"].tolist()
+top_lift = table.nlargest(TOP, "lift")["pair"].tolist()
 top_cosine = table[table["beats_cosine"]].nlargest(TOP, "cosine")["pair"].tolist()
 comparison = pd.DataFrame({"Soporte": top_support, "Lift": top_lift, "Coseno": top_cosine}, index=range(1, TOP + 1))
 display(comparison)
+```
 
+**Comprobar:**
 
+En este paso comprobamos que la comparación tiene diez filas y tres columnas.
+
+```python
+assert comparison.shape == (TOP, 3)
+print("Diez de cada método: OK")
+```
+
+### Paso 3. Los tres pares de la figura
+En este paso dibujamos los tres pares de la diapositiva.
+*diabetes + obesity* queda en los tres.
+*health + years* se repite en estos resúmenes. Su lift queda bajo 2 y su coseno queda bajo 0,5.
+*food + nutrition* tiene coseno de al menos 0,5 y queda bajo el piso, así que el lift no se lee.
+
+```python
 def focus_cosine(word_a: str, word_b: str) -> float:
     """Devuelve el coseno de dos palabras.
 
@@ -1046,16 +884,16 @@ for word_a, word_b in focus_pairs:  # por cada par de la figura
 fig, axes = plt.subplots(1, 3, figsize=(10.5, 3.4), sharey=True)
 y = np.arange(len(focus_labels))
 axes[0].barh(y, focus_papers, color="steelblue")
-axes[0].axvline(FLOOR, color="gray", linestyle="--", label=f"umbral = {FLOOR}")  # el piso de 10 artículos
+axes[0].axvline(FLOOR, color="gray", linestyle="--", label=f"piso = {FLOOR}")  # el piso de 10 artículos
 axes[0].set_xlabel("Artículos")
 axes[0].legend(loc="lower right")
 lift_ok = ~np.isnan(focus_lifts)
 axes[1].barh(y[lift_ok], np.array(focus_lifts)[lift_ok], color="darkorange")
-axes[1].axvline(1, color="gray", linestyle="--", label="lift = 1")  # lo esperado si las palabras no tuvieran que ver
+axes[1].axvline(LIFT_MIN, color="gray", linestyle="--", label=f"lift = {LIFT_MIN:g}")  # el doble de lo esperado
 axes[1].set_xlabel("Lift")
 axes[1].legend(loc="lower right")
 axes[2].barh(y, focus_cosines, color="seagreen")
-axes[2].axvline(RANDOM_COSINE_P95, color="gray", linestyle="--", label="percentil 95")  # el corte de la cercanía
+axes[2].axvline(COSINE_MIN, color="gray", linestyle="--", label=f"coseno = {COSINE_MIN}")  # las listas apuntan más hacia el mismo lado
 axes[2].set_xlabel("Coseno")
 axes[2].legend(loc="lower right")
 axes[0].set_yticks(y, focus_labels)
@@ -1066,21 +904,22 @@ plt.show()
 
 **Comprobar:**
 
-En este paso comprobamos los tres pares de la figura y el corte del coseno.
+En este paso comprobamos los tres pares de la figura y los dos cortes.
 
 ```python
-assert comparison.shape == (TOP, 3)
 assert focus_papers == [19, 81, 9]
 assert np.isnan(focus_lifts[2])
-assert 0.2 < RANDOM_COSINE_P95 < 0.8
-print("Comparación: OK")
+assert focus_lifts[0] >= LIFT_MIN and focus_lifts[1] < LIFT_MIN
+assert focus_cosines[0] >= COSINE_MIN and focus_cosines[1] < COSINE_MIN and focus_cosines[2] >= COSINE_MIN
+print("Figura: OK")
 ```
 
-### Paso 3. Guardar los patrones
+
+### Paso 4. Guardar los patrones
 En este paso guardamos `outputs/patrones_l2.csv`, una fila por par candidato.
 
 ```python
-columns = ["pair", "support", "null_p95", "lift", "cosine", "kept", "kept_lift2", "beats_cosine", "shared_vector"]
+columns = ["pair", "support", "lift", "cosine", "kept", "kept_lift2", "beats_cosine", "shared_vector"]
 patterns_path = OUTPUTS_DIR / "patrones_l2.csv"
 table.sort_values("lift", ascending=False)[columns].to_csv(patterns_path, index=False)  # una fila por par, con las tres lecturas
 print(f"Guardado: {patterns_path} ({len(table):,} filas)")
@@ -1092,7 +931,7 @@ En este paso comprobamos que el archivo tiene los mismos pares conservados.
 
 ```python
 saved = pd.read_csv(patterns_path)
-assert saved["kept"].sum() == len(kept)
+assert saved["kept"].sum() == len(table)
 print("patrones_l2.csv: OK")
 ```
 
@@ -1104,7 +943,18 @@ print("patrones_l2.csv: OK")
 En este paso decimos para qué sirve un par conservado. El par nombra un filtro: los artículos cuya descripción contiene las dos palabras. Conservado quiere decir que vale la pena mirarlo.
 
 ### Paso 2. Artículos para leer
-En este paso armamos la lista de lectura resultante de esta lección. Un par de palabras suma un punto por cada método que lo conserva. El soporte cuenta si el par superó sus tablas reordenadas. El lift cuenta si además aparece al menos el doble de lo esperado. La cercanía cuenta si el coseno supera el corte de los pares al azar. La evidencia del artículo es la suma de esos puntos. Un par que conservan los tres métodos pesa más que un par que conserva uno solo. Ordenamos de mayor a menor evidencia. Una descripción larga puede contener más pares, así que el conteo también refleja el largo. La Lección 1 pide entre 10 y 30 artículos, así que mostramos como máximo 30. Esta lista usa solo los pares de hoy. Las lecciones siguientes agregan otras evidencias.
+En este paso armamos la lista de lectura resultante de esta lección.
+Un par de palabras suma un punto por cada método que lo conserva.
+El soporte cuenta si el par llega al piso de 10 artículos.
+El lift cuenta si es al menos 2.
+La cercanía cuenta si el coseno es al menos 0,5.
+La evidencia del artículo es la suma de esos puntos.
+Un par que conservan los tres métodos pesa más que un par que conserva uno solo.
+Ordenamos de mayor a menor evidencia.
+Una descripción larga puede contener más pares, así que el conteo también refleja el largo.
+La Lección 1 pide entre 10 y 30 artículos, así que mostramos como máximo 30.
+Esta lista usa solo los pares de hoy.
+Las lecciones siguientes agregan otras evidencias.
 
 ```python
 scored_pairs = []

@@ -98,9 +98,9 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>The cosine similarity of two items must be greater than the 95th percentile of $N$ random pairs.</p>
-                <p>Each pair is drawn from the items that have a vector. The cosines are sorted from smallest to largest. The cut is the cosine that leaves 95 of every 100 random pairs behind it.</p>
-                <p>Only a pair that passed the support floor is compared with the cut. Closeness keeps the pair when its cosine is higher than the cut.</p>
+                <p>Closeness keeps the pair when its cosine is at least 0.5.</p>
+                <p>A cosine of 1 means the two lists point the same way. A cosine of 0 means they have nothing in common. The cut of 0.5 sits between those two.</p>
+                <p>Only a pair that passed the support floor is scored.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/cosine-similarity.png" alt="Cosine similarity" style="height: 300px">

@@ -24,9 +24,9 @@
                     <li>317 papers with five words or more</li>
                     <li>A floor of 10 papers</li>
                     <li>16,271 candidate pairs at the floor</li>
-                    <li>100 swap randomised tables</li>
+                    <li>Lift at least 2, and cosine at least 0.5</li>
                 </ul>
-                <p>A pair is kept when it is at the floor and above the 95th percentile of its swapped counts.</p>
+                <p>A pair is a stronger candidate when support, lift, and closeness all keep it.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 40%">
                 <img src="{{ site.url }}/assets/media/images/openalex-mark.png" alt="OpenAlex mark" style="height: 300px">
@@ -125,8 +125,8 @@
                         <tr><th>Pair</th><th>What happened</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td>health + use</td><td>52 papers. Under chance the 95th percentile is 65. Not kept</td></tr>
-                        <tr><td>food + nutrition</td><td>Cosine 0.63, above the random pair 95th percentile of 0.46. Only 9 papers together, below the support floor</td></tr>
+                        <tr><td>health + years</td><td>81 papers, so support keeps it. Lift 1.43, under 2. Cosine 0.31, under 0.5. Counts only</td></tr>
+                        <tr><td>food + nutrition</td><td>Cosine 0.63, above the cut of 0.5. Only 9 papers together, below the support floor</td></tr>
                         <tr><td>background + methods</td><td>77 papers, lift 2.72. Abstract labels, removed in preparation</td></tr>
                         <tr><td>diabetes + obesity</td><td>19 papers, lift 3.7, cosine 0.78. All three agree</td></tr>
                     </tbody>
