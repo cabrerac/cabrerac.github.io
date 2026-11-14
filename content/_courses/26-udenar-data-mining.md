@@ -11,7 +11,7 @@ year: 2026
 lectures: 8
 hours: 40
 permalink: /teaching/26-udenar-data-mining/
-visible: false
+visible: true
 ---
 
 ---

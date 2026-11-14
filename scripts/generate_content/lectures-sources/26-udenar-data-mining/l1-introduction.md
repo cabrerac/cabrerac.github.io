@@ -15,7 +15,7 @@ layout: lecture
 lecture_code: l1-introduction
 lecture_date: 14/11/2026
 permalink: /teaching/26-udenar-data-mining/l1-introduction/
-visible: false
+visible: true
 notebook_language: es
 notebook_title: Introducción a la minería de datos, preguntas y metodología
 notebook_description: Práctica individual de la Lección 1. Formular la pregunta, los pasos y el estándar, y ver cómo se construye la colección de artículos científicos que utilizaremos a lo largo del curso.

@@ -25,7 +25,7 @@ position: Assistant Research Professor
 session: 2
 start_time: 07:00 am
 title: Repeating Patterns
-visible: false
+visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">

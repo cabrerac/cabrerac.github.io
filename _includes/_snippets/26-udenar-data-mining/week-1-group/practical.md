@@ -426,6 +426,14 @@ No es la lista de inicio del proyecto.
 
 ```
 
+### Paso 6.2. Interpretación de resultados
+
+¿Por qué se seleccionaron los artículos de la lista resultante esta semana? Explique la selección de acuerdo a los métodos explorados y a la pregunta de minería de datos.
+
+**Interpretación**
+
+**ESCRIBA SU TEXTO AQUÍ**
+
 **Comprobar:**
 
 En este paso comprobamos que la lista tiene como máximo 30 artículos y que la evidencia es la suma de los tres métodos.
@@ -436,7 +444,7 @@ assert len(reading_list) == min(30, len(reading))
 assert reading_list["evidencia"].min() > 0
 three = reading_list["soporte"] + reading_list["lift"] + reading_list["cercania"]
 assert (reading_list["evidencia"] == three).all()
-print("Paso 6.1: OK. Armen el ZIP.")
+print("Paso 6.2: OK. Armen el ZIP.")
 ```
 
 ---

@@ -27,7 +27,7 @@ position: Assistant Research Professor
 session: 1
 start_time: 07:00 am
 title: Introduction to Data Mining
-visible: false
+visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">

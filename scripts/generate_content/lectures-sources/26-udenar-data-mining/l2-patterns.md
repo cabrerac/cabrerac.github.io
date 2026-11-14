@@ -15,7 +15,7 @@ layout: lecture
 lecture_code: l2-patterns
 lecture_date: 14/11/2026
 permalink: /teaching/26-udenar-data-mining/l2-patterns/
-visible: false
+visible: true
 group_notebook: week-1-group
 notebook_language: es
 notebook_title: Patrones que se repiten
