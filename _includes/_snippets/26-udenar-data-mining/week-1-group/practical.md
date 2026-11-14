@@ -412,14 +412,8 @@ print("Paso 5.3: OK")
 
 ### Paso 6.1. Artículos para leer
 
-En este paso arman la lista de lectura de esta semana, como en la Lección 2.
-Un par suma un punto si el soporte lo conserva, un punto si el lift también lo conserva, y un punto si la cercanía lo conserva.
-La evidencia del artículo es la suma de esos puntos.
-Ordenen de mayor a menor evidencia.
-Guarden como máximo 30 artículos en `outputs/lectura.csv`, con las columnas `title`, `soporte`, `lift`, `cercania` y `evidencia`.
-Esta lista usa solo los pares de hoy.
-Las semanas siguientes agregan otras evidencias.
-No es la lista de inicio del proyecto.
+En este paso arman la lista de lectura de esta semana, como en la Lección 2. Un par suma un punto si el soporte lo conserva, un punto si el lift también lo conserva, y un punto si la cercanía lo conserva. La evidencia del artículo es la suma de esos puntos. Ordenen de mayor a menor evidencia.
+Guarden como máximo 30 artículos en `outputs/lectura.csv`, con las columnas `title`, `soporte`, `lift`, `cercania` y `evidencia`. Esta lista usa solo los pares de hoy. Las semanas siguientes agregan otras evidencias. ¿Es este método estadísticamente válido? ¿Pueden mejorar su rigurosidad o reemplazarlo de alguna forma, de acuerdo con su conocimiento estadístico?
 
 ```python
 # SU CÓDIGO. Paso 6.1: reading y outputs/lectura.csv
