@@ -33,7 +33,6 @@ visible: true
     <a href="/assets/slides/26-udenar-big-data/l1-introduction.html" target="_blank" rel="noopener noreferrer">HTML slides</a> &nbsp;|&nbsp; <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-big-data/l1-introduction.ipynb" target="_blank" rel="noopener noreferrer">Notebook - Individual</a>
   </p>
 </div>
-
 ### Week 1 links
 
 - [Week 1 hub](/teaching/26-udenar-big-data/week-1-hub/)

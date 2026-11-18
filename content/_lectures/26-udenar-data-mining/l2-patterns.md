@@ -2,10 +2,10 @@
 author: Christian Cabrera Jojoa
 course_code: 26-udenar-data-mining
 department: Department of Computer Science and Technology
-description: Lecture 2 is the pattern task. The question is which sets of items repeat
-  together more often than chance. Transactions, event sets, and texts as bags of
-  words can feed the task. We explore three methods for this task. Support, lift,
-  and closeness of item vectors. For each method we go through its theory, implementation
+description: Lecture 2 introduces the pattern task. The question is which sets of
+  items repeat together more often than chance. Transactions, event sets, and texts
+  as bags of words can feed the task. We explore three methods for this task. Support,
+  lift, and closeness of item vectors. For each method we go through its theory, implementation
   and evaluation. We end with what deploying a pattern means and its limits.
 email: chc79@cam.ac.uk
 end_time: 01:00 pm

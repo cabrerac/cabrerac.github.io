@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-data-mining
 title: Repeating Patterns
-description: Lecture 2 is the pattern task. The question is which sets of items repeat together more often than chance. Transactions, event sets, and texts as bags of words can feed the task. We explore three methods for this task. Support, lift, and closeness of item vectors. For each method we go through its theory, implementation and evaluation. We end with what deploying a pattern means and its limits.
+description: Lecture 2 introduces the pattern task. The question is which sets of items repeat together more often than chance. Transactions, event sets, and texts as bags of words can feed the task. We explore three methods for this task. Support, lift, and closeness of item vectors. For each method we go through its theory, implementation and evaluation. We end with what deploying a pattern means and its limits.
 session: 2
 start_time: 07:00 am
 end_time: 01:00 pm

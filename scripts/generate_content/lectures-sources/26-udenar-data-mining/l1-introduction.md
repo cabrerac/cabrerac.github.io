@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-data-mining
 title: Introduction to Data Mining
-description: Lecture 1 introduces the course and how we will work along it. We introduce the Data Mining concept and its methodologies. We present CRISP-DM as the methodology for the course. Its six steps are business understanding, data understanding, data preparation, modeling, evaluation, and deployment. The lecture then states what a data-mining question needs. That is the steps to answer it, a standard for a good answer, and a use for that answer. We end this lecture introducing the data we will use in our labs and the course project.
+description: Lecture 1 introduces the course and how we will work along it. We introduce the data mining concept as a process to find valid, useful, and valid patterns in data to address a data need and as part of a larger knowledge-discovery effort. We present CRISP-DM as the methodology for the course. Its six steps are business understanding, data understanding, data preparation, modeling, evaluation, and deployment. The lecture then states what a data-mining question needs.
 session: 1
 start_time: 07:00 am
 end_time: 01:00 pm
