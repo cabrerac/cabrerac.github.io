@@ -10,6 +10,7 @@
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/images/data-quality.jpg" alt="Data Quality" style="height: 400px">
+                <div class="footnote">Code on computer monitor: Markus Spiske, CC0, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
@@ -281,6 +282,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                <img src="{{ site.url }}/assets/media/images/data-usability.jpg" alt="Data Usability" style="height: 400px">
+               <div class="footnote">1984. The paperwork mountain: Alfie9999, CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0), via Wikimedia Commons</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
             </div>
@@ -295,6 +297,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                <img src="{{ site.url }}/assets/media/images/data-usability.jpg" alt="Data Usability" style="height: 400px">
+               <div class="footnote">1984. The paperwork mountain: Alfie9999, CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0), via Wikimedia Commons</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                <p><b>Poor data quality can lead to:</b></p>

@@ -4,11 +4,11 @@ title: "Mitigating Intellectual Debt in AI Systems"
 description: Intellectual debt emerges when we deploy AI systems we do not fully understand. This talk starts with Cambridge's link to Alan Turing and the Turing Test, then traces the recurring pattern of AI hype through history, connecting it to the technocentric view and the intellectual debt problem. We explore Data-Oriented Architectures and DOAgent as practical approaches to mitigate intellectual debt, and close with the Consistent Reasoning Paradox and its implications for the Turing Test, completing the circle.
 conference: "4th Safaris - Tech Congress"
 venue: "Universidad Cesmag"
-location: "Pasto, Nariño, Colombia"
+location: "Pasto, Nariño, Colombia (Online)"
 year: 2026
 month: "April"
 date: "2026-04-17"
-type: "conference_talk"
+type: "invited_talk"
 status: "past"
 show_slide_counter: true
 author: Christian Cabrera Jojoa

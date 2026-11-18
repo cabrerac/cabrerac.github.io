@@ -409,6 +409,7 @@ img[src=""], img[src="#"] {
     </div>
   </div>
 </div>
+<div class="footnote">Ada Lovelace: Antoine Claudet, CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0), via Wikimedia Commons</div>
 
 <style>
 .photo-item:hover {
@@ -473,7 +474,7 @@ img[src=""], img[src="#"] {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
   ">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Bertrand_Russell_smoking_in_1936.jpg" alt="Bertrand Russell" style="
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Honourable_Bertrand_Russell.jpg" alt="Bertrand Russell" style="
       width: 100%;
       height: 100%;
       object-fit: contain;
@@ -530,6 +531,7 @@ img[src=""], img[src="#"] {
     </div>
   </div>
 </div>
+<div class="footnote">Bertrand Russell (1916): photographer not identified, public domain, via Wikimedia Commons</div>
 
 <style>
 .photo-item:hover {
@@ -883,7 +885,7 @@ img[src=""], img[src="#"] {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
   ">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Bertrand_Russell_smoking_in_1936.jpg" alt="Bertrand Russell" style="
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Honourable_Bertrand_Russell.jpg" alt="Bertrand Russell" style="
       width: 100%;
       height: 100%;
       object-fit: contain;
@@ -940,6 +942,7 @@ img[src=""], img[src="#"] {
     </div>
   </div>
 </div>
+<div class="footnote" style="flex-shrink: 0;">Ada Lovelace: A. Claudet, CC BY-SA 4.0. B. Russell (1916): public domain. Via Wikimedia Commons.</div>
 
 <style>
 .photo-item:hover {

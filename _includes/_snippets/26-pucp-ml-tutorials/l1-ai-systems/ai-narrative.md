@@ -107,6 +107,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <img src="{{ site.url }}/assets/media/images/perception-4.png" alt="Perception" style="height: 500px">
+                <div class="footnote">News screenshots used for criticism and review: BBC News (2021), The Verge (2019), The Guardian (2022), WhaTech (2025), Caracol Radio (2016, 2019). Article links shown in the image.</div>
             </div>
         </div>
     </div>
@@ -181,6 +182,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/images/ai-bigtech-bubble.jpeg" alt="Big tech companies investing in each other" style="height: 540px">
+                <div class="footnote">Chart: Bloomberg News, "OpenAI, Nvidia Fuel $1 Trillion AI Market With Web of Circular Deals" (Forgash &amp; Ghosh, 7 Oct 2025): https://www.bloomberg.com/news/features/2025-10-07/openai-s-nvidia-amd-deals-boost-1-trillion-ai-boom-with-circular-deals</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p>Big tech companies have a <b>direct economic interest</b> in sustaining the narrative. They create value bubbles by investing in each other, inflating expectations and market valuations.</p>

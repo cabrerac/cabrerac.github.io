@@ -71,8 +71,8 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="https://i.guim.co.uk/img/media/b930887f181ada1747127defc2a50b0a8a14af8b/43_223_5393_3224/master/5393.jpg?width=620&dpr=2&s=none&crop=none" alt="Mark Zuckerberg stands and faces the audience as he testifies during the Senate hearing on online child sexual exploitation at the US Capitol in Washington DC. Photograph: Evelyn Hockstein/Reuters" style="height: 400px">
-               <div class="footnote">Mark Zuckerberg stands and faces the audience as he testifies during the Senate hearing on online child sexual exploitation at the US Capitol in Washington DC. Photograph: Evelyn Hockstein/Reuters</div>
+                <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/1/14/Mark_Zuckerberg_F8_2018_Keynote_%28cropped_2%29.jpg" alt="Mark Zuckerberg" style="height: 400px">
+               <div class="footnote">Mark Zuckerberg, F8 2018 keynote: Anthony Quintano, CC BY 2.0 (https://creativecommons.org/licenses/by/2.0), via Wikimedia Commons</div>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Governance after consequences</b></p>

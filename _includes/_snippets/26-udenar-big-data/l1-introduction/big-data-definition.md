@@ -60,6 +60,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Moore%27s_Law_Transistor_Count_1971-2018.png" alt="Moore's Law" style="width: 100%; border-radius: 5px;">
+                <div class="footnote">Moore's Law Transistor Count 1971-2018: Max Roser (Our World in Data), CC BY 4.0 (https://creativecommons.org/licenses/by/4.0), via Wikimedia Commons</div>
             </div>
         </div>
     </div>
@@ -92,6 +93,7 @@
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/e/e3/BigData_2267x1146_trasparent.png" alt="Big Data dimensions" style="width: 100%; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+                <div class="footnote">Big Data: Camelia.boban, CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0), via Wikimedia Commons</div>
             </div>
         </div>
     </div>
@@ -117,6 +119,7 @@
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/e/e3/BigData_2267x1146_trasparent.png" alt="Big Data dimensions" style="width: 100%; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+                <div class="footnote">Big Data: Camelia.boban, CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0), via Wikimedia Commons</div>
             </div>
         </div>
     </div>
@@ -138,6 +141,7 @@
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="https://upload.wikimedia.org/wikipedia/commons/e/e3/BigData_2267x1146_trasparent.png" alt="Big Data dimensions" style="width: 100%; background-color: #f6f8fa; padding: 10px; border-radius: 5px;">
+                <div class="footnote">Big Data: Camelia.boban, CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0), via Wikimedia Commons</div>
             </div>
         </div>
     </div>

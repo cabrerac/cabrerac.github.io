@@ -117,6 +117,7 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-center" style="width: 33%">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Generative_adversarial_network.svg" alt="GAN" style="max-height: 85px; max-width: 100%; width: auto;">
+                <div class="footnote">GANs - Zhang, Aston and Lipton, Zachary C. and Li, Mu and Smola, Alexander J., CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0), via Wikimedia Commons</div>
                 <p><b>GANs and diffusion</b></p>
                 <p><b>Tasks:</b> generating images and audio</p>
                 <p><b>Data:</b> unlabelled samples</p>

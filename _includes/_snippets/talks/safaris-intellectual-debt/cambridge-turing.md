@@ -27,7 +27,7 @@
     <div class="photo-caption" style="position: absolute; bottom: 0; left: 0; right: 0; background: var(--primary-color); color: var(--background-color); padding: 8px; opacity: 0.9; font-weight: 500; font-size: 0.45em;">James Clerk Maxwell (1831–1879)</div>
   </div>
   <div class="photo-item" style="position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Bertrand_Russell_smoking_in_1936.jpg" alt="Bertrand Russell" style="width: 100%; height: 100%; object-fit: contain; aspect-ratio: 1; background-color: var(--background-color);">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Honourable_Bertrand_Russell.jpg" alt="Bertrand Russell" style="width: 100%; height: 100%; object-fit: contain; aspect-ratio: 1; background-color: var(--background-color);">
     <div class="photo-caption" style="position: absolute; bottom: 0; left: 0; right: 0; background: var(--primary-color); color: var(--background-color); padding: 8px; opacity: 0.9; font-weight: 500; font-size: 0.45em;">Bertrand Russell (1872–1970)</div>
   </div>
   <div class="photo-item" style="position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
@@ -43,6 +43,7 @@
     <div class="photo-caption" style="position: absolute; bottom: 0; left: 0; right: 0; background: var(--primary-color); color: var(--background-color); padding: 8px; opacity: 0.9; font-weight: 500; font-size: 0.45em;">Stephen Hawking (1942–2018)</div>
   </div>
 </div>
+<div class="footnote">Bertrand Russell (1916): photographer not identified, public domain, via Wikimedia Commons</div>
 
 ## Cambridge and Alan Turing
 

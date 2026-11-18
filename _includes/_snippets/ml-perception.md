@@ -9,6 +9,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <img src="{{ site.url }}/assets/media/images/perception-1.png" alt="Perception" style="height: 460px">
+                <div class="footnote">News screenshots used for criticism and review: BBC News (2021). Article links shown in the image.</div>
             </div>
         </div>
     </div>
@@ -21,6 +22,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <img src="{{ site.url }}/assets/media/images/perception-2.png" alt="Perception" style="height: 460px">
+                <div class="footnote">News screenshots used for criticism and review: BBC News (2021), The Verge (2019), The Guardian (2022). Article links shown in the image.</div>
             </div>
         </div>
     </div>
@@ -33,6 +35,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <img src="{{ site.url }}/assets/media/images/perception-3.png" alt="Perception" style="height: 460px">
+                <div class="footnote">News screenshots used for criticism and review: BBC News (2021), The Verge (2019), The Guardian (2022), WhaTech (2025). Article links shown in the image.</div>
             </div>
         </div>
     </div>
@@ -45,6 +48,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <img src="{{ site.url }}/assets/media/images/perception-4.png" alt="Perception" style="height: 460px">
+                <div class="footnote">News screenshots used for criticism and review: BBC News (2021), The Verge (2019), The Guardian (2022), WhaTech (2025), Caracol Radio (2016, 2019). Article links shown in the image.</div>
             </div>
         </div>
     </div>
@@ -84,7 +88,7 @@
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/images/musk.png" alt="Musk" style="height: 460px">
-                <div class="footnote">See full list of predictions: https://en.wikipedia.org/wiki/List_of_predictions_for_autonomous_Tesla_vehicles_by_Elon_Musk</div>
+                <div class="footnote">Screenshot used for criticism and review: A. J. Hawkins, The Verge, 5 Jul 2021: https://www.theverge.com/2021/7/5/22563751/tesla-elon-musk-full-self-driving-admission-autopilot-crash<br>See full list of predictions: https://en.wikipedia.org/wiki/List_of_predictions_for_autonomous_Tesla_vehicles_by_Elon_Musk</div>
             </div>
         </div>
     </div>
@@ -106,7 +110,7 @@
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/images/musk.png" alt="Musk" style="height: 460px">
-                <div class="footnote">See full list of predictions: https://en.wikipedia.org/wiki/List_of_predictions_for_autonomous_Tesla_vehicles_by_Elon_Musk</div>
+                <div class="footnote">Screenshot used for criticism and review: A. J. Hawkins, The Verge, 5 Jul 2021: https://www.theverge.com/2021/7/5/22563751/tesla-elon-musk-full-self-driving-admission-autopilot-crash<br>See full list of predictions: https://en.wikipedia.org/wiki/List_of_predictions_for_autonomous_Tesla_vehicles_by_Elon_Musk</div>
             </div>
         </div>
     </div>
