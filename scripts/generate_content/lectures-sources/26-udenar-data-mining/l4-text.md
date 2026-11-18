@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-data-mining
-title: Text extraction and marked examples
-description: Lecture 4 is the text extraction task. The question is what short answer each text gives to a question. Emails, reviews, and abstracts, with a sample marked by a person, can feed the task. We explore three methods for this task. A keyword list, TF-IDF with logistic regression, and a text encoder. For each method we go through its theory, implementation and evaluation. We end with what deploying an extraction means and its limits.
+title: Text extraction
+description: Lecture 4 introduces the text extraction task. The question is what short answer each text gives to a question. Emails, reviews, and abstracts, with a sample marked by a person, can feed the task. We explore three methods for this task. A keyword list, TF-IDF with logistic regression, and a text encoder. For each method we go through its theory, implementation and evaluation. We end with what deploying an extraction means and its limits.
 session: 4
 start_time: 07:00 am
 end_time: 01:00 pm

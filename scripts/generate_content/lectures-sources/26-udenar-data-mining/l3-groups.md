@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-data-mining
-title: Groups, outliers, and what a group means
-description: Lecture 3 is the grouping task. The question is which items are similar enough to share a group, and which fit no group. Customers, patients, and texts described by the same attributes can feed the task. We explore three methods for this task. k-means, Gaussian mixtures, and HDBSCAN. For each method we go through its theory, implementation and evaluation. We end with what deploying a group means and its limits.
+title: Grouping
+description: Lecture 3 introduces the grouping task. The question is which items are similar enough to share a group, and which fit no group. Customers, patients, and texts described by the same attributes can feed the task. We explore three methods for this task. k-means, Gaussian mixtures, and HDBSCAN. For each method we go through its theory, implementation and evaluation. We end with what deploying a group means and its limits.
 session: 3
 start_time: 07:00 am
 end_time: 01:00 pm

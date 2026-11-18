@@ -45,16 +45,17 @@ En la Lección 2 encontramos pares de palabras que se repiten.
 Hoy buscamos **grupos** de artículos con palabras parecidas (Jain, 2010).
 No hay etiquetas, así que el equipo lee un grupo cuando trata de su tema.
 
-**Tres métodos en este cuaderno.** Cada uno trae la preparación que necesita, el ajuste y su límite.
-El límite se calcula en ese paso y queda escrito.
-La evaluación los pone en una tabla.
-El archivo lo escribe HDBSCAN.
+**Tres métodos en este cuaderno.** Cada uno trae la preparación que necesita y el ajuste.
+Si un método no da un buen resultado, es normal.
+Lo dejamos en la tabla.
+CRISP-DM sigue con la evaluación: ahí se decide con qué continúa el equipo.
+El archivo de grupos lo arma HDBSCAN.
 
-| Método | Pregunta | Preparación que necesita | Papel en el cuaderno |
-|--------|----------|--------------------------|----------------------|
-| k-means | ¿Qué $k$ centros resumen mejor los artículos? | Los conteos, cada fila escalada a largo 1 | Referencia: todo artículo queda en un grupo |
-| Mezcla gaussiana | ¿Qué probabilidad tiene cada artículo de pertenecer a cada nube? | Las primeras 5 direcciones de la SVD | Se corre y se documenta. No escribe el archivo |
-| HDBSCAN | ¿Dónde hay zonas densas de artículos? | Distancias coseno sobre las 10 primeras direcciones de la SVD | El método elegido para estos datos |
+| Método | Pregunta | Preparación que necesita | Qué aporta |
+|--------|----------|--------------------------|------------|
+| k-means | ¿Qué $k$ centros resumen mejor los artículos? | Los conteos, cada fila escalada a largo 1 | Una referencia: todo artículo queda en un grupo |
+| Mezcla gaussiana | ¿Qué probabilidad tiene cada artículo de pertenecer a cada nube? | Las primeras 5 direcciones de la SVD | Una probabilidad por artículo y por nube |
+| HDBSCAN | ¿Dónde hay zonas densas de artículos? | Distancias coseno sobre las 10 primeras direcciones de la SVD | El archivo de grupos |
 
 **Qué hacer.** Ejecute las celdas de arriba hacia abajo.
 Cada paso empieza con **En este paso**. Si tiene código, termina con una celda **Comprobar**.
@@ -65,7 +66,7 @@ Cada paso empieza con **En este paso**. Si tiene código, termina con una celda 
 |-------|---------------|----------|
 | 1 | Comprensión del negocio | La pregunta de hoy y las palabras del tema |
 | 2 | Comprensión de los datos | Parámetros, artículos y patrones de la Lección 2 |
-| 3 | k-means | Conteos de largo 1, el ajuste y la silueta |
+| 3 | k-means | Conteos, cada fila de largo 1 |
 | 4 | Ajuste de k-means | Centros, silueta y palabras de cada grupo |
 | 5 | Mezcla gaussiana | Cinco direcciones, probabilidades y cuántos artículos abriría |
 | 6 | HDBSCAN | Diez direcciones, distancias, el ajuste y el ruido |
@@ -87,7 +88,7 @@ La decisión no cambia: qué artículos debe leer el colega nuevo.
 | ¿Qué buscamos? | Grupos de artículos que usan palabras parecidas |
 | ¿Con qué los buscamos? | k-means, una mezcla gaussiana y HDBSCAN. El archivo guarda HDBSCAN |
 | ¿Cómo los comparamos? | Con la silueta y viendo dónde coinciden k-means y HDBSCAN |
-| ¿Cómo entra un grupo en la lista? | Cada método que pone el artículo en un grupo leído suma la parte de ese grupo con palabras del tema |
+| ¿Cómo entra un grupo en la lista? | k-means y HDBSCAN suman la parte de su grupo leído. La mezcla no entra en la suma |
 
 Un artículo sin grupo no se borra. Se mira a mano.
 
@@ -424,10 +425,14 @@ print("Filas de largo 1: OK")
 
 ## Parte 4. El ajuste de k-means
 
+La tabla de conteos ya está lista.
+Cada fila tiene largo 1.
+Ahora buscamos los centros.
+
 ### Paso 1. Los centros
-En este paso agrupamos con **k-means**: $k$ centros, y cada artículo va con el centro más cercano.
+En este paso, por cada $k$ de 3 a 8, ajustamos los centros y calculamos la silueta.
+Cada artículo va con el centro más cercano.
 Minimiza $J = \sum_{i} \lVert x_i - \mu_{c(i)} \rVert^2$.
-Corremos un k-means por cada $k$ de 3 a 8.
 
 ```python
 kmeans_runs = {}
@@ -477,13 +482,16 @@ plt.savefig(OUTPUTS_DIR / "silueta_l3.png", dpi=120)
 plt.show()
 ```
 
-Todas las siluetas quedan por debajo de 0,1.
-k = 8 tiene la más alta, 0,075.
-Ese es el límite de k-means en esta colección: todo artículo entra en un grupo, y la silueta no muestra una estructura sustancial.
-El límite queda escrito. No se esconde el método.
+Mire la figura y el $k$ que imprimió la celda anterior.
+Si las siluetas quedan bajo la línea de 0,25, k-means no separó los artículos.
+Cada artículo igual quedó en un grupo.
+Es un resultado pobre, y es normal.
+Lo dejamos en la tabla.
+Estos grupos no arman el archivo.
 
 ### Paso 3. Las palabras de cada grupo
-En este paso escribimos una función que da las palabras de más peso de un grupo.
+Antes del siguiente método necesitamos las palabras de un grupo, para poder leerlo.
+En este paso escribimos una función que da las palabras de más peso.
 La usan los tres métodos.
 
 ```python
@@ -603,10 +611,12 @@ mixture_read = (mixture_part > 0).astype(int)
 print(f"La mezcla abriría {mixture_read.sum()} artículos")
 ```
 
-La mezcla supone nubes con forma de campana.
-El número de arriba es cuántos artículos abriría esa suposición con la regla del tema.
-Queda escrito en la tabla de la evaluación.
-No suma un punto en la lista y no escribe el archivo.
+Mire cuántos artículos abriría la mezcla.
+Esa cuenta supone nubes con forma de campana.
+Si el número es alto, la suposición no ayudó a elegir poco.
+Es normal.
+Lo dejamos en la tabla.
+La lista de lectura no suma esta cuenta.
 
 **Comprobar:**
 
@@ -614,7 +624,7 @@ En este paso comprobamos que la cuenta de artículos abiertos no pasa del total.
 
 ```python
 assert mixture_read.sum() <= N
-print("Límite de la mezcla: OK")
+print("Cuenta de la mezcla: OK")
 ```
 
 ---
@@ -684,9 +694,9 @@ print(f"Grupos: {n_groups}. Tamaños: {np.bincount(hdbscan_labels[in_group]).tol
 print(f"Ruido: {n_noise} artículos ({n_noise / N:.0%})")
 ```
 
-El ruido es el límite de HDBSCAN.
-No se borra.
-El número queda escrito y entra en la tabla de la evaluación.
+Mire cuántos artículos quedaron como ruido.
+Esos artículos siguen en la tabla.
+El archivo guarda estos grupos porque se ve quién no tiene grupo.
 
 **Comprobar:**
 
@@ -711,17 +721,55 @@ noise_list.sort_values("cited_by_count", ascending=False).head(5)
 
 ## Parte 7. Evaluación
 
-La evaluación pone los tres métodos en una tabla.
-No hay marcas para los grupos, así que la silueta dice qué tan separado queda cada artículo, entre −1 y 1.
+La evaluación junta los tres métodos.
+No hay marcas para los grupos, así que miramos la silueta, entre −1 y 1.
 Entre 0,26 y 0,50 la estructura es débil y podría ser artificial (Kaufman y Rousseeuw, 1990).
-Con 0,25 o menos no hay estructura sustancial.
+Con 0,25 o menos no hay una estructura clara.
 Un grupo se lee cuando al menos la mitad de sus artículos contiene una palabra del tema.
 Un artículo que k-means y HDBSCAN ponen en un grupo leído es un candidato más fuerte.
-La mezcla está en la tabla para documentar cuántos artículos abriría.
-No suma un punto.
+Si un método salió pobre, su fila igual entra en la tabla.
+Aquí se decide con qué continúa el equipo.
 
-### Paso 1. La tabla de los tres métodos
-En este paso reunimos grupos, ruido, silueta y artículos que la regla del tema abriría.
+### Paso 1. Qué grupos se leen
+En este paso aplicamos la regla de lectura a k-means y a HDBSCAN.
+La mezcla ya tiene su cuenta.
+El ruido de HDBSCAN nunca se lee.
+
+```python
+part_of = {
+    "kmeans": topic_parts(kmeans_labels),
+    "mezcla": mixture_part,
+    "hdbscan": topic_parts(hdbscan_labels),
+}
+read = {}
+pairs = (("kmeans", kmeans_labels), ("hdbscan", hdbscan_labels))
+for method, labels in pairs:
+    read[method] = (part_of[method] > 0).astype(int)
+    print(f"\n{method}: {read[method].sum()} artículos en grupos leídos")
+    for g in sorted(set(labels) - {-1}):
+        share = has_topic[labels == g].mean()
+        mark = "lee" if share >= READ_SHARE else "no lee"
+        top = ", ".join(group_words(labels, g))
+        print(f"  grupo {g} ({(labels == g).sum()} artículos, {share:.0%} con el tema, {mark}): {top}")
+read_kmeans = read["kmeans"]
+read_hdbscan = read["hdbscan"]
+```
+
+Mire cuántos artículos caen en un grupo leído y qué palabras tiene cada grupo.
+El ruido no se lee.
+
+**Comprobar:**
+
+En este paso comprobamos que el ruido nunca se lee.
+
+```python
+assert not read_hdbscan[~in_group].any()
+assert set(np.unique(read_kmeans)) <= {0, 1}
+print("Grupos leídos: OK")
+```
+
+### Paso 2. La tabla de los tres métodos
+En este paso reunimos grupos, ruido, silueta y artículos leídos.
 La silueta de HDBSCAN se mide sin el ruido.
 La de la mezcla se mide en sus cinco direcciones.
 
@@ -732,6 +780,7 @@ def reading_of(score: float) -> str:
     Qué hace: compara la silueta media con los tres cortes y devuelve su banda.
     Entrada: score, una silueta media entre -1 y 1.
     Salida: el nombre de la banda.
+    Por qué: la silueta sola no dice si el grupo se puede usar.
     """
     if score > 0.70:
         return "estructura fuerte"
@@ -751,16 +800,18 @@ structure = pd.DataFrame({
     "groups": [K_CHOSEN, K_CHOSEN, n_groups],
     "noise": [0, 0, n_noise],
     "silhouette": [silhouettes[K_CHOSEN], mixture_silhouette, hdbscan_silhouette],
-    "leidos": [0, int(mixture_read.sum()), 0],
+    "leidos": [int(read_kmeans.sum()), int(mixture_read.sum()), int(read_hdbscan.sum())],
 }).round(3)
 structure["reading"] = structure["silhouette"].map(reading_of)
 structure
 ```
 
-k-means mete a todos en un grupo y su silueta queda por debajo de 0,1.
-HDBSCAN deja el ruido fuera de la silueta: 108 de 317 resúmenes.
-La columna `leidos` de la mezcla es el límite de la forma de campana.
-Las tres filas quedan escritas. Los grupos son una ayuda para leer.
+Mire la silueta y la columna de leídos.
+k-means mete a todos en un grupo.
+HDBSCAN deja el ruido fuera de su silueta.
+La fila de la mezcla es la cuenta que ya imprimimos.
+Si una fila es pobre, es normal.
+Ahí se ve con qué puede seguir el equipo.
 
 **Comprobar:**
 
@@ -771,64 +822,17 @@ assert structure["method"].tolist() == ["k-means", "mezcla", "HDBSCAN"]
 print("Tabla de los tres métodos: OK")
 ```
 
-### Paso 2. Qué grupos se leen
-En este paso aplicamos la regla de lectura a k-means y a HDBSCAN.
-La mezcla ya tiene su cuenta.
-El ruido de HDBSCAN nunca se lee.
-
-```python
-part_of = {
-    "kmeans": topic_parts(kmeans_labels),
-    "mezcla": mixture_part,
-    "hdbscan": topic_parts(hdbscan_labels),
-}
-read = {}
-for method in ("kmeans", "hdbscan"):
-    labels = kmeans_labels if method == "kmeans" else hdbscan_labels
-    read[method] = (part_of[method] > 0).astype(int)
-    print(f"\n{method}: {read[method].sum()} artículos en grupos leídos")
-    for g in sorted(set(labels) - {-1}):
-        share = has_topic[labels == g].mean()
-        mark = "lee" if share >= READ_SHARE else "no lee"
-        top = ", ".join(group_words(labels, g))
-        print(f"  grupo {g} ({(labels == g).sum()} artículos, {share:.0%} con el tema, {mark}): {top}")
-read_kmeans, read_hdbscan = read["kmeans"], read["hdbscan"]
-structure.loc[structure["method"] == "k-means", "leidos"] = int(read_kmeans.sum())
-structure.loc[structure["method"] == "HDBSCAN", "leidos"] = int(read_hdbscan.sum())
-structure
-```
-
-k-means lee 2 grupos (56 artículos) y HDBSCAN 1 (10).
-El grupo leído de HDBSCAN es el de las guías de diabetes.
-El grupo de *obesity, food* no se lee: solo 32% de sus artículos tiene una palabra del tema.
-Aceptamos el límite de HDBSCAN: el ruido queda contado y no se lee.
-Documentamos el límite de la mezcla en `leidos` y no lo usamos para la lista.
-
-¿Están de acuerdo con guardar HDBSCAN? Usen el ruido, la silueta y la columna `leidos`.
-
-**ESCRIBA SU TEXTO AQUÍ**
-
-**Comprobar:**
-
-En este paso comprobamos que el ruido nunca se lee.
-
-```python
-assert not read_hdbscan[~in_group].any()
-assert set(np.unique(read_kmeans)) <= {0, 1}
-print("Grupos leídos: OK")
-```
-
 ### Paso 3. Dónde coinciden k-means y HDBSCAN
-En este paso contamos en cuántos métodos cae cada artículo dentro de un grupo leído.
+En este paso contamos en cuántos de estos dos métodos cae cada artículo dentro de un grupo leído.
 
 ```python
-group_points = read_kmeans + read_hdbscan   # de 0 a 2
-group_agreement = pd.Series(group_points).value_counts().reindex(range(3), fill_value=0)
+group_points = read_kmeans + read_hdbscan
+counts = pd.Series(group_points).value_counts()
+group_agreement = counts.reindex(range(3), fill_value=0)
 print(group_agreement.rename_axis("métodos que lo leen").to_frame("artículos").T.to_string())
 ```
 
-Solo 9 artículos caen en un grupo leído de los dos métodos.
-Otros 48 caen en un grupo leído de uno solo.
+Mire cuántos artículos leen los dos métodos y cuántos lee uno solo.
 
 **Comprobar:**
 
@@ -867,7 +871,15 @@ fig.savefig(OUTPUTS_DIR / "metodos_l3.png", dpi=120)
 plt.show()
 ```
 
-### Paso 7. Guardar los grupos
+Mire las barras oscuras.
+Son los grupos que la regla del tema lee.
+
+¿Están de acuerdo con guardar los grupos de HDBSCAN?
+Usen el ruido, la silueta, la columna de leídos y esta figura.
+
+**ESCRIBA SU TEXTO AQUÍ**
+
+### Paso 5. Guardar los grupos
 En este paso guardamos `outputs/grupos_l3.csv`, una fila por artículo.
 Lleva el grupo de cada método y si ese grupo se lee.
 `has_pattern` y `read_group` siguen para las Lecciones 5 y 6.
@@ -920,9 +932,10 @@ print("grupos_l3.csv: OK")
 ### Paso 1. Qué hace un grupo con la lista
 En este paso decimos para qué sirve un grupo leído.
 El grupo nombra un filtro: los artículos que un método junta y que tratan del tema.
-El archivo guarda HDBSCAN.
-Aceptamos su límite: los artículos sin grupo quedan contados y no entran en la lista.
-La mezcla queda documentada en la tabla y no suma evidencia.
+El archivo guarda los grupos de HDBSCAN.
+Los artículos sin grupo siguen contados y no entran en la lista.
+La cuenta de la mezcla queda en la tabla de la evaluación.
+La lista suma solo k-means y HDBSCAN.
 
 ### Paso 2. Artículos para leer
 En este paso armamos la lista de lectura de esta lección.
@@ -954,8 +967,9 @@ print(f"Artículos con alguna evidencia: {len(reading)}. En la lista: {len(readi
 reading_list.head(10)
 ```
 
-57 artículos tienen evidencia. La lista guarda 30: arriba los 9 que leen los dos métodos, con 1,90, y después los que lee un solo método.
-Hay varias ediciones de la misma guía de diabetes. El equipo abre la más reciente.
+Mire cuántos artículos tienen alguna evidencia y cuántos entran en la lista.
+Arriba quedan los que leen los dos métodos.
+Si hay varias ediciones de la misma guía, el equipo abre la más reciente.
 
 **Comprobar:**
 

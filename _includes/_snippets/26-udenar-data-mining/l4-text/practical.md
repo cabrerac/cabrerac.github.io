@@ -43,16 +43,17 @@ Hoy **leemos el texto** y decidimos si trata del tema.
 Hoy hay modelos que ya leyeron mucho texto antes del nuestro, el preentrenamiento (Devlin et al., 2019).
 Una persona marca unos ejemplos **antes** de correr los métodos.
 
-**Tres métodos en este cuaderno.** Cada uno trae la preparación que necesita, el ajuste y su límite.
-El límite se calcula en ese paso y queda escrito.
-La evaluación los pone en una tabla.
-El archivo lo escribe TF-IDF con regresión logística.
+**Tres métodos en este cuaderno.** Cada uno trae la preparación que necesita y el ajuste.
+Si un método no da un buen resultado, es normal.
+Lo dejamos en la tabla.
+CRISP-DM sigue con la evaluación: ahí se decide con qué continúa el equipo.
+El archivo de texto lo arma TF-IDF con regresión logística.
 
-| Método | Pregunta | Preparación que necesita | Papel en el cuaderno |
-|--------|----------|--------------------------|----------------------|
-| Lista de palabras clave | ¿El texto tiene alguna palabra de la lista? | Una lista escrita desde la pregunta, antes de ver resultados | Referencia: no necesita etiquetas |
-| TF-IDF y regresión logística | ¿Qué palabras pesan a favor y en contra? | Conteos con peso TF-IDF, ajustados solo con las filas de entrenamiento | El método elegido para estos datos |
-| Codificador de texto | ¿El resumen entero apunta hacia los ejemplos marcados? | Un vector por resumen, con un modelo ya entrenado y fijo | Se corre y se documenta. No escribe `prob_texto` |
+| Método | Pregunta | Preparación que necesita | Qué aporta |
+|--------|----------|--------------------------|------------|
+| Lista de palabras clave | ¿El texto tiene alguna palabra de la lista? | Una lista escrita desde la pregunta, antes de ver resultados | Una referencia: no aprende de etiquetas |
+| TF-IDF y regresión logística | ¿Qué palabras pesan a favor y en contra? | Conteos con peso TF-IDF, ajustados solo con las filas de entrenamiento | El archivo de texto, con pesos que se pueden leer |
+| Codificador de texto | ¿El resumen entero apunta hacia los ejemplos marcados? | Un vector por resumen, con un modelo ya entrenado y fijo | Un vector del resumen entero |
 
 **Qué hacer.** Ejecute las celdas de arriba hacia abajo.
 Cada paso empieza con **En este paso**. Si tiene código, termina con una celda **Comprobar**.
@@ -85,7 +86,7 @@ La decisión no cambia: qué artículos debe leer el colega nuevo.
 | ¿Qué buscamos? | Qué artículos tratan del tema del equipo, según su resumen |
 | ¿Con qué lo medimos? | Una lista de palabras, TF-IDF con regresión logística y un codificador fijo. El archivo guarda TF-IDF |
 | ¿Cómo los comparamos? | Con aciertos y errores sobre las marcas, la clase mayoritaria como línea de referencia y cinco pliegues |
-| ¿Cómo entra el texto en la lista? | La lista de palabras suma 1 si dice leer. TF-IDF suma su probabilidad |
+| ¿Cómo entra el texto en la lista? | La lista de palabras suma 1 si dice leer. TF-IDF suma su probabilidad. El codificador no entra en la suma |
 
 Un acierto solo tiene sentido frente a una marca escrita antes de ver resultados.
 
@@ -394,7 +395,11 @@ for word in sorted(KEYWORDS):   # por cada palabra clave
     print(f"{word:13s} en {with_word:2d} resúmenes, {off_topic:2d} fuera del tema")
 ```
 
-Una lista larga encuentra más y se equivoca más.
+Mire cuántos resúmenes fuera del tema trae cada palabra.
+Una lista más larga encuentra más y también se equivoca más.
+Si se equivoca, es normal.
+Esa cuenta se queda en la pantalla.
+La lista igual sirve de referencia porque no aprende.
 
 **Comprobar:**
 
@@ -416,11 +421,6 @@ for i, word_set in enumerate(word_sets):
 print(f"La lista dice sí en {pred_keywords.sum()} de {N} artículos")
 ```
 
-La lista no aprende.
-Una lista más larga encuentra más y se equivoca más.
-Los conteos de arriba ya muestran cuántos resúmenes fuera del tema trae cada palabra.
-Ese es el límite, y queda escrito.
-
 **Comprobar:**
 
 En este paso comprobamos que la lista da un 0 o un 1 por artículo.
@@ -433,8 +433,14 @@ print("Lista de palabras clave: OK")
 ---
 
 ## Parte 4. El conjunto marcado
+
+La lista no aprende.
+Los dos métodos que siguen sí aprenden.
+Por eso apartamos unas filas que no pueden ver.
+
 En este paso separamos el **conjunto marcado**: `n_flagged(N)` artículos, 64 aquí.
-Ningún método los ve al aprender. Los otros 253 son las **filas de entrenamiento**.
+Los métodos que aprenden no ven estas filas.
+Los otros 253 son las filas de entrenamiento.
 Si `marcas-nutricion-l4.csv` está publicado, usamos las marcas del profesor. Si no, la etiqueta.
 
 ```python
@@ -509,6 +515,9 @@ print("TF-IDF: OK")
 
 ---
 
+Ya tenemos un peso por palabra.
+Ahora un modelo aprende qué pesos empujan hacia sí.
+
 ### Paso 2. El ajuste
 En este paso entrenamos una **regresión logística**, que da un peso a cada palabra.
 
@@ -540,11 +549,11 @@ weights = pd.Series(tfidf_model.coef_[0], index=feature_names)
 pd.DataFrame({"a favor": weights.nlargest(10).index, "en contra": weights.nsmallest(10).index})
 ```
 
-A favor salen *diabetes*, *cardiovascular*, *obesity* y *diet*.
-En contra salen otros temas, como *cancer* y *mental*.
-El modelo aprendió la etiqueta de OpenAlex.
-Esos pesos son el límite que aceptamos: se pueden leer.
-El archivo de esta lección guarda esta predicción.
+Mire las diez palabras a favor y las diez en contra.
+Esas palabras son lo que el modelo aprendió de la etiqueta.
+Si el tema no aparece entre las de más peso, el resultado es pobre y es normal.
+Lo dejamos en la tabla.
+El archivo guarda esta predicción porque esos pesos se pueden leer.
 
 ---
 
@@ -554,10 +563,10 @@ El codificador ya fue entrenado en otro lado y aquí no se mueve.
 Lee el resumen entero.
 Cada token depende de los demás.
 El modelo entrega un vector por resumen.
-La descarga pesa unos 470 MB y puede tardar un par de minutos.
 
-### Paso 1. Un vector por resumen
-En este paso contamos los resúmenes de más de 512 tokens y dejamos que el modelo los corte.
+### Paso 1. La librería
+En este paso importamos la librería.
+Si falta, la instalamos.
 
 ```python
 try:
@@ -567,8 +576,40 @@ except ImportError:
     import sys
     subprocess.check_call([sys.executable, "-m", "pip", "install", "sentence-transformers"])
     from sentence_transformers import SentenceTransformer
+```
 
+**Comprobar:**
+
+En este paso comprobamos que la clase quedó importada.
+
+```python
+assert SentenceTransformer is not None
+print("Librería del codificador: OK")
+```
+
+### Paso 2. El modelo
+En este paso descargamos el modelo.
+Pesa unos 470 MB y puede tardar un par de minutos.
+Aquí no se vuelve a entrenar.
+
+```python
 encoder = SentenceTransformer(ENCODER_NAME)
+```
+
+**Comprobar:**
+
+En este paso comprobamos que el modelo cargó.
+
+```python
+assert encoder is not None
+print("Modelo: OK")
+```
+
+### Paso 3. Un vector por resumen
+En este paso contamos los resúmenes de más de 512 tokens y dejamos que el modelo los corte.
+Cada resumen empieza con `passage:` porque así pide usarse este modelo.
+
+```python
 n_cut = 0
 passages = []
 for text in texts:
@@ -581,6 +622,11 @@ vectors = encoder.encode(passages, normalize_embeddings=True, show_progress_bar=
 print(f"Vectores: {vectors.shape}")
 ```
 
+Mire cuántos resúmenes superan los 512 tokens.
+Eso es lo que este modelo no alcanza a leer.
+Si el corte es grande, es normal.
+Lo dejamos en la pantalla.
+
 **Comprobar:**
 
 En este paso comprobamos que hay un vector por resumen y que el corte no pasa del total.
@@ -591,7 +637,7 @@ assert n_cut <= N
 print("Codificador: OK")
 ```
 
-### Paso 2. La regresión sobre los vectores
+### Paso 4. La regresión sobre los vectores
 En este paso aprendemos con las mismas filas de entrenamiento.
 El codificador no se vuelve a ajustar.
 
@@ -604,9 +650,10 @@ encoder_hits = int((pred_encoder == y_test).sum())
 print(f"Aciertos en los marcados. TF-IDF: {tfidf_hits}. Codificador: {encoder_hits}")
 ```
 
-El corte contado arriba es el límite del codificador en esta colección.
-Los aciertos quedan al lado de TF-IDF.
-`prob_texto` sigue saliendo de TF-IDF.
+Mire los aciertos del codificador al lado de los de TF-IDF.
+Si acierta menos, es normal.
+Lo dejamos en la tabla.
+La probabilidad que guardamos es la de TF-IDF, porque sus pesos se pueden leer.
 
 **Comprobar:**
 
@@ -628,6 +675,8 @@ La clase mayoritaria da a todos la marca más frecuente.
 Es la línea de referencia: un método útil debería superarla.
 Los cinco pliegues muestran el F1 más bajo y el más alto.
 Si están lejos, un solo número no basta para confiar en el método.
+Si un método acierta poco, es normal.
+Su fila sigue en la tabla.
 
 ### Paso 1. Aciertos y errores en el conjunto marcado
 En este paso contamos TP, FP, FN y TN de cada método sobre los 64 marcados.
@@ -666,13 +715,9 @@ results.round(2)
 ```
 
 La clase mayoritaria da a todos la respuesta más común.
-Los números de la tabla son los aciertos de esta corrida.
-Aceptamos TF-IDF: sus pesos se pueden leer y escribe `prob_texto`.
-El codificador queda en la tabla, con su corte ya contado.
-
-¿Están de acuerdo con guardar TF-IDF? Usen los pesos, esta tabla y los cinco pliegues.
-
-**ESCRIBA SU TEXTO AQUÍ**
+Mire los aciertos de esta corrida.
+Si un método acierta poco, es normal.
+Su fila sigue en la tabla.
 
 **Comprobar:**
 
@@ -702,7 +747,8 @@ plt.show()
 
 ### Paso 3. Cinco pliegues en las filas de entrenamiento
 En este paso partimos las 253 filas de entrenamiento en 5 pliegues.
-Cada método aprende con cuatro y predice el quinto. Guardamos el F1 más bajo y el más alto.
+En cada pliegue ajustamos TF-IDF, ajustamos el codificador y anotamos el F1 de los tres métodos.
+Guardamos el F1 más bajo y el más alto.
 
 ```python
 folds = StratifiedKFold(n_splits=N_FOLDS, shuffle=True, random_state=SEED)
@@ -734,7 +780,7 @@ cv_table = pd.DataFrame(cv_rows).T.round(2)
 cv_table
 ```
 
-La tabla muestra el F1 más bajo y el más alto de cada método.
+Mire el F1 más bajo y el más alto de cada método.
 Si están lejos, con pocas marcas un solo F1 no basta.
 
 **Comprobar:**
@@ -750,10 +796,14 @@ print("Cinco pliegues: OK")
 
 ### Paso 4. La clase mayoritaria como referencia
 En este paso comparamos cada método con la fila de la clase mayoritaria de la tabla del Paso 1.
-Los tres métodos siguen en la tabla.
-El archivo guarda TF-IDF.
+Mire también el F1 más bajo y el más alto.
+Si un método queda por debajo, es normal.
+Su fila sigue en la tabla.
+El archivo guarda TF-IDF porque sus pesos se pueden leer.
 
-¿Qué métodos superan a la clase mayoritaria? Usen la tabla del Paso 1.
+¿Qué métodos superan a la clase mayoritaria?
+¿Están de acuerdo con guardar TF-IDF?
+Usen la tabla de aciertos y los cinco pliegues.
 
 **ESCRIBA SU TEXTO AQUÍ**
 
@@ -773,7 +823,8 @@ for name in ["palabras clave", "TF-IDF", "codificador"]:
 ```
 
 ### Paso 6. El texto para toda la colección
-En este paso damos a cada artículo la predicción de TF-IDF que no lo vio.
+En este paso repetimos el mismo corte.
+Esta vez guardamos la probabilidad, no solo el sí o el no.
 Los marcados usan el modelo ya ajustado.
 Cada fila de entrenamiento usa el pliegue que no la vio.
 
@@ -845,12 +896,14 @@ En este paso decimos para qué sirve el texto.
 La lista de palabras suma 1 si dice leer.
 TF-IDF suma su probabilidad, de 0 a 1.
 Los grupos de la Lección 3 suman la parte con palabras del tema de su grupo leído, de 0 a 2.
-El codificador queda en la tabla de aciertos y no suma evidencia.
+El codificador no entra en la suma.
 
 ### Paso 2. Artículos para leer
 En este paso juntamos los grupos de la Lección 3 y el texto de hoy.
-La evidencia va de 0 a 4: hasta 2 por los grupos, 1 por la lista de palabras y hasta 1 por TF-IDF.
-Ningún método se quita: los cuatro suman.
+La evidencia va de 0 a 4.
+Hasta 2 vienen de los grupos de la Lección 3.
+1 viene de la lista de palabras.
+Hasta 1 viene de TF-IDF.
 Ordenamos por evidencia, después por `prob_texto` y al final por título.
 Mostramos como máximo 30 artículos.
 
@@ -879,8 +932,9 @@ print(f"Evidencia en la lista: de {top} a {bottom}, {reading_list['evidencia'].n
 reading_list.head(10)
 ```
 
-Todos los artículos tienen algo de evidencia, porque TF-IDF siempre da una probabilidad. La lista guarda los 30 primeros, de 3,82 a 1,98, con 28 valores distintos.
-Hay varias ediciones de la misma guía de diabetes. El equipo abre la más reciente.
+Mire cuántos artículos tienen evidencia y cuántos entran en la lista.
+Mire también el máximo y el mínimo de evidencia que imprimió la celda.
+Si hay varias ediciones de la misma guía, el equipo abre la más reciente.
 
 **Comprobar:**
 
