@@ -36,9 +36,9 @@
                 <p>A list, word weights, and an encoder</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 33%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/precision-recall.svg" alt="Precision and recall" style="max-height: 155px; max-width: 100%; width: auto;">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/confusion-matrix-counts.svg" alt="The four counts of a confusion matrix" style="max-height: 155px; max-width: 100%; width: auto;">
                 <p><b>Evaluation</b></p>
-                <p>Right and wrong counts and a baseline</p>
+                <p>Counts, five folds, and where the three agree</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 33%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/crisp-dm-process-diagram.png" alt="CRISP-DM process diagram" style="max-height: 155px; max-width: 100%; width: auto;">

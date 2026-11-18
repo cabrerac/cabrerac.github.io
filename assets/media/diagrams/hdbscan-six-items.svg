@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Show the edges, the two cuts and the result of HDBSCAN on six items. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 500" width="760" height="500">
+  <defs>
+    <style type="text/css"><![CDATA[
+      .label { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:22px; font-weight:600; fill:#224466; text-anchor:middle; }
+      .cell { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:20px; font-weight:600; fill:#224466; text-anchor:middle; }
+      .cell-light { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:20px; font-weight:600; fill:#ffffff; text-anchor:middle; }
+      .note { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:18px; fill:#224466; text-anchor:middle; }
+      .left { text-anchor:start; }
+      .frame { fill:none; stroke:#224466; stroke-width:2; }
+    ]]></style>
+  </defs>
+
+  <text x="380" y="36" class="label">HDBSCAN on six items, min_samples = 2</text>
+  <line x1="60.0" y1="190.0" x2="710.0" y2="190.0" stroke="#9fb8cc" stroke-width="2"/>
+  <circle cx="80.0" cy="190.0" r="10" fill="#0e73b8"/>
+  <text x="80" y="168" class="cell">A</text>
+  <circle cx="150.0" cy="190.0" r="10" fill="#0e73b8"/>
+  <text x="150" y="168" class="cell">B</text>
+  <circle cx="220.0" cy="190.0" r="10" fill="#0e73b8"/>
+  <text x="220" y="168" class="cell">C</text>
+  <circle cx="400.0" cy="190.0" r="10" fill="#6c8aa3"/>
+  <text x="400" y="168" class="cell">D</text>
+  <circle cx="470.0" cy="190.0" r="10" fill="#6c8aa3"/>
+  <text x="470" y="168" class="cell">E</text>
+  <circle cx="680.0" cy="190.0" r="10" fill="#b0b8c0"/>
+  <text x="680" y="168" class="cell">F</text>
+  <path d="M 80.0 208 Q 115.0 224 150.0 208" fill="none" stroke="#224466" stroke-width="2"/>
+  <text x="115" y="242" class="cell">1</text>
+  <path d="M 150.0 208 Q 185.0 224 220.0 208" fill="none" stroke="#224466" stroke-width="2"/>
+  <text x="185" y="242" class="cell">1</text>
+  <path d="M 220.0 208 Q 310.0 240 400.0 208" fill="none" stroke="#224466" stroke-width="2"/>
+  <text x="310" y="250" class="cell">5</text>
+  <path d="M 400.0 208 Q 435.0 224 470.0 208" fill="none" stroke="#224466" stroke-width="2"/>
+  <text x="435" y="242" class="cell">1</text>
+  <path d="M 470.0 208 Q 575.0 264 680.0 208" fill="none" stroke="#224466" stroke-width="2"/>
+  <text x="575" y="262" class="cell">11</text>
+  <line x1="575.0" y1="120.0" x2="575.0" y2="198.0" stroke="#c0392b" stroke-width="3" stroke-dasharray="6 4"/>
+  <text x="575" y="110" class="cell" fill="#c0392b">cut 1: 11</text>
+  <line x1="310.0" y1="120.0" x2="310.0" y2="198.0" stroke="#c0392b" stroke-width="3" stroke-dasharray="6 4"/>
+  <text x="310" y="110" class="cell" fill="#c0392b">cut 2: 5</text>
+  <rect x="40" y="370" width="220" height="46" fill="#0e73b8" rx="8"/>
+  <text x="150" y="400" class="cell-light">group A, B, C</text>
+  <rect x="350" y="370" width="170" height="46" fill="#6c8aa3" rx="8"/>
+  <text x="435" y="400" class="cell-light">group D, E</text>
+  <rect x="620" y="370" width="120" height="46" fill="#f4f6f8" rx="8"/>
+  <text x="680" y="400" class="cell">noise F</text>
+  <text x="380" y="470" class="note">Numbers on the edges are mutual reachability distances, not to scale.</text>
+</svg>

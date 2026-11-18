@@ -3,6 +3,28 @@
 ## Keyword Lists
 
 <div class="rows" style="height: 100%">
+    <div class="row" style="height: 70%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/text-task-taxonomy.svg" alt="Taxonomy of text extraction methods" style="width: 100%; height: 100%">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 30%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%">
+                <p><b>Dictionaries:</b> a list of words a person writes, with no training.</p>
+                <p><b>Word counts:</b> weighted words and a model learned from the marks.</p>
+                <p><b>Text encoders:</b> a pretrained model turns a text into one vector.</p>
+                <p><b>Generative models:</b> a language model answers in words.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Keyword Lists
+
+<div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
@@ -17,16 +39,16 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Preparation: from a text to a set of words</b></p>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>A list sees only the words a person wrote.</p>
                 <ul>
-                    <li><b>Lower case:</b> Free and free are one word</li>
-                    <li><b>Tokens:</b> keep runs of letters, drop numbers and signs</li>
-                    <li><b>Short words:</b> drop words under three letters</li>
-                    <li><b>Stop words:</b> drop the, of, and, which appear everywhere</li>
-                    <li><b>Boilerplate:</b> drop words that come from the format, such as section labels and web addresses</li>
-                    <li><b>Set:</b> keep each word once per text</li>
+                    <li>Write the list from the question, before any result</li>
+                    <li>Lower case, with the singular and the plural</li>
+                    <li>A text that shares a word with the list is a yes</li>
                 </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/keyword-list-match.svg" alt="Three texts against a keyword list" style="height: 380px">
             </div>
         </div>
     </div>
@@ -43,9 +65,13 @@
                 <p>$$\hat{y}(t) = \begin{cases} 1 & \text{if } W(t) \cap L \neq \emptyset \\ 0 & \text{otherwise} \end{cases}$$</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>$t$ is one text. $W(t)$ is its set of words after preparation. $L$ is the list. $W(t) \cap L$ keeps the words in both, and $\emptyset$ is the empty set. $\hat{y}(t)$ is the answer of the method, 1 for a match.</p>
-                <br>
-                <p>No training, and every decision can be explained by the word that matched. The list is the model.</p>
+                <p>$t$ is one text and $W(t)$ its set of words. $L$ is the list.</p>
+                <p>$\hat{y}(t)$ is the answer, 1 for a match.</p>
+                <p><b>What a list misses</b></p>
+                <ul>
+                    <li><b>Other words:</b> the same answer in other words is a no</li>
+                    <li><b>Context:</b> a listed word in another sense is a yes</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -58,42 +84,17 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <ul>
-                    <li><p>$L$ = {free, winner}</p></li>
-                    <li>A: "Free entry, one winner"</li>
-                    <li>B: "Meeting moved to noon"</li>
-                    <li>C: "Winners announced today"</li>
+                    <li><p>$L$ = {free, winner, winners}</p></li>
+                    <li>A: "Free entry, one winner", marked yes</li>
+                    <li>B: "Meeting moved to noon", marked no</li>
+                    <li>C: "Winners announced today", marked yes</li>
+                    <li>D: "Free parking for staff", marked no</li>
                 </ul>
+                <p>A, C and D share a word with the list, so they are a yes. D is a wrong yes.</p>
+                <p>Three of four answers are right, an accuracy of 0.75.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>A shares free and winner with the list, so A is a match. B shares nothing, so it is not.</p>
-                <br>
-                <p>C is missed. Its word is winners, not winner. Adding the plural to the list, before looking at any result, fixes it.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Keyword Lists
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Building the list, before the results</b></p>
-                <ul>
-                    <li>Write it from the question</li>
-                    <li>Normalise it like the texts, lower case</li>
-                    <li>Add the plural and the singular</li>
-                    <li>Keep it short and say why each word is there</li>
-                </ul>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Limits</b></p>
-                <ul>
-                    <li>A wider list finds more right texts, and catches more wrong ones</li>
-                    <li>A narrow list misses texts that use other words</li>
-                    <li>Changing the list after seeing the marks is fitting the list to the test</li>
-                </ul>
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/keyword-list-match.svg" alt="Three texts against a keyword list" style="height: 380px">
             </div>
         </div>
     </div>
@@ -107,12 +108,11 @@
             <div class="column vertical-middle text-left" style="width: 47.5%">
 
 ```text
-write the list from the question, before any result
+write the list before any result
 for each text
     lower case, keep runs of letters
     drop short words and stop words
-    keep each word once
-    match = 1 if any word is in the list, else 0
+    match = 1 if a word is in the list
 ```
 
             </div>
@@ -122,18 +122,18 @@ for each text
 
 ```python
 import re
+import numpy as np
 
-def word_set(text, stop_words):
-    words = re.findall(r"[a-záéíóúñü]+", text.lower())
-    return {w for w in words
+WORD_RE = re.compile(r"[^\W\d_]+")   # runs of letters
+
+def words(text, stop_words):
+    text = (text or "").lower()
+    return {w for w in WORD_RE.findall(text)
             if len(w) >= 3 and w not in stop_words}
 
-def keyword_match(texts, keywords, stop_words):
-    return [int(bool(word_set(t, stop_words) & keywords))
-            for t in texts]
-
-keywords = {"free", "winner", "winners"}
-predictions = keyword_match(texts, keywords, stop_words)
+word_sets = [words(t, STOP_WORDS) for t in texts]
+pred_keywords = np.array([int(bool(s & KEYWORDS))
+                          for s in word_sets])
 ```
 
             </div>

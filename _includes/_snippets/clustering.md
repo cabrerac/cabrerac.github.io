@@ -33,34 +33,15 @@
                 <p>A method returns labels, not meanings.</p>
                 <ul>
                     <li>Someone who knows the field reads each group</li>
-                    <li>Then decides what the group is for</li>
+                    <li>The smallest group we accept is set before the results</li>
+                    <li>An item far from every group is worth a look</li>
                 </ul>
                 <br>
-                <p>"In reality, a cluster is a subjective entity that is in the eye of the beholder and whose significance and interpretation requires domain knowledge." <a href="https://doi.org/10.1016/j.patrec.2009.09.011" target="_blank" rel="noopener noreferrer">(Jain, 2010)</a></p>
+                <p><b>Clustering</b> puts similar items in the same group, without being told what the groups are.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/images/critical-thinking.png" alt="Critical Thinking" style="height: 400px">
                 <div class="footnote">Critical Thinking (Designed by freepik.com)</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-## The Task
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>What counts as a group</b></p>
-                <p>A few items that happen to sit close are not a group.</p>
-                <ul>
-                    <li>A group needs a minimum size, set before the results</li>
-                    <li>It also needs to beat what a shuffled table would give</li>
-                    <li>An item far from every group is worth a look. It can be an error, a rare case, or something new</li>
-                </ul>
-                <br>
-                <p><b>Clustering</b> puts similar items in the same group and different items in different groups, without being told what the groups are.</p>
             </div>
         </div>
     </div>
@@ -73,28 +54,39 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 55%">
-                <p><b>A set of items</b></p>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Items described by attributes</b></p>
                 <p>The data is many items, each described by the same attributes.</p>
                 <ul>
                     <li><b>Item:</b> one record, such as a customer, a patient, or a text</li>
-                    <li><b>Attribute:</b> one value per item, such as a count or a measurement</li>
-                    <li><b>Distance:</b> how far apart two items are, computed from their attributes</li>
+                    <li><b>Attribute:</b> one value per item, such as a count</li>
+                    <li><b>Distance:</b> how far apart two items are</li>
                 </ul>
-                <p>Attributes on very different scales are scaled first, so no attribute decides alone. A group is a set of items at a small distance.</p>
+                <p>A group is a set of items at a small distance.</p>
             </div>
-            <div class="column vertical-middle text-left" style="width: 45%">
-                <p><b>Examples</b></p>
-                <table class="table">
-                    <thead>
-                        <tr><th>Data</th><th>One item</th><th>Attributes</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Customers</td><td>one customer</td><td>purchase counts</td></tr>
-                        <tr><td>Patients</td><td>one visit</td><td>measurements</td></tr>
-                        <tr><td>Texts</td><td>one text</td><td>word counts</td></tr>
-                    </tbody>
-                </table>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/group-items-attributes.svg" alt="Five items by four attributes" style="height: 380px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## The Data
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Attributes that separate groups</b></p>
+                <p>An attribute helps only if its value changes from one group to another.</p>
+                <ul>
+                    <li><b>Common word:</b> in almost every item, such as the name of the department. It describes the whole dataset, so it cannot separate groups.</li>
+                    <li><b>Rarer word:</b> in a few items. It can mark one group.</li>
+                </ul>
+                <p>Lecture 4 weighs this with TF-IDF: a word in many texts gets a low weight.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/group-common-word.svg" alt="A word in every item next to words in a few items" style="height: 380px">
             </div>
         </div>
     </div>
@@ -114,11 +106,31 @@
     </div>
     <div class="row" style="height: 30%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Partitioning:</b> every item goes to one of $k$ groups around centres.</p>
-                <p><b>Model-based:</b> each group is a probability distribution, so membership is a probability.</p>
-                <p><b>Density-based:</b> groups are dense regions, and items in thin regions are noise.</p>
-                <p><b>Hierarchical:</b> a tree of groups inside groups, cut at a chosen level.</p>
+            <div class="column vertical-top text-left" style="width: 100%">
+                <p><b>Partitioning:</b> k-means and k-medoids.</p>
+                <p><b>Model-based:</b> Gaussian mixtures and latent class models.</p>
+                <p><b>Density-based:</b> HDBSCAN, DBSCAN, and OPTICS.</p>
+                <p><b>Hierarchical:</b> agglomerative and divisive.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Methods
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>k-medoids</b> uses real items as centres.</p>
+                <p><b>Latent class models</b> are mixtures for categories.</p>
+                <p><b>DBSCAN</b> finds dense regions at one radius.</p>
+                <p><b>OPTICS</b> orders the items by density.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Agglomerative</b> merges the two closest groups, step by step.</p>
+                <p><b>Divisive</b> splits a group, step by step.</p>
+                <p>These names place the three methods we use today.</p>
             </div>
         </div>
     </div>
@@ -133,7 +145,7 @@
                 <ul>
                     <li><b>k-means:</b> each item goes to its closest centre</li>
                     <li><b>Gaussian mixture:</b> each item gets a probability for each group</li>
-                    <li><b>HDBSCAN:</b> dense regions, and the items that fit no group</li>
+                    <li><b>HDBSCAN:</b> dense regions, and noise</li>
                 </ul>
                 <p>These apply to different data sources (e.g., customers, patients, texts, etc).</p>
             </div>

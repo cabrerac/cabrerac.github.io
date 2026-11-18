@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Show the distances a and b of item C and its silhouette. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 500" width="760" height="500">
+  <defs>
+    <style type="text/css"><![CDATA[
+      .label { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:22px; font-weight:600; fill:#224466; text-anchor:middle; }
+      .cell { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:20px; font-weight:600; fill:#224466; text-anchor:middle; }
+      .cell-light { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:20px; font-weight:600; fill:#ffffff; text-anchor:middle; }
+      .note { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:18px; fill:#224466; text-anchor:middle; }
+      .left { text-anchor:start; }
+      .frame { fill:none; stroke:#224466; stroke-width:2; }
+    ]]></style>
+  </defs>
+
+  <text x="380" y="36" class="label">Silhouette of item C</text>
+  <line x1="80.0" y1="200.0" x2="700.0" y2="200.0" stroke="#224466" stroke-width="2"/>
+  <line x1="80.0" y1="194.0" x2="80.0" y2="206.0" stroke="#224466" stroke-width="2"/>
+  <text x="80" y="228" class="note">0</text>
+  <line x1="142.0" y1="194.0" x2="142.0" y2="206.0" stroke="#224466" stroke-width="2"/>
+  <text x="142" y="228" class="note">1</text>
+  <line x1="204.0" y1="194.0" x2="204.0" y2="206.0" stroke="#224466" stroke-width="2"/>
+  <text x="204" y="228" class="note">2</text>
+  <line x1="266.0" y1="194.0" x2="266.0" y2="206.0" stroke="#224466" stroke-width="2"/>
+  <text x="266" y="228" class="note">3</text>
+  <line x1="328.0" y1="194.0" x2="328.0" y2="206.0" stroke="#224466" stroke-width="2"/>
+  <text x="328" y="228" class="note">4</text>
+  <line x1="390.0" y1="194.0" x2="390.0" y2="206.0" stroke="#224466" stroke-width="2"/>
+  <text x="390" y="228" class="note">5</text>
+  <line x1="452.0" y1="194.0" x2="452.0" y2="206.0" stroke="#224466" stroke-width="2"/>
+  <text x="452" y="228" class="note">6</text>
+  <line x1="514.0" y1="194.0" x2="514.0" y2="206.0" stroke="#224466" stroke-width="2"/>
+  <text x="514" y="228" class="note">7</text>
+  <line x1="576.0" y1="194.0" x2="576.0" y2="206.0" stroke="#224466" stroke-width="2"/>
+  <text x="576" y="228" class="note">8</text>
+  <line x1="638.0" y1="194.0" x2="638.0" y2="206.0" stroke="#224466" stroke-width="2"/>
+  <text x="638" y="228" class="note">9</text>
+  <line x1="700.0" y1="194.0" x2="700.0" y2="206.0" stroke="#224466" stroke-width="2"/>
+  <text x="700" y="228" class="note">10</text>
+  <circle cx="142.0" cy="200.0" r="11" fill="#0e73b8"/>
+  <text x="142" y="176" class="cell">A</text>
+  <circle cx="204.0" cy="200.0" r="11" fill="#0e73b8"/>
+  <text x="204" y="176" class="cell">B</text>
+  <circle cx="266.0" cy="200.0" r="11" fill="#0e73b8"/>
+  <text x="266" y="176" class="cell">C</text>
+  <circle cx="576.0" cy="200.0" r="11" fill="#6c8aa3"/>
+  <text x="576" y="176" class="cell">D</text>
+  <circle cx="638.0" cy="200.0" r="11" fill="#6c8aa3"/>
+  <text x="638" y="176" class="cell">E</text>
+  <path d="M 266.0 160 Q 204.0 90 142.0 160" fill="none" stroke="#0e73b8" stroke-width="2.5"/>
+  <text x="204" y="113" class="note" fill="#0e73b8">2</text>
+  <path d="M 266.0 160 Q 235.0 120 204.0 160" fill="none" stroke="#0e73b8" stroke-width="2.5"/>
+  <text x="235" y="128" class="note" fill="#0e73b8">1</text>
+  <path d="M 266.0 240 Q 421.0 290 576.0 240" fill="none" stroke="#6c8aa3" stroke-width="2.5"/>
+  <text x="421" y="287" class="note" fill="#6c8aa3">5</text>
+  <path d="M 266.0 240 Q 452.0 350 638.0 240" fill="none" stroke="#6c8aa3" stroke-width="2.5"/>
+  <text x="452" y="317" class="note" fill="#6c8aa3">6</text>
+  <text x="380" y="385" class="cell">a = (2 + 1) / 2 = 1.5, own group</text>
+  <text x="380" y="418" class="cell">b = (5 + 6) / 2 = 5.5, nearest other group</text>
+  <text x="380" y="470" class="label">s = (5.5 - 1.5) / 5.5 = 0.73</text>
+</svg>

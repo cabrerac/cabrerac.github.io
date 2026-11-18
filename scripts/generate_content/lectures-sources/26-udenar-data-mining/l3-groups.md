@@ -19,7 +19,7 @@ visible: false
 group_notebook: week-2-group
 notebook_language: es
 notebook_title: Grupos, atípicos y qué significa un grupo
-notebook_description: Práctica individual de la Lección 3. Agrupar artículos parecidos, marcar los que no encajan en ningún grupo y decir qué significa un grupo para la lectura.
+notebook_description: Práctica individual de la Lección 3. Agrupar artículos parecidos con HDBSCAN y k-means como referencia, ver dónde coinciden y qué artículos no encajan en ningún grupo.
 ---
 
 <!-- SLIDES: -->
@@ -50,11 +50,7 @@ notebook_description: Práctica individual de la Lección 3. Agrupar artículos 
 
 <!-- end SLIDES: -->
 
-{% include _snippets/permutation-baseline.md %}
-
-{% include _snippets/cluster-validation.md %}
-
-{% include _snippets/group-methods-comparison.md %}
+{% include _snippets/group-evaluation.md %}
 
 <!-- SLIDES: -->
 
@@ -63,8 +59,6 @@ notebook_description: Práctica individual de la Lección 3. Agrupar artículos 
 <!-- end SLIDES: -->
 
 {% include _snippets/group-to-decision.md %}
-
-{% include _snippets/26-udenar-data-mining/l3-groups/decision-use.md %}
 
 <!-- SLIDES: -->
 

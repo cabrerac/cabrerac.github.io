@@ -36,9 +36,9 @@
                 <p>k-means, mixtures, and HDBSCAN</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 33%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/permutation-test-animation.gif" alt="Permutation test" style="max-height: 155px; max-width: 100%; width: auto;">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/silhouette-item-c.svg" alt="Silhouette of item C" style="max-height: 155px; max-width: 100%; width: auto;">
                 <p><b>Evaluation</b></p>
-                <p>Silhouette, a baseline, and stability</p>
+                <p>Silhouette and where the three agree</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 33%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/crisp-dm-process-diagram.png" alt="CRISP-DM process diagram" style="max-height: 155px; max-width: 100%; width: auto;">

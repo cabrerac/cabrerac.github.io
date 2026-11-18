@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Show the four counts of a confusion matrix on forty marked texts. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 500" width="760" height="500">
+  <defs>
+    <style type="text/css"><![CDATA[
+      .label { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:22px; font-weight:600; fill:#224466; text-anchor:middle; }
+      .cell { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:20px; font-weight:600; fill:#224466; text-anchor:middle; }
+      .cell-light { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:20px; font-weight:600; fill:#ffffff; text-anchor:middle; }
+      .note { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:18px; fill:#224466; text-anchor:middle; }
+      .left { text-anchor:start; }
+      .frame { fill:none; stroke:#224466; stroke-width:2; }
+    ]]></style>
+  </defs>
+
+  <text x="380" y="36" class="label">Forty marked texts the model never saw</text>
+  <rect x="220" y="70" width="200" height="150" fill="#0e73b8"/>
+  <rect x="420" y="70" width="200" height="150" fill="#f4f6f8"/>
+  <rect x="220" y="220" width="200" height="150" fill="#f4f6f8"/>
+  <rect x="420" y="220" width="200" height="150" fill="#e8f2fa"/>
+  <rect x="220" y="70" width="400" height="300" class="frame"/>
+  <line x1="420.0" y1="70.0" x2="420.0" y2="370.0" stroke="#224466" stroke-width="2"/>
+  <line x1="220.0" y1="220.0" x2="620.0" y2="220.0" stroke="#224466" stroke-width="2"/>
+  <text x="320" y="140" class="cell-light">TP = 8</text>
+  <text x="320" y="170" class="cell-light">right yes</text>
+  <text x="520" y="140" class="cell">FP = 2</text>
+  <text x="520" y="170" class="cell">wrong yes</text>
+  <text x="320" y="290" class="cell">FN = 4</text>
+  <text x="320" y="320" class="cell">wrong no</text>
+  <text x="520" y="290" class="cell">TN = 26</text>
+  <text x="520" y="320" class="cell">right no</text>
+  <text x="320" y="400" class="label">actual yes</text>
+  <text x="520" y="400" class="label">actual no</text>
+  <text x="140" y="150" class="label">said yes</text>
+  <text x="140" y="300" class="label">said no</text>
+  <text x="380" y="445" class="cell">accuracy = (8 + 26) / 40 = 0.85</text>
+  <text x="380" y="478" class="note">saying no to all: 28 / 40 = 0.70</text>
+</svg>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Show two k-means steps on five items on one attribute. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 500" width="760" height="500">
+  <defs>
+    <style type="text/css"><![CDATA[
+      .label { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:22px; font-weight:600; fill:#224466; text-anchor:middle; }
+      .cell { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:20px; font-weight:600; fill:#224466; text-anchor:middle; }
+      .cell-light { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:20px; font-weight:600; fill:#ffffff; text-anchor:middle; }
+      .note { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:18px; fill:#224466; text-anchor:middle; }
+      .left { text-anchor:start; }
+      .frame { fill:none; stroke:#224466; stroke-width:2; }
+    ]]></style>
+  </defs>
+
+  <text x="380" y="36" class="label">k-means on five items, k = 2</text>
+  <text x="380" y="80" class="cell">Step 1: centres at 1 and 9</text>
+  <line x1="80.0" y1="150.0" x2="700.0" y2="150.0" stroke="#224466" stroke-width="2"/>
+  <line x1="80.0" y1="144.0" x2="80.0" y2="156.0" stroke="#224466" stroke-width="2"/>
+  <text x="80" y="178" class="note">0</text>
+  <line x1="142.0" y1="144.0" x2="142.0" y2="156.0" stroke="#224466" stroke-width="2"/>
+  <text x="142" y="178" class="note">1</text>
+  <line x1="204.0" y1="144.0" x2="204.0" y2="156.0" stroke="#224466" stroke-width="2"/>
+  <text x="204" y="178" class="note">2</text>
+  <line x1="266.0" y1="144.0" x2="266.0" y2="156.0" stroke="#224466" stroke-width="2"/>
+  <text x="266" y="178" class="note">3</text>
+  <line x1="328.0" y1="144.0" x2="328.0" y2="156.0" stroke="#224466" stroke-width="2"/>
+  <text x="328" y="178" class="note">4</text>
+  <line x1="390.0" y1="144.0" x2="390.0" y2="156.0" stroke="#224466" stroke-width="2"/>
+  <text x="390" y="178" class="note">5</text>
+  <line x1="452.0" y1="144.0" x2="452.0" y2="156.0" stroke="#224466" stroke-width="2"/>
+  <text x="452" y="178" class="note">6</text>
+  <line x1="514.0" y1="144.0" x2="514.0" y2="156.0" stroke="#224466" stroke-width="2"/>
+  <text x="514" y="178" class="note">7</text>
+  <line x1="576.0" y1="144.0" x2="576.0" y2="156.0" stroke="#224466" stroke-width="2"/>
+  <text x="576" y="178" class="note">8</text>
+  <line x1="638.0" y1="144.0" x2="638.0" y2="156.0" stroke="#224466" stroke-width="2"/>
+  <text x="638" y="178" class="note">9</text>
+  <line x1="700.0" y1="144.0" x2="700.0" y2="156.0" stroke="#224466" stroke-width="2"/>
+  <text x="700" y="178" class="note">10</text>
+  <circle cx="142.0" cy="150.0" r="10" fill="#0e73b8"/>
+  <text x="142" y="130" class="cell">A</text>
+  <circle cx="204.0" cy="150.0" r="10" fill="#0e73b8"/>
+  <text x="204" y="130" class="cell">B</text>
+  <circle cx="266.0" cy="150.0" r="10" fill="#0e73b8"/>
+  <text x="266" y="130" class="cell">C</text>
+  <circle cx="576.0" cy="150.0" r="10" fill="#6c8aa3"/>
+  <text x="576" y="130" class="cell">D</text>
+  <circle cx="638.0" cy="150.0" r="10" fill="#6c8aa3"/>
+  <text x="638" y="130" class="cell">E</text>
+  <path d="M 131.0 200.0 L 153.0 200.0 L 142.0 182.0 z" fill="#c0392b"/>
+  <path d="M 627.0 200.0 L 649.0 200.0 L 638.0 182.0 z" fill="#c0392b"/>
+  <text x="380" y="260" class="cell">Step 2: centres move to the means, 2 and 8.5</text>
+  <line x1="80.0" y1="330.0" x2="700.0" y2="330.0" stroke="#224466" stroke-width="2"/>
+  <line x1="80.0" y1="324.0" x2="80.0" y2="336.0" stroke="#224466" stroke-width="2"/>
+  <text x="80" y="358" class="note">0</text>
+  <line x1="142.0" y1="324.0" x2="142.0" y2="336.0" stroke="#224466" stroke-width="2"/>
+  <text x="142" y="358" class="note">1</text>
+  <line x1="204.0" y1="324.0" x2="204.0" y2="336.0" stroke="#224466" stroke-width="2"/>
+  <text x="204" y="358" class="note">2</text>
+  <line x1="266.0" y1="324.0" x2="266.0" y2="336.0" stroke="#224466" stroke-width="2"/>
+  <text x="266" y="358" class="note">3</text>
+  <line x1="328.0" y1="324.0" x2="328.0" y2="336.0" stroke="#224466" stroke-width="2"/>
+  <text x="328" y="358" class="note">4</text>
+  <line x1="390.0" y1="324.0" x2="390.0" y2="336.0" stroke="#224466" stroke-width="2"/>
+  <text x="390" y="358" class="note">5</text>
+  <line x1="452.0" y1="324.0" x2="452.0" y2="336.0" stroke="#224466" stroke-width="2"/>
+  <text x="452" y="358" class="note">6</text>
+  <line x1="514.0" y1="324.0" x2="514.0" y2="336.0" stroke="#224466" stroke-width="2"/>
+  <text x="514" y="358" class="note">7</text>
+  <line x1="576.0" y1="324.0" x2="576.0" y2="336.0" stroke="#224466" stroke-width="2"/>
+  <text x="576" y="358" class="note">8</text>
+  <line x1="638.0" y1="324.0" x2="638.0" y2="336.0" stroke="#224466" stroke-width="2"/>
+  <text x="638" y="358" class="note">9</text>
+  <line x1="700.0" y1="324.0" x2="700.0" y2="336.0" stroke="#224466" stroke-width="2"/>
+  <text x="700" y="358" class="note">10</text>
+  <circle cx="142.0" cy="330.0" r="10" fill="#0e73b8"/>
+  <text x="142" y="310" class="cell">A</text>
+  <circle cx="204.0" cy="330.0" r="10" fill="#0e73b8"/>
+  <text x="204" y="310" class="cell">B</text>
+  <circle cx="266.0" cy="330.0" r="10" fill="#0e73b8"/>
+  <text x="266" y="310" class="cell">C</text>
+  <circle cx="576.0" cy="330.0" r="10" fill="#6c8aa3"/>
+  <text x="576" y="310" class="cell">D</text>
+  <circle cx="638.0" cy="330.0" r="10" fill="#6c8aa3"/>
+  <text x="638" y="310" class="cell">E</text>
+  <path d="M 193.0 380.0 L 215.0 380.0 L 204.0 362.0 z" fill="#c0392b"/>
+  <path d="M 596.0 380.0 L 618.0 380.0 L 607.0 362.0 z" fill="#c0392b"/>
+  <circle cx="160.0" cy="460.0" r="9" fill="#0e73b8"/>
+  <text x="176" y="466" class="note left">group around the left centre</text>
+  <path d="M 490 468 L 510 468 L 500 452 z" fill="#c0392b"/>
+  <text x="520" y="466" class="note left">centre</text>
+</svg>

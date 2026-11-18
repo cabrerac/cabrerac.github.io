@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Show three item vectors before and after scaling to length 1. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 500" width="760" height="500">
+  <defs>
+    <style type="text/css"><![CDATA[
+      .label { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:22px; font-weight:600; fill:#224466; text-anchor:middle; }
+      .cell { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:20px; font-weight:600; fill:#224466; text-anchor:middle; }
+      .cell-light { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:20px; font-weight:600; fill:#ffffff; text-anchor:middle; }
+      .note { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:18px; fill:#224466; text-anchor:middle; }
+      .left { text-anchor:start; }
+      .frame { fill:none; stroke:#224466; stroke-width:2; }
+    ]]></style>
+  </defs>
+
+  <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#224466"/></marker></defs>
+  <text x="380" y="36" class="label">Each item scaled to length 1</text>
+  <text x="200" y="80" class="cell">Before</text>
+  <line x1="50.0" y1="400.0" x2="380.0" y2="400.0" stroke="#224466" stroke-width="2"/>
+  <line x1="50.0" y1="400.0" x2="50.0" y2="150.0" stroke="#224466" stroke-width="2"/>
+  <line x1="50" y1="400" x2="362.0" y2="296.0" stroke="#6c8aa3" stroke-width="3" marker-end="url(#arr)"/>
+  <line x1="50" y1="400" x2="206.0" y2="348.0" stroke="#0e73b8" stroke-width="3" marker-end="url(#arr)"/>
+  <line x1="50" y1="400" x2="102.0" y2="296.0" stroke="#9fb8cc" stroke-width="3" marker-end="url(#arr)"/>
+  <text x="352" y="282" class="note">long (6, 2)</text>
+  <text x="246" y="372" class="note">short (3, 1)</text>
+  <text x="98" y="282" class="note">other (1, 2)</text>
+  <text x="560" y="80" class="cell">After</text>
+  <line x1="430.0" y1="400.0" x2="730.0" y2="400.0" stroke="#224466" stroke-width="2"/>
+  <line x1="430.0" y1="400.0" x2="430.0" y2="120.0" stroke="#224466" stroke-width="2"/>
+  <path d="M 670 400 A 240 240 0 0 0 430 160" fill="none" stroke="#0e73b8" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="430" y1="400" x2="657.7" y2="324.1" stroke="#9fb8cc" stroke-width="2"/>
+  <circle cx="657.7" cy="324.1" r="8" fill="#0e73b8"/>
+  <text x="648" y="310" class="note" text-anchor="end">long and short (0.95, 0.32)</text>
+  <line x1="430" y1="400" x2="537.3" y2="185.3" stroke="#9fb8cc" stroke-width="2"/>
+  <circle cx="537.3" cy="185.3" r="8" fill="#0e73b8"/>
+  <text x="551" y="185" class="note" text-anchor="start">other (0.45, 0.89)</text>
+  <text x="590" y="428" class="note" fill="#0e73b8">length 1</text>
+  <text x="380" y="452" class="note">The long and the short text have the same mix,</text>
+  <text x="380" y="478" class="note">so after scaling they land on the same point.</text>
+</svg>

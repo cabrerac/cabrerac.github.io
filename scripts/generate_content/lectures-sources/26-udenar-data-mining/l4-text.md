@@ -50,13 +50,11 @@ notebook_description: Práctica individual de la Lección 4. Extraer de los res�
 
 <!-- end SLIDES: -->
 
-{% include _snippets/classification-evaluation.md %}
-
-{% include _snippets/26-udenar-data-mining/l4-text/cross-validation.md %}
+{% include _snippets/text-evaluation.md %}
 
 {% include _snippets/five-folds-code.md %}
 
-{% include _snippets/text-methods-comparison.md %}
+{% include _snippets/text-evaluation-agreement.md %}
 
 <!-- SLIDES: -->
 
@@ -65,8 +63,6 @@ notebook_description: Práctica individual de la Lección 4. Extraer de los res�
 <!-- end SLIDES: -->
 
 {% include _snippets/extraction-to-decision.md %}
-
-{% include _snippets/26-udenar-data-mining/l4-text/decision-use.md %}
 
 <!-- SLIDES: -->
 
@@ -77,8 +73,6 @@ notebook_description: Práctica individual de la Lección 4. Extraer de los res�
 {% include _snippets/26-udenar-data-mining/l4-text/conclusions.md %}
 
 {% include _snippets/26-udenar-data-mining/l4-text/practical-slides.md %}
-
-{% include _snippets/26-udenar-data-mining/l4-text/week2-saturday.md %}
 
 {% include _snippets/26-udenar-data-mining/l4-text/resources.md %}
 

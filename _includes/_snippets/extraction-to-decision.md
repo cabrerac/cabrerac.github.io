@@ -15,7 +15,7 @@
                     <li><b>Report:</b> how many texts say yes, with the right and wrong counts</li>
                     <li><b>Decision:</b> one action per text, such as reply, read, or skip</li>
                 </ul>
-                <p>We deploy it together with the list or the threshold, the marks, the right and wrong counts with their interval, and the majority baseline.</p>
+                <p>We deploy it with the list or the threshold, the marks, the counts, and the majority class.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/precision-recall.svg" alt="Precision and recall" style="height: 360px">
@@ -34,9 +34,9 @@
                 <p><b>What a deployed extraction implies</b></p>
                 <ul>
                     <li><b>Errors have a cost:</b> a false yes is read for nothing, and a false no is never seen</li>
-                    <li><b>Tied to the marks and the target:</b> another marked set, target, or threshold gives other counts</li>
+                    <li><b>Tied to the marks:</b> another marked set or threshold gives other counts</li>
                     <li><b>Goes stale:</b> wording changes, so we mark a fresh sample and count again</li>
-                    <li><b>People:</b> who marks the texts, and whose language or long texts the method reads worse</li>
+                    <li><b>People:</b> who marks the texts, and whose language the method reads worse</li>
                 </ul>
                 <br>
                 <p>Texts that use other words are never flagged. A deployed list says nothing about them.</p>

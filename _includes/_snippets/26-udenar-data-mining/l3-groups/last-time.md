@@ -10,7 +10,7 @@
                     <li><b>The task:</b> which sets of items repeat together more often than chance</li>
                     <li><b>The data:</b> transactions, event sets, and texts as bags of words</li>
                     <li><b>The methods:</b> support, lift, and item-vector closeness</li>
-                    <li><b>Evaluation and deployment:</b> a support floor, reordered copies, and what using a pattern would mean</li>
+                    <li><b>Evaluation and deployment:</b> where the three methods agree, and what using a pattern would mean</li>
                 </ul>
                 <p>This lecture is the grouping task.</p>
             </div>
@@ -32,7 +32,7 @@
                     <li><b>The task:</b> which items are similar enough to share a group, and which fit no group?</li>
                     <li><b>The data:</b> items described by the same attributes, such as customers, patients, and texts</li>
                     <li><b>Modeling:</b> k-means, Gaussian mixtures, and HDBSCAN</li>
-                    <li><b>Evaluation:</b> a silhouette against a shuffled baseline, stability, and agreement</li>
+                    <li><b>Evaluation:</b> silhouette, and where the three methods agree</li>
                     <li><b>Deployment:</b> what using a group would mean, and its limits</li>
                 </ul>
             </div>

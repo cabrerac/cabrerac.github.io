@@ -10,12 +10,12 @@
                 <p><b>Deploying a group</b></p>
                 <p>A group of similar items feeds something people do.</p>
                 <ul>
-                    <li><b>Report:</b> each group with its size and top attributes, for a person to read</li>
+                    <li><b>Report:</b> each group with its size and top attributes</li>
                     <li><b>Decision:</b> one plan, offer, or reading list per group</li>
                     <li><b>Routing:</b> a new item goes to the nearest group</li>
                     <li><b>Review:</b> the items that fit no group go to a person</li>
                 </ul>
-                <p>We deploy the groups together with $k$ or min_cluster_size, the silhouette against its baseline, and stability.</p>
+                <p>We deploy the groups with their settings, the silhouette, and the rule for reading a group.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/clusters-with-noise.svg" alt="Groups with noise points" style="height: 400px">
@@ -33,9 +33,9 @@
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>What a deployed group implies</b></p>
                 <ul>
-                    <li><b>A group is a reading, not a fact:</b> a person names it, and another person may name it otherwise</li>
-                    <li><p><b>Tied to the data and the settings:</b> another $k$, seed, or number of directions gives other groups</p></li>
-                    <li><b>Goes stale:</b> new items move the centres, so we re-run and re-check stability</li>
+                    <li><b>A group is a reading, not a fact:</b> another person may name it otherwise</li>
+                    <li><p><b>Tied to the data and the settings:</b> another $k$ or seed gives other groups</p></li>
+                    <li><b>Goes stale:</b> new items move the centres, so we run it and read it again</li>
                     <li><b>People:</b> who is labelled by a group, and who sits in noise</li>
                 </ul>
                 <br>

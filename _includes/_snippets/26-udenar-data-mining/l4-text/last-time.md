@@ -10,7 +10,7 @@
                     <li><b>The task:</b> which items share a group, and which fit no group</li>
                     <li><b>The data:</b> items described by the same attributes</li>
                     <li><b>The methods:</b> k-means, Gaussian mixtures, and HDBSCAN</li>
-                    <li><b>Evaluation and deployment:</b> a shuffled baseline, stability, and what using a group would mean</li>
+                    <li><b>Evaluation and deployment:</b> the silhouette, where the three agree, and what using a group would mean</li>
                 </ul>
                 <p>This lecture is the text extraction task.</p>
             </div>
@@ -32,7 +32,7 @@
                     <li><b>The task:</b> what short answer does each text give to a question, judged against marks?</li>
                     <li><b>The data:</b> texts and a sample marked by a person, such as emails, reviews, and abstracts</li>
                     <li><b>Modeling:</b> a keyword list, TF-IDF with logistic regression, and a text encoder</li>
-                    <li><b>Evaluation:</b> right and wrong counts against a majority baseline</li>
+                    <li><b>Evaluation:</b> right and wrong counts on marked texts, five folds, and where the three agree</li>
                     <li><b>Deployment:</b> what using an extraction would mean, and its limits</li>
                 </ul>
             </div>

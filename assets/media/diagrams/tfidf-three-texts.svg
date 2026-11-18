@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Show the word counts of three short texts and the TF-IDF of free in text A. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 500" width="760" height="500">
+  <defs>
+    <style type="text/css"><![CDATA[
+      .label { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:22px; font-weight:600; fill:#224466; text-anchor:middle; }
+      .cell { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:20px; font-weight:600; fill:#224466; text-anchor:middle; }
+      .cell-light { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:20px; font-weight:600; fill:#ffffff; text-anchor:middle; }
+      .note { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:18px; fill:#224466; text-anchor:middle; }
+      .left { text-anchor:start; }
+      .frame { fill:none; stroke:#224466; stroke-width:2; }
+    ]]></style>
+  </defs>
+
+  <text x="380" y="36" class="label">Counts of three words in three texts</text>
+  <text x="390" y="108" class="label">free</text>
+  <text x="510" y="108" class="label">prize</text>
+  <text x="630" y="108" class="label">noon</text>
+  <text x="40" y="165" class="note left">A: free prize, free entry</text>
+  <rect x="330" y="128" width="120" height="58" fill="#0e73b8"/>
+  <text x="390" y="165" class="cell-light">2</text>
+  <rect x="450" y="128" width="120" height="58" fill="#e8f2fa"/>
+  <text x="510" y="165" class="cell">1</text>
+  <rect x="570" y="128" width="120" height="58" fill="#f4f6f8"/>
+  <text x="630" y="165" class="cell">0</text>
+  <text x="40" y="223" class="note left">B: meeting moved to noon</text>
+  <rect x="330" y="186" width="120" height="58" fill="#f4f6f8"/>
+  <text x="390" y="223" class="cell">0</text>
+  <rect x="450" y="186" width="120" height="58" fill="#f4f6f8"/>
+  <text x="510" y="223" class="cell">0</text>
+  <rect x="570" y="186" width="120" height="58" fill="#e8f2fa"/>
+  <text x="630" y="223" class="cell">1</text>
+  <text x="40" y="281" class="note left">C: prize draw at noon</text>
+  <rect x="330" y="244" width="120" height="58" fill="#f4f6f8"/>
+  <text x="390" y="281" class="cell">0</text>
+  <rect x="450" y="244" width="120" height="58" fill="#e8f2fa"/>
+  <text x="510" y="281" class="cell">1</text>
+  <rect x="570" y="244" width="120" height="58" fill="#e8f2fa"/>
+  <text x="630" y="281" class="cell">1</text>
+  <rect x="330" y="302" width="120" height="58" fill="#d6e4f0"/>
+  <text x="390" y="339" class="cell">1</text>
+  <rect x="450" y="302" width="120" height="58" fill="#d6e4f0"/>
+  <text x="510" y="339" class="cell">2</text>
+  <rect x="570" y="302" width="120" height="58" fill="#d6e4f0"/>
+  <text x="630" y="339" class="cell">2</text>
+  <text x="40" y="339" class="note left">texts with the word, df</text>
+  <rect x="330" y="128" width="360" height="232" class="frame"/>
+  <text x="380" y="410" class="cell">free in A: tf = 1 + ln 2 = 1.69</text>
+  <text x="380" y="440" class="cell">idf = ln(4 / 2) + 1 = 1.69, weight 2.87</text>
+  <text x="380" y="480" class="note">prize and noon are in two texts: idf = ln(4 / 3) + 1 = 1.29</text>
+</svg>

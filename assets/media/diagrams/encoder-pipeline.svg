@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Show the steps from a text to a yes or no with a frozen text encoder. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 500" width="760" height="500">
+  <defs>
+    <style type="text/css"><![CDATA[
+      .label { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:22px; font-weight:600; fill:#224466; text-anchor:middle; }
+      .cell { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:20px; font-weight:600; fill:#224466; text-anchor:middle; }
+      .cell-light { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:20px; font-weight:600; fill:#ffffff; text-anchor:middle; }
+      .note { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:18px; fill:#224466; text-anchor:middle; }
+      .left { text-anchor:start; }
+      .frame { fill:none; stroke:#224466; stroke-width:2; }
+    ]]></style>
+  </defs>
+
+  <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#224466"/></marker></defs>
+  <text x="380" y="36" class="label">From a text to a yes or a no</text>
+  <rect x="200" y="62" width="360" height="46" fill="#e8f2fa" rx="8"/>
+  <text x="380" y="92" class="cell">text</text>
+  <line x1="380" y1="108" x2="380" y2="126" stroke="#224466" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="200" y="128" width="360" height="46" fill="#e8f2fa" rx="8"/>
+  <text x="380" y="158" class="cell">tokens, cut at 512</text>
+  <line x1="380" y1="174" x2="380" y2="192" stroke="#224466" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="200" y="194" width="360" height="46" fill="#e8f2fa" rx="8"/>
+  <text x="380" y="224" class="cell">one vector per token</text>
+  <line x1="380" y1="240" x2="380" y2="258" stroke="#224466" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="200" y="260" width="360" height="46" fill="#e8f2fa" rx="8"/>
+  <text x="380" y="290" class="cell">mean of the vectors</text>
+  <line x1="380" y1="306" x2="380" y2="324" stroke="#224466" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="200" y="326" width="360" height="46" fill="#0e73b8" rx="8"/>
+  <text x="380" y="356" class="cell-light">scaled to length 1</text>
+  <line x1="380" y1="372" x2="380" y2="390" stroke="#224466" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="200" y="392" width="360" height="46" fill="#d6e4f0" rx="8"/>
+  <text x="380" y="422" class="cell">logistic regression</text>
+  <text x="600" y="224" class="note left">pretrained,</text>
+  <text x="600" y="248" class="note left">not changed</text>
+  <text x="600" y="422" class="note left">learned from</text>
+  <text x="600" y="446" class="note left">the marks</text>
+</svg>

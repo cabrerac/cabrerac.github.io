@@ -12,11 +12,11 @@
     </div>
     <div class="row" style="height: 30%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Partitioning:</b> every item goes to one of $k$ groups around centres.</p>
-                <p><b>Model-based:</b> each group is a probability distribution, so membership is a probability.</p>
-                <p><b>Density-based:</b> groups are dense regions, and items in thin regions are noise.</p>
-                <p><b>Hierarchical:</b> a tree of groups inside groups, cut at a chosen level.</p>
+            <div class="column vertical-top text-left" style="width: 100%">
+                <p><b>Partitioning:</b> each item goes to one of $k$ groups around centres.</p>
+                <p><b>Model-based:</b> each group is a distribution, so membership is a probability.</p>
+                <p><b>Density-based:</b> groups are dense regions, and thin regions are noise.</p>
+                <p><b>Hierarchical:</b> a tree of groups inside groups.</p>
             </div>
         </div>
     </div>
@@ -61,53 +61,17 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Preparation: distances that mean something</b></p>
-                <p>Density needs distances that tell near from far.</p>
-                <ul>
-                    <li>With many attributes, the nearest and the farthest item end up at almost the same distance <a href="https://doi.org/10.1007/3-540-49257-7_15" target="_blank" rel="noopener noreferrer">(Beyer et al., 1999)</a></li>
-                    <li>Then almost every item looks alone</li>
-                    <li>So HDBSCAN runs on the same few SVD directions as the mixture, with cosine distance</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-## HDBSCAN
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Core distance and mutual reachability <a href="https://doi.org/10.1007/978-3-642-37456-2_14" target="_blank" rel="noopener noreferrer">(Campello et al., 2013)</a></b></p>
-                <p>$$\text{core}(a) = \text{distance from } a \text{ to its } m\text{-th nearest item}$$</p>
-                <p>$$d_{\text{mreach}}(a, b) = \max\{\text{core}(a),\ \text{core}(b),\ d(a, b)\}$$</p>
+                <p>$$\text{core}(a) = d(a, a_m)$$</p>
+                <p>$$d_{\text{mreach}}(a, b) =$$</p>
+                <p>$$\max\{\text{core}(a),\ \text{core}(b),\ d(a, b)\}$$</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>$m$ is min_samples, set before the results. $d(a, b)$ is the plain distance between two items. The maximum takes the largest of the three numbers.</p>
-                <br>
-                <p>In a dense region the core distances are small, so this is just $d(a,b)$. In a thin region the core distance is large, so items there are pushed apart.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-## HDBSCAN
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>From distances to a tree</b></p>
-                <ol>
-                    <li><p>Join all items with a minimum spanning tree on $d_{\text{mreach}}$</p></li>
-                    <li>Cut its longest edges one by one</li>
-                    <li>Each cut can split a group in two, or drop a few items</li>
-                    <li>A split counts only when both parts have at least min_cluster_size items</li>
-                    <li>A group is stable when it lives across a wide range of cuts. HDBSCAN keeps the most stable groups <a href="https://doi.org/10.21105/joss.00205" target="_blank" rel="noopener noreferrer">(McInnes et al., 2017)</a></li>
-                    <li>Items in no kept group get the label -1, noise</li>
-                </ol>
+                <p>$a_m$ is the $m$-th nearest item to $a$, and $m$ is min_samples. $d$ is the plain distance.</p>
+                <p>In a dense region the core distances are small, so this is just $d(a, b)$.</p>
+                <p>In a thin region it is large, so items there are pushed apart.</p>
+                <p><b>Preparation:</b> cosine distance on 10 SVD directions.</p>
             </div>
         </div>
     </div>
@@ -122,15 +86,14 @@
                 <ul>
                     <li>Six items on one attribute</li>
                     <li>A = 1, B = 2, C = 3, D = 8, E = 9, F = 20</li>
-                    <li><p>$m = 1$ and min_cluster_size = 2</p></li>
+                    <li>min_samples = 2, the item and its nearest neighbour</li>
+                    <li>min_cluster_size = 2</li>
                 </ul>
-                <br>
-                <p>Each core distance is 1, except F, whose nearest item is 11 away.</p>
+                <p>Each core distance is 1, except F, which is 11 away from E.</p>
+                <p>The longest edge, 11, is cut first and leaves F alone, so F is noise. The next, 5, leaves A, B, C and D, E. Two groups and one noise item.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>$d_{\text{mreach}}(E, F) = \max\{1, 11, 11\} = 11$, the longest edge. Cutting it leaves F alone, fewer than 2 items, so F is noise.</p>
-                <br>
-                <p>$d_{\text{mreach}}(C, D) = \max\{1, 1, 5\} = 5$, the next edge. Cutting it leaves A, B, C and D, E, both with at least 2 items. Two groups and one noise item.</p>
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/hdbscan-six-items.svg" alt="Edges, cuts and result of HDBSCAN on six items" style="height: 380px">
             </div>
         </div>
     </div>
@@ -144,18 +107,18 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Two parameters, set before the results</b></p>
                 <ul>
-                    <li><b>min_cluster_size:</b> the smallest group we would accept as a finding</li>
-                    <li><b>min_samples:</b> how many neighbours make an item core</li>
-                    <li>A larger min_samples marks more items as noise</li>
+                    <li><b>min_cluster_size:</b> FLOOR, the smallest group we accept, the support floor of Lecture 2</li>
+                    <li><b>min_samples:</b> MIN_SAMPLES = 5, how many neighbours make an item core</li>
+                </ul>
+                <p><b>Limits</b></p>
+                <ul>
+                    <li><b>Thin groups:</b> a group thinner than the rest ends up as noise</li>
+                    <li><b>Noise:</b> a list of items that fit no group, for a look, not deleted</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Limits</b></p>
-                <ul>
-                    <li>Groups thinner than the rest end up as noise</li>
-                    <li>A large noise share can hide a real group</li>
-                    <li>Noise is a result, a list of items that fit no group</li>
-                </ul>
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/dbscan-illustration.svg" alt="Core points, border points and noise" style="height: 360px">
+                <div class="footnote">DBSCAN-Illustration - Chire, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
@@ -169,13 +132,13 @@
             <div class="column vertical-middle text-left" style="width: 47.5%">
 
 ```text
-use the same few SVD directions
+use the 10 SVD directions
 cosine distance between every two items
 core distance of each item from min_samples
 mutual reachability between every two items
-minimum spanning tree, longest edges cut first
+tree of the items, longest edges cut first
 keep a split when both parts reach min_cluster_size
-keep the most stable groups
+keep the groups that last over the most cuts
 label -1 for the items in no kept group
 ```
 
@@ -188,16 +151,11 @@ label -1 for the items in no kept group
 from sklearn.cluster import HDBSCAN
 from sklearn.metrics import pairwise_distances
 
-def density_groups(Z, min_cluster_size, min_samples):
-    distances = pairwise_distances(Z, metric="cosine")
-    model = HDBSCAN(min_cluster_size=min_cluster_size,
-                    min_samples=min_samples,
-                    metric="precomputed")
-    return model.fit_predict(distances)
-
-labels = density_groups(Z, min_cluster_size=10,
-                        min_samples=5)
-noise_share = (labels == -1).mean()
+distances = pairwise_distances(Z, metric="cosine")
+hdbscan_labels = HDBSCAN(
+    min_cluster_size=FLOOR, min_samples=MIN_SAMPLES,
+    metric="precomputed", copy=True,
+).fit(distances).labels_
 ```
 
             </div>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Show a column of texts, a marked sample with yes or no, and unmarked texts. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 500" width="760" height="500">
+  <defs>
+    <style type="text/css"><![CDATA[
+      .label { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:22px; font-weight:600; fill:#224466; text-anchor:middle; }
+      .cell { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:20px; font-weight:600; fill:#224466; text-anchor:middle; }
+      .cell-light { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:20px; font-weight:600; fill:#ffffff; text-anchor:middle; }
+      .note { font-family:Segoe UI, Helvetica, Arial, sans-serif; font-size:18px; fill:#224466; text-anchor:middle; }
+      .left { text-anchor:start; }
+      .frame { fill:none; stroke:#224466; stroke-width:2; }
+    ]]></style>
+  </defs>
+
+  <text x="380" y="36" class="label">Texts and a marked sample</text>
+  <rect x="170" y="62" width="250" height="38" fill="#e8f2fa"/>
+  <text x="295" y="88" class="cell">text 1</text>
+  <rect x="450" y="62" width="110" height="38" fill="#0e73b8"/>
+  <text x="505" y="88" class="cell-light">yes</text>
+  <rect x="170" y="108" width="250" height="38" fill="#e8f2fa"/>
+  <text x="295" y="134" class="cell">text 2</text>
+  <rect x="450" y="108" width="110" height="38" fill="#d6e4f0"/>
+  <text x="505" y="134" class="cell">no</text>
+  <rect x="170" y="154" width="250" height="38" fill="#e8f2fa"/>
+  <text x="295" y="180" class="cell">text 3</text>
+  <rect x="450" y="154" width="110" height="38" fill="#d6e4f0"/>
+  <text x="505" y="180" class="cell">no</text>
+  <rect x="170" y="200" width="250" height="38" fill="#e8f2fa"/>
+  <text x="295" y="226" class="cell">text 4</text>
+  <rect x="450" y="200" width="110" height="38" fill="#0e73b8"/>
+  <text x="505" y="226" class="cell-light">yes</text>
+  <rect x="170" y="246" width="250" height="38" fill="#f4f6f8"/>
+  <text x="295" y="272" class="cell">text 5</text>
+  <text x="505" y="272" class="note" fill="#8a9bb0">no mark</text>
+  <rect x="170" y="292" width="250" height="38" fill="#f4f6f8"/>
+  <text x="295" y="318" class="cell">text 6</text>
+  <text x="505" y="318" class="note" fill="#8a9bb0">no mark</text>
+  <rect x="170" y="338" width="250" height="38" fill="#f4f6f8"/>
+  <text x="295" y="364" class="cell">text 7</text>
+  <text x="505" y="364" class="note" fill="#8a9bb0">no mark</text>
+  <rect x="170" y="384" width="250" height="38" fill="#f4f6f8"/>
+  <text x="295" y="410" class="cell">text 8</text>
+  <text x="505" y="410" class="note" fill="#8a9bb0">no mark</text>
+  <text x="605" y="154" class="note left">marked by</text>
+  <text x="605" y="178" class="note left">a person</text>
+  <text x="605" y="338" class="note left">answered by</text>
+  <text x="605" y="362" class="note left">the method</text>
+  <line x1="150.0" y1="242.0" x2="600.0" y2="242.0" stroke="#224466" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="380" y="470" class="note">Only the marked texts can train or judge a method.</text>
+</svg>

@@ -12,11 +12,11 @@
     </div>
     <div class="row" style="height: 30%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Dictionaries:</b> a list of words that a person writes, with no training.</p>
-                <p><b>Word counts:</b> weighted word columns and a model learned from the marks.</p>
-                <p><b>Text encoders:</b> a pretrained model turns each text into one vector.</p>
-                <p><b>Generative models:</b> a language model is asked for the answer in words.</p>
+            <div class="column vertical-top text-left" style="width: 100%">
+                <p><b>Dictionaries:</b> a list of words a person writes, with no training.</p>
+                <p><b>Word counts:</b> weighted words and a model learned from the marks.</p>
+                <p><b>Text encoders:</b> a pretrained model turns a text into one vector.</p>
+                <p><b>Generative models:</b> a language model answers in words.</p>
             </div>
         </div>
     </div>
@@ -61,14 +61,15 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Term frequency <a href="https://doi.org/10.1016/0306-4573(88)90021-0" target="_blank" rel="noopener noreferrer">(Salton &amp; Buckley, 1988)</a></b></p>
-                <p>$$\text{tf}(w, d) = 1 + \log c(w, d)$$</p>
-                <p>$c(w, d)$ is how many times word $w$ appears in text $d$, and zero stays zero. The log stops one repeated word from taking over. Ten mentions count more than one, but not ten times more.</p>
+                <p>$$\text{tf}(w, d) = 1 + \ln c(w, d)$$</p>
+                <p>$c(w, d)$ counts word $w$ in text $d$. The log stops one repeated word from taking over <a href="https://doi.org/10.1016/0306-4573(88)90021-0" target="_blank" rel="noopener noreferrer">(Salton &amp; Buckley, 1988)</a>.</p>
+                <p>$$\text{idf}(w) = \ln \frac{1 + N}{1 + \text{df}(w)} + 1$$</p>
+                <p>$N$ is the number of texts and $\text{df}(w)$ the texts with word $w$. A rare word gets a large weight <a href="https://doi.org/10.1108/eb026526" target="_blank" rel="noopener noreferrer">(Sparck Jones, 1972)</a>.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Inverse document frequency <a href="https://doi.org/10.1108/eb026526" target="_blank" rel="noopener noreferrer">(Sparck Jones, 1972)</a></b></p>
-                <p>$$\text{idf}(w) = \log \frac{1 + N}{1 + \text{df}(w)} + 1$$</p>
-                <p>$N$ is the number of texts and $\text{df}(w)$ the texts with word $w$. The fraction is large for a rare word. The +1 inside avoids a division by zero, and the +1 outside keeps a word in every text above 0.</p>
+                <p>$$x_{dw} = \text{tf}(w, d) \cdot \text{idf}(w)$$</p>
+                <p>Each text becomes a row with one weight per word, scaled to length 1.</p>
+                <p>The IDF is learned on the training texts only, and reused on the texts kept apart.</p>
             </div>
         </div>
     </div>
@@ -80,87 +81,35 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Preparation: the text by word matrix</b></p>
-                <p>$$x_{dw} = \text{tf}(w, d) \cdot \text{idf}(w)$$</p>
                 <ul>
-                    <li>One row per text, one column per word</li>
-                    <li>Each row scaled to length 1, so long texts do not win</li>
-                    <li>The IDF is learned on the training texts only, and reused on the texts kept apart</li>
+                    <li><p>Three short texts, $N = 3$</p></li>
+                    <li>"free" is in 1 text, twice in text A</li>
+                    <li>"prize" and "noon" are in 2 texts each</li>
                 </ul>
+                <p>$$\text{tf} = 1 + \ln 2 = 1.69 \qquad \text{idf} = \ln \tfrac{4}{2} + 1 = 1.69$$</p>
+                <p>So free gets about 2.87 in text A. A word in all three texts gets an IDF of 1.</p>
             </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/tfidf-three-texts.svg" alt="Word counts of three texts and the TF-IDF of free" style="height: 380px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## TF-IDF with Logistic Regression
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Logistic regression <a href="https://doi.org/10.1111/j.2517-6161.1958.tb00292.x" target="_blank" rel="noopener noreferrer">(Cox, 1958)</a></b></p>
                 <p>$$P(y = 1 \mid \mathbf{x}) = \sigma(\mathbf{w} \cdot \mathbf{x} + b), \quad \sigma(z) = \frac{1}{1 + e^{-z}}$$</p>
-                <p>$\mathbf{x}$ is the TF-IDF row of a text and $\mathbf{w}$ one weight per word. $b$ is the intercept. $\sigma$ turns the weighted sum into a probability between 0 and 1. Yes when it is at least 0.5.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-## TF-IDF with Logistic Regression
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Log loss</b></p>
-                <p>$$\mathcal{L} = -\sum_{i=1}^{n} \left[ y_i \log p_i + (1 - y_i) \log (1 - p_i) \right]$$</p>
-                <p>$y_i$ is the mark of text $i$, 1 or 0. $p_i$ is its predicted probability. Only one of the two terms is on for each text. A confident wrong answer costs a lot, and the weights are found by minimising the sum.</p>
+                <p>$\mathbf{x}$ is the TF-IDF row of a text, $\mathbf{w}$ one weight per word, and $b$ the intercept.</p>
+                <p>$\sigma$ turns the sum into a probability, yes from 0.5. $\sigma(2) = 0.88$ is a yes.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Penalty and class weights</b></p>
-                <p>$$\min_{\mathbf{w}, b} \ \frac{1}{2} \lVert \mathbf{w} \rVert^2 + C \sum_{i} s_{y_i} \, \ell_i$$</p>
-                <p>$\ell_i$ is the log loss of text $i$. The first term keeps the weights small, and a larger $C$ means a weaker penalty. $s_y = n / (2\, n_y)$ gives the rare class the same total weight, so saying no to everything does not win.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-## TF-IDF with Logistic Regression
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <ul>
-                    <li><p>$N = 4$ texts</p></li>
-                    <li>"free" is in 1 of them</li>
-                    <li>Text A says "free" 3 times</li>
-                    <li><p>After the weighted sum, $z = 2$ for text A</p></li>
-                </ul>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p>$$\text{idf} = \log \tfrac{5}{2} + 1 = 1.92 \qquad \text{tf} = 1 + \log 3 = 2.10$$</p>
-                <p>So "free" gets 2.10 times 1.92, about 4.0, in text A, before the row is scaled to length 1. A word in all 4 texts would get an IDF of only 1.</p>
-                <br>
-                <p>$$\sigma(2) = \frac{1}{1 + e^{-2}} = 0.88$$</p>
-                <p>0.88 is at least 0.5, so text A is a yes.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-## TF-IDF with Logistic Regression
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Set before the results</b></p>
-                <ul>
-                    <li><p>$C$, the penalty</p></li>
-                    <li>The threshold, 0.5</li>
-                    <li>The split into training and kept apart texts</li>
-                </ul>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Limits</b></p>
-                <ul>
-                    <li>Word order is lost</li>
-                    <li>A word never seen in training gets no weight</li>
-                    <li>Few marked texts give unstable weights</li>
-                    <li>A strange word near the top of the weights is worth a look</li>
-                </ul>
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/logistic-curve.svg" alt="Logistic curve" style="height: 320px">
+                <div class="footnote">Logistic-curve - Qef, Public domain, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
@@ -174,13 +123,12 @@
             <div class="column vertical-middle text-left" style="width: 47.5%">
 
 ```text
-split the marked texts, before any fit
-on the training texts only
+split the rows, before any fit
+on the training rows
     learn the IDF of each word
-    turn each text into a TF-IDF row of length 1
-    learn one weight per word, balanced classes
-on the kept apart texts
-    the same IDF, then the weighted sum
+    one TF-IDF row of length 1 per text
+    one weight per word, balanced classes
+on the marked rows
     yes when the probability is at least 0.5
 ```
 
@@ -192,17 +140,19 @@ on the kept apart texts
 ```python
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
-from sklearn.pipeline import make_pipeline
 
-def tfidf_logistic(C):
-    return make_pipeline(
-        TfidfVectorizer(sublinear_tf=True),
-        LogisticRegression(C=C, class_weight="balanced",
-                           max_iter=1000),
-    )
+token_lists = [word_list(t, STOP_WORDS) for t in texts]
+train_tokens = [token_lists[i] for i in train_rows]
+tfidf = TfidfVectorizer(analyzer=lambda tokens: tokens,
+                        sublinear_tf=True)
+X_train = tfidf.fit_transform(train_tokens)
+X_marked = tfidf.transform(
+    [token_lists[i] for i in marked_rows])
 
-model = tfidf_logistic(C=1.0).fit(train_texts, train_marks)
-predictions = model.predict(test_texts)
+tfidf_model = LogisticRegression(
+    class_weight="balanced", C=C_REG, max_iter=1000
+).fit(X_train, y_train)
+pred_tfidf = tfidf_model.predict(X_marked)
 ```
 
             </div>

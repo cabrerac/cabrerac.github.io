@@ -27,16 +27,18 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Marked examples</b></p>
                 <p>A person marks a sample of texts with the answer.</p>
                 <ul>
-                    <li>The marks are written before any method runs, so no result can bend them</li>
+                    <li>The marks are written before any method runs</li>
                     <li>Some marked texts train a method, others are kept apart to judge it</li>
-                    <li>A method is judged by how many marked texts it gets right and how many it gets wrong</li>
                 </ul>
                 <br>
-                <p><b>Text mining</b> turns many texts, too many to read by hand, into the short answers a question needs.</p>
+                <p><b>Text mining</b> turns many texts into the short answers a question needs.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/text-marked-sample.svg" alt="Texts with a marked sample" style="height: 380px">
             </div>
         </div>
     </div>
@@ -49,17 +51,16 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 55%">
-                <p><b>A set of texts and marks</b></p>
+            <div class="column vertical-middle text-left" style="width: 48%">
+                <p><b>Texts and a marked sample</b></p>
                 <p>The data is many texts and a sample marked by a person.</p>
                 <ul>
                     <li><b>Text:</b> one document, short or long</li>
                     <li><b>Word:</b> a run of letters, the unit we count</li>
                     <li><b>Mark:</b> the answer a person writes for one text</li>
                 </ul>
-                <p>Only the marked texts can train or judge a method. The rest get an answer from the method.</p>
             </div>
-            <div class="column vertical-middle text-left" style="width: 45%">
+            <div class="column vertical-middle text-left" style="width: 52%">
                 <p><b>Examples</b></p>
                 <table class="table">
                     <thead>
@@ -90,11 +91,29 @@
     </div>
     <div class="row" style="height: 30%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Dictionaries:</b> a list of words that a person writes, with no training.</p>
-                <p><b>Word counts:</b> weighted word columns and a model learned from the marks.</p>
-                <p><b>Text encoders:</b> a pretrained model turns each text into one vector.</p>
-                <p><b>Generative models:</b> a language model is asked for the answer in words.</p>
+            <div class="column vertical-top text-left" style="width: 100%">
+                <p><b>Dictionaries:</b> keyword lists and weighted lexicons.</p>
+                <p><b>Word counts:</b> TF-IDF with logistic regression, and Naive Bayes.</p>
+                <p><b>Text encoders:</b> frozen or fine-tuned.</p>
+                <p><b>Generative models:</b> a prompted language model.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Methods
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>A <b>weighted lexicon</b> adds a score per listed word.</p>
+                <p><b>Naive Bayes</b> multiplies word probabilities under yes and no.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>A <b>fine-tuned encoder</b> keeps learning on the marks.</p>
+                <p>A <b>prompted language model</b> is asked for the answer in words.</p>
+                <p>These names place the three methods we use today.</p>
             </div>
         </div>
     </div>
@@ -107,9 +126,9 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <ul>
-                    <li><b>Keyword list:</b> words written from the question</li>
+                    <li><b>Keyword list:</b> words from the question</li>
                     <li><b>TF-IDF with logistic regression:</b> word weights learned from the marks</li>
-                    <li><b>Text encoder:</b> a vector learned outside this collection, then logistic regression</li>
+                    <li><b>Text encoder:</b> a vector learned elsewhere</li>
                 </ul>
                 <p>These apply to different data sources (e.g., emails, reviews, abstracts, etc).</p>
             </div>
