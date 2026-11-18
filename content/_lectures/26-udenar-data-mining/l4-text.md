@@ -2,12 +2,12 @@
 author: Christian Cabrera Jojoa
 course_code: 26-udenar-data-mining
 department: Department of Computer Science and Technology
-description: Lecture 4 is the text extraction task. The question is what short answer
-  each text gives to a question. Emails, reviews, and abstracts, with a sample marked
-  by a person, can feed the task. We explore three methods for this task. A keyword
-  list, TF-IDF with logistic regression, and a text encoder. For each method we go
-  through its theory, implementation and evaluation. We end with what deploying an
-  extraction means and its limits.
+description: Lecture 4 introduces the text extraction task. The question is what short
+  answer each text gives to a question. Emails, reviews, and abstracts, with a sample
+  marked by a person, can feed the task. We explore three methods for this task. A
+  keyword list, TF-IDF with logistic regression, and a text encoder. For each method
+  we go through its theory, implementation and evaluation. We end with what deploying
+  an extraction means and its limits.
 email: chc79@cam.ac.uk
 end_time: 01:00 pm
 group_notebook: week-2-group
@@ -24,7 +24,7 @@ permalink: /teaching/26-udenar-data-mining/l4-text/
 position: Assistant Research Professor
 session: 4
 start_time: 07:00 am
-title: Text extraction and marked examples
+title: Text extraction
 visible: false
 ---
 

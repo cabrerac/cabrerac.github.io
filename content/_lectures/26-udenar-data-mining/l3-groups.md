@@ -2,10 +2,10 @@
 author: Christian Cabrera Jojoa
 course_code: 26-udenar-data-mining
 department: Department of Computer Science and Technology
-description: Lecture 3 is the grouping task. The question is which items are similar
-  enough to share a group, and which fit no group. Customers, patients, and texts
-  described by the same attributes can feed the task. We explore three methods for
-  this task. k-means, Gaussian mixtures, and HDBSCAN. For each method we go through
+description: Lecture 3 introduces the grouping task. The question is which items are
+  similar enough to share a group, and which fit no group. Customers, patients, and
+  texts described by the same attributes can feed the task. We explore three methods
+  for this task. k-means, Gaussian mixtures, and HDBSCAN. For each method we go through
   its theory, implementation and evaluation. We end with what deploying a group means
   and its limits.
 email: chc79@cam.ac.uk
@@ -25,7 +25,7 @@ permalink: /teaching/26-udenar-data-mining/l3-groups/
 position: Assistant Research Professor
 session: 3
 start_time: 07:00 am
-title: Groups, outliers, and what a group means
+title: Grouping
 visible: false
 ---
 
