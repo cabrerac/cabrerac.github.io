@@ -26,7 +26,10 @@
                     <li><b>FN:</b> said no, marked yes</li>
                     <li><b>TN:</b> said no, marked no</li>
                 </ul>
-                <p><b>Accuracy:</b> the right answers over all answers, $(TP + TN) / n$.</p>
+                <br>
+                <p>$$\text{accuracy} = \frac{TP + TN}{n}$$</p>
+                <br>
+                <p>Accuracy is the right answers over all answers. $n$ is the number of marked texts.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/confusion-matrix-counts.svg" alt="The four counts of a confusion matrix" style="height: 380px">
@@ -41,11 +44,15 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 55%">
-                <p><b>Precision, recall, F1</b></p>
-                <p>$$\text{precision} = \frac{TP}{TP + FP} \qquad \text{recall} = \frac{TP}{TP + FN}$$</p>
+                <p>Precision is the share of yes answers that were marked yes. Recall is the share of marked yes answers that were found.</p>
+                <br>
+                <p>$$\text{precision} = \frac{TP}{TP + FP}$$</p>
+                <br>
+                <p>$$\text{recall} = \frac{TP}{TP + FN}$$</p>
+                <br>
+                <p>F1 is low when either precision or recall is low.</p>
+                <br>
                 <p>$$F_1 = \frac{2 \cdot \text{precision} \cdot \text{recall}}{\text{precision} + \text{recall}}$$</p>
-                <p>Precision divides the right yes answers by all yes answers. Recall divides them by all marked yes. F1 is low when either is low.</p>
-                <p>With $TP = 8$, $FP = 2$ and $FN = 4$: precision 0.80, recall 0.67, and F1 0.73.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 45%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/precision-recall.svg" alt="Precision and recall" style="height: 360px">
@@ -60,10 +67,39 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>Eight right yes answers, two wrong yes answers, and four missed yes answers.</p>
+                <br>
+                <p>$$TP = 8,\: FP = 2,\: FN = 4$$</p>
+                <br>
+                <p>$$\text{precision} = \frac{8}{8 + 2} = 0.80$$</p>
+                <br>
+                <p>$$\text{recall} = \frac{8}{8 + 4} = 0.67$$</p>
+                <br>
+                <p>$$F_1 = \frac{2 \cdot 0.80 \cdot 0.67}{0.80 + 0.67} = 0.73$$</p>
+                <br>
+                <p>Eight of the ten yes answers were marked yes. Eight of the twelve marked yes answers were found.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/precision-recall.svg" alt="Precision and recall" style="height: 360px">
+                <div class="footnote">Precisionrecall - Walber, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Evaluation
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 38%">
                 <p><b>The majority class</b></p>
-                <p>Always give the most common answer. Accuracy equals the share of that answer.</p>
-                <p><b>A reference line:</b> a useful method should beat it. No method is removed. Ask which one beats it, and why.</p>
+                <p>Always give the most common answer.</p>
+                <br>
+                <p>$$\text{accuracy} = \frac{n_{\text{majority}}}{n}$$</p>
+                <br>
+                <p>Accuracy equals the share of that answer. A useful method should beat this line. No method is removed. Ask which one beats it, and why.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 62%">
 

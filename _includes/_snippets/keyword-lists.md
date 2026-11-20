@@ -63,10 +63,10 @@
                 <p>A text is a match when its words and the list share at least one word.</p>
                 <br>
                 <p>$$\hat{y}(t) = \begin{cases} 1 & \text{if } W(t) \cap L \neq \emptyset \\ 0 & \text{otherwise} \end{cases}$$</p>
+                <br>
+                <p>$t$ is one text and $W(t)$ its set of words. $L$ is the list. $\hat{y}(t)$ is the answer, 1 for a match.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>$t$ is one text and $W(t)$ its set of words. $L$ is the list.</p>
-                <p>$\hat{y}(t)$ is the answer, 1 for a match.</p>
                 <p><b>What a list misses</b></p>
                 <ul>
                     <li><b>Other words:</b> the same answer in other words is a no</li>
@@ -83,15 +83,17 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <ul>
-                    <li><p>$L$ = {free, winner, winners}</p></li>
-                    <li>A: "Free entry, one winner", marked yes</li>
-                    <li>B: "Meeting moved to noon", marked no</li>
-                    <li>C: "Winners announced today", marked yes</li>
-                    <li>D: "Free parking for staff", marked no</li>
-                </ul>
-                <p>A, C and D share a word with the list, so they are a yes. D is a wrong yes.</p>
-                <p>Three of four answers are right, an accuracy of 0.75.</p>
+                <p>$L$ = {free, winner, winners}.</p>
+                <p>A: "Free entry, one winner", marked yes.</p>
+                <p>B: "Meeting moved to noon", marked no.</p>
+                <p>C: "Winners announced today", marked yes.</p>
+                <p>D: "Free parking for staff", marked no.</p>
+                <br>
+                <p>A, C and D share a word with the list, so $\hat{y}$ is 1. B shares none, so $\hat{y}$ is 0. D is a wrong yes.</p>
+                <br>
+                <p>$$\text{accuracy} = \frac{3}{4} = 0.75$$</p>
+                <br>
+                <p>Three of the four answers match the marks.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/keyword-list-match.svg" alt="Three texts against a keyword list" style="height: 380px">

@@ -85,11 +85,15 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p>Each token gets a vector that depends on the whole text. Mean pooling turns them into one vector per text.</p>
                 <br>
-                <p>$$\mathbf{v}(t) = \frac{1}{T} \sum_{j=1}^{T} \mathbf{h}_j \qquad \hat{\mathbf{v}} = \frac{\mathbf{v}}{\lVert \mathbf{v} \rVert}$$</p>
+                <p>$$\mathbf{v}(t) = \frac{1}{T} \sum_{j=1}^{T} \mathbf{h}_j$$</p>
+                <br>
+                <p>$\mathbf{h}_j$ is the vector of token $j$, and $T$ the number of tokens read. The sum divided by $T$ is their mean.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>$\mathbf{h}_j$ is the vector of token $j$, and $T$ the number of tokens read.</p>
-                <p>The sum and the division by $T$ give their mean.</p>
+                <p>Scaling removes the length, so only the direction remains.</p>
+                <br>
+                <p>$$\hat{\mathbf{v}} = \frac{\mathbf{v}}{\lVert \mathbf{v} \rVert}$$</p>
+                <br>
                 <p>Dividing by the length $\lVert \mathbf{v} \rVert$ gives length 1.</p>
             </div>
         </div>
@@ -102,12 +106,16 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <ul>
-                    <li>Three tokens in two dimensions</li>
-                    <li><p>$\mathbf{h}_1 = (1, 0)$, $\mathbf{h}_2 = (0, 1)$, $\mathbf{h}_3 = (1, 1)$</p></li>
-                </ul>
-                <p>$$\mathbf{v} = \tfrac{1}{3}(2, 2) = (0.67, 0.67) \qquad \hat{\mathbf{v}} = (0.71, 0.71)$$</p>
-                <p>The first numbers add to 2 and the second numbers add to 2. Dividing by 3 gives the mean. Its length is 0.94, so each number becomes 0.71.</p>
+                <p>Three tokens in two dimensions.</p>
+                <p>$\mathbf{h}_1 = (1, 0)$, $\mathbf{h}_2 = (0, 1)$, $\mathbf{h}_3 = (1, 1)$.</p>
+                <br>
+                <p>$$\mathbf{v} = \tfrac{1}{3}(2, 2) = (0.67, 0.67)$$</p>
+                <br>
+                <p>The first numbers add to 2 and the second numbers add to 2. Dividing by 3 gives the mean. Its length is 0.94.</p>
+                <br>
+                <p>$$\hat{\mathbf{v}} = (0.71, 0.71)$$</p>
+                <br>
+                <p>Each number becomes 0.71.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/encoder-pipeline.svg" alt="From a text to a yes or a no with a text encoder" style="height: 400px">

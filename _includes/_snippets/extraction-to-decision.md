@@ -15,6 +15,7 @@
                     <li><b>Report:</b> how many texts say yes, with the right and wrong counts</li>
                     <li><b>Decision:</b> one action per text, such as reply, read, or skip</li>
                 </ul>
+                <br>
                 <p>We deploy it with the list or the threshold, the marks, the counts, and the majority class.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -30,7 +31,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>What a deployed extraction implies</b></p>
                 <ul>
                     <li><b>Errors have a cost:</b> a false yes is read for nothing, and a false no is never seen</li>
@@ -39,7 +40,12 @@
                     <li><b>People:</b> who marks the texts, and whose language the method reads worse</li>
                 </ul>
                 <br>
-                <p>Texts that use other words are never flagged. A deployed list says nothing about them.</p>
+                <p>Texts that use other words are never flagged.</p>
+                <p>A deployed list says nothing about them.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/context-people.png" alt="People affected by a data system" style="height: 400px">
+                <div class="footnote">Left: NP coffee cooperative, Neil Palmer (CIAT), CC BY-SA 2.0 (https://creativecommons.org/licenses/by-sa/2.0), via Wikimedia Commons. Right: Scottish Government, CC BY 2.0 (https://creativecommons.org/licenses/by/2.0), via Flickr</div>
             </div>
         </div>
     </div>
