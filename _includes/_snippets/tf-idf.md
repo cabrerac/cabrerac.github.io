@@ -116,14 +116,10 @@
                 <p>Logistic regression turns the weighted row into a probability of yes <a href="https://doi.org/10.1111/j.2517-6161.1958.tb00292.x" target="_blank" rel="noopener noreferrer">(Cox, 1958)</a>.</p>
                 <br>
                 <p>$$P(y = 1 \mid \mathbf{x}) = \sigma(\mathbf{w} \cdot \mathbf{x} + b)$$</p>
-                <br>
                 <p>$$\sigma(z) = \frac{1}{1 + e^{-z}}$$</p>
                 <br>
                 <p>$\mathbf{x}$ is the TF-IDF row of a text, $\mathbf{w}$ one weight per word, and $b$ the intercept. $\sigma$ turns the sum into a probability. Yes starts at 0.5.</p>
-                <br>
-                <p>$$\sigma(2) = 0.88$$</p>
-                <br>
-                <p>A probability of 0.88 is a yes.</p>
+                <p>We train logistic regression on the marked texts to learn $\mathbf{w}$ and $b$. We approximate a function that maps $\mathbf{x}$ to yes or no and minimises the prediction loss.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/logistic-curve.svg" alt="Logistic curve" style="height: 320px">
@@ -145,8 +141,9 @@ split the rows, before any fit
 on the training rows
     learn the IDF of each word
     one TF-IDF row of length 1 per text
-    one weight per word, balanced classes
-on the marked rows
+    fit finds w by minimising the loss
+on the rows kept apart
+    the same IDF, then the weighted sum
     yes when the probability is at least 0.5
 ```
 

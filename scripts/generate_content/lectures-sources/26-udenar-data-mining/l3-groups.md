@@ -18,7 +18,7 @@ permalink: /teaching/26-udenar-data-mining/l3-groups/
 visible: false
 group_notebook: week-2-group
 notebook_language: es
-notebook_title: Grupos, atípicos y qué significa un grupo
+notebook_title: Grupos
 notebook_description: Práctica individual de la Lección 3. Agrupar artículos parecidos con HDBSCAN y k-means como referencia, ver dónde coinciden y qué artículos no encajan en ningún grupo.
 ---
 

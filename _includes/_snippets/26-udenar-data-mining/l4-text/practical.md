@@ -77,8 +77,8 @@ Cada paso empieza con **En este paso**. Si tiene código, termina con una celda 
 | 4 | Conjunto marcado | Las filas que los dos métodos que aprenden no ven |
 | 5 | TF-IDF | Pesos, ajuste y predicción |
 | 6 | Codificador | Un vector por resumen, el corte a 512 tokens y la predicción |
-| 7 | Evaluación | Aciertos y errores, cinco pliegues y `outputs/texto_l4.csv` |
-| 8 | Despliegue | Hasta 30 artículos para leer, en `outputs/lectura_l4.csv` |
+| 7 | Evaluación | Exactitud, matrices de confusión y `outputs/texto_l4.csv` |
+| 8 | Despliegue | Dos listas de hasta 30 artículos: `outputs/lectura_l4.csv` y `outputs/lectura_encoder_l4.csv` |
 
 **Carpetas.** La celda de configuración crea `data/` (datos descargados) y `outputs/` (tablas y gráficos).
 
@@ -94,8 +94,8 @@ La decisión no cambia: qué artículos debe leer el colega nuevo.
 |----------|-------------------------------|
 | ¿Qué buscamos? | Qué artículos tratan del tema del equipo, según su resumen |
 | ¿Con qué lo medimos? | Una lista de palabras, TF-IDF con regresión logística y un codificador fijo. El archivo guarda TF-IDF |
-| ¿Cómo los comparamos? | Con aciertos y errores sobre las marcas, la clase mayoritaria como línea de referencia y cinco pliegues |
-| ¿Cómo entra el texto en la lista? | La lista de palabras suma 1 si dice leer. TF-IDF suma su probabilidad. El codificador no entra en la suma |
+| ¿Cómo los comparamos? | Con la exactitud y la matriz de confusión sobre las marcas, y la clase mayoritaria como línea de referencia |
+| ¿Cómo entra el texto en la lista? | La lista que guardamos suma la lista de palabras y la probabilidad de TF-IDF. El codificador arma una segunda lista, solo con su probabilidad |
 
 Un acierto solo tiene sentido frente a una marca escrita antes de ver resultados.
 
@@ -143,9 +143,8 @@ import requests
 import sklearn
 from sklearn.feature_extraction.text import TfidfVectorizer  # TfidfVectorizer pesa cada palabra por su repetición y por lo rara que es
 from sklearn.linear_model import LogisticRegression  # LogisticRegression aprende un peso por columna y devuelve una probabilidad
-from sklearn.metrics import ConfusionMatrixDisplay, accuracy_score, confusion_matrix, f1_score  # estas funciones cuentan aciertos y errores frente a las marcas
-from sklearn.metrics import precision_recall_fscore_support  # precision_recall_fscore_support calcula precisión, exhaustividad y F1
-from sklearn.model_selection import StratifiedKFold, train_test_split  # train_test_split aparta filas y StratifiedKFold las parte en pliegues
+from sklearn.metrics import ConfusionMatrixDisplay, accuracy_score, confusion_matrix  # estas funciones cuentan aciertos y errores frente a las marcas
+from sklearn.model_selection import StratifiedKFold, train_test_split  # train_test_split aparta filas y StratifiedKFold parte las filas de entrenamiento
 
 DATA_DIR = Path("data")         # Path fija la carpeta donde se guardan los datos descargados
 OUTPUTS_DIR = Path("outputs")   # Path fija la carpeta donde se guardan las tablas y los gráficos
@@ -171,7 +170,7 @@ FLAGGED_MIN = 40        # fija el mínimo de artículos marcados
 POSITIVE_SHARE = 0.10   # fija la proporción mínima de artículos del tema
 POSITIVES_MIN = 30      # fija el mínimo de artículos del tema
 C_REG = 10              # fija la penalización de la regresión logística
-N_FOLDS = 5             # fija en cuántas partes partimos las filas de entrenamiento
+N_FOLDS = 5             # fija en cuántas partes partimos las filas de entrenamiento para escribir una probabilidad por fila
 ENCODER_NAME = "intfloat/multilingual-e5-small"  # fija el modelo ya entrenado que convierte cada resumen en un vector
 MAX_TOKENS = 512        # fija el largo a partir del cual el codificador corta el resumen
 
@@ -697,34 +696,32 @@ print("Codificador con regresión logística: OK")
 
 La evaluación compara los tres métodos sobre los mismos textos marcados.
 Contamos aciertos y errores en el conjunto marcado, que los métodos que aprenden no vieron.
+La exactitud es los aciertos sobre las 64 filas.
 La clase mayoritaria da a todos la marca más frecuente.
 Es la línea de referencia: un método útil debería superarla.
-Los cinco pliegues muestran el F1 más bajo y el más alto.
-Si están lejos, un solo número no basta para confiar en el método.
 Si un método acierta poco, es normal.
 Su fila sigue en la tabla.
 
 ### Paso 1. Aciertos y errores en el conjunto marcado
 Los tres métodos y la clase mayoritaria se miden en las mismas 64 filas marcadas.
-En este paso contamos TP, FP, FN y TN de cada uno.
-La precisión es TP / (TP + FP): de los sí que dijo el método, cuántos tenían marca sí.
-La exhaustividad es TP / (TP + FN): de las marcas sí, cuántas encontró el método.
-El F1 es la media armónica de las dos, así que un método no sube el número acertando solo una de ellas.
+En este paso contamos TP, FP, FN y TN de cada uno, y su exactitud.
+La exactitud es (TP + TN) / 64.
 La clase mayoritaria da a las 64 filas la marca más frecuente. Es la línea de referencia.
 
 ```python
 def counts_of(marks: np.ndarray, pred: np.ndarray) -> dict:
-    """Los cuatro conteos y las cuatro medidas de un método frente a las marcas.
+    """Cuenta los cuatro casos y la exactitud de un método frente a las marcas.
 
-    Qué hace: cruza cada marca con lo que dice el método y cuenta los cuatro casos.
-    Con esos conteos calcula precisión, exhaustividad, F1 y exactitud.
-    Entrada: marks, las marcas (0 o 1), y pred, lo que dice el método (0 o 1).
-    Salida: un diccionario con TP, FP, FN, TN y las cuatro medidas.
+    Args:
+        marks: Las marcas, 0 o 1.
+        pred: Lo que dice el método, 0 o 1.
+
+    Returns:
+        Un diccionario con TP, FP, FN, TN y la exactitud.
     """
     tn, fp, fn, tp = confusion_matrix(marks, pred, labels=[0, 1]).ravel()  # confusion_matrix cuenta TN, FP, FN y TP en ese orden
-    p, r, f1, _ = precision_recall_fscore_support(marks, pred, average="binary", zero_division=0)  # precision_recall_fscore_support calcula precisión, exhaustividad y F1
     accuracy = accuracy_score(marks, pred)  # accuracy_score divide los aciertos entre todas las marcas
-    return {"TP": tp, "FP": fp, "FN": fn, "TN": tn, "precision": p, "recall": r, "F1": f1, "accuracy": accuracy}
+    return {"TP": tp, "FP": fp, "FN": fn, "TN": tn, "accuracy": accuracy}
 
 
 majority_mark = int(y_test.mean() > 0.5)   # nos quedamos con 1 cuando más de la mitad de las marcas son 1
@@ -777,67 +774,13 @@ fig.savefig(OUTPUTS_DIR / "confusion_l4.png", dpi=120)  # savefig guarda la figu
 plt.show()  # show muestra la figura
 ```
 
-### Paso 3. Cinco pliegues en las filas de entrenamiento
-Las 64 filas marcadas se quedan fuera de estos pliegues.
-Partimos las 253 filas de entrenamiento en 5 partes, y `StratifiedKFold` conserva en cada parte la proporción del tema.
-En cada vuelta, 4 partes ajustan el método y 1 parte, la que no vio, devuelve un F1.
-Al terminar hay 5 F1 por método, no un F1 de entrenamiento y otro de prueba.
-Guardamos el más bajo y el más alto.
-Si están lejos, un solo F1 esconde una parte débil.
-
-```python
-folds = StratifiedKFold(n_splits=N_FOLDS, shuffle=True, random_state=SEED)  # StratifiedKFold parte las 253 filas en 5 pliegues y conserva la proporción del tema
-fold_f1 = {"palabras clave": [], "TF-IDF": [], "codificador": []}
-for fit_rows, test_rows in folds.split(train_rows, y_train):  # split entrega en cada vuelta las filas de ajuste y la parte que no vio
-    learn, check = train_rows[fit_rows], train_rows[test_rows]  # learn son las filas que el pliegue ajusta y check la parte que no vio
-    learn_tokens, check_tokens = [], []
-    for i in learn:  # recorremos las filas de ajuste
-        learn_tokens.append(token_lists[i])  # guardamos la lista de palabras de esta fila
-    for i in check:  # recorremos la parte que el pliegue no vio
-        check_tokens.append(token_lists[i])  # guardamos la lista de palabras de esta fila
-    fold_vectorizer = TfidfVectorizer(analyzer=keep_tokens, sublinear_tf=True)  # TfidfVectorizer prepara los pesos de este pliegue
-    fold_vectorizer.fit(learn_tokens)  # fit aprende los pesos solo con las filas que este pliegue sí ve
-    learn_matrix = fold_vectorizer.transform(learn_tokens)  # transform arma la tabla de las filas de ajuste
-    check_matrix = fold_vectorizer.transform(check_tokens)  # transform aplica esos pesos a la parte que el pliegue no vio
-    fold_tfidf = LogisticRegression(class_weight="balanced", C=C_REG, max_iter=1000)  # LogisticRegression prepara la regresión de TF-IDF para este pliegue
-    fold_tfidf.fit(learn_matrix, y[learn])  # fit aprende los pesos sin ver la parte de prueba
-    fold_pred = fold_tfidf.predict(check_matrix)  # predict dice sí o no en la parte que no vio
-    fold_encoder = LogisticRegression(class_weight="balanced", C=C_REG, max_iter=1000)  # LogisticRegression prepara la regresión de los vectores para este pliegue
-    fold_encoder.fit(vectors[learn], y[learn])  # fit aprende con los vectores de las filas que sí ve
-    encoder_pred = fold_encoder.predict(vectors[check])  # predict dice sí o no con los vectores de la parte que no vio
-    fold_f1["palabras clave"].append(f1_score(y[check], pred_keywords[check], zero_division=0))  # f1_score anota el F1 de la lista en esta parte
-    fold_f1["TF-IDF"].append(f1_score(y[check], fold_pred, zero_division=0))  # f1_score anota el F1 de TF-IDF en esta parte
-    fold_f1["codificador"].append(f1_score(y[check], encoder_pred, zero_division=0))  # f1_score anota el F1 del codificador en esta parte
-cv_rows = {}
-for name, values in fold_f1.items():  # recorremos los cinco F1 de cada método
-    cv_rows[name] = {"F1 más bajo": min(values), "F1 más alto": max(values)}  # min toma el F1 más bajo y max el más alto
-cv_table = pd.DataFrame(cv_rows).T.round(2)  # DataFrame arma una fila por método y round deja dos decimales
-cv_table
-```
-
-Mire el F1 más bajo y el más alto de cada método.
-Si están lejos, con pocas marcas un solo F1 no basta.
-
-**Comprobar:**
-
-En este paso comprobamos que hay cinco F1 por método.
-
-```python
-for values in fold_f1.values():
-    assert len(values) == N_FOLDS
-assert (cv_table["F1 más bajo"] <= cv_table["F1 más alto"]).all()
-print("Cinco pliegues: OK")
-```
-
-### Paso 4. La clase mayoritaria como referencia
-En este paso comparamos cada método con la fila de la clase mayoritaria de la tabla del Paso 1.
-También miramos el F1 más bajo y el más alto de los cinco pliegues.
-Si están lejos, un solo F1 esconde una parte débil.
-Si un método queda por debajo de la clase mayoritaria, lo documentamos.
+### Paso 3. La clase mayoritaria como referencia
+En este paso comparamos la exactitud de cada método con la de la clase mayoritaria, en la tabla del Paso 1.
+Si un método queda por debajo, lo documentamos.
 Su fila sigue en la tabla.
 El archivo guarda TF-IDF porque sus pesos se pueden leer.
 
-### Paso 5. Leer tres errores por método
+### Paso 4. Leer tres errores por método
 Un error es una fila marcada en la que el método no coincide con la marca.
 FP es un sí del método con un no de la marca. FN es un no del método con un sí de la marca.
 El error puede venir del método o de la marca.
@@ -855,17 +798,20 @@ for name in ["palabras clave", "TF-IDF", "codificador"]:  # recorremos la lista,
         print(f"  {kind}: {papers.loc[marked_rows[i], 'title'][:90]}")
 ```
 
-### Paso 6. El texto para toda la colección
-Hasta aquí TF-IDF dice sí o no solo en las 64 filas marcadas.
-La lista de lectura necesita un número para los 317 artículos.
-En este paso guardamos la probabilidad de TF-IDF, no solo el sí o el no.
+### Paso 5. El texto para toda la colección
+Hasta aquí TF-IDF y el codificador dicen sí o no solo en las 64 filas marcadas.
+Las dos listas necesitan un número para los 317 artículos.
+En este paso guardamos la probabilidad de TF-IDF y la del codificador.
 Las 64 filas marcadas usan el modelo ya ajustado con las 253.
 Cada fila de entrenamiento usa el pliegue que no la vio, para que ninguna fila reciba la probabilidad de un modelo que la usó para aprender.
-Pasamos a 1 cuando esa probabilidad supera 0,5.
+Pasamos a 1 cuando la probabilidad de TF-IDF supera 0,5.
 
 ```python
-prob_texto = np.zeros(N)  # empezamos la probabilidad en cero para los 317 artículos
-prob_texto[marked_rows] = tfidf_model.predict_proba(X_marked)[:, 1]  # predict_proba escribe la probabilidad de leer de las 64 filas marcadas
+prob_texto = np.zeros(N)  # empezamos la probabilidad de TF-IDF en cero para los 317 artículos
+prob_encoder = np.zeros(N)  # empezamos la probabilidad del codificador en cero para los 317 artículos
+prob_texto[marked_rows] = tfidf_model.predict_proba(X_marked)[:, 1]  # predict_proba escribe la probabilidad de TF-IDF en las 64 filas marcadas
+prob_encoder[marked_rows] = encoder_model.predict_proba(vectors[marked_rows])[:, 1]  # predict_proba escribe la probabilidad del codificador en las 64 filas marcadas
+folds = StratifiedKFold(n_splits=N_FOLDS, shuffle=True, random_state=SEED)  # StratifiedKFold parte las 253 filas en 5 pliegues y conserva la proporción del tema
 for fit_rows, test_rows in folds.split(train_rows, y_train):  # split entrega en cada vuelta las filas de ajuste y la parte que no vio
     learn, check = train_rows[fit_rows], train_rows[test_rows]  # learn son las filas que el pliegue ajusta y check la parte que no vio
     learn_tokens, check_tokens = [], []
@@ -875,24 +821,29 @@ for fit_rows, test_rows in folds.split(train_rows, y_train):  # split entrega en
         check_tokens.append(token_lists[i])  # guardamos la lista de palabras de esta fila
     fold_vectorizer = TfidfVectorizer(analyzer=keep_tokens, sublinear_tf=True)  # TfidfVectorizer prepara los pesos de este pliegue
     fold_vectorizer.fit(learn_tokens)  # fit aprende los pesos solo con las filas que este pliegue sí ve
-    fold_model = LogisticRegression(class_weight="balanced", C=C_REG, max_iter=1000)  # LogisticRegression prepara la regresión de este pliegue
+    fold_model = LogisticRegression(class_weight="balanced", C=C_REG, max_iter=1000)  # LogisticRegression prepara la regresión de TF-IDF para este pliegue
     fold_model.fit(fold_vectorizer.transform(learn_tokens), y[learn])  # fit aprende los pesos sin ver la parte de prueba
-    fold_prob = fold_model.predict_proba(fold_vectorizer.transform(check_tokens))[:, 1]  # predict_proba escribe la probabilidad de la parte que no vio
-    prob_texto[check] = fold_prob  # cada fila de entrenamiento recibe la probabilidad del pliegue que no la vio
-text_tfidf = (prob_texto > 0.5).astype(int)  # pasamos a 1 cuando la probabilidad supera 0,5
+    fold_prob = fold_model.predict_proba(fold_vectorizer.transform(check_tokens))[:, 1]  # predict_proba escribe la probabilidad de TF-IDF en la parte que no vio
+    prob_texto[check] = fold_prob  # cada fila de entrenamiento recibe la probabilidad de TF-IDF del pliegue que no la vio
+    fold_encoder = LogisticRegression(class_weight="balanced", C=C_REG, max_iter=1000)  # LogisticRegression prepara la regresión del codificador para este pliegue
+    fold_encoder.fit(vectors[learn], y[learn])  # fit aprende con los vectores de las filas que este pliegue sí ve
+    prob_encoder[check] = fold_encoder.predict_proba(vectors[check])[:, 1]  # predict_proba escribe la probabilidad del codificador en la parte que no vio
+text_tfidf = (prob_texto > 0.5).astype(int)  # pasamos a 1 cuando la probabilidad de TF-IDF supera 0,5
 print(f"Dicen leer: palabras clave {pred_keywords.sum()}, TF-IDF {text_tfidf.sum()}")
 ```
 
 **Comprobar:**
 
-En este paso comprobamos que `prob_texto` coincide con la predicción de TF-IDF.
+En este paso comprobamos que `prob_texto` coincide con la predicción de TF-IDF y que las dos probabilidades cubren los 317 artículos.
 
 ```python
 assert ((prob_texto > 0.5) == text_tfidf).all()
+assert len(prob_texto) == N and len(prob_encoder) == N
+assert ((prob_texto >= 0) & (prob_texto <= 1)).all() and ((prob_encoder >= 0) & (prob_encoder <= 1)).all()
 print("Texto para toda la colección: OK")
 ```
 
-### Paso 7. Guardar el texto
+### Paso 6. Guardar el texto
 Guardamos una fila por cada uno de los 317 artículos en `outputs/texto_l4.csv`.
 `keyword` es el sí o no de la lista. `tfidf_lr` es el sí o no de TF-IDF. `prob_texto` es su probabilidad.
 `marca` lleva las 64 marcas. Las otras filas quedan vacías, porque esas filas sirvieron para aprender y no tienen marca de prueba.
@@ -928,11 +879,15 @@ print("texto_l4.csv: OK")
 
 ## Parte 8. Despliegue
 
-### Paso 1. Qué hace el texto con la lista
-El texto de esta lección es un filtro: deja pasar los artículos que la lista o TF-IDF marcan para leer.
-`texto_l4.csv` guarda ese sí o no y la probabilidad.
+### Paso 1. Qué hace el texto con las listas
+El texto de esta lección es un filtro.
+La lista que guardamos deja pasar los artículos que la lista de palabras o TF-IDF marcan para leer.
+Cada punto de esa lista se puede mirar: una palabra de la lista, o un peso de TF-IDF.
+El codificador arma una segunda lista, ordenada solo por su probabilidad.
+Un artículo que aparece solo en esa segunda lista no tiene una palabra que citar.
+Por eso no entra en la lista que el equipo usa para leer.
+`texto_l4.csv` guarda el sí o no de la lista y de TF-IDF, y la probabilidad de TF-IDF.
 Un método que quedó bajo la clase mayoritaria se queda en la tabla de la evaluación.
-El codificador también se queda ahí, y no entra en la lista, porque su vector no se lee palabra por palabra.
 Esta lista usa solo el texto de hoy.
 
 ### Paso 2. Artículos para leer
@@ -976,6 +931,40 @@ assert len(reading_list) == min(MAX_PAPERS, len(reading)) and reading_list["evid
 assert ((reading_list["evidencia"] - reading_list["palabras_clave"] - reading_list["tfidf"]).abs() < 0.011).all()
 assert reading_list["evidencia"].between(0, 2).all()
 print("Lista de lectura: OK")
+```
+
+### Paso 3. La lista del codificador
+Esta lista ordena los 317 artículos solo por la probabilidad del codificador.
+Mostramos como máximo 30, igual que la lista que guardamos.
+En este paso contamos cuántos de esos 30 ya están en la primera lista y cuántos están solo aquí.
+Los que están solo aquí no tienen una palabra de la lista ni un peso de TF-IDF que los explique.
+Por eso no entran en `lectura_l4.csv`.
+
+```python
+encoder_rows = []
+for i in range(N):  # recorremos cada artículo
+    encoder_rows.append({"title": papers.loc[i, "title"], "prob_encoder": round(float(prob_encoder[i]), 3)})  # guardamos el título y la probabilidad del codificador
+encoder_reading = pd.DataFrame(encoder_rows).sort_values(["prob_encoder", "title"], ascending=[False, True])  # sort_values ordena por la probabilidad del codificador y luego por título
+encoder_list = encoder_reading.head(MAX_PAPERS)  # head corta la lista en 30 artículos
+encoder_path = OUTPUTS_DIR / "lectura_encoder_l4.csv"  # Path fija la ruta de la lista del codificador
+encoder_list.to_csv(encoder_path, index=False)  # to_csv escribe la lista y deja fuera el índice
+kept_titles = set(reading_list["title"])  # set guarda los títulos de la lista que sí explicamos
+both = int(encoder_list["title"].isin(kept_titles).sum())  # sum cuenta cuántos de los 30 ya están en esa lista
+only_encoder = len(encoder_list) - both  # restamos para contar los que están solo en el codificador
+print(f"En las dos listas: {both}. Solo en el codificador: {only_encoder}.")
+encoder_list.loc[~encoder_list["title"].isin(kept_titles), "title"].head(5)  # head muestra hasta cinco títulos que no tienen una palabra que citar
+```
+
+Mire el conteo y los títulos que salen solo en el codificador. Esos artículos se leerían sin una palabra que mostrar lo cual dificulta la explicación e interpretación de resultados.
+
+**Comprobar:**
+
+En este paso comprobamos el largo de la segunda lista, su orden y que el conteo cubre sus 30 títulos.
+
+```python
+assert len(encoder_list) == min(MAX_PAPERS, N) and encoder_list["prob_encoder"].is_monotonic_decreasing
+assert both + only_encoder == len(encoder_list)
+print("Lista del codificador: OK")
 ```
 
 <!-- end NOTEBOOK: -->

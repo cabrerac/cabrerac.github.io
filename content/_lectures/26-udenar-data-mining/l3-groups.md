@@ -20,7 +20,7 @@ notebook_description: "Pr\xE1ctica individual de la Lecci\xF3n 3. Agrupar art\xE
   culos parecidos con HDBSCAN y k-means como referencia, ver d\xF3nde coinciden y\
   \ qu\xE9 art\xEDculos no encajan en ning\xFAn grupo."
 notebook_language: es
-notebook_title: "Grupos, at\xEDpicos y qu\xE9 significa un grupo"
+notebook_title: Grupos
 permalink: /teaching/26-udenar-data-mining/l3-groups/
 position: Assistant Research Professor
 session: 3

@@ -50,7 +50,7 @@
                 <p>"BERT is designed to pre-train deep bidirectional representations from unlabeled text by jointly conditioning on both left and right context in all layers." <a href="https://doi.org/10.18653/v1/N19-1423" target="_blank" rel="noopener noreferrer">(Devlin et al., 2019, abstract)</a></p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/transformer-full-architecture.png" alt="Transformer architecture" style="height: 360px">
+                <img src="{{ site.url }}/assets/media/images/transformer-full-architecture.png" alt="Transformer architecture" style="height: auto">
                 <div class="footnote">Transformer, full architecture - dvgodoy, CC BY 4.0 <https://creativecommons.org/licenses/by/4.0>, via Wikimedia Commons</div>
             </div>
         </div>
@@ -83,18 +83,33 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>Each token gets a vector that depends on the whole text. Mean pooling turns them into one vector per text.</p>
+                <p>Each token gets a vector that depends on its context. Mean pooling turns them into one vector per text.</p>
                 <br>
                 <p>$$\mathbf{v}(t) = \frac{1}{T} \sum_{j=1}^{T} \mathbf{h}_j$$</p>
                 <br>
                 <p>$\mathbf{h}_j$ is the vector of token $j$, and $T$ the number of tokens read. The sum divided by $T$ is their mean.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
+               <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/encoder-pipeline.svg" alt="From a text to a yes or a no with a text encoder" style="height: 400px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Text Encoders
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p>Scaling removes the length, so only the direction remains.</p>
                 <br>
                 <p>$$\hat{\mathbf{v}} = \frac{\mathbf{v}}{\lVert \mathbf{v} \rVert}$$</p>
                 <br>
                 <p>Dividing by the length $\lVert \mathbf{v} \rVert$ gives length 1.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+               <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/encoder-pipeline.svg" alt="From a text to a yes or a no with a text encoder" style="height: 400px">
             </div>
         </div>
     </div>
@@ -111,14 +126,33 @@
                 <br>
                 <p>$$\mathbf{v} = \tfrac{1}{3}(2, 2) = (0.67, 0.67)$$</p>
                 <br>
-                <p>The first numbers add to 2 and the second numbers add to 2. Dividing by 3 gives the mean. Its length is 0.94.</p>
-                <br>
-                <p>$$\hat{\mathbf{v}} = (0.71, 0.71)$$</p>
-                <br>
-                <p>Each number becomes 0.71.</p>
+                <p>The first numbers add to 2 and the second numbers add to 2. Dividing by 3 gives the mean. Its length is 0.94, and scaling makes each number 0.71.</p>
+                <p>The dimensions of the tokens are defined by the pre-trained model. In this example $m = 2$. For the model, $m = 384$. At the end, we have a matrix of $n \times m$, where $n$ is the number of texts and $m$ is the dimension of the tokens. Scaling makes the magnitude 1 and leaves $m$ unchanged.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/encoder-pipeline.svg" alt="From a text to a yes or a no with a text encoder" style="height: 400px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Text Encoders
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>Logistic regression turns the vector into a probability of yes <a href="https://doi.org/10.1111/j.2517-6161.1958.tb00292.x" target="_blank" rel="noopener noreferrer">(Cox, 1958)</a>.</p>
+                <br>
+                <p>$$P(y = 1 \mid \mathbf{x}) = \sigma(\mathbf{w} \cdot \mathbf{x} + b)$$</p>
+                <p>$$\sigma(z) = \frac{1}{1 + e^{-z}}$$</p>
+                <br>
+                <p>$\mathbf{x}$ is the encoder vector of length 1, $\mathbf{w}$ one weight per number in that vector, and $b$ the intercept. $\sigma$ turns the sum into a probability. Yes starts at 0.5. These weights cannot be read as words. The encoder stays fixed.</p>
+                <p>We train logistic regression on the marked texts to learn $\mathbf{w}$ and $b$. We approximate a function that maps $\mathbf{x}$ to yes or no and minimises the prediction loss.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/logistic-curve.svg" alt="Logistic curve" style="height: 320px">
+                <div class="footnote">Logistic-curve - Qef, Public domain, via Wikimedia Commons</div>
             </div>
         </div>
     </div>

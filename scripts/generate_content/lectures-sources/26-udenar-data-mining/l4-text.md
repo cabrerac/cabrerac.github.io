@@ -18,7 +18,7 @@ permalink: /teaching/26-udenar-data-mining/l4-text/
 visible: false
 group_notebook: week-2-group
 notebook_language: es
-notebook_title: Extracción de texto y ejemplos marcados
+notebook_title: Extracción de texto
 notebook_description: Práctica individual de la Lección 4. Extraer de los resúmenes lo que la pregunta pide y contar aciertos y errores sobre ejemplos marcados.
 ---
 
@@ -51,10 +51,6 @@ notebook_description: Práctica individual de la Lección 4. Extraer de los res�
 <!-- end SLIDES: -->
 
 {% include _snippets/text-evaluation.md %}
-
-{% include _snippets/five-folds-code.md %}
-
-{% include _snippets/text-evaluation-agreement.md %}
 
 <!-- SLIDES: -->
 

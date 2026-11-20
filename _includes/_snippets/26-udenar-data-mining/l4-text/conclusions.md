@@ -38,7 +38,7 @@
             <div class="column vertical-middle text-center" style="width: 33%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/confusion-matrix-counts.svg" alt="The four counts of a confusion matrix" style="max-height: 155px; max-width: 100%; width: auto;">
                 <p><b>Evaluation</b></p>
-                <p>Counts, five folds, and where the three agree</p>
+                <p>Accuracy, the confusion matrix, and where the three agree</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 33%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/crisp-dm-process-diagram.png" alt="CRISP-DM process diagram" style="max-height: 155px; max-width: 100%; width: auto;">

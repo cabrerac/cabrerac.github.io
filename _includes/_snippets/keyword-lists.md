@@ -83,17 +83,16 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>$L$ = {free, winner, winners}.</p>
+                <p>$L$ = {free, winner}.</p>
                 <p>A: "Free entry, one winner", marked yes.</p>
                 <p>B: "Meeting moved to noon", marked no.</p>
-                <p>C: "Winners announced today", marked yes.</p>
-                <p>D: "Free parking for staff", marked no.</p>
+                <p>C: "Free parking for staff", marked no.</p>
                 <br>
-                <p>A, C and D share a word with the list, so $\hat{y}$ is 1. B shares none, so $\hat{y}$ is 0. D is a wrong yes.</p>
+                <p>A and C share a word with the list, so $\hat{y}$ is 1. B shares none, so $\hat{y}$ is 0. C is a wrong yes.</p>
                 <br>
-                <p>$$\text{accuracy} = \frac{3}{4} = 0.75$$</p>
+                <p>$$\text{accuracy} = \frac{2}{3} = 0.67$$</p>
                 <br>
-                <p>Three of the four answers match the marks.</p>
+                <p>Two of the three answers match the marks.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/keyword-list-match.svg" alt="Three texts against a keyword list" style="height: 380px">

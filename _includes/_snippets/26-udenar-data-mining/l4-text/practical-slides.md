@@ -13,8 +13,8 @@
                     <li><b>Part 2, Data understanding:</b> the papers, the label and their length</li>
                     <li><b>Part 3, Data preparation:</b> the marked set and TF-IDF</li>
                     <li><b>Part 4, Modeling:</b> TF-IDF, keywords as the reference, and why</li>
-                    <li><b>Part 5, Evaluation:</b> counts, the majority class and five folds</li>
-                    <li><b>Part 6, Deployment:</b> a reading list of up to 30 articles</li>
+                    <li><b>Part 5, Evaluation:</b> accuracy, the confusion matrix and the majority class</li>
+                    <li><b>Part 6, Deployment:</b> a readable list and an encoder list, up to 30 articles each</li>
                 </ul>
             </div>
         </div>

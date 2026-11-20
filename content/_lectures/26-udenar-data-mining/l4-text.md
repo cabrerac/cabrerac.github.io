@@ -19,7 +19,7 @@ lecture_date: 21/11/2026
 notebook_description: "Pr\xE1ctica individual de la Lecci\xF3n 4. Extraer de los res\xFA\
   menes lo que la pregunta pide y contar aciertos y errores sobre ejemplos marcados."
 notebook_language: es
-notebook_title: "Extracci\xF3n de texto y ejemplos marcados"
+notebook_title: "Extracci\xF3n de texto"
 permalink: /teaching/26-udenar-data-mining/l4-text/
 position: Assistant Research Professor
 session: 4

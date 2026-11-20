@@ -33,6 +33,7 @@
                 <ul>
                     <li>The marks are written before any method runs</li>
                     <li>Some marked texts train a method, others are kept apart to judge it</li>
+                    <li>Supervised learning</li>
                 </ul>
                 <br>
                 <p><b>Text mining</b> turns many texts into the short answers a question needs.</p>
