@@ -376,10 +376,15 @@ Una palabra en pocos artículos, o en casi todos, no separa un grupo de otro.
 `CountVectorizer` hace ese conteo.
 
 ```python
+def keep_tokens(tokens):
+    """Devuelve la lista de palabras que ya está limpia."""
+    return tokens  # devolvemos la lista que ya armó word_list
+
+
 token_lists = []
 for text in texts:
     token_lists.append(word_list(text, STOP_WORDS))   # word_list conserva cada aparición de la palabra
-vectorizer = CountVectorizer(analyzer=lambda tokens: tokens, min_df=FLOOR, max_df=MAX_WORD_SHARE)  # CountVectorizer cuenta las palabras ya limpias y deja fuera las muy raras y las demasiado comunes
+vectorizer = CountVectorizer(analyzer=keep_tokens, min_df=FLOOR, max_df=MAX_WORD_SHARE)  # CountVectorizer cuenta las palabras ya limpias y deja fuera las muy raras y las demasiado comunes
 counts = vectorizer.fit_transform(token_lists)   # fit_transform arma la tabla de conteos, una fila por artículo
 vocabulary = vectorizer.get_feature_names_out()  # get_feature_names_out devuelve la palabra que corresponde a cada columna
 print(f"Tabla de conteos: {counts.shape[0]} artículos x {counts.shape[1]} palabras")
@@ -404,7 +409,8 @@ La celda imprime el mínimo y el máximo de esas magnitudes. Los dos deben queda
 
 ```python
 X = normalize(counts)   # normalize divide cada fila por su magnitud para dejarla en 1
-row_lengths = np.sqrt(X.multiply(X).sum(axis=1)).A1  # recalculamos la magnitud de cada fila para comprobar el escalado
+squared = np.asarray(X.multiply(X).sum(axis=1)).ravel()  # ravel deja el cuadrado de la magnitud de cada fila
+row_lengths = np.sqrt(squared)  # sqrt saca la magnitud de cada fila
 print(f"Largo de las filas: mínimo {row_lengths.min():.3f}, máximo {row_lengths.max():.3f}")
 ```
 
@@ -819,7 +825,10 @@ structure = pd.DataFrame({
     "silhouette": [silhouettes[K_CHOSEN], mixture_silhouette, hdbscan_silhouette],
     "leidos": [int(read_kmeans.sum()), int(mixture_read.sum()), int(read_hdbscan.sum())],
 }).round(3)
-structure["reading"] = structure["silhouette"].map(reading_of)
+readings = []
+for score in structure["silhouette"]:  # recorremos la silueta de cada método
+    readings.append(reading_of(score))  # reading_of devuelve la banda de Kaufman de esta silueta
+structure["reading"] = readings  # escribimos esa banda en la columna reading
 structure
 ```
 
@@ -845,9 +854,12 @@ La decidimos nosotros, y esa decisión hace parte del proceso.
 
 ```python
 group_points = read_kmeans + read_hdbscan  # sumamos cuántos de los dos métodos leen cada artículo
-counts = pd.Series(group_points).value_counts()
-group_agreement = counts.reindex(range(3), fill_value=0)
-print(group_agreement.rename_axis("métodos que lo leen").to_frame("artículos").T.to_string())
+agreement_rows = []
+for points in range(3):  # recorremos cero, uno y dos métodos
+    agreement_rows.append(int((group_points == points).sum()))  # sum cuenta los artículos que leen esa cantidad de métodos
+group_agreement = pd.Series(agreement_rows, index=[0, 1, 2], name="artículos")  # Series guarda la cuenta de 0, 1 y 2 métodos
+group_agreement.index.name = "métodos que lo leen"  # el índice nombra cuántos métodos leen el artículo
+print(group_agreement)
 ```
 
 Analizamos cuántos artículos leen los dos métodos y cuántos lee uno solo.
