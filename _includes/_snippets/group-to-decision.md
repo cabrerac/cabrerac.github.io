@@ -15,6 +15,7 @@
                     <li><b>Routing:</b> a new item goes to the nearest group</li>
                     <li><b>Review:</b> the items that fit no group go to a person</li>
                 </ul>
+                <br>
                 <p>We deploy the groups with their settings, the silhouette, and the rule for reading a group.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -33,10 +34,10 @@
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>What a deployed group implies</b></p>
                 <ul>
-                    <li><b>A group is a reading, not a fact:</b> another person may name it otherwise</li>
+                    <li><p><b>A group is a reading, not a fact:</b> another person may name it otherwise</p></li>
                     <li><p><b>Tied to the data and the settings:</b> another $k$ or seed gives other groups</p></li>
-                    <li><b>Goes stale:</b> new items move the centres, so we run it and read it again</li>
-                    <li><b>People:</b> who is labelled by a group, and who sits in noise</li>
+                    <li><p><b>Goes stale:</b> new items move the centres, so we run it and read it again</p></li>
+                    <li><p><b>People:</b> who is labelled by a group, and who sits in noise</p></li>
                 </ul>
                 <br>
                 <p>Items in noise fit no group. A deployed group says nothing about them.</p>

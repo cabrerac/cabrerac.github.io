@@ -61,14 +61,36 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Preparation: a few directions</b></p>
-                <p>A full covariance in $d$ dimensions has $d(d+1)/2$ numbers per group. With hundreds of attributes that is more than the items.</p>
-                <p>$$X = U \, S \, V^{\top}$$</p>
-                <p>$X$ has one row per item. $V$ holds directions over the attributes, $S$ how much each one explains, and $U$ where each item sits on them.</p>
-                <p>We keep the first 5 directions and standardise each one.</p>
+                <p><b>Preparation: a covariance the elements can support</b></p>
+                <br>
+                <p>$$p(x) = \frac{1}{(2\pi)^{m/2} \sqrt{\det \Sigma}} \exp\left(-\frac{1}{2}(x - \mu)^{\top} \Sigma^{-1} (x - \mu)\right)$$</p>
+                <br>
+                <p>$n$ elements are described by $m$ attributes in a matrix of shape $n \times m$. The mixture assigns a height $p(x)$ to every element.</p>
+                <p>$\Sigma$ is the $m \times m$ covariance, with one width per attribute and one tilt per pair. When $m \geq n$, the centred elements span at most $n-1$ directions, so $\det \Sigma = 0$ and $p(x)$ is undefined.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/singular-value-decomposition.svg" alt="Singular value decomposition as rotation, scaling, rotation" style="height: 300px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/em-clustering-old-faithful.gif" alt="EM fitting two clouds" style="height: 360px">
+                <div class="footnote">EM Clustering of Old Faithful data - Chire, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Gaussian Mixtures
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Preparation: a covariance the elements can support</b></p>
+                <br>
+                <p>$$p(x) = \frac{1}{(2\pi)^{m/2} \sqrt{\det \Sigma}} \exp\left(-\frac{1}{2}(x - \mu)^{\top} \Sigma^{-1} (x - \mu)\right)$$</p>
+                <br>
+                <p>$n$ elements can support $\Sigma$ when $m < n$. Many attributes move together, so those columns repeat one piece of information.</p>
+                <p>Singular value decomposition packs the repeated columns into a few directions. We keep fewer than $n$ of them, the ones with the largest singular values. The mixture fits each bell on those scores.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/singular-value-decomposition.svg" alt="Singular value decomposition as rotation, scaling, rotation" style="height: 280px">
                 <div class="footnote">Singular-Value-Decomposition - Georg-Johann, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
             </div>
         </div>
@@ -81,7 +103,9 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>The mixture gives a density at every point.</p>
+                <p>$$p(x) = \frac{1}{(2\pi)^{m/2} \sqrt{\det \Sigma}} \exp\left(-\frac{1}{2}(x - \mu)^{\top} \Sigma^{-1} (x - \mu)\right)$$</p>
+                <br>
+                <p>The Gaussian mixture gives a density at every point for different bell shaped clouds.</p>
                 <br>
                 <p>$$p(\mathbf{x}) = \sum_{k=1}^{K} \pi_k \, \mathcal{N}(\mathbf{x} \mid \boldsymbol{\mu}_k, \Sigma_k)$$</p>
                 <br>
@@ -90,7 +114,7 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/gaussian-mixture-example.svg" alt="A density made of three bells" style="height: 300px">
                 <div class="footnote">Gaussian-mixture-example - Smason79, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
-                <p><b>Choosing K:</b> $K$ from 1 to 8, and the lowest BIC wins <a href="https://doi.org/10.1214/aos/1176344136" target="_blank" rel="noopener noreferrer">(Schwarz, 1978)</a>.</p>
+                <p><b>Choosing K:</b> the number of clouds is the $k$ the evaluation keeps.</p>
             </div>
         </div>
     </div>
@@ -102,17 +126,20 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <ul>
-                    <li>Two groups with weights 0.5 and 0.5</li>
-                    <li>At item A, group 1 has density 0.30 and group 2 has 0.10</li>
-                    <li>At item B, both have 0.20</li>
-                </ul>
-                <p>$$\gamma_{A1} = \frac{0.5 \cdot 0.30}{0.5 \cdot 0.30 + 0.5 \cdot 0.10} = 0.75$$</p>
-                <p>A belongs to group 1 with probability 0.75. B gets 0.5 for each group, because it sits between the clouds.</p>
-                <p><b>EM:</b> repeat this step, then move the weights, centres and shapes <a href="https://doi.org/10.1111/j.2517-6161.1977.tb01600.x" target="_blank" rel="noopener noreferrer">(Dempster et al., 1977)</a>.</p>
+                <p>Two bells with weights $\pi_1 = \pi_2 = 0.5$.</p>
+                <br>
+                <p>At element A: </p>
+                $$\mathcal{N}(x_A \mid \mu_1, \Sigma_1) = 0.30, \: \mathcal{N}(x_A \mid \mu_2, \Sigma_2) = 0.10$$
+                <p>At element B: </p>
+                $$\mathcal{N}(x_B \mid \mu_1, \Sigma_1) = 0.20, \: \mathcal{N}(x_B \mid \mu_2, \Sigma_2) = 0.20$$
+                <br>
+                <p>Probability of A belonging to bell 1</p>
+                <p>$$\gamma_{A1} = \frac{\pi_1 \mathcal{N}(x_A \mid \mu_1, \Sigma_1)}{\pi_1 \mathcal{N}(x_A \mid \mu_1, \Sigma_1) + \pi_2 \mathcal{N}(x_A \mid \mu_2, \Sigma_2)} = 0.75$$</p>
+                <br>
+                <p>The Expectation Maximisation (EM) loop repeats this step, then move weights, centres and shapes <a href="https://doi.org/10.1111/j.2517-6161.1977.tb01600.x" target="_blank" rel="noopener noreferrer">(Dempster et al., 1977)</a>.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/mixture-two-clouds.svg" alt="Two clouds and the densities at items A and B" style="height: 380px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/mixture-two-clouds.svg" alt="Two clouds and the heights at elements A and B" style="height: 380px">
             </div>
         </div>
     </div>
@@ -126,14 +153,16 @@
             <div class="column vertical-middle text-left" style="width: 47.5%">
 
 ```text
-reduce the items to 10 SVD directions
-keep the first 5 and standardise each one
-for each K from 1 to 8
-    fit K clouds with E and M steps
-    keep the BIC of this K
-choose the K with the lowest BIC
-fit again with that K
-give each item its most likely group
+place K bells on the kept directions
+repeat
+    for each element and each bell
+        write gamma, that bell's share of p(x)
+    for each bell
+        set its weight to the average of its gamma values
+        set its centre to the gamma-weighted mean of the elements
+        set its shape to the gamma-weighted covariance
+until p(x) barely changes
+give each element the bell with the largest gamma
 ```
 
             </div>
@@ -144,25 +173,13 @@ give each item its most likely group
 ```python
 from sklearn.decomposition import TruncatedSVD
 from sklearn.mixture import GaussianMixture
-from sklearn.preprocessing import StandardScaler
 
-svd = TruncatedSVD(n_components=DENSITY_SVD_DIRECTIONS,
-                   random_state=SEED)
-Z = svd.fit_transform(X)
-Z_mixture = StandardScaler().fit_transform(
-    Z[:, :MIXTURE_SVD_DIRECTIONS])
-
-bic = {}
-for K in MIXTURE_K:
-    model = GaussianMixture(
-        n_components=K, covariance_type="full",
-        random_state=SEED).fit(Z_mixture)
-    bic[K] = model.bic(Z_mixture)
-K_MIXTURE = min(bic, key=bic.get)
+Z = TruncatedSVD(n_components=n_directions,
+                 random_state=SEED).fit_transform(X)
 mixture = GaussianMixture(
-    n_components=K_MIXTURE, covariance_type="full",
-    random_state=SEED).fit(Z_mixture)
-mixture_labels = mixture.predict(Z_mixture)
+    n_components=K, covariance_type="full",
+    random_state=SEED).fit(Z)  # fit repeats the E and M steps
+mixture_labels = mixture.predict(Z)
 ```
 
             </div>

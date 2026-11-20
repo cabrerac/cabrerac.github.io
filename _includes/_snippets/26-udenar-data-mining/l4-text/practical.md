@@ -5,28 +5,38 @@
 Este cuaderno utiliza los siguientes métodos de Python. Si ya los conoce, ejecute estas celdas rápido.
 
 ### Separar filas para probar
-Para saber si un método funciona, lo probamos con filas que **no vio**. `train_test_split` separa las filas, y `stratify` mantiene la proporción de cada clase.
+Para saber si un método funciona, lo probamos con filas que no vio al ajustarse.
+`train_test_split` aparta esas filas.
+`stratify` conserva en cada parte la proporción de unos.
+En el ejemplo hay 10 filas y apartamos 5.
+`random_state=7` fija el corte para que se repita igual.
 
 ```python
 import numpy as np
 from sklearn.model_selection import train_test_split
 
-y_toy = np.array([1, 1, 0, 0, 0, 0, 0, 0, 1, 0])
-rows_train, rows_test = train_test_split(np.arange(10), test_size=5, stratify=y_toy, random_state=7)
+y_toy = np.array([1, 1, 0, 0, 0, 0, 0, 0, 1, 0])  # np.array arma 10 marcas de juguete
+rows_train, rows_test = train_test_split(np.arange(10), test_size=5, stratify=y_toy, random_state=7)  # train_test_split aparta 5 filas y stratify conserva la proporción de unos
 print("Para aprender:", rows_train, "Para probar:", rows_test)
 print("Proporción de 1 en cada parte:", y_toy[rows_train].mean(), y_toy[rows_test].mean())
 ```
 
 ### Aciertos y errores a mano
-Frente a la marca de una persona hay cuatro casos: **verdadero positivo** (TP), **falso positivo** (FP), **falso negativo** (FN) y **verdadero negativo** (TN).
+Una marca es 1 cuando una persona dice que el artículo se lee, y 0 cuando dice que no.
+El método también dice 1 o 0.
+TP cuenta los dos sí.
+FP cuenta un sí del método con un no de la marca.
+FN cuenta un no del método con un sí de la marca.
+TN cuenta los dos no.
+En el ejemplo hay 6 filas.
 
 ```python
-marked = np.array([1, 0, 1, 1, 0, 0])
-said = np.array([1, 1, 0, 1, 0, 0])
-tp = int(((said == 1) & (marked == 1)).sum())
-fp = int(((said == 1) & (marked == 0)).sum())
-fn = int(((said == 0) & (marked == 1)).sum())
-tn = int(((said == 0) & (marked == 0)).sum())
+marked = np.array([1, 0, 1, 1, 0, 0])  # np.array arma las 6 marcas
+said = np.array([1, 1, 0, 1, 0, 0])  # np.array arma lo que diría el método
+tp = int(((said == 1) & (marked == 1)).sum())  # contamos los casos en que el método y la marca dicen 1
+fp = int(((said == 1) & (marked == 0)).sum())  # contamos un sí del método con un no de la marca
+fn = int(((said == 0) & (marked == 1)).sum())  # contamos un no del método con un sí de la marca
+tn = int(((said == 0) & (marked == 0)).sum())  # contamos los casos en que el método y la marca dicen 0
 assert tp + fp + fn + tn == len(marked)
 print(f"TP {tp}, FP {fp}, FN {fn}, TN {tn}. Repaso de Python: OK")
 ```
@@ -43,10 +53,9 @@ Hoy **leemos el texto** y decidimos si trata del tema.
 Hoy hay modelos que ya leyeron mucho texto antes del nuestro, el preentrenamiento (Devlin et al., 2019).
 Una persona marca unos ejemplos **antes** de correr los métodos.
 
-**Tres métodos en este cuaderno.** Cada uno trae la preparación que necesita y el ajuste.
-Si un método no da un buen resultado, es normal.
-Lo dejamos en la tabla.
-CRISP-DM sigue con la evaluación: ahí se decide con qué continúa el equipo.
+**Tres métodos en este cuaderno.** Para cada uno llevaremos a cabo la preparación de los datos y su modelado.
+Si un método no da un buen resultado, lo debemos documentar como un resultado útil.
+CRISP-DM sigue con la evaluación para decidir cuáles métodos se deben utilizar.
 El archivo de texto lo arma TF-IDF con regresión logística.
 
 | Método | Pregunta | Preparación que necesita | Qué aporta |
@@ -63,7 +72,7 @@ Cada paso empieza con **En este paso**. Si tiene código, termina con una celda 
 | Parte | Fase CRISP-DM | Qué sale |
 |-------|---------------|----------|
 | 1 | Comprensión del negocio | La pregunta de hoy y la lista de palabras clave |
-| 2 | Comprensión de los datos | Parámetros, artículos, etiqueta, largo y `outputs/grupos_l3.csv` |
+| 2 | Comprensión de los datos | Parámetros, artículos, etiqueta y largo |
 | 3 | Lista de palabras | Conteos de la lista y su predicción |
 | 4 | Conjunto marcado | Las filas que los dos métodos que aprenden no ven |
 | 5 | TF-IDF | Pesos, ajuste y predicción |
@@ -91,15 +100,16 @@ La decisión no cambia: qué artículos debe leer el colega nuevo.
 Un acierto solo tiene sentido frente a una marca escrita antes de ver resultados.
 
 ### Paso 2. La pregunta y las palabras clave
-En este paso escribimos la lista de palabras clave **desde la pregunta**, antes de ver resultados.
-Va en minúsculas, con singular, plural y formas cercanas.
-La lista de la Lección 1 tiene entre 10 y 30 artículos.
+Antes de ver los resultados escribimos las palabras clave desde la pregunta: obesity, diet, diabetes y las formas cercanas.
+Van en minúsculas, con singular y plural, porque el resumen puede usar cualquiera de las dos.
+No hay un tope para esa lista.
+La lista de lectura sí tiene un tope: entre 10 y 30 artículos, `MIN_PAPERS` y `MAX_PAPERS`.
 
 ```python
 MIN_PAPERS = 10
 MAX_PAPERS = 30
-KEYWORDS = {"obesity", "obese", "diet", "diets", "dietary",   # el peso y lo que se come
-            "diabetes", "diabetic", "hypertension", "cholesterol"}   # enfermedades que dependen de la dieta
+KEYWORDS = {"obesity", "obese", "diet", "diets", "dietary",   # agregamos las palabras del peso y de la comida a la lista
+            "diabetes", "diabetic", "hypertension", "cholesterol"}   # agregamos las palabras de las enfermedades a la lista
 print("Palabras clave:", ", ".join(sorted(KEYWORDS)))
 ```
 
@@ -122,8 +132,8 @@ En este paso importamos las librerías y creamos las carpetas.
 Colab ya trae spaCy y scikit-learn.
 
 ```python
-import math          # techo (ceil) para los mínimos
-import re            # partir el texto en palabras
+import math          # math.ceil redondea hacia arriba los mínimos
+import re            # re permite definir la expresión regular que filtra las palabras
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -131,35 +141,39 @@ import numpy as np
 import pandas as pd
 import requests
 import sklearn
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import ConfusionMatrixDisplay, accuracy_score, confusion_matrix, f1_score
-from sklearn.metrics import precision_recall_fscore_support
-from sklearn.model_selection import StratifiedKFold, train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer  # TfidfVectorizer pesa cada palabra por su repetición y por lo rara que es
+from sklearn.linear_model import LogisticRegression  # LogisticRegression aprende un peso por columna y devuelve una probabilidad
+from sklearn.metrics import ConfusionMatrixDisplay, accuracy_score, confusion_matrix, f1_score  # estas funciones cuentan aciertos y errores frente a las marcas
+from sklearn.metrics import precision_recall_fscore_support  # precision_recall_fscore_support calcula precisión, exhaustividad y F1
+from sklearn.model_selection import StratifiedKFold, train_test_split  # train_test_split aparta filas y StratifiedKFold las parte en pliegues
 
-DATA_DIR = Path("data")         # aquí quedan los datos descargados
-OUTPUTS_DIR = Path("outputs")   # aquí quedan las tablas y los gráficos
+DATA_DIR = Path("data")         # Path fija la carpeta donde se guardan los datos descargados
+OUTPUTS_DIR = Path("outputs")   # Path fija la carpeta donde se guardan las tablas y los gráficos
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 print(f"scikit-learn {sklearn.__version__}")
 ```
 
 ### Paso 2. Parámetros
-En este paso fijamos los parámetros y los tamaños mínimos. No los cambie.
+Fijamos los valores que el resto del cuaderno va a usar.
+Elegirlos es una optimización, y esa optimización queda fuera de este curso.
+En este cuaderno usamos estos valores fijos.
+Con 317 artículos apartamos 64 para marcar, el mayor entre 40 y el 20%.
+La etiqueta del tema debe cubrir al menos 32, el mayor entre 30 y el 10%.
 
 ```python
-SUPPORT_SHARE = 0.03   # proporción de textos (L2)
-SUPPORT_MIN = 5        # mínimo de textos (L2)
-SEED = 7               # semilla (L2)
+SUPPORT_SHARE = 0.03   # fija la proporción de artículos que una palabra debe alcanzar
+SUPPORT_MIN = 5        # fija el mínimo de artículos que una palabra debe alcanzar
+SEED = 7               # fija el arranque aleatorio para que los cortes se repitan igual
 
-FLAGGED_SHARE = 0.20    # proporción de textos en el conjunto marcado
-FLAGGED_MIN = 40        # mínimo de textos marcados
-POSITIVE_SHARE = 0.10   # proporción mínima de positivos en la etiqueta
-POSITIVES_MIN = 30      # mínimo de positivos
-C_REG = 10              # penalización de la regresión logística (más alto, menos penalización)
-N_FOLDS = 5             # pliegues de la validación cruzada
-ENCODER_NAME = "intfloat/multilingual-e5-small"
-MAX_TOKENS = 512        # el codificador corta el resumen a partir de este largo
+FLAGGED_SHARE = 0.20    # fija la proporción de artículos que apartamos para marcar
+FLAGGED_MIN = 40        # fija el mínimo de artículos marcados
+POSITIVE_SHARE = 0.10   # fija la proporción mínima de artículos del tema
+POSITIVES_MIN = 30      # fija el mínimo de artículos del tema
+C_REG = 10              # fija la penalización de la regresión logística
+N_FOLDS = 5             # fija en cuántas partes partimos las filas de entrenamiento
+ENCODER_NAME = "intfloat/multilingual-e5-small"  # fija el modelo ya entrenado que convierte cada resumen en un vector
+MAX_TOKENS = 512        # fija el largo a partir del cual el codificador corta el resumen
 
 
 def n_flagged(n: int) -> int:
@@ -168,7 +182,7 @@ def n_flagged(n: int) -> int:
     Entrada: n, el número de textos.
     Salida: cuántos textos se apartan para marcar.
     """
-    return max(FLAGGED_MIN, math.ceil(FLAGGED_SHARE * n))   # el mayor entre 40 y el 20%
+    return max(FLAGGED_MIN, math.ceil(FLAGGED_SHARE * n))   # max elige el mayor entre 40 y el 20% redondeado hacia arriba
 
 
 def min_positives(n: int) -> int:
@@ -177,7 +191,7 @@ def min_positives(n: int) -> int:
     Entrada: n, el número de textos.
     Salida: el mínimo de textos con etiqueta 1.
     """
-    return max(POSITIVES_MIN, math.ceil(POSITIVE_SHARE * n))   # el mayor entre 30 y el 10%
+    return max(POSITIVES_MIN, math.ceil(POSITIVE_SHARE * n))   # max elige el mayor entre 30 y el 10% redondeado hacia arriba
 
 
 print(f"Con 317 artículos: {n_flagged(317)} marcados, al menos {min_positives(317)} positivos")
@@ -195,19 +209,23 @@ print("Parámetros: OK")
 ```
 
 ### Paso 3. Las palabras útiles
-En este paso traemos sin cambios las palabras vacías, `words` y `word_list` de las Lecciones 2 y 3.
+Un resumen trae palabras que no dicen el tema, como "the", "of", la etiqueta "methods" o el resto "http".
+Esas palabras aparecen en muchos resúmenes y no separan el tema.
+En este paso las quitamos, con las mismas funciones de las Lecciones 2 y 3.
+`word_list` conserva cada aparición, porque TF-IDF cuenta cuántas veces aparece la palabra.
+`words` deja cada palabra una sola vez, porque la lista de palabras clave solo pregunta si está.
 
 ```python
 from spacy.lang.en.stop_words import STOP_WORDS as STOP_WORDS_EN
 
-WORD_RE = re.compile(r"[^\W\d_]+")   # secuencias de letras
+WORD_RE = re.compile(r"[^\W\d_]+")   # re permite configurar una expresión regular para filtrar secuencias de letras
 ABSTRACT_LABELS = {
     "background", "methods", "findings", "interpretation", "funding",
     "conclusions", "results", "objective", "objectives", "aims",
     "bill", "melinda", "gates", "foundation",
 }
 URL_TOKENS = {"http", "https", "www", "org"}
-STOP_WORDS = set(STOP_WORDS_EN) | ABSTRACT_LABELS | URL_TOKENS   # las de la L2
+STOP_WORDS = set(STOP_WORDS_EN) | ABSTRACT_LABELS | URL_TOKENS   # unimos las palabras vacías, las etiquetas del resumen y los restos de direcciones
 ```
 
 ```python
@@ -220,11 +238,11 @@ def word_list(text: str, stop_words: set[str]) -> list[str]:
     Salida: una lista de palabras, en orden y con cada aparición.
     Por qué: TF-IDF cuenta cuántas veces usa un texto cada palabra.
     """
-    text = (text or "").lower().replace("[cita requerida]", " ")  # minúsculas, sin la marca de Wikipedia
+    text = (text or "").lower().replace("[cita requerida]", " ")  # lower pasa el texto a minúsculas y replace quita la marca de Wikipedia
     useful = []
-    for word in WORD_RE.findall(text):  # por cada palabra de solo letras
+    for word in WORD_RE.findall(text):  # findall extrae cada secuencia que pasó el filtro de letras
         long_enough = len(word) >= 3
-        is_stop = word in stop_words  # una palabra vacía
+        is_stop = word in stop_words  # in comprueba si la palabra está en el conjunto de palabras vacías
         if long_enough and not is_stop:
             useful.append(word)
     return useful
@@ -238,12 +256,12 @@ def words(text: str, stop_words: set[str]) -> set[str]:
     Salida: un set de palabras.
     Por qué: la lista de palabras clave solo pregunta si una palabra está en el texto.
     """
-    return set(word_list(text, stop_words))  # la lista sin repeticiones
+    return set(word_list(text, stop_words))  # set deja cada palabra una sola vez
 
 
 def keep_tokens(tokens: list[str]) -> list[str]:
     """Devuelve la lista tal cual. TfidfVectorizer la usa como analizador: las palabras ya vienen limpias."""
-    return tokens  # sin cambios: word_list ya limpió el texto
+    return tokens  # devolvemos la lista que ya armó word_list
 
 
 print(sorted(words("The diet and the DIET of obese children", STOP_WORDS)))
@@ -259,7 +277,11 @@ print("Funciones de la L2 y la L3: OK")
 ```
 
 ### Paso 4. Los artículos con resumen útil
-En este paso cargamos los artículos, con la descarga de la Lección 2, y dejamos fuera los resúmenes con menos de 5 palabras útiles.
+Los artículos están en `nutricion-papers.csv`, en la página del curso.
+La función los descarga una sola vez y, si el archivo ya está, usa esa copia.
+Un resumen con menos de 5 palabras útiles no tiene con qué decidir el tema.
+En este paso dejamos fuera esos resúmenes.
+De los artículos descargados quedan 317.
 
 ```python
 BASE_URL = "https://cabrerac.github.io/assets/data/26-udenar-data-mining"
@@ -274,11 +296,11 @@ def download_data(name: str, folder: Path = DATA_DIR) -> Path:
     Por qué: no queremos depender de la red en cada ejecución ni descargar dos veces.
     """
     dest = folder / name
-    if dest.is_file() and dest.stat().st_size > 0:  # ya está y no está vacío
+    if dest.is_file() and dest.stat().st_size > 0:  # is_file y stat comprueban que el archivo ya existe y no está vacío
         print(f"Ya en caché: {dest}")
         return dest
-    response = requests.get(f"{BASE_URL}/{name}", timeout=60)  # lo pedimos a la página del curso
-    response.raise_for_status()  # para si la descarga falló
+    response = requests.get(f"{BASE_URL}/{name}", timeout=60)  # requests.get pide el archivo a la página del curso
+    response.raise_for_status()  # raise_for_status detiene la descarga si la página respondió con un error
     dest.write_bytes(response.content)
     print(f"Descargado: {dest} ({dest.stat().st_size / 1e6:.1f} MB)")
     return dest
@@ -286,8 +308,8 @@ def download_data(name: str, folder: Path = DATA_DIR) -> Path:
 
 papers = pd.read_csv(download_data("nutricion-papers.csv"), keep_default_na=False)
 useful = []
-for abstract in papers["abstract"]:   # por cada resumen
-    useful.append(len(words(abstract, STOP_WORDS)) >= 5)   # al menos 5 palabras útiles
+for abstract in papers["abstract"]:   # recorremos el resumen de cada artículo
+    useful.append(len(words(abstract, STOP_WORDS)) >= 5)   # words cuenta las palabras útiles y nos quedamos con los resúmenes que tienen al menos 5
 papers = papers[useful].reset_index(drop=True)
 texts = papers["abstract"].tolist()
 N = len(texts)
@@ -304,18 +326,20 @@ print("Datos: OK")
 ```
 
 ### Paso 5. La etiqueta de entrenamiento
-En este paso armamos la **etiqueta de entrenamiento** desde los temas de OpenAlex (`topics`).
-Vale 1 si un tema menciona obesidad, dieta, nutrición, diabetes, salud cardiovascular, lipoproteínas, presión arterial o hipertensión.
-Es una etiqueta **dada, no encontrada**. Por eso medimos contra las marcas.
+OpenAlex ya trae, en `topics`, los temas que sus editores asignaron a cada artículo.
+En este paso marcamos 1 cuando uno de esos temas menciona obesidad, dieta, nutrición, diabetes, salud cardiovascular, lipoproteínas, presión arterial o hipertensión.
+Esa etiqueta viene dada. No la encontró un método de este cuaderno.
+Por eso, más adelante, medimos los métodos contra marcas escritas antes de ver los resultados.
+Con estos 317 artículos la etiqueta queda en 1 para 96.
 
 ```python
-TARGET_TOPICS = ["obesity", "diet", "nutrition", "nutritional",   # el peso y lo que se come
-                 "diabetes", "cardiovascular", "lipoproteins", "blood pressure", "hypertension"]   # enfermedades ligadas a la dieta
+TARGET_TOPICS = ["obesity", "diet", "nutrition", "nutritional",   # agregamos las palabras del peso, la comida y la nutrición
+                 "diabetes", "cardiovascular", "lipoproteins", "blood pressure", "hypertension"]   # agregamos las palabras de las enfermedades
 
-y = np.zeros(N, dtype=int)
-for i, topics in enumerate(papers["topics"]):   # por cada artículo
+y = np.zeros(N, dtype=int)  # empezamos con 0 en los 317 artículos
+for i, topics in enumerate(papers["topics"]):   # recorremos los temas de OpenAlex de cada artículo
     for topic in TARGET_TOPICS:
-        if topic in topics.lower():   # menciona un tema del equipo
+        if topic in topics.lower():   # in busca esa palabra dentro del texto de los temas
             y[i] = 1
 print(f"Artículos del tema según OpenAlex: {y.sum()} de {N} ({y.mean():.0%}). Mínimo pedido: {min_positives(N)}")
 ```
@@ -330,13 +354,15 @@ print("Etiqueta: OK")
 ```
 
 ### Paso 6. El largo de los resúmenes
-En este paso contamos las palabras de cada resumen.
-Con textos cortos y pocos ejemplos, un modelo simple sobre palabras suele bastar.
+El codificador de más adelante corta un resumen cuando pasa de 512 tokens.
+En este paso contamos las palabras de cada uno de los 317 resúmenes, para ver qué tan largos son antes de ese corte.
+`split` separa el resumen por espacios y `len` cuenta esos trozos.
+La celda imprime la mediana y el máximo.
 
 ```python
 word_counts = []
 for text in texts:
-    word_counts.append(len(text.split()))   # palabras por resumen
+    word_counts.append(len(text.split()))   # split separa el resumen por espacios y len cuenta esos trozos
 lengths = pd.Series(word_counts)
 print(f"Palabras por resumen: mediana {lengths.median():.0f}, máximo {lengths.max():,}")
 ```
@@ -350,48 +376,27 @@ assert len(lengths) == N and lengths.min() > 0
 print("Largo: OK")
 ```
 
-### Paso 7. Los grupos de la Lección 3
-En este paso leemos `outputs/grupos_l3.csv`, con los grupos leídos de la Lección 3.
-Si no está, la parte de los grupos queda en 0. Suba el archivo a `outputs/`.
-
-```python
-GROUPS_PATH = OUTPUTS_DIR / "grupos_l3.csv"
-GROUP_COLUMNS = ["title", "kmeans_parte", "hdbscan_parte"]
-if GROUPS_PATH.is_file():
-    groups_l3 = pd.read_csv(GROUPS_PATH, keep_default_na=False)
-    print(f"grupos_l3.csv: {len(groups_l3)} artículos")
-else:
-    groups_l3 = pd.DataFrame({"title": papers["title"], "kmeans_parte": 0.0, "hdbscan_parte": 0.0})
-    print("No encontramos outputs/grupos_l3.csv. Sin él, la parte de los grupos queda en 0.")
-```
-
-**Comprobar:**
-
-En este paso comprobamos que la tabla de la Lección 3 tiene la parte de los dos métodos.
-
-```python
-assert set(GROUP_COLUMNS) <= set(groups_l3.columns)
-print("Grupos de la L3: OK")
-```
-
 ---
 
 ## Parte 3. Lista de palabras
 
 ### Paso 1. Las palabras clave en los resúmenes
-En este paso contamos en cuántos resúmenes aparece cada palabra clave.
-También contamos cuántos de ellos están fuera del tema según OpenAlex.
+La lista no aprende. Solo pregunta si una palabra está.
+En este paso, en los 317 resúmenes, contamos en cuántos aparece cada palabra clave.
+También contamos cuántos de esos resúmenes tienen etiqueta 0 según OpenAlex.
+Una palabra que aparece en muchos resúmenes de etiqueta 0 va a marcar artículos fuera del tema.
+Esa cuenta se queda en la pantalla y la lista sigue como referencia.
 
 ```python
 word_sets = []
 for text in texts:
-    word_sets.append(words(text, STOP_WORDS))   # las palabras útiles de cada resumen
-for word in sorted(KEYWORDS):   # por cada palabra clave
+    word_sets.append(words(text, STOP_WORDS))   # words guarda el conjunto de palabras útiles de este resumen
+for word in sorted(KEYWORDS):   # recorremos cada palabra de la lista clave
     with_word, off_topic = 0, 0
     for i, word_set in enumerate(word_sets):
         if word in word_set:
             with_word += 1
-            off_topic += int(y[i] == 0)   # un resumen fuera del tema que la tiene
+            off_topic += int(y[i] == 0)   # sumamos 1 cuando el resumen tiene la palabra y su etiqueta es 0
     print(f"{word:13s} en {with_word:2d} resúmenes, {off_topic:2d} fuera del tema")
 ```
 
@@ -411,13 +416,15 @@ print("Palabras clave en los resúmenes: OK")
 ```
 
 ### Paso 2. La predicción de la lista
-En este paso aplicamos la lista: 1 si el resumen tiene alguna palabra clave, 0 si no.
-No aprende nada, así que vale para todos los artículos.
+La lista no tiene pesos ni filas de entrenamiento.
+En este paso recorremos los 317 resúmenes.
+Marcamos 1 cuando el resumen comparte alguna palabra con `KEYWORDS`, y 0 cuando no.
+La celda imprime en cuántos artículos la lista dice sí.
 
 ```python
 pred_keywords = np.zeros(N, dtype=int)
 for i, word_set in enumerate(word_sets):
-    pred_keywords[i] = int(bool(word_set & KEYWORDS))
+    pred_keywords[i] = int(bool(word_set & KEYWORDS))  # marcamos 1 si el resumen comparte alguna palabra con la lista
 print(f"La lista dice sí en {pred_keywords.sum()} de {N} artículos")
 ```
 
@@ -434,24 +441,25 @@ print("Lista de palabras clave: OK")
 
 ## Parte 4. El conjunto marcado
 
-La lista no aprende.
-Los dos métodos que siguen sí aprenden.
-Por eso apartamos unas filas que no pueden ver.
-
-En este paso separamos el **conjunto marcado**: `n_flagged(N)` artículos, 64 aquí.
-Los métodos que aprenden no ven estas filas.
-Los otros 253 son las filas de entrenamiento.
-Si `marcas-nutricion-l4.csv` está publicado, usamos las marcas del profesor. Si no, la etiqueta.
+La lista no aprende, así que puede ver las 317 filas.
+TF-IDF y el codificador sí aprenden.
+Si vieran las filas con las que después los medimos, el acierto quedaría inflado.
+En este paso apartamos 64 filas, el 20% de 317, con `train_test_split`.
+`stratify` conserva en cada parte la proporción de la etiqueta.
+Las otras 253 filas son el entrenamiento.
+Si `marcas-nutricion-l4.csv` está publicado, usamos las marcas del profesor.
+Si no está, usamos la etiqueta de OpenAlex.
+Hay títulos repetidos, así que comparamos los títulos en el mismo orden de las 64 filas.
 
 ```python
 rows = np.arange(N)
-train_rows, marked_rows = train_test_split(rows, test_size=n_flagged(N), stratify=y, random_state=SEED)
+train_rows, marked_rows = train_test_split(rows, test_size=n_flagged(N), stratify=y, random_state=SEED)  # train_test_split aparta 64 filas y stratify conserva la proporción del tema
 y_train = y[train_rows]
 
 MARKS_FILE = "marcas-nutricion-l4.csv"
 try:
     marks = pd.read_csv(download_data(MARKS_FILE))
-    # La hoja de marcas sigue el orden de marked_rows. Unimos por posición, no por título: hay títulos repetidos.
+    # comparamos los títulos en el mismo orden de marked_rows
     if marks["title"].tolist() != papers.loc[marked_rows, "title"].tolist():
         raise ValueError("los títulos no siguen el orden del conjunto marcado")
     y_test = marks["marca"].astype(int).to_numpy()
@@ -480,26 +488,30 @@ print("Conjunto marcado: OK")
 ## Parte 5. TF-IDF
 
 ### Paso 1. Los pesos TF-IDF
-En este paso pesamos las palabras con **TF-IDF**.
-Pesa más una palabra que se repite en un texto y aparece en pocos textos.
+Cada resumen ya es una lista de palabras, con repeticiones.
+TF-IDF convierte esa lista en una fila de pesos.
+El peso sube cuando la palabra se repite en el resumen y baja cuando aparece en muchos resúmenes.
 
 $\displaystyle \text{tf} = 1 + \log(\text{conteo}) \qquad \text{idf} = \log\frac{1 + N}{1 + \text{df}} + 1$
 
-`fit_transform` aprende solo de las 253 filas de entrenamiento. Las marcadas solo se transforman.
+`N` aquí es el número de resúmenes con los que se ajusta el peso, las 253 filas de entrenamiento.
+`df` es en cuántos de esos resúmenes aparece la palabra.
+`fit_transform` aprende esos pesos solo con el entrenamiento.
+Las 64 filas marcadas solo se transforman, para que no enseñen el vocabulario.
 
 ```python
 token_lists = []
 for text in texts:
-    token_lists.append(word_list(text, STOP_WORDS))   # una lista de palabras por texto, con repeticiones
+    token_lists.append(word_list(text, STOP_WORDS))   # word_list conserva cada aparición de la palabra
 train_tokens, marked_tokens = [], []
 for i in train_rows:
     train_tokens.append(token_lists[i])
 for i in marked_rows:
-    marked_tokens.append(token_lists[i])   # los textos marcados, apartados
-tfidf = TfidfVectorizer(analyzer=keep_tokens, sublinear_tf=True)   # tf = 1 + log(conteo)
-X_train = tfidf.fit_transform(train_tokens)     # ajustado solo con las filas de entrenamiento
-X_marked = tfidf.transform(marked_tokens)
-feature_names = tfidf.get_feature_names_out()
+    marked_tokens.append(token_lists[i])   # apartamos las listas de las 64 filas marcadas
+tfidf = TfidfVectorizer(analyzer=keep_tokens, sublinear_tf=True)   # TfidfVectorizer pesa cada palabra con tf = 1 + log(conteo)
+X_train = tfidf.fit_transform(train_tokens)     # fit_transform aprende los pesos y arma la tabla solo con las 253 filas
+X_marked = tfidf.transform(marked_tokens)  # transform aplica esos pesos a las 64 filas, sin volver a aprenderlos
+feature_names = tfidf.get_feature_names_out()  # get_feature_names_out devuelve el nombre de cada columna de pesos
 print(f"Entrenamiento: {X_train.shape}. Marcados: {X_marked.shape}")
 ```
 
@@ -515,20 +527,25 @@ print("TF-IDF: OK")
 
 ---
 
-Ya tenemos un peso por palabra.
-Ahora un modelo aprende qué pesos empujan hacia sí.
+Ya tenemos un peso por palabra en las 253 filas.
+Ahora un modelo aprende qué pesos empujan hacia el sí.
 
 ### Paso 2. El ajuste
-En este paso entrenamos una **regresión logística**, que da un peso a cada palabra.
+La regresión logística pone un peso `w` a cada palabra y un número `b`.
+La probabilidad de decir sí es
 
 $\displaystyle P(y = 1 \mid x) = \frac{1}{1 + e^{-(w \cdot x + b)}}$
 
-`class_weight="balanced"` pesa más la clase menor. Dice 1 si la probabilidad pasa de 0,5.
+`class_weight="balanced"` da más peso a la clase del tema, que es la menor: 96 de 317.
+`C_REG` vale 10 y fija la penalización de esos pesos.
+`fit` aprende los pesos con las 253 filas.
+`predict` dice 1 cuando la probabilidad pasa de 0,5.
+La celda imprime en cuántos de los 64 marcados el modelo dice sí.
 
 ```python
-tfidf_model = LogisticRegression(class_weight="balanced", C=C_REG, max_iter=1000)
-tfidf_model.fit(X_train, y_train)
-pred_tfidf = tfidf_model.predict(X_marked)
+tfidf_model = LogisticRegression(class_weight="balanced", C=C_REG, max_iter=1000)  # LogisticRegression prepara un peso por palabra. balanced da más peso a la clase menor
+tfidf_model.fit(X_train, y_train)  # fit aprende esos pesos con las 253 filas de entrenamiento
+pred_tfidf = tfidf_model.predict(X_marked)  # predict dice 1 en las 64 filas cuando la probabilidad pasa de 0,5
 print(f"TF-IDF dice sí en {pred_tfidf.sum()} de {len(marked_rows)} marcados")
 ```
 
@@ -542,27 +559,29 @@ print("TF-IDF con regresión logística: OK")
 ```
 
 ### Leer los pesos
-En este paso leemos las palabras de más peso, a favor y en contra.
+`coef_` guarda el peso que el modelo dio a cada palabra.
+Un peso positivo empuja hacia el sí. Un peso negativo empuja hacia el no.
+En este paso mostramos las 10 palabras de peso más alto y las 10 de peso más bajo.
 
 ```python
-weights = pd.Series(tfidf_model.coef_[0], index=feature_names)
-pd.DataFrame({"a favor": weights.nlargest(10).index, "en contra": weights.nsmallest(10).index})
+weights = pd.Series(tfidf_model.coef_[0], index=feature_names)  # coef_ guarda el peso de cada palabra y lo unimos con su nombre
+pd.DataFrame({"a favor": weights.nlargest(10).index, "en contra": weights.nsmallest(10).index})  # nlargest toma las 10 de peso más alto y nsmallest las 10 de peso más bajo
 ```
 
 Mire las diez palabras a favor y las diez en contra.
 Esas palabras son lo que el modelo aprendió de la etiqueta.
-Si el tema no aparece entre las de más peso, el resultado es pobre y es normal.
-Lo dejamos en la tabla.
+Si el tema no aparece entre las de más peso, el resultado es pobre.
+Lo documentamos y lo dejamos en la tabla.
 El archivo guarda esta predicción porque esos pesos se pueden leer.
 
 ---
 
 ## Parte 6. Codificador de texto
 
-El codificador ya fue entrenado en otro lado y aquí no se mueve.
-Lee el resumen entero.
-Cada token depende de los demás.
+El codificador ya fue entrenado con mucho texto y en este cuaderno no se vuelve a ajustar.
+Lee el resumen entero, así que cada token depende de los que lo rodean.
 El modelo entrega un vector por resumen.
+Ese vector no se puede leer palabra por palabra, a diferencia de los pesos de TF-IDF.
 
 ### Paso 1. La librería
 En este paso importamos la librería.
@@ -588,12 +607,13 @@ print("Librería del codificador: OK")
 ```
 
 ### Paso 2. El modelo
-En este paso descargamos el modelo.
+El nombre del modelo es `intfloat/multilingual-e5-small`.
+En este paso lo descargamos.
 Pesa unos 470 MB y puede tardar un par de minutos.
-Aquí no se vuelve a entrenar.
+Aquí no se vuelve a entrenar. `SentenceTransformer` solo lo carga.
 
 ```python
-encoder = SentenceTransformer(ENCODER_NAME)
+encoder = SentenceTransformer(ENCODER_NAME)  # SentenceTransformer descarga el modelo fijo y lo deja listo para convertir resúmenes en vectores
 ```
 
 **Comprobar:**
@@ -606,19 +626,22 @@ print("Modelo: OK")
 ```
 
 ### Paso 3. Un vector por resumen
-En este paso contamos los resúmenes de más de 512 tokens y dejamos que el modelo los corte.
+Este modelo lee como máximo 512 tokens. Lo que pasa de ahí lo corta.
+En este paso contamos cuántos de los 317 resúmenes pasan de 512, y dejamos que el modelo haga el corte.
 Cada resumen empieza con `passage:` porque así pide usarse este modelo.
+`encode` convierte cada resumen en un vector y `normalize_embeddings=True` lo deja en magnitud 1.
+Así, como en la Lección 3, comparamos la mezcla y no el largo.
 
 ```python
 n_cut = 0
 passages = []
 for text in texts:
-    n_tokens = len(encoder.tokenizer.encode(text, add_special_tokens=False))
+    n_tokens = len(encoder.tokenizer.encode(text, add_special_tokens=False))  # el tokenizador cuenta los tokens del resumen, sin los tokens especiales
     if n_tokens > MAX_TOKENS:
-        n_cut += 1
-    passages.append("passage: " + text)
+        n_cut += 1  # contamos los resúmenes que el modelo va a cortar
+    passages.append("passage: " + text)  # anteponemos passage: al resumen
 print(f"Resúmenes de más de {MAX_TOKENS} tokens: {n_cut} de {N}")
-vectors = encoder.encode(passages, normalize_embeddings=True, show_progress_bar=False)
+vectors = encoder.encode(passages, normalize_embeddings=True, show_progress_bar=False)  # encode convierte cada resumen en un vector y lo deja en magnitud 1
 print(f"Vectores: {vectors.shape}")
 ```
 
@@ -638,13 +661,16 @@ print("Codificador: OK")
 ```
 
 ### Paso 4. La regresión sobre los vectores
-En este paso aprendemos con las mismas filas de entrenamiento.
-El codificador no se vuelve a ajustar.
+Cada artículo ya es un vector de magnitud 1.
+En este paso la regresión logística aprende con los vectores de las mismas 253 filas.
+El codificador no se vuelve a ajustar. Solo cambian los pesos de la regresión.
+`predict` dice sí o no en las 64 filas marcadas.
+La celda imprime los aciertos de TF-IDF y los del codificador, lado a lado.
 
 ```python
-encoder_model = LogisticRegression(class_weight="balanced", C=C_REG, max_iter=1000)
-encoder_model.fit(vectors[train_rows], y_train)
-pred_encoder = encoder_model.predict(vectors[marked_rows])
+encoder_model = LogisticRegression(class_weight="balanced", C=C_REG, max_iter=1000)  # LogisticRegression prepara un peso por cada número del vector
+encoder_model.fit(vectors[train_rows], y_train)  # fit aprende esos pesos con los vectores de las 253 filas
+pred_encoder = encoder_model.predict(vectors[marked_rows])  # predict dice 1 o 0 en las 64 filas marcadas
 tfidf_hits = int((pred_tfidf == y_test).sum())
 encoder_hits = int((pred_encoder == y_test).sum())
 print(f"Aciertos en los marcados. TF-IDF: {tfidf_hits}. Codificador: {encoder_hits}")
@@ -679,9 +705,12 @@ Si un método acierta poco, es normal.
 Su fila sigue en la tabla.
 
 ### Paso 1. Aciertos y errores en el conjunto marcado
-En este paso contamos TP, FP, FN y TN de cada método sobre los 64 marcados.
-**Precisión** es TP / (TP + FP). **Exhaustividad** es TP / (TP + FN).
-**F1** es la media armónica de las dos.
+Los tres métodos y la clase mayoritaria se miden en las mismas 64 filas marcadas.
+En este paso contamos TP, FP, FN y TN de cada uno.
+La precisión es TP / (TP + FP): de los sí que dijo el método, cuántos tenían marca sí.
+La exhaustividad es TP / (TP + FN): de las marcas sí, cuántas encontró el método.
+El F1 es la media armónica de las dos, así que un método no sube el número acertando solo una de ellas.
+La clase mayoritaria da a las 64 filas la marca más frecuente. Es la línea de referencia.
 
 ```python
 def counts_of(marks: np.ndarray, pred: np.ndarray) -> dict:
@@ -692,13 +721,13 @@ def counts_of(marks: np.ndarray, pred: np.ndarray) -> dict:
     Entrada: marks, las marcas (0 o 1), y pred, lo que dice el método (0 o 1).
     Salida: un diccionario con TP, FP, FN, TN y las cuatro medidas.
     """
-    tn, fp, fn, tp = confusion_matrix(marks, pred, labels=[0, 1]).ravel()  # los cuatro casos
+    tn, fp, fn, tp = confusion_matrix(marks, pred, labels=[0, 1]).ravel()  # confusion_matrix cuenta TN, FP, FN y TP en ese orden
     p, r, f1, _ = precision_recall_fscore_support(marks, pred, average="binary", zero_division=0)
     accuracy = accuracy_score(marks, pred)
     return {"TP": tp, "FP": fp, "FN": fn, "TN": tn, "precision": p, "recall": r, "F1": f1, "accuracy": accuracy}
 
 
-majority_mark = int(y_test.mean() > 0.5)   # la marca más frecuente
+majority_mark = int(y_test.mean() > 0.5)   # nos quedamos con 1 cuando más de la mitad de las marcas son 1
 predictions = {
     "clase mayoritaria": np.full(len(marked_rows), majority_mark),
     "palabras clave": pred_keywords[marked_rows],
@@ -706,7 +735,7 @@ predictions = {
     "codificador": pred_encoder,
 }
 rows_by_method = {}
-for name, pred in predictions.items():   # una fila por método
+for name, pred in predictions.items():   # counts_of arma la fila de aciertos y errores de cada método
     rows_by_method[name] = counts_of(y_test, pred)
 results = pd.DataFrame(rows_by_method).T
 results[["TP", "FP", "FN", "TN"]] = results[["TP", "FP", "FN", "TN"]].astype(int)
@@ -730,12 +759,15 @@ print("Aciertos y errores: OK")
 ```
 
 ### Paso 2. Las matrices de confusión
-En este paso dibujamos la **matriz de confusión** de cada método.
+Cada matriz tiene dos filas, la marca, y dos columnas, lo que dijo el método.
+Las 64 filas marcadas caen en una de las cuatro casillas: TN, FP, FN o TP.
+En este paso dibujamos esa matriz para la lista, para TF-IDF y para el codificador.
+La clase mayoritaria no entra en la figura. Ya está en la tabla del paso anterior.
 
 ```python
 fig, axes = plt.subplots(1, 3, figsize=(11, 3.4))
 for ax, name in zip(axes, ["palabras clave", "TF-IDF", "codificador"]):
-    ConfusionMatrixDisplay.from_predictions(y_test, predictions[name], labels=[0, 1], display_labels=["no leer", "leer"],
+    ConfusionMatrixDisplay.from_predictions(y_test, predictions[name], labels=[0, 1], display_labels=["no leer", "leer"],  # from_predictions dibuja la matriz de esta predicción contra las marcas
                                             cmap="Blues", colorbar=False, ax=ax)
     ax.set_title(name)
     ax.set_xlabel("Dice el método")
@@ -746,12 +778,15 @@ plt.show()
 ```
 
 ### Paso 3. Cinco pliegues en las filas de entrenamiento
-En este paso partimos las 253 filas de entrenamiento en 5 pliegues.
-En cada pliegue ajustamos TF-IDF, ajustamos el codificador y anotamos el F1 de los tres métodos.
-Guardamos el F1 más bajo y el más alto.
+Las 64 filas marcadas se quedan fuera de estos pliegues.
+Partimos las 253 filas de entrenamiento en 5 partes, y `StratifiedKFold` conserva en cada parte la proporción del tema.
+En cada vuelta, 4 partes ajustan el método y 1 parte, la que no vio, devuelve un F1.
+Al terminar hay 5 F1 por método, no un F1 de entrenamiento y otro de prueba.
+Guardamos el más bajo y el más alto.
+Si están lejos, un solo F1 esconde una parte débil.
 
 ```python
-folds = StratifiedKFold(n_splits=N_FOLDS, shuffle=True, random_state=SEED)
+folds = StratifiedKFold(n_splits=N_FOLDS, shuffle=True, random_state=SEED)  # StratifiedKFold parte las 253 filas en 5 pliegues y conserva la proporción del tema
 fold_f1 = {"palabras clave": [], "TF-IDF": [], "codificador": []}
 for fit_rows, test_rows in folds.split(train_rows, y_train):
     learn, check = train_rows[fit_rows], train_rows[test_rows]
@@ -760,19 +795,19 @@ for fit_rows, test_rows in folds.split(train_rows, y_train):
         learn_tokens.append(token_lists[i])
     for i in check:
         check_tokens.append(token_lists[i])
-    fold_vectorizer = TfidfVectorizer(analyzer=keep_tokens, sublinear_tf=True)
-    fold_vectorizer.fit(learn_tokens)
-    learn_matrix = fold_vectorizer.transform(learn_tokens)
-    check_matrix = fold_vectorizer.transform(check_tokens)
-    fold_tfidf = LogisticRegression(class_weight="balanced", C=C_REG, max_iter=1000)
-    fold_tfidf.fit(learn_matrix, y[learn])
-    fold_pred = fold_tfidf.predict(check_matrix)
-    fold_encoder = LogisticRegression(class_weight="balanced", C=C_REG, max_iter=1000)
-    fold_encoder.fit(vectors[learn], y[learn])
-    encoder_pred = fold_encoder.predict(vectors[check])
-    fold_f1["palabras clave"].append(f1_score(y[check], pred_keywords[check], zero_division=0))
-    fold_f1["TF-IDF"].append(f1_score(y[check], fold_pred, zero_division=0))
-    fold_f1["codificador"].append(f1_score(y[check], encoder_pred, zero_division=0))
+    fold_vectorizer = TfidfVectorizer(analyzer=keep_tokens, sublinear_tf=True)  # TfidfVectorizer prepara los pesos de este pliegue
+    fold_vectorizer.fit(learn_tokens)  # fit aprende los pesos solo con las filas que este pliegue sí ve
+    learn_matrix = fold_vectorizer.transform(learn_tokens)  # transform arma la tabla de las filas de ajuste
+    check_matrix = fold_vectorizer.transform(check_tokens)  # transform aplica esos pesos a la parte que el pliegue no vio
+    fold_tfidf = LogisticRegression(class_weight="balanced", C=C_REG, max_iter=1000)  # LogisticRegression prepara la regresión de TF-IDF para este pliegue
+    fold_tfidf.fit(learn_matrix, y[learn])  # fit aprende los pesos sin ver la parte de prueba
+    fold_pred = fold_tfidf.predict(check_matrix)  # predict dice sí o no en la parte que no vio
+    fold_encoder = LogisticRegression(class_weight="balanced", C=C_REG, max_iter=1000)  # LogisticRegression prepara la regresión de los vectores para este pliegue
+    fold_encoder.fit(vectors[learn], y[learn])  # fit aprende con los vectores de las filas que sí ve
+    encoder_pred = fold_encoder.predict(vectors[check])  # predict dice sí o no con los vectores de la parte que no vio
+    fold_f1["palabras clave"].append(f1_score(y[check], pred_keywords[check], zero_division=0))  # f1_score anota el F1 de la lista en esta parte
+    fold_f1["TF-IDF"].append(f1_score(y[check], fold_pred, zero_division=0))  # f1_score anota el F1 de TF-IDF en esta parte
+    fold_f1["codificador"].append(f1_score(y[check], encoder_pred, zero_division=0))  # f1_score anota el F1 del codificador en esta parte
 cv_rows = {}
 for name, values in fold_f1.items():
     cv_rows[name] = {"F1 más bajo": min(values), "F1 más alto": max(values)}
@@ -796,25 +831,23 @@ print("Cinco pliegues: OK")
 
 ### Paso 4. La clase mayoritaria como referencia
 En este paso comparamos cada método con la fila de la clase mayoritaria de la tabla del Paso 1.
-Mire también el F1 más bajo y el más alto.
-Si un método queda por debajo, es normal.
+También miramos el F1 más bajo y el más alto de los cinco pliegues.
+Si están lejos, un solo F1 esconde una parte débil.
+Si un método queda por debajo de la clase mayoritaria, lo documentamos.
 Su fila sigue en la tabla.
 El archivo guarda TF-IDF porque sus pesos se pueden leer.
 
-¿Qué métodos superan a la clase mayoritaria?
-¿Están de acuerdo con guardar TF-IDF?
-Usen la tabla de aciertos y los cinco pliegues.
-
-**ESCRIBA SU TEXTO AQUÍ**
-
 ### Paso 5. Leer tres errores por método
-En este paso leemos tres errores de cada método. Un error puede ser del método o de la marca.
+Un error es una fila marcada en la que el método no coincide con la marca.
+FP es un sí del método con un no de la marca. FN es un no del método con un sí de la marca.
+El error puede venir del método o de la marca.
+En este paso imprimimos los tres primeros errores de la lista, de TF-IDF y del codificador.
 
 ```python
 for name in ["palabras clave", "TF-IDF", "codificador"]:
     wrong = []
     for i in range(len(y_test)):
-        if y_test[i] != predictions[name][i] and len(wrong) < 3:   # los tres primeros errores
+        if y_test[i] != predictions[name][i] and len(wrong) < 3:   # guardamos la fila cuando el método no coincide con la marca, hasta tres
             wrong.append(i)
     print(f"\n{name}:")
     for i in wrong:
@@ -823,14 +856,16 @@ for name in ["palabras clave", "TF-IDF", "codificador"]:
 ```
 
 ### Paso 6. El texto para toda la colección
-En este paso repetimos el mismo corte.
-Esta vez guardamos la probabilidad, no solo el sí o el no.
-Los marcados usan el modelo ya ajustado.
-Cada fila de entrenamiento usa el pliegue que no la vio.
+Hasta aquí TF-IDF dice sí o no solo en las 64 filas marcadas.
+La lista de lectura necesita un número para los 317 artículos.
+En este paso guardamos la probabilidad de TF-IDF, no solo el sí o el no.
+Las 64 filas marcadas usan el modelo ya ajustado con las 253.
+Cada fila de entrenamiento usa el pliegue que no la vio, para que ninguna fila reciba la probabilidad de un modelo que la usó para aprender.
+Pasamos a 1 cuando esa probabilidad supera 0,5.
 
 ```python
 prob_texto = np.zeros(N)
-prob_texto[marked_rows] = tfidf_model.predict_proba(X_marked)[:, 1]
+prob_texto[marked_rows] = tfidf_model.predict_proba(X_marked)[:, 1]  # predict_proba escribe la probabilidad de leer de las 64 filas marcadas
 for fit_rows, test_rows in folds.split(train_rows, y_train):
     learn, check = train_rows[fit_rows], train_rows[test_rows]
     learn_tokens, check_tokens = [], []
@@ -838,13 +873,13 @@ for fit_rows, test_rows in folds.split(train_rows, y_train):
         learn_tokens.append(token_lists[i])
     for i in check:
         check_tokens.append(token_lists[i])
-    fold_vectorizer = TfidfVectorizer(analyzer=keep_tokens, sublinear_tf=True)
-    fold_vectorizer.fit(learn_tokens)
-    fold_model = LogisticRegression(class_weight="balanced", C=C_REG, max_iter=1000)
-    fold_model.fit(fold_vectorizer.transform(learn_tokens), y[learn])
-    fold_prob = fold_model.predict_proba(fold_vectorizer.transform(check_tokens))[:, 1]
-    prob_texto[check] = fold_prob
-text_tfidf = (prob_texto > 0.5).astype(int)
+    fold_vectorizer = TfidfVectorizer(analyzer=keep_tokens, sublinear_tf=True)  # TfidfVectorizer prepara los pesos de este pliegue
+    fold_vectorizer.fit(learn_tokens)  # fit aprende los pesos solo con las filas que este pliegue sí ve
+    fold_model = LogisticRegression(class_weight="balanced", C=C_REG, max_iter=1000)  # LogisticRegression prepara la regresión de este pliegue
+    fold_model.fit(fold_vectorizer.transform(learn_tokens), y[learn])  # fit aprende los pesos sin ver la parte de prueba
+    fold_prob = fold_model.predict_proba(fold_vectorizer.transform(check_tokens))[:, 1]  # predict_proba escribe la probabilidad de la parte que no vio
+    prob_texto[check] = fold_prob  # cada fila de entrenamiento recibe la probabilidad del pliegue que no la vio
+text_tfidf = (prob_texto > 0.5).astype(int)  # pasamos a 1 cuando la probabilidad supera 0,5
 print(f"Dicen leer: palabras clave {pred_keywords.sum()}, TF-IDF {text_tfidf.sum()}")
 ```
 
@@ -858,12 +893,14 @@ print("Texto para toda la colección: OK")
 ```
 
 ### Paso 7. Guardar el texto
-En este paso guardamos `outputs/texto_l4.csv`, una fila por artículo.
-`marca` lleva las 64 marcas. Las demás filas quedan vacías.
+Guardamos una fila por cada uno de los 317 artículos en `outputs/texto_l4.csv`.
+`keyword` es el sí o no de la lista. `tfidf_lr` es el sí o no de TF-IDF. `prob_texto` es su probabilidad.
+`marca` lleva las 64 marcas. Las otras filas quedan vacías, porque esas filas sirvieron para aprender y no tienen marca de prueba.
+Este archivo es el resultado de esta lección.
 
 ```python
 marca = pd.Series(pd.NA, index=range(N), dtype="Int64")
-marca[marked_rows] = y_test
+marca[marked_rows] = y_test  # escribimos la marca solo en las 64 filas apartadas
 text_table = pd.DataFrame({
     "title": papers["title"],
     "keyword": pred_keywords,
@@ -892,38 +929,32 @@ print("texto_l4.csv: OK")
 ## Parte 8. Despliegue
 
 ### Paso 1. Qué hace el texto con la lista
-En este paso decimos para qué sirve el texto.
-La lista de palabras suma 1 si dice leer.
-TF-IDF suma su probabilidad, de 0 a 1.
-Los grupos de la Lección 3 suman la parte con palabras del tema de su grupo leído, de 0 a 2.
-El codificador no entra en la suma.
+El texto de esta lección es un filtro: deja pasar los artículos que la lista o TF-IDF marcan para leer.
+`texto_l4.csv` guarda ese sí o no y la probabilidad.
+Un método que quedó bajo la clase mayoritaria se queda en la tabla de la evaluación.
+El codificador también se queda ahí, y no entra en la lista, porque su vector no se lee palabra por palabra.
+Esta lista usa solo el texto de hoy.
 
 ### Paso 2. Artículos para leer
-En este paso juntamos los grupos de la Lección 3 y el texto de hoy.
-La evidencia va de 0 a 4.
-Hasta 2 vienen de los grupos de la Lección 3.
-1 viene de la lista de palabras.
-Hasta 1 viene de TF-IDF.
-Ordenamos por evidencia, después por `prob_texto` y al final por título.
-Mostramos como máximo 30 artículos.
+La lista de palabras suma 1 cuando dice leer.
+TF-IDF suma su probabilidad, de 0 a 1.
+La evidencia es esa suma, de 0 a 2.
+El codificador no entra en esa suma.
+Ordenamos de mayor a menor evidencia, después por `prob_texto` y, si empatan, por título.
+De los 317 mostramos como máximo 30, el tope de la Lección 1.
 
 ```python
-assert groups_l3["title"].tolist() == papers["title"].tolist()   # la L3 guarda los artículos en el mismo orden
 reading_rows = []
-for i in range(N):   # por cada artículo
+for i in range(N):   # recorremos cada artículo
     row = {"title": papers.loc[i, "title"],
-           "kmeans": float(groups_l3.loc[i, "kmeans_parte"]),     # la parte de su grupo leído de k-means
-           "hdbscan": float(groups_l3.loc[i, "hdbscan_parte"]),   # la parte de su grupo leído de HDBSCAN
-           "palabras_clave": int(pred_keywords[i]),               # 1 si tiene una palabra clave
-           "tfidf": round(prob_texto[i], 2)}                      # la probabilidad de TF-IDF
-    row["grupos"] = round(row["kmeans"] + row["hdbscan"], 2)
-    row["texto"] = round(row["palabras_clave"] + row["tfidf"], 2)
-    row["evidencia"] = round(row["grupos"] + row["texto"], 2)
+           "palabras_clave": int(pred_keywords[i]),   # escribimos 1 cuando la lista dice leer
+           "tfidf": round(prob_texto[i], 2)}          # escribimos la probabilidad de TF-IDF
+    row["evidencia"] = round(row["palabras_clave"] + row["tfidf"], 2)  # sumamos la lista y la probabilidad de TF-IDF
     row["prob_texto"] = round(prob_texto[i], 3)
     reading_rows.append(row)
 
-reading = pd.DataFrame(reading_rows).sort_values(["evidencia", "prob_texto", "title"], ascending=[False, False, True])
-reading_list = reading.head(MAX_PAPERS)   # como máximo 30 artículos
+reading = pd.DataFrame(reading_rows).sort_values(["evidencia", "prob_texto", "title"], ascending=[False, False, True])  # sort_values ordena por evidencia, luego por probabilidad y luego por título
+reading_list = reading.head(MAX_PAPERS)   # head corta la lista en 30 artículos
 reading_path = OUTPUTS_DIR / "lectura_l4.csv"
 reading_list.to_csv(reading_path, index=False)
 print(f"Artículos: {len(reading)}. En la lista: {len(reading_list)}.")
@@ -938,31 +969,13 @@ Si hay varias ediciones de la misma guía, el equipo abre la más reciente.
 
 **Comprobar:**
 
-En este paso comprobamos el largo de la lista, su orden y que la evidencia es la suma de grupos y texto.
+En este paso comprobamos el largo de la lista, su orden y que la evidencia es la suma de la lista de palabras y TF-IDF.
 
 ```python
 assert len(reading_list) == min(MAX_PAPERS, len(reading)) and reading_list["evidencia"].is_monotonic_decreasing
-assert ((reading_list["evidencia"] - reading_list["grupos"] - reading_list["texto"]).abs() < 0.011).all()
-assert reading_list["evidencia"].between(0, 4).all()
+assert ((reading_list["evidencia"] - reading_list["palabras_clave"] - reading_list["tfidf"]).abs() < 0.011).all()
+assert reading_list["evidencia"].between(0, 2).all()
 print("Lista de lectura: OK")
-```
-
-### Paso 3. Comprobación final
-En este paso revisamos que el cuaderno dejó lo que la Lección 5 necesita.
-
-```python
-checks = {
-    "outputs/texto_l4.csv": text_path.is_file(),
-    "outputs/lectura_l4.csv": reading_path.is_file(),
-    "Matrices de confusión": (OUTPUTS_DIR / "confusion_l4.png").is_file(),
-    "Grupos de la L3": GROUPS_PATH.is_file(),
-}
-for name, ok in checks.items():
-    print(f"{name}: {'OK' if ok else 'incompleto'}")
-passed = sum(checks.values())
-print(f"\nL4_CHECKS={passed}/{len(checks)}")
-if passed == len(checks):
-    print("L4_OK. Siga con la Lección 5.")
 ```
 
 <!-- end NOTEBOOK: -->

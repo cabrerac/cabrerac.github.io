@@ -10,13 +10,16 @@ Un **arreglo** guarda números en filas y columnas. Aquí cada fila es un artíc
 ```python
 import numpy as np
 
-counts_toy = np.array([[2, 1, 0], [0, 1, 3]])   # 2 artículos, 3 palabras
+counts_toy = np.array([[2, 1, 0], [0, 1, 3]])   # np.array construye la tabla de conteos del ejemplo
 print(counts_toy.shape)
-print(counts_toy[0])          # la primera fila: el primer artículo
+print(counts_toy[0])          # el índice 0 toma la primera fila de la tabla
 ```
 
-### El largo de un vector
-El **largo** de un vector es la raíz de la suma de sus valores al cuadrado. Dividir por el largo deja el vector de largo 1.
+### La magnitud de un vector
+La magnitud de un vector es la raíz de la suma de sus valores al cuadrado.
+En el ejemplo, la primera fila es (2, 1, 0).
+Al dividir el vector por su magnitud lo dejamos en magnitud 1.
+Así, más adelante, un resumen largo no pesa más que uno corto.
 
 ```python
 row = counts_toy[0].astype(float)
@@ -24,8 +27,10 @@ length = np.linalg.norm(row)
 print(f"Largo: {length:.3f}. Después de escalar: {np.linalg.norm(row / length):.3f}")
 ```
 
-### Coseno de vectores de largo 1
-Con dos vectores de largo 1, el **coseno** es el producto punto `u @ v`. Así cuenta la mezcla de palabras, no el largo del artículo.
+### Coseno de vectores unitarios
+Con dos vectores de magnitud 1, el coseno es el producto punto `u @ v`.
+Así comparamos la mezcla de palabras y no el largo del artículo.
+En el ejemplo comparamos las dos filas de la tabla de juguete.
 
 ```python
 u = counts_toy[0] / np.linalg.norm(counts_toy[0])
@@ -39,23 +44,20 @@ print(f"Coseno: {u @ v:.3f}. Repaso de Python: OK")
 ## Instrucciones
 
 Seguimos con el equipo interno de la secretaría de salud y sus 320 artículos sobre nutrición.
-El equipo debe decidir **qué artículos tiene que leer** un colega que llega al equipo.
+El equipo debe decidir **qué artículos tiene que leer** un nuevo colega.
 En la Lección 2 encontramos pares de palabras que se repiten.
-
 Hoy buscamos **grupos** de artículos con palabras parecidas (Jain, 2010).
-No hay etiquetas, así que el equipo lee un grupo cuando trata de su tema.
 
-**Tres métodos en este cuaderno.** Cada uno trae la preparación que necesita y el ajuste.
-Si un método no da un buen resultado, es normal.
-Lo dejamos en la tabla.
-CRISP-DM sigue con la evaluación: ahí se decide con qué continúa el equipo.
-El archivo de grupos lo arma HDBSCAN.
+
+**Tres métodos en este cuaderno.** Para cada uno llevaremos a cabo la preparación de los datos y su modelado.
+Si un método no da un "buen resultado", lo debemos documentar como un resultado útil.
+CRISP-DM sigue con la evaluación para decidir cuáles métodos se deben utilizar.
 
 | Método | Pregunta | Preparación que necesita | Qué aporta |
 |--------|----------|--------------------------|------------|
-| k-means | ¿Qué $k$ centros resumen mejor los artículos? | Los conteos, cada fila escalada a largo 1 | Una referencia: todo artículo queda en un grupo |
+| k-means | ¿Qué $k$ centros resumen mejor los artículos? | Los conteos, cada fila escalada a magnitud 1 | Asigna cada artículo a un grupo |
 | Mezcla gaussiana | ¿Qué probabilidad tiene cada artículo de pertenecer a cada nube? | Las primeras 5 direcciones de la SVD | Una probabilidad por artículo y por nube |
-| HDBSCAN | ¿Dónde hay zonas densas de artículos? | Distancias coseno sobre las 10 primeras direcciones de la SVD | El archivo de grupos |
+| HDBSCAN | ¿Dónde hay zonas densas de artículos? | Distancias coseno sobre las 10 primeras direcciones de la SVD | Un conjunto de grupos |
 
 **Qué hacer.** Ejecute las celdas de arriba hacia abajo.
 Cada paso empieza con **En este paso**. Si tiene código, termina con una celda **Comprobar**.
@@ -65,8 +67,8 @@ Cada paso empieza con **En este paso**. Si tiene código, termina con una celda 
 | Parte | Fase CRISP-DM | Qué sale |
 |-------|---------------|----------|
 | 1 | Comprensión del negocio | La pregunta de hoy y las palabras del tema |
-| 2 | Comprensión de los datos | Parámetros, artículos y patrones de la Lección 2 |
-| 3 | k-means | Conteos, cada fila de largo 1 |
+| 2 | Comprensión de los datos | Parámetros y artículos |
+| 3 | k-means | Conteos, cada fila de magnitud 1 |
 | 4 | Ajuste de k-means | Centros, silueta y palabras de cada grupo |
 | 5 | Mezcla gaussiana | Cinco direcciones, probabilidades y cuántos artículos abriría |
 | 6 | HDBSCAN | Diez direcciones, distancias, el ajuste y el ruido |
@@ -80,37 +82,38 @@ Cada paso empieza con **En este paso**. Si tiene código, termina con una celda 
 ## Parte 1. Comprensión del negocio
 
 ### Paso 1. La pregunta de esta lección
-En este paso escribimos qué buscamos hoy.
-La decisión no cambia: qué artículos debe leer el colega nuevo.
+Empezamos escribiendo lo que buscamos hoy.
+La decisión principal se mantiene: qué artículos debe leer el colega nuevo.
 
 | Pregunta | Respuesta para el laboratorio |
 |----------|-------------------------------|
 | ¿Qué buscamos? | Grupos de artículos que usan palabras parecidas |
-| ¿Con qué los buscamos? | k-means, una mezcla gaussiana y HDBSCAN. El archivo guarda HDBSCAN |
-| ¿Cómo los comparamos? | Con la silueta y viendo dónde coinciden k-means y HDBSCAN |
-| ¿Cómo entra un grupo en la lista? | k-means y HDBSCAN suman la parte de su grupo leído. La mezcla no entra en la suma |
+| ¿Con qué los buscamos? | k-means, una mezcla gaussiana y HDBSCAN. |
+| ¿Cómo los comparamos? | Con la silueta y viendo dónde coinciden k-means y HDBSCAN. |
+| ¿Cómo entra un grupo en la lista? | k-means y HDBSCAN suman la parte de su grupo leído. |
 
-Un artículo sin grupo no se borra. Se mira a mano.
+Un artículo sin grupo no se borra. Se debería chequear a mano.
 
 ### Paso 2. Las palabras del tema
-En este paso escribimos las palabras del tema antes de ver ningún grupo.
-Con ellas decidimos en la evaluación qué grupos se leen.
-La lista de la Lección 1 tiene entre 10 y 30 artículos.
+Antes de ver los grupos escribimos las palabras del tema: obesity, diet, diabetes y las formas cercanas.
+No hay un tope para esa lista.
+La lista de lectura sí tiene un tope: entre 10 y 30 artículos, `MIN_PAPERS` y `MAX_PAPERS`.
+En la evaluación un grupo se lee cuando al menos la mitad de sus artículos tiene una de estas palabras.
 
 ```python
 MIN_PAPERS = 10
 MAX_PAPERS = 30
 TOPIC_WORDS = {
-    "obesity", "obese", "overweight",   # el peso
-    "diet", "dietary",                  # lo que se come
-    "diabetes", "cardiovascular", "hypertension",   # enfermedades que dependen de la dieta
+    "obesity", "obese", "overweight",   # agregamos las palabras del peso a la lista del tema
+    "diet", "dietary",                  # agregamos las palabras de la comida a la lista del tema
+    "diabetes", "cardiovascular", "hypertension",   # agregamos las palabras de las enfermedades a la lista del tema
 }
 print("Palabras del tema:", ", ".join(sorted(TOPIC_WORDS)))
 ```
 
 **Comprobar:**
 
-En este paso comprobamos que las palabras del tema están escritas en minúsculas.
+Ahora comprobamos que las palabras del tema están escritas en minúsculas.
 
 ```python
 assert MIN_PAPERS < MAX_PAPERS
@@ -123,12 +126,11 @@ print("Palabras del tema: OK")
 ## Parte 2. Comprensión de los datos
 
 ### Paso 1. Librerías y carpetas
-En este paso importamos las librerías y creamos las carpetas.
-Colab ya trae spaCy y scikit-learn.
+Como es usual el primer paso es importar las librerías y crear las carpetas donde vamos a guardar los datos.
 
 ```python
-import math          # techo (ceil) para el umbral de soporte
-import re            # partir el texto en palabras
+import math          # math.ceil redondea hacia arriba el umbral de soporte
+import re            # re permite definir la expresión regular que filtra las palabras
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -136,36 +138,38 @@ import numpy as np
 import pandas as pd
 import requests
 import sklearn
-from sklearn.cluster import HDBSCAN, KMeans
-from sklearn.mixture import GaussianMixture
-from sklearn.decomposition import TruncatedSVD
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.metrics import pairwise_distances, silhouette_score
-from sklearn.preprocessing import normalize
+from sklearn.cluster import HDBSCAN, KMeans  # KMeans asigna artículos a centros y HDBSCAN busca zonas densas
+from sklearn.mixture import GaussianMixture  # GaussianMixture calcula una probabilidad por nube
+from sklearn.decomposition import TruncatedSVD  # TruncatedSVD reduce las columnas a unas pocas direcciones
+from sklearn.feature_extraction.text import CountVectorizer  # CountVectorizer cuenta las palabras de cada artículo
+from sklearn.metrics import pairwise_distances, silhouette_score  # pairwise_distances arma las distancias y silhouette_score mide la separación
+from sklearn.preprocessing import normalize  # normalize escala cada fila a magnitud 1
 
-DATA_DIR = Path("data")         # aquí quedan los datos descargados
-OUTPUTS_DIR = Path("outputs")   # aquí quedan las tablas y los gráficos
+DATA_DIR = Path("data")         # Path fija la carpeta donde se guardan los datos descargados
+OUTPUTS_DIR = Path("outputs")   # Path fija la carpeta donde se guardan las tablas y los gráficos
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 print(f"scikit-learn {sklearn.__version__}")
 ```
 
 ### Paso 2. Parámetros
-En este paso fijamos los parámetros. No los cambie.
+Como parte de la configuración fijamos los parámetros que usaremos en el proceso.
 Los tres primeros vienen de la Lección 2.
+Estos valores son una elección, y optimizarlos queda fuera de este curso.
+En este cuaderno usamos estos valores fijos.
 
 ```python
-SUPPORT_SHARE = 0.03   # proporción de textos (L2)
-SUPPORT_MIN = 5        # mínimo de textos (L2)
-SEED = 7               # semilla (L2)
+SUPPORT_SHARE = 0.03   # fija la proporción de artículos que una palabra debe alcanzar
+SUPPORT_MIN = 5        # fija el mínimo de artículos que una palabra debe alcanzar
+SEED = 7               # fija el arranque aleatorio para que el ajuste se repita igual
 
-MAX_WORD_SHARE = 0.5          # una palabra en más de la mitad de los textos no separa grupos
-DENSITY_SVD_DIRECTIONS = 10   # direcciones de la SVD para HDBSCAN
-MIXTURE_DIRECTIONS = 5         # direcciones de la SVD para la mezcla gaussiana
-K_CANDIDATES = range(3, 9)    # valores de k que probamos en k-means
-MIN_SAMPLES = SUPPORT_MIN     # min_samples de HDBSCAN
-READ_SHARE = 0.5              # se lee un grupo si al menos la mitad de sus artículos tiene una palabra del tema
-TOP_WORDS = 4                 # palabras que mostramos por grupo
+MAX_WORD_SHARE = 0.5          # fija la proporción máxima de artículos en los que una palabra puede aparecer
+DENSITY_SVD_DIRECTIONS = 10   # fija cuántas direcciones de la SVD usa HDBSCAN
+MIXTURE_DIRECTIONS = 5         # fija cuántas direcciones de la SVD usa la mezcla
+K_CANDIDATES = range(3, 9)    # range arma los valores de k que k-means va a probar
+MIN_SAMPLES = SUPPORT_MIN     # copia el mínimo de soporte como min_samples de HDBSCAN
+READ_SHARE = 0.5              # fija la proporción mínima del tema para que un grupo se lea
+TOP_WORDS = 4                 # fija cuántas palabras se muestran de cada grupo
 
 
 def support_floor(n_texts: int) -> int:
@@ -175,7 +179,7 @@ def support_floor(n_texts: int) -> int:
     Entrada: n_texts, el número de textos.
     Salida: el umbral, un entero.
     """
-    return max(SUPPORT_MIN, math.ceil(SUPPORT_SHARE * n_texts))   # el mayor entre 5 y el 3%
+    return max(SUPPORT_MIN, math.ceil(SUPPORT_SHARE * n_texts))   # max elige el mayor entre el mínimo fijo y el 3% redondeado hacia arriba
 
 
 print(f"Umbral para 317 artículos: {support_floor(317)}")
@@ -183,7 +187,7 @@ print(f"Umbral para 317 artículos: {support_floor(317)}")
 
 **Comprobar:**
 
-En este paso comprobamos el umbral de soporte y los valores de k que vamos a probar.
+Comprobamos el umbral de soporte y los valores de k que vamos a probar.
 
 ```python
 assert support_floor(317) == 10
@@ -193,21 +197,26 @@ print("Parámetros: OK")
 ```
 
 ### Paso 3. Las palabras útiles
-En este paso traemos de la Lección 2 las palabras vacías y `words`.
-`word_list` hace la misma limpieza y conserva las repeticiones, porque ahora contamos.
+Un resumen trae palabras que no dicen el tema, como "the", "of", la etiqueta "methods" o el resto "http".
+Esas palabras aparecen en muchos resúmenes y no separan un grupo de otro.
+En este paso las quitamos, como en la Lección 2.
+`word_list` conserva cada aparición, porque el conteo de más adelante las suma.
+`words` deja cada palabra una sola vez, porque la regla del tema solo pregunta si está.
 
 ```python
 from spacy.lang.en.stop_words import STOP_WORDS as STOP_WORDS_EN
 
-WORD_RE = re.compile(r"[^\W\d_]+")   # secuencias de letras (sin números ni guiones bajos)
+WORD_RE = re.compile(r"[^\W\d_]+")   # re permite configurar una expresión regular para filtrar secuencias de letras
 ABSTRACT_LABELS = {
     "background", "methods", "findings", "interpretation", "funding",
     "conclusions", "results", "objective", "objectives", "aims",
     "bill", "melinda", "gates", "foundation",
 }
 URL_TOKENS = {"http", "https", "www", "org"}
-STOP_WORDS = set(STOP_WORDS_EN) | ABSTRACT_LABELS | URL_TOKENS   # las de la L2
+STOP_WORDS = set(STOP_WORDS_EN) | ABSTRACT_LABELS | URL_TOKENS   # unimos las palabras vacías, las etiquetas del resumen y los restos de direcciones
 ```
+
+Las dos funciones de abajo hacen esa limpieza.
 
 ```python
 def word_list(text: str, stop_words: set[str]) -> list[str]:
@@ -219,11 +228,11 @@ def word_list(text: str, stop_words: set[str]) -> list[str]:
     Salida: una lista de palabras, en orden y con cada aparición.
     Por qué: para agrupar contamos cuántas veces usa un texto cada palabra.
     """
-    text = (text or "").lower().replace("[cita requerida]", " ")  # minúsculas, sin la marca de Wikipedia
+    text = (text or "").lower().replace("[cita requerida]", " ")  # lower pasa el texto a minúsculas y replace quita la marca de Wikipedia
     useful = []
-    for word in WORD_RE.findall(text):  # por cada palabra de solo letras
+    for word in WORD_RE.findall(text):  # findall extrae cada secuencia que pasó el filtro de letras
         long_enough = len(word) >= 3
-        is_stop = word in stop_words  # una palabra vacía, como "the" u "of"
+        is_stop = word in stop_words  # in comprueba si la palabra está en el conjunto de palabras vacías
         if long_enough and not is_stop:
             useful.append(word)
     return useful
@@ -237,7 +246,7 @@ def words(text: str, stop_words: set[str]) -> set[str]:
     Salida: un set de palabras.
     Por qué: los patrones de la L2 y la regla de lectura solo preguntan si una palabra está.
     """
-    return set(word_list(text, stop_words))  # la lista sin repeticiones
+    return set(word_list(text, stop_words))  # set deja cada palabra una sola vez
 
 
 print(word_list("The diet, the DIET and the risk of obesity, see https://www.who.int", STOP_WORDS))
@@ -254,7 +263,9 @@ print("Funciones de la L2: OK")
 ```
 
 ### Paso 4. Descargar los artículos
-En este paso descargamos los artículos de nutrición, una sola vez, con la función de la Lección 2.
+Los artículos están en `nutricion-papers.csv`, en la página del curso.
+La función los descarga una sola vez y, si el archivo ya está, usa esa copia.
+Cada fila trae el título y el resumen con los que vamos a agrupar.
 
 ```python
 BASE_URL = "https://cabrerac.github.io/assets/data/26-udenar-data-mining"
@@ -269,11 +280,11 @@ def download_data(name: str, folder: Path = DATA_DIR) -> Path:
     Por qué: no queremos depender de la red en cada ejecución ni descargar dos veces.
     """
     dest = folder / name
-    if dest.is_file() and dest.stat().st_size > 0:  # ya está y no está vacío
+    if dest.is_file() and dest.stat().st_size > 0:  # is_file y stat comprueban que el archivo ya existe y no está vacío
         print(f"Ya en caché: {dest}")
         return dest
-    response = requests.get(f"{BASE_URL}/{name}", timeout=60)  # lo pedimos a la página del curso
-    response.raise_for_status()  # para si la descarga falló
+    response = requests.get(f"{BASE_URL}/{name}", timeout=60)  # requests.get pide el archivo a la página del curso
+    response.raise_for_status()  # raise_for_status detiene la descarga si la página respondió con un error
     dest.write_bytes(response.content)
     print(f"Descargado: {dest} ({dest.stat().st_size / 1e6:.1f} MB)")
     return dest
@@ -285,7 +296,7 @@ print(f"Artículos descargados: {len(papers)}")
 
 **Comprobar:**
 
-En este paso comprobamos que están el título y el resumen.
+Comprobamos que el título y el resumen estén presentes en el dataframe `papers`.
 
 ```python
 assert {"title", "abstract"} <= set(papers.columns)
@@ -293,12 +304,15 @@ print("Descarga: OK")
 ```
 
 ### Paso 5. Los artículos con resumen útil
-En este paso dejamos fuera los resúmenes con menos de 5 palabras útiles.
+Un resumen con menos de 5 palabras útiles no tiene con qué formar un grupo.
+En este paso dejamos fuera esos resúmenes.
+De los artículos descargados quedan 317.
+Con 317 el piso de soporte, `FLOOR`, sale 10: el mayor entre 5 y el 3% de 317.
 
 ```python
 useful = []
-for abstract in papers["abstract"]:   # por cada resumen
-    useful.append(len(words(abstract, STOP_WORDS)) >= 5)   # al menos 5 palabras útiles
+for abstract in papers["abstract"]:   # recorremos el resumen de cada artículo
+    useful.append(len(words(abstract, STOP_WORDS)) >= 5)   # words cuenta las palabras útiles y nos quedamos con los resúmenes que tienen al menos 5
 papers = papers[useful].reset_index(drop=True)
 texts = papers["abstract"].tolist()
 N = len(texts)
@@ -308,7 +322,7 @@ print(f"Artículos usados: {N} de {len(useful)}. Umbral: {FLOOR} artículos")
 
 **Comprobar:**
 
-En este paso comprobamos el número de artículos usados y el umbral.
+Comprobamos el número de artículos usados y el umbral.
 
 ```python
 assert N == 317 and FLOOR == 10
@@ -316,58 +330,33 @@ print("Datos: OK")
 ```
 
 ### Paso 6. Las palabras del tema en los resúmenes
-En este paso contamos en qué parte de los resúmenes aparece cada palabra del tema.
+Ahora, en los 317 resúmenes, contamos qué proporción contiene cada palabra del tema.
+Una palabra que está en casi todos los resúmenes describe toda la colección y no nos permite distinguir un grupo.
 
 ```python
 word_sets = []
 for text in texts:
-    word_sets.append(words(text, STOP_WORDS))   # las palabras útiles de cada resumen
+    word_sets.append(words(text, STOP_WORDS))   # words guarda el conjunto de palabras útiles de este resumen
 shares = {}
-for word in sorted(TOPIC_WORDS):   # por cada palabra del tema
+for word in sorted(TOPIC_WORDS):   # recorremos cada palabra de la lista del tema
     with_word = 0
     for word_set in word_sets:
         if word in word_set:
             with_word += 1
-    shares[word] = with_word / N   # la parte de los resúmenes con esa palabra
+    shares[word] = with_word / N   # dividimos los resúmenes que tienen la palabra entre el total
 topic_share = pd.Series(shares).round(3)
 print(topic_share.to_string())
 ```
 
-Una palabra que está en casi todos los resúmenes describe toda la colección, no un grupo.
 ¿Alguna de estas palabras distingue un grupo de otro? Aquí ninguna pasa de 14%.
 
 **Comprobar:**
 
-En este paso comprobamos que hay una proporción por palabra del tema.
+Comprobamos que hay una proporción por palabra del tema.
 
 ```python
 assert len(topic_share) == len(TOPIC_WORDS) and topic_share.between(0, 1).all()
 print("Palabras del tema en los resúmenes: OK")
-```
-
-### Paso 7. Los patrones de la Lección 2
-En este paso leemos `outputs/patrones_l2.csv` de la Lección 2.
-Si no está, la columna de patrones queda vacía. Suba el archivo a `outputs/`.
-
-```python
-PATTERNS_PATH = OUTPUTS_DIR / "patrones_l2.csv"
-PATTERN_COLUMNS = ["pair", "support", "lift", "cosine", "kept", "kept_lift2", "beats_cosine", "shared_vector"]
-
-if PATTERNS_PATH.is_file():
-    patterns = pd.read_csv(PATTERNS_PATH)
-    print(f"patrones_l2.csv: {len(patterns):,} pares, {patterns['kept_lift2'].sum():,} con lift de al menos 2")
-else:
-    patterns = pd.DataFrame(columns=PATTERN_COLUMNS)
-    print("No encontramos outputs/patrones_l2.csv. Sin él, la columna de patrones queda vacía.")
-```
-
-**Comprobar:**
-
-En este paso comprobamos que la tabla de patrones tiene sus columnas.
-
-```python
-assert set(PATTERN_COLUMNS) <= set(patterns.columns)
-print("Patrones de la L2: OK")
 ```
 
 ---
@@ -375,26 +364,30 @@ print("Patrones de la L2: OK")
 ## Parte 3. k-means
 
 k-means parte de una tabla con una fila por artículo y una columna por palabra.
-Cada fila queda de largo 1 para que el largo del resumen no pese más que el tema.
+Cada fila queda de magnitud 1 para que el tamaño del resumen no pese más que el tema.
 
 ### Paso 1. Conteo de palabras con un vocabulario útil
-En este paso contamos las palabras con `CountVectorizer`.
-Una palabra entra si está en al menos `FLOOR` artículos y en no más de la mitad.
-Con todas las palabras, todas las distancias se parecen y los grupos se pierden.
+Cada resumen ya está limpio y todavía trae las repeticiones de cada palabra.
+En este paso armamos una tabla con una fila por artículo y una columna por palabra.
+Una celda cuenta cuántas veces aparece esa palabra en ese resumen.
+Para estos 317 artículos el piso es `FLOOR`, que vale 10.
+Una palabra entra si aparece en al menos 10 artículos y en no más de la mitad, `MAX_WORD_SHARE` = 0,5.
+Una palabra en pocos artículos, o en casi todos, no separa un grupo de otro.
+`CountVectorizer` hace ese conteo.
 
 ```python
 token_lists = []
 for text in texts:
-    token_lists.append(word_list(text, STOP_WORDS))   # con repeticiones, porque ahora contamos
-vectorizer = CountVectorizer(analyzer=lambda tokens: tokens, min_df=FLOOR, max_df=MAX_WORD_SHARE)
-counts = vectorizer.fit_transform(token_lists)   # una matriz dispersa, casi toda ceros
-vocabulary = vectorizer.get_feature_names_out()
+    token_lists.append(word_list(text, STOP_WORDS))   # word_list conserva cada aparición de la palabra
+vectorizer = CountVectorizer(analyzer=lambda tokens: tokens, min_df=FLOOR, max_df=MAX_WORD_SHARE)  # CountVectorizer cuenta las palabras ya limpias y deja fuera las muy raras y las demasiado comunes
+counts = vectorizer.fit_transform(token_lists)   # fit_transform arma la tabla de conteos, una fila por artículo
+vocabulary = vectorizer.get_feature_names_out()  # get_feature_names_out devuelve la palabra que corresponde a cada columna
 print(f"Tabla de conteos: {counts.shape[0]} artículos x {counts.shape[1]} palabras")
 ```
 
 **Comprobar:**
 
-En este paso comprobamos la forma de la tabla y que no quedan restos de direcciones web.
+Comprobamos la forma de la tabla y que no quedan restos de direcciones web.
 
 ```python
 assert counts.shape == (317, 869)
@@ -402,19 +395,22 @@ assert not URL_TOKENS & set(vocabulary)
 print("Conteos: OK")
 ```
 
-### Paso 2. Escalar cada artículo a largo 1
-En este paso dividimos cada fila por su largo con `normalize`.
-Así el largo del resumen no pesa más que el tema.
+### Paso 2. Escalar cada artículo a su vector unitario
+La tabla de conteos tiene 317 filas y 869 columnas.
+Un resumen largo suma más conteos que uno corto, aunque hablen del mismo tema.
+En este paso `normalize` divide cada fila por su magnitud y la deja en 1.
+Así la comparación mira la mezcla de palabras y no el largo del resumen.
+La celda imprime el mínimo y el máximo de esas magnitudes. Los dos deben quedar en 1.
 
 ```python
-X = normalize(counts)   # cada fila queda de largo 1
-row_lengths = np.sqrt(X.multiply(X).sum(axis=1)).A1
+X = normalize(counts)   # normalize divide cada fila por su magnitud para dejarla en 1
+row_lengths = np.sqrt(X.multiply(X).sum(axis=1)).A1  # recalculamos la magnitud de cada fila para comprobar el escalado
 print(f"Largo de las filas: mínimo {row_lengths.min():.3f}, máximo {row_lengths.max():.3f}")
 ```
 
 **Comprobar:**
 
-En este paso comprobamos que cada fila quedó de largo 1.
+En este paso comprobamos que cada fila tenga magnitud 1.
 
 ```python
 assert np.allclose(row_lengths, 1)
@@ -425,34 +421,37 @@ print("Filas de largo 1: OK")
 
 ## Parte 4. El ajuste de k-means
 
-La tabla de conteos ya está lista.
-Cada fila tiene largo 1.
-Ahora buscamos los centros.
+La tabla de conteos ya está lista. Cada fila tiene magnitud 1. Ahora buscamos los centros.
 
 ### Paso 1. Los centros
-En este paso, por cada $k$ de 3 a 8, ajustamos los centros y calculamos la silueta.
-Cada artículo va con el centro más cercano.
-Minimiza $J = \sum_{i} \lVert x_i - \mu_{c(i)} \rVert^2$.
+La tabla `X` tiene los 317 artículos y las 869 palabras, y cada fila ya tiene magnitud 1.
+Un centro es el promedio de los artículos que cayeron en un grupo.
+Probamos $k$ de 3 a 8 porque no sabemos de antemano cuántos grupos hay.
+En cada prueba cada artículo va al centro más cercano, y el centro se mueve a ese promedio.
+$J$ suma, para cada artículo, el cuadrado de su distancia al centro que le tocó.
+La silueta, con distancia coseno, mide qué tan separado quedó ese $k$.
+Nos quedamos con el $k$ de silueta más alta.
+Buscamos minimizar $J = \sum_{i} \lVert x_i - \mu_{c(i)} \rVert^2$.
 
 ```python
 kmeans_runs = {}
 silhouettes = {}
 for k in K_CANDIDATES:
-    model = KMeans(n_clusters=k, n_init=10, random_state=SEED)
-    model.fit(X)
-    labels = model.labels_
-    kmeans_runs[k] = labels
-    silhouettes[k] = silhouette_score(X, labels, metric="cosine")
-    sizes = np.bincount(labels).tolist()
+    model = KMeans(n_clusters=k, n_init=10, random_state=SEED)  # KMeans prepara k centros y repite el arranque 10 veces
+    model.fit(X)  # fit asigna cada artículo al centro más cercano y mueve los centros
+    labels = model.labels_  # labels_ guarda el grupo de cada artículo
+    kmeans_runs[k] = labels  # guardamos este agrupamiento para leer sus palabras después
+    silhouettes[k] = silhouette_score(X, labels, metric="cosine")  # silhouette_score mide con distancia coseno qué tan separado quedó este k
+    sizes = np.bincount(labels).tolist()  # bincount cuenta cuántos artículos cayeron en cada grupo
     print(f"k = {k}: tamaños {sizes}, silueta {silhouettes[k]:.3f}")
-K_CHOSEN = max(silhouettes, key=silhouettes.get)
-kmeans_labels = kmeans_runs[K_CHOSEN]
+K_CHOSEN = max(silhouettes, key=silhouettes.get)  # nos quedamos con el k de silueta más alta
+kmeans_labels = kmeans_runs[K_CHOSEN]  # estas son las etiquetas del k elegido
 print(f"k elegido: {K_CHOSEN}")
 ```
 
 **Comprobar:**
 
-En este paso comprobamos que hay un agrupamiento por cada $k$ y que el $k$ elegido tiene la silueta más alta.
+Ahora comprobamos que hay un agrupamiento por cada $k$ y que el $k$ elegido tiene la silueta más alta.
 
 ```python
 assert list(kmeans_runs) == list(K_CANDIDATES)
@@ -463,9 +462,11 @@ print("k-means: OK")
 ```
 
 ### Paso 2. La figura de la silueta
-En este paso dibujamos la silueta de cada $k$ con las dos líneas de lectura.
-Para un artículo, $a$ es la distancia media a su grupo y $b$ al grupo vecino.
-Su silueta es $(b - a) / \max(a, b)$.
+En este paso dibujamos la silueta media de cada $k$, de 3 a 8.
+Para un artículo, $a$ es la distancia coseno media a su grupo y $b$ al grupo vecino.
+Su silueta es $(b - a) / \max(a, b)$, un número entre −1 y 1.
+La silueta del $k$ es el promedio de esas siluetas sobre los 317 artículos.
+Las líneas de 0,25 y 0,50 marcan las bandas de Kaufman y Rousseeuw.
 
 ```python
 plt.figure(figsize=(6, 3.5))
@@ -482,17 +483,14 @@ plt.savefig(OUTPUTS_DIR / "silueta_l3.png", dpi=120)
 plt.show()
 ```
 
-Mire la figura y el $k$ que imprimió la celda anterior.
+Debemos analizar la figura y el $k$ que se utilizó para generarla.
 Si las siluetas quedan bajo la línea de 0,25, k-means no separó los artículos.
-Cada artículo igual quedó en un grupo.
-Es un resultado pobre, y es normal.
-Lo dejamos en la tabla.
-Estos grupos no arman el archivo.
+Es un resultado pobre pero normal en el proceso de minería.
 
 ### Paso 3. Las palabras de cada grupo
-Antes del siguiente método necesitamos las palabras de un grupo, para poder leerlo.
-En este paso escribimos una función que da las palabras de más peso.
-La usan los tres métodos.
+Hasta aquí un grupo es un número. Para leerlo miramos las palabras más frecuentes en los resúmenes de ese grupo.
+La función promedia sus conteos escalados a 1 y se queda con las cuatro más altas.
+La prueba de abajo ejecuta este paso con $k=3$. Esas cuatro palabras son las más frecuentes en los resúmenes de ese grupo.
 
 ```python
 def group_words(labels: np.ndarray, group: int, n: int = TOP_WORDS) -> list[str]:
@@ -502,8 +500,8 @@ def group_words(labels: np.ndarray, group: int, n: int = TOP_WORDS) -> list[str]
     Salida: una lista de n palabras.
     Por qué: un grupo sin etiqueta solo se puede leer por sus palabras.
     """
-    centre = np.asarray(X[labels == group].mean(axis=0)).ravel()
-    order = np.argsort(centre)[::-1]
+    centre = np.asarray(X[labels == group].mean(axis=0)).ravel()  # promediamos los conteos escalados de los artículos de este grupo
+    order = np.argsort(centre)[::-1]  # argsort ordena las palabras de mayor a menor promedio
     top = []
     for j in order[:n]:
         top.append(str(vocabulary[j]))
@@ -526,27 +524,33 @@ print("Palabras de un grupo: OK")
 
 ## Parte 5. Mezcla gaussiana
 
-La mezcla describe los artículos como nubes con forma de campana.
-Cada artículo recibe una probabilidad por nube.
-La preparación son las primeras 5 direcciones de la SVD, no las 10 de HDBSCAN.
-El número de nubes es el $k$ que eligió la silueta.
+La mezcla describe los artículos como nubes con forma de campana de Gauss.
+Cada artículo recibe una probabilidad de pertenencia a una nube.
+El número de nubes es el $k$ con mejor calificación de silueta obtenido en el método de k-means.
+Aquí vemos cómo la selección de un hiperparámetro puede estar informada por otro método.
 
 ### Paso 1. Cinco direcciones
-En este paso reducimos los conteos a 5 direcciones.
-Cada dirección mezcla palabras que suelen ir juntas.
+Nuestros datos tienen una fila por resumen y una columna por palabra, 317 filas por 869 columnas.
+Una celda nos dice cuántas veces aparece una palabra en un resumen.
+Pueden existir columnas que no sean independientes entre sí.
+Una columna dependiente repite información que otra columna ya trae.
+Esa repetición hace el modelo más complejo.
+En este paso reducimos el número de columnas a 5.
+Cada columna nueva, una dirección, mezcla columnas que dependen entre sí.
+Para ello utilizamos la SVD.
 
 ```python
-svd_mixture = TruncatedSVD(n_components=MIXTURE_DIRECTIONS, random_state=SEED)
-svd_mixture.fit(X)
-Z_mixture = svd_mixture.transform(X)
-variance_mixture = svd_mixture.explained_variance_ratio_.sum()
+svd_mixture = TruncatedSVD(n_components=MIXTURE_DIRECTIONS, random_state=SEED)  # TruncatedSVD prepara las 5 direcciones
+svd_mixture.fit(X)  # fit encuentra las direcciones que mezclan las columnas dependientes
+Z_mixture = svd_mixture.transform(X)  # transform reemplaza las 869 columnas de cada artículo por 5 puntajes
+variance_mixture = svd_mixture.explained_variance_ratio_.sum()  # explained_variance_ratio_ suma qué parte de la variación cubren esas direcciones
 print(f"Las 5 direcciones explican {variance_mixture:.1%}")
 print(f"Forma: {Z_mixture.shape}")
 ```
 
 **Comprobar:**
 
-En este paso comprobamos la forma de las cinco direcciones.
+Comprobamos la forma de las cinco direcciones.
 
 ```python
 assert Z_mixture.shape == (N, MIXTURE_DIRECTIONS)
@@ -554,20 +558,25 @@ print("Direcciones de la mezcla: OK")
 ```
 
 ### Paso 2. El ajuste
-En este paso ajustamos la mezcla y leemos la probabilidad de cada nube.
+Cada artículo ya es un punto con 5 puntajes, uno por dirección.
+El número de nubes es el $k$ que eligió la silueta.
+`covariance_type="full"` deja que cada nube tenga su propia forma.
+`fit` calcula la probabilidad de cada artículo en cada nube y mueve los pesos, los centros y las formas.
+La primera fila impresa es la probabilidad del primer artículo.
+Las probabilidades de un artículo suman 1.
 
 ```python
-mixture = GaussianMixture(n_components=K_CHOSEN, covariance_type="full", random_state=SEED)
-mixture.fit(Z_mixture)
-mixture_proba = mixture.predict_proba(Z_mixture)
-mixture_labels = mixture_proba.argmax(axis=1)
+mixture = GaussianMixture(n_components=K_CHOSEN, covariance_type="full", random_state=SEED)  # GaussianMixture prepara las nubes y deja que cada una tenga su propia forma
+mixture.fit(Z_mixture)  # fit calcula las probabilidades y mueve los pesos, los centros y las formas
+mixture_proba = mixture.predict_proba(Z_mixture)  # predict_proba escribe la probabilidad de cada artículo en cada nube
+mixture_labels = mixture_proba.argmax(axis=1)  # argmax asigna cada artículo a la nube de probabilidad más alta
 print("Probabilidad del primer artículo:", mixture_proba[0].round(2))
 print(f"Tamaños: {np.bincount(mixture_labels).tolist()}")
 ```
 
 **Comprobar:**
 
-En este paso comprobamos que hay una etiqueta por artículo y que las probabilidades suman 1.
+Ahora comprobamos que hay una etiqueta por artículo y que las probabilidades suman 1.
 
 ```python
 assert len(mixture_labels) == N
@@ -576,9 +585,10 @@ print("Mezcla gaussiana: OK")
 ```
 
 ### Paso 3. Cuántos artículos abriría
-En este paso aplicamos la misma regla del tema que usará la evaluación.
-Un grupo se lee cuando al menos la mitad de sus artículos tiene una palabra del tema.
-El número que sale es el límite de la forma de campana en esta colección.
+Cada artículo ya quedó en la nube de probabilidad más alta.
+Un grupo se lee cuando al menos la mitad de sus artículos, `READ_SHARE` = 0,5, tiene una palabra del tema.
+Esas palabras son las del inicio: obesity, obese, diet y las demás.
+El número que imprime la celda es cuántos de los 317 artículos abriría la mezcla.
 
 ```python
 has_topic = np.zeros(N, dtype=bool)
@@ -611,16 +621,12 @@ mixture_read = (mixture_part > 0).astype(int)
 print(f"La mezcla abriría {mixture_read.sum()} artículos")
 ```
 
-Mire cuántos artículos abriría la mezcla.
-Esa cuenta supone nubes con forma de campana.
-Si el número es alto, la suposición no ayudó a elegir poco.
-Es normal.
-Lo dejamos en la tabla.
-La lista de lectura no suma esta cuenta.
+Analizamos cuántos artículos se recomiendan abrir de acuerdo a la mezcla. Esa cuenta supone nubes con forma de campana.
+Si el número es alto, la suposición no ayudó a distinguir grupos. Nuevamente, este resultado es normal en el proceso de minería.
 
 **Comprobar:**
 
-En este paso comprobamos que la cuenta de artículos abiertos no pasa del total.
+Comprobamos que la cuenta de artículos abiertos no pasa del total.
 
 ```python
 assert mixture_read.sum() <= N
@@ -631,19 +637,24 @@ print("Cuenta de la mezcla: OK")
 
 ## Parte 6. HDBSCAN
 
-HDBSCAN busca zonas densas.
+HDBSCAN busca zonas densas en nuestra colección de datos.
 Lo que no cae en una zona densa es ruido y se conserva.
-La preparación es la distancia coseno sobre 10 direcciones.
+La preparación es la distancia coseno sobre 10 columnas o direcciones.
 
 ### Paso 1. Diez direcciones
-En este paso reducimos las columnas con la SVD, $X = U S V^T$.
-`TruncatedSVD` calcula las primeras 10 y devuelve $Z = U S$.
+Seguimos con la misma tabla, 317 filas por 869 columnas, ya escalada a magnitud 1.
+Las columnas dependientes siguen repitiendo información.
+La mezcla usó 5 direcciones porque una nube se describe con un centro y una forma.
+HDBSCAN arma distancias entre artículos, y esas distancias necesitan más de la variación.
+En este paso nos quedamos con 10 direcciones.
+Cada dirección mezcla columnas que dependen entre sí.
+`TruncatedSVD` hace esa reducción, y la celda imprime qué parte de la variación cubren las 10.
 
 ```python
-svd = TruncatedSVD(n_components=DENSITY_SVD_DIRECTIONS, random_state=SEED)
-svd.fit(X)
-Z = svd.transform(X)
-variance_share = svd.explained_variance_ratio_
+svd = TruncatedSVD(n_components=DENSITY_SVD_DIRECTIONS, random_state=SEED)  # TruncatedSVD prepara las 10 direcciones de HDBSCAN
+svd.fit(X)  # fit encuentra esas direcciones en la misma tabla de conteos escalados
+Z = svd.transform(X)  # transform reemplaza las 869 columnas de cada artículo por 10 puntajes
+variance_share = svd.explained_variance_ratio_  # explained_variance_ratio_ da la parte de la variación de cada dirección
 print(f"Las 10 direcciones explican {variance_share.sum():.1%}")
 ```
 
@@ -657,16 +668,21 @@ print("SVD: OK")
 ```
 
 ### Paso 2. Distancias
-En este paso armamos la distancia coseno sobre las 10 direcciones.
+`Z` tiene 317 artículos y 10 puntajes.
+El coseno entre dos filas compara la mezcla de esos puntajes y deja fuera su magnitud.
+Una distancia chica quiere decir que los dos artículos usan una mezcla parecida.
+Una distancia grande los deja en una zona delgada.
+En este paso `pairwise_distances` arma esa distancia entre cada par.
+La tabla queda de 317 por 317, y cada artículo está a distancia 0 de sí mismo.
 
 ```python
-distances = pairwise_distances(Z, metric="cosine")
+distances = pairwise_distances(Z, metric="cosine")  # pairwise_distances calcula la distancia coseno entre cada par de artículos
 print(f"Distancias: {distances.shape}")
 ```
 
 **Comprobar:**
 
-En este paso comprobamos la forma de las distancias y que cada artículo está a 0 de sí mismo.
+Comprobamos la forma de las distancias y que cada artículo está a 0 de sí mismo.
 
 ```python
 assert distances.shape == (N, N) and np.allclose(np.diag(distances), 0, atol=1e-6)
@@ -674,33 +690,36 @@ print("Distancias: OK")
 ```
 
 ### Paso 3. El ajuste
-En este paso buscamos las zonas densas.
-Un grupo necesita al menos `FLOOR` artículos.
-Lo que no queda en una zona densa es ruido ($-1$).
+HDBSCAN une primero los artículos con distancia chica y corta después los enlaces largos.
+`FLOOR` vale 10 para estos 317 artículos.
+Un lado del corte con menos de 10 artículos no forma grupo.
+`min_samples` vale 5. La distancia núcleo de un artículo llega hasta su quinto vecino.
+Lo que queda fuera de una zona densa se marca con −1 y se conserva.
+Esos artículos pueden ser el único de su tema.
+La celda imprime cuántos grupos hay y cuántos artículos quedaron como ruido.
 
 ```python
 hdbscan_model = HDBSCAN(
-    min_cluster_size=FLOOR,
-    min_samples=MIN_SAMPLES,
-    metric="precomputed",
-    copy=True,
+    min_cluster_size=FLOOR,  # un grupo necesita al menos FLOOR artículos
+    min_samples=MIN_SAMPLES,  # min_samples fija a qué vecino llega la distancia núcleo
+    metric="precomputed",  # precomputed indica que la tabla ya trae las distancias
+    copy=True,  # copy deja esa tabla sin cambios
 )
-hdbscan_model.fit(distances)
-hdbscan_labels = hdbscan_model.labels_
-n_groups = int(hdbscan_labels.max()) + 1
-in_group = hdbscan_labels != -1
-n_noise = int((~in_group).sum())
+hdbscan_model.fit(distances)  # fit arma el árbol, corta los enlaces largos y etiqueta los grupos
+hdbscan_labels = hdbscan_model.labels_  # labels_ guarda el grupo de cada artículo y usa -1 para el ruido
+n_groups = int(hdbscan_labels.max()) + 1  # el máximo más uno da el número de grupos, sin contar el ruido
+in_group = hdbscan_labels != -1  # separamos los artículos que sí quedaron en un grupo
+n_noise = int((~in_group).sum())  # contamos los artículos que quedaron como ruido
 print(f"Grupos: {n_groups}. Tamaños: {np.bincount(hdbscan_labels[in_group]).tolist()}")
 print(f"Ruido: {n_noise} artículos ({n_noise / N:.0%})")
 ```
 
-Mire cuántos artículos quedaron como ruido.
-Esos artículos siguen en la tabla.
-El archivo guarda estos grupos porque se ve quién no tiene grupo.
+Una vez más analizamos cuántos artículos se incluyen y cuántos quedaron como ruido.
+Necesitamos conservar estos resúmenes porque nos informan sobre posibles artículos sin grupo.
 
 **Comprobar:**
 
-En este paso comprobamos que hay grupos y que el ruido lleva $-1$.
+En este paso comprobamos que hay grupos y que el ruido se marca con un $-1$.
 
 ```python
 assert n_groups >= 1
@@ -709,8 +728,7 @@ print("HDBSCAN: OK")
 ```
 
 ### Paso 4. La lista de ruido
-En este paso miramos el ruido. **No lo borramos.**
-Un artículo sin vecinos claros puede ser el único de su tema.
+Ahora examinamos el ruido. Un artículo sin vecinos claros puede ser el único de su tema.
 
 ```python
 noise_list = papers.loc[~in_group, ["title", "year", "cited_by_count"]]
@@ -725,15 +743,14 @@ La evaluación junta los tres métodos.
 No hay marcas para los grupos, así que miramos la silueta, entre −1 y 1.
 Entre 0,26 y 0,50 la estructura es débil y podría ser artificial (Kaufman y Rousseeuw, 1990).
 Con 0,25 o menos no hay una estructura clara.
-Un grupo se lee cuando al menos la mitad de sus artículos contiene una palabra del tema.
+Un grupo se lee cuando al menos la mitad de sus artículos contiene una palabra clave del tema.
 Un artículo que k-means y HDBSCAN ponen en un grupo leído es un candidato más fuerte.
-Si un método salió pobre, su fila igual entra en la tabla.
-Aquí se decide con qué continúa el equipo.
+Si el resultado de un método fue pobre, su fila sigue en la tabla.
+En esta fase miramos las tres filas y decidimos cuáles resultados entran en la lista.
 
 ### Paso 1. Qué grupos se leen
-En este paso aplicamos la regla de lectura a k-means y a HDBSCAN.
-La mezcla ya tiene su cuenta.
-El ruido de HDBSCAN nunca se lee.
+En este paso aplicamos la regla de lectura a k-means y a HDBSCAN y utilizamos la cuenta que ya habíamos
+calculado en la mezcla.
 
 ```python
 part_of = {
@@ -756,11 +773,11 @@ read_hdbscan = read["hdbscan"]
 ```
 
 Mire cuántos artículos caen en un grupo leído y qué palabras tiene cada grupo.
-El ruido no se lee.
+El ruido no se lee, pero nos informa cuáles artículos no tienen cosas en común con los demás.
 
 **Comprobar:**
 
-En este paso comprobamos que el ruido nunca se lee.
+Comprobamos que el ruido no hace parte de nuestra lectura.
 
 ```python
 assert not read_hdbscan[~in_group].any()
@@ -793,8 +810,8 @@ def reading_of(score: float) -> str:
 
 hdbscan_silhouette = np.nan
 if n_groups > 1:
-    hdbscan_silhouette = silhouette_score(X[in_group], hdbscan_labels[in_group], metric="cosine")
-mixture_silhouette = silhouette_score(Z_mixture, mixture_labels, metric="cosine")
+    hdbscan_silhouette = silhouette_score(X[in_group], hdbscan_labels[in_group], metric="cosine")  # silhouette_score mide la separación de HDBSCAN sin los artículos de ruido
+mixture_silhouette = silhouette_score(Z_mixture, mixture_labels, metric="cosine")  # silhouette_score mide la separación de la mezcla en sus cinco direcciones
 structure = pd.DataFrame({
     "method": ["k-means", "mezcla", "HDBSCAN"],
     "groups": [K_CHOSEN, K_CHOSEN, n_groups],
@@ -806,12 +823,8 @@ structure["reading"] = structure["silhouette"].map(reading_of)
 structure
 ```
 
-Mire la silueta y la columna de leídos.
-k-means mete a todos en un grupo.
-HDBSCAN deja el ruido fuera de su silueta.
-La fila de la mezcla es la cuenta que ya imprimimos.
-Si una fila es pobre, es normal.
-Ahí se ve con qué puede seguir el equipo.
+Analizamos la silueta y la columna de leídos. k-means mete a todos en un grupo. HDBSCAN deja el ruido fuera de su silueta.
+La fila de la mezcla es la cuenta que ya imprimimos. Si un resultado es pobre también es útil porque nos informa direcciones que debemos evitar en nuestra exploración.
 
 **Comprobar:**
 
@@ -823,20 +836,25 @@ print("Tabla de los tres métodos: OK")
 ```
 
 ### Paso 3. Dónde coinciden k-means y HDBSCAN
-En este paso contamos en cuántos de estos dos métodos cae cada artículo dentro de un grupo leído.
+En el paso anterior la mezcla no logró un subconjunto pequeño de artículos.
+k-means tampoco separó bien los artículos: su silueta quedó por debajo de 0,25.
+En este paso votan k-means y HDBSCAN.
+Un artículo que los dos ponen en un grupo leído es un mejor candidato.
+Esta regla no es general.
+La decidimos nosotros, y esa decisión hace parte del proceso.
 
 ```python
-group_points = read_kmeans + read_hdbscan
+group_points = read_kmeans + read_hdbscan  # sumamos cuántos de los dos métodos leen cada artículo
 counts = pd.Series(group_points).value_counts()
 group_agreement = counts.reindex(range(3), fill_value=0)
 print(group_agreement.rename_axis("métodos que lo leen").to_frame("artículos").T.to_string())
 ```
 
-Mire cuántos artículos leen los dos métodos y cuántos lee uno solo.
+Analizamos cuántos artículos leen los dos métodos y cuántos lee uno solo.
 
 **Comprobar:**
 
-En este paso comprobamos que cada artículo cae en una sola cuenta.
+Comprobamos que cada artículo cae en una sola cuenta.
 
 ```python
 assert group_agreement.sum() == N
@@ -844,8 +862,10 @@ print("Coincidencias: OK")
 ```
 
 ### Paso 4. La figura de los tres métodos
-En este paso dibujamos los artículos de cada grupo, método por método.
-Las barras oscuras son los grupos leídos.
+Cada panel es un método y cada barra es un grupo.
+La altura de la barra es el número de artículos de ese grupo.
+La barra azul pasó la regla del tema. La gris no.
+El título del panel dice cuántos artículos abriría ese método.
 
 ```python
 method_labels = {
@@ -871,32 +891,15 @@ fig.savefig(OUTPUTS_DIR / "metodos_l3.png", dpi=120)
 plt.show()
 ```
 
-Mire las barras oscuras.
-Son los grupos que la regla del tema lee.
-
-¿Están de acuerdo con guardar los grupos de HDBSCAN?
-Usen el ruido, la silueta, la columna de leídos y esta figura.
-
-**ESCRIBA SU TEXTO AQUÍ**
+Mire las barras azules. Son los grupos que la regla del tema lee.
 
 ### Paso 5. Guardar los grupos
-En este paso guardamos `outputs/grupos_l3.csv`, una fila por artículo.
-Lleva el grupo de cada método y si ese grupo se lee.
-`has_pattern` y `read_group` siguen para las Lecciones 5 y 6.
+Guardamos una fila por cada uno de los 317 artículos en `outputs/grupos_l3.csv`.
+Las columnas traen el grupo de k-means, el grupo de HDBSCAN y si ese grupo se lee.
+`read_group` queda en verdadero cuando al menos uno de esos dos lo lee.
+Este archivo es el resultado de esta lección.
 
 ```python
-topic_pairs = []
-for pair in patterns.loc[patterns["kept_lift2"].astype(bool), "pair"]:   # pares de la L2 con lift de al menos 2
-    a, b = pair.split(" + ")
-    if TOPIC_WORDS & {a, b}:   # con una palabra del tema
-        topic_pairs.append((a, b))
-has_pattern = []
-for word_set in word_sets:   # por cada resumen
-    found = False
-    for a, b in topic_pairs:
-        if a in word_set and b in word_set:   # tiene un par del tema
-            found = True
-    has_pattern.append(found)
 groups_table = pd.DataFrame({
     "title": papers["title"],
     "kmeans": kmeans_labels,
@@ -905,8 +908,7 @@ groups_table = pd.DataFrame({
     "hdbscan_leido": read_hdbscan,
     "kmeans_parte": part_of["kmeans"],
     "hdbscan_parte": part_of["hdbscan"],
-    "has_pattern": has_pattern,
-    "read_group": group_points >= 1,   # al menos un método lo pone en un grupo leído
+    "read_group": group_points >= 1,   # marcamos el artículo si k-means o HDBSCAN lo ponen en un grupo leído
 })
 groups_path = OUTPUTS_DIR / "grupos_l3.csv"
 groups_table.to_csv(groups_path, index=False)
@@ -920,7 +922,7 @@ En este paso comprobamos que el archivo tiene una fila por artículo y sus colum
 ```python
 saved = pd.read_csv(groups_path)
 assert {"title", "kmeans", "hdbscan", "kmeans_leido", "hdbscan_leido"} <= set(saved.columns)
-assert {"kmeans_parte", "hdbscan_parte", "has_pattern", "read_group"} <= set(saved.columns)
+assert {"kmeans_parte", "hdbscan_parte", "read_group"} <= set(saved.columns)
 assert len(saved) == N
 print("grupos_l3.csv: OK")
 ```
@@ -930,27 +932,26 @@ print("grupos_l3.csv: OK")
 ## Parte 8. Despliegue
 
 ### Paso 1. Qué hace un grupo con la lista
-En este paso decimos para qué sirve un grupo leído.
-El grupo nombra un filtro: los artículos que un método junta y que tratan del tema.
+Un grupo leído es un filtro: los artículos que un método junta y que tratan del tema.
 El archivo guarda los grupos de HDBSCAN.
 Los artículos sin grupo siguen contados y no entran en la lista.
 La cuenta de la mezcla queda en la tabla de la evaluación.
-La lista suma solo k-means y HDBSCAN.
+La lista suma solo k-means y HDBSCAN, los dos votos de esta lección.
 
 ### Paso 2. Artículos para leer
-En este paso armamos la lista de lectura de esta lección.
 Cada método que pone un artículo en un grupo leído suma la parte de ese grupo con palabras del tema, entre 0,5 y 1.
-La evidencia es la suma, de 0 a 2. Así un grupo con más artículos del tema pesa más que uno que apenas llega a la mitad.
-Ordenamos de mayor a menor evidencia, y después por título.
-Mostramos como máximo 30 artículos, el máximo de la Lección 1.
+La evidencia es la suma, de 0 a 2.
+Un grupo en el que casi todos los artículos tienen el tema pesa más que uno que apenas llega a la mitad.
+Ordenamos de mayor a menor evidencia y, si empatan, por título.
+De los 317 mostramos como máximo 30, el tope de la Lección 1.
 Esta lista usa solo los grupos de hoy.
 
 ```python
 reading_rows = []
-for i in range(N):   # por cada artículo
-    evidencia = part_of["kmeans"][i] + part_of["hdbscan"][i]   # la parte de cada método que lo lee
+for i in range(N):   # recorremos cada artículo
+    evidencia = part_of["kmeans"][i] + part_of["hdbscan"][i]   # sumamos la parte de k-means y la parte de HDBSCAN
     if evidencia == 0:
-        continue   # ningún método lo pone en un grupo leído
+        continue   # saltamos el artículo cuando los dos métodos le dan evidencia 0
     reading_rows.append({
         "title": papers.loc[i, "title"],
         "kmeans": part_of["kmeans"][i],
@@ -959,16 +960,15 @@ for i in range(N):   # por cada artículo
     })
 
 reading = pd.DataFrame(reading_rows)
-reading = reading.sort_values(["evidencia", "title"], ascending=[False, True])   # más evidencia primero
-reading_list = reading.head(MAX_PAPERS)   # como máximo 30 artículos
+reading = reading.sort_values(["evidencia", "title"], ascending=[False, True])   # sort_values ordena de mayor a menor evidencia y, si empatan, por título
+reading_list = reading.head(MAX_PAPERS)   # head corta la lista en 30 artículos
 reading_path = OUTPUTS_DIR / "lectura_l3.csv"
 reading_list.to_csv(reading_path, index=False)
 print(f"Artículos con alguna evidencia: {len(reading)}. En la lista: {len(reading_list)}.")
 reading_list.head(10)
 ```
 
-Mire cuántos artículos tienen alguna evidencia y cuántos entran en la lista.
-Arriba quedan los que leen los dos métodos.
+Examinamos cuántos artículos tienen alguna evidencia y cuántos entran en la lista. Arriba quedan los que leen los dos métodos.
 Si hay varias ediciones de la misma guía, el equipo abre la más reciente.
 
 **Comprobar:**
@@ -982,22 +982,15 @@ assert ((reading_list["evidencia"] - reading_list["kmeans"] - reading_list["hdbs
 print("Lista de lectura: OK")
 ```
 
-### Paso 3. Comprobación final
-En este paso revisamos que el cuaderno dejó lo que la Lección 4 necesita.
+En esta iteración intentamos agrupar los 317 resúmenes.
+Los métodos explorados no funcionaron adecuadamente para separar los artículos.
+En el caso de k-means las siluetas quedaron bajo 0,25 para todo k de 3 a 8.
+La mezcla Gaussiana no refinó el conjunto.
+HDBSCAN formó grupos y dejó fuera los resúmenes sin vecinos.
+La lista resultante es una respuesta débil a la pregunta que el laboratorio nos plantea.
 
-```python
-figures_ok = (OUTPUTS_DIR / "silueta_l3.png").is_file() and (OUTPUTS_DIR / "metodos_l3.png").is_file()
-checks = {
-    "outputs/grupos_l3.csv": groups_path.is_file(),
-    "outputs/lectura_l3.csv": reading_path.is_file(),
-    "Figuras de la silueta y de los tres métodos": figures_ok,
-}
-for name, ok in checks.items():
-    print(f"{name}: {'OK' if ok else 'incompleto'}")
-passed = sum(checks.values())
-print(f"\nL3_CHECKS={passed}/{len(checks)}")
-if passed == len(checks):
-    print("L3_OK. Siga con la Lección 4.")
-```
+La principal razón detrás de estos resultados es que los datos ya pertenecen a un grupo (i.e., nutrición) y los subgrupos existentes no marcan una diferencia entre sí.
+A pesar de esto, la iteración nos informa el tipo de métodos que presentaría limitaciones en los datos que estamos analizando.
+Estos hallazgos deben reportarse como parte del proceso de minería y al mismo tiempo informar futuras iteraciones.
 
 <!-- end NOTEBOOK: -->

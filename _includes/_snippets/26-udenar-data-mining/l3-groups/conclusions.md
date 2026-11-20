@@ -60,7 +60,6 @@
                     <li>Groups of similar items</li>
                     <li>Data and methods</li>
                     <li>k-means, Gaussian mixtures, HDBSCAN</li>
-                    <li>Items that fit no group</li>
                     <li>Evaluation and deployment</li>
                 </ul>
             </div>

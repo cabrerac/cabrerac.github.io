@@ -12,7 +12,6 @@
                     <li><b>The methods:</b> support, lift, and item-vector closeness</li>
                     <li><b>Evaluation and deployment:</b> where the three methods agree, and what using a pattern would mean</li>
                 </ul>
-                <p>This lecture is the grouping task.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/crisp-dm-process-diagram.png" alt="CRISP-DM process diagram" style="height: 400px">
@@ -29,7 +28,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <ul>
-                    <li><b>The task:</b> which items are similar enough to share a group, and which fit no group?</li>
+                    <li><b>The task:</b> which items are similar enough to share a group</li>
                     <li><b>The data:</b> items described by the same attributes, such as customers, patients, and texts</li>
                     <li><b>Modeling:</b> k-means, Gaussian mixtures, and HDBSCAN</li>
                     <li><b>Evaluation:</b> silhouette, and where the three methods agree</li>

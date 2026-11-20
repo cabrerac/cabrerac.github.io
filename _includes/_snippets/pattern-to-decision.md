@@ -76,6 +76,7 @@
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/context-people.png" alt="People affected by a data system" style="height: 400px">
+                <div class="footnote">Left: NP coffee cooperative, Neil Palmer (CIAT), CC BY-SA 2.0 (https://creativecommons.org/licenses/by-sa/2.0), via Wikimedia Commons. Right: Scottish Government, CC BY 2.0 (https://creativecommons.org/licenses/by/2.0), via Flickr</div>
             </div>
         </div>
     </div>

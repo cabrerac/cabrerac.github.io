@@ -63,37 +63,17 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Core distance and mutual reachability <a href="https://doi.org/10.1007/978-3-642-37456-2_14" target="_blank" rel="noopener noreferrer">(Campello et al., 2013)</a></b></p>
-                <p>$$\text{core}(a) = d(a, a_m)$$</p>
-                <p>$$d_{\text{mreach}}(a, b) =$$</p>
-                <p>$$\max\{\text{core}(a),\ \text{core}(b),\ d(a, b)\}$$</p>
+                <br>
+                <p>$$\mathrm{core}(a) = d(a, a_m)$$</p>
+                <br>
+                <p>$$d_{\mathrm{mreach}}(a, b) = \max\{\mathrm{core}(a),\, \mathrm{core}(b),\, d(a, b)\}$$</p>
+                <br>
+                <p>$a_m$ is the $m$-th nearest item to $a$, and $m$ is min_samples. $d$ is the plain distance. In a dense region the core distances are small, so this is just $d(a, b)$. In a thin region it is large, so items there are pushed apart.</p>
+                <p><b>Preparation:</b> distance on the same few directions.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>$a_m$ is the $m$-th nearest item to $a$, and $m$ is min_samples. $d$ is the plain distance.</p>
-                <p>In a dense region the core distances are small, so this is just $d(a, b)$.</p>
-                <p>In a thin region it is large, so items there are pushed apart.</p>
-                <p><b>Preparation:</b> cosine distance on 10 SVD directions.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-## HDBSCAN
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <ul>
-                    <li>Six items on one attribute</li>
-                    <li>A = 1, B = 2, C = 3, D = 8, E = 9, F = 20</li>
-                    <li>min_samples = 2, the item and its nearest neighbour</li>
-                    <li>min_cluster_size = 2</li>
-                </ul>
-                <p>Each core distance is 1, except F, which is 11 away from E.</p>
-                <p>The longest edge, 11, is cut first and leaves F alone, so F is noise. The next, 5, leaves A, B, C and D, E. Two groups and one noise item.</p>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/hdbscan-six-items.svg" alt="Edges, cuts and result of HDBSCAN on six items" style="height: 380px">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/dbscan-illustration.svg" alt="Core points, border points and noise" style="height: 360px">
+                <div class="footnote">DBSCAN-Illustration - Chire, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
@@ -107,8 +87,8 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Two parameters, set before the results</b></p>
                 <ul>
-                    <li><b>min_cluster_size:</b> FLOOR, the smallest group we accept, the support floor of Lecture 2</li>
-                    <li><b>min_samples:</b> MIN_SAMPLES = 5, how many neighbours make an item core</li>
+                    <li><b>min_cluster_size:</b> the smallest group we accept, chosen before we see the groups</li>
+                    <li><b>min_samples:</b> how many neighbours make an item core, chosen before we see the groups</li>
                 </ul>
                 <p><b>Limits</b></p>
                 <ul>
@@ -129,10 +109,32 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>Six items on one attribute. min_samples is 2. min_cluster_size is 2.</p>
+                <br>
+                <p>$$A = 1,\: B = 2,\: C = 3,\: D = 8,\: E = 9,\: F = 20$$</p>
+                <br>
+                <p><b>1. Core distance.</b> min_samples counts the item, so each core is the distance to the nearest neighbour: 1 for A through E, and 11 for F.</p>
+                <p><b>2. Mutual reachability.</b> Each edge takes the largest of the two cores and the plain distance, so the edges are 1, 1, 5, 1 and 11.</p>
+                <p><b>3. Cut 11.</b> The longest edge goes first and leaves F alone. A group needs 2 items, so F is noise.</p>
+                <p><b>4. Cut 5.</b> The next edge leaves A, B, C and D, E. Both sides have 2 items or more, so both are groups.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/hdbscan-six-items.svg" alt="Edges, cuts and result of HDBSCAN on six items" style="height: 380px">
+            </div>
+        </div>
+    </div>
+</div>
+
+## HDBSCAN
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 47.5%">
 
 ```text
-use the 10 SVD directions
+use a few independent directions
 cosine distance between every two items
 core distance of each item from min_samples
 mutual reachability between every two items
@@ -153,7 +155,7 @@ from sklearn.metrics import pairwise_distances
 
 distances = pairwise_distances(Z, metric="cosine")
 hdbscan_labels = HDBSCAN(
-    min_cluster_size=FLOOR, min_samples=MIN_SAMPLES,
+    min_cluster_size=min_size, min_samples=min_samples,
     metric="precomputed", copy=True,
 ).fit(distances).labels_
 ```

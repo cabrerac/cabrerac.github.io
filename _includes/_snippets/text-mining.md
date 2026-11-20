@@ -107,24 +107,6 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>A <b>weighted lexicon</b> adds a score per listed word.</p>
-                <p><b>Naive Bayes</b> multiplies word probabilities under yes and no.</p>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p>A <b>fine-tuned encoder</b> keeps learning on the marks.</p>
-                <p>A <b>prompted language model</b> is asked for the answer in words.</p>
-                <p>These names place the three methods we use today.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Methods
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
                 <ul>
                     <li><b>Keyword list:</b> words from the question</li>
                     <li><b>TF-IDF with logistic regression:</b> word weights learned from the marks</li>

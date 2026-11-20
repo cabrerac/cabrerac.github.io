@@ -24,7 +24,7 @@
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/images/water-level-dekut.png" alt="Water Level Monitoring" style="height: 400px">
-                <div class="footnote">Water Level Monitoring System at DeKUT (Kabi & Maina, 2021)</div>
+                <div class="footnote" style="flex-shrink: 0;"><a href="https://ieeexplore.ieee.org/abstract/document/9576970">Water Level Monitoring System at DeKUT (Kabi & Maina, 2021)</a></div>
             </div>
         </div>
     </div>
@@ -155,7 +155,7 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/images/water-level-dekut.png" alt="Water Level Monitoring" style="height: 400px">
-                <div class="footnote">Water Level Monitoring System at DeKUT (Kabi & Maina, 2021)</div>
+                <div class="footnote" style="flex-shrink: 0;"><a href="https://ieeexplore.ieee.org/abstract/document/9576970">Water Level Monitoring System at DeKUT (Kabi & Maina, 2021)</a></div>
             </div>
         </div>
     </div>
@@ -178,7 +178,7 @@ $$\tau_{ij}(t+1) = (1-\rho) \cdot \tau_{ij}(t) + \Delta \tau_{ij}(t) \quad (2)$$
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/images/water-level-dekut.png" alt="Water Level Monitoring" style="height: 400px">
-                <div class="footnote">Water Level Monitoring System at DeKUT (Kabi & Maina, 2021)</div>
+                <div class="footnote" style="flex-shrink: 0;"><a href="https://ieeexplore.ieee.org/abstract/document/9576970">Water Level Monitoring System at DeKUT (Kabi & Maina, 2021)</a></div>
             </div>
         </div>
     </div>

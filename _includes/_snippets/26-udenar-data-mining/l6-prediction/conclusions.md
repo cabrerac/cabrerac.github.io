@@ -48,6 +48,7 @@
         </div>
     </div>
 </div>
+<div class="footnote" style="flex-shrink: 0;">Random forest explain: TseKiChun, CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0), via Wikimedia Commons</div>
 
 ## Conclusions
 
