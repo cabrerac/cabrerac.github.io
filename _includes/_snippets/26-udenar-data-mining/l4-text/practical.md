@@ -338,9 +338,9 @@ TARGET_TOPICS = ["obesity", "diet", "nutrition", "nutritional",   # agregamos la
 
 y = np.zeros(N, dtype=int)  # empezamos con 0 en los 317 artículos
 for i, topics in enumerate(papers["topics"]):   # recorremos los temas de OpenAlex de cada artículo
-    for topic in TARGET_TOPICS:
+    for topic in TARGET_TOPICS:  # recorremos cada palabra de la etiqueta
         if topic in topics.lower():   # in busca esa palabra dentro del texto de los temas
-            y[i] = 1
+            y[i] = 1  # escribimos 1 cuando el tema de OpenAlex trae la palabra
 print(f"Artículos del tema según OpenAlex: {y.sum()} de {N} ({y.mean():.0%}). Mínimo pedido: {min_positives(N)}")
 ```
 
@@ -361,9 +361,9 @@ La celda imprime la mediana y el máximo.
 
 ```python
 word_counts = []
-for text in texts:
+for text in texts:  # recorremos cada resumen
     word_counts.append(len(text.split()))   # split separa el resumen por espacios y len cuenta esos trozos
-lengths = pd.Series(word_counts)
+lengths = pd.Series(word_counts)  # Series guarda el largo de cada resumen
 print(f"Palabras por resumen: mediana {lengths.median():.0f}, máximo {lengths.max():,}")
 ```
 
@@ -389,13 +389,13 @@ Esa cuenta se queda en la pantalla y la lista sigue como referencia.
 
 ```python
 word_sets = []
-for text in texts:
+for text in texts:  # recorremos cada resumen
     word_sets.append(words(text, STOP_WORDS))   # words guarda el conjunto de palabras útiles de este resumen
 for word in sorted(KEYWORDS):   # recorremos cada palabra de la lista clave
-    with_word, off_topic = 0, 0
-    for i, word_set in enumerate(word_sets):
-        if word in word_set:
-            with_word += 1
+    with_word, off_topic = 0, 0  # empezamos en cero la cuenta de la palabra y la cuenta fuera del tema
+    for i, word_set in enumerate(word_sets):  # recorremos el conjunto de palabras de cada resumen
+        if word in word_set:  # in comprueba si el resumen trae la palabra
+            with_word += 1  # sumamos uno cuando el resumen la trae
             off_topic += int(y[i] == 0)   # sumamos 1 cuando el resumen tiene la palabra y su etiqueta es 0
     print(f"{word:13s} en {with_word:2d} resúmenes, {off_topic:2d} fuera del tema")
 ```
@@ -501,11 +501,11 @@ Las 64 filas marcadas solo se transforman, para que no enseñen el vocabulario.
 
 ```python
 token_lists = []
-for text in texts:
+for text in texts:  # recorremos cada resumen
     token_lists.append(word_list(text, STOP_WORDS))   # word_list conserva cada aparición de la palabra
 train_tokens, marked_tokens = [], []
-for i in train_rows:
-    train_tokens.append(token_lists[i])
+for i in train_rows:  # recorremos las 253 filas de entrenamiento
+    train_tokens.append(token_lists[i])  # guardamos la lista de palabras de esta fila
 for i in marked_rows:
     marked_tokens.append(token_lists[i])   # apartamos las listas de las 64 filas marcadas
 tfidf = TfidfVectorizer(analyzer=keep_tokens, sublinear_tf=True)   # TfidfVectorizer pesa cada palabra con tf = 1 + log(conteo)
@@ -722,14 +722,14 @@ def counts_of(marks: np.ndarray, pred: np.ndarray) -> dict:
     Salida: un diccionario con TP, FP, FN, TN y las cuatro medidas.
     """
     tn, fp, fn, tp = confusion_matrix(marks, pred, labels=[0, 1]).ravel()  # confusion_matrix cuenta TN, FP, FN y TP en ese orden
-    p, r, f1, _ = precision_recall_fscore_support(marks, pred, average="binary", zero_division=0)
-    accuracy = accuracy_score(marks, pred)
+    p, r, f1, _ = precision_recall_fscore_support(marks, pred, average="binary", zero_division=0)  # precision_recall_fscore_support calcula precisión, exhaustividad y F1
+    accuracy = accuracy_score(marks, pred)  # accuracy_score divide los aciertos entre todas las marcas
     return {"TP": tp, "FP": fp, "FN": fn, "TN": tn, "precision": p, "recall": r, "F1": f1, "accuracy": accuracy}
 
 
 majority_mark = int(y_test.mean() > 0.5)   # nos quedamos con 1 cuando más de la mitad de las marcas son 1
 predictions = {
-    "clase mayoritaria": np.full(len(marked_rows), majority_mark),
+    "clase mayoritaria": np.full(len(marked_rows), majority_mark),  # full repite la marca más frecuente en las 64 filas
     "palabras clave": pred_keywords[marked_rows],
     "TF-IDF": pred_tfidf,
     "codificador": pred_encoder,
@@ -737,7 +737,7 @@ predictions = {
 rows_by_method = {}
 for name, pred in predictions.items():   # counts_of arma la fila de aciertos y errores de cada método
     rows_by_method[name] = counts_of(y_test, pred)
-results = pd.DataFrame(rows_by_method).T
+results = pd.DataFrame(rows_by_method).T  # DataFrame arma una fila por método
 results[["TP", "FP", "FN", "TN"]] = results[["TP", "FP", "FN", "TN"]].astype(int)
 print(f"Marcas: {MARKS_SOURCE}")
 results.round(2)
@@ -765,16 +765,16 @@ En este paso dibujamos esa matriz para la lista, para TF-IDF y para el codificad
 La clase mayoritaria no entra en la figura. Ya está en la tabla del paso anterior.
 
 ```python
-fig, axes = plt.subplots(1, 3, figsize=(11, 3.4))
-for ax, name in zip(axes, ["palabras clave", "TF-IDF", "codificador"]):
+fig, axes = plt.subplots(1, 3, figsize=(11, 3.4))  # subplots abre un panel por método
+for ax, name in zip(axes, ["palabras clave", "TF-IDF", "codificador"]):  # recorremos la lista, TF-IDF y el codificador
     ConfusionMatrixDisplay.from_predictions(y_test, predictions[name], labels=[0, 1], display_labels=["no leer", "leer"],  # from_predictions dibuja la matriz de esta predicción contra las marcas
                                             cmap="Blues", colorbar=False, ax=ax)
-    ax.set_title(name)
-    ax.set_xlabel("Dice el método")
-    ax.set_ylabel("Marca")
-fig.tight_layout()
-fig.savefig(OUTPUTS_DIR / "confusion_l4.png", dpi=120)
-plt.show()
+    ax.set_title(name)  # set_title pone el nombre del método
+    ax.set_xlabel("Dice el método")  # set_xlabel nombra lo que dice el método
+    ax.set_ylabel("Marca")  # set_ylabel nombra la marca
+fig.tight_layout()  # tight_layout acomoda los márgenes
+fig.savefig(OUTPUTS_DIR / "confusion_l4.png", dpi=120)  # savefig guarda la figura
+plt.show()  # show muestra la figura
 ```
 
 ### Paso 3. Cinco pliegues en las filas de entrenamiento
@@ -788,13 +788,13 @@ Si están lejos, un solo F1 esconde una parte débil.
 ```python
 folds = StratifiedKFold(n_splits=N_FOLDS, shuffle=True, random_state=SEED)  # StratifiedKFold parte las 253 filas en 5 pliegues y conserva la proporción del tema
 fold_f1 = {"palabras clave": [], "TF-IDF": [], "codificador": []}
-for fit_rows, test_rows in folds.split(train_rows, y_train):
-    learn, check = train_rows[fit_rows], train_rows[test_rows]
+for fit_rows, test_rows in folds.split(train_rows, y_train):  # split entrega en cada vuelta las filas de ajuste y la parte que no vio
+    learn, check = train_rows[fit_rows], train_rows[test_rows]  # learn son las filas que el pliegue ajusta y check la parte que no vio
     learn_tokens, check_tokens = [], []
-    for i in learn:
-        learn_tokens.append(token_lists[i])
-    for i in check:
-        check_tokens.append(token_lists[i])
+    for i in learn:  # recorremos las filas de ajuste
+        learn_tokens.append(token_lists[i])  # guardamos la lista de palabras de esta fila
+    for i in check:  # recorremos la parte que el pliegue no vio
+        check_tokens.append(token_lists[i])  # guardamos la lista de palabras de esta fila
     fold_vectorizer = TfidfVectorizer(analyzer=keep_tokens, sublinear_tf=True)  # TfidfVectorizer prepara los pesos de este pliegue
     fold_vectorizer.fit(learn_tokens)  # fit aprende los pesos solo con las filas que este pliegue sí ve
     learn_matrix = fold_vectorizer.transform(learn_tokens)  # transform arma la tabla de las filas de ajuste
@@ -809,9 +809,9 @@ for fit_rows, test_rows in folds.split(train_rows, y_train):
     fold_f1["TF-IDF"].append(f1_score(y[check], fold_pred, zero_division=0))  # f1_score anota el F1 de TF-IDF en esta parte
     fold_f1["codificador"].append(f1_score(y[check], encoder_pred, zero_division=0))  # f1_score anota el F1 del codificador en esta parte
 cv_rows = {}
-for name, values in fold_f1.items():
-    cv_rows[name] = {"F1 más bajo": min(values), "F1 más alto": max(values)}
-cv_table = pd.DataFrame(cv_rows).T.round(2)
+for name, values in fold_f1.items():  # recorremos los cinco F1 de cada método
+    cv_rows[name] = {"F1 más bajo": min(values), "F1 más alto": max(values)}  # min toma el F1 más bajo y max el más alto
+cv_table = pd.DataFrame(cv_rows).T.round(2)  # DataFrame arma una fila por método y round deja dos decimales
 cv_table
 ```
 
@@ -844,14 +844,14 @@ El error puede venir del método o de la marca.
 En este paso imprimimos los tres primeros errores de la lista, de TF-IDF y del codificador.
 
 ```python
-for name in ["palabras clave", "TF-IDF", "codificador"]:
+for name in ["palabras clave", "TF-IDF", "codificador"]:  # recorremos la lista, TF-IDF y el codificador
     wrong = []
-    for i in range(len(y_test)):
+    for i in range(len(y_test)):  # recorremos las 64 filas marcadas
         if y_test[i] != predictions[name][i] and len(wrong) < 3:   # guardamos la fila cuando el método no coincide con la marca, hasta tres
             wrong.append(i)
     print(f"\n{name}:")
-    for i in wrong:
-        kind = "FP (dice leer)" if predictions[name][i] == 1 else "FN (dice no leer)"
+    for i in wrong:  # recorremos los tres errores guardados
+        kind = "FP (dice leer)" if predictions[name][i] == 1 else "FN (dice no leer)"  # el 1 del método es un falso sí y el 0 es un falso no
         print(f"  {kind}: {papers.loc[marked_rows[i], 'title'][:90]}")
 ```
 
@@ -864,15 +864,15 @@ Cada fila de entrenamiento usa el pliegue que no la vio, para que ninguna fila r
 Pasamos a 1 cuando esa probabilidad supera 0,5.
 
 ```python
-prob_texto = np.zeros(N)
+prob_texto = np.zeros(N)  # empezamos la probabilidad en cero para los 317 artículos
 prob_texto[marked_rows] = tfidf_model.predict_proba(X_marked)[:, 1]  # predict_proba escribe la probabilidad de leer de las 64 filas marcadas
-for fit_rows, test_rows in folds.split(train_rows, y_train):
-    learn, check = train_rows[fit_rows], train_rows[test_rows]
+for fit_rows, test_rows in folds.split(train_rows, y_train):  # split entrega en cada vuelta las filas de ajuste y la parte que no vio
+    learn, check = train_rows[fit_rows], train_rows[test_rows]  # learn son las filas que el pliegue ajusta y check la parte que no vio
     learn_tokens, check_tokens = [], []
-    for i in learn:
-        learn_tokens.append(token_lists[i])
-    for i in check:
-        check_tokens.append(token_lists[i])
+    for i in learn:  # recorremos las filas de ajuste
+        learn_tokens.append(token_lists[i])  # guardamos la lista de palabras de esta fila
+    for i in check:  # recorremos la parte que el pliegue no vio
+        check_tokens.append(token_lists[i])  # guardamos la lista de palabras de esta fila
     fold_vectorizer = TfidfVectorizer(analyzer=keep_tokens, sublinear_tf=True)  # TfidfVectorizer prepara los pesos de este pliegue
     fold_vectorizer.fit(learn_tokens)  # fit aprende los pesos solo con las filas que este pliegue sí ve
     fold_model = LogisticRegression(class_weight="balanced", C=C_REG, max_iter=1000)  # LogisticRegression prepara la regresión de este pliegue
@@ -899,7 +899,7 @@ Guardamos una fila por cada uno de los 317 artículos en `outputs/texto_l4.csv`.
 Este archivo es el resultado de esta lección.
 
 ```python
-marca = pd.Series(pd.NA, index=range(N), dtype="Int64")
+marca = pd.Series(pd.NA, index=range(N), dtype="Int64")  # Series deja la marca vacía en las 317 filas
 marca[marked_rows] = y_test  # escribimos la marca solo en las 64 filas apartadas
 text_table = pd.DataFrame({
     "title": papers["title"],
@@ -907,9 +907,9 @@ text_table = pd.DataFrame({
     "tfidf_lr": text_tfidf,
     "prob_texto": prob_texto,
     "marca": marca,
-})
-text_path = OUTPUTS_DIR / "texto_l4.csv"
-text_table.to_csv(text_path, index=False)
+})  # DataFrame arma una fila por artículo
+text_path = OUTPUTS_DIR / "texto_l4.csv"  # Path fija la ruta de texto_l4.csv
+text_table.to_csv(text_path, index=False)  # to_csv escribe la tabla y deja fuera el índice
 print(f"Guardado: {text_path} ({len(text_table)} filas, {text_table['marca'].notna().sum()} marcadas)")
 ```
 

@@ -335,17 +335,17 @@ Una palabra que está en casi todos los resúmenes describe toda la colección y
 
 ```python
 word_sets = []
-for text in texts:
+for text in texts:  # recorremos cada resumen
     word_sets.append(words(text, STOP_WORDS))   # words guarda el conjunto de palabras útiles de este resumen
 shares = {}
 for word in sorted(TOPIC_WORDS):   # recorremos cada palabra de la lista del tema
-    with_word = 0
-    for word_set in word_sets:
-        if word in word_set:
-            with_word += 1
+    with_word = 0  # empezamos la cuenta de esta palabra en cero
+    for word_set in word_sets:  # recorremos el conjunto de palabras de cada resumen
+        if word in word_set:  # in comprueba si el resumen trae la palabra
+            with_word += 1  # sumamos uno cuando el resumen la trae
     shares[word] = with_word / N   # dividimos los resúmenes que tienen la palabra entre el total
-topic_share = pd.Series(shares).round(3)
-print(topic_share.to_string())
+topic_share = pd.Series(shares).round(3)  # Series arma la tabla de proporciones y round deja tres decimales
+print(topic_share.to_string())  # to_string imprime cada palabra con su proporción
 ```
 
 ¿Alguna de estas palabras distingue un grupo de otro? Aquí ninguna pasa de 14%.
@@ -469,18 +469,18 @@ La silueta del $k$ es el promedio de esas siluetas sobre los 317 artículos.
 Las líneas de 0,25 y 0,50 marcan las bandas de Kaufman y Rousseeuw.
 
 ```python
-plt.figure(figsize=(6, 3.5))
-plt.plot(list(silhouettes), list(silhouettes.values()), marker="o", color="steelblue")
-plt.axhline(0.25, color="darkorange", linestyle="--", label="0,25 o menos: sin estructura sustancial")
-plt.axhline(0.5, color="seagreen", linestyle="--", label="0,26 a 0,50: débil, podría ser artificial")
-plt.ylim(0, 0.6)
-plt.xlabel("k")
-plt.ylabel("Silueta media (coseno)")
-plt.title("Silueta de k-means para cada k")
-plt.legend(fontsize=8)
-plt.tight_layout()
-plt.savefig(OUTPUTS_DIR / "silueta_l3.png", dpi=120)
-plt.show()
+plt.figure(figsize=(6, 3.5))  # figure abre la figura
+plt.plot(list(silhouettes), list(silhouettes.values()), marker="o", color="steelblue")  # plot dibuja la silueta media de cada k
+plt.axhline(0.25, color="darkorange", linestyle="--", label="0,25 o menos: sin estructura sustancial")  # axhline marca la banda de 0,25
+plt.axhline(0.5, color="seagreen", linestyle="--", label="0,26 a 0,50: débil, podría ser artificial")  # axhline marca la banda de 0,50
+plt.ylim(0, 0.6)  # ylim fija el rango vertical
+plt.xlabel("k")  # xlabel nombra el eje de k
+plt.ylabel("Silueta media (coseno)")  # ylabel nombra el eje de la silueta
+plt.title("Silueta de k-means para cada k")  # title pone el título
+plt.legend(fontsize=8)  # legend muestra las dos bandas
+plt.tight_layout()  # tight_layout acomoda los márgenes
+plt.savefig(OUTPUTS_DIR / "silueta_l3.png", dpi=120)  # savefig guarda la figura
+plt.show()  # show muestra la figura
 ```
 
 Debemos analizar la figura y el $k$ que se utilizó para generarla.
@@ -754,19 +754,19 @@ calculado en la mezcla.
 
 ```python
 part_of = {
-    "kmeans": topic_parts(kmeans_labels),
-    "mezcla": mixture_part,
-    "hdbscan": topic_parts(hdbscan_labels),
+    "kmeans": topic_parts(kmeans_labels),  # topic_parts da la parte del tema en cada grupo de k-means
+    "mezcla": mixture_part,  # mixture_part trae la parte que ya calculamos para la mezcla
+    "hdbscan": topic_parts(hdbscan_labels),  # topic_parts da la parte del tema en cada grupo de HDBSCAN
 }
 read = {}
-pairs = (("kmeans", kmeans_labels), ("hdbscan", hdbscan_labels))
-for method, labels in pairs:
-    read[method] = (part_of[method] > 0).astype(int)
+pairs = (("kmeans", kmeans_labels), ("hdbscan", hdbscan_labels))  # estos dos métodos entran en la lista
+for method, labels in pairs:  # recorremos k-means y HDBSCAN
+    read[method] = (part_of[method] > 0).astype(int)  # astype marca 1 cuando el grupo se lee
     print(f"\n{method}: {read[method].sum()} artículos en grupos leídos")
-    for g in sorted(set(labels) - {-1}):
-        share = has_topic[labels == g].mean()
-        mark = "lee" if share >= READ_SHARE else "no lee"
-        top = ", ".join(group_words(labels, g))
+    for g in sorted(set(labels) - {-1}):  # recorremos cada grupo y dejamos fuera el ruido
+        share = has_topic[labels == g].mean()  # mean calcula la proporción con palabras del tema
+        mark = "lee" if share >= READ_SHARE else "no lee"  # comparamos esa proporción con READ_SHARE
+        top = ", ".join(group_words(labels, g))  # group_words junta las palabras más altas del grupo
         print(f"  grupo {g} ({(labels == g).sum()} artículos, {share:.0%} con el tema, {mark}): {top}")
 read_kmeans = read["kmeans"]
 read_hdbscan = read["hdbscan"]
@@ -873,22 +873,22 @@ method_labels = {
     "mezcla": mixture_labels,
     "hdbscan": hdbscan_labels,
 }
-fig, axes = plt.subplots(1, 3, figsize=(12, 3.2))
-for ax, (method, labels) in zip(axes, method_labels.items()):
+fig, axes = plt.subplots(1, 3, figsize=(12, 3.2))  # subplots abre un panel por método
+for ax, (method, labels) in zip(axes, method_labels.items()):  # recorremos k-means, la mezcla y HDBSCAN
     names, sizes, colors = [], [], []
-    for g in sorted(set(labels) - {-1}):
+    for g in sorted(set(labels) - {-1}):  # recorremos cada grupo y dejamos fuera el ruido
         names.append(str(g))
-        sizes.append(int((labels == g).sum()))
+        sizes.append(int((labels == g).sum()))  # sum cuenta los artículos de este grupo
         in_g = labels == g
-        colors.append("steelblue" if part_of[method][in_g].max() > 0 else "lightgray")
-    ax.bar(names, sizes, color=colors)
-    opened = int((part_of[method] > 0).sum())
-    ax.set_title(f"{method}: {opened} artículos")
-    ax.set_xlabel("grupo")
-axes[0].set_ylabel("artículos")
-fig.tight_layout()
-fig.savefig(OUTPUTS_DIR / "metodos_l3.png", dpi=120)
-plt.show()
+        colors.append("steelblue" if part_of[method][in_g].max() > 0 else "lightgray")  # steelblue marca el grupo que se lee y lightgray el que no
+    ax.bar(names, sizes, color=colors)  # bar dibuja una barra por grupo
+    opened = int((part_of[method] > 0).sum())  # sum cuenta los artículos que el método leería
+    ax.set_title(f"{method}: {opened} artículos")  # set_title pone el método y esa cuenta
+    ax.set_xlabel("grupo")  # set_xlabel nombra el eje de los grupos
+axes[0].set_ylabel("artículos")  # set_ylabel nombra el eje de los artículos
+fig.tight_layout()  # tight_layout acomoda los márgenes
+fig.savefig(OUTPUTS_DIR / "metodos_l3.png", dpi=120)  # savefig guarda la figura
+plt.show()  # show muestra la figura
 ```
 
 Mire las barras azules. Son los grupos que la regla del tema lee.
@@ -909,9 +909,9 @@ groups_table = pd.DataFrame({
     "kmeans_parte": part_of["kmeans"],
     "hdbscan_parte": part_of["hdbscan"],
     "read_group": group_points >= 1,   # marcamos el artículo si k-means o HDBSCAN lo ponen en un grupo leído
-})
-groups_path = OUTPUTS_DIR / "grupos_l3.csv"
-groups_table.to_csv(groups_path, index=False)
+})  # DataFrame arma una fila por artículo
+groups_path = OUTPUTS_DIR / "grupos_l3.csv"  # Path fija la ruta de grupos_l3.csv
+groups_table.to_csv(groups_path, index=False)  # to_csv escribe la tabla y deja fuera el índice
 print(f"Guardado: {groups_path} ({len(groups_table)} filas)")
 ```
 
