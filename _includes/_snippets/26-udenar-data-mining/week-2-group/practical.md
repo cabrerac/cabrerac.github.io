@@ -4,7 +4,7 @@
 
 **Propósito.** Cuaderno de grupo de la semana 2 (Lecciones 3 y 4). Su grupo sigue como equipo interno de una alcaldía, con los artículos de su secretaría. El producto del proyecto es una lista de artículos para los nuevos integrantes del equipo.
 
-**Esta semana.** El grupo repite en sus artículos lo que hicieron las Lecciones 3 y 4, con el método de grupos y el método de texto que mejor se ajustan a estos datos: HDBSCAN y TF-IDF con regresión logística. El resultado de la lista de esta semana es `outputs/lectura_semana_2.csv`. La tabla de cada artículo es `outputs/en_vista.csv`.
+**Esta semana.** El grupo repite en sus artículos lo que hicieron las Lecciones 3 y 4, con el método de grupos y el método de texto que mejor se ajustan a estos datos: HDBSCAN y TF-IDF con regresión logística. El resultado de la lista de esta semana es `outputs/lectura_semana_2.csv`. Cada artículo queda en `outputs/grupos.csv` y en `outputs/texto.csv`.
 
 **Antes de empezar.** Ejecuten primero los cuadernos individuales de las Lecciones 3 y 4. Este cuaderno lo escribe el grupo. Traigan de los laboratorios los parámetros, las funciones y las figuras.
 
@@ -28,7 +28,7 @@
 | **3** | Preparación de los datos | Conteos y SVD, etiquetas y TF-IDF |
 | **4** | Modelado | HDBSCAN y TF-IDF con regresión logística |
 | **5** | Evaluación | Silueta, grupos leídos, exactitud y matriz de confusión, `outputs/grupos.csv` y `outputs/texto.csv` |
-| **6** | Despliegue | `outputs/lectura_semana_2.csv` (hasta 30) y `outputs/en_vista.csv` |
+| **6** | Despliegue | `outputs/lectura_semana_2.csv` (hasta 30) |
 
 ---
 
@@ -447,16 +447,7 @@ Guarden como máximo 30 artículos en `outputs/lectura_semana_2.csv`, con `title
 # SU CÓDIGO. Paso 6.1: reading y outputs/lectura_semana_2.csv
 ```
 
-### Paso 6.2. La tabla para el proyecto
-
-En este paso guardan todos los artículos en `outputs/en_vista.csv` para el cuaderno del proyecto.
-`read_group` dice si HDBSCAN lo pone en un grupo leído. `text_says_read` dice si TF-IDF dice que se abra.
-
-```python
-# SU CÓDIGO. Paso 6.2: week2 y outputs/en_vista.csv
-```
-
-### Paso 6.3. Interpretación de resultados
+### Paso 6.2. Interpretación de resultados
 
 ¿Por qué se seleccionaron los artículos de la lista resultante esta semana?
 Explique la selección de acuerdo con HDBSCAN, TF-IDF y la pregunta.
@@ -470,15 +461,13 @@ Si la silueta queda baja, escríbalo así.
 
 **Comprobar:**
 
-En este paso comprobamos el largo de la lista, que todo viene de grupos leídos, el orden de TF-IDF y las columnas de `outputs/en_vista.csv`.
+En este paso comprobamos el largo de la lista, que todo viene de grupos leídos y el orden de TF-IDF.
 
 ```python
 reading_list = pd.read_csv(OUTPUTS_DIR / "lectura_semana_2.csv")
-week2 = pd.read_csv(OUTPUTS_DIR / "en_vista.csv")
 assert len(reading_list) == min(MAX_PAPERS, read_hdbscan.sum()) and reading_list["prob_texto"].is_monotonic_decreasing
 assert reading_list["hdbscan"].isin(groups_read).all()
-assert len(week2) == N and {"title", "read_group", "text_says_read", "prob_texto"} <= set(week2.columns)
-print(f"Paso 6.3: OK. prob_texto de {reading_list['prob_texto'].max()} a {reading_list['prob_texto'].min()}. Armen el ZIP.")
+print(f"Paso 6.2: OK. prob_texto de {reading_list['prob_texto'].max()} a {reading_list['prob_texto'].min()}. Armen el ZIP.")
 ```
 
 ---
@@ -500,10 +489,9 @@ El ZIP se entrega el martes 24 nov 2026, 23:59 (hora de Colombia), con el cuader
 | `outputs/grupos.csv` | Los grupos de HDBSCAN y si cada grupo se lee |
 | `outputs/texto.csv` | Las predicciones de TF-IDF, `prob_texto` y la etiqueta |
 | `outputs/lectura_semana_2.csv` | Hasta 30 artículos de los grupos leídos, en el orden de TF-IDF |
-| `outputs/en_vista.csv` | Una fila por artículo, con las columnas que lee el proyecto |
 
 `outputs/lectura_semana_2.csv` es la lista de esta semana.
 No es la lista de inicio.
-El cuaderno del proyecto lee `outputs/en_vista.csv`.
+El cuaderno del proyecto lee `outputs/grupos.csv` y `outputs/texto.csv`.
 
 <!-- end NOTEBOOK: -->

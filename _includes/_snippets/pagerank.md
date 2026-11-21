@@ -62,18 +62,19 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>The formula</b></p>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>PageRank is the share of time a random surfer spends on an item.</p>
+                <br>
                 <p>$$PR(v) = \frac{1 - d}{n} + d \sum_{u \to v} \frac{PR(u)}{\text{out}(u)}$$</p>
-                <ul>
-                    <li><p>$PR(v)$ is the score of item $v$, the share of time the surfer spends on it</p></li>
-                    <li><p>$n$ is the number of items in the graph</p></li>
-                    <li><p>$(1-d)/n$ is the jump share. Every item gets it, whatever links it has</p></li>
-                    <li><p>The sum runs over every item $u$ that links to $v$, and each adds a part of its own score</p></li>
-                    <li><p>$d = 0.85$ is the damping, the chance to follow a link</p></li>
-                    <li><p>$\text{out}(u)$ is the number of links $u$ makes. Its score is split among them</p></li>
-                </ul>
-                <p>An item with no links out passes its score to every item. Items that link only among themselves would trap the surfer, a <b>rank sink</b>.</p>
+                <br>
+                <p>$PR(v)$ is that share for item $v$.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>$n$ is the number of items.</p>
+                <p>$(1-d)/n$ is the jump share. Every item gets it, whatever links it has.</p>
+                <p>The sum runs over every item $u$ that links to $v$, and each adds a part of its own score.</p>
+                <p>$d = 0.85$ is the chance to follow a link. $\text{out}(u)$ is the number of links $u$ makes, and its score is split among them.</p>
+                <p>An item with no links out passes its score to every item. Items that link only among themselves would trap the surfer, a rank sink.</p>
             </div>
         </div>
     </div>

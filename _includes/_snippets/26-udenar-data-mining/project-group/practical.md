@@ -8,7 +8,7 @@
 
 **Antes de empezar.** Tengan a mano los ZIP de las tres semanas. La primera versión de la lista tiene que existir antes de las diapositivas del viernes 4 de diciembre, porque la charla del sábado 5 de diciembre presenta esa lista. El ZIP calificado es el del martes 8 dic, ya con la corrección después de la charla.
 
-**Datos de entrada.** `outputs/patrones.csv` de la semana 1. `outputs/en_vista.csv` de la semana 2. `outputs/grafo.csv` y `outputs/prediccion.csv` de la semana 3. El documento de requerimientos ya tiene la pregunta y el problema. Aquí los vuelven a escribir, porque un disco de Colab no guarda el cuaderno anterior.
+**Datos de entrada.** `outputs/patrones.csv` de la semana 1. `outputs/grupos.csv` y `outputs/texto.csv` de la semana 2. `outputs/grafo.csv` y `outputs/prediccion.csv` de la semana 3. El documento de requerimientos ya tiene la pregunta y el problema. Aquí los vuelven a escribir, porque un disco de Colab no guarda el cuaderno anterior.
 
 **Materiales.** [Semana 1](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/week-1-group.ipynb), [Semana 2](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/week-2-group.ipynb), [Semana 3](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/week-3-group.ipynb) y [L6 Predicción](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l6-prediction.ipynb), Parte 6, para el armado de la lista.
 
@@ -18,7 +18,7 @@
 
 | Ejercicio | Tema | Entregable clave |
 |-----------|------|------------------|
-| **0** | Configuración | Los cuatro archivos y el largo de la lista |
+| **0** | Configuración | Los archivos de las tres semanas y el largo de la lista |
 | **1** | Semana 1 | La pregunta, el problema y los pares que conservaron |
 | **2** | Semana 2 | Qué artículos siguen en vista |
 | **3** | Semana 3 | El lugar en la red y si la predicción cuenta |
@@ -33,7 +33,7 @@
 
 ### Paso 0.1. Archivos y largo de la lista
 
-En este paso suben los cuatro archivos y fijan el largo de la lista.
+En este paso suben los archivos de las tres semanas y fijan el largo de la lista.
 La lista tiene entre 10 y 30 artículos.
 
 ```python
@@ -46,22 +46,24 @@ MAX_ARTICLES = 30
 MIN_SUPPORTS = 2   # empiece en 2. 0 o 1 valen si el grupo lo explica
 
 patterns = pd.read_csv("outputs/patrones.csv")
-week2 = pd.read_csv("outputs/en_vista.csv")
+groups = pd.read_csv("outputs/grupos.csv")
+text = pd.read_csv("outputs/texto.csv")
 graph = pd.read_csv("outputs/grafo.csv")
 prediction = pd.read_csv("outputs/prediccion.csv")
 ```
 
 **Listo cuando:**
-- Los cuatro archivos están en `outputs/`.
+- Los cinco archivos están en `outputs/`.
 - `MIN_SUPPORTS` es el número de resultados a favor que piden para que un artículo se lea. Lo justifican en el Paso 4.2.
 
 **Comprobar:**
 
-En este paso comprobamos que los cuatro archivos traen las columnas que el resto del cuaderno usa.
+En este paso comprobamos que los cinco archivos traen las columnas que el resto del cuaderno usa.
 
 ```python
 assert {"pair", "kept"} <= set(patterns.columns)
-assert {"title", "read_group", "text_says_read", "prob_texto"} <= set(week2.columns)
+assert {"title", "hdbscan_leido"} <= set(groups.columns)
+assert {"title", "tfidf", "prob_texto"} <= set(text.columns)
 assert {"title", "graph_support", "alerta_centro"} <= set(graph.columns)
 assert {"title", "prediction"} <= set(prediction.columns)
 assert MIN_ARTICLES < MAX_ARTICLES
@@ -93,7 +95,7 @@ El problema nombra la secretaría, el archivo y que la lista es un inicio de lec
 ### Paso 2.1. Qué artículos siguen en vista
 
 En este paso dicen qué grupos y qué resultado de texto todavía apoyan a un artículo.
-`outputs/en_vista.csv` es la vista de la semana 2. No es la lista de inicio.
+`outputs/grupos.csv` y `outputs/texto.csv` son el resultado de la semana 2. No son la lista de inicio.
 
 ```python
 # SU CÓDIGO. Paso 2.1: WEEK2_READING
@@ -151,7 +153,8 @@ No vuelvan a entrenar los métodos. Lean las columnas que ya están en los archi
 
 | Columna | De dónde sale |
 |---------|---------------|
-| `read_group`, `text_says_read`, `prob_texto` | `week2` |
+| `read_group`, desde `hdbscan_leido` | `groups` |
+| `text_says_read`, desde `tfidf`. `prob_texto` | `text` |
 | `graph_support`, `alerta_centro` | `graph` |
 | `prediction` | `prediction` |
 
@@ -170,7 +173,7 @@ No vuelvan a entrenar los métodos. Lean las columnas que ya están en los archi
 En este paso comprobamos que la tabla junta los tres archivos.
 
 ```python
-assert len(table) == len(week2)
+assert len(table) == len(groups) == len(text)
 assert table["graph_support"].dtype == table["prediction"].dtype == bool
 print("Paso 4.1: OK")
 ```

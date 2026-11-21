@@ -31,12 +31,12 @@
                 <p>The same steps on the department file, for Lectures 5 and 6. The label is a target category of each Wikipedia article.</p>
                 <ul>
                     <li><b>Exercise 0, Setup:</b> group, label, data, parameters and functions</li>
-                    <li><b>Exercise 1, Business understanding:</b> the question description and the results of week 2</li>
+                    <li><b>Exercise 1, Business understanding:</b> what the group expects from the graph</li>
                     <li><b>Exercise 2, Data understanding:</b> titles and links</li>
                     <li><b>Exercise 3, Data preparation:</b> the two graphs, the largest component and the table of Lecture 6</li>
                     <li><b>Exercise 4, Modeling:</b> degree, PageRank, node2vec, and the three methods of Lecture 6</li>
                     <li><b>Exercise 5, Evaluation:</b> an article described by its place, and whether the prediction counts</li>
-                    <li><b>Exercise 6, Deployment:</b> five results, the starter list, the fact that would remove each article, and the talk title</li>
+                    <li><b>Exercise 6, Deployment:</b> save the graph file and the prediction file, and say how each result would enter the list</li>
                 </ul>
                 <p>The notebook ends with a contribution log.</p>
             </div>

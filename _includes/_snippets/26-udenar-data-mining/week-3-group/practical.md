@@ -68,7 +68,7 @@ En este paso copian los parámetros, las librerías y las funciones de las Lecci
 
 | Qué copiar | Dónde está |
 |------------|------------|
-| Los parámetros de la L5 (`SUPPORT_SHARE`, `SUPPORT_MIN`, `SEED`, `MIN_SUPPORTS`, `HUB_SHARE` a `N_RANDOM_PAIRS`), sin cambiar sus valores. `MIN_SUPPORTS` empieza en 2 y se puede cambiar. Cada grupo fija y justifica este número en su proyecto. 0 o 1 valen si se explica | L5, Parte 1, Paso 2 |
+| Los parámetros de la L5 (`SUPPORT_SHARE`, `SUPPORT_MIN`, `SEED`, `HUB_SHARE` a `N_RANDOM_PAIRS`), sin cambiar sus valores | L5, Parte 1, Paso 2 |
 | Los parámetros de la L6 (`FLAGGED_SHARE` a `N_FOLDS` y `HIDDEN_UNITS` a `SPLIT_SEEDS`), sin `LABEL` ni cambiar sus valores | L6, Parte 1, Paso 2 |
 | Las importaciones de la L5 (networkx, gensim, random) | L5, Parte 1, Paso 2 |
 | Las importaciones de la L6 (sklearn, scipy) | L6, Parte 1, Paso 2 |

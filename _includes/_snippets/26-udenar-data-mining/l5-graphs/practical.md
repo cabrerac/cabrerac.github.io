@@ -193,7 +193,7 @@ print(f"{len(raw)} filas, columnas: {list(raw.columns)}")
 La pregunta es la de la Lección 1.
 El equipo decide qué artículos de nutrición leer, y qué filtro los puso en la lista.
 La lista tiene entre 10 y 30 artículos.
-Lo nuevo es el grafo: un artículo recibe el resultado si une partes de la red y no es solo un nodo central.
+Lo nuevo es el grafo: un artículo entra en la lista si tiene enlaces, está en el cuarto superior por PageRank entre esos artículos y no es un nodo central.
 
 ```python
 MIN_PAPERS = 10
@@ -432,7 +432,7 @@ print(f"PageRank: OK ({len(top_rank) - len(not_by_degree)} de los 10 primeros ta
 **Lo que vemos.** PageRank premia que te cite alguien importante. "Obesity in children and young people" tiene grado 6 y está entre los 3 primeros.
 
 ### M2. Los artículos con PageRank alto
-En este paso marcamos los artículos con **PageRank alto**: tienen enlaces, están en el cuarto superior por PageRank entre los artículos con enlaces y no son un nodo central. Usamos PageRank redondeado a 6 decimales, el mismo valor que guarda `grafo_l5.csv`, para que la Lección 6 obtenga la misma lista.
+En este paso marcamos los artículos con **PageRank alto**: tienen enlaces, están en el cuarto superior por PageRank entre los artículos con enlaces y no son un nodo central. Redondeamos PageRank a 6 decimales, el mismo valor que guarda `grafo_l5.csv`.
 
 ```python
 score = {v: round(rank[v], 6) for v in rank}   # el valor que se guarda en grafo_l5.csv
