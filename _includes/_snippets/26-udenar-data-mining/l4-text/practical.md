@@ -22,21 +22,21 @@ print("Proporción de 1 en cada parte:", y_toy[rows_train].mean(), y_toy[rows_te
 ```
 
 ### Aciertos y errores a mano
-Una marca es 1 cuando una persona dice que el artículo se lee, y 0 cuando dice que no.
+Una etiqueta es 1 cuando una persona dice que el artículo se lee, y 0 cuando dice que no.
 El método también dice 1 o 0.
 TP cuenta los dos sí.
-FP cuenta un sí del método con un no de la marca.
-FN cuenta un no del método con un sí de la marca.
+FP cuenta un sí del método con un no de la etiqueta.
+FN cuenta un no del método con un sí de la etiqueta.
 TN cuenta los dos no.
 En el ejemplo hay 6 filas.
 
 ```python
 marked = np.array([1, 0, 1, 1, 0, 0])  # np.array arma las 6 marcas
 said = np.array([1, 1, 0, 1, 0, 0])  # np.array arma lo que diría el método
-tp = int(((said == 1) & (marked == 1)).sum())  # contamos los casos en que el método y la marca dicen 1
-fp = int(((said == 1) & (marked == 0)).sum())  # contamos un sí del método con un no de la marca
-fn = int(((said == 0) & (marked == 1)).sum())  # contamos un no del método con un sí de la marca
-tn = int(((said == 0) & (marked == 0)).sum())  # contamos los casos en que el método y la marca dicen 0
+tp = int(((said == 1) & (marked == 1)).sum())  # contamos los casos en que el método y la etiqueta dicen 1
+fp = int(((said == 1) & (marked == 0)).sum())  # contamos un sí del método con un no de la etiqueta
+fn = int(((said == 0) & (marked == 1)).sum())  # contamos un no del método con un sí de la etiqueta
+tn = int(((said == 0) & (marked == 0)).sum())  # contamos los casos en que el método y la etiqueta dicen 0
 assert tp + fp + fn + tn == len(marked)
 print(f"TP {tp}, FP {fp}, FN {fn}, TN {tn}. Repaso de Python: OK")
 ```
@@ -62,7 +62,7 @@ El archivo de texto lo arma TF-IDF con regresión logística.
 |--------|----------|--------------------------|------------|
 | Lista de palabras clave | ¿El texto tiene alguna palabra de la lista? | Una lista escrita desde la pregunta, antes de ver resultados | Una referencia: no aprende de etiquetas |
 | TF-IDF y regresión logística | ¿Qué palabras pesan a favor y en contra? | Conteos con peso TF-IDF, ajustados solo con las filas de entrenamiento | El archivo de texto, con pesos que se pueden leer |
-| Codificador de texto | ¿El resumen entero apunta hacia los ejemplos marcados? | Un vector por resumen, con un modelo ya entrenado y fijo | Un vector del resumen entero |
+| Codificador de texto | ¿El resumen entero apunta hacia los ejemplos etiquetados? | Un vector por resumen, con un modelo ya entrenado y fijo | Un vector del resumen entero |
 
 **Qué hacer.** Ejecute las celdas de arriba hacia abajo.
 Cada paso empieza con **En este paso**. Si tiene código, termina con una celda **Comprobar**.
@@ -74,7 +74,7 @@ Cada paso empieza con **En este paso**. Si tiene código, termina con una celda 
 | 1 | Comprensión del negocio | La pregunta de hoy y la lista de palabras clave |
 | 2 | Comprensión de los datos | Parámetros, artículos, etiqueta y largo |
 | 3 | Lista de palabras | Conteos de la lista y su predicción |
-| 4 | Conjunto marcado | Las filas que los dos métodos que aprenden no ven |
+| 4 | Conjunto etiquetado | Las filas que los dos métodos que aprenden no ven |
 | 5 | TF-IDF | Pesos, ajuste y predicción |
 | 6 | Codificador | Un vector por resumen, el corte a 512 tokens y la predicción |
 | 7 | Evaluación | Exactitud, matrices de confusión y `outputs/texto_l4.csv` |
@@ -94,10 +94,10 @@ La decisión no cambia: qué artículos debe leer el colega nuevo.
 |----------|-------------------------------|
 | ¿Qué buscamos? | Qué artículos tratan del tema del equipo, según su resumen |
 | ¿Con qué lo medimos? | Una lista de palabras, TF-IDF con regresión logística y un codificador fijo. El archivo guarda TF-IDF |
-| ¿Cómo los comparamos? | Con la exactitud y la matriz de confusión sobre las marcas, y la clase mayoritaria como línea de referencia |
+| ¿Cómo los comparamos? | Con la exactitud y la matriz de confusión sobre las etiquetas, y la clase mayoritaria como línea de referencia |
 | ¿Cómo entra el texto en la lista? | La lista que guardamos suma la lista de palabras y la probabilidad de TF-IDF. El codificador arma una segunda lista, solo con su probabilidad |
 
-Un acierto solo tiene sentido frente a una marca escrita antes de ver resultados.
+Un acierto solo tiene sentido frente a una etiqueta escrita antes de ver resultados.
 
 ### Paso 2. La pregunta y las palabras clave
 Antes de ver los resultados escribimos las palabras clave desde la pregunta: obesity, diet, diabetes y las formas cercanas.
@@ -143,7 +143,7 @@ import requests
 import sklearn
 from sklearn.feature_extraction.text import TfidfVectorizer  # TfidfVectorizer pesa cada palabra por su repetición y por lo rara que es
 from sklearn.linear_model import LogisticRegression  # LogisticRegression aprende un peso por columna y devuelve una probabilidad
-from sklearn.metrics import ConfusionMatrixDisplay, accuracy_score, confusion_matrix  # estas funciones cuentan aciertos y errores frente a las marcas
+from sklearn.metrics import ConfusionMatrixDisplay, accuracy_score, confusion_matrix  # estas funciones cuentan aciertos y errores frente a las etiquetas
 from sklearn.model_selection import StratifiedKFold, train_test_split  # train_test_split aparta filas y StratifiedKFold parte las filas de entrenamiento
 
 DATA_DIR = Path("data")         # Path fija la carpeta donde se guardan los datos descargados
@@ -166,7 +166,7 @@ SUPPORT_MIN = 5        # fija el mínimo de artículos que una palabra debe alca
 SEED = 7               # fija el arranque aleatorio para que los cortes se repitan igual
 
 FLAGGED_SHARE = 0.20    # fija la proporción de artículos que apartamos para marcar
-FLAGGED_MIN = 40        # fija el mínimo de artículos marcados
+FLAGGED_MIN = 40        # fija el mínimo de artículos etiquetados
 POSITIVE_SHARE = 0.10   # fija la proporción mínima de artículos del tema
 POSITIVES_MIN = 30      # fija el mínimo de artículos del tema
 C_REG = 10              # fija la penalización de la regresión logística
@@ -176,7 +176,7 @@ MAX_TOKENS = 512        # fija el largo a partir del cual el codificador corta e
 
 
 def n_flagged(n: int) -> int:
-    """Tamaño del conjunto marcado: max(FLAGGED_MIN, ceil(FLAGGED_SHARE * n)).
+    """Tamaño del conjunto etiquetado: max(FLAGGED_MIN, ceil(FLAGGED_SHARE * n)).
 
     Entrada: n, el número de textos.
     Salida: cuántos textos se apartan para marcar.
@@ -193,12 +193,12 @@ def min_positives(n: int) -> int:
     return max(POSITIVES_MIN, math.ceil(POSITIVE_SHARE * n))   # max elige el mayor entre 30 y el 10% redondeado hacia arriba
 
 
-print(f"Con 317 artículos: {n_flagged(317)} marcados, al menos {min_positives(317)} positivos")
+print(f"Con 317 artículos: {n_flagged(317)} etiquetados, al menos {min_positives(317)} positivos")
 ```
 
 **Comprobar:**
 
-En este paso comprobamos el tamaño del conjunto marcado, el mínimo de positivos y la versión de scikit-learn.
+En este paso comprobamos el tamaño del conjunto etiquetado, el mínimo de positivos y la versión de scikit-learn.
 
 ```python
 assert n_flagged(317) == 64 and min_positives(317) == 32
@@ -237,7 +237,7 @@ def word_list(text: str, stop_words: set[str]) -> list[str]:
     Salida: una lista de palabras, en orden y con cada aparición.
     Por qué: TF-IDF cuenta cuántas veces usa un texto cada palabra.
     """
-    text = (text or "").lower().replace("[cita requerida]", " ")  # lower pasa el texto a minúsculas y replace quita la marca de Wikipedia
+    text = (text or "").lower().replace("[cita requerida]", " ")  # lower pasa el texto a minúsculas y replace quita el aviso de Wikipedia
     useful = []
     for word in WORD_RE.findall(text):  # findall extrae cada secuencia que pasó el filtro de letras
         long_enough = len(word) >= 3
@@ -326,9 +326,9 @@ print("Datos: OK")
 
 ### Paso 5. La etiqueta de entrenamiento
 OpenAlex ya trae, en `topics`, los temas que sus editores asignaron a cada artículo.
-En este paso marcamos 1 cuando uno de esos temas menciona obesidad, dieta, nutrición, diabetes, salud cardiovascular, lipoproteínas, presión arterial o hipertensión.
+En este paso escribimos 1 cuando uno de esos temas menciona obesidad, dieta, nutrición, diabetes, salud cardiovascular, lipoproteínas, presión arterial o hipertensión.
 Esa etiqueta viene dada. No la encontró un método de este cuaderno.
-Por eso, más adelante, medimos los métodos contra marcas escritas antes de ver los resultados.
+Por eso, más adelante, medimos los métodos contra esta etiqueta.
 Con estos 317 artículos la etiqueta queda en 1 para 96.
 
 ```python
@@ -455,18 +455,18 @@ train_rows, marked_rows = train_test_split(rows, test_size=n_flagged(N), stratif
 y_train = y[train_rows]  # copiamos la etiqueta de los 317 artículos en las 253 filas de entrenamiento
 y_test = y[marked_rows]  # copiamos la misma etiqueta en las 64 filas de prueba
 print(f"Entrenamiento: {len(train_rows)} filas, {y_train.sum()} del tema")
-print(f"Marcados: {len(marked_rows)} filas, {y_test.sum()} del tema. Marcas: temas de OpenAlex")
+print(f"Etiquetados: {len(marked_rows)} filas, {y_test.sum()} del tema. Etiquetas: temas de OpenAlex")
 ```
 
 **Comprobar:**
 
-En este paso comprobamos el tamaño de las dos partes, que no comparten filas y que las marcas son 0 o 1.
+En este paso comprobamos el tamaño de las dos partes, que no comparten filas y que las etiquetas son 0 o 1.
 
 ```python
 assert len(train_rows) == 253 and len(marked_rows) == n_flagged(N)
 assert not set(train_rows) & set(marked_rows)
 assert set(np.unique(y_test)) <= {0, 1}
-print("Conjunto marcado: OK")
+print("Conjunto etiquetado: OK")
 ```
 
 ---
@@ -498,7 +498,7 @@ tfidf = TfidfVectorizer(analyzer=keep_tokens, sublinear_tf=True)   # TfidfVector
 X_train = tfidf.fit_transform(train_tokens)     # fit_transform aprende los pesos y arma la tabla solo con las 253 filas
 X_marked = tfidf.transform(marked_tokens)  # transform aplica esos pesos a las 64 filas, sin volver a aprenderlos
 feature_names = tfidf.get_feature_names_out()  # get_feature_names_out devuelve el nombre de cada columna de pesos
-print(f"Entrenamiento: {X_train.shape}. Marcados: {X_marked.shape}")
+print(f"Entrenamiento: {X_train.shape}. Etiquetados: {X_marked.shape}")
 ```
 
 **Comprobar:**
@@ -526,18 +526,18 @@ $\displaystyle P(y = 1 \mid x) = \frac{1}{1 + e^{-(w \cdot x + b)}}$
 `C_REG` vale 10 y fija la penalización de esos pesos.
 `fit` aprende los pesos con las 253 filas.
 `predict` dice 1 cuando la probabilidad pasa de 0,5.
-La celda imprime en cuántos de los 64 marcados el modelo dice sí.
+La celda imprime en cuántos de los 64 etiquetados el modelo dice sí.
 
 ```python
 tfidf_model = LogisticRegression(class_weight="balanced", C=C_REG, max_iter=1000)  # LogisticRegression prepara un peso por palabra. balanced da más peso a la clase menor
 tfidf_model.fit(X_train, y_train)  # fit aprende esos pesos con las 253 filas de entrenamiento
 pred_tfidf = tfidf_model.predict(X_marked)  # predict dice 1 en las 64 filas cuando la probabilidad pasa de 0,5
-print(f"TF-IDF dice sí en {pred_tfidf.sum()} de {len(marked_rows)} marcados")
+print(f"TF-IDF dice sí en {pred_tfidf.sum()} de {len(marked_rows)} etiquetados")
 ```
 
 **Comprobar:**
 
-En este paso comprobamos que TF-IDF da un 0 o un 1 por artículo marcado.
+En este paso comprobamos que TF-IDF da un 0 o un 1 por artículo etiquetado.
 
 ```python
 assert len(pred_tfidf) == n_flagged(N) and set(np.unique(pred_tfidf)) <= {0, 1}
@@ -659,7 +659,7 @@ encoder_model.fit(vectors[train_rows], y_train)  # fit aprende esos pesos con lo
 pred_encoder = encoder_model.predict(vectors[marked_rows])  # predict dice 1 o 0 en las 64 filas etiquetadas
 tfidf_hits = int((pred_tfidf == y_test).sum())
 encoder_hits = int((pred_encoder == y_test).sum())
-print(f"Aciertos en los marcados. TF-IDF: {tfidf_hits}. Codificador: {encoder_hits}")
+print(f"Aciertos en los etiquetados. TF-IDF: {tfidf_hits}. Codificador: {encoder_hits}")
 ```
 
 Mire los aciertos del codificador al lado de los de TF-IDF.
@@ -669,7 +669,7 @@ La probabilidad que guardamos es la de TF-IDF, porque sus pesos se pueden leer.
 
 **Comprobar:**
 
-En este paso comprobamos que hay una predicción por artículo marcado.
+En este paso comprobamos que hay una predicción por artículo etiquetado.
 
 ```python
 assert len(pred_encoder) == n_flagged(N)
@@ -681,23 +681,23 @@ print("Codificador con regresión logística: OK")
 
 ## Parte 7. Evaluación
 
-La evaluación compara los tres métodos sobre los mismos textos marcados.
-Contamos aciertos y errores en el conjunto marcado, que los métodos que aprenden no vieron.
+La evaluación compara los tres métodos sobre los mismos textos etiquetados.
+Contamos aciertos y errores en el conjunto etiquetado, que los métodos que aprenden no vieron.
 La exactitud es los aciertos sobre las 64 filas.
-La clase mayoritaria da a todos la marca más frecuente.
+La clase mayoritaria da a todos la etiqueta más frecuente.
 Es la línea de referencia: un método útil debería superarla.
 Si un método acierta poco, es normal.
 Su fila sigue en la tabla.
 
-### Paso 1. Aciertos y errores en el conjunto marcado
+### Paso 1. Aciertos y errores en el conjunto etiquetado
 Los tres métodos y la clase mayoritaria se miden en las mismas 64 filas etiquetadas.
 En este paso contamos TP, FP, FN y TN de cada uno, y su exactitud.
 La exactitud es (TP + TN) / 64.
-La clase mayoritaria da a las 64 filas la marca más frecuente. Es la línea de referencia.
+La clase mayoritaria da a las 64 filas la etiqueta más frecuente. Es la línea de referencia.
 
 ```python
 def counts_of(marks: np.ndarray, pred: np.ndarray) -> dict:
-    """Cuenta los cuatro casos y la exactitud de un método frente a las marcas.
+    """Cuenta los cuatro casos y la exactitud de un método frente a las etiquetas.
 
     Args:
         marks: Las marcas, 0 o 1.
@@ -707,13 +707,13 @@ def counts_of(marks: np.ndarray, pred: np.ndarray) -> dict:
         Un diccionario con TP, FP, FN, TN y la exactitud.
     """
     tn, fp, fn, tp = confusion_matrix(marks, pred, labels=[0, 1]).ravel()  # confusion_matrix cuenta TN, FP, FN y TP en ese orden
-    accuracy = accuracy_score(marks, pred)  # accuracy_score divide los aciertos entre todas las marcas
+    accuracy = accuracy_score(marks, pred)  # accuracy_score divide los aciertos entre todas las etiquetas
     return {"TP": tp, "FP": fp, "FN": fn, "TN": tn, "accuracy": accuracy}
 
 
-majority_mark = int(y_test.mean() > 0.5)   # nos quedamos con 1 cuando más de la mitad de las marcas son 1
+majority_mark = int(y_test.mean() > 0.5)   # nos quedamos con 1 cuando más de la mitad de las etiquetas son 1
 predictions = {
-    "clase mayoritaria": np.full(len(marked_rows), majority_mark),  # full repite la marca más frecuente en las 64 filas
+    "clase mayoritaria": np.full(len(marked_rows), majority_mark),  # full repite la etiqueta más frecuente en las 64 filas
     "palabras clave": pred_keywords[marked_rows],
     "TF-IDF": pred_tfidf,
     "codificador": pred_encoder,
@@ -723,7 +723,7 @@ for name, pred in predictions.items():   # counts_of arma la fila de aciertos y 
     rows_by_method[name] = counts_of(y_test, pred)
 results = pd.DataFrame(rows_by_method).T  # DataFrame arma una fila por método
 results[["TP", "FP", "FN", "TN"]] = results[["TP", "FP", "FN", "TN"]].astype(int)
-print("Marcas: temas de OpenAlex")
+print("Etiquetas: temas de OpenAlex")
 results.round(2)
 ```
 
@@ -734,7 +734,7 @@ Su fila sigue en la tabla.
 
 **Comprobar:**
 
-En este paso comprobamos que los cuatro casos suman los marcados.
+En este paso comprobamos que los cuatro casos suman los etiquetados.
 
 ```python
 assert (results[["TP", "FP", "FN", "TN"]].sum(axis=1) == n_flagged(N)).all()
@@ -743,7 +743,7 @@ print("Aciertos y errores: OK")
 ```
 
 ### Paso 2. Las matrices de confusión
-Cada matriz tiene dos filas, la marca, y dos columnas, lo que dijo el método.
+Cada matriz tiene dos filas, la etiqueta, y dos columnas, lo que dijo el método.
 Las 64 filas etiquetadas caen en una de las cuatro casillas: TN, FP, FN o TP.
 En este paso dibujamos esa matriz para la lista, para TF-IDF y para el codificador.
 La clase mayoritaria no entra en la figura. Ya está en la tabla del paso anterior.
@@ -751,11 +751,11 @@ La clase mayoritaria no entra en la figura. Ya está en la tabla del paso anteri
 ```python
 fig, axes = plt.subplots(1, 3, figsize=(11, 3.4))  # subplots abre un panel por método
 for ax, name in zip(axes, ["palabras clave", "TF-IDF", "codificador"]):  # recorremos la lista, TF-IDF y el codificador
-    ConfusionMatrixDisplay.from_predictions(y_test, predictions[name], labels=[0, 1], display_labels=["no leer", "leer"],  # from_predictions dibuja la matriz de esta predicción contra las marcas
+    ConfusionMatrixDisplay.from_predictions(y_test, predictions[name], labels=[0, 1], display_labels=["no leer", "leer"],  # from_predictions dibuja la matriz de esta predicción contra las etiquetas
                                             cmap="Blues", colorbar=False, ax=ax)
     ax.set_title(name)  # set_title pone el nombre del método
     ax.set_xlabel("Dice el método")  # set_xlabel nombra lo que dice el método
-    ax.set_ylabel("Marca")  # set_ylabel nombra la marca
+    ax.set_ylabel("Etiqueta")  # set_ylabel nombra la etiqueta
 fig.tight_layout()  # tight_layout acomoda los márgenes
 fig.savefig(OUTPUTS_DIR / "confusion_l4.png", dpi=120)  # savefig guarda la figura
 plt.show()  # show muestra la figura
@@ -809,32 +809,32 @@ print("Texto para toda la colección: OK")
 ### Paso 4. Guardar el texto
 Guardamos una fila por cada uno de los 317 artículos en `outputs/texto_l4.csv`.
 `keyword` es el sí o no de la lista. `tfidf_lr` es el sí o no de TF-IDF. `prob_texto` es su probabilidad.
-`marca` lleva las 64 marcas. Las otras filas quedan vacías, porque esas filas sirvieron para aprender y no tienen marca de prueba.
+`etiqueta` lleva la etiqueta de las 64 filas apartadas. Las otras filas quedan vacías, porque esas filas sirvieron para aprender.
 Este archivo es el resultado de esta lección.
 
 ```python
-marca = pd.Series(pd.NA, index=range(N), dtype="Int64")  # Series deja la marca vacía en las 317 filas
-marca[marked_rows] = y_test  # escribimos la marca solo en las 64 filas apartadas
+etiqueta = pd.Series(pd.NA, index=range(N), dtype="Int64")  # Series deja la etiqueta vacía en las 317 filas
+etiqueta[marked_rows] = y_test  # escribimos la etiqueta solo en las 64 filas apartadas
 text_table = pd.DataFrame({
     "title": papers["title"],
     "keyword": pred_keywords,
     "tfidf_lr": text_tfidf,
     "prob_texto": prob_texto,
-    "marca": marca,
+    "etiqueta": etiqueta,
 })  # DataFrame arma una fila por artículo
 text_path = OUTPUTS_DIR / "texto_l4.csv"  # Path fija la ruta de texto_l4.csv
 text_table.to_csv(text_path, index=False)  # to_csv escribe la tabla y deja fuera el índice
-print(f"Guardado: {text_path} ({len(text_table)} filas, {text_table['marca'].notna().sum()} etiquetadas)")
+print(f"Guardado: {text_path} ({len(text_table)} filas, {text_table['etiqueta'].notna().sum()} etiquetadas)")
 ```
 
 **Comprobar:**
 
-En este paso comprobamos las columnas del archivo y las marcas guardadas.
+En este paso comprobamos las columnas del archivo y las etiquetas guardadas.
 
 ```python
 saved = pd.read_csv(text_path)
-assert {"title", "keyword", "tfidf_lr", "prob_texto", "marca"} <= set(saved.columns)
-assert saved["marca"].notna().sum() == n_flagged(N)
+assert {"title", "keyword", "tfidf_lr", "prob_texto", "etiqueta"} <= set(saved.columns)
+assert saved["etiqueta"].notna().sum() == n_flagged(N)
 print("texto_l4.csv: OK")
 ```
 

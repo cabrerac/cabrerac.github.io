@@ -8,7 +8,7 @@
 
 **Antes de empezar.** Ejecuten primero los cuadernos individuales de las Lecciones 5 y 6. Este cuaderno lo escribe el grupo. Cada paso dice qué código de la Lección 5 o de la Lección 6 adaptar. No peguen sin entender.
 
-**Datos de entrada.** El mismo archivo de su grupo: G1 Agricultura, G2 Salud mental, G3 Medio ambiente, G4 Inclusión Social y G5 Vivienda. La columna `links` trae los enlaces de la entradilla a otros artículos del mismo extracto. Un enlace es una mención en el texto, no una cita. Las categorías las pusieron quienes editan Wikipedia.
+**Datos de entrada.** El archivo de su secretaría: G1 Agricultura, G2 Salud mental, G3 Medio ambiente, G4 Inclusión Social y G5 Vivienda. La columna `links` trae los enlaces de la descripción a otros artículos del mismo archivo. Un enlace es una mención en el texto, no una cita. Las categorías las pusieron quienes editan Wikipedia.
 
 **Materiales.** [L5 Grafos](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l5-graphs.ipynb) y [L6 Predicción](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l6-prediction.ipynb).
 
@@ -19,7 +19,7 @@
 | Ejercicio | Tema | Entregable clave |
 |-----------|------|------------------|
 | **0** | Configuración | Grupo, etiqueta, datos, parámetros y funciones |
-| **1** | Comprensión del negocio | Los resultados de la semana 2 |
+| **1** | Comprensión del negocio | Qué esperan del grafo |
 | **2** | Comprensión de los datos | Títulos únicos y enlaces dentro del extracto |
 | **3** | Preparación de los datos | Los grafos y la tabla de la L6 |
 | **4** | Modelado | Grado, PageRank, node2vec y los tres métodos de la L6 |
@@ -34,9 +34,9 @@
 
 ### Paso 0.1. Grupo, etiqueta y datos
 
-En este paso eligen el grupo, ven la etiqueta de la Lección 6 y descargan el archivo de su secretaría. Suban los archivos de salida de su ZIP de la semana anterior (`outputs/en_vista.csv` y `etiquetas.csv`) antes de seguir. `etiquetas.csv` no se lee aquí, pero va de nuevo en el ZIP. La pregunta y el problema están en el documento de requerimientos.
+En este paso eligen el grupo, ven la etiqueta de la Lección 6 y descargan el archivo de su secretaría. La pregunta y el problema están en el documento de requerimientos.
 
-Cambien solo `GROUP`. La etiqueta de la Lección 6 es `LABEL = "categoria_objetivo"`: 1 si la categoría del artículo (`categoria`) está en `TARGETS[GROUP]`, y 0 si no. `TARGETS` son las mismas categorías del filtro de la semana 2.
+Cambien solo `GROUP`. La etiqueta de la Lección 6 es `LABEL = "categoria_objetivo"`: 1 si la categoría del artículo (`categoria`) está en `TARGETS[GROUP]`, y 0 si no. `TARGETS` son las categorías de la etiqueta.
 
 ```python
 from pathlib import Path
@@ -85,7 +85,7 @@ En este paso copian los parámetros, las librerías y las funciones de las Lecci
 
 **Listo cuando:**
 - Los parámetros tienen los valores de las Lecciones 5 y 6.
-- Las rutas son, en `outputs/`, `en_vista.csv` (semana 2), `grafo.csv` y `prediccion.csv`.
+- Las rutas son, en `outputs/`, `grafo.csv` y `prediccion.csv`.
 - `vote_of(predicciones)` recibe las predicciones de los 3 métodos y devuelve, por fila, la clase que dicen al menos 2 como texto, o `None` si los tres dicen algo distinto. La etiqueta puede tener varias clases.
 
 **Comprobar:**
@@ -101,30 +101,25 @@ print("Paso 0.2: OK")
 
 ## Ejercicio 1. Comprensión del negocio
 
-### Paso 1.1. Los resultados de la semana 2
+### Paso 1.1. Qué esperan del grafo
 
-En este paso leen los resultados de la semana 2 y escriben qué esperan del grafo.
-La pregunta y el problema siguen en el documento de requerimientos.
-
-| Qué copiar | Dónde está en L5 |
-|------------|------------------|
-| Leer los resultados en `week2`, con las tres columnas en verdadero o falso | Parte 1, Paso 5 (aquí el archivo es `outputs/en_vista.csv`) |
+En este paso escriben qué esperan del grafo, antes de mirar resultados.
+La pregunta y el problema están en el documento de requerimientos.
 
 ```python
-# SU CÓDIGO. Paso 1.1: week2 y graph_expectation
+# SU CÓDIGO. Paso 1.1: graph_expectation
 
 ```
 
 **Listo cuando:**
-- `week2` tiene `title`, `has_pattern`, `read_group`, `text_says_read` y `prob_texto`.
-- `graph_expectation` (texto, escrito antes de mirar resultados) dice qué artículo creen que será el más enlazado y si una persona nueva debería abrirlo primero.
+- `graph_expectation` dice qué artículo creen que será el más enlazado y si una persona nueva debería abrirlo primero.
 
 **Comprobar:**
 
-En este paso comprobamos que leyeron los resultados de la semana 2 y que escribieron qué esperan del grafo.
+En este paso comprobamos que escribieron qué esperan del grafo.
 
 ```python
-assert "prob_texto" in week2 and graph_expectation.strip()
+assert graph_expectation.strip()
 print("Paso 1.1: OK")
 ```
 
@@ -440,11 +435,10 @@ La reflexión individual se entrega el miércoles 2 dic 2026, 23:59 (hora de Col
 | Archivo del ZIP `week-3-<group_id>.zip` | Descripción |
 |-----------------------------------------|-------------|
 | `week-3-group-<group_id>.ipynb` | Este cuaderno ejecutado |
-| `etiquetas.csv` | Su conjunto etiquetado de la semana 2 |
 | `outputs/grafo.csv` | El lugar de cada artículo en la red, con `graph_support` y `alerta_centro` |
 | `outputs/prediccion.csv` | La clase votada y el resultado de la predicción |
 
-Estos archivos son la tercera iteración.
-El cuaderno del proyecto los lee, junto con los de las semanas 1 y 2, y escribe la lista de inicio.
+Estos archivos son el resultado de esta semana.
+El cuaderno del proyecto los lee cuando arma la lista de inicio.
 
 <!-- end NOTEBOOK: -->

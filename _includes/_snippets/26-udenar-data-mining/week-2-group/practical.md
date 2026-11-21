@@ -6,9 +6,9 @@
 
 **Esta semana.** El grupo repite en sus artículos lo que hicieron las Lecciones 3 y 4, con el método de grupos y el método de texto que mejor se ajustan a estos datos: HDBSCAN y TF-IDF con regresión logística. El resultado de la lista de esta semana es `outputs/lectura_semana_2.csv`. La tabla de cada artículo es `outputs/en_vista.csv`.
 
-**Antes de empezar.** Ejecuten primero los cuadernos individuales de las Lecciones 3 y 4. Este cuaderno lo escribe el grupo. Traigan de los laboratorios los parámetros, las funciones y las figuras. Suban `outputs/patrones.csv` de la semana 1.
+**Antes de empezar.** Ejecuten primero los cuadernos individuales de las Lecciones 3 y 4. Este cuaderno lo escribe el grupo. Traigan de los laboratorios los parámetros, las funciones y las figuras.
 
-**Datos de entrada.** El mismo archivo de la semana 1: G1 Agricultura, G2 Salud mental, G3 Medio ambiente, G4 Inclusión Social y G5 Vivienda. El texto es la columna `lead`, la **descripción** del artículo. La etiqueta de entrenamiento sale de las categorías que pusieron quienes editan Wikipedia.
+**Datos de entrada.** El archivo de su secretaría: G1 Agricultura, G2 Salud mental, G3 Medio ambiente, G4 Inclusión Social y G5 Vivienda. El texto es la columna `lead`, la **descripción** del artículo. La etiqueta de entrenamiento sale de las categorías que pusieron quienes editan Wikipedia.
 
 **Materiales.** [L3 Grupos](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l3-groups.ipynb) y [L4 Texto](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l4-text.ipynb).
 
@@ -22,7 +22,7 @@
 
 | Ejercicio | Tema | Entregable clave |
 |-----------|------|------------------|
-| **0** | Configuración | Grupo, datos, patrones de la semana 1 y parámetros |
+| **0** | Configuración | Grupo, datos y parámetros |
 | **1** | Comprensión del negocio | La nota de si la pregunta cambió, y las palabras del tema |
 | **2** | Comprensión de los datos | Descripciones útiles, su largo y las palabras del tema en ellas |
 | **3** | Preparación de los datos | Conteos y SVD, etiquetas y TF-IDF |
@@ -36,7 +36,7 @@
 
 ### Paso 0.1. Grupo y datos
 
-En este paso eligen el grupo, descargan el archivo de su secretaría y leen los patrones de la semana 1.
+En este paso eligen el grupo y descargan el archivo de su secretaría.
 Cambien solo `GROUP`. `TARGETS` son las categorías de la etiqueta, elegidas por el profesor.
 
 ```python
@@ -60,14 +60,12 @@ path = DATA_DIR / FILENAME
 if not path.is_file():  # usa el archivo si ya está
     path.write_bytes(requests.get(f"https://cabrerac.github.io/assets/data/26-udenar-data-mining/{FILENAME}", timeout=60).content)
 articles = pd.read_csv(path, keep_default_na=False)  # una fila por artículo. Una descripción vacía queda como texto vacío
-assert (OUTPUTS_DIR / "patrones.csv").is_file(), "Suban outputs/patrones.csv de la semana 1 y vuelvan a ejecutar esta celda"
-patterns = pd.read_csv(OUTPUTS_DIR / "patrones.csv")  # los pares de la semana 1
-print(f"Grupo {GROUP}: secretaría de {SECRETARIAT}, {len(articles)} artículos, {len(patterns)} pares de la semana 1")
+print(f"Grupo {GROUP}: secretaría de {SECRETARIAT}, {len(articles)} artículos")
 ```
 
 ### Paso 0.2. Importaciones, parámetros y funciones de apoyo
 
-En este paso preparan lo que usa el resto del cuaderno, como en la semana 1. Va en tres celdas.
+En este paso preparan lo que usa el resto del cuaderno. Va en tres celdas.
 Primero las importaciones de las Lecciones 3 y 4.
 
 ```python
@@ -107,7 +105,7 @@ print("Paso 0.2: OK")
 
 ### Paso 1.1. ¿Cambió la pregunta?
 
-La pregunta y el problema ya están en el cuaderno de la semana 1 y en el documento de requerimientos.
+La pregunta y el problema están en el documento de requerimientos.
 En este paso escriben solo si algo cambió.
 Si la pregunta o el alcance siguen iguales, escriban "Sin cambio".
 Si cambiaron, escriban la línea nueva y por qué.
@@ -140,7 +138,7 @@ print("Paso 1.2: OK")
 
 ### Paso 2.1. Palabras útiles
 
-En este paso traen `words` y `word_list` de la Lección 3 y las palabras vacías del español de la semana 1.
+En este paso traen `words` y `word_list` de la Lección 3 y las palabras vacías del español.
 
 ```python
 # SU CÓDIGO. Paso 2.1: STOP_WORDS, word_list y words
@@ -394,7 +392,7 @@ print("Paso 5.3: OK")
 
 ### Paso 5.4. Guardar los resultados
 
-En este paso guardan los grupos y el texto de cada artículo, como los patrones de la semana 1.
+En este paso guardan los grupos y el texto de cada artículo.
 
 ```python
 # SU CÓDIGO. Paso 5.4: outputs/grupos.csv y outputs/texto.csv
@@ -435,7 +433,7 @@ Guarden como máximo 30 artículos en `outputs/lectura_semana_2.csv`, con `title
 ### Paso 6.2. La tabla para el proyecto
 
 En este paso guardan todos los artículos en `outputs/en_vista.csv` para el cuaderno del proyecto.
-`has_pattern` dice si la descripción tiene un par de la semana 1 con una palabra del tema. `read_group` dice si HDBSCAN lo pone en un grupo leído. `text_says_read` dice si TF-IDF dice que se abra.
+`read_group` dice si HDBSCAN lo pone en un grupo leído. `text_says_read` dice si TF-IDF dice que se abra.
 
 ```python
 # SU CÓDIGO. Paso 6.2: week2 y outputs/en_vista.csv
@@ -462,7 +460,7 @@ reading_list = pd.read_csv(OUTPUTS_DIR / "lectura_semana_2.csv")
 week2 = pd.read_csv(OUTPUTS_DIR / "en_vista.csv")
 assert len(reading_list) == min(MAX_PAPERS, read_hdbscan.sum()) and reading_list["prob_texto"].is_monotonic_decreasing
 assert reading_list["hdbscan"].isin(groups_read).all()
-assert len(week2) == N and {"title", "has_pattern", "read_group", "text_says_read", "prob_texto"} <= set(week2.columns)
+assert len(week2) == N and {"title", "read_group", "text_says_read", "prob_texto"} <= set(week2.columns)
 print(f"Paso 6.3: OK. prob_texto de {reading_list['prob_texto'].max()} a {reading_list['prob_texto'].min()}. Armen el ZIP.")
 ```
 

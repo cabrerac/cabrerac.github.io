@@ -168,7 +168,7 @@
 ```text
 load the pretrained encoder once
 for each text
-    add the prefix "query: "
+    add the prefix "passage: "
     tokens, cut at 512
     one vector per token
     mean vector, scaled to length 1

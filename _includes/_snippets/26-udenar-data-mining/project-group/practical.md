@@ -61,7 +61,7 @@ En este paso comprobamos que los cuatro archivos traen las columnas que el resto
 
 ```python
 assert {"pair", "kept"} <= set(patterns.columns)
-assert {"title", "has_pattern", "read_group", "text_says_read", "prob_texto"} <= set(week2.columns)
+assert {"title", "read_group", "text_says_read", "prob_texto"} <= set(week2.columns)
 assert {"title", "graph_support", "alerta_centro"} <= set(graph.columns)
 assert {"title", "prediction"} <= set(prediction.columns)
 assert MIN_ARTICLES < MAX_ARTICLES
@@ -151,7 +151,7 @@ No vuelvan a entrenar los métodos. Lean las columnas que ya están en los archi
 
 | Columna | De dónde sale |
 |---------|---------------|
-| `has_pattern`, `read_group`, `text_says_read`, `prob_texto` | `week2` |
+| `read_group`, `text_says_read`, `prob_texto` | `week2` |
 | `graph_support`, `alerta_centro` | `graph` |
 | `prediction` | `prediction` |
 
