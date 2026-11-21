@@ -15,7 +15,7 @@ layout: lecture
 lecture_code: l4-text
 lecture_date: 21/11/2026
 permalink: /teaching/26-udenar-data-mining/l4-text/
-visible: false
+visible: true
 group_notebook: week-2-group
 notebook_language: es
 notebook_title: Extracción de texto

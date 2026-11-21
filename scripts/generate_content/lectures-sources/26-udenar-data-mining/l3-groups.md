@@ -15,7 +15,7 @@ layout: lecture
 lecture_code: l3-groups
 lecture_date: 21/11/2026
 permalink: /teaching/26-udenar-data-mining/l3-groups/
-visible: false
+visible: true
 group_notebook: week-2-group
 notebook_language: es
 notebook_title: Grupos

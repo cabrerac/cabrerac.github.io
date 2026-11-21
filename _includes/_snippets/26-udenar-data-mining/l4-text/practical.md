@@ -762,18 +762,22 @@ plt.show()  # show muestra la figura
 ```
 
 ### Paso 3. El texto para toda la colección
-Hasta aquí TF-IDF y el codificador dicen sí o no solo en las 64 filas etiquetadas.
+Hasta aquí TF-IDF y el codificador dicen sí o no solo en las 64 filas etiquetadas de nuestro dataset de prueba.
 Las dos listas necesitan un número para los 317 artículos.
 En este paso guardamos la probabilidad de TF-IDF y la del codificador.
-Las 64 filas etiquetadas usan el modelo ya ajustado con las 253.
-Cada fila de entrenamiento usa el pliegue que no la vio, para que ninguna fila reciba la probabilidad de un modelo que la usó para aprender.
-Pasamos a 1 cuando la probabilidad de TF-IDF supera 0,5.
+
 
 ```python
 prob_texto = np.zeros(N)  # empezamos la probabilidad de TF-IDF en cero para los 317 artículos
 prob_encoder = np.zeros(N)  # empezamos la probabilidad del codificador en cero para los 317 artículos
 prob_texto[marked_rows] = tfidf_model.predict_proba(X_marked)[:, 1]  # predict_proba escribe la probabilidad de TF-IDF en las 64 filas etiquetadas
 prob_encoder[marked_rows] = encoder_model.predict_proba(vectors[marked_rows])[:, 1]  # predict_proba escribe la probabilidad del codificador en las 64 filas etiquetadas
+```
+
+Para las 253 restantes utilizamos k-fold cross-validation para entrenar el modelo y asignar sus probabilidades. Cada fila de entrenamiento usa el conjunto que no la vio, para que ninguna fila reciba la probabilidad de un modelo que la usó para aprender.
+Pasamos a 1 cuando la probabilidad de TF-IDF supera 0,5.
+
+```python
 folds = StratifiedKFold(n_splits=N_FOLDS, shuffle=True, random_state=SEED)  # StratifiedKFold parte las 253 filas en 5 pliegues y conserva la proporción del tema
 for fit_rows, test_rows in folds.split(train_rows, y_train):  # split entrega en cada vuelta las filas de ajuste y la parte que no vio
     learn, check = train_rows[fit_rows], train_rows[test_rows]  # learn son las filas que el pliegue ajusta y check la parte que no vio
