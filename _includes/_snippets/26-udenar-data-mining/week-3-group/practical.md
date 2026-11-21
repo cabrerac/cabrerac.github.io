@@ -34,7 +34,7 @@
 
 ### Paso 0.1. Grupo, etiqueta y datos
 
-En este paso eligen el grupo, ven la etiqueta de la Lección 6 y descargan el archivo de su secretaría. Suban los archivos de salida de su ZIP de la semana anterior (`outputs/en_vista.csv` y `marcas.csv`) antes de seguir. `marcas.csv` no se lee aquí, pero va de nuevo en el ZIP. La pregunta y el problema están en el documento de requerimientos.
+En este paso eligen el grupo, ven la etiqueta de la Lección 6 y descargan el archivo de su secretaría. Suban los archivos de salida de su ZIP de la semana anterior (`outputs/en_vista.csv` y `etiquetas.csv`) antes de seguir. `etiquetas.csv` no se lee aquí, pero va de nuevo en el ZIP. La pregunta y el problema están en el documento de requerimientos.
 
 Cambien solo `GROUP`. La etiqueta de la Lección 6 es `LABEL = "categoria_objetivo"`: 1 si la categoría del artículo (`categoria`) está en `TARGETS[GROUP]`, y 0 si no. `TARGETS` son las mismas categorías del filtro de la semana 2.
 
@@ -440,7 +440,7 @@ La reflexión individual se entrega el miércoles 2 dic 2026, 23:59 (hora de Col
 | Archivo del ZIP `week-3-<group_id>.zip` | Descripción |
 |-----------------------------------------|-------------|
 | `week-3-group-<group_id>.ipynb` | Este cuaderno ejecutado |
-| `marcas.csv` | Su conjunto marcado de la semana 2 |
+| `etiquetas.csv` | Su conjunto etiquetado de la semana 2 |
 | `outputs/grafo.csv` | El lugar de cada artículo en la red, con `graph_support` y `alerta_centro` |
 | `outputs/prediccion.csv` | La clase votada y el resultado de la predicción |
 

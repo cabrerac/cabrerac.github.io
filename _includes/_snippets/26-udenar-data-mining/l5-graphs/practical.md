@@ -40,7 +40,7 @@ print(f"Pasos desde A: {steps}. E no se alcanza. Repaso de Python: OK")
 
 ## Instrucciones
 
-Seguimos con el equipo interno de la secretaría de salud y sus 320 artículos sobre nutrición. El equipo debe decidir **qué artículos tiene que leer** un colega que llega al equipo. Con los tres resultados de las Lecciones 2 a 4, 52 artículos quedaron en vista.
+Seguimos con el equipo interno de la secretaría de salud y sus 320 artículos sobre nutrición. El equipo debe decidir **qué artículos tiene que leer** un colega que llega al equipo.
 
 Los artículos se citan entre ellos. Los índices de citas guardaron esos enlaces para las bibliotecas, y la web los volvió a usar entre páginas. Page et al. (1998) propusieron que un enlace desde una página importante pese más. Hoy describimos un artículo por su **lugar entre los demás**. Un artículo enlazado con muchos es una **alerta**, porque puede ser una revisión que todos citan. Un artículo **citado por artículos importantes** puede ser el que el colega necesita.
 
@@ -58,12 +58,12 @@ Los artículos se citan entre ellos. Los índices de citas guardaron esos enlace
 
 | Parte | Fase CRISP-DM | Qué sale |
 |-------|---------------|----------|
-| 1 | Comprensión del negocio | La pregunta de hoy, los parámetros, los artículos y los tres resultados anteriores |
+| 1 | Comprensión del negocio | La pregunta de hoy, los parámetros y los artículos |
 | 2 | Comprensión de los datos | Los artículos y sus enlaces |
 | 3 | Preparación de los datos | La lista de enlaces, los dos grafos y el componente mayor |
 | 4 | Modelado | Grado, PageRank y node2vec |
 | 5 | Evaluación | Contra las citas, un artículo descrito por su lugar, estabilidad de node2vec |
-| 6 | Despliegue | El resultado del grafo en `supports` y `outputs/grafo_l5.csv` |
+| 6 | Despliegue | La lista del grafo, hasta 30 artículos, en `outputs/grafo_l5.csv` |
 
 **Carpetas.** La celda de configuración crea `data/` (datos descargados) y `outputs/` (tablas y gráficos).
 
@@ -79,12 +79,13 @@ En este paso escribimos qué buscamos hoy. La decisión no cambia: qué artícul
 | ¿Qué buscamos? | El lugar de cada artículo en la red de citas dentro de la colección |
 | ¿Con qué lo medimos? | Grado, PageRank y node2vec |
 | ¿Contra qué lo comparamos? | Contra las citas en el mundo y contra pares de artículos al azar |
-| ¿Cómo entra el grafo en la lista? | Un artículo recibe el resultado del grafo si tiene PageRank alto: el cuarto superior entre los artículos con enlaces |
+| ¿Cómo entra el grafo en la lista? | Un artículo entra si tiene enlaces, su PageRank está en el cuarto superior de esos artículos y no es un nodo central. La lista guarda como máximo 30, los de PageRank más alto |
 
-Un nodo central es una alerta. Un artículo aislado no recibe el resultado, pero tampoco sale de la lista.
+Un nodo central es una alerta, no un lugar en la lista.
+Un artículo aislado no recibe el resultado del grafo.
 
 ### Paso 2. Configuración
-En este paso importamos las librerías, creamos las carpetas y fijamos los parámetros. La celda instala `gensim` solo si falta. No cambie los parámetros. La excepción es `MIN_SUPPORTS`, que empieza en 2 y se puede cambiar. Cada grupo fija y justifica este número en su proyecto.
+En este paso importamos las librerías, creamos las carpetas y fijamos los parámetros. La celda instala `gensim` solo si falta. No cambie los parámetros.
 
 ```python
 import importlib.util
@@ -120,9 +121,6 @@ BASE_URL = "https://cabrerac.github.io/assets/data/26-udenar-data-mining"
 SUPPORT_SHARE = 0.03
 SUPPORT_MIN = 5
 SEED = 7
-
-# Decisión, L3 en adelante
-MIN_SUPPORTS = 2             # el código empieza en 2, cámbielo si lo justifica (0 o 1 también valen)
 
 # L5 (no cambiar)
 HUB_SHARE = 0.10          # un nodo enlazado a al menos el 10% de los otros es una alerta
@@ -203,43 +201,12 @@ MAX_PAPERS = 30
 print(f"Lista: entre {MIN_PAPERS} y {MAX_PAPERS} artículos")
 ```
 
-### Paso 5. Los tres resultados de las Lecciones 2 a 4
-En este paso leemos `outputs/grupos_l3.csv` y `outputs/texto_l4.csv`, con los tres resultados anteriores. Si no están, esos resultados quedan en falso. Para tener la cuenta real, suba a `outputs/` los archivos de las Lecciones 3 y 4.
-
-```python
-GROUPS_PATH = OUTPUTS_DIR / "grupos_l3.csv"
-TEXT_PATH = OUTPUTS_DIR / "texto_l4.csv"
-
-if GROUPS_PATH.is_file() and TEXT_PATH.is_file():
-    groups_l3 = pd.read_csv(GROUPS_PATH, keep_default_na=False)
-    text_l4 = pd.read_csv(TEXT_PATH, keep_default_na=False)
-    week2 = pd.DataFrame({
-        "title": groups_l3["title"],
-        "has_pattern": groups_l3["has_pattern"].astype(str) == "True",
-        "read_group": groups_l3["read_group"].astype(str) == "True",
-        "text_says_read": text_l4["tfidf_lr"].astype(int) == 1,
-    })
-    print(f"Lecciones 2 a 4: {len(week2)} filas, {week2[['has_pattern', 'read_group', 'text_says_read']].sum().to_dict()}")
-else:
-    week2 = pd.DataFrame(columns=["title", "has_pattern", "read_group", "text_says_read"])
-    print("Faltan grupos_l3.csv o texto_l4.csv. Los tres resultados anteriores quedan en falso.")
-```
-
-**Comprobar:**
-
-En este paso comprobamos que los tres resultados anteriores tienen sus columnas.
-
-```python
-assert {"title", "has_pattern", "read_group", "text_says_read"} <= set(week2.columns)
-print("Resultados anteriores: OK")
-```
-
 ---
 
 ## Parte 2. Comprensión de los datos
 
 ### Paso 1. Los artículos y los títulos repetidos
-En este paso quitamos los títulos repetidos, porque un nodo es un título. Quedan 318 filas. Al juntar resultados, un título repetido toma el resultado a favor de cualquiera de sus dos filas.
+En este paso quitamos los títulos repetidos, porque un nodo es un título. Quedan 318 filas.
 
 ```python
 repeated = raw.loc[raw["title"].duplicated(), "title"].tolist()
@@ -748,45 +715,41 @@ fig.savefig(OUTPUTS_DIR / "componente_l5.png", dpi=120)
 plt.show()
 ```
 
-**Lo que leemos.** El grafo habla solo de una parte de la colección. Por eso es un resultado más, no la decisión.
+**Lo que leemos.** El dibujo es el componente mayor. El borde negro marca PageRank alto.
 
 ---
 
 ## Parte 6. Despliegue
 
-### Paso 1. El resultado del grafo en la tabla
-En este paso armamos `table`, una fila por título, con los tres resultados anteriores y `graph_support`, tener **PageRank alto** (Parte 4, M2). Los 3 resúmenes cortos van como "sin texto". Un artículo queda **en vista** según `MIN_SUPPORTS`, el número de resultados a favor que pide el código. `MIN_SUPPORTS` empieza en 2 y se puede cambiar. Cada grupo fija y justifica este número en su proyecto. 0 o 1 valen si se explica. La celda cuenta cuántos artículos tienen 0, 1, 2 y 3 o más resultados a favor.
+### Paso 1. La lista del grafo
+En este paso armamos una fila por título.
+`graph_support` es el PageRank alto de la Parte 4: enlaces, cuarto superior entre esos artículos, y no es un nodo central.
+La lista guarda como máximo 30 de esos artículos, los de PageRank más alto.
 
 ```python
-supports_w2 = week2.groupby("title")[["has_pattern", "read_group", "text_says_read"]].any()
-table = supports_w2.reindex(titles).fillna(False).astype(bool)   # table: una fila por artículo, el título es el índice
-table.index.name = "title"
-no_text = [t for t in titles if t not in supports_w2.index]
-print(f"Sin texto en las Lecciones 3 y 4: {len(no_text)}")
-for t in no_text:
-    print("  ", t[:70])
-
-table["graph_support"] = table.index.isin(high_rank)   # cuarto superior por PageRank, sin nodos centrales
-SUPPORT_COLUMNS = ["has_pattern", "read_group", "text_says_read", "graph_support"]
-table["supports"] = table[SUPPORT_COLUMNS].astype(int).sum(axis=1)
-table["in_view"] = table["supports"] >= MIN_SUPPORTS
-before = (table[SUPPORT_COLUMNS[:3]].astype(int).sum(axis=1) >= MIN_SUPPORTS).sum()
-print(f"En vista con tres resultados: {before}. Con el grafo: {table['in_view'].sum()} de {N}")
-counts = table["supports"].clip(upper=3).value_counts().reindex(range(4), fill_value=0).rename(index={3: "3 o más"})
-print(counts.rename_axis("resultados a favor").to_frame("artículos").T.to_string())
+table = pd.DataFrame(index=pd.Index(titles, name="title"))
+table["graph_support"] = table.index.isin(high_rank)
+by_rank = pd.Series(rank).loc[high_rank].sort_values(ascending=False)
+kept = by_rank.head(MAX_PAPERS).index
+table["en_lista"] = table.index.isin(kept)
+print(f"PageRank alto: {int(table['graph_support'].sum())}. En la lista: {int(table['en_lista'].sum())}.")
 ```
 
 **Comprobar:**
 
-En este paso comprobamos que la tabla tiene un artículo por fila y que el grafo suma un resultado a cada artículo con PageRank alto.
+En este paso comprobamos que hay una fila por artículo y que la lista no pasa de 30.
 
 ```python
 assert len(table) == N and table.index.is_unique
-assert table["in_view"].sum() >= before and table["graph_support"].sum() == len(high_rank)
-print("Tabla de resultados con el grafo: OK")
+assert table["graph_support"].sum() == len(high_rank)
+assert table["en_lista"].sum() == min(MAX_PAPERS, len(high_rank))
+assert set(table.index[table["en_lista"]]) <= set(high_rank)
+print("Lista del grafo: OK")
 ```
 
-**Lo que aprendemos aquí.** El grafo apoya a los 49 artículos con PageRank alto. Los aislados y los sin vector no reciben el resultado, pero no salen de la lista. Con el grafo, la lista pasa de 52 a 66 artículos en vista.
+Los artículos con PageRank alto son el resultado de esta lección.
+Un aislado no entra.
+Un nodo central tampoco entra: es una alerta, no un lugar en la lista.
 
 ### Paso 2. Guardar el grafo
 En este paso guardamos `outputs/grafo_l5.csv`. `vecinos_n2v` lleva los 5 vecinos separados por `|`.
@@ -800,8 +763,8 @@ graph_table = pd.DataFrame({
     "alerta_centro": [t in hubs for t in titles],
     "sin_vector_n2v": [t not in adj for t in titles],
     "vecinos_n2v": ["|".join(neighbours_by_seed[0][t]) if t in adj else "" for t in titles],
-    "supports": table.loc[titles, "supports"].to_numpy(),
-    "in_view": table.loc[titles, "in_view"].to_numpy(),
+    "graph_support": table.loc[titles, "graph_support"].to_numpy(),
+    "en_lista": table.loc[titles, "en_lista"].to_numpy(),
 })
 graph_path = OUTPUTS_DIR / "grafo_l5.csv"
 graph_table.to_csv(graph_path, index=False)
@@ -814,7 +777,7 @@ En este paso comprobamos que el archivo guardado tiene sus columnas y una fila p
 
 ```python
 saved = pd.read_csv(graph_path, keep_default_na=False)
-assert {"title", "grado", "pagerank", "aislado", "alerta_centro", "sin_vector_n2v", "vecinos_n2v", "supports", "in_view"} <= set(saved.columns)
+assert {"title", "grado", "pagerank", "aislado", "alerta_centro", "sin_vector_n2v", "vecinos_n2v", "graph_support", "en_lista"} <= set(saved.columns)
 assert len(saved) == N
 print("grafo_l5.csv: OK")
 ```
@@ -829,7 +792,7 @@ En este paso escribimos cómo entra el grafo y qué lo cambiaría.
 | Qué lo cambia | Otro corte que el cuarto superior. Otra regla para los nodos centrales. Más artículos o más enlaces |
 
 ### Paso 4. Comprobación final
-En este paso revisamos que el cuaderno dejó lo que la Lección 6 necesita.
+En este paso revisamos que el cuaderno guardó el grafo.
 
 ```python
 def _check_ok(name, predicate):
@@ -849,12 +812,11 @@ def _check_ok(name, predicate):
 checks = [
     ("outputs/grafo_l5.csv", lambda: graph_path.is_file()),
     ("Histograma de grado y dibujo del componente", lambda: all((OUTPUTS_DIR / f).is_file() for f in ["grado_l5.png", "componente_l5.png"])),
-    ("Resultados de las Lecciones 2 a 4", lambda: len(week2) > 0),
 ]
 passed = sum(_check_ok(n, f) for n, f in checks)
 print(f"\nL5_CHECKS={passed}/{len(checks)}")
 if passed == len(checks):
-    print("L5_OK. Siga con la Lección 6.")
+    print("L5_OK")
 ```
 
 <!-- end NOTEBOOK: -->

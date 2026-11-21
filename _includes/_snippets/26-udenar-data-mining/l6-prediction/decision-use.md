@@ -10,11 +10,8 @@
                 <ul>
                     <li><b>The prediction result:</b> an item is predicted yes when at least 2 of the 3 methods say so, never by a model that saw its label</li>
                     <li><b>It counts</b> only when the three methods beat the majority class</li>
-                    <li><b>The starter reading list:</b> every item with enough results joins, with the fact that would remove it</li>
-                    <li><b>A hub</b> gets a warning to read it, never a support</li>
+                    <li><b>The list:</b> those papers, at most 30. A positive prediction is not, by itself, a reason to read</li>
                 </ul>
-                <br>
-                <p>MIN_SUPPORTS starts at 2 and can change. Each group sets and justifies this number in its project.</p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/crisp-dm-process-diagram.png" alt="CRISP-DM process diagram" style="height: 340px">

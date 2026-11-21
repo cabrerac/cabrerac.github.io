@@ -26,7 +26,7 @@ print(f"Dijo {said.tolist()}, era {y_te.tolist()}. Aciertos: {int((said == y_te)
 
 ## Instrucciones
 
-Seguimos con el equipo interno de la secretaría de salud y sus artículos sobre nutrición. El equipo debe decidir **qué artículos tiene que leer** un colega que llega al equipo. Con los cuatro resultados de las Lecciones 2 a 5, 66 artículos quedaron en vista.
+Seguimos con el equipo interno de la secretaría de salud y sus artículos sobre nutrición. El equipo debe decidir **qué artículos tiene que leer** un colega que llega al equipo.
 
 Hasta ahora cada resultado salió de los datos mismos. Ahora alguien nos da una etiqueta. Por años, los programas que clasificaban seguían reglas escritas a mano. Después se pasó a aprender la regla desde ejemplos etiquetados (LeCun, Bengio y Hinton, 2015). Hoy sumamos el último resultado: **predecir una etiqueta dada**. La etiqueta es `internacional`: autores de al menos dos países (`n_countries >= 2`).
 
@@ -46,12 +46,12 @@ Medimos aciertos y errores en artículos que ningún modelo vio. Cada modelo se 
 
 | Parte | Fase CRISP-DM | Qué sale |
 |-------|---------------|----------|
-| 1 | Comprensión del negocio | La pregunta de hoy, los parámetros, la función contra la fuga y los cuatro resultados anteriores |
+| 1 | Comprensión del negocio | La pregunta de hoy, los parámetros y la función contra la fuga |
 | 2 | Comprensión de los datos | La etiqueta y los atributos |
 | 3 | Preparación de los datos | La tabla, el conjunto apartado y la preparación |
 | 4 | Modelado | Clase mayor, regresión logística, bosque y una capa oculta |
 | 5 | Evaluación | Aciertos y errores, cinco pliegues y la regla de una línea |
-| 6 | Despliegue | El resultado de la predicción y la lista inicial |
+| 6 | Despliegue | La predicción y una lista de hasta 30 artículos |
 
 **Carpetas.** La celda de configuración crea `data/` (datos descargados) y `outputs/` (tablas y gráficos).
 
@@ -67,12 +67,14 @@ En este paso escribimos qué buscamos hoy. La decisión no cambia: qué artícul
 | ¿Qué buscamos? | Predecir si un artículo es internacional a partir de sus atributos |
 | ¿Con qué lo medimos? | Regresión logística, un bosque aleatorio y una red con una capa oculta |
 | ¿Contra qué los comparamos? | Contra la clase mayor y contra una regla de una línea |
-| ¿Cómo entra la predicción en la lista? | Un artículo recibe el resultado si al menos 2 de los 3 métodos dicen que sí, con un modelo que no vio su etiqueta |
+| ¿Cómo entra la predicción en la lista? | Un artículo entra si al menos 2 de los 3 métodos dicen que sí, con un modelo que no vio su etiqueta, y los tres métodos superan a la clase mayor. La lista guarda como máximo 30 |
 
-Después juntamos los cinco resultados en la lista inicial. La cuenta de 0, 1, 2 y 3 o más resultados ayuda a elegir `MIN_SUPPORTS`.
+Ser internacional no es, por sí solo, una razón para leer.
+Esta lista muestra esa predicción.
+No se suma con los resultados de otras lecciones.
 
 ### Paso 2. Configuración
-En este paso importamos las librerías, creamos las carpetas y fijamos los parámetros. No los cambie. La excepción es `MIN_SUPPORTS`, que empieza en 2 y se puede cambiar. Cada grupo fija y justifica este número en su proyecto.
+En este paso importamos las librerías, creamos las carpetas y fijamos los parámetros. No los cambie.
 
 ```python
 import math          # techo (ceil) para los mínimos
@@ -111,9 +113,6 @@ POSITIVE_SHARE = 0.10       # proporción mínima de positivos en la etiqueta
 POSITIVES_MIN = 30          # mínimo de positivos
 C_REG = 10                  # penalización de la regresión logística (más alto, menos penalización)
 N_FOLDS = 5
-
-# Decisión, L3 en adelante
-MIN_SUPPORTS = 2             # el código empieza en 2, cámbielo si lo justifica (0 o 1 también valen)
 
 # L6 (no cambiar)
 LABEL = "internacional"     # laboratorio: autores de al menos dos países
@@ -258,59 +257,24 @@ MAX_PAPERS = 30
 print(f"Lista: entre {MIN_PAPERS} y {MAX_PAPERS} artículos")
 ```
 
-### Paso 6. Los cuatro resultados de las Lecciones 2 a 5
-En este paso armamos la tabla de resultados con `outputs/grupos_l3.csv`, `outputs/texto_l4.csv` y `outputs/grafo_l5.csv`, unidos por título. El resultado del grafo se recalcula con la regla de la Lección 5. Si falta algún archivo, el resultado queda en falso. Para tener la cuenta real, suba a `outputs/` los archivos de las Lecciones 3, 4 y 5.
+### Paso 6. Los títulos de esta lección
+En este paso dejamos una fila por título.
+La predicción de más adelante se escribe en esa tabla.
+No leemos los archivos de las lecciones anteriores.
 
 ```python
-def read_or_empty(path, columns):
-    """Lee un CSV de una lección anterior, o una tabla vacía si el archivo no está.
-
-    Qué hace: si falta el archivo, avisa y devuelve una tabla vacía con las columnas
-    pedidas, así el resto del cuaderno corre y esos resultados quedan en falso.
-
-    Entrada:
-        path: la ruta del CSV. columns: las columnas que esperamos.
-
-    Salida:
-        Una tabla de pandas.
-    """
-    if path.is_file():
-        return pd.read_csv(path, keep_default_na=False)
-    print(f"Falta {path}. Sus resultados quedan en falso.")
-    return pd.DataFrame(columns=columns)
-
-
-groups_l3 = read_or_empty(OUTPUTS_DIR / "grupos_l3.csv", ["title", "has_pattern", "read_group"])
-text_l4 = read_or_empty(OUTPUTS_DIR / "texto_l4.csv", ["title", "tfidf_lr"])
-graph_l5 = read_or_empty(OUTPUTS_DIR / "grafo_l5.csv", ["title", "grado", "pagerank", "alerta_centro", "supports"])
-
-week2 = pd.DataFrame({
-    "title": groups_l3["title"],
-    "has_pattern": groups_l3["has_pattern"].astype(str) == "True",
-    "read_group": groups_l3["read_group"].astype(str) == "True",
-    "text_says_read": text_l4["tfidf_lr"].astype(str) == "1",
-})
 titles = list(papers["title"])
-table = week2.groupby("title")[["has_pattern", "read_group", "text_says_read"]].any().reindex(titles).fillna(False).astype(bool)
-table.index.name = "title"   # table: una fila por artículo, el título es el índice
-
-graph_l5 = graph_l5.set_index("title").reindex(titles)
-linked = graph_l5["grado"].fillna(0).astype(int) > 0
-rank_l5 = graph_l5["pagerank"].astype(float)
-cut = np.sort(rank_l5[linked].to_numpy())[int(0.75 * linked.sum())] if linked.any() else np.inf
-table["graph_support"] = linked & (rank_l5 >= cut) & (graph_l5["alerta_centro"].astype(str) != "True")
-print(table.sum().to_dict())
+table = pd.DataFrame(index=pd.Index(titles, name="title"))
+print(f"Artículos: {len(table)}")
 ```
 
 **Comprobar:**
 
-En este paso comprobamos que la tabla tiene los cuatro resultados y que suman lo mismo que en `grafo_l5.csv`.
+En este paso comprobamos que hay una fila por título y que no hay títulos repetidos.
 
 ```python
-SUPPORT_COLUMNS = ["has_pattern", "read_group", "text_says_read", "graph_support"]
-assert len(table) == N and set(SUPPORT_COLUMNS) <= set(table.columns)
-assert (table[SUPPORT_COLUMNS].astype(int).sum(axis=1) == graph_l5["supports"].fillna(0).astype(int)).all()
-print(f"Cuatro resultados, iguales a los de grafo_l5.csv: OK ({(table.astype(int).sum(axis=1) >= MIN_SUPPORTS).sum()} en vista)")
+assert len(table) == N and table.index.is_unique
+print("Títulos: OK")
 ```
 
 **Lo que vemos.** Con cuatro resultados hay 66 artículos en vista, los mismos de la Lección 5.
@@ -745,95 +709,37 @@ assert table.loc[labelled.index, "prediction"].sum() == (train_votes >= 2).sum()
 print("Resultado de la predicción sin filas vistas: OK")
 ```
 
-### Paso 2. ¿Se repite con el texto?
-En este paso medimos si la etiqueta repite el texto de la Lección 4, con phi entre la etiqueta y `text_says_read`. Si phi es al menos 0,30 en valor absoluto, cuentan como **un** resultado (`text_or_prediction`).
+### Paso 2. La lista de esta lección
+La predicción dice si el artículo es internacional.
+Eso no es, por sí solo, una razón para leer.
+Si los tres métodos superan a la clase mayor, la lista guarda como máximo 30 artículos con predicción positiva, los que recibieron más votos.
+Si no la superan, la lista queda vacía y lo decimos.
 
 ```python
-phi = np.corrcoef(y, table.loc[labelled.index, "text_says_read"].astype(int))[0, 1]
-one_support = abs(phi) >= 0.30
-print(f"phi entre la etiqueta y el texto de la L4: {phi:.2f} (límite 0.30). {'Un solo resultado' if one_support else 'Dos resultados separados'}")
-```
-
-**Lo que vemos.** phi es casi 0, así que el texto y la predicción cuentan por separado.
-
-### Paso 3. La lista inicial
-En este paso sumamos los cinco resultados. Un artículo entra en la lista inicial según `MIN_SUPPORTS`, el número de resultados a favor que pide el código. `MIN_SUPPORTS` empieza en 2 y se puede cambiar. Cada grupo fija y justifica este número en su proyecto. 0 o 1 valen si se explica. La celda cuenta cuántos artículos tienen 0, 1, 2 y 3 o más resultados a favor.
-
-```python
-added = table["prediction"] & l6_counts & ~table["text_says_read"]
-if one_support:                    # |phi| >= 0.30: la etiqueta repite la L4
-    table["text_or_prediction"] = table["text_says_read"] | (table["prediction"] & l6_counts)
-    SUPPORT_COLUMNS = ["has_pattern", "read_group", "text_or_prediction", "graph_support"]
+if l6_counts:
+    chosen = table.index[table["prediction"]]
 else:
-    table["prediction"] = table["prediction"] & l6_counts
-    SUPPORT_COLUMNS = ["has_pattern", "read_group", "text_says_read", "graph_support", "prediction"]
-
-table["supports"] = table[SUPPORT_COLUMNS].astype(int).sum(axis=1)
-table["in_view"] = table["supports"] >= MIN_SUPPORTS
-print(f"En vista: {table['in_view'].sum()}. Con tres resultados a favor: {(table['supports'] >= 3).sum()}. La predicción agrega {added.sum()} que el texto no tenía")
-counts = table["supports"].clip(upper=3).value_counts().reindex(range(4), fill_value=0).rename(index={3: "3 o más"})
-print(counts.rename_axis("resultados a favor").to_frame("artículos").T.to_string())
-```
-
-### Paso 4. Quitar cada resultado una vez
-En este paso quitamos cada resultado y contamos quién sale de la lista con `MIN_SUPPORTS = 2`. La lista depende mucho de un resultado que saca a muchos.
-
-```python
-drop_one = {}
-for column in SUPPORT_COLUMNS:
-    rest = [c for c in SUPPORT_COLUMNS if c != column]
-    drop_one[column] = int((table["in_view"] & (table[rest].astype(int).sum(axis=1) < MIN_SUPPORTS)).sum())
-print("Salen de la lista si quitamos:", drop_one)
+    chosen = []
+    print("Los tres métodos no superan a la clase mayor. La predicción no arma lista.")
+reading = table.loc[chosen, ["prediction"]].copy()
+reading["votos"] = voted.reindex(reading.index)
+reading = reading.reset_index().sort_values(["votos", "title"], ascending=[False, True])
+reading_list = reading.head(MAX_PAPERS)
+print(f"Predichos positivos: {len(reading)}. En la lista: {len(reading_list)}.")
 ```
 
 **Comprobar:**
 
-En este paso comprobamos que el número de resultados a favor está en su rango y que quitamos cada resultado una vez.
+En este paso comprobamos que la lista no pasa de 30 y que cada fila tiene predicción positiva.
 
 ```python
-assert table["supports"].between(0, len(SUPPORT_COLUMNS)).all()
-assert set(drop_one) == set(SUPPORT_COLUMNS)
-print("Lista inicial y sensibilidad: OK")
+assert len(reading_list) == min(MAX_PAPERS, len(reading))
+assert reading_list.empty or reading_list["prediction"].all()
+print("Lista de la predicción: OK")
 ```
 
-**Lo que vemos.** Hay 97 artículos en vista, 31 más que con cuatro. Sin la predicción salen 31 y sin el patrón salen 32.
-
-### Paso 5. Una lista que se pueda leer
-En este paso recortamos la lista con la regla de la Lección 4: el máximo de 30 artículos, ordenando por resultados a favor, `prob_texto` y título. El resto queda con `recortado = True`.
-
-```python
-MAX_LIST = MAX_PAPERS
-if "prob_texto" in text_l4.columns:
-    prob_text = text_l4.assign(prob_texto=pd.to_numeric(text_l4["prob_texto"], errors="coerce")).groupby("title")["prob_texto"].max()
-else:
-    prob_text = pd.Series(dtype=float)
-    print("texto_l4.csv no trae prob_texto. Dentro de cada número de resultados a favor se ordena por título.")
-table["prob_texto"] = prob_text.reindex(table.index)
-starter_list = (table.loc[table["in_view"], SUPPORT_COLUMNS + ["supports", "prob_texto"]].reset_index()
-                .sort_values(["supports", "prob_texto", "title"], ascending=[False, False, True], na_position="last"))
-starter_list["recortado"] = np.arange(len(starter_list)) >= MAX_LIST
-kept = int((~starter_list["recortado"]).sum())
-print(f"En vista {len(starter_list)}. Se leen {kept}, recortados {int(starter_list['recortado'].sum())} (máximo {MAX_LIST})")
-if kept < 5:
-    print("La lista tiene menos de 5 artículos, se lee completa y se reporta como resultado débil.")
-```
-
-**Comprobar:**
-
-En este paso comprobamos el tamaño de la lista que se lee y que va ordenada por resultados a favor.
-
-```python
-assert kept <= MAX_LIST and kept == min(len(starter_list), MAX_LIST)
-assert starter_list["supports"].is_monotonic_decreasing
-print("Lista recortada: OK")
-```
-
-**Lo que vemos.** De 97 en vista se leen 30 y quedan 67 recortados, que siguen en el archivo.
-
-**Lo que aprendemos aquí.** La lista crece mucho con la predicción, porque el 53% se predice internacional. Ser internacional no es una razón para leer. La lista inicial es un punto de partida.
-
-### Paso 6. Guardar la predicción y la lista
-En este paso guardamos `outputs/prediccion_l6.csv` y `outputs/lista_inicial.csv`. `votos` es cuántos métodos dijeron internacional.
+### Paso 3. Guardar la predicción y la lista
+En este paso guardamos `outputs/prediccion_l6.csv` y `outputs/lectura_l6.csv`. `votos` es cuántos métodos dijeron internacional.
 
 ```python
 prediction_table = pd.DataFrame({
@@ -845,24 +751,24 @@ prediction_table = pd.DataFrame({
 })
 prediction_path = OUTPUTS_DIR / "prediccion_l6.csv"
 prediction_table.to_csv(prediction_path, index=False)
-starter_path = OUTPUTS_DIR / "lista_inicial.csv"
-starter_list.to_csv(starter_path, index=False)
-print(f"Guardado: {prediction_path} ({len(prediction_table)} filas) y {starter_path} ({len(starter_list)} filas)")
+reading_path = OUTPUTS_DIR / "lectura_l6.csv"
+reading_list.to_csv(reading_path, index=False)
+print(f"Guardado: {prediction_path} ({len(prediction_table)} filas) y {reading_path} ({len(reading_list)} filas)")
 ```
 
-### Paso 7. Qué cambiaría la decisión
+### Paso 4. Qué cambiaría la decisión
 En este paso escribimos cómo entra la predicción y qué la cambiaría.
 
 | Qué | Respuesta |
 |-----|-----------|
-| Cómo entra | La predicción cuenta a favor si al menos 2 de los 3 métodos dicen que sí, con un modelo que no vio la etiqueta, y solo si esta lección cuenta |
+| Cómo entra | Entra en la lista si al menos 2 de los 3 métodos dicen que sí, con un modelo que no vio la etiqueta, y solo si los tres superan a la clase mayor |
 | Cómo se lee | La señal es el número de autores. Tres modelos no le ganan con claridad a contar autores. Con otras semillas la ventaja cambia |
 | Qué lo cambia | Otra etiqueta. Otra partición de los datos. Los artículos sin afiliación. Otro margen que 0,02 |
 
-**Lo que vemos.** Quien lea la lista sabe por qué la predicción apoya a un artículo sin abrir este cuaderno.
+**Lo que vemos.** La lista nombra artículos que los modelos marcan como internacionales. Ser internacional no es, por sí solo, una razón para leer.
 
-### Paso 8. Comprobación final
-En este paso revisamos que el cuaderno dejó la predicción y la lista inicial.
+### Paso 5. Comprobación final
+En este paso revisamos que el cuaderno guardó la predicción y la lista.
 
 ```python
 def _check_ok(name, predicate):
@@ -881,9 +787,8 @@ def _check_ok(name, predicate):
 
 checks = [
     ("outputs/prediccion_l6.csv", lambda: prediction_path.is_file()),
-    ("outputs/lista_inicial.csv", lambda: starter_path.is_file()),
+    ("outputs/lectura_l6.csv", lambda: reading_path.is_file()),
     ("Matrices de confusión", lambda: all((OUTPUTS_DIR / f).is_file() for f in ["confusion_regresion.png", "confusion_bosque.png", "confusion_red.png"])),
-    ("Resultados de las lecciones 2 a 5", lambda: len(groups_l3) > 0 and len(graph_l5.dropna(how="all")) > 0),
 ]
 passed = sum(_check_ok(n, f) for n, f in checks)
 print(f"\nL6_CHECKS={passed}/{len(checks)}")

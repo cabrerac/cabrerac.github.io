@@ -9,12 +9,12 @@
                 <p><b>The <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l6-prediction.ipynb" target="_blank">Lecture 6 notebook</a> follows CRISP-DM</b></p>
                 <p>The notebook runs this task on a table of paper attributes, with a given label.</p>
                 <ul>
-                    <li><b>Part 1, Business understanding:</b> the question description, the check against leakage and the four results of Lectures 2 to 5</li>
+                    <li><b>Part 1, Business understanding:</b> the question description and the check against leakage</li>
                     <li><b>Part 2, Data understanding:</b> the label and the attributes</li>
                     <li><b>Part 3, Data preparation:</b> the table, the rows kept apart and the preparation</li>
                     <li><b>Part 4, Modeling:</b> majority class, logistic regression, a forest and one hidden layer</li>
                     <li><b>Part 5, Evaluation:</b> right and wrong counts, five folds and a one-line rule with no model</li>
-                    <li><b>Part 6, Deployment:</b> the prediction result and the starter reading list</li>
+                    <li><b>Part 6, Deployment:</b> the prediction and a list of at most 30 papers</li>
                 </ul>
             </div>
         </div>

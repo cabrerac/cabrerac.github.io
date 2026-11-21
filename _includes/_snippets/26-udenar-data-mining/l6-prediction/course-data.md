@@ -78,11 +78,11 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Overlap with Lecture 4</b></p>
-                <p>A label that repeats the text result is not a new result.</p>
+                <p><b>This lecture's own label</b></p>
+                <p>The notebook predicts internacional from the paper's attributes.</p>
                 <ul>
-                    <li>phi measures how the label follows text_says_read</li>
-                    <li>At 0.30 or more, both count as one result, text_or_prediction</li>
+                    <li>It does not open the text file from Lecture 4</li>
+                    <li>A positive prediction is not, by itself, a reason to read</li>
                 </ul>
             </div>
         </div>

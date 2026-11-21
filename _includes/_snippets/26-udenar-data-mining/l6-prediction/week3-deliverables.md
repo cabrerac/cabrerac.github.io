@@ -8,7 +8,7 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Group zip by Tuesday 1 December, 23:59 Colombia time</b></p>
                 <ul>
-                    <li>One file, week-3-&lt;group_id&gt;.zip, with the executed notebook and marcas.csv</li>
+                    <li>One file, week-3-&lt;group_id&gt;.zip, with the executed notebook and etiquetas.csv</li>
                     <li>outputs/grafo.csv and outputs/prediccion.csv</li>
                 </ul>
                 <p>The starter list is written in the project notebook, not in this zip.</p>

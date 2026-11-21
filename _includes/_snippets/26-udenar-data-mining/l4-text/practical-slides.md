@@ -33,9 +33,9 @@
                     <li><b>Exercise 0, Setup:</b> group, data and parameters</li>
                     <li><b>Exercise 1, Business understanding:</b> the question and the topic words</li>
                     <li><b>Exercise 2, Data understanding:</b> length and topic words</li>
-                    <li><b>Exercise 3, Data preparation:</b> counts, marks and TF-IDF</li>
-                    <li><b>Exercise 4, Modeling:</b> HDBSCAN and TF-IDF, and why</li>
-                    <li><b>Exercise 5, Evaluation:</b> silhouette without the noise, counts and five folds</li>
+                    <li><b>Exercise 3, Data preparation:</b> counts, labels and TF-IDF</li>
+                    <li><b>Exercise 4, Modeling:</b> HDBSCAN and TF-IDF</li>
+                    <li><b>Exercise 5, Evaluation:</b> silhouette without the noise, accuracy and the confusion matrix</li>
                     <li><b>Exercise 6, Deployment:</b> outputs/lectura_semana_2.csv, read groups in TF-IDF order, up to 30</li>
                 </ul>
                 <p>The notebook ends with a contribution log.</p>

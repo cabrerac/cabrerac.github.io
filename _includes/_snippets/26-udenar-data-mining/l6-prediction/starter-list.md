@@ -45,25 +45,24 @@ table["prediction"] = (voted >= 2).reindex(table.index, fill_value=False)
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 40%">
-                <p><b>The starter reading list</b></p>
+                <p><b>The reading list</b></p>
                 <ul>
-                    <li>The prediction counts only when the three methods beat the majority class</li>
-                    <li>In the group notebooks the label repeats the text, so both share text_or_prediction</li>
-                    <li>MIN_SUPPORTS starts at 2 and can change. Each group sets and justifies this number in its project</li>
-                    <li>The notebook prints how many papers have 0, 1, 2, and 3 or more results</li>
-                    <li>It also prints how many papers the prediction adds</li>
+                    <li>A paper is on the list when at least 2 of the 3 methods say yes, and the three beat the majority class</li>
+                    <li>The list keeps at most 30, the ones with more votes first</li>
+                    <li>A positive prediction is not, by itself, a reason to read</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 60%">
 
 ```python
-added = table["prediction"] & ~table["text_says_read"]
-SUPPORT_COLUMNS = ["has_pattern", "read_group", "text_says_read",
-                   "graph_support", "prediction"]
-
-table["supports"] = table[SUPPORT_COLUMNS].astype(int).sum(axis=1)
-table["in_view"] = table["supports"] >= MIN_SUPPORTS
-print(table["in_view"].sum(), "in view,", added.sum(), "added")
+if l6_counts:
+    chosen = table.index[table["prediction"]]
+else:
+    chosen = []
+reading = table.loc[chosen].reset_index()
+reading["votos"] = voted.reindex(reading["title"]).to_numpy()
+reading_list = reading.sort_values(
+    ["votos", "title"], ascending=[False, True]).head(MAX_PAPERS)
 ```
 
 </div>
@@ -77,9 +76,9 @@ print(table["in_view"].sum(), "in view,", added.sum(), "added")
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>What fact would remove an article</b></p>
-                <p>Every article on the list in outputs/lista_inicial.csv gets a line in the column hecho_que_saca, the fact that would remove it from the starter list.</p>
-                <p>The column alerta_centro marks an article that is central only because it links to many others. It is a warning to read the article, never a support.</p>
+                <p><b>What the list is</b></p>
+                <p>The list is the papers this lecture predicts as international, at most 30.</p>
+                <p>Predicting international is not a reason to read the paper.</p>
             </div>
         </div>
     </div>

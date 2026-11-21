@@ -12,7 +12,7 @@
 
 **Materiales.** [L3 Grupos](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l3-groups.ipynb) y [L4 Texto](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l4-text.ipynb).
 
-**Primero marcan, después miden el método de texto.** El Paso 3.3 escribe `marcas.csv` con 60 a 67 artículos, unos 15 a 21 por persona. Marquen leyendo la descripción, sin mirar las categorías, y vuelvan a subir el archivo.
+**Primero etiquetan, después miden el método de texto.** El Paso 3.3 escribe `etiquetas.csv` con 60 a 67 artículos, unos 15 a 21 por persona. Etiqueten leyendo la descripción, sin mirar las categorías, y vuelvan a subir el archivo.
 
 **Las decisiones son del grupo.** El grupo puede cambiar la pregunta, las palabras del tema, un umbral o el alcance. Escriban la razón en el paso donde lo cambia.
 
@@ -23,11 +23,11 @@
 | Ejercicio | Tema | Entregable clave |
 |-----------|------|------------------|
 | **0** | Configuración | Grupo, datos, patrones de la semana 1 y parámetros |
-| **1** | Comprensión del negocio | La pregunta y el problema, y las palabras del tema |
+| **1** | Comprensión del negocio | La nota de si la pregunta cambió, y las palabras del tema |
 | **2** | Comprensión de los datos | Descripciones útiles, su largo y las palabras del tema en ellas |
-| **3** | Preparación de los datos | Conteos y SVD, etiqueta y marcas, TF-IDF |
-| **4** | Modelado | HDBSCAN, TF-IDF con regresión logística, y por qué esos dos |
-| **5** | Evaluación | Silueta, grupos leídos, aciertos y errores, cinco pliegues, `outputs/grupos.csv` y `outputs/texto.csv` |
+| **3** | Preparación de los datos | Conteos y SVD, etiquetas y TF-IDF |
+| **4** | Modelado | HDBSCAN y TF-IDF con regresión logística |
+| **5** | Evaluación | Silueta, grupos leídos, exactitud y matriz de confusión, `outputs/grupos.csv` y `outputs/texto.csv` |
 | **6** | Despliegue | `outputs/lectura_semana_2.csv` (hasta 30) y `outputs/en_vista.csv` |
 
 ---
@@ -80,7 +80,7 @@ Después los parámetros de las Lecciones 2, 3 y 4, con los valores de los labor
 # SU CÓDIGO. Paso 0.2b: los parámetros de las Lecciones 2, 3 y 4, MAX_PAPERS, N_FOLDS y folds
 ```
 
-Al final las dos funciones de tamaño: el soporte mínimo de la Lección 2 y el tamaño del conjunto marcado de la Lección 4.
+Al final las dos funciones de tamaño: el soporte mínimo de la Lección 2 y el tamaño del conjunto etiquetado de la Lección 4.
 
 ```python
 # SU CÓDIGO. Paso 0.2c: support_floor y n_flagged
@@ -88,7 +88,7 @@ Al final las dos funciones de tamaño: el soporte mínimo de la Lección 2 y el 
 
 **Listo cuando:**
 - Los parámetros tienen los valores de los laboratorios, también `MAX_PAPERS = 30` y `N_FOLDS = 5`.
-- `folds` son los cinco pliegues de la Lección 4, con `SEED`.
+- `folds` es la validación cruzada en cinco pliegues de la Lección 4, con `SEED`. Un pliegue es una de esas cinco partes.
 
 **Comprobar:**
 
@@ -105,18 +105,14 @@ print("Paso 0.2: OK")
 
 ## Ejercicio 1. Comprensión del negocio
 
-### Paso 1.1. La pregunta y el problema
+### Paso 1.1. ¿Cambió la pregunta?
 
-En este paso escriben la pregunta y el problema de esta semana, como en la semana 1.
-La pregunta dice quién usa la lista y qué decide esa lista.
-El problema dice el alcance: qué queda dentro y qué queda fuera.
-Si cambian la pregunta de la semana 1, digan por qué.
+La pregunta y el problema ya están en el cuaderno de la semana 1 y en el documento de requerimientos.
+En este paso escriben solo si algo cambió.
+Si la pregunta o el alcance siguen iguales, escriban "Sin cambio".
+Si cambiaron, escriban la línea nueva y por qué.
 
-**La pregunta**
-
-**ESCRIBA SU TEXTO AQUÍ**
-
-**El problema**
+**Cambio**
 
 **ESCRIBA SU TEXTO AQUÍ**
 
@@ -241,25 +237,25 @@ assert Z.shape == (N, DENSITY_SVD_DIRECTIONS) and distances.shape == (N, N) and 
 print("Paso 3.2: OK")
 ```
 
-### Paso 3.3. La etiqueta y el conjunto marcado
+### Paso 3.3. La etiqueta y el conjunto etiquetado
 
-En este paso arman la etiqueta y apartan el conjunto marcado, como en la Lección 4.
+En este paso arman la etiqueta de las categorías y apartan el conjunto etiquetado, como en la Lección 4.
 La etiqueta vale 1 si el artículo tiene alguna categoría de `TARGETS[GROUP]`. Las categorías van separadas por `|`.
-Escriban `marcas.csv` con `title`, `lead` y `marca` vacía para los artículos marcados. Si el archivo ya tiene marcas, no lo sobrescriban.
-Marquen `1` si la persona nueva **debe abrir** la entrada y `0` si no.
+Escriban `etiquetas.csv` con `title`, `lead` y `etiqueta` vacía para los artículos apartados. Si el archivo ya tiene etiquetas, no lo sobrescriban.
+Escriban `1` si la persona nueva **debe abrir** la entrada y `0` si no.
 Excel en español guarda el CSV con punto y coma. Google Sheets (Archivo, Descargar, CSV) evita ese problema.
 
 ```python
-# SU CÓDIGO. Paso 3.3: y, train_rows, marked_rows, MARKS_PATH y marcas.csv
+# SU CÓDIGO. Paso 3.3: y, train_rows, marked_rows, LABELS_PATH y etiquetas.csv
 ```
 
 **Comprobar:**
 
-En este paso comprobamos el tamaño del conjunto marcado y que las dos partes cubren todos los artículos.
+En este paso comprobamos el tamaño del conjunto etiquetado y que las dos partes cubren todos los artículos.
 
 ```python
-assert len(marked_rows) == n_flagged(N) and len(train_rows) + len(marked_rows) == N and MARKS_PATH.is_file()
-print("Paso 3.3: OK. Ya pueden marcar.")
+assert len(marked_rows) == n_flagged(N) and len(train_rows) + len(marked_rows) == N and LABELS_PATH.is_file()
+print("Paso 3.3: OK. Ya pueden etiquetar.")
 ```
 
 ### Paso 3.4. TF-IDF
@@ -304,8 +300,11 @@ print("Paso 4.1: OK")
 ### Paso 4.2. TF-IDF con regresión logística
 
 En este paso entrenan la regresión logística sobre TF-IDF, como en la Lección 4.
-Cada artículo recibe la probabilidad de un modelo que no lo vio: las filas de entrenamiento usan los cinco pliegues (`cross_val_predict`).
-`prob_texto` es esa probabilidad. `pred_tfidf` vale 1 si pasa de 0,5.
+Cada artículo recibe la probabilidad de un modelo que no lo vio.
+Las filas de entrenamiento usan validación cruzada en cinco pliegues (`cross_val_predict`).
+Un pliegue es una de esas cinco partes.
+`prob_texto` es esa probabilidad.
+`pred_tfidf` vale 1 si pasa de 0,5.
 
 ```python
 # SU CÓDIGO. Paso 4.2: prob_texto y pred_tfidf
@@ -320,28 +319,11 @@ assert len(prob_texto) == len(pred_tfidf) == N and ((prob_texto > 0.5) == pred_t
 print("Paso 4.2: OK")
 ```
 
-### Paso 4.3. Por qué este método para nuestros datos
-
-En este paso escriben por qué estos dos métodos sirven para sus datos.
-Las clases muestran tres métodos por lección. Aquí usamos uno de cada familia, elegido por cómo son los datos:
-
-| Propiedad de los datos | Qué vimos en los cinco archivos | Qué método conviene |
-|------------------------|---------------------------------|---------------------|
-| Forma y dimensión | Cientos de palabras, casi todo ceros, grupos de tamaños muy distintos | HDBSCAN no pide grupos redondos ni del mismo tamaño |
-| Ruido y valores atípicos | HDBSCAN deja como ruido el 45% (G1), 46% (G2), 52% (G3), 29% (G4) y 35% (G5) | HDBSCAN deja el ruido aparte, y su silueta no lo cuenta. k-means y la mezcla lo meten en un grupo |
-| Tamaño | Unas 300 descripciones cortas, de unas 130 palabras | TF-IDF con regresión logística aprende rápido con pocos textos |
-| Etiquetas | Hay etiqueta de las categorías y 60 a 67 marcas | Un método con etiqueta. El codificador no superó a TF-IDF y pesa 470 MB |
-
-Con sus números, digan si la elección vale para su secretaría: la parte de ruido y los tamaños del Paso 4.1, y más adelante la silueta, la clase mayoritaria y los cinco pliegues.
-Si algún número dice lo contrario, escríbanlo.
-
-**ESCRIBA SU TEXTO AQUÍ**
-
 ---
 
 ## Ejercicio 5. Evaluación
 
-La evaluación usa dos comprobaciones simples: la silueta para los grupos y los cinco pliegues para el texto.
+La evaluación usa dos comprobaciones: la silueta para los grupos, y la exactitud con la matriz de confusión para el texto.
 La silueta va de −1 a 1. Entre 0,26 y 0,50 la estructura es débil y podría ser artificial (Kaufman y Rousseeuw, 1990).
 Con 0,25 o menos no hay estructura sustancial. Entonces los grupos son una ayuda para leer.
 Si su silueta queda baja, escríbanlo así. No cambien parámetros solo para subirla.
@@ -388,19 +370,21 @@ assert (topic_part[read_hdbscan == 1] >= READ_SHARE).all()
 print("Paso 5.2: OK")
 ```
 
-### Paso 5.3. Aciertos y errores en las marcas
+### Paso 5.3. Aciertos y errores en las etiquetas
 
-En este paso cuentan aciertos y errores de TF-IDF en el conjunto marcado, como en la Lección 4.
-Usen sus marcas si `marcas.csv` está completo. Si no, usen la etiqueta y díganlo: entonces los números son provisionales.
-Sumen la fila de la clase mayoritaria: dar a todos la marca más frecuente. Es una línea de referencia, no un filtro.
+En este paso cuentan aciertos y errores de TF-IDF en el conjunto etiquetado, como en la Lección 4.
+Usen sus etiquetas si `etiquetas.csv` está completo.
+Si no, usen la etiqueta de las categorías y díganlo: entonces los números son provisionales.
+Sumen la fila de la clase mayoritaria: dar a todos la etiqueta más frecuente.
+Es la línea de referencia.
 
 ```python
-# SU CÓDIGO. Paso 5.3: y_marked, MARKS_SOURCE, counts_of y results
+# SU CÓDIGO. Paso 5.3: y_labelled, LABELS_SOURCE, counts_of y results
 ```
 
 **Comprobar:**
 
-En este paso comprobamos las dos filas y que los conteos suman los marcados.
+En este paso comprobamos las dos filas y que los conteos suman las filas etiquetadas.
 
 ```python
 assert list(results.index) == ["clase mayoritaria", "TF-IDF"]
@@ -408,39 +392,17 @@ assert (results[["TP", "FP", "FN", "TN"]].sum(axis=1) == len(marked_rows)).all()
 print("Paso 5.3: OK")
 ```
 
-¿Supera TF-IDF a la clase mayoritaria? ¿Por qué creen que sí o que no?
-
-**ESCRIBA SU TEXTO AQUÍ**
-
-### Paso 5.4. Cinco pliegues
-
-En este paso parten las filas de entrenamiento en cinco pliegues, con `folds`, como en la Lección 4.
-Den el F1 de cada pliegue, el más bajo y el más alto, y dibújenlos. Si están lejos, un solo número no basta.
-
-```python
-# SU CÓDIGO. Paso 5.4: fold_f1, cv_table y la figura
-```
-
-**Comprobar:**
-
-En este paso comprobamos que hay un F1 por pliegue.
-
-```python
-assert len(fold_f1) == N_FOLDS and list(cv_table.columns) == ["F1 más bajo", "F1 más alto"]
-print("Paso 5.4: OK")
-```
-
-### Paso 5.5. Guardar los resultados
+### Paso 5.4. Guardar los resultados
 
 En este paso guardan los grupos y el texto de cada artículo, como los patrones de la semana 1.
 
 ```python
-# SU CÓDIGO. Paso 5.5: outputs/grupos.csv y outputs/texto.csv
+# SU CÓDIGO. Paso 5.4: outputs/grupos.csv y outputs/texto.csv
 ```
 
 **Listo cuando:**
 - `grupos.csv` tiene `title`, `hdbscan` y `hdbscan_leido`.
-- `texto.csv` tiene `title`, `marca` (vacía fuera del conjunto marcado), `tfidf` y `prob_texto`.
+- `texto.csv` tiene `title`, `etiqueta` (vacía fuera del conjunto etiquetado), `tfidf` y `prob_texto`.
 
 **Comprobar:**
 
@@ -449,9 +411,9 @@ En este paso comprobamos las columnas de los dos archivos.
 ```python
 saved_groups, saved_text = pd.read_csv(OUTPUTS_DIR / "grupos.csv"), pd.read_csv(OUTPUTS_DIR / "texto.csv")
 assert {"title", "hdbscan", "hdbscan_leido"} <= set(saved_groups.columns)
-assert {"title", "marca", "tfidf", "prob_texto"} <= set(saved_text.columns)
-assert saved_text["marca"].notna().sum() == len(marked_rows)
-print("Paso 5.5: OK")
+assert {"title", "etiqueta", "tfidf", "prob_texto"} <= set(saved_text.columns)
+assert saved_text["etiqueta"].notna().sum() == len(marked_rows)
+print("Paso 5.4: OK")
 ```
 
 ---
@@ -481,8 +443,11 @@ En este paso guardan todos los artículos en `outputs/en_vista.csv` para el cuad
 
 ### Paso 6.3. Interpretación de resultados
 
-¿Por qué se seleccionaron los artículos de la lista resultante esta semana? Explique la selección de acuerdo a los métodos explorados y a la pregunta de minería de datos.
-¿Por qué un grupo con silueta baja puede seguir siendo útil para leer?
+¿Por qué se seleccionaron los artículos de la lista resultante esta semana?
+Explique la selección de acuerdo con HDBSCAN, TF-IDF y la pregunta.
+¿TF-IDF supera a la clase mayoritaria?
+Con la silueta y la parte de ruido, diga si los grupos sirven para leer.
+Si la silueta queda baja, escríbalo así.
 
 **Interpretación**
 
@@ -505,7 +470,7 @@ print(f"Paso 6.3: OK. prob_texto de {reading_list['prob_texto'].max()} a {readin
 
 ## Registro de contribución
 
-En este paso cada integrante anota su tarea concreta, quién repartió las marcas y quién consolida el ZIP.
+En este paso cada integrante anota su tarea concreta, quién repartió las etiquetas y quién consolida el ZIP.
 
 **ESCRIBA SU TEXTO AQUÍ**
 
@@ -515,10 +480,10 @@ El ZIP se entrega el martes 24 nov 2026, 23:59 (hora de Colombia), con el cuader
 
 | Archivo del ZIP `week-2-<group_id>.zip` | Descripción |
 |-----------------------------------------|-------------|
-| `week-2-group-<group_id>.ipynb` | Este cuaderno ejecutado, con la pregunta, el problema, el porqué de los métodos y la interpretación escritos |
-| `marcas.csv` | Su conjunto marcado, con `marca` en 1 o 0 |
+| `week-2-group-<group_id>.ipynb` | Este cuaderno ejecutado, con la nota de la pregunta y la interpretación escritos |
+| `etiquetas.csv` | Su conjunto etiquetado, con `etiqueta` en 1 o 0 |
 | `outputs/grupos.csv` | Los grupos de HDBSCAN y si cada grupo se lee |
-| `outputs/texto.csv` | Las predicciones de TF-IDF, `prob_texto` y sus marcas |
+| `outputs/texto.csv` | Las predicciones de TF-IDF, `prob_texto` y la etiqueta |
 | `outputs/lectura_semana_2.csv` | Hasta 30 artículos de los grupos leídos, en el orden de TF-IDF |
 | `outputs/en_vista.csv` | Una fila por artículo, con las columnas que lee el proyecto |
 
