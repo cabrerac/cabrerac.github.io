@@ -37,7 +37,12 @@
 ### Paso 0.1. Grupo y datos
 
 En este paso eligen el grupo y descargan el archivo de su secretaría.
-Cambien solo `GROUP`. `TARGETS` son las categorías de la etiqueta, elegidas por el profesor.
+Cambien `GROUP` al de su secretaría.
+`TARGETS` trae las categorías con las que se arma `y`.
+Pueden cambiar los nombres de `TARGETS[GROUP]` si el enfoque cambió.
+Esos nombres tienen que estar en la columna `categories`.
+Escriban en este cuaderno por qué realizaron el cambio.
+Recuerden que un nombre que no está en el archivo deja `y` en cero.
 
 ```python
 from pathlib import Path
@@ -237,11 +242,22 @@ print("Paso 3.2: OK")
 
 ### Paso 3.3. La etiqueta y el conjunto etiquetado
 
-En este paso arman la etiqueta de las categorías y apartan el conjunto etiquetado, como en la Lección 4.
-La etiqueta vale 1 si el artículo tiene alguna categoría de `TARGETS[GROUP]`. Las categorías van separadas por `|`.
-Escriban `etiquetas.csv` con `title`, `lead` y `etiqueta` vacía para los artículos apartados. Si el archivo ya tiene etiquetas, no lo sobrescriban.
-Escriban `1` si la persona nueva **debe abrir** la entrada y `0` si no.
-Excel en español guarda el CSV con punto y coma. Google Sheets (Archivo, Descargar, CSV) evita ese problema.
+En este paso arman `y` para todos los artículos y apartan el conjunto etiquetado, como en la Lección 4.
+`y` es 1 si la columna `categories` contiene un nombre de `TARGETS[GROUP]`.
+Esos nombres van separados por `|`.
+`y` es 0 en los demás artículos.
+TF-IDF aprende con `y`.
+Esa etiqueta la escribieron quienes editan Wikipedia.
+
+La celda escribe `etiquetas.csv` con `title`, `lead` y `etiqueta` vacía, solo para los artículos apartados.
+Después de ejecutarla, paren el trabajo en el cuaderno.
+Ahora cada persona lee la descripción y escribe `1` o `0` en la columna `etiqueta`.
+`1` si una persona nueva debe abrir el artículo, y `0` si no.
+Este proceso de anotación se debe llevar a cabo sin mirar la columna `categories`.
+Vuelvan a subir el archivo antes de seguir.
+Tenga en cuenta que Excel en español guarda el CSV con punto y coma, lo cual podría causar problemas de compatiblidad.
+
+El archivo `etiquetas.csv` se utiliza en el paso 5.3 para comparar la respuesta de los modelos con sus respuestas manuales.
 
 ```python
 # SU CÓDIGO. Paso 3.3: y, train_rows, marked_rows, LABELS_PATH y etiquetas.csv
@@ -297,7 +313,8 @@ print("Paso 4.1: OK")
 
 ### Paso 4.2. TF-IDF con regresión logística
 
-En este paso entrenan la regresión logística sobre TF-IDF, como en la Lección 4.
+En este paso entrenan la regresión logística sobre TF-IDF, como en la Lección 4. El ajuste usa `y` en las filas de entrenamiento.
+
 Cada artículo recibe la probabilidad de un modelo que no lo vio.
 Las filas de entrenamiento usan validación cruzada en cinco pliegues (`cross_val_predict`).
 Un pliegue es una de esas cinco partes.
