@@ -443,6 +443,13 @@
         <tspan x="1200" dy="15">(DeepSeek)</tspan>
         <tspan x="1200" dy="15">2025)</tspan>
       </text>
+      <!-- 2026 Event - Conceptual -->
+      <line x1="1186" y1="50%" x2="1186" y2="8%" stroke="var(--secondary-color)" stroke-width="1"/>
+      <circle cx="1186" cy="8%" r="1" fill="var(--secondary-color)"/>
+      <text x="1228" y="4%" text-anchor="middle" style="font-size: 12px; fill: var(--conceptual-color);">
+        <tspan x="1228" dy="0">Agents</tspan>
+        <tspan x="1228" dy="15">(2026)</tspan>
+      </text>
     </svg>
   </div>
 </div>

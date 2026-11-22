@@ -65,7 +65,7 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-top text-left" style="width: 50%">
                 <p><b>Examples:</b> every position of the text gives one example</p>
                 <ul>
                     <li><p><b>Input:</b> the text up to that position</p></li>
@@ -73,7 +73,7 @@ $$
                 </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-<img src="{{ site.url }}/assets/media/diagrams/transformer-training-pairs-1.svg" alt="Training pairs from a text" style="max-height: 300px; max-width: 100%; width: auto;">
+<img src="{{ site.url }}/assets/media/diagrams/transformer-training-pairs-1.svg" alt="Training pairs from a text" style="max-height: 380px; max-width: 100%; width: auto;">
             </div>
         </div>
     </div>
@@ -84,7 +84,7 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-top text-left" style="width: 50%">
                 <p><b>Examples:</b> every position of the text gives one example</p>
                 <ul>
                     <li><p><b>Input:</b> the text up to that position</p></li>
