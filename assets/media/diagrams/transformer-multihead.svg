@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Multi-head attention: h heads in parallel, concatenated, then W^O. Own diagram. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 480" width="660" height="480">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .w { fill:#ffffff; }
+ .l { text-anchor:start; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+</defs>
+<rect x="230" y="420" width="200" height="44" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="330.0" y="449.0" class="s">x (tokens so far)</text>
+<rect x="70" y="260" width="120" height="90" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="130" y="290" class="t">head¹</text>
+<text x="130" y="322" class="s">W<tspan baseline-shift="super" font-size="12">Q</tspan> W<tspan baseline-shift="super" font-size="12">K</tspan> W<tspan baseline-shift="super" font-size="12">V</tspan></text>
+<line x1="330" y1="418" x2="130" y2="354" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="130" y1="258" x2="330" y2="186" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="230" y="260" width="120" height="90" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="290" y="290" class="t">head²</text>
+<text x="290" y="322" class="s">W<tspan baseline-shift="super" font-size="12">Q</tspan> W<tspan baseline-shift="super" font-size="12">K</tspan> W<tspan baseline-shift="super" font-size="12">V</tspan></text>
+<line x1="330" y1="418" x2="290" y2="354" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="290" y1="258" x2="330" y2="186" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="470" y="260" width="120" height="90" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="530" y="290" class="t">headʰ</text>
+<text x="530" y="322" class="s">W<tspan baseline-shift="super" font-size="12">Q</tspan> W<tspan baseline-shift="super" font-size="12">K</tspan> W<tspan baseline-shift="super" font-size="12">V</tspan></text>
+<line x1="330" y1="418" x2="530" y2="354" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="530" y1="258" x2="330" y2="186" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<text x="410" y="310" class="b">…</text>
+<rect x="230" y="130" width="200" height="52" rx="8" fill="#0e73b8" stroke="#224466" stroke-width="2"/>
+<text x="330.0" y="163.0" class="t" style="fill:#fff">concat</text>
+<line x1="330" y1="128" x2="330" y2="96" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="250" y="44" width="160" height="50" rx="8" fill="#ffa500" stroke="#224466" stroke-width="2"/>
+<text x="330" y="77" class="t" style="fill:#fff">W<tspan baseline-shift="super" font-size="14">O</tspan>, then a</text>
+</svg>

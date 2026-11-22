@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Qwen2.5-0.5B-Instruct tokeniser on the S3 sentence, step 3. Real pieces and ids from slides-out/figs/tokens_real.json. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1019 300" width="1019" height="300">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .w { fill:#ffffff; }
+ .l { text-anchor:start; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+</defs>
+<text x="20" y="34" class="t l">Words: 6</text>
+<rect x="20" y="50" width="62" height="46" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="51.0" y="80.0" class="t">el</text>
+<rect x="92" y="50" width="147" height="46" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="165.5" y="80.0" class="t">temblor</text>
+<rect x="249" y="50" width="113" height="46" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="305.5" y="80.0" class="t">movió</text>
+<rect x="372" y="50" width="62" height="46" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="403.0" y="80.0" class="t">la</text>
+<rect x="444" y="50" width="164" height="46" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="526.0" y="80.0" class="t">estación</text>
+<rect x="618" y="50" width="164" height="46" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="700.0" y="80.0" class="t">cercana.</text>
+<text x="20" y="140" class="t l">Tokens: 12</text>
+<rect x="20" y="156" width="58" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="49.0" y="186.0" class="t">el</text>
+<rect x="84" y="156" width="92" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="130.0" y="186.0" class="t">␣tem</text>
+<rect x="182" y="156" width="58" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="211.0" y="186.0" class="t">bl</text>
+<rect x="246" y="156" width="58" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="275.0" y="186.0" class="t">or</text>
+<rect x="310" y="156" width="92" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="356.0" y="186.0" class="t">␣mov</text>
+<rect x="408" y="156" width="58" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="437.0" y="186.0" class="t">ió</text>
+<rect x="472" y="156" width="75" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="509.5" y="186.0" class="t">␣la</text>
+<rect x="553" y="156" width="92" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="599.0" y="186.0" class="t">␣est</text>
+<rect x="651" y="156" width="109" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="705.5" y="186.0" class="t">ación</text>
+<rect x="766" y="156" width="109" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="820.5" y="186.0" class="t">␣cerc</text>
+<rect x="881" y="156" width="75" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="918.5" y="186.0" class="t">ana</text>
+<rect x="962" y="156" width="41" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="982.5" y="186.0" class="t">.</text>
+<text x="20" y="246" class="t l">Token ids</text>
+<text x="49.0" y="282" class="s m">301</text>
+<text x="130.0" y="282" class="s m">1562</text>
+<text x="211.0" y="282" class="s m">2024</text>
+<text x="275.0" y="282" class="s m">269</text>
+<text x="356.0" y="282" class="s m">1974</text>
+<text x="437.0" y="282" class="s m">34894</text>
+<text x="509.5" y="282" class="s m">1187</text>
+<text x="599.0" y="282" class="s m">1788</text>
+<text x="705.5" y="282" class="s m">5721</text>
+<text x="820.5" y="282" class="s m">46462</text>
+<text x="918.5" y="282" class="s m">3362</text>
+<text x="982.5" y="282" class="s m">13</text>
+</svg>

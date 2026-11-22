@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Decoder-only transformer, highlighted: output. Own diagram after Vaswani et al. (2017). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 990" width="460" height="990">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .w { fill:#ffffff; }
+ .l { text-anchor:start; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+</defs>
+<style>.mt { font-size:28px; font-weight:600; text-anchor:middle; } .ms { font-size:26px; text-anchor:middle; }</style>
+<text x="230" y="36" class="mt" style="fill:#b36b00">P(next token)</text>
+<line x1="230" y1="82" x2="230" y2="48" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="60.0" y="86" width="340" height="48" rx="8" fill="#ffa500" stroke="#224466" stroke-width="2"/>
+<text x="230.0" y="117.0" class="mt" style="fill:#fff">Softmax</text>
+<line x1="230" y1="166" x2="230" y2="136" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="60.0" y="168" width="340" height="48" rx="8" fill="#ffa500" stroke="#224466" stroke-width="2"/>
+<text x="230.0" y="199.0" class="mt" style="fill:#fff">Linear</text>
+<line x1="230" y1="240" x2="230" y2="218" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="14" y="244" width="432" height="404" rx="14" fill="#f4f6f8" stroke="#6c8aa3" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="438" y="280" class="b" style="fill:#6c8aa3;text-anchor:end">× N</text>
+<rect x="80.0" y="296" width="300" height="48" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="230.0" y="327.0" class="mt">Add &amp; norm</text>
+<line x1="230" y1="384" x2="230" y2="346" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="80.0" y="386" width="300" height="76" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="230.0" y="419.0" class="mt">Feed-forward</text>
+<text x="230.0" y="443.0" class="mt">network</text>
+<line x1="230" y1="500" x2="230" y2="464" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="80.0" y="502" width="300" height="48" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="230.0" y="533.0" class="mt">Add &amp; norm</text>
+<line x1="230" y1="572" x2="230" y2="552" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="80.0" y="574" width="300" height="64" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="230.0" y="601.0" class="mt">Masked multi-</text>
+<text x="230.0" y="625.0" class="mt">head attention</text>
+<path d="M230 660 L 404 660 L 404 526 L 382 526" fill="none" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<path d="M230 562 L 56 562 L 56 320 L 78 320" fill="none" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="230" y1="712" x2="230" y2="642" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<circle cx="230" cy="734" r="20" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="230" y="744" class="b">+</text>
+<text x="262" y="730" class="ms" style="text-anchor:start">positional</text>
+<text x="262" y="756" class="ms" style="text-anchor:start">encoding</text>
+<line x1="230" y1="800" x2="230" y2="756" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="60.0" y="802" width="340" height="52" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="230.0" y="835.0" class="mt">Token embedding</text>
+<line x1="230" y1="890" x2="230" y2="856" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="20" y="892" width="96" height="48" rx="6" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="68.0" y="923.0" class="ms">el</text>
+<rect x="128" y="892" width="96" height="48" rx="6" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="176.0" y="923.0" class="ms">␣tem</text>
+<rect x="236" y="892" width="96" height="48" rx="6" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="284.0" y="923.0" class="ms">bl</text>
+<rect x="344" y="892" width="96" height="48" rx="6" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="392.0" y="923.0" class="ms">or</text>
+<text x="230" y="976" class="ms">tokens</text>
+</svg>

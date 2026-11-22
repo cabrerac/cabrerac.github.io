@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Embedding lookup: each token id selects one row of E. Real Qwen ids, own diagram. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 450" width="760" height="450">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .w { fill:#ffffff; }
+ .l { text-anchor:start; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+</defs>
+<text x="70" y="30" class="s">token id</text>
+<rect x="250" y="50" width="200" height="330" rx="4" fill="#f4f6f8" stroke="#224466" stroke-width="2"/>
+<line x1="250" y1="80" x2="450" y2="80" stroke="#6c8aa3" stroke-width="0.6"/>
+<line x1="250" y1="110" x2="450" y2="110" stroke="#6c8aa3" stroke-width="0.6"/>
+<line x1="250" y1="140" x2="450" y2="140" stroke="#6c8aa3" stroke-width="0.6"/>
+<line x1="250" y1="170" x2="450" y2="170" stroke="#6c8aa3" stroke-width="0.6"/>
+<line x1="250" y1="200" x2="450" y2="200" stroke="#6c8aa3" stroke-width="0.6"/>
+<line x1="250" y1="230" x2="450" y2="230" stroke="#6c8aa3" stroke-width="0.6"/>
+<line x1="250" y1="260" x2="450" y2="260" stroke="#6c8aa3" stroke-width="0.6"/>
+<line x1="250" y1="290" x2="450" y2="290" stroke="#6c8aa3" stroke-width="0.6"/>
+<line x1="250" y1="320" x2="450" y2="320" stroke="#6c8aa3" stroke-width="0.6"/>
+<line x1="250" y1="350" x2="450" y2="350" stroke="#6c8aa3" stroke-width="0.6"/>
+<rect x="10" y="50" width="140" height="40" rx="6" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="80.0" y="77.0" class="s">el  301</text>
+<rect x="250" y="70" width="200" height="22" fill="#ffa500" opacity="0.85"/>
+<line x1="152" y1="70" x2="246" y2="81" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="454" y1="81" x2="520" y2="81" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="524" y="70" width="150" height="22" fill="#0e73b8" rx="3"/>
+<text x="700" y="87" class="s l">e1</text>
+<rect x="10" y="130" width="140" height="40" rx="6" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="80.0" y="157.0" class="s">␣tem  1562</text>
+<rect x="250" y="150" width="200" height="22" fill="#ffa500" opacity="0.85"/>
+<line x1="152" y1="150" x2="246" y2="161" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="454" y1="161" x2="520" y2="161" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="524" y="150" width="150" height="22" fill="#0e73b8" rx="3"/>
+<text x="700" y="167" class="s l">e2</text>
+<rect x="10" y="210" width="140" height="40" rx="6" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="80.0" y="237.0" class="s">bl  2024</text>
+<rect x="250" y="230" width="200" height="22" fill="#ffa500" opacity="0.85"/>
+<line x1="152" y1="230" x2="246" y2="241" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="454" y1="241" x2="520" y2="241" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="524" y="230" width="150" height="22" fill="#0e73b8" rx="3"/>
+<text x="700" y="247" class="s l">e3</text>
+<rect x="10" y="290" width="140" height="40" rx="6" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="80.0" y="317.0" class="s">or  269</text>
+<rect x="250" y="310" width="200" height="22" fill="#ffa500" opacity="0.85"/>
+<line x1="152" y1="310" x2="246" y2="321" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="454" y1="321" x2="520" y2="321" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="524" y="310" width="150" height="22" fill="#0e73b8" rx="3"/>
+<text x="700" y="327" class="s l">e4</text>
+<text x="350.0" y="410" class="t">embedding matrix E</text>
+<text x="350.0" y="436" class="s">one row per token, d columns</text>
+<text x="600" y="30" class="s">vectors</text>
+</svg>

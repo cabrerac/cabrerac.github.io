@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Each prefix of the text is an input and the next token its target, step 1. Own diagram. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 400" width="680" height="400">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .w { fill:#ffffff; }
+ .l { text-anchor:start; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+</defs>
+<text x="200" y="34" class="t">input (context)</text>
+<text x="560" y="34" class="t">target (next token)</text>
+<rect x="40" y="56" width="320" height="52" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="200.0" y="89.0" class="t">el</text>
+<line x1="370" y1="82" x2="470" y2="82" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="480" y="56" width="160" height="52" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="560.0" y="89.0" class="t">temblor</text>
+<rect x="40" y="128" width="320" height="52" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="200.0" y="161.0" class="t">el temblor</text>
+<line x1="370" y1="154" x2="470" y2="154" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="480" y="128" width="160" height="52" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="560.0" y="161.0" class="t">movió</text>
+</svg>

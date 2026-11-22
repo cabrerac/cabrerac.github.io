@@ -1,37 +1,46 @@
 <!-- NOTEBOOK: -->
 
-# Introducción práctica
+Este cuaderno construye la atención de la sesión desde cero y luego mira cómo un modelo real corta el texto en tokens. Cada bloque describe los datos utilizados, la tarea que se quiere solucionar y por qué el método encaja.
 
-Exploramos atención a escala toy y un demo mínimo de LLM (API si hay clave. Si no, fallback offline).
+Ejecute las celdas de arriba hacia abajo. En cada **Comprobar**, confirme el mensaje `OK` antes de seguir. Las líneas marcadas con `# TODO` son las que usted escribe. Ya traen una solución para que el cuaderno corra. Bórrela, escriba la suya y vuelva a ejecutar el **Comprobar**.
 
-## Objetivos
+La parte A corre bien en CPU. Para la parte opcional conviene una GPU: en Colab, Entorno de ejecución, Cambiar tipo de entorno, T4 GPU.
 
-1. Implementar un producto Q K / softmax toy para ver pesos de atención.
-2. Llamar un LLM (o simular) con una pregunta civil.
-3. Mapear cuándo preferir tabular NN / modelo clásico vs interfaz LLM.
+---
+
+## Instalación
+
+Colab ya trae casi todo. Esta celda solo asegura una versión de `transformers` que conoce el modelo de la parte B.
 
 ```python
-import numpy as np
-
-def toy_attention(Q, K, V):
-    scores = Q @ K.T / np.sqrt(K.shape[-1])
-    weights = np.exp(scores - scores.max(axis=-1, keepdims=True))
-    weights = weights / weights.sum(axis=-1, keepdims=True)
-    return weights @ V, weights
-
-Q = np.random.randn(4, 8)
-K = np.random.randn(4, 8)
-V = np.random.randn(4, 8)
-out, w = toy_attention(Q, K, V)
-print(out.shape, w.round(2))
+%pip install -q "transformers>=4.56" requests pandas matplotlib
 ```
 
-### Fallback offline
+## Importaciones
 
-Si no hay API, describe en markdown la salida esperada y los riesgos de sobreconfianza.
+En el siguiente bloque importamos las librerías que usaremos a lo largo del cuaderno.
 
-### Ticket de salida
+```python
+import math
+import time
+from pathlib import Path
 
-Una pregunta de ingeniería civil. ¿Transformer/LLM o modelo tabular/clásico? Justifica en una frase.
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import requests
+import torch
+import torch.nn.functional as F
+from torch import nn
+from transformers import AutoModel, AutoTokenizer
+```
+
+---
 
 <!-- end NOTEBOOK: -->
+
+{% include _snippets/attention-from-scratch.md %}
+
+{% include _snippets/subword-tokens.md %}
+
+{% include _snippets/pretrained-attention.md %}
