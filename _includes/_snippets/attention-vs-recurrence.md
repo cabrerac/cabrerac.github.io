@@ -6,9 +6,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 48%">
-                <div style="width: 100%; overflow: hidden;">
-                    <img src="{{ site.url }}/assets/media/diagrams/attention-vs-recurrence-3.svg" alt="Recurrent network over five tokens" style="width: 300%; max-width: none; height: auto; margin-left: 0;">
-                </div>
+                <img src="{{ site.url }}/assets/media/diagrams/attention-vs-recurrence-rnn.svg" alt="Recurrent network over five tokens" style="max-height: 420px; max-width: 100%; width: auto;">
             </div>
             <div class="column vertical-middle text-left" style="width: 52%">
                 <p><b>Recurrent network:</b> reads one token at a time and keeps a hidden state</p>
@@ -31,9 +29,7 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 48%">
-                <div style="width: 100%; overflow: hidden;">
-                    <img src="{{ site.url }}/assets/media/diagrams/attention-vs-recurrence-3.svg" alt="Convolutional network over five tokens" style="width: 300%; max-width: none; height: auto; margin-left: -100%;">
-                </div>
+                <img src="{{ site.url }}/assets/media/diagrams/attention-vs-recurrence-cnn.svg" alt="Convolutional network over five tokens" style="max-height: 420px; max-width: 100%; width: auto;">
             </div>
             <div class="column vertical-middle text-left" style="width: 52%">
                 <p><b>Convolutional network:</b> each unit sees a window of $k$ neighbouring tokens</p>
@@ -57,9 +53,7 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 48%">
-                <div style="width: 100%; overflow: hidden;">
-                    <img src="{{ site.url }}/assets/media/diagrams/attention-vs-recurrence-3.svg" alt="Attention over five tokens" style="width: 300%; max-width: none; height: auto; margin-left: -200%;">
-                </div>
+                <img src="{{ site.url }}/assets/media/diagrams/attention-vs-recurrence-attention.svg" alt="Attention over five tokens" style="max-height: 420px; max-width: 100%; width: auto;">
             </div>
             <div class="column vertical-middle text-left" style="width: 52%">
                 <p><b>Attention:</b> every token is compared with every earlier token in one step</p>
