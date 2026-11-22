@@ -24,9 +24,9 @@
 <rect x="424" y="150" width="110" height="60" rx="8" fill="#ffa500" stroke="#224466" stroke-width="2"/>
 <text x="479.0" y="187.0" class="s" style="fill:#fff">softmax</text>
 <line x1="536" y1="180" x2="580" y2="180" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
-<text x="590" y="120" class="s l">P(estación)</text>
-<text x="590" y="160" class="s l">P(casa)</text>
-<text x="590" y="200" class="s l">P(tierra)</text>
+<text x="590" y="120" class="s l">P(nest)</text>
+<text x="590" y="160" class="s l">P(tree)</text>
+<text x="590" y="200" class="s l">P(home)</text>
 <text x="590" y="240" class="s l">P(…)</text>
 <text x="330" y="300" class="s">one logit per token in V, then probabilities that sum to 1</text>
 </svg>

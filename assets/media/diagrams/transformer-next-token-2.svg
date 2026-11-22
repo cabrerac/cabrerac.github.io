@@ -14,13 +14,13 @@
 <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
 </defs>
 <rect x="40" y="70" width="70" height="54" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="75.0" y="104.0" class="t">el</text>
+<text x="75.0" y="104.0" class="t">the</text>
 <rect x="124" y="70" width="150" height="54" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="199.0" y="104.0" class="t">temblor</text>
+<text x="199.0" y="104.0" class="t">bird</text>
 <rect x="288" y="70" width="130" height="54" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="353.0" y="104.0" class="t">movió</text>
+<text x="353.0" y="104.0" class="t">left</text>
 <rect x="432" y="70" width="70" height="54" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="467.0" y="104.0" class="t">la</text>
+<text x="467.0" y="104.0" class="t">the</text>
 <rect x="516" y="70" width="120" height="54" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2" stroke-dasharray="7 5"/>
 <text x="576.0" y="104.0" class="t">?</text>
 <path d="M40 140 L40 152 L502 152 L502 140" fill="none" stroke="#224466" stroke-width="2"/>
@@ -30,9 +30,9 @@
 <text x="310.0" y="247.0" class="t" style="fill:#fff">model</text>
 <line x1="310" y1="150" x2="310" y2="206" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
 <line x1="460" y1="240" x2="520" y2="280" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
-<text x="530" y="236" class="s l">P(estación | context)</text>
-<text x="530" y="270" class="s l">P(casa | context)</text>
-<text x="530" y="304" class="s l">P(tierra | context)</text>
+<text x="530" y="236" class="s l">P(nest | context)</text>
+<text x="530" y="270" class="s l">P(tree | context)</text>
+<text x="530" y="304" class="s l">P(home | context)</text>
 <text x="530" y="338" class="s l">P(… | context)</text>
 <text x="640" y="384" class="s">one probability for each token in V</text>
 </svg>

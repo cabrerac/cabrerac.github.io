@@ -16,13 +16,13 @@
 <text x="200" y="34" class="t">input (context)</text>
 <text x="560" y="34" class="t">target (next token)</text>
 <rect x="40" y="56" width="320" height="52" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="200.0" y="89.0" class="t">el</text>
+<text x="200.0" y="89.0" class="t">the</text>
 <line x1="370" y1="82" x2="470" y2="82" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
 <rect x="480" y="56" width="160" height="52" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
-<text x="560.0" y="89.0" class="t">temblor</text>
+<text x="560.0" y="89.0" class="t">bird</text>
 <rect x="40" y="128" width="320" height="52" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="200.0" y="161.0" class="t">el temblor</text>
+<text x="200.0" y="161.0" class="t">the bird</text>
 <line x1="370" y1="154" x2="470" y2="154" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
 <rect x="480" y="128" width="160" height="52" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
-<text x="560.0" y="161.0" class="t">movió</text>
+<text x="560.0" y="161.0" class="t">left</text>
 </svg>

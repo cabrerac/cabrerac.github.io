@@ -34,7 +34,7 @@
 <text x="175.0" y="200" class="s">sees all tokens</text>
 <text x="175.0" y="250" class="t" style="fill:#0e73b8">BERT (2018)</text>
 <text x="175.0" y="300" class="s">fill a masked token</text>
-<text x="175.0" y="340" class="s m">el [MASK] movió la</text>
+<text x="175.0" y="340" class="s m">the [MASK] left the</text>
 <rect x="360" y="20" width="330" height="380" rx="12" fill="#f4f6f8" stroke="#6c8aa3" stroke-width="2"/>
 <text x="525.0" y="60" class="t">Decoder only</text>
 <rect x="481.0" y="90" width="19" height="19" rx="2" fill="#0e73b8"/>
@@ -56,5 +56,5 @@
 <text x="525.0" y="200" class="s">sees earlier tokens</text>
 <text x="525.0" y="250" class="t" style="fill:#0e73b8">GPT (2018)</text>
 <text x="525.0" y="300" class="s">predict the next token</text>
-<text x="525.0" y="340" class="s m">el temblor movió la ?</text>
+<text x="525.0" y="340" class="s m">the bird left the ?</text>
 </svg>

@@ -15,7 +15,8 @@
             <div class="column vertical-top text-left" style="width: 100%">
                 <p><b>Recurrent network:</b> reads one token at a time and keeps a hidden state</p>
                 <ul>
-                    <li><p><b>Long paths:</b> <em>el</em> reaches <em>estación</em> only through every hidden state in between</p></li>
+                    <li><p><b>Computes:</b> one new hidden state at each step</p></li>
+                    <li><p><b>Long paths:</b> "the" reaches "nest" only through every hidden state in between</p></li>
                     <li><p><b>Sequential:</b> step $t$ waits for step $t-1$, so a long text cannot be processed in parallel</p></li>
                 </ul>
             </div>
@@ -38,6 +39,7 @@
             <div class="column vertical-top text-left" style="width: 100%">
                 <p><b>Convolutional network:</b> each unit sees a window of $k$ neighbouring tokens</p>
                 <ul>
+                    <li><p><b>Computes:</b> one output for each window of $k$ neighbouring tokens</p></li>
                     <li><p><b>Local:</b> two far tokens only meet after several stacked layers</p></li>
                     <li><p><b>Parallel:</b> every window is computed at the same time</p></li>
                 </ul>
@@ -61,7 +63,8 @@
             <div class="column vertical-top text-left" style="width: 100%">
                 <p><b>Attention:</b> every token is compared with every earlier token in one step</p>
                 <ul>
-                    <li><p><b>Short paths:</b> <em>el</em> and <em>estación</em> are one step apart, however long the text</p></li>
+                    <li><p><b>Computes:</b> a weight from each token to every earlier token</p></li>
+                    <li><p><b>Short paths:</b> "the" and "nest" are one step apart, however long the text</p></li>
                     <li><p><b>Parallel:</b> all positions are computed at once, which suits GPUs (<a href="https://proceedings.neurips.cc/paper_files/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf">Vaswani et al., 2017</a>)</p></li>
                 </ul>
             </div>

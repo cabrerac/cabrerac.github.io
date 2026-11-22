@@ -15,12 +15,12 @@
 </defs>
 <text x="440.0" y="36" class="t">key j</text>
 <text x="50" y="280.0" class="t">query i</text>
-<text x="272.0" y="62" class="s">el</text>
-<text x="356.0" y="62" class="s">temblor</text>
-<text x="440.0" y="62" class="s">movió</text>
-<text x="524.0" y="62" class="s">la</text>
-<text x="608.0" y="62" class="s">estación</text>
-<text x="220" y="118.0" class="s" style="text-anchor:end">el</text>
+<text x="272.0" y="62" class="s">the</text>
+<text x="356.0" y="62" class="s">bird</text>
+<text x="440.0" y="62" class="s">left</text>
+<text x="524.0" y="62" class="s">the</text>
+<text x="608.0" y="62" class="s">nest</text>
+<text x="220" y="118.0" class="s" style="text-anchor:end">the</text>
 <rect x="230" y="70" width="80" height="80" rx="4" fill="#0e73b8"/>
 <text x="270.0" y="117.0" class="s" style="fill:#fff">q·k</text>
 <rect x="314" y="70" width="80" height="80" rx="4" fill="#e6e6e6"/>
@@ -31,7 +31,7 @@
 <text x="522.0" y="117.0" class="s" style="fill:#6c8aa3">−∞</text>
 <rect x="566" y="70" width="80" height="80" rx="4" fill="#e6e6e6"/>
 <text x="606.0" y="117.0" class="s" style="fill:#6c8aa3">−∞</text>
-<text x="220" y="202.0" class="s" style="text-anchor:end">temblor</text>
+<text x="220" y="202.0" class="s" style="text-anchor:end">bird</text>
 <rect x="230" y="154" width="80" height="80" rx="4" fill="#0e73b8"/>
 <text x="270.0" y="201.0" class="s" style="fill:#fff">q·k</text>
 <rect x="314" y="154" width="80" height="80" rx="4" fill="#0e73b8"/>
@@ -42,7 +42,7 @@
 <text x="522.0" y="201.0" class="s" style="fill:#6c8aa3">−∞</text>
 <rect x="566" y="154" width="80" height="80" rx="4" fill="#e6e6e6"/>
 <text x="606.0" y="201.0" class="s" style="fill:#6c8aa3">−∞</text>
-<text x="220" y="286.0" class="s" style="text-anchor:end">movió</text>
+<text x="220" y="286.0" class="s" style="text-anchor:end">left</text>
 <rect x="230" y="238" width="80" height="80" rx="4" fill="#0e73b8"/>
 <text x="270.0" y="285.0" class="s" style="fill:#fff">q·k</text>
 <rect x="314" y="238" width="80" height="80" rx="4" fill="#0e73b8"/>
@@ -53,7 +53,7 @@
 <text x="522.0" y="285.0" class="s" style="fill:#6c8aa3">−∞</text>
 <rect x="566" y="238" width="80" height="80" rx="4" fill="#e6e6e6"/>
 <text x="606.0" y="285.0" class="s" style="fill:#6c8aa3">−∞</text>
-<text x="220" y="370.0" class="s" style="text-anchor:end">la</text>
+<text x="220" y="370.0" class="s" style="text-anchor:end">the</text>
 <rect x="230" y="322" width="80" height="80" rx="4" fill="#0e73b8"/>
 <text x="270.0" y="369.0" class="s" style="fill:#fff">q·k</text>
 <rect x="314" y="322" width="80" height="80" rx="4" fill="#0e73b8"/>
@@ -64,7 +64,7 @@
 <text x="522.0" y="369.0" class="s" style="fill:#fff">q·k</text>
 <rect x="566" y="322" width="80" height="80" rx="4" fill="#e6e6e6"/>
 <text x="606.0" y="369.0" class="s" style="fill:#6c8aa3">−∞</text>
-<text x="220" y="454.0" class="s" style="text-anchor:end">estación</text>
+<text x="220" y="454.0" class="s" style="text-anchor:end">nest</text>
 <rect x="230" y="406" width="80" height="80" rx="4" fill="#0e73b8"/>
 <text x="270.0" y="453.0" class="s" style="fill:#fff">q·k</text>
 <rect x="314" y="406" width="80" height="80" rx="4" fill="#0e73b8"/>

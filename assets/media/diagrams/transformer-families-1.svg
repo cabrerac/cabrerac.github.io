@@ -34,5 +34,5 @@
 <text x="175.0" y="200" class="s">sees all tokens</text>
 <text x="175.0" y="250" class="t" style="fill:#0e73b8">BERT (2018)</text>
 <text x="175.0" y="300" class="s">fill a masked token</text>
-<text x="175.0" y="340" class="s m">el [MASK] movió la</text>
+<text x="175.0" y="340" class="s m">the [MASK] left the</text>
 </svg>

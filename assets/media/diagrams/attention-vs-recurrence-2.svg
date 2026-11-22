@@ -14,15 +14,15 @@
 <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
 </defs>
 <rect x="6" y="330" width="94" height="40" rx="6" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="53.0" y="357.0" class="s">el</text>
+<text x="53.0" y="357.0" class="s">the</text>
 <rect x="104" y="330" width="94" height="40" rx="6" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="151.0" y="357.0" class="s">temblor</text>
+<text x="151.0" y="357.0" class="s">bird</text>
 <rect x="202" y="330" width="94" height="40" rx="6" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="249.0" y="357.0" class="s">movió</text>
+<text x="249.0" y="357.0" class="s">left</text>
 <rect x="300" y="330" width="94" height="40" rx="6" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="347.0" y="357.0" class="s">la</text>
+<text x="347.0" y="357.0" class="s">the</text>
 <rect x="398" y="330" width="94" height="40" rx="6" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="445.0" y="357.0" class="s">estación</text>
+<text x="445.0" y="357.0" class="s">nest</text>
 <text x="250.0" y="34" class="t">Recurrent network</text>
 <rect x="27" y="196" width="52" height="52" rx="22" fill="#0e73b8" stroke="#224466" stroke-width="2"/>
 <text x="53.0" y="229.0" class="s" style="fill:#fff">h1</text>
@@ -44,17 +44,17 @@
 <line x1="445" y1="328" x2="445" y2="248" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
 <line x1="373" y1="222" x2="417" y2="222" stroke="#ffa500" stroke-width="3" marker-end="url(#ao)"/>
 <text x="250.0" y="100" class="s">one token at a time</text>
-<text x="250.0" y="124" class="s">el reaches estación after 4 steps</text>
+<text x="250.0" y="124" class="s">&quot;the&quot; reaches &quot;nest&quot; after 4 steps</text>
 <rect x="526" y="330" width="94" height="40" rx="6" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="573.0" y="357.0" class="s">el</text>
+<text x="573.0" y="357.0" class="s">the</text>
 <rect x="624" y="330" width="94" height="40" rx="6" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="671.0" y="357.0" class="s">temblor</text>
+<text x="671.0" y="357.0" class="s">bird</text>
 <rect x="722" y="330" width="94" height="40" rx="6" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="769.0" y="357.0" class="s">movió</text>
+<text x="769.0" y="357.0" class="s">left</text>
 <rect x="820" y="330" width="94" height="40" rx="6" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="867.0" y="357.0" class="s">la</text>
+<text x="867.0" y="357.0" class="s">the</text>
 <rect x="918" y="330" width="94" height="40" rx="6" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="965.0" y="357.0" class="s">estación</text>
+<text x="965.0" y="357.0" class="s">nest</text>
 <text x="770.0" y="34" class="t">Convolutional network</text>
 <rect x="619" y="316" width="302" height="68" rx="10" fill="none" stroke="#ffa500" stroke-width="3" stroke-dasharray="7 5"/>
 <rect x="747" y="200" width="44" height="44" rx="22" fill="#0e73b8" stroke="#224466" stroke-width="2"/>
