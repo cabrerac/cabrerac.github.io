@@ -446,9 +446,9 @@
       <!-- 2026 Event - Connectionist -->
       <line x1="1186" y1="50%" x2="1186" y2="43%" stroke="var(--secondary-color)" stroke-width="1"/>
       <circle cx="1186" cy="43%" r="1" fill="var(--secondary-color)"/>
-      <text x="1215" y="38%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
-        <tspan x="1200" dy="0">Agents</tspan>
-        <tspan x="1200" dy="15">(2026)</tspan>
+      <text x="1210" y="38%" text-anchor="middle" style="font-size: 12px; fill: var(--connectionist-color);">
+        <tspan x="1210" dy="0">Agents</tspan>
+        <tspan x="1210" dy="15">(2026)</tspan>
       </text>
     </svg>
   </div>
