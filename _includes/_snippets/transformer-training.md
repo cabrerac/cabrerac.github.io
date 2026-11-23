@@ -7,9 +7,11 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 48%">
                 <p><b>Training process:</b> the targets are the same text shifted one token to the left</p>
+                <br>
 $$
 E = -\frac{1}{T}\sum_{t=1}^{T} \log P(y_{t+1} \mid y_{1:t})
 $$
+                <br>
                 <ul>
                     <li><p><b>$E$:</b> the cross-entropy loss, the mean over the $T$ positions</p></li>
                     <li><p><b>$P(y_{t+1} \mid y_{1:t})$:</b> the probability the model gives to the true next token</p></li>

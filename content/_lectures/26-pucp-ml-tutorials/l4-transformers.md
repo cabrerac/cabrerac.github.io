@@ -15,8 +15,9 @@ institution: University of Cambridge
 layout: lecture
 lecture_code: l4-transformers
 lecture_date: 23/11/2026
-notebook_description: "Pr\xE1ctica de sesi\xF3n 4. Atenci\xF3n desde cero sobre el\
-  \ p\xE1rrafo de la sesi\xF3n 3 y tokens de un modelo preentrenado."
+notebook_description: "Pr\xE1ctica de sesi\xF3n 4. Uso de transformadores preentrenados\
+  \ de Hugging Face, uno por familia: solo codificador, codificador-decodificador\
+  \ y solo decodificador."
 notebook_language: es
 notebook_title: Transformadores
 permalink: /teaching/26-pucp-ml-tutorials/l4-transformers/

@@ -18,7 +18,7 @@ lecture_code: l4-transformers
 lecture_date: 23/11/2026
 permalink: /teaching/26-pucp-ml-tutorials/l4-transformers/
 notebook_title: "Transformadores"
-notebook_description: "Práctica de sesión 4. Atención desde cero sobre el párrafo de la sesión 3 y tokens de un modelo preentrenado."
+notebook_description: "Práctica de sesión 4. Uso de transformadores preentrenados de Hugging Face, uno por familia: solo codificador, codificador-decodificador y solo decodificador."
 ---
 
 <!-- SLIDES: -->
@@ -58,6 +58,8 @@ notebook_description: "Práctica de sesión 4. Atención desde cero sobre el pá
 <!-- end SLIDES: -->
 
 {% include _snippets/transformer-families.md %}
+
+{% include _snippets/transformer-families-usage.md %}
 
 {% include _snippets/26-pucp-ml-tutorials/l4-transformers/conclusions.md %}
 

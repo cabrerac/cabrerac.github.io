@@ -5,8 +5,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 36%">
-                <p><b>Python implementation:</b> PyTorch</p>
+            <div class="column vertical-middle text-left" style="width: 30%">
                 <p>Scaled scores, causal mask and softmax</p>
                 <ul>
                     <li><p><b>Q, K, V:</b> one row per token</p></li>
@@ -14,7 +13,7 @@
                     <li><p><b>masked_fill:</b> those scores become $-\infty$, so softmax gives them weight 0</p></li>
                 </ul>
             </div>
-            <div class="column vertical-middle text-left" style="width: 64%">
+            <div class="column vertical-middle text-left" style="width: 70%">
 
 ```python
 import torch
@@ -38,8 +37,7 @@ def toy_attention(Q, K, V, causal=True):
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 36%">
-                <p><b>Python implementation:</b> PyTorch</p>
+            <div class="column vertical-middle text-left" style="width: 30%">
                 <p>One attention head that scores the next character of a window</p>
                 <ul>
                     <li><p><b>embed, position:</b> $\mathbf{x}_i = \mathbf{e}_i + \mathbf{p}_i$</p></li>
@@ -47,7 +45,7 @@ def toy_attention(Q, K, V, causal=True):
                     <li><p><b>Training:</b> nn.CrossEntropyLoss on the scores and the true next character, then Adam</p></li>
                 </ul>
             </div>
-            <div class="column vertical-middle text-left" style="width: 64%">
+            <div class="column vertical-middle text-left" style="width: 70%">
 
 ```python
 from torch import nn

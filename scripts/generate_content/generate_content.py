@@ -464,11 +464,10 @@ class ContentGenerator:
 
     def unwrap_html_paragraphs_for_marp_math(self, content):
         """
-        Marp does not run MathJax on text inside raw HTML <p>...</p>. For slide sources,
-        rewrite those tags into plain markdown paragraphs when the inner HTML looks like
-        it contains TeX ($...$ or $$...$$). Authors can then write math inside <p> naturally.
-
-        Fenced ``` blocks are left unchanged. Only used on the slide (Marp) pipeline.
+        Unwrap a paragraph that contains math so Marp can render it.
+        A raw HTML paragraph hides math from Marp.
+        A leading number and dot is escaped so the line stays a paragraph.
+        Fenced code blocks are left unchanged.
         """
         import re
 
@@ -496,7 +495,9 @@ class ContentGenerator:
                 return m.group(0)
             if not self._inner_looks_like_tex_math(inner):
                 return m.group(0)
-            return f"\n\n{inner.strip()}\n\n"
+            inner = inner.strip()
+            inner = re.sub(r"^(\d+)\. ", r"\1\\. ", inner, count=1)
+            return f"\n\n{inner}\n\n"
 
         text = p_tag.sub(repl, text)
         for i in range(len(placeholders) - 1, -1, -1):
