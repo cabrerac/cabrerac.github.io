@@ -4,7 +4,7 @@ Este cuaderno usa transformadores ya entrenados, uno de cada familia vista en la
 
 Ejecute las celdas de arriba hacia abajo. En cada **Comprobar**, confirme el mensaje `OK` antes de seguir. Cada parte tiene una línea marcada con `# TODO`, donde usted cambia una frase o un parámetro. Ya trae un ejemplo para que el cuaderno corra. Cámbielo, vuelva a ejecutar la celda y anote lo que observa en la celda de texto que sigue.
 
-Todo el cuaderno corre en CPU, no hace falta GPU. La primera vez, cada modelo se descarga desde Hugging Face. Son seis modelos, entre 250 MB y 1 GB cada uno, unos 3 GB en total. En Colab la descarga tarda pocos minutos. Si Colab muestra un aviso sobre `HF_TOKEN`, puede ignorarlo: los modelos de este cuaderno son públicos y no piden cuenta.
+Todo el cuaderno corre en CPU, no hace falta GPU. La primera vez, cada modelo se descarga desde Hugging Face. Son cuatro modelos, entre 250 MB y 1 GB cada uno, unos 2 GB en total. En Colab la descarga tarda pocos minutos. Si Colab muestra un aviso sobre `HF_TOKEN`, puede ignorarlo: los modelos de este cuaderno son públicos y no piden cuenta.
 
 ---
 
@@ -23,9 +23,8 @@ En el siguiente bloque importamos las librerías que usaremos a lo largo del cua
 ```python
 import time  # mide cuánto tarda cada descarga
 
-import matplotlib.pyplot as plt  # dibuja la matriz de parecido y las probabilidades
+import matplotlib.pyplot as plt  # dibuja las probabilidades del siguiente token
 import torch  # tensores y cálculo sin gradientes
-from transformers import AutoModel  # transformador sin capa de salida, para vectores
 from transformers import AutoModelForCausalLM  # transformador solo decodificador con su capa de salida
 from transformers import AutoModelForSeq2SeqLM  # transformador codificador-decodificador
 from transformers import AutoTokenizer  # tokenizador que acompaña a cada modelo
@@ -42,7 +41,7 @@ from transformers import pipeline  # atajo que une tokenizador, modelo y lectura
 4. Pasar el texto por el tokenizador, que lo convierte en números de token.
 5. Pasar esos números por el modelo y leer su salida.
 
-`pipeline(tarea, model=nombre)` hace los pasos 3 a 5 de una sola vez para tareas comunes. Lo usamos en las dos primeras tareas. En el resto hacemos los pasos a mano para ver qué entra y qué sale del modelo.
+`pipeline(tarea, model=nombre)` hace los pasos 3 a 5 de una sola vez para tareas comunes. Lo usamos para completar la palabra tapada. En el resto hacemos los pasos a mano para ver qué entra y qué sale del modelo.
 
 <!-- end NOTEBOOK: -->
 
@@ -60,7 +59,7 @@ from transformers import pipeline  # atajo que une tokenizador, modelo y lectura
 
 | Familia | Modelo | Qué ve | Tareas de este cuaderno |
 |---|---|---|---|
-| Solo codificador | BETO, DistilBERT multilingüe, MiniLM multilingüe | Todos los tokens de la frase | Completar una palabra, clasificar el tono, comparar frases |
+| Solo codificador | BETO | Todos los tokens de la frase | Completar una palabra |
 | Codificador-decodificador | MarianMT, T5 | El codificador ve toda la entrada y el decodificador los tokens ya escritos | Traducir y resumir |
 | Solo decodificador | Qwen2.5-0.5B | Los tokens anteriores, con la máscara causal | Probabilidad del siguiente token |
 
