@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Qwen2.5-0.5B-Instruct tokeniser on the S3 sentence, step 1. Real pieces and ids from slides-out/figs/tokens_real.json. -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1019 300" width="1019" height="300">
+<!-- Qwen2.5-0.5B-Instruct tokeniser on an English example sentence, step 1. Real pieces and ids from slides-out/figs/tokens_real.json. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" width="900" height="300">
 <defs><style type="text/css"><![CDATA[
  text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
  .t { font-size:26px; font-weight:600; text-anchor:middle; }
@@ -14,16 +14,16 @@
 <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
 </defs>
 <text x="20" y="34" class="t l">Words: 6</text>
-<rect x="20" y="50" width="62" height="46" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="51.0" y="80.0" class="t">el</text>
-<rect x="92" y="50" width="147" height="46" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="165.5" y="80.0" class="t">temblor</text>
-<rect x="249" y="50" width="113" height="46" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="305.5" y="80.0" class="t">movió</text>
-<rect x="372" y="50" width="62" height="46" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="403.0" y="80.0" class="t">la</text>
-<rect x="444" y="50" width="164" height="46" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="526.0" y="80.0" class="t">estación</text>
-<rect x="618" y="50" width="164" height="46" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="700.0" y="80.0" class="t">cercana.</text>
+<rect x="20" y="50" width="79" height="46" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="59.5" y="80.0" class="t">the</text>
+<rect x="109" y="50" width="181" height="46" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="199.5" y="80.0" class="t">fledgling</text>
+<rect x="300" y="50" width="96" height="46" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="348.0" y="80.0" class="t">bird</text>
+<rect x="406" y="50" width="96" height="46" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="454.0" y="80.0" class="t">left</text>
+<rect x="512" y="50" width="79" height="46" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="551.5" y="80.0" class="t">the</text>
+<rect x="601" y="50" width="113" height="46" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="657.5" y="80.0" class="t">nest.</text>
 </svg>

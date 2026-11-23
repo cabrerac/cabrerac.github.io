@@ -45,7 +45,6 @@ def toy_attention(Q, K, V, causal=True):
                     <li><p><b>embed, position:</b> $\mathbf{x}_i = \mathbf{e}_i + \mathbf{p}_i$</p></li>
                     <li><p><b>h + mix:</b> residual connections, with no normalisation in this small model</p></li>
                     <li><p><b>Training:</b> nn.CrossEntropyLoss on the scores and the true next character, then Adam</p></li>
-                    <li><p><b>Notebook names:</b> AttentionHead is CabezaAtencion, embed is entrada, position is posicion, head is cabeza</p></li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 64%">

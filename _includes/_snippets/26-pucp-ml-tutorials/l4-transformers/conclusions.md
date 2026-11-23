@@ -45,7 +45,7 @@ $$
 $$
 a_i = \text{concat}(\text{head}^{1}_i, \ldots, \text{head}^{h}_i) W^O
 $$
-                <p>Heads learn different relations</p>
+                <p>Heads can learn different relations</p>
             </div>
             <div class="column vertical-top text-center" style="width: 33%">
                 <p><b>Causal mask</b></p>

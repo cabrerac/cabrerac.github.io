@@ -51,12 +51,12 @@
 <text x="230.0" y="835.0" class="mt">Token embedding</text>
 <line x1="230" y1="890" x2="230" y2="856" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
 <rect x="20" y="892" width="96" height="48" rx="6" fill="#ffffff" stroke="#224466" stroke-width="2"/>
-<text x="68.0" y="923.0" class="ms">el</text>
+<text x="68.0" y="923.0" class="ms">the</text>
 <rect x="128" y="892" width="96" height="48" rx="6" fill="#ffffff" stroke="#224466" stroke-width="2"/>
-<text x="176.0" y="923.0" class="ms">␣tem</text>
+<text x="176.0" y="923.0" class="ms">␣fled</text>
 <rect x="236" y="892" width="96" height="48" rx="6" fill="#ffffff" stroke="#224466" stroke-width="2"/>
-<text x="284.0" y="923.0" class="ms">bl</text>
+<text x="284.0" y="923.0" class="ms">g</text>
 <rect x="344" y="892" width="96" height="48" rx="6" fill="#ffffff" stroke="#224466" stroke-width="2"/>
-<text x="392.0" y="923.0" class="ms">or</text>
+<text x="392.0" y="923.0" class="ms">ling</text>
 <text x="230" y="976" class="ms">tokens</text>
 </svg>

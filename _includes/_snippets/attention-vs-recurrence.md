@@ -94,7 +94,11 @@ $$
     <div class="row" style="height: 32%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
-                <p>A recurrent network computes one hidden state per step. A convolutional network computes one output per window of neighbouring tokens. Attention computes a weight from each token to every earlier token.</p>
+               <ul>
+                  <li>A recurrent network computes one hidden state per step</li>
+                  <li>A convolutional network computes one output per window of neighbouring tokens</li>
+                  <li>Attention computes a weight from each token to every earlier token</li>
+               </ul>
             </div>
         </div>
     </div>

@@ -14,31 +14,33 @@
 <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
 </defs>
 <rect x="20" y="20" width="190" height="46" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="115.0" y="50.0" class="t">Acarí</text>
+<text x="115.0" y="50.0" class="t">hummingbird</text>
 <line x1="220" y1="43" x2="270" y2="43" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
-<rect x="280" y="20" width="51" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
-<text x="305.5" y="50.0" class="t">A</text>
-<rect x="337" y="20" width="85" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
-<text x="379.5" y="50.0" class="t">car</text>
-<rect x="428" y="20" width="51" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
-<text x="453.5" y="50.0" class="t">í</text>
-<text x="499" y="50" class="s l">3 tokens</text>
+<rect x="280" y="20" width="85" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="322.5" y="50.0" class="t">hum</text>
+<rect x="371" y="20" width="102" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="422.0" y="50.0" class="t">ming</text>
+<rect x="479" y="20" width="102" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="530.0" y="50.0" class="t">bird</text>
+<text x="601" y="50" class="s l">3 tokens</text>
 <rect x="20" y="86" width="190" height="46" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="115.0" y="116.0" class="t">estaciones</text>
+<text x="115.0" y="116.0" class="t">unexpectedly</text>
 <line x1="220" y1="109" x2="270" y2="109" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
-<rect x="280" y="86" width="85" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
-<text x="322.5" y="116.0" class="t">est</text>
-<rect x="371" y="86" width="153" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
-<text x="447.5" y="116.0" class="t">aciones</text>
-<text x="544" y="116" class="s l">2 tokens</text>
+<rect x="280" y="86" width="204" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="382.0" y="116.0" class="t">unexpected</text>
+<rect x="490" y="86" width="68" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="524.0" y="116.0" class="t">ly</text>
+<text x="578" y="116" class="s l">2 tokens</text>
 <rect x="20" y="152" width="190" height="46" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
-<text x="115.0" y="182.0" class="t">movimiento</text>
+<text x="115.0" y="182.0" class="t">birdwatching</text>
 <line x1="220" y1="175" x2="270" y2="175" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
-<rect x="280" y="152" width="85" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
-<text x="322.5" y="182.0" class="t">mov</text>
-<rect x="371" y="152" width="153" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
-<text x="447.5" y="182.0" class="t">imiento</text>
-<text x="544" y="182" class="s l">2 tokens</text>
+<rect x="280" y="152" width="102" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="331.0" y="182.0" class="t">bird</text>
+<rect x="388" y="152" width="119" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="447.5" y="182.0" class="t">watch</text>
+<rect x="513" y="152" width="85" height="46" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="555.5" y="182.0" class="t">ing</text>
+<text x="618" y="182" class="s l">3 tokens</text>
 <rect x="20" y="218" width="190" height="46" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
 <text x="115.0" y="248.0" class="t">2024</text>
 <line x1="220" y1="241" x2="270" y2="241" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
