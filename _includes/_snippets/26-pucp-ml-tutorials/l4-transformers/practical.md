@@ -2,7 +2,7 @@
 
 Este cuaderno usa transformadores ya entrenados, uno de cada familia vista en la sesión: solo codificador, codificador-decodificador y solo decodificador. No programamos ni entrenamos la arquitectura. Descargamos modelos de [Hugging Face](https://huggingface.co/models) con la librería `transformers` y los usamos con textos sobre sismos y daños en edificaciones. Cada bloque describe los datos utilizados, la tarea que se quiere solucionar y por qué esa familia encaja.
 
-Ejecute las celdas de arriba hacia abajo. En cada **Comprobar**, confirme el mensaje `OK` antes de seguir. Cada parte tiene una línea marcada con `# TODO`, donde usted cambia una frase o un parámetro. Ya trae un ejemplo para que el cuaderno corra. Cámbielo, vuelva a ejecutar la celda y anote lo que observa en la celda de texto que sigue.
+Ejecute las celdas de arriba hacia abajo. En cada **Comprobar**, confirme el mensaje `OK` antes de seguir.
 
 Todo el cuaderno corre en CPU, no hace falta GPU. La primera vez, cada modelo se descarga desde Hugging Face. Son cuatro modelos, entre 250 MB y 1 GB cada uno, unos 2 GB en total. En Colab la descarga tarda pocos minutos. Si Colab muestra un aviso sobre `HF_TOKEN`, puede ignorarlo: los modelos de este cuaderno son públicos y no piden cuenta.
 
@@ -28,10 +28,10 @@ import torch  # tensores y cálculo sin gradientes
 from transformers import AutoModelForCausalLM  # transformador solo decodificador con su capa de salida
 from transformers import AutoModelForSeq2SeqLM  # transformador codificador-decodificador
 from transformers import AutoTokenizer  # tokenizador que acompaña a cada modelo
-from transformers import pipeline  # atajo que une tokenizador, modelo y lectura de la salida
+from transformers import pipeline  # workflow que une tokenizador, modelo y outputs
 ```
 
-## Cómo se usa un modelo de Hugging Face
+## Hugging Face
 
 [Hugging Face](https://huggingface.co/models) es un repositorio público de modelos. Cada modelo tiene un nombre, por ejemplo `dccuchile/bert-base-spanish-wwm-cased`, y una ficha que explica con qué datos se entrenó y para qué sirve. Los pasos son siempre los mismos:
 

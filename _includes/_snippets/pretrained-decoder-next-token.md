@@ -64,19 +64,16 @@ def dibujar_siguientes(contexto, pares):
     plt.show()  # muestra el gráfico
 ```
 
-Cambie el contexto en la línea `# TODO`. Pruebe a agregar o quitar palabras, por ejemplo el lugar o el material, y vea cómo cambian las probabilidades. Cambie también `K`. Guardamos los pares en `pares`, que usa el **Comprobar**.
+Se pueden agregar o quitar palabras, por ejemplo el lugar o el material, y después ver cómo cambian las probabilidades. También podemos cambiar `K` para mirar más tokens que puedan completar la frase. Guardamos los pares en `pares`, que usa el **Comprobar**.
 
 ```python
-contexto = "Después del sismo, los ingenieros revisaron los daños en el"  # TODO: cambie el contexto
+contexto = "Después del sismo, los ingenieros revisaron los daños en el"
 K = 5  # cuántos tokens mostrar
 pares = siguientes_tokens(contexto, K)  # los K tokens más probables
 for texto_token, probabilidad in pares:  # recorre los pares
     print(f"{texto_token!r:15} {probabilidad:.3f}")  # una línea por token
 dibujar_siguientes(contexto, pares)  # gráfico de barras
 ```
-
-*Anote lo que observa.* Ejemplo: el token más probable es ` ed`, el comienzo de ` edificio`. El modelo propone tokens, piezas de palabra, no palabras completas. Las cinco probabilidades suman menos de 0.2, porque el resto se reparte entre los más de 150 mil tokens del vocabulario. Pruebe también un contexto que termine a mitad de palabra, por ejemplo `El sismo de magn`.
-
 ### Cada posición predice la siguiente
 
 En el entrenamiento, cada posición de una frase predice su siguiente token, todas a la vez. Lo vemos con una frase completa: para cada posición mostramos el token que sigue en la frase, la probabilidad que el modelo le daba y el token que el modelo creía más probable. Es la misma lectura de probabilidades de arriba, sin escribir nada nuevo.

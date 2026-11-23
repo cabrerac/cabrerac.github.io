@@ -87,17 +87,16 @@ def resumir(texto, largo_maximo):
     return tokenizador_resumen.decode(salida[0], skip_special_tokens=True)  # números de salida a texto
 ```
 
-Cambie `LARGO_MAXIMO` en la línea `# TODO`. Pruebe 15 y 30 y compare los resúmenes. Guardamos el resumen en `resumen`, que usa el **Comprobar**.
+Utilizamos el modelo para resumir el texto. Guardamos el resumen en `resumen`, que usa el **Comprobar**.
 
 ```python
-LARGO_MAXIMO = 60  # TODO: pruebe 15 y 30
+LARGO_MAXIMO = 60
 resumen = resumir(reporte_en, LARGO_MAXIMO)  # resumen del reporte traducido
 print("reporte:", len(reporte_en.split()), "palabras")  # largo del reporte
 print("resumen:", len(resumen.split()), "palabras")  # largo del resumen
 print(resumen)  # el resumen
 ```
-
-*Anote lo que observa.* Ejemplo: con 60 tokens el resumen copia tres de las cuatro frases del reporte y deja fuera la primera, la del lugar y la fecha. Con 30 y con 15 se corta a media frase. T5-small resume eligiendo y copiando partes del texto de entrada, no escribe ideas nuevas. También pasa todo a minúsculas.
+Se puede cambiar la longitud del resumen y compararlos
 
 **Comprobar:**
 

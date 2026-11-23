@@ -38,15 +38,13 @@ def mostrar_candidatas(frase):
     return candidatas  # se usa en el Comprobar
 ```
 
-Cambie la frase de la línea `# TODO`. Pruebe a mover `[MASK]` a otra palabra, por ejemplo al material de la vivienda o al lugar del sismo. Use una sola marca `[MASK]` por frase.
+Pruebe a mover `[MASK]` a otra palabra, por ejemplo al material de la vivienda o al lugar del sismo. Use una sola marca `[MASK]` por frase.
 
 ```python
-frase_con_mascara = "El sismo de magnitud 7 dañó varios [MASK] en Arequipa."  # TODO: cambie la frase o mueva [MASK]
+frase_con_mascara = "El sismo de magnitud 7 dañó varios [MASK] en Arequipa."
 candidatas = mostrar_candidatas(frase_con_mascara)  # propuestas del modelo para esta frase
 candidatas_material = mostrar_candidatas("Muchas casas construidas con [MASK] colapsaron durante el terremoto.")  # el material de la vivienda
 ```
-
-*Anote lo que observa.* Ejemplo: en la primera frase el modelo propone edificios, puentes y hospitales, cosas que un sismo puede dañar. En la segunda propone materiales: madera, ladrillos, cemento, piedra y tierra. Usa las palabras de los dos lados de `[MASK]`, porque un codificador ve toda la frase. Las probabilidades son más bajas cuando muchas palabras encajan.
 
 **Comprobar:**
 
