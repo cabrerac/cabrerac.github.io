@@ -103,7 +103,7 @@
                 href="https://dl.acm.org/doi/full/10.1145/3769292" target="_blank" rel="noopener noreferrer">(Cabrera et al., 2025)</a>.</p>
                 <br>
                 <br>
-                <p><b>How can we exploit these properties to address the intellectual debt problem in AI-based systems?</b></p>
+                <p><b>How can we exploit these properties to address the intellectual debt problem in AI systems?</b></p>
             </div>
         </div>
     </div>

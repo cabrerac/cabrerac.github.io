@@ -182,15 +182,15 @@
   status: past
   visible: false
   slides: https://cabrerac.github.io/assets/slides/2026/internal-mas-failure-attribution.html
-- talk_id: npl-data-oriented-architectures
+- talk_id: npl-doa
   title: Data-Oriented Architectures
   venue: National Physical Laboratory
   institution: University of Cambridge
-  location: Teddington, UK
+  location: Cambridge, UK
   year: 2026
   month: November
   date: '2026-11-25'
   type: invited_talk
   status: upcoming
-  visible: false
-  slides: https://cabrerac.github.io/assets/slides/2026/npl-data-oriented-architectures.html
+  visible: true
+  slides: https://cabrerac.github.io/assets/slides/2026/npl-doa.html

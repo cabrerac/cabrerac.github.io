@@ -1,6 +1,6 @@
 <!-- SLIDES: -->
 
-## AI-based Systems
+## AI Systems
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -12,14 +12,14 @@
     </div>
 </div>
 
-## AI-based Systems
+## AI Systems
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                <p>
-                  AI-based systems are <i>data-driven</i>. Unlike in traditional systems, developers cannot fully predefine their behaviour. ML components learn such behaviour from data, operating as black boxes that propagate uncertainty into complex software.
+                  AI systems are <i>data-driven</i>. Unlike in traditional systems, developers cannot fully predefine their behaviour. ML components learn such behaviour from data, operating as black boxes that propagate uncertainty into complex software.
                </p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -29,14 +29,14 @@
     </div>
 </div>
 
-## AI-based Systems
+## AI Systems
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                <p>
-                  AI-based systems are <i>data-driven</i>. Unlike in traditional systems, developers cannot fully predefine their behaviour. ML components learn such behaviour from data, operating as black boxes that propagate uncertainty into complex software.
+                  AI systems are <i>data-driven</i>. Unlike in traditional systems, developers cannot fully predefine their behaviour. ML components learn such behaviour from data, operating as black boxes that propagate uncertainty into complex software.
                </p>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
@@ -46,7 +46,7 @@
     </div>
 </div>
 
-## AI-based Systems
+## Intellectual Debt
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
