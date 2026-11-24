@@ -79,10 +79,16 @@
 ## DOAgent
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 10%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%">
                 <p class="text-left"><b>Uncertainty left after each step (bits):</b> only session levels 1 and 2 reach zero, like the rules.</p>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 90%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <img src="{{ site.url }}/assets/media/images/doagent-hidden-profile/recovery-curves.png" alt="Bits of uncertainty left after each step, for each view and dimension" style="width: 1190px; max-width: 100%">
             </div>
         </div>
