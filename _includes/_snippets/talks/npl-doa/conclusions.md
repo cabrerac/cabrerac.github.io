@@ -18,4 +18,16 @@
     </div>
 </div>
 
+## Conclusions
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%">
+                <img src="{{ site.url }}/assets/media/interfaces/docs.png" alt="DOCS overview" style="max-height: 480px">
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- end SLIDES: -->
