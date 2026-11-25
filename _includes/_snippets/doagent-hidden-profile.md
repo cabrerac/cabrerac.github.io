@@ -95,4 +95,30 @@
     </div>
 </div>
 
+## DOAgent
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p class="text-left"><b>Storage cost:</b> bytes read per deal, mean over 18 deals.</p>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <table>
+                    <thead><tr><th>View</th><th style="text-align: right">Bytes read</th></tr></thead>
+                    <tbody>
+                        <tr><td>Session level 0</td><td style="text-align: right">66,102</td></tr>
+                        <tr><td>Session level 1</td><td style="text-align: right">77,012</td></tr>
+                        <tr><td>Session level 2</td><td style="text-align: right">77,012</td></tr>
+                        <tr><td>One component log</td><td style="text-align: right">460</td></tr>
+                        <tr><td>Three agent logs</td><td style="text-align: right">1,380</td></tr>
+                        <tr><td>All component logs</td><td style="text-align: right">1,831</td></tr>
+                        <tr><td>Structured file</td><td style="text-align: right">4,411</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- end SLIDES: -->
