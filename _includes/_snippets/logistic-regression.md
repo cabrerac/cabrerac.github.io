@@ -5,7 +5,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p>Logistic regression turns a weighted sum of an item's attributes into the probability of a class.</p>
                 <p>In Lecture 4, $\mathbf{x}$ was a row of TF-IDF weights, one per word. Here it is a row of attributes.</p>
             </div>
@@ -21,15 +21,16 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p>Logistic regression turns a weighted sum of an item's attributes into the probability of a class.</p>
                 <p>In Lecture 4, $\mathbf{x}$ was a row of TF-IDF weights, one per word. Here it is a row of attributes.</p>
+                <br>
 $$
 P(y = 1 \mid \mathbf{x}) = \sigma(\mathbf{w} \cdot \mathbf{x} + b)
 $$
-                <p><b>$\mathbf{w}$:</b> one weight per attribute</p>
-                <p><b>$b$:</b> the intercept</p>
-                <p><b>$\sigma$:</b> the logistic function, from any number to a value between 0 and 1</p>
+                <br>
+                <p><b>$\mathbf{w}$</b> is one weight per attribute. <b>$b$</b> is the intercept.</p>
+                <p><b>$\sigma$</b> is the logistic function, from any number to a value between 0 and 1.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/diagrams/logreg-sum-2.svg" alt="The sum through the logistic function gives a probability" style="height: auto; max-width: 100%; max-height: 100%;">
@@ -75,10 +76,11 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%; height: 100%">
                 <p><b>Preparation:</b> scaling</p>
+                <br>
 $$
 z = \frac{x - \mu}{\sigma}
 $$
-                <p><b>$x$, $\mu$, $\sigma$:</b> one value, and the mean and standard deviation on the training rows</p>
+                <p><b>$x$</b> is one value, and <b>$\mu$</b> and <b>$\sigma$</b> are the mean and standard deviation on the training rows.</p>
                 <p>With $\mu = 50$ and $\sigma = 10$, $x = 65$ gives $z = 1.5$. Every column ends on the same scale, so the penalty treats the weights alike.</p>
             </div>
         </div>
@@ -165,7 +167,7 @@ prepare = ColumnTransformer([
                 <ul>
                     <li><p><b>SimpleImputer:</b> fills a missing number with the median, and a missing category with the most frequent one</p></li>
                     <li><p><b>StandardScaler</b> and <b>OneHotEncoder:</b> scaled numbers and one column per category</p></li>
-                    <li><p><b>Returns:</b> prepare, one step that turns the table into numbers. The forest and the network use the same preparation</p></li>
+                    <li><p><b>Returns:</b> prepare, one step that turns the table into numbers. The network uses the same preparation</p></li>
                 </ul>
             </div>
         </div>
@@ -183,7 +185,7 @@ prepare = ColumnTransformer([
                 <ul>
                     <li><p><b>make_pipeline:</b> the preparation is learned again each time the model is fit</p></li>
                     <li><p><b>class_weight:</b> "balanced" gives both classes the same weight</p></li>
-                    <li><p><b>Returns:</b> one class per row kept apart. In the Lecture 6 notebook, 0.607 of the 56 rows are right, against 0.714 for the forest and 0.518 for the majority class</p></li>
+                    <li><p><b>Returns:</b> one class per row kept apart. In the Lecture 6 notebook, 0.607 of the 56 rows are right, against 0.518 for the majority class</p></li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 4%"></div>

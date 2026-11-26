@@ -3,28 +3,6 @@
 ## Neural Network
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 65%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%; height: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/prediction-task-taxonomy.svg" alt="Taxonomy of prediction methods" style="height: auto; max-width: 100%; max-height: 100%;">
-            </div>
-        </div>
-    </div>
-    <div class="row" style="height: 35%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%; height: 100%">
-                <p><b>Linear models:</b> a weighted sum of the attributes, turned into a class or a number.</p>
-                <p><b>Trees:</b> questions about one attribute at a time, alone or as many trees that vote.</p>
-                <p><b>Neural networks:</b> layers that learn their own attributes from the inputs.</p>
-                <p><b>Other methods:</b> the label of the nearest items, or a boundary with the widest margin.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Neural Network
-
-<div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
@@ -62,15 +40,16 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Forward pass</b></p>
+                <br>
 $$
 \mathbf{h} = \text{ReLU}(\mathbf{W}_1 \mathbf{x} + \mathbf{b}_1)
 $$
 $$
 z = \mathbf{w}_2 \cdot \mathbf{h} + b_2
 $$
-                <p><b>$\mathbf{W}_1$, $\mathbf{b}_1$:</b> one row of weights and one intercept per hidden unit</p>
-                <p><b>$\text{ReLU}(a)$:</b> $\max(0, a)$, the bend</p>
-                <p><b>$\mathbf{w}_2$, $b_2$:</b> turn the hidden units $\mathbf{h}$ into one score $z$</p>
+                <br>
+                <p><b>$\mathbf{W}_1$</b> and <b>$\mathbf{b}_1$</b> are one row of weights and one intercept per hidden unit. <b>$\text{ReLU}(a)$</b> is $\max(0, a)$, the bend.</p>
+                <p><b>$\mathbf{w}_2$</b> and <b>$b_2$</b> turn the hidden units $\mathbf{h}$ into one score $z$.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/colored-neural-network.svg" alt="A network with an input, a hidden and an output layer" style="height: auto; max-width: 100%; max-height: 90%;">
@@ -94,6 +73,7 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%; height: 100%">
                 <p><b>The output layer is a logistic regression</b></p>
+                <br>
 $$
 P(y = 1 \mid \mathbf{x}) = \sigma(\mathbf{w}_2 \cdot \mathbf{h} + b_2)
 $$
@@ -152,10 +132,11 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%; height: 100%">
                 <p><b>Cross-entropy</b> measures how unlikely the true labels were. With two classes it is the log loss of logistic regression.</p>
+                <br>
 $$
 \mathcal{L} = -\sum_{i} \log P(y_i \mid \mathbf{x}_i) + \frac{\lambda}{2} \lVert \mathbf{W} \rVert^2
 $$
-                <p><b>$y_i$, $\lambda$:</b> the true label of training row $i$, and the L2 penalty on all weights $\mathbf{W}$</p>
+                <p><b>$y_i$</b> is the true label of training row $i$, and <b>$\lambda$</b> is the L2 penalty on all weights $\mathbf{W}$.</p>
             </div>
         </div>
     </div>
@@ -164,14 +145,14 @@ $$
 ## Neural Network
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 48%">
+    <div class="row" style="height: 65%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%; height: 100%">
                 <img src="{{ site.url }}/assets/media/diagrams/nn-backprop-2.svg" alt="The gradients flow back from the loss" style="height: auto; max-width: 100%; max-height: 100%;">
             </div>
         </div>
     </div>
-    <div class="row" style="height: 52%">
+    <div class="row" style="height: 35%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%; height: 100%">
                 <p><b>Backpropagation</b></p>
@@ -199,7 +180,6 @@ $$
                 </ul>
                 <p><b>Limits</b></p>
                 <ul>
-                    <li><p>On a few hundred rows, a network rarely beats a forest</p></li>
                     <li><p>The hidden units have no names, so the reasons are hard to read</p></li>
                 </ul>
             </div>

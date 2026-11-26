@@ -51,7 +51,7 @@ accuracy = (pred_cv == y_train).mean()
                 <ul>
                     <li><p><b>StratifiedKFold:</b> five folds with the same share of each class</p></li>
                     <li><p><b>cross_val_predict:</b> one prediction per training row, from the fold that left it out</p></li>
-                    <li><p><b>Returns:</b> in the Lecture 6 notebook, the forest is right on 0.62 of the training rows, and the majority class on 0.53</p></li>
+                    <li><p><b>Returns:</b> the fraction of training rows that are right, and the majority class</p></li>
                 </ul>
             </div>
         </div>

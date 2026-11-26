@@ -6,7 +6,7 @@
     <div class="row" style="height: 50%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 33%">
-                <img src="{{ site.url }}/assets/media/diagrams/decision-tree-1.svg" alt="A generic decision tree" style="max-height: 155px; max-width: 100%; width: auto;">
+                <img src="{{ site.url }}/assets/media/diagrams/prediction-label-1.svg" alt="A given label on an item" style="max-height: 155px; max-width: 100%; width: auto;">
                 <p><b>Business understanding</b></p>
                 <p>A label given, not found</p>
             </div>
@@ -33,7 +33,7 @@
             <div class="column vertical-middle text-center" style="width: 33%">
                 <img src="{{ site.url }}/assets/media/diagrams/nn-output-lr.svg" alt="Logistic regression next to the output layer of the network" style="max-height: 155px; max-width: 100%; width: auto;">
                 <p><b>Modeling</b></p>
-                <p>A forest, logistic regression, a network</p>
+                <p>Logistic regression, one hidden layer, and transformers</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 33%">
                 <img src="{{ site.url }}/assets/media/diagrams/eval-counts.svg" alt="Accuracy against the majority class" style="max-height: 155px; max-width: 100%; width: auto;">
@@ -59,14 +59,14 @@
                 <ul>
                     <li>Prediction of a given label</li>
                     <li>Data and methods</li>
-                    <li>Random forests, logistic regression, one hidden layer</li>
+                    <li>Logistic regression, one hidden layer, and transformers</li>
                     <li>Evaluation and deployment</li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 50%">
                 <h3><a href="https://cabrerac.github.io/teaching/26-udenar-data-mining/l7-research/" target="_blank">Lecture 7</a></h3>
                 <ul>
-                    <li>Transformers and large language models</li>
+                    <li>Large language models</li>
                     <li>Models that can change the data mining process</li>
                     <li>What they can do on the tasks of Lectures 2 to 6</li>
                     <li>Their risks</li>

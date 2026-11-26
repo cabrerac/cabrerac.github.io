@@ -5,7 +5,7 @@
 Este cuaderno utiliza los siguientes métodos de Python. Si ya los conoce, ejecute estas celdas rápido.
 
 ### Un grafo como diccionario de conjuntos
-Cada nodo es una clave.
+Cada nodo es una llave.
 Su valor es el conjunto de nodos con los que tiene un enlace.
 Sin dirección, el enlace va en los dos lados.
 El **grado** es el tamaño del conjunto.
@@ -24,10 +24,10 @@ print(toy_neighbours)  # print muestra los vecinos de cada nodo
 print("Grado de cada nodo:", toy_degree)  # print muestra el grado de cada nodo
 ```
 
-### Búsqueda por niveles a mano
-La búsqueda en anchura visita primero a los vecinos.
+### Búsqueda por niveles
+La búsqueda por amplitud visita primero a los vecinos.
 Después visita a los vecinos de los vecinos, y cuenta los pasos.
-La cola guarda los nodos que faltan, en orden.
+Los nodos que faltan por explorar se guardan en una estructura de cola.
 
 ```python
 from collections import deque  # deque es una cola: sacamos por un lado y agregamos por el otro
@@ -44,8 +44,7 @@ assert steps == {"A": 0, "B": 1, "C": 1, "D": 2}  # comprobamos los pasos del ej
 print(f"Pasos desde A: {steps}. E no se alcanza. Repaso de Python: OK")  # print muestra los pasos desde A
 ```
 
-**Lo que vemos.** D está a dos pasos de A porque hay que pasar por C.
-La Parte 4 usa esta búsqueda para la intermediación, que se apoya en los caminos más cortos.
+D está a dos pasos de A porque hay que pasar por C. La Parte 4 usa esta búsqueda para la intermediación, que se apoya en los caminos más cortos.
 
 ---
 
@@ -105,7 +104,6 @@ Un artículo aislado no recibe el resultado del grafo.
 
 ### Paso 2. Configuración
 En este paso importamos las librerías, creamos las carpetas y fijamos los parámetros.
-No cambie los parámetros.
 
 ```python
 import math  # math.ceil redondea hacia arriba los mínimos
@@ -131,7 +129,7 @@ SUPPORT_SHARE = 0.03  # proporción mínima de artículos de la L2
 SUPPORT_MIN = 5  # mínimo de artículos de la L2
 SEED = 7  # semilla de Louvain y del dibujo
 
-# L5 (no cambiar)
+# L5
 HUB_SHARE = 0.10  # un nodo enlazado a al menos el 10% de los otros es una alerta
 MIN_LINKS = 5  # nunca menos de 5 enlaces para una alerta
 DAMPING = 0.85  # probabilidad de seguir un enlace en PageRank
@@ -141,9 +139,9 @@ EXAMPLE = "Guidelines for the Primary Prevention of Stroke"  # el artículo que 
 
 
 def hub_threshold(n, min_links=MIN_LINKS):
-    """Cuántos enlaces necesita un nodo para ser una alerta de nodo central.
+    """Cuántos enlaces necesita un nodo para ser candidato de nodo central.
 
-    Qué hace: un nodo enlazado con al menos el 10% de los otros (HUB_SHARE) es una alerta.
+    Qué hace: un nodo enlazado con al menos el 10% de los otros (HUB_SHARE) es un indicador de centralidad.
     En redes pequeñas el 10% puede ser 1 o 2 enlaces, así que nunca pedimos
     menos de min_links. Es la misma regla en todo el curso.
 
@@ -152,12 +150,12 @@ def hub_threshold(n, min_links=MIN_LINKS):
         min_links: piso de enlaces, MIN_LINKS = 5 por defecto.
 
     Salida:
-        El número entero de enlaces desde el cual un nodo es una alerta.
+        El número entero de enlaces desde el cual un nodo puede considerarse un central.
     """
     return max(min_links, math.ceil(HUB_SHARE * (n - 1)))  # max nunca baja de min_links, y ceil redondea el 10% hacia arriba
 
 
-print(f"networkx {nx.__version__}. Alerta desde {hub_threshold(318)} enlaces con 318 artículos")  # print muestra la versión y el umbral de la alerta
+print(f"networkx {nx.__version__}. Alerta desde {hub_threshold(318)} enlaces con 318 artículos")  # print muestra la versión y el umbral de centralidad
 ```
 
 ### Paso 3. Descargar los artículos
@@ -249,7 +247,6 @@ print("Ejemplo:", papers.loc[papers["links"] != "", "links"].iloc[0][:150])  # i
 En este paso guardamos cada enlace dos veces.
 `links_out` va con dirección, para PageRank.
 `neighbours` va sin dirección, para el grado (dentro de PageRank), la intermediación y Louvain.
-Un artículo que se cita a sí mismo no cuenta.
 
 ```python
 df = papers  # df es la tabla de artículos

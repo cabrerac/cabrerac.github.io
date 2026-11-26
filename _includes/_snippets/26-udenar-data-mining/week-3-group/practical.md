@@ -6,7 +6,7 @@
 
 **Esta semana.** El grupo usa un método de la Lección 5 y un método de la Lección 6: las comunidades de Louvain y una red con una capa oculta.
 Louvain, porque agrupa artículos que se mencionan más entre ellos que con el resto, y da un identificador a cada artículo, también a los aislados (cada uno queda en su propia comunidad de tamaño 1).
-La red de una capa oculta, porque es el tercer método de la Lección 6 y se compara, como los otros, con la clase mayoritaria.
+La red de una capa oculta, porque es el segundo método de la Lección 6 y se compara, como el otro, con la clase mayoritaria.
 Cada método se compara con la clase mayoritaria. Louvain no usa la etiqueta para armar las comunidades. Para compararlo con esa línea base, cada comunidad hereda la clase más frecuente de sus artículos de **entrenamiento** y esa clase se aplica a los artículos apartados de la misma comunidad. Si una comunidad no tiene artículos de entrenamiento, se usa la clase mayoritaria del entrenamiento.
 Los resultados son `outputs/grafo.csv` y `outputs/prediccion.csv`. El cuaderno del proyecto los lee cuando arma la lista de inicio.
 
@@ -300,7 +300,7 @@ print("Paso 4.2: OK")  # print confirma la comprobación
 
 ### Paso 4.3. Una capa oculta
 
-En este paso entrenan la red de una capa oculta de la Lección 6, M3, con la preparación adelante: `make_pipeline(prepare, MLPClassifier(...))`.
+En este paso entrenan la red de una capa oculta de la Lección 6, M2, con la preparación adelante: `make_pipeline(prepare, MLPClassifier(...))`.
 Usen `hidden_layer_sizes=(HIDDEN_UNITS,)`, `alpha=PENALTY`, `max_iter=3000` y `random_state=SEED`.
 `test_prediction` es lo que dice la red en las filas apartadas.
 `train_prediction` es lo que dice en las filas de entrenamiento, con cinco pliegues (`cross_val_predict` y `folds`), así un modelo que no vio la fila la predice.

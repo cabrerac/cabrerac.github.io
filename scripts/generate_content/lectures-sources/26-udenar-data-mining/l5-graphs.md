@@ -60,8 +60,6 @@ notebook_description: Práctica individual de la Lección 5. Describir un artíc
 
 {% include _snippets/graph-to-decision.md %}
 
-{% include _snippets/26-udenar-data-mining/l5-graphs/decision-use.md %}
-
 <!-- SLIDES: -->
 
 # Conclusions

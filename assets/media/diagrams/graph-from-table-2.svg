@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- From a table to a graph, step 2: drop the duplicate and the self link. -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 510" width="790" height="510">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1053 510" width="1053" height="510">
 <defs><style type="text/css"><![CDATA[
  text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
  .t { font-size:26px; font-weight:600; text-anchor:middle; }

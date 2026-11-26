@@ -44,7 +44,6 @@
 $$
 \rho = 1 - \frac{6 \sum_i d_i^2}{n\,(n^2 - 1)}
 $$
-                <br>
                 <table class="table" style="font-size: 0.72em">
                     <thead>
                         <tr><th>Item</th><th>Graph rank</th><th>Outside rank</th><th>Difference d</th></tr>
@@ -56,7 +55,6 @@ $$
                         <tr><td>D</td><td>4</td><td>4</td><td>0</td></tr>
                     </tbody>
                 </table>
-                <br>
                 <p>Here $\sum d_i^2 = 0 + 1 + 1 + 0 = 2$ and $n = 4$, so $\rho = 1 - 12/60 = 0.8$.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">

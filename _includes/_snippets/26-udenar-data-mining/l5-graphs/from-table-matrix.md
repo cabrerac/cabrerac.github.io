@@ -3,14 +3,14 @@
 ## The Data
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 62%">
+    <div class="row" style="height: 57%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%; height: 100%">
                 <img src="{{ site.url }}/assets/media/diagrams/graph-from-table-4.svg" alt="The same graph and its adjacency matrix" style="height: auto; max-width: 100%; max-height: 100%;">
             </div>
         </div>
     </div>
-    <div class="row" style="height: 38%">
+    <div class="row" style="height: 43%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%; height: 100%">
                 <p><b>Preparation:</b> from a table to a graph</p>

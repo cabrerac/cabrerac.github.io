@@ -5,10 +5,11 @@ department: Department of Computer Science and Technology
 description: Lecture 6 is the prediction task. The question is whether the attributes
   of an item can predict a label that someone gave. Loans, patients, and articles
   in a table with a given label can feed the task. We start from the majority class.
-  We explore three methods for this task. A random forest, logistic regression (linked
-  back to Lecture 4, TF-IDF + logistic regression), and a neural network with one
-  hidden layer whose output layer is a logistic regression. For each method we go
-  through its theory, implementation and evaluation. We end with why accuracy misleads,
+  We explore three methods for this task. Logistic regression, a neural network with
+  one hidden layer whose output layer is a logistic regression, and transformers,
+  the architecture inside the text encoder used in Lecture 4. For logistic regression
+  and the network we go through theory, implementation and evaluation. For transformers
+  we explain the mechanism, without training one. We end with why accuracy misleads,
   a leakage demo, and what deploying a prediction means and its limits.
 email: chc79@cam.ac.uk
 end_time: 01:00 pm
@@ -22,7 +23,7 @@ notebook_description: "Pr\xE1ctica individual de la Lecci\xF3n 6. Predecir una e
   \ dada a partir de los atributos del art\xEDculo, sin usar el texto ni un conteo\
   \ de popularidad, y contar aciertos y errores sobre ejemplos marcados."
 notebook_language: es
-notebook_title: "Clasificaci\xF3n, regresi\xF3n y una etiqueta dada"
+notebook_title: "Predicci\xF3n"
 permalink: /teaching/26-udenar-data-mining/l6-prediction/
 position: Assistant Research Professor
 session: 6
@@ -42,19 +43,16 @@ visible: false
 
 - [Week 3 hub](/teaching/26-udenar-data-mining/week-3-hub/)
 
-### Books
+### Resources
 
-- Bishop, C. M., & Bishop, H. (2024). [Deep learning: Foundations and concepts](https://doi.org/10.1007/978-3-031-45468-4). Springer. Chapter 5, Single-layer networks: Classification, pp. 131-169, and Chapter 6, Deep neural networks, pp. 171-207.
-
-### Papers and Reports
-
-- LeCun, Y., Bengio, Y., & Hinton, G. (2015). [Deep learning](https://doi.org/10.1038/nature14539). *Nature*, 521, 436-444.
-- Breiman, L. (2001). [Random forests](https://doi.org/10.1023/A:1010933404324). *Machine Learning*, 45(1), 5-32.
-- Kaufman, S., Rosset, S., Perlich, C., & Stitelman, O. (2012). [Leakage in data mining: Formulation, detection, and avoidance](https://doi.org/10.1145/2382577.2382579). *ACM Transactions on Knowledge Discovery from Data*, 6(4), 1-21.
-
-### Web
-
-- [scikit-learn `RandomForestClassifier`](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)
 - [scikit-learn `LogisticRegression`](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)
 - [scikit-learn `MLPClassifier`](https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.MLPClassifier.html)
 - [scikit-learn `DummyClassifier`](https://scikit-learn.org/stable/modules/generated/sklearn.dummy.DummyClassifier.html)
+
+### References
+
+- Bishop, C. M., & Bishop, H. (2024). [Deep learning: Foundations and concepts](https://doi.org/10.1007/978-3-031-45468-4). Springer. Chapter 5, Single-layer networks: Classification, pp. 131-169, and Chapter 6, Deep neural networks, pp. 171-207.
+- LeCun, Y., Bengio, Y., & Hinton, G. (2015). [Deep learning](https://doi.org/10.1038/nature14539). *Nature*, 521, 436-444.
+- Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., & Polosukhin, I. (2017). [Attention is all you need](https://doi.org/10.48550/arXiv.1706.03762). *Advances in Neural Information Processing Systems*, 30.
+- Devlin, J., Chang, M.-W., Lee, K., & Toutanova, K. (2019). [BERT: Pre-training of deep bidirectional transformers for language understanding](https://doi.org/10.18653/v1/N19-1423). *Proceedings of NAACL-HLT 2019*, 4171-4186.
+- Kaufman, S., Rosset, S., Perlich, C., & Stitelman, O. (2012). [Leakage in data mining: Formulation, detection, and avoidance](https://doi.org/10.1145/2382577.2382579). *ACM Transactions on Knowledge Discovery from Data*, 6(4), 1-21.

@@ -51,11 +51,11 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 38%">
                 <p><b>Python usage:</b> scikit-learn</p>
-                <p>The same forest with and without the suspect column</p>
+                <p>The same logistic regression with and without the suspect column</p>
                 <ul>
                     <li><p><b>suspect:</b> the column the label may be made from</p></li>
                     <li><p><b>drop:</b> the same table without it</p></li>
-                    <li><p><b>Returns:</b> the accuracy with and without the column, and the top importance</p></li>
+                    <li><p><b>Returns:</b> the accuracy with and without the column</p></li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 4%"></div>
