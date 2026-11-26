@@ -41,12 +41,13 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Degree</b> counts the neighbours of a node. Its share compares that count with the most it could have.</p>
+                <br>
 $$
 \deg(v) = |N(v)| \qquad \text{share}(v) = \frac{\deg(v)}{n - 1}
 $$
-                <p><b>$n - 1$:</b> every other node, so the share lies between 0 and 1</p>
-                <p>In a directed graph, in-degree counts links received and out-degree links made.</p>
-                <p>Here $\deg(A) = 3$, so its share is $3/4 = 0.75$. E has degree 0. It is isolated.</p>
+                <br>
+                <p><b>$n - 1$</b> is every other node, so the share lies between 0 and 1. In a directed graph, in-degree counts links received and out-degree links made.</p>
+                <p>Here $\deg(A) = 3$, so its share is $3/4 = 0.75$. E has degree 0 and is isolated.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/diagrams/degree-example-2.svg" alt="The degree of each node" style="height: auto; max-width: 100%; max-height: 100%;">
@@ -61,13 +62,13 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>A node linked to a large share of the others is a <b>hub</b>. Often it is the subject itself. A hub is a warning, not an automatic pick.</p>
-                <p>One rule for a hub, set before the results:</p>
+                <p>A node linked to a large share of the others is a <b>hub</b>. Often it is the subject itself. A hub is a warning, not an automatic pick. One pre-set rule for a hub:</p>
+                <br>
 $$
 \deg(v) \ge \max\left(m,\ \lceil 0.10 \cdot (n - 1) \rceil\right)
 $$
-                <p><b>$m$:</b> a minimum count, so a hub in a small set still needs a few links</p>
-                <p>With $m = 3$ and $n = 9$, the limit is 3, so $\deg(H) = 8$ flags H as a hub.</p>
+                <br>
+                <p><b>$m$</b> is a minimum count, so a hub in a small set still needs a few links. With $m = 3$ and $n = 9$, the limit is 3, so $\deg(H) = 8$ flags H as a hub.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/diagrams/degree-hub-2.svg" alt="The hub flagged as a warning" style="height: auto; max-width: 100%; max-height: 100%;">
@@ -84,8 +85,8 @@ $$
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p>Degree counts every link the same. PageRank weighs who makes it.</p>
                 <ul>
-                    <li><p>A random surfer follows links with probability $d = 0.85$</p></li>
-                    <li><p>Now and then the surfer jumps to any item with probability $1 - d = 0.15$</p></li>
+                    <li><p>A random surfer follows links with probability $$d = 0.85$$</p></li>
+                    <li><p>Now and then the surfer jumps to any item with probability $$1 - d = 0.15$$</p></li>
                     <li><p>PageRank is the share of time the surfer spends on each item</p></li>
                 </ul>
                 <p>"a page has high rank if the sum of the ranks of its backlinks is high." (<a href="https://web.archive.org/web/20241231011600/http://ilpubs.stanford.edu:8090/422/" target="_blank" rel="noopener noreferrer">Page et al., 1998</a>, p. 3)</p>
@@ -105,8 +106,8 @@ $$
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p>Degree counts every link the same. PageRank weighs who makes it.</p>
                 <ul>
-                    <li><p>A random surfer follows links with probability $d = 0.85$</p></li>
-                    <li><p>Now and then the surfer jumps to any item with probability $1 - d = 0.15$</p></li>
+                    <li><p>A random surfer follows links with probability $$d = 0.85$$</p></li>
+                    <li><p>Now and then the surfer jumps to any item with probability $$1 - d = 0.15$$</p></li>
                     <li><p>PageRank is the share of time the surfer spends on each item</p></li>
                 </ul>
                 <p>"a page has high rank if the sum of the ranks of its backlinks is high." (<a href="https://web.archive.org/web/20241231011600/http://ilpubs.stanford.edu:8090/422/" target="_blank" rel="noopener noreferrer">Page et al., 1998</a>, p. 3)</p>
@@ -125,13 +126,13 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p>PageRank is the share of time the random surfer spends on an item.</p>
+                <br>
 $$
 PR(v) = \frac{1 - d}{n} + d \sum_{u \to v} \frac{PR(u)}{\text{out}(u)}
 $$
-                <p><b>$(1 - d)/n$:</b> the jump share, which every item gets</p>
-                <p><b>$d = 0.85$:</b> the chance to follow a link</p>
-                <p><b>$\text{out}(u)$:</b> the links $u$ makes, which split its score</p>
-                <p>An item with no links out passes its score to every item.</p>
+                <br>
+                <p><b>$(1 - d)/n$</b> is the jump share, which every item gets. <b>$d = 0.85$</b> is the chance to follow a link</p>
+                <p><b>$\text{out}(u)$</b> is the links $u$ makes, which split its score. An item with no links out passes its score to every item.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/pagerank-example.svg" alt="PageRank example with nodes sized by score" style="height: auto; max-width: 100%; max-height: 90%;">
@@ -144,7 +145,7 @@ $$
 ## PageRank
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 44%">
+    <div class="row" style="height: 65%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 30%; height: 100%">
                 <img src="{{ site.url }}/assets/media/diagrams/pagerank-iteration-1.svg" alt="Step 0, every item at 0.25" style="height: auto; max-width: 100%; max-height: 100%;">
@@ -159,7 +160,7 @@ $$
             </div>
         </div>
     </div>
-    <div class="row" style="height: 56%">
+    <div class="row" style="height: 35%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%; height: 100%">
                 <p><b>Power iteration</b> on four items (A links to B and C, B to C, C to A, D to C):</p>
@@ -199,14 +200,14 @@ $$
 ## PageRank
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 54%">
+    <div class="row" style="height: 65%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%; height: 100%">
                 <img src="{{ site.url }}/assets/media/diagrams/pagerank-sink-1.svg" alt="Without the jump B and C trap the score" style="height: auto; max-width: 100%; max-height: 100%;">
             </div>
         </div>
     </div>
-    <div class="row" style="height: 46%">
+    <div class="row" style="height: 35%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%; height: 100%">
                 <p><b>A rank sink:</b> A links to B, and B and C link to each other. Nothing links to A.</p>
@@ -222,7 +223,7 @@ $$
 ## PageRank
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 54%">
+    <div class="row" style="height: 65%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 47.5%; height: 100%">
                 <img src="{{ site.url }}/assets/media/diagrams/pagerank-sink-1.svg" alt="Without the jump B and C trap the score" style="height: auto; max-width: 100%; max-height: 100%;">
@@ -233,7 +234,7 @@ $$
             </div>
         </div>
     </div>
-    <div class="row" style="height: 46%">
+    <div class="row" style="height: 35%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%; height: 100%">
                 <p><b>A rank sink:</b> A links to B, and B and C link to each other. Nothing links to A.</p>

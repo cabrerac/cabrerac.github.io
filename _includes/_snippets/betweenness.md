@@ -62,15 +62,16 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
+            <br>
 $$
 C_B(v) = \sum_{s < t,\ s \ne v \ne t} \frac{\sigma_{st}(v)}{\sigma_{st}}
 $$
+<br>
 $$
 \tilde{C}_B(v) = \frac{2 \, C_B(v)}{(n - 1)(n - 2)}
 $$
-                <p><b>$\sigma_{st}$:</b> the number of shortest paths from $s$ to $t$</p>
-                <p><b>$\sigma_{st}(v)$:</b> how many of them pass through $v$</p>
-                <p><b>$\tilde{C}_B(v)$:</b> the normalised score, between 0 and 1, over the $(n - 1)(n - 2)/2$ pairs without $v$</p>
+                <br>
+                <p><b>$\sigma_{st}$</b> is the number of shortest paths from $s$ to $t$. <b>$\sigma_{st}(v)$</b> is how many of them pass through $v$. <b>$\tilde{C}_B(v)$</b> is the normalised score, between 0 and 1, over the $(n - 1)(n - 2)/2$ pairs without $v$.</p>
                 <p>The one shortest path from A to E passes through C, X and D.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">

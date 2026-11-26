@@ -44,8 +44,6 @@ notebook_description: Práctica individual de la Lección 5. Describir un artíc
 
 {% include _snippets/community-detection.md %}
 
-{% include _snippets/26-udenar-data-mining/l5-graphs/communities-papers.md %}
-
 <!-- SLIDES: -->
 
 # Evaluation

@@ -6,7 +6,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <p>With no answer key, a place is <b>judged</b> against an outside measure, by the modularity of its communities, and against the other methods.</p>
+                <p>The place is <b>judged</b> against an outside measure, by the modularity of its communities, and against the other methods.</p>
             </div>
         </div>
     </div>
@@ -40,9 +40,11 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Against an outside measure</b> (<a href="https://doi.org/10.2307/1412159" target="_blank" rel="noopener noreferrer">Spearman, 1904</a>)</p>
+                <br>
 $$
 \rho = 1 - \frac{6 \sum_i d_i^2}{n\,(n^2 - 1)}
 $$
+                <br>
                 <table class="table" style="font-size: 0.72em">
                     <thead>
                         <tr><th>Item</th><th>Graph rank</th><th>Outside rank</th><th>Difference d</th></tr>
@@ -54,6 +56,7 @@ $$
                         <tr><td>D</td><td>4</td><td>4</td><td>0</td></tr>
                     </tbody>
                 </table>
+                <br>
                 <p>Here $\sum d_i^2 = 0 + 1 + 1 + 0 = 2$ and $n = 4$, so $\rho = 1 - 12/60 = 0.8$.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
@@ -70,7 +73,6 @@ $$
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p>An outside count such as citations covers the whole literature. A graph score covers only this set.</p>
-                <p>A low agreement is a finding, not an error.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/diagrams/graph-rank-agreement.svg" alt="Two rankings of four items" style="height: auto; max-width: 100%; max-height: 100%;">
@@ -119,7 +121,6 @@ print(round(rho, 2))
                 <ul>
                     <li><p>Values from about 0.3 to 0.7 are usual for graphs with clear communities</p></li>
                     <li><p>A partition is judged against the same graph, not against another one</p></li>
-                    <li><p>In the Lecture 5 notebook, Louvain gives $Q = 0.590$, with 152 communities (122 of them single papers)</p></li>
                 </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
@@ -139,8 +140,6 @@ print(round(rho, 2))
                 <ul>
                     <li><p>Betweenness against degree: a bridge has few links and a high betweenness</p></li>
                     <li><p>Read the items where the two disagree first</p></li>
-                    <li><p>In the Lecture 5 notebook, betweenness against degree gives a Spearman of 0.86</p></li>
-                    <li><p>The top three by betweenness: 0.0361 (GBD 2015 risk), 0.0229 (GBD 2016 incidence) and 0.0221 (Defining and Setting National Goals)</p></li>
                 </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
@@ -153,14 +152,14 @@ print(round(rho, 2))
 ## Evaluation
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 56%">
+    <div class="row" style="height: 65%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%; height: 100%">
                 <img src="{{ site.url }}/assets/media/diagrams/graph-three-methods.svg" alt="What PageRank, betweenness and Louvain see" style="height: auto; max-width: 100%; max-height: 100%;">
             </div>
         </div>
     </div>
-    <div class="row" style="height: 44%">
+    <div class="row" style="height: 35%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%; height: 100%">
                 <p><b>What each method sees</b></p>
@@ -193,7 +192,7 @@ print(round(rho, 2))
                 </table>
                 <ul>
                     <li><p>Run every method on the same graph, and read items where they disagree</p></li>
-                    <li><p>An item placed high by several methods is a stronger candidate. Disagreement is not a winner.</p></li>
+                    <li><p>An item placed high by several methods is a stronger candidate.</p></li>
                 </ul>
             </div>
         </div>

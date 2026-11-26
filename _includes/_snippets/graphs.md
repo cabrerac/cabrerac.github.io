@@ -200,6 +200,12 @@
     </div>
 </div>
 
+<!-- end SLIDES: -->
+
+{% include _snippets/26-udenar-data-mining/l5-graphs/from-table-matrix.md %}
+
+<!-- SLIDES: -->
+
 # Modeling
 
 ## Methods

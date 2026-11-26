@@ -41,12 +41,12 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Modularity</b> compares the links inside each group with the links a random graph with the same degrees would put there.</p>
+                <br>
 $$
 Q = \sum_{c} \left[ \frac{L_c}{m} - \left( \frac{d_c}{2m} \right)^2 \right]
 $$
-                <p><b>$m$:</b> the number of links</p>
-                <p><b>$L_c$:</b> the links inside group $c$</p>
-                <p><b>$d_c$:</b> the sum of the degrees in group $c$</p>
+                <br>
+                <p><b>$m$</b> is the number of links. <b>$L_c$</b> are the links inside group $c$. <b>$d_c$</b> is the sum of the degrees in group $c$</p>
                 <p>$Q$ near 0 means no more links inside than chance. Higher is a clearer split.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
@@ -84,10 +84,13 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Two steps, repeated</b> (<a href="https://doi.org/10.1088/1742-5468/2008/10/P10008" target="_blank" rel="noopener noreferrer">Blondel et al., 2008</a>)</p>
                 <ul>
                     <li><p><b>Start:</b> every node is its own community</p></li>
+                    <li><p><b>Move:</b> put each node in the neighbouring community that raises $Q$ most. Stop when no move raises it</p></li>
+                    <li><p><b>Aggregate:</b> each community becomes one node, with its inside links as a loop, then move again</p></li>
+                    <li><p><b>End:</b> when a pass changes nothing</p></li>
                 </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
@@ -102,11 +105,13 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Two steps, repeated</b> (<a href="https://doi.org/10.1088/1742-5468/2008/10/P10008" target="_blank" rel="noopener noreferrer">Blondel et al., 2008</a>)</p>
                 <ul>
                     <li><p><b>Start:</b> every node is its own community</p></li>
                     <li><p><b>Move:</b> put each node in the neighbouring community that raises $Q$ most. Stop when no move raises it</p></li>
+                    <li><p><b>Aggregate:</b> each community becomes one node, with its inside links as a loop, then move again</p></li>
+                    <li><p><b>End:</b> when a pass changes nothing</p></li>
                 </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
@@ -121,7 +126,7 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Two steps, repeated</b> (<a href="https://doi.org/10.1088/1742-5468/2008/10/P10008" target="_blank" rel="noopener noreferrer">Blondel et al., 2008</a>)</p>
                 <ul>
                     <li><p><b>Start:</b> every node is its own community</p></li>
