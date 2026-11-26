@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-data-mining
 title: Week 3 group notebook
-description: Week-3 group hand-in. Each group uses the graph method and the prediction method that best fit its data. PageRank places the articles of its secretaría in the links graph, with degree only as the hub warning. A random forest predicts a given label from the article attributes and is compared with the majority class. The project notebook joins this result with weeks 1 and 2.
+description: Week-3 group hand-in. Each group uses one method from Lecture 5 and one from Lecture 6. Louvain communities place the articles of its secretaría in the links graph and are compared with the majority class by a community-majority rule on held-out rows. A one-hidden-layer network predicts a given label from the article attributes and is compared with the majority class. The project notebook joins this result with weeks 1 and 2.
 session: 3
 start_time: async
 end_time: async
@@ -19,7 +19,7 @@ skip_slides: true
 skip_lecture_page: true
 notebook_language: es
 notebook_title: Semana 3, cuaderno de grupo
-notebook_description: Cuaderno de grupo de la semana 3. El lugar de cada artículo en la red de enlaces con PageRank y una etiqueta dada con un bosque aleatorio, los dos métodos que mejor se ajustan a estos datos. La lista de inicio se escribe en el cuaderno del proyecto.
+notebook_description: Cuaderno de grupo de la semana 3. Comunidades de Louvain en la red de enlaces y una etiqueta dada con una red de una capa oculta, cada una comparada con la clase mayoritaria. La lista de inicio se escribe en el cuaderno del proyecto.
 ---
 
 {% include _snippets/26-udenar-data-mining/week-3-group/practical.md %}

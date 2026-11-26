@@ -8,7 +8,7 @@ year: 2026
 month: "November"
 date: "2026-11-25"
 type: "invited_talk"
-status: "upcoming"
+status: "past"
 show_slide_counter: false
 author: Christian Cabrera Jojoa
 email: chc79@cam.ac.uk

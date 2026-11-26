@@ -6,7 +6,7 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%">
-                <p>With no answer key, a place is <b>judged</b> against an outside measure, across seeds, and against random pairs.</p>
+                <p>With no answer key, a place is <b>judged</b> against an outside measure, by the modularity of its communities, and against the other methods.</p>
             </div>
         </div>
     </div>
@@ -20,9 +20,9 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <ul>
                     <li><p><b>Against an outside measure:</b> does the place agree with a count made outside this set</p></li>
-                    <li><p><b>Across seeds:</b> does node2vec give the same neighbours on a rerun</p></li>
-                    <li><p><b>Against random pairs:</b> do neighbours share more than chance</p></li>
-                    <li><p><b>Coverage:</b> how many items have no place, isolated or with no vector</p></li>
+                    <li><p><b>Modularity:</b> do the communities have more links inside than chance</p></li>
+                    <li><p><b>Against the other methods:</b> bridges that are not hubs, and items placed high by several methods</p></li>
+                    <li><p><b>Coverage:</b> how many items have no place, isolated or in a tiny component</p></li>
                 </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
@@ -84,16 +84,6 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 47.5%">
-                <p><b>Python usage:</b> SciPy</p>
-                <p>Rank agreement of a graph score and an outside count</p>
-                <ul>
-                    <li><p><b>spearmanr:</b> ranks both lists, so the scale does not matter</p></li>
-                    <li><p><b>The same items:</b> both lists in the same order</p></li>
-                    <li><p><b>Returns:</b> 0.8. In the Lecture 5 notebook, PageRank against citations gives 0.30</p></li>
-                </ul>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 5%"></div>
             <div class="column vertical-middle text-left" style="width: 47.5%; font-size: 0.85em">
 
 ```python
@@ -105,6 +95,16 @@ rho, _ = spearmanr(graph_rank, outside_rank)
 print(round(rho, 2))
 ```
 </div>
+            <div class="column vertical-middle text-left" style="width: 5%"></div>
+            <div class="column vertical-middle text-left" style="width: 47.5%">
+                <p><b>Python usage:</b> SciPy</p>
+                <p>Rank agreement of a graph score and an outside count</p>
+                <ul>
+                    <li><p><b>spearmanr:</b> ranks both lists, so the scale does not matter</p></li>
+                    <li><p><b>The same items:</b> both lists in the same order</p></li>
+                    <li><p><b>Returns:</b> 0.8. In the Lecture 5 notebook, PageRank against citations gives 0.30</p></li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -115,16 +115,15 @@ print(round(rho, 2))
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Across seeds</b></p>
-$$
-\text{overlap}(v) = \frac{|N_k^{(1)}(v) \cap N_k^{(2)}(v)|}{k}
-$$
-                <p><b>$N_k^{(1)}(v)$:</b> the $k$ nearest neighbours of $v$ with the first seed</p>
-                <p><b>$N_k^{(2)}(v)$:</b> the same with the second seed</p>
-                <p>In the example, 5 neighbours in each run share 4, so the overlap is $4/5 = 0.8$. A low mean overlap says the neighbours are mostly chance.</p>
+                <p><b>Modularity of the communities</b> (<a href="https://doi.org/10.1103/PhysRevE.69.026113" target="_blank" rel="noopener noreferrer">Newman and Girvan, 2004</a>)</p>
+                <ul>
+                    <li><p>Values from about 0.3 to 0.7 are usual for graphs with clear communities</p></li>
+                    <li><p>A partition is judged against the same graph, not against another one</p></li>
+                    <li><p>In the Lecture 5 notebook, Louvain gives $Q = 0.590$, with 152 communities (122 of them single papers)</p></li>
+                </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/diagrams/graph-seed-overlap.svg" alt="Two neighbour sets of one node, four shared" style="height: auto; max-width: 100%; max-height: 100%;">
+                <img src="{{ site.url }}/assets/media/diagrams/louvain-2.svg" alt="Two communities in the toy graph" style="height: auto; max-width: 100%; max-height: 100%;">
             </div>
         </div>
     </div>
@@ -135,76 +134,18 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 58%; font-size: 0.85em">
-
-```python
-def top_neighbours(vectors, v, k=5):
-    """The k nearest neighbours of v, as a set."""
-    found = set()
-    for u, _ in vectors.most_similar(v, topn=k):
-        found.add(u)
-    return found
-
-shares = []
-for v in nodes:
-    first = top_neighbours(runs[0], v)
-    for other in runs[1:]:
-        shared = first & top_neighbours(other, v)
-        shares.append(len(shared) / 5)
-overlap = sum(shares) / len(shares)
-```
-</div>
-            <div class="column vertical-middle text-left" style="width: 4%"></div>
-            <div class="column vertical-middle text-left" style="width: 38%">
-                <p><b>Python usage:</b> gensim</p>
-                <p>Neighbours that repeat when node2vec runs again with another seed</p>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Bridges that are not hubs</b></p>
                 <ul>
-                    <li><p><b>most_similar:</b> the 5 nearest neighbours of a node</p></li>
-                    <li><p><b>&amp;:</b> keeps the neighbours found by both runs</p></li>
-                    <li><p><b>Returns:</b> 0.75 with the three seeds of the Lecture 5 notebook</p></li>
+                    <li><p>Betweenness against degree: a bridge has few links and a high betweenness</p></li>
+                    <li><p>Read the items where the two disagree first</p></li>
+                    <li><p>In the Lecture 5 notebook, betweenness against degree gives a Spearman of 0.86</p></li>
+                    <li><p>The top three by betweenness: 0.0361 (GBD 2015 risk), 0.0229 (GBD 2016 incidence) and 0.0221 (Defining and Setting National Goals)</p></li>
                 </ul>
             </div>
-        </div>
-    </div>
-</div>
-
-## Evaluation
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 38%">
-                <p><b>Python usage:</b> Python</p>
-                <p>Do neighbours share more topics than random pairs?</p>
-                <ul>
-                    <li><p><b>jaccard:</b> shared topics over all topics of two items</p></li>
-                    <li><p><b>sample:</b> 1,000 random pairs of items with a vector</p></li>
-                    <li><p><b>Returns:</b> 0.197 for neighbours and 0.043 for random pairs in the Lecture 5 notebook, 4.6 times more</p></li>
-                </ul>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/betweenness-1.svg" alt="Betweenness of each node" style="height: auto; max-width: 100%; max-height: 100%;">
             </div>
-            <div class="column vertical-middle text-left" style="width: 4%"></div>
-            <div class="column vertical-middle text-left" style="width: 58%; font-size: 0.85em">
-
-```python
-import random
-
-def jaccard(a, b):
-    """Shared elements over all elements."""
-    if not a | b:
-        return 0.0
-    return len(a & b) / len(a | b)
-
-near = []
-for v in nodes:
-    for u in top_neighbours(runs[0], v):
-        near.append(jaccard(topics[v], topics[u]))
-rng = random.Random(7)
-far = []
-for _ in range(1000):
-    a, b = rng.sample(nodes, 2)
-    far.append(jaccard(topics[a], topics[b]))
-```
-</div>
         </div>
     </div>
 </div>
@@ -215,7 +156,7 @@ for _ in range(1000):
     <div class="row" style="height: 56%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%; height: 100%">
-                <img src="{{ site.url }}/assets/media/diagrams/graph-methods-see.svg" alt="What degree, PageRank and node2vec see" style="height: auto; max-width: 100%; max-height: 100%;">
+                <img src="{{ site.url }}/assets/media/diagrams/graph-three-methods.svg" alt="What PageRank, betweenness and Louvain see" style="height: auto; max-width: 100%; max-height: 100%;">
             </div>
         </div>
     </div>
@@ -224,9 +165,9 @@ for _ in range(1000):
             <div class="column vertical-top text-left" style="width: 100%; height: 100%">
                 <p><b>What each method sees</b></p>
                 <ul>
-                    <li><p><b>Degree:</b> how many links an item has</p></li>
                     <li><p><b>PageRank:</b> links from well placed items</p></li>
-                    <li><p><b>node2vec:</b> items that share a neighbourhood</p></li>
+                    <li><p><b>Betweenness:</b> the items that join groups</p></li>
+                    <li><p><b>Louvain:</b> groups with more links inside than outside</p></li>
                 </ul>
             </div>
         </div>
@@ -245,9 +186,9 @@ for _ in range(1000):
                         <tr><th>Method</th><th>What it sees</th><th>What it misses</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td>Degree</td><td>How many links an item has</td><td>Who makes the links</td></tr>
-                        <tr><td>PageRank</td><td>Links from well placed items</td><td>Items that only link out</td></tr>
-                        <tr><td>node2vec</td><td>Items that share a neighbourhood</td><td>Items outside the largest component, and why they are close</td></tr>
+                        <tr><td>PageRank</td><td>Links from well placed items</td><td>Items that only link out, and bridges with few links</td></tr>
+                        <tr><td>Betweenness</td><td>Items that join groups</td><td>Importance inside one group</td></tr>
+                        <tr><td>Louvain</td><td>Groups with more links inside than outside</td><td>Why the items are linked, and very small groups</td></tr>
                     </tbody>
                 </table>
                 <ul>

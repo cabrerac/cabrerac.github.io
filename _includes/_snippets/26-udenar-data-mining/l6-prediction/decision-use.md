@@ -8,9 +8,9 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Deployment in this course</b></p>
                 <ul>
-                    <li><p><b>The prediction result:</b> an item is predicted yes when at least 2 of the 3 methods say so, never by a model that saw its label</p></li>
-                    <li><p><b>It counts</b> only when the three methods beat the majority class</p></li>
-                    <li><p><b>The list:</b> those papers, at most 30. A positive prediction is not, by itself, a reason to read</p></li>
+                    <li><p><b>The week 3 group:</b> the one hidden layer on the department file, compared with the majority class on the rows kept apart</p></li>
+                    <li><p><b>It counts</b> only when accuracy is greater than the majority class plus 0.02. A positive prediction is not, by itself, a reason to read</p></li>
+                    <li><p><b>The project:</b> each group picks the methods it uses from what the lectures taught, and writes down why</p></li>
                     <li><p><b>Supports:</b> the slides do not decide whether text and prediction count as one support or two. Groups decide and write down why</p></li>
                 </ul>
             </div>

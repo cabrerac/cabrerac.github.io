@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Toy tree: one split on countries >= 2 is right on all 5 rows of the toy table. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 510" width="790" height="510">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .x { font-size:18px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .l { text-anchor:start; }
+ .r { text-anchor:end; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6c8aa3"/></marker>
+</defs>
+<rect x="255" y="60" width="280" height="90" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="395.0" y="113.0" class="t">countries ≥ 2</text>
+<line x1="330.0" y1="155.0" x2="200.0" y2="280.0" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="460.0" y1="155.0" x2="590.0" y2="280.0" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<text x="240.0" y="220.0" class="s r">yes</text>
+<text x="550.0" y="220.0" class="s l">no</text>
+<rect x="90" y="290" width="220" height="90" rx="8" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="200.0" y="343.0" class="t">yes</text>
+<rect x="480" y="290" width="220" height="90" rx="8" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="590.0" y="343.0" class="t">no</text>
+<text x="200.0" y="430.0" class="t" style="fill:#ffa500">3 / 3</text>
+<text x="590.0" y="430.0" class="t" style="fill:#ffa500">2 / 2</text>
+</svg>

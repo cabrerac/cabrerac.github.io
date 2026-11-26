@@ -7,7 +7,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 50%">
                 <p>Logistic regression turns a weighted sum of an item's attributes into the probability of a class.</p>
-                <p>Here $\mathbf{x}$ is a row of attributes, not of words.</p>
+                <p>In Lecture 4, $\mathbf{x}$ was a row of TF-IDF weights, one per word. Here it is a row of attributes.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/diagrams/logreg-sum-1.svg" alt="A weighted sum of the attributes" style="height: auto; max-width: 100%; max-height: 100%;">
@@ -23,7 +23,7 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 50%">
                 <p>Logistic regression turns a weighted sum of an item's attributes into the probability of a class.</p>
-                <p>Here $\mathbf{x}$ is a row of attributes, not of words.</p>
+                <p>In Lecture 4, $\mathbf{x}$ was a row of TF-IDF weights, one per word. Here it is a row of attributes.</p>
 $$
 P(y = 1 \mid \mathbf{x}) = \sigma(\mathbf{w} \cdot \mathbf{x} + b)
 $$
@@ -44,11 +44,12 @@ $$
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>From Lecture 4</b></p>
+                <p><b>From Lecture 4: TF-IDF with logistic regression</b></p>
                 <ul>
                     <li><p>The same log loss</p></li>
                     <li><p>The same penalty $C$</p></li>
                     <li><p>Balanced class weights</p></li>
+                    <li><p>One weight per column. There a word, here an attribute</p></li>
                 </ul>
                 <p>Yes when the probability is at least 0.5.</p>
             </div>
@@ -110,6 +111,10 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 47.5%; height: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/logreg-sum-2.svg" alt="The sum through the logistic function gives a probability" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 4%"></div>
             <div class="column vertical-middle text-left" style="width: 47.5%; font-size: 0.85em">
 
 ```text
@@ -123,10 +128,6 @@ on the rows kept apart
     yes when the probability >= 0.5
 ```
 </div>
-            <div class="column vertical-middle text-left" style="width: 4%"></div>
-            <div class="column vertical-middle text-center" style="width: 47.5%; height: 100%">
-                <img src="{{ site.url }}/assets/media/diagrams/logreg-sum-2.svg" alt="The sum through the logistic function gives a probability" style="height: auto; max-width: 100%; max-height: 100%;">
-            </div>
         </div>
     </div>
 </div>
@@ -136,16 +137,6 @@ on the rows kept apart
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 38%">
-                <p><b>Python usage:</b> scikit-learn</p>
-                <p>The preparation, learned from the training rows only</p>
-                <ul>
-                    <li><p><b>SimpleImputer:</b> fills a missing number with the median, and a missing category with the most frequent one</p></li>
-                    <li><p><b>StandardScaler</b> and <b>OneHotEncoder:</b> scaled numbers and one column per category</p></li>
-                    <li><p><b>Returns:</b> prepare, one step that turns the table into numbers. The forest and the network use the same preparation</p></li>
-                </ul>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 4%"></div>
             <div class="column vertical-middle text-left" style="width: 58%; font-size: 0.85em">
 
 ```python
@@ -167,6 +158,16 @@ prepare = ColumnTransformer([
     ("cat", categories, CATEGORY_COLUMNS)])
 ```
 </div>
+            <div class="column vertical-middle text-left" style="width: 4%"></div>
+            <div class="column vertical-middle text-left" style="width: 38%">
+                <p><b>Python usage:</b> scikit-learn</p>
+                <p>The preparation, learned from the training rows only</p>
+                <ul>
+                    <li><p><b>SimpleImputer:</b> fills a missing number with the median, and a missing category with the most frequent one</p></li>
+                    <li><p><b>StandardScaler</b> and <b>OneHotEncoder:</b> scaled numbers and one column per category</p></li>
+                    <li><p><b>Returns:</b> prepare, one step that turns the table into numbers. The forest and the network use the same preparation</p></li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -176,6 +177,16 @@ prepare = ColumnTransformer([
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 38%">
+                <p><b>Python usage:</b> scikit-learn</p>
+                <p>The preparation and the model in one pipeline</p>
+                <ul>
+                    <li><p><b>make_pipeline:</b> the preparation is learned again each time the model is fit</p></li>
+                    <li><p><b>class_weight:</b> "balanced" gives both classes the same weight</p></li>
+                    <li><p><b>Returns:</b> one class per row kept apart. In the Lecture 6 notebook, 0.607 of the 56 rows are right, against 0.714 for the forest and 0.518 for the majority class</p></li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 4%"></div>
             <div class="column vertical-middle text-left" style="width: 58%; font-size: 0.85em">
 
 ```python
@@ -188,16 +199,6 @@ model.fit(X_train, y_train)
 predictions = model.predict(X_test)
 ```
 </div>
-            <div class="column vertical-middle text-left" style="width: 4%"></div>
-            <div class="column vertical-middle text-left" style="width: 38%">
-                <p><b>Python usage:</b> scikit-learn</p>
-                <p>The preparation and the model in one pipeline</p>
-                <ul>
-                    <li><p><b>make_pipeline:</b> the preparation is learned again each time the model is fit</p></li>
-                    <li><p><b>class_weight:</b> "balanced" gives both classes the same weight</p></li>
-                    <li><p><b>Returns:</b> one class per row kept apart. In the Lecture 6 notebook, 0.607 of the 56 rows are right, and the majority class gets 0.518</p></li>
-                </ul>
-            </div>
         </div>
     </div>
 </div>

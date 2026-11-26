@@ -34,6 +34,48 @@
     </div>
 </div>
 
+## Degree
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Degree</b> counts the neighbours of a node. Its share compares that count with the most it could have.</p>
+$$
+\deg(v) = |N(v)| \qquad \text{share}(v) = \frac{\deg(v)}{n - 1}
+$$
+                <p><b>$n - 1$:</b> every other node, so the share lies between 0 and 1</p>
+                <p>In a directed graph, in-degree counts links received and out-degree links made.</p>
+                <p>Here $\deg(A) = 3$, so its share is $3/4 = 0.75$. E has degree 0. It is isolated.</p>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/degree-example-2.svg" alt="The degree of each node" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+        </div>
+    </div>
+</div>
+
+## Degree
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>A node linked to a large share of the others is a <b>hub</b>. Often it is the subject itself. A hub is a warning, not an automatic pick.</p>
+                <p>One rule for a hub, set before the results:</p>
+$$
+\deg(v) \ge \max\left(m,\ \lceil 0.10 \cdot (n - 1) \rceil\right)
+$$
+                <p><b>$m$:</b> a minimum count, so a hub in a small set still needs a few links</p>
+                <p>With $m = 3$ and $n = 9$, the limit is 3, so $\deg(H) = 8$ flags H as a hub.</p>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/degree-hub-2.svg" alt="The hub flagged as a warning" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+        </div>
+    </div>
+</div>
+
 ## PageRank
 
 <div class="rows" style="height: 100%">

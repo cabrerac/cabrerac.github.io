@@ -4,10 +4,10 @@
 
 **Propósito.** Cuaderno de grupo de la semana 3 (Lecciones 5 y 6). Su grupo sigue como equipo interno de una alcaldía, con los artículos de su secretaría. El producto del proyecto es una lista de artículos para los nuevos integrantes del equipo.
 
-**Esta semana.** El grupo repite en sus artículos lo que hicieron las Lecciones 5 y 6, con el método de grafos y el método de predicción que mejor se ajustan a estos datos: PageRank y un bosque aleatorio.
-PageRank, porque los enlaces son menciones con dirección y PageRank da un puntaje a cada artículo, también a los aislados. node2vec deja sin vector entre el 17% y el 31% de los artículos de cada secretaría, y sus vecinos cambian con la semilla.
-El bosque aleatorio, porque en las cinco particiones de la Lección 6 no se hunde como la regresión logística (0,328 contra 0,836 de la clase mayoritaria en Medio ambiente) y sus importancias dicen qué atributos usa.
-El grado se queda solo para la alerta de nodo central.
+**Esta semana.** El grupo usa un método de la Lección 5 y un método de la Lección 6: las comunidades de Louvain y una red con una capa oculta.
+Louvain, porque agrupa artículos que se mencionan más entre ellos que con el resto, y da un identificador a cada artículo, también a los aislados (cada uno queda en su propia comunidad de tamaño 1).
+La red de una capa oculta, porque es el tercer método de la Lección 6 y se compara, como los otros, con la clase mayoritaria.
+Cada método se compara con la clase mayoritaria. Louvain no usa la etiqueta para armar las comunidades. Para compararlo con esa línea base, cada comunidad hereda la clase más frecuente de sus artículos de **entrenamiento** y esa clase se aplica a los artículos apartados de la misma comunidad. Si una comunidad no tiene artículos de entrenamiento, se usa la clase mayoritaria del entrenamiento.
 Los resultados son `outputs/grafo.csv` y `outputs/prediccion.csv`. El cuaderno del proyecto los lee cuando arma la lista de inicio.
 
 **Antes de empezar.** Ejecuten primero los cuadernos individuales de las Lecciones 5 y 6. Este cuaderno lo escribe el grupo. Traigan de los laboratorios los parámetros y las funciones.
@@ -18,7 +18,7 @@ Los resultados son `outputs/grafo.csv` y `outputs/prediccion.csv`. El cuaderno d
 
 **Las decisiones son del grupo.** El grupo puede cambiar la pregunta o el alcance. Escriban la razón en el paso donde lo cambia.
 
-**Pregunta del grupo.** ¿Qué lugar ocupa un artículo entre los demás, y la predicción del bosque aleatorio supera a la clase mayoritaria en su secretaría?
+**Pregunta del grupo.** ¿Qué comunidades de menciones hay en su secretaría, y la predicción de la red con una capa oculta supera a la clase mayoritaria?
 
 **Mapa del cuaderno**
 
@@ -27,10 +27,12 @@ Los resultados son `outputs/grafo.csv` y `outputs/prediccion.csv`. El cuaderno d
 | **0** | Configuración | Grupo, etiqueta, datos, parámetros y funciones |
 | **1** | Comprensión del negocio | La nota de si la pregunta cambió, y qué esperan del grafo |
 | **2** | Comprensión de los datos | Títulos únicos, enlaces y la etiqueta |
-| **3** | Preparación de los datos | Los enlaces, el grafo con dirección, el conjunto apartado y la preparación |
-| **4** | Modelado | Grado para la alerta, PageRank y el bosque aleatorio |
-| **5** | Evaluación | Un artículo por su lugar, aciertos y errores, si la predicción cuenta, `outputs/grafo.csv` y `outputs/prediccion.csv` |
+| **3** | Preparación de los datos | Los enlaces, el grafo sin dirección, el conjunto apartado y la preparación |
+| **4** | Modelado | Louvain, la regla de mayoría por comunidad y la red con una capa oculta |
+| **5** | Evaluación | Un artículo por su comunidad, aciertos y errores, si cada método cuenta, `outputs/grafo.csv` y `outputs/prediccion.csv` |
 | **6** | Despliegue | Los artículos para leer (hasta 30), si texto y predicción son uno o dos apoyos, las tres semanas, la separación de clases y la fuga |
+
+**Cómo leer cada paso.** Cada paso empieza con **En este paso**. Si el paso tiene código, termina con una celda **Comprobar**.
 
 ---
 
@@ -81,37 +83,36 @@ print(f"Grupo {GROUP}: secretaría de {SECRETARIAT}, {len(df)} artículos sin t�
 ### Paso 0.2. Importaciones, parámetros y funciones de apoyo
 
 En este paso preparan lo que usa el resto del cuaderno. Va en tres celdas.
-Primero las importaciones de las Lecciones 5 y 6 que usa este cuaderno: `math`, `networkx`, `numpy` y las de scikit-learn.
+Primero las importaciones de las Lecciones 5 y 6 que usa este cuaderno: `math`, `networkx`, `numpy` y las de scikit-learn, incluida `MLPClassifier`.
 
 ```python
 # SU CÓDIGO. Paso 0.2a: las importaciones de las Lecciones 5 y 6
 ```
 
 Después los parámetros de las Lecciones 5 y 6, con los valores de los laboratorios.
-Este cuaderno no usa los parámetros de node2vec, de la regresión ni de la red.
 
 ```python
 # SU CÓDIGO. Paso 0.2b: los parámetros de las Lecciones 5 y 6, MAX_PAPERS y folds
 ```
 
-Al final las funciones de tamaño: `support_floor`, `hub_threshold` y `n_flagged`.
+Al final las funciones de tamaño: `support_floor` y `n_flagged`.
 
 ```python
-# SU CÓDIGO. Paso 0.2c: support_floor, hub_threshold y n_flagged
+# SU CÓDIGO. Paso 0.2c: support_floor y n_flagged
 ```
 
 **Listo cuando:**
-- Los parámetros tienen los valores de los laboratorios: `SEED`, `HUB_SHARE`, `MIN_LINKS`, `DAMPING`, `N_TREES`, `MARGIN`, `SPLIT_SEEDS`, `N_FOLDS` y los de las filas apartadas. También `MAX_PAPERS = 30`.
+- Los parámetros tienen los valores de los laboratorios: `SEED`, `MARGIN`, `SPLIT_SEEDS`, `N_FOLDS`, `HIDDEN_UNITS`, `PENALTY` y los de las filas apartadas. También `MAX_PAPERS = 30`.
 - `folds` es la validación cruzada en cinco pliegues de la Lección 6, con `SEED`.
 
 **Comprobar:**
 
-Comprobamos algunos valores de los laboratorios y las tres funciones con unos tamaños conocidos.
+Comprobamos algunos valores de los laboratorios y las dos funciones con unos tamaños conocidos.
 
 ```python
-assert callable(RandomForestClassifier) and callable(nx.pagerank) and folds.get_n_splits() == N_FOLDS  # las importaciones y los pliegues están
-assert (DAMPING, N_TREES, MARGIN, SPLIT_SEEDS, MAX_PAPERS) == (0.85, 200, 0.02, (7, 8, 9, 10, 11), 30)  # algunos valores de los laboratorios
-assert support_floor(300) == 9 and hub_threshold(318) == 32 and n_flagged(300) == 60  # las funciones dan los tamaños de las lecciones
+assert callable(MLPClassifier) and callable(nx.community.louvain_communities) and folds.get_n_splits() == N_FOLDS  # las importaciones y los pliegues están
+assert (SEED, HIDDEN_UNITS, PENALTY, MARGIN, SPLIT_SEEDS, MAX_PAPERS) == (7, 8, 1.0, 0.02, (7, 8, 9, 10, 11), 30)  # algunos valores de los laboratorios
+assert support_floor(300) == 9 and n_flagged(300) == 60  # las funciones dan los tamaños de las lecciones
 print("Paso 0.2: OK")  # print confirma la comprobación
 ```
 
@@ -133,8 +134,8 @@ Si cambiaron, escriban la línea nueva y por qué.
 ### Paso 1.2. Qué esperan del grafo
 
 En este paso escriben qué esperan del grafo, antes de mirar resultados.
-¿Qué artículo creen que será el más enlazado?
-¿Una persona nueva debería abrirlo primero? ¿Por qué?
+¿Qué artículos creen que van a quedar en la misma comunidad de menciones?
+¿Eso les sirve a una persona nueva? ¿Por qué?
 
 **Lo que esperamos**
 
@@ -190,14 +191,16 @@ print(f"Paso 2.2: OK. Etiqueta en 1: {int(y.sum())} de {N}")  # print confirma l
 
 ## Ejercicio 3. Preparación de los datos
 
-### Paso 3.1. Los enlaces y el grafo con dirección
+### Paso 3.1. Los enlaces y el grafo sin dirección
 
 En este paso arman los enlaces dentro del extracto, como en la Lección 5, Parte 3.
-`links_out` va con dirección y `neighbours` sin dirección.
-`directed` es el grafo con dirección que usa PageRank.
+`links_out` va con dirección, por si quieren contar menciones de salida.
+`neighbours` va sin dirección.
+`graph` es el grafo sin dirección que usa Louvain.
+Agreguen los nodos en el orden de `titles` y los vecinos con `sorted`, para que Louvain se repita de una sesión a otra.
 
 ```python
-# SU CÓDIGO. Paso 3.1: links_out, neighbours y directed
+# SU CÓDIGO. Paso 3.1: links_out, neighbours y graph
 ```
 
 **Comprobar:**
@@ -205,15 +208,16 @@ En este paso arman los enlaces dentro del extracto, como en la Lección 5, Parte
 Comprobamos que el grafo tiene un nodo por artículo y que ningún artículo se enlaza a sí mismo.
 
 ```python
-assert directed.number_of_nodes() == N == len(neighbours)  # un nodo por artículo
-assert nx.number_of_selfloops(directed) == 0  # nadie se enlaza a sí mismo
-print(f"Paso 3.1: OK. Enlaces con dirección: {directed.number_of_edges()}")  # print confirma la comprobación
+assert graph.number_of_nodes() == N == len(neighbours)  # un nodo por artículo
+assert nx.number_of_selfloops(graph) == 0  # nadie se enlaza a sí mismo
+print(f"Paso 3.1: OK. Enlaces sin dirección: {graph.number_of_edges()}")  # print confirma la comprobación
 ```
 
 ### Paso 3.2. El conjunto apartado
 
 En este paso apartan `n_flagged(N)` filas con `SEED`, con la misma proporción de cada clase, como en la Lección 6.
 Ningún modelo las ve al aprender.
+Louvain arma las comunidades con todo el grafo, porque los enlaces se observan. La etiqueta de las filas apartadas no entra en la regla de mayoría por comunidad.
 
 ```python
 # SU CÓDIGO. Paso 3.2: train, test, y_train y y_test
@@ -251,60 +255,58 @@ print("Paso 3.3: OK")  # print confirma la comprobación
 
 ## Ejercicio 4. Modelado
 
-### Paso 4.1. Grado y alerta de nodo central
+### Paso 4.1. Comunidades de Louvain
 
-En este paso cuentan el grado de cada artículo, como en la Lección 5, M1.
-El grado solo sirve aquí para la alerta.
-Un nodo central (`hubs`) es una alerta, no una razón para leerlo.
-Impriman los 5 artículos de más grado.
+En este paso agrupan los artículos con `nx.community.louvain_communities(graph, seed=SEED)`, como en la Lección 5, M3.
+Calculen la modularidad con `nx.community.modularity`.
+`community_of` guarda el identificador de la comunidad de cada artículo.
+`community_size` guarda el tamaño de esa comunidad.
+Impriman el número de comunidades, la modularidad y los tamaños de las más grandes.
 
 ```python
-# SU CÓDIGO. Paso 4.1: degree y hubs
+# SU CÓDIGO. Paso 4.1: communities, modularity, community_of y community_size
 ```
 
 **Comprobar:**
 
-Comprobamos que hay un grado por artículo y que la alerta sigue su regla.
+Comprobamos que hay una comunidad por artículo y que la modularidad queda en su rango.
 
 ```python
-assert len(degree) == N  # un grado por artículo
-for v in hubs:  # recorremos cada nodo central
-    assert degree[v] >= hub_threshold(N), v  # cada uno llega al umbral de la alerta
-print(f"Paso 4.1: OK. Nodos centrales: {len(hubs)}")  # print confirma la comprobación
+assert len(community_of) == N == len(community_size)  # un identificador y un tamaño por artículo
+assert 0 <= modularity <= 1  # la modularidad queda entre 0 y 1
+print(f"Paso 4.1: OK. Comunidades: {len(communities)}. Modularidad: {modularity:.3f}")  # print confirma la comprobación
 ```
 
-### Paso 4.2. PageRank
+### Paso 4.2. La mayoría de cada comunidad
 
-En este paso calculan PageRank con `nx.pagerank(directed, alpha=DAMPING)` y marcan los artículos con PageRank alto, como en la Lección 5, M2.
-Usamos PageRank porque un enlace aquí es una mención con dirección: un artículo sube si lo mencionan artículos que también son mencionados (Page et al., 1998).
-PageRank da un puntaje a todos los artículos.
-node2vec solo da un vector a los del componente mayor, y sus vecinos cambian con la semilla.
-Un artículo con PageRank alto tiene enlaces, está en el cuarto superior por PageRank entre los artículos con enlaces y **no** es nodo central.
-Redondeen PageRank a 6 decimales antes del corte.
+En este paso convierten Louvain en una predicción, para compararlo con la clase mayoritaria.
+Para cada comunidad, la clase predicha es la más frecuente entre sus artículos de **entrenamiento**.
+Si hay empate, o si la comunidad no tiene artículos de entrenamiento, usan la clase mayoritaria del entrenamiento.
+`community_prediction` es esa clase en las filas apartadas, en el mismo orden que `test`.
 
 ```python
-# SU CÓDIGO. Paso 4.2: rank y high_rank
+# SU CÓDIGO. Paso 4.2: community_prediction
 ```
 
 **Comprobar:**
 
-Comprobamos que PageRank suma 1, que hay artículos con PageRank alto y que ninguno es nodo central.
+Comprobamos que hay una predicción por fila apartada y que solo vale 0 o 1.
 
 ```python
-assert abs(sum(rank.values()) - 1) < 1e-6 and len(rank) == N  # un puntaje por artículo, que suman 1
-assert len(high_rank) >= 1 and not set(high_rank) & set(hubs)  # hay PageRank alto y ningún nodo central
-print(f"Paso 4.2: OK. Con PageRank alto: {len(high_rank)}")  # print confirma la comprobación
+assert len(community_prediction) == len(test)  # una predicción por fila apartada
+assert set(community_prediction).issubset({0, 1})  # solo vale 0 o 1
+print("Paso 4.2: OK")  # print confirma la comprobación
 ```
 
-### Paso 4.3. El bosque aleatorio
+### Paso 4.3. Una capa oculta
 
-En este paso entrenan el bosque aleatorio de la Lección 6, M2, con la preparación adelante: `make_pipeline(prepare, RandomForestClassifier(...))`.
-Usamos el bosque porque, con estas etiquetas, no se hunde bajo la clase mayoritaria como la regresión logística, y dice qué atributos usa.
-`test_prediction` es lo que dice el bosque en las filas apartadas.
+En este paso entrenan la red de una capa oculta de la Lección 6, M3, con la preparación adelante: `make_pipeline(prepare, MLPClassifier(...))`.
+Usen `hidden_layer_sizes=(HIDDEN_UNITS,)`, `alpha=PENALTY`, `max_iter=3000` y `random_state=SEED`.
+`test_prediction` es lo que dice la red en las filas apartadas.
 `train_prediction` es lo que dice en las filas de entrenamiento, con cinco pliegues (`cross_val_predict` y `folds`), así un modelo que no vio la fila la predice.
 
 ```python
-# SU CÓDIGO. Paso 4.3: forest, test_prediction y train_prediction
+# SU CÓDIGO. Paso 4.3: network, test_prediction y train_prediction
 ```
 
 **Comprobar:**
@@ -316,39 +318,15 @@ assert len(test_prediction) == len(test) and len(train_prediction) == len(train)
 print("Paso 4.3: OK")  # print confirma la comprobación
 ```
 
-### Paso 4.4. Qué atributos usa el bosque
-
-En este paso leen las importancias del bosque, como en la Lección 6.
-`importance` es una serie con la importancia de cada columna preparada.
-Impriman las 5 más altas.
-
-```python
-# SU CÓDIGO. Paso 4.4: importance
-```
-
-**Comprobar:**
-
-Comprobamos que las importancias suman 1.
-
-```python
-assert abs(importance.sum() - 1) < 1e-6  # las importancias del bosque suman 1
-print("Paso 4.4: OK")  # print confirma la comprobación
-```
-
-¿El atributo más importante tiene sentido para su secretaría?
-¿Se parece demasiado a la etiqueta? Escriban por qué.
-
-**ESCRIBA SU TEXTO AQUÍ**
-
 ---
 
 ## Ejercicio 5. Evaluación
 
-### Paso 5.1. Un artículo descrito por su lugar
+### Paso 5.1. Un artículo descrito por su comunidad
 
-En este paso eligen un artículo y lo describen por su lugar en la red, como en la Lección 5, Parte 5.
-`MY_ARTICLE` es un título del extracto que no es nodo central.
-Impriman su grado, su puesto por PageRank y si tiene PageRank alto.
+En este paso eligen un artículo y lo describen por su comunidad, como en la Lección 5, Parte 5.
+`MY_ARTICLE` es un título del extracto que no está aislado.
+Impriman su comunidad, el tamaño de esa comunidad y la modularidad del grafo.
 
 ```python
 # SU CÓDIGO. Paso 5.1: MY_ARTICLE
@@ -356,22 +334,22 @@ Impriman su grado, su puesto por PageRank y si tiene PageRank alto.
 
 **Comprobar:**
 
-Comprobamos que el artículo está en el extracto y no es nodo central.
+Comprobamos que el artículo está en el extracto y no está aislado.
 
 ```python
-assert MY_ARTICLE in titles and MY_ARTICLE not in hubs  # un título del extracto que no es alerta
+assert MY_ARTICLE in titles and community_size[MY_ARTICLE] > 1  # un título del extracto que no está aislado
 print("Paso 5.1: OK")  # print confirma la comprobación
 ```
 
-¿Qué dice su lugar en la red?
-¿Por qué ser central solo porque enlaza con muchos no es una razón para leerlo?
+¿Qué dice su comunidad?
+¿Los artículos que la integran se parecen en algo que una persona nueva reconocería?
 
 **ESCRIBA SU TEXTO AQUÍ**
 
 ### Paso 5.2. Aciertos y errores en las filas apartadas
 
-En este paso cuentan aciertos y errores del bosque en las filas apartadas, como en la Lección 6, Parte 5.
-Sumen la fila de la clase mayoritaria: dar a todos la etiqueta más frecuente.
+En este paso cuentan aciertos y errores de Louvain y de la red en las filas apartadas, como en la Lección 6, Parte 5.
+Sumen la fila de la clase mayoritaria: dar a todos la etiqueta más frecuente del entrenamiento.
 Es la línea de referencia.
 `results` tiene una fila por método, con `TP`, `FP`, `FN`, `TN` y `exactitud`.
 
@@ -381,33 +359,36 @@ Es la línea de referencia.
 
 **Comprobar:**
 
-Comprobamos las dos filas y que los conteos suman las filas apartadas.
+Comprobamos las tres filas y que los conteos suman las filas apartadas.
 
 ```python
-assert list(results.index) == ["clase mayoritaria", "bosque aleatorio"]  # las dos filas, en este orden
+assert list(results.index) == ["clase mayoritaria", "Louvain", "una capa oculta"]  # las tres filas, en este orden
 assert (results[["TP", "FP", "FN", "TN"]].sum(axis=1) == len(test)).all()  # los conteos suman las filas apartadas
 print("Paso 5.2: OK")  # print confirma la comprobación
 ```
 
-### Paso 5.3. ¿Cuenta la predicción?
+### Paso 5.3. ¿Cuenta cada método?
 
-En este paso deciden si la predicción cuenta, como en la Lección 6, Parte 5, Paso 4.
-`l6_counts` es `True` solo si el bosque acierta en las filas apartadas más que la clase mayoritaria, por un margen de `MARGIN` (0,02).
+En este paso deciden si cada método cuenta, como en la Lección 6, Parte 5.
+`l6_counts` es `True` solo si la red acierta en las filas apartadas más que la clase mayoritaria, por un margen de `MARGIN` (0,02).
+`louvain_counts` es `True` solo si la regla de mayoría por comunidad supera ese mismo margen.
 Ese margen es una o dos filas de unas 60.
-`seeds_holding` cuenta en cuántas de las 5 particiones de `SPLIT_SEEDS` se sostiene, con `clone`.
-Si `l6_counts` es `False`, la predicción no apoya su lista. Es un resultado normal y válido, no un error.
+`seeds_holding` cuenta en cuántas de las 5 particiones de `SPLIT_SEEDS` se sostiene la red, con `clone`.
+`louvain_seeds_holding` hace lo mismo con la regla de mayoría por comunidad. Las comunidades no se vuelven a calcular: solo cambian las filas de entrenamiento que dan la mayoría de cada comunidad.
+Si `l6_counts` es `False`, la predicción de la red no apoya su lista. Es un resultado normal y válido, no un error.
 
 ```python
-# SU CÓDIGO. Paso 5.3: l6_counts y seeds_holding
+# SU CÓDIGO. Paso 5.3: l6_counts, louvain_counts, seeds_holding y louvain_seeds_holding
 ```
 
 **Comprobar:**
 
-Comprobamos que `l6_counts` es verdadero o falso y que `seeds_holding` va de 0 a 5.
+Comprobamos que las dos decisiones son verdadero o falso y que las dos cuentas van de 0 a 5.
 
 ```python
-assert isinstance(l6_counts, bool) and 0 <= seeds_holding <= len(SPLIT_SEEDS)  # tipos y rango correctos
-print(f"Paso 5.3: OK. l6_counts = {l6_counts}, se sostiene en {seeds_holding} de {len(SPLIT_SEEDS)}")  # print confirma la comprobación
+assert isinstance(l6_counts, bool) and isinstance(louvain_counts, bool)  # las dos decisiones son verdadero o falso
+assert 0 <= seeds_holding <= len(SPLIT_SEEDS) and 0 <= louvain_seeds_holding <= len(SPLIT_SEEDS)  # las dos cuentas van de 0 a 5
+print(f"Paso 5.3: OK. l6_counts = {l6_counts} ({seeds_holding} de {len(SPLIT_SEEDS)}). louvain_counts = {louvain_counts} ({louvain_seeds_holding} de {len(SPLIT_SEEDS)})")  # print confirma la comprobación
 ```
 
 ### Paso 5.4. Guardar el grafo y la predicción
@@ -419,17 +400,17 @@ En este paso guardan los dos resultados de esta semana.
 ```
 
 **Listo cuando:**
-- `grafo.csv` tiene `title`, `grado`, `pagerank`, `aislado`, `alerta_centro` y `graph_support`. `graph_support` es verdadero si el artículo está en `high_rank`. `alerta_centro` no es un resultado a favor.
-- `prediccion.csv` tiene `title`, `etiqueta`, `apartada`, `clase_votada` y `prediction`. `clase_votada` es la clase que votan los árboles del bosque. `prediction` es verdadero si esa clase es 1.
+- `grafo.csv` tiene `title`, `comunidad`, `tamano_comunidad`, `modularidad`, `aislado` y `graph_support`. `graph_support` es verdadero si la comunidad del artículo tiene al menos dos artículos de entrenamiento y su clase más frecuente en el entrenamiento es 1.
+- `prediccion.csv` tiene `title`, `etiqueta`, `apartada`, `clase_predicha` y `prediction`. `clase_predicha` es la clase que dice la red. `prediction` es verdadero si esa clase es 1.
 
 **Comprobar:**
 
-Comprobamos las columnas de los dos archivos y que un nodo central nunca tiene `graph_support`.
+Comprobamos las columnas de los dos archivos.
 
 ```python
 grafo, prediccion = pd.read_csv(OUTPUTS_DIR / "grafo.csv"), pd.read_csv(OUTPUTS_DIR / "prediccion.csv")  # read_csv vuelve a leer los dos archivos
-assert {"title", "graph_support", "alerta_centro"} <= set(grafo.columns) and {"title", "clase_votada", "prediction"} <= set(prediccion.columns)  # están las columnas
-assert not (grafo["graph_support"] & grafo["alerta_centro"]).any()  # un nodo central nunca tiene graph_support
+assert {"title", "comunidad", "tamano_comunidad", "modularidad", "aislado", "graph_support"} <= set(grafo.columns)  # están las columnas del grafo
+assert {"title", "etiqueta", "apartada", "clase_predicha", "prediction"} <= set(prediccion.columns)  # están las columnas de la predicción
 print("Paso 5.4: OK")  # print confirma la comprobación
 ```
 
@@ -440,11 +421,11 @@ print("Paso 5.4: OK")  # print confirma la comprobación
 ### Paso 6.1. Artículos para leer
 
 En este paso arman la lista de lectura de esta semana con los dos métodos.
-PageRank filtra: solo entran los artículos con `graph_support`.
-Si la predicción cuenta (`l6_counts`), primero van los que el bosque marca con `prediction`.
-Después ordenan por PageRank, de mayor a menor.
-Si la predicción no cuenta, ordenan solo por PageRank.
-Guarden como máximo 30 artículos en `reading`, con `title`, `pagerank` y `prediction`.
+Louvain filtra: solo entran los artículos con `graph_support`.
+Si la predicción de la red cuenta (`l6_counts`), primero van los que la red marca con `prediction`.
+Después ordenan por tamaño de comunidad, de mayor a menor, y por título.
+Si la predicción no cuenta, ordenan solo por tamaño de comunidad y por título.
+Guarden como máximo 30 artículos en `reading`, con `title`, `comunidad`, `tamano_comunidad` y `prediction`.
 Esta lista es la lectura de los resultados de esta semana. La lista de inicio se escribe en el cuaderno del proyecto.
 
 ```python
@@ -454,9 +435,9 @@ Esta lista es la lectura de los resultados de esta semana. La lista de inicio se
 ### Paso 6.2. Interpretación de resultados
 
 ¿Por qué se seleccionaron los artículos de la lista resultante esta semana?
-Explique la selección de acuerdo con PageRank, la predicción y la pregunta.
-¿La predicción supera a la clase mayoritaria?
-Si no la supera, escríbalo así y diga qué hecho lo cambiaría.
+Explique la selección de acuerdo con las comunidades de Louvain, la predicción y la pregunta.
+¿Cada método supera a la clase mayoritaria?
+Si un método no la supera, escríbalo así y diga qué hecho lo cambiaría.
 
 **Interpretación**
 
@@ -464,11 +445,12 @@ Si no la supera, escríbalo así y diga qué hecho lo cambiaría.
 
 **Comprobar:**
 
-Comprobamos el largo de la lista y que todo viene del PageRank alto.
+Comprobamos el largo de la lista y que todo viene de `graph_support`.
 
 ```python
-assert len(reading) == min(MAX_PAPERS, len(high_rank))  # la lista no pasa de 30
-assert set(reading["title"]) <= set(high_rank)  # todo viene del PageRank alto
+n_support = int(grafo["graph_support"].sum())  # sum cuenta los artículos con graph_support
+assert len(reading) == min(MAX_PAPERS, n_support)  # la lista no pasa de 30
+assert set(reading["title"]) <= set(grafo.loc[grafo["graph_support"], "title"])  # todo viene de graph_support
 print("Paso 6.2: OK. Armen el ZIP.")  # print confirma la comprobación
 ```
 
@@ -493,7 +475,7 @@ Comparen los resultados de las semanas 1, 2 y 3.
 
 ### Paso 6.5. Cuando el modelo no separa las clases
 
-Si el bosque no supera a la clase mayoritaria, expliquen por qué no logra separar las clases en su secretaría.
+Si la red no supera a la clase mayoritaria, expliquen por qué no logra separar las clases en su secretaría.
 Si sí la supera, expliquen de todos modos qué lo impediría.
 
 **Cuando no separa**
@@ -525,9 +507,9 @@ Use la [plantilla de la reflexión de la semana 3](https://cabrerac.github.io/as
 |--------|--------------|
 | **Metadatos** | Nombre, grupo, semana 3 (L5 + L6) y conteo aproximado de palabras. |
 | **Proceso** | Qué hizo el grupo en el cuaderno de la semana 3. Diga y evidencie cuál fue su contribución con un pantallazo de un bloque de código que usted implementó o ayudó a implementar, y explíquelo en detalle. |
-| **Decisión** | Describa el lugar de los artículos en la red de enlaces y la predicción de la etiqueta que exploró en esta semana. |
-| **Métodos** | Explique cuáles fueron los métodos utilizados en esta semana y cómo se comparan entre ellos. ¿En qué consiste el método node2vec discutido en clase? |
-| **Interpretabilidad** | En sus palabras, explique las razones detrás de los artículos de Wikipedia que esta semana quedaron seleccionados por su lugar en la red y por la predicción. |
+| **Decisión** | Describa las comunidades de menciones y la predicción de la etiqueta que exploró en esta semana. |
+| **Métodos** | Explique cuáles fueron los métodos utilizados en esta semana y cómo se comparan entre ellos y con la clase mayoritaria. ¿En qué consiste la intermediación discutida en la Lección 5? |
+| **Interpretabilidad** | En sus palabras, explique las razones detrás de los artículos de Wikipedia que esta semana quedaron seleccionados por su comunidad y por la predicción. |
 
 ## Entrega
 
@@ -537,8 +519,8 @@ La reflexión individual se entrega el miércoles 2 dic 2026, 23:59 (hora de Col
 | Archivo del ZIP `week-3-<group_id>.zip` | Descripción |
 |-----------------------------------------|-------------|
 | `week-3-group-<group_id>.ipynb` | Este cuaderno ejecutado, con la nota de la pregunta y la interpretación escritas |
-| `outputs/grafo.csv` | El lugar de cada artículo en la red, con `graph_support` y `alerta_centro` |
-| `outputs/prediccion.csv` | La clase que vota el bosque y el resultado de la predicción |
+| `outputs/grafo.csv` | La comunidad de cada artículo en la red, con `graph_support` |
+| `outputs/prediccion.csv` | La clase que predice la red y el resultado de la predicción |
 
 Estos archivos son el resultado de esta semana.
 El cuaderno del proyecto los lee cuando arma la lista de inicio.

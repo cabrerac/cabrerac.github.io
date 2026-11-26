@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-data-mining
 title: Project group notebook
-description: Project notebook. The group reads the week-1, week-2, and week-3 outputs and writes the starter list. It does not run those methods again.
+description: Project notebook. The group reads the week-1, week-2, and week-3 outputs and writes the starter list. It does not run those methods again, and it does not prescribe which week-3 methods the group used.
 session: 4
 start_time: async
 end_time: async

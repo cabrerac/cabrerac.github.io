@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-data-mining
 title: Graphs
-description: Lecture 5 is the graph task. The question is where each item sits among the others. Papers and their citations, people and their friendships, and web pages and their links can feed the task. We explore three methods for this task. Degree, PageRank, and node2vec. For each method we go through its theory, implementation and evaluation. We end with what deploying an item's place means and its limits.
+description: Lecture 5 is the graph task. The question is where each item sits among the others. Papers and their citations, people and their friendships, and web pages and their links can feed the task. We explore three methods for this task. PageRank (with degree taught inside it), betweenness, and Louvain communities. For each method we go through its theory, implementation and evaluation. We end with what deploying an item's place means and its limits.
 session: 5
 start_time: 07:00 am
 end_time: 01:00 pm
@@ -19,7 +19,7 @@ visible: false
 group_notebook: week-3-group
 notebook_language: es
 notebook_title: Grafos y el lugar de un ítem entre los demás
-notebook_description: Práctica individual de la Lección 5. Describir un artículo por su lugar en las citas, no por cuántas veces se lo nombra.
+notebook_description: Práctica individual de la Lección 5. Describir un artículo por su lugar en las citas con PageRank, intermediación y comunidades de Louvain.
 ---
 
 <!-- SLIDES: -->
@@ -38,11 +38,13 @@ notebook_description: Práctica individual de la Lección 5. Describir un artíc
 
 {% include _snippets/graphs.md %}
 
-{% include _snippets/degree-centrality.md %}
-
 {% include _snippets/pagerank.md %}
 
-{% include _snippets/node2vec.md %}
+{% include _snippets/betweenness.md %}
+
+{% include _snippets/community-detection.md %}
+
+{% include _snippets/26-udenar-data-mining/l5-graphs/communities-papers.md %}
 
 <!-- SLIDES: -->
 

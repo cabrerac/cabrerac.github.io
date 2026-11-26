@@ -1,44 +1,44 @@
 <!-- SLIDES: -->
 
-## Notebooks
+## This Week Notebooks
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>The <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l6-prediction.ipynb" target="_blank">Lecture 6 notebook</a> follows CRISP-DM</b></p>
+                <p>The notebook runs this task on papers, with a given label.</p>
                 <ul>
-                    <li><p><b>Parts 1 to 3:</b> the question, leakage, the label and the table</p></li>
-                    <li><p><b>Part 4:</b> majority class, logistic regression, a forest and a network</p></li>
-                    <li><p><b>Part 5:</b> right and wrong counts, five folds and the rule</p></li>
-                    <li><p><b>Part 6:</b> a list of at most 30 papers</p></li>
+                    <li><b>Part 1, Business understanding:</b> the question, leakage and the titles</li>
+                    <li><b>Part 2, Data understanding:</b> the label and the attributes</li>
+                    <li><b>Part 3, Data preparation:</b> the labelled table, the held-out set, and scaled columns</li>
+                    <li><b>Part 4, Modeling:</b> the majority class, a forest, logistic regression and one hidden layer</li>
+                    <li><b>Part 5, Evaluation:</b> four counts, five folds, and the leakage check</li>
+                    <li><b>Part 6, Deployment:</b> the prediction and reading lists, outputs/prediccion_l6.csv and outputs/lectura_l6.csv</li>
                 </ul>
-            </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/crisp-dm-process-diagram.png" alt="CRISP-DM process diagram" style="height: auto; max-width: 100%; max-height: 90%;">
-                <div class="footnote">CRISP-DM Process Diagram - Kenneth Jensen, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
 </div>
 
-## Notebooks
+## This Week Notebooks
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>The <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/week-3-group.ipynb" target="_blank">week 3 group notebook</a></b></p>
                 <p>The same steps on the department file. The label is a target category of each article.</p>
                 <ul>
-                    <li><p><b>Exercise 4:</b> hub warning, PageRank and the forest</p></li>
-                    <li><p><b>Exercise 5:</b> one article, and whether the prediction counts</p></li>
-                    <li><p><b>Exercise 6:</b> the articles to read</p></li>
+                    <li><b>Exercise 0, Setup:</b> group, data and parameters</li>
+                    <li><b>Exercise 1, Business understanding:</b> the question and what the graph is for</li>
+                    <li><b>Exercise 2, Data understanding:</b> titles, links, the label and the attributes</li>
+                    <li><b>Exercise 3, Data preparation:</b> the undirected graph, the held-out set and the table</li>
+                    <li><b>Exercise 4, Modeling:</b> Louvain communities and one hidden layer</li>
+                    <li><b>Exercise 5, Evaluation:</b> community labels and the hidden layer against the majority class, then the saved tables</li>
+                    <li><b>Exercise 6, Deployment:</b> a reading list, interpretation, and leakage</li>
                 </ul>
-            </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/crisp-dm-process-diagram.png" alt="CRISP-DM process diagram" style="height: auto; max-width: 100%; max-height: 90%;">
-                <div class="footnote">CRISP-DM Process Diagram - Kenneth Jensen, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
+                <p>The notebook ends with a contribution log.</p>
             </div>
         </div>
     </div>

@@ -8,9 +8,9 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Does the prediction count?</b></p>
                 <ul>
-                    <li><p>It counts only when every method beats the majority class by more than 0.02 on the rows kept apart</p></li>
+                    <li><p>It counts only when accuracy is greater than the majority class plus 0.02 on the rows kept apart</p></li>
                     <li><p>The same rows kept apart for every method</p></li>
-                    <li><p>Not a contest. A method that does not beat the majority class is reported, not hidden</p></li>
+                    <li><p>Not a contest. A method that does not beat the majority class by more than 0.02 is reported, not hidden</p></li>
                 </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
@@ -32,8 +32,8 @@
                         <tr><th>Method</th><th>What it sees</th><th>What it misses</th><th>L6 test accuracy</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td>Logistic regression</td><td>One weight per attribute</td><td>Interactions and bends</td><td>0.607</td></tr>
                         <tr><td>Random forest</td><td>Splits and interactions</td><td>Values beyond those it saw</td><td>0.714</td></tr>
+                        <tr><td>Logistic regression</td><td>One weight per attribute</td><td>Interactions and bends</td><td>0.607</td></tr>
                         <tr><td>One hidden layer</td><td>Its own attributes and bends</td><td>Clear reasons, needs many rows</td><td>0.625</td></tr>
                     </tbody>
                 </table>

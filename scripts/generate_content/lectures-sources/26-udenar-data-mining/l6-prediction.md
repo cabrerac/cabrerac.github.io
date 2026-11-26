@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-data-mining
 title: Prediction
-description: Lecture 6 is the prediction task. The question is whether the attributes of an item can predict a label that someone gave. Loans, patients, and articles in a table with a given label can feed the task. We explore three methods for this task. Logistic regression, a random forest, and a neural network with one hidden layer. For each method we go through its theory, implementation and evaluation. We end with what deploying a prediction means and its limits.
+description: Lecture 6 is the prediction task. The question is whether the attributes of an item can predict a label that someone gave. Loans, patients, and articles in a table with a given label can feed the task. We start from the majority class. We explore three methods for this task. A random forest, logistic regression (linked back to Lecture 4, TF-IDF + logistic regression), and a neural network with one hidden layer whose output layer is a logistic regression. For each method we go through its theory, implementation and evaluation. We end with why accuracy misleads, a leakage demo, and what deploying a prediction means and its limits.
 session: 6
 start_time: 07:00 am
 end_time: 01:00 pm
@@ -38,11 +38,19 @@ notebook_description: Práctica individual de la Lección 6. Predecir una etique
 
 {% include _snippets/prediction.md %}
 
-{% include _snippets/logistic-regression.md %}
+{% include _snippets/majority-baseline.md %}
+
+{% include _snippets/26-udenar-data-mining/l6-prediction/majority-split.md %}
+
+{% include _snippets/26-udenar-data-mining/l6-prediction/methods.md %}
 
 {% include _snippets/decision-trees-random-forests.md %}
 
+{% include _snippets/logistic-regression.md %}
+
 {% include _snippets/one-hidden-layer-network.md %}
+
+{% include _snippets/26-udenar-data-mining/l6-prediction/three-methods.md %}
 
 <!-- SLIDES: -->
 
@@ -52,9 +60,23 @@ notebook_description: Práctica individual de la Lección 6. Predecir una etique
 
 {% include _snippets/classification-evaluation.md %}
 
+{% include _snippets/26-udenar-data-mining/l6-prediction/l4-counts.md %}
+
+{% include _snippets/classification-uncertainty.md %}
+
 {% include _snippets/five-folds-code.md %}
 
 {% include _snippets/prediction-methods-comparison.md %}
+
+<!-- SLIDES: -->
+
+# Leakage
+
+<!-- end SLIDES: -->
+
+{% include _snippets/target-leakage-demo.md %}
+
+{% include _snippets/26-udenar-data-mining/l6-prediction/leakage-nutrition.md %}
 
 <!-- SLIDES: -->
 
@@ -75,8 +97,6 @@ notebook_description: Práctica individual de la Lección 6. Predecir una etique
 {% include _snippets/26-udenar-data-mining/l6-prediction/conclusions.md %}
 
 {% include _snippets/26-udenar-data-mining/l6-prediction/practical-slides.md %}
-
-{% include _snippets/26-udenar-data-mining/l6-prediction/week3-deliverables.md %}
 
 {% include _snippets/26-udenar-data-mining/l6-prediction/resources.md %}
 

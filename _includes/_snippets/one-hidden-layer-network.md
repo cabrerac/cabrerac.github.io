@@ -43,7 +43,7 @@
                 <p>Inputs, one hidden layer of units, and an output.</p>
                 <ul>
                     <li><p>Each hidden unit is a weighted sum followed by a bend</p></li>
-                    <li><p>The output is logistic regression on the hidden units</p></li>
+                    <li><p>The output turns the hidden units into a probability</p></li>
                     <li><p>Every input must be a scaled number, so categories are one-hot encoded and missing values filled</p></li>
                 </ul>
             </div>
@@ -66,11 +66,11 @@ $$
 \mathbf{h} = \text{ReLU}(\mathbf{W}_1 \mathbf{x} + \mathbf{b}_1)
 $$
 $$
-\mathbf{z} = \mathbf{W}_2 \mathbf{h} + \mathbf{b}_2
+z = \mathbf{w}_2 \cdot \mathbf{h} + b_2
 $$
                 <p><b>$\mathbf{W}_1$, $\mathbf{b}_1$:</b> one row of weights and one intercept per hidden unit</p>
                 <p><b>$\text{ReLU}(a)$:</b> $\max(0, a)$, the bend</p>
-                <p><b>$\mathbf{W}_2$, $\mathbf{b}_2$:</b> turn the hidden units $\mathbf{h}$ into scores $\mathbf{z}$</p>
+                <p><b>$\mathbf{w}_2$, $b_2$:</b> turn the hidden units $\mathbf{h}$ into one score $z$</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/colored-neural-network.svg" alt="A network with an input, a hidden and an output layer" style="height: auto; max-width: 100%; max-height: 90%;">
@@ -83,19 +83,24 @@ $$
 ## Neural Network
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 50%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Output</b></p>
-$$
-P(y = c \mid \mathbf{x}) = \frac{e^{z_c}}{\sum_{k} e^{z_k}}
-$$
-                <p><b>$z_c$:</b> the score of class $c$</p>
-                <p>The probabilities add to 1. With two classes this is the logistic function.</p>
+            <div class="column vertical-middle text-center" style="width: 100%; height: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/nn-output-lr.svg" alt="Logistic regression next to the output layer of the network" style="height: auto; max-width: 100%; max-height: 100%;">
             </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/logistic-curve.svg" alt="Logistic curve" style="height: auto; max-width: 100%; max-height: 90%;">
-                <div class="footnote">Logistic-curve - Qef, Public domain, via Wikimedia Commons</div>
+        </div>
+    </div>
+    <div class="row" style="height: 50%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%; height: 100%">
+                <p><b>The output layer is a logistic regression</b></p>
+$$
+P(y = 1 \mid \mathbf{x}) = \sigma(\mathbf{w}_2 \cdot \mathbf{h} + b_2)
+$$
+                <ul>
+                    <li><p>The same formula as logistic regression, with $\mathbf{h}$ in place of $\mathbf{x}$</p></li>
+                    <li><p>The hidden layer learns the columns. The output layer weighs them, as logistic regression weighs attributes</p></li>
+                </ul>
             </div>
         </div>
     </div>
@@ -146,7 +151,7 @@ $$
     <div class="row" style="height: 52%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%; height: 100%">
-                <p><b>Cross-entropy</b> measures how unlikely the true labels were.</p>
+                <p><b>Cross-entropy</b> measures how unlikely the true labels were. With two classes it is the log loss of logistic regression.</p>
 $$
 \mathcal{L} = -\sum_{i} \log P(y_i \mid \mathbf{x}_i) + \frac{\lambda}{2} \lVert \mathbf{W} \rVert^2
 $$
@@ -190,27 +195,11 @@ $$
                 <ul>
                     <li><p><b>Units:</b> more units fit more, and overfit more</p></li>
                     <li><p><b>Penalty:</b> $\lambda$, alpha in scikit-learn. Few rows call for a stronger penalty</p></li>
-                    <li><p><b>Steps:</b> how many passes, and when to stop</p></li>
-                    <li><p><b>Seed:</b> the starting weights</p></li>
+                    <li><p><b>Steps and seed:</b> how many passes, when to stop, and the starting weights</p></li>
                 </ul>
-            </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/diagrams/nn-forward-3.svg" alt="The output" style="height: auto; max-width: 100%; max-height: 100%;">
-            </div>
-        </div>
-    </div>
-</div>
-
-## Neural Network
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Limits</b></p>
                 <ul>
                     <li><p>On a few hundred rows, a network rarely beats a forest</p></li>
-                    <li><p>Another seed gives other weights</p></li>
                     <li><p>The hidden units have no names, so the reasons are hard to read</p></li>
                 </ul>
             </div>
@@ -254,6 +243,16 @@ predict on the rows kept apart
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 38%">
+                <p><b>Python usage:</b> scikit-learn</p>
+                <p>One hidden layer of 8 units, with the same preparation</p>
+                <ul>
+                    <li><p><b>hidden_layer_sizes:</b> (8,), one layer of 8 units</p></li>
+                    <li><p><b>alpha:</b> the penalty $\lambda = 1.0$</p></li>
+                    <li><p><b>Returns:</b> in the Lecture 6 notebook, the network stops after 188 steps and 0.625 of the 56 rows kept apart are right</p></li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-left" style="width: 4%"></div>
             <div class="column vertical-middle text-left" style="width: 58%; font-size: 0.85em">
 
 ```python
@@ -267,16 +266,6 @@ model.fit(X_train, y_train)
 predictions = model.predict(X_test)
 ```
 </div>
-            <div class="column vertical-middle text-left" style="width: 4%"></div>
-            <div class="column vertical-middle text-left" style="width: 38%">
-                <p><b>Python usage:</b> scikit-learn</p>
-                <p>One hidden layer of 8 units, with the same preparation</p>
-                <ul>
-                    <li><p><b>hidden_layer_sizes:</b> (8,), one layer of 8 units</p></li>
-                    <li><p><b>alpha:</b> the penalty $\lambda = 1.0$</p></li>
-                    <li><p><b>Returns:</b> in the Lecture 6 notebook, the network stops after 188 steps and 0.625 of the 56 rows kept apart are right</p></li>
-                </ul>
-            </div>
         </div>
     </div>
 </div>

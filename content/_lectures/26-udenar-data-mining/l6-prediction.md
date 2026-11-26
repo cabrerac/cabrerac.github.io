@@ -4,10 +4,12 @@ course_code: 26-udenar-data-mining
 department: Department of Computer Science and Technology
 description: Lecture 6 is the prediction task. The question is whether the attributes
   of an item can predict a label that someone gave. Loans, patients, and articles
-  in a table with a given label can feed the task. We explore three methods for this
-  task. Logistic regression, a random forest, and a neural network with one hidden
-  layer. For each method we go through its theory, implementation and evaluation.
-  We end with what deploying a prediction means and its limits.
+  in a table with a given label can feed the task. We start from the majority class.
+  We explore three methods for this task. A random forest, logistic regression (linked
+  back to Lecture 4, TF-IDF + logistic regression), and a neural network with one
+  hidden layer whose output layer is a logistic regression. For each method we go
+  through its theory, implementation and evaluation. We end with why accuracy misleads,
+  a leakage demo, and what deploying a prediction means and its limits.
 email: chc79@cam.ac.uk
 end_time: 01:00 pm
 group_notebook: week-3-group
@@ -48,10 +50,11 @@ visible: false
 
 - LeCun, Y., Bengio, Y., & Hinton, G. (2015). [Deep learning](https://doi.org/10.1038/nature14539). *Nature*, 521, 436-444.
 - Breiman, L. (2001). [Random forests](https://doi.org/10.1023/A:1010933404324). *Machine Learning*, 45(1), 5-32.
+- Kaufman, S., Rosset, S., Perlich, C., & Stitelman, O. (2012). [Leakage in data mining: Formulation, detection, and avoidance](https://doi.org/10.1145/2382577.2382579). *ACM Transactions on Knowledge Discovery from Data*, 6(4), 1-21.
 
 ### Web
 
-- [scikit-learn `LogisticRegression`](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)
 - [scikit-learn `RandomForestClassifier`](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)
+- [scikit-learn `LogisticRegression`](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)
 - [scikit-learn `MLPClassifier`](https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.MLPClassifier.html)
 - [scikit-learn `DummyClassifier`](https://scikit-learn.org/stable/modules/generated/sklearn.dummy.DummyClassifier.html)

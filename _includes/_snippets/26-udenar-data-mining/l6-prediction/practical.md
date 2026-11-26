@@ -43,13 +43,13 @@ La etiqueta es `internacional`: autores de al menos dos países (`n_countries >=
 Medimos aciertos y errores en artículos que ningún modelo vio.
 Cada modelo se compara con la **clase mayoritaria** y con una regla de una línea, sin modelo.
 
-**Tres métodos, tres preparaciones.**
+**Tres métodos, la misma preparación.**
 
 | Método | Pregunta | Preparación que necesita |
 |--------|----------|--------------------------|
-| M1. Regresión logística | ¿Qué atributos pesan a favor y en contra? | Números escalados, categorías en columnas de 0 y 1, faltantes llenados |
-| M2. Bosque aleatorio | ¿Qué cortes en los atributos separan las clases? | La misma tabla. Escalar no cambia un corte |
-| M3. Una capa oculta | ¿Qué combinación de atributos separa las clases? | Todo numérico y escalado, faltantes llenados |
+| M1. Bosque aleatorio | ¿Qué cortes en los atributos separan las clases? | La misma tabla. Escalar no cambia un corte |
+| M2. Regresión logística | ¿Qué atributos pesan a favor y en contra? | Números escalados, categorías en columnas de 0 y 1, faltantes llenados. Ya la usamos en la Lección 4 con TF-IDF |
+| M3. Una capa oculta | ¿Qué combinación de atributos separa las clases? | Todo numérico y escalado, faltantes llenados. La capa de salida es una regresión logística |
 
 **Qué hacer.** Ejecute las celdas de arriba hacia abajo.
 Cada paso empieza con **En este paso**. Si tiene código, termina con una celda **Comprobar**.
@@ -61,7 +61,7 @@ Cada paso empieza con **En este paso**. Si tiene código, termina con una celda 
 | 1 | Comprensión del negocio | La pregunta de hoy, los parámetros y la función contra la fuga |
 | 2 | Comprensión de los datos | La etiqueta y los atributos |
 | 3 | Preparación de los datos | La tabla, el conjunto apartado y la preparación |
-| 4 | Modelado | Clase mayoritaria, regresión logística, bosque y una capa oculta |
+| 4 | Modelado | Clase mayoritaria, bosque, regresión logística y una capa oculta |
 | 5 | Evaluación | Aciertos y errores, cinco pliegues, la regla de una línea y una fuga a propósito |
 | 6 | Despliegue | La predicción y una lista de hasta 30 artículos |
 
@@ -78,7 +78,7 @@ La decisión no cambia: qué artículos debe leer el colega nuevo.
 | Pregunta | Respuesta para el laboratorio |
 |----------|-------------------------------|
 | ¿Qué buscamos? | Predecir si un artículo es internacional a partir de sus atributos |
-| ¿Con qué lo medimos? | Regresión logística, un bosque aleatorio y una red con una capa oculta |
+| ¿Con qué lo medimos? | Un bosque aleatorio, la regresión logística de la Lección 4 y una red con una capa oculta |
 | ¿Contra qué los comparamos? | Contra la clase mayoritaria y contra una regla de una línea |
 | ¿Cómo entra la predicción en la lista? | Un artículo entra si al menos 2 de los 3 métodos dicen que sí, con un modelo que no vio su etiqueta, y los tres métodos superan a la clase mayoritaria. La lista guarda como máximo 30 |
 
@@ -104,7 +104,7 @@ from sklearn.dummy import DummyClassifier  # DummyClassifier dice siempre la cla
 from sklearn.ensemble import RandomForestClassifier  # RandomForestClassifier es el bosque aleatorio
 from sklearn.impute import SimpleImputer  # SimpleImputer llena los faltantes
 from sklearn.linear_model import LogisticRegression  # LogisticRegression es la regresión logística
-from sklearn.metrics import ConfusionMatrixDisplay, accuracy_score, confusion_matrix  # medidas de aciertos y errores
+from sklearn.metrics import ConfusionMatrixDisplay, accuracy_score, confusion_matrix, f1_score  # medidas de aciertos y errores
 from sklearn.model_selection import StratifiedKFold, cross_val_predict, train_test_split  # particiones y pliegues
 from sklearn.neural_network import MLPClassifier  # MLPClassifier es la red con una capa oculta
 from sklearn.pipeline import make_pipeline  # make_pipeline encadena la preparación y el modelo
@@ -431,25 +431,7 @@ majority = max(np.mean(y_test), 1 - np.mean(y_test))  # la parte de la clase may
 print(f"La clase mayoritaria acierta {accuracy_score(y_test, pred_majority):.2f} de las apartadas")  # accuracy_score cuenta la parte de aciertos
 ```
 
-### M1. Regresión logística
-En este paso usamos la regresión logística de la Lección 4.
-Un peso positivo empuja hacia internacional.
-`class_weight="balanced"` da el mismo peso a las dos clases.
-
-```python
-lr = LogisticRegression(class_weight="balanced", C=C_REG, max_iter=1000)  # LogisticRegression prepara la regresión con clases balanceadas
-lr.fit(X_train, y_train)  # fit aprende un peso por columna
-pred_lr = lr.predict(X_test)  # predict responde en las filas apartadas
-
-weights = pd.Series(lr.coef_[0], index=feature_names)  # coef_ guarda el peso de cada columna
-print(weights.sort_values().round(2))  # sort_values ordena los pesos de menor a mayor
-```
-
-**Lo que vemos.** Pesan más los tipos de trabajo.
-Revisión (1,32) y artículo (0,98) empujan hacia internacional, y preprint (-1,13) hacia nacional.
-`n_authors` pesa 0,44.
-
-### Un corte a mano
+### M1. Un corte a mano, el refresco del bosque
 En este paso hacemos a mano lo que hace un árbol en cada nodo, con los números de la diapositiva.
 El árbol prueba cada umbral y se queda con el que deja los lados más puros.
 Al final `y` vuelve a ser la etiqueta `internacional`.
@@ -529,8 +511,8 @@ print("Corte a mano: OK", toy_scores)  # print confirma la comprobación
 Con datos reales ningún corte deja los lados puros.
 Por eso el bosque junta muchos árboles y los deja votar.
 
-### M2. Bosque aleatorio
-En este paso entrenamos 200 árboles.
+### M1. Bosque aleatorio
+En este paso entrenamos 200 árboles, el mismo bosque de la lección, en corto.
 Cada uno usa una muestra al azar de filas y atributos.
 `min_samples_leaf=3` evita hojas de una fila.
 La importancia es cuánto baja la impureza de Gini.
@@ -546,10 +528,30 @@ print(importance.nlargest(5).round(3))  # nlargest muestra las 5 columnas más i
 
 **Lo que vemos.** El bosque usa sobre todo `n_authors` (0,51) y el año (0,37).
 
+### M2. Regresión logística
+En este paso usamos la regresión logística de la Lección 4.
+Un peso positivo empuja hacia internacional.
+`class_weight="balanced"` da el mismo peso a las dos clases.
+
+```python
+lr = LogisticRegression(class_weight="balanced", C=C_REG, max_iter=1000)  # LogisticRegression prepara la regresión con clases balanceadas
+lr.fit(X_train, y_train)  # fit aprende un peso por columna
+pred_lr = lr.predict(X_test)  # predict responde en las filas apartadas
+
+weights = pd.Series(lr.coef_[0], index=feature_names)  # coef_ guarda el peso de cada columna
+print(weights.sort_values().round(2))  # sort_values ordena los pesos de menor a mayor
+```
+
+**Lo que vemos.** Pesan más los tipos de trabajo.
+Revisión (1,32) y artículo (0,98) empujan hacia internacional, y preprint (-1,13) hacia nacional.
+`n_authors` pesa 0,44.
+
 ### M3. Una capa oculta
 En este paso entrenamos una red con una capa oculta de `HIDDEN_UNITS` unidades.
 `PENALTY` es la penalización L2 (`alpha`).
 Es más fuerte que la de la diapositiva porque hay pocas filas.
+La capa de salida es una regresión logística: combina lo que produce la capa oculta y da una probabilidad para cada clase.
+Comparamos la red con el bosque y con la regresión logística, sobre las mismas filas apartadas.
 
 ```python
 network = MLPClassifier(hidden_layer_sizes=(HIDDEN_UNITS,), alpha=PENALTY, max_iter=3000, random_state=SEED)  # MLPClassifier prepara la red con una capa oculta
@@ -559,13 +561,14 @@ print(f"La red terminó en {network.n_iter_} pasos")  # n_iter_ dice cuántos pa
 ```
 
 **Lo que vemos.** La red paró en 188 pasos, lejos del máximo de 3000.
+En la Parte 5 comparamos su exactitud con la del bosque y con la de la regresión logística.
 
 **Comprobar:**
 
 Comprobamos que hay una predicción por fila apartada para cada método.
 
 ```python
-predictions = {"clase mayoritaria": pred_majority, "regresión logística": pred_lr, "bosque": pred_rf, "una capa oculta": pred_nn}  # las cuatro predicciones, con su nombre
+predictions = {"clase mayoritaria": pred_majority, "bosque": pred_rf, "regresión logística": pred_lr, "una capa oculta": pred_nn}  # las cuatro predicciones, con su nombre
 for name in predictions:  # recorremos cada método
     assert len(predictions[name]) == len(y_test), name  # una predicción por fila apartada
 print("Cuatro predicciones sobre las filas apartadas: OK")  # print confirma la comprobación
@@ -594,7 +597,7 @@ def counts_of(y, pred):
         Un diccionario con TP, FP, FN, TN y la exactitud a 3 decimales.
     """
     tn, fp, fn, tp = confusion_matrix(y, pred, labels=[0, 1]).ravel()  # confusion_matrix cuenta los cuatro casos y ravel los deja en fila
-    return {"TP": tp, "FP": fp, "FN": fn, "TN": tn, "exactitud": round(accuracy_score(y, pred), 3)}  # devolvemos los conteos y la exactitud
+    return {"TP": int(tp), "FP": int(fp), "FN": int(fn), "TN": int(tn), "exactitud": round(accuracy_score(y, pred), 3), "F1": round(f1_score(y, pred, pos_label=1, zero_division=0), 3)}  # devolvemos los conteos, la exactitud y el F1
 
 
 pred_rule = (attributes.loc[test.index, "n_authors"] >= 4).astype(int).to_numpy()  # la regla dice internacional desde 4 autores
@@ -610,6 +613,7 @@ results  # mostramos la tabla
 **Comprobar:**
 
 Comprobamos que los cuatro casos suman las filas apartadas y que los tres métodos igualan o superan a la clase mayoritaria.
+Esta comprobación no decide si la predicción cuenta. Eso se decide en el Paso 4: un método cuenta solo si su exactitud queda más de `MARGIN` (0,02) por encima de la clase mayoritaria.
 
 ```python
 assert (results[["TP", "FP", "FN", "TN"]].sum(axis=1) == len(y_test)).all()  # los cuatro casos suman las filas apartadas
@@ -618,15 +622,20 @@ for name in ["regresión logística", "bosque", "una capa oculta"]:  # recorremo
 print("Los tres métodos igualan o superan a la clase mayoritaria: OK")  # print confirma la comprobación
 ```
 
-**Lo que vemos.** Los tres métodos le ganan a la clase mayoritaria (0,52): regresión 0,61, bosque 0,71 y red 0,63.
-La regla acierta 0,73, una fila más que el bosque.
+**Lo que vemos.** Los tres métodos le ganan a la clase mayoritaria (0,518): bosque 0,714, regresión 0,607 y red 0,625.
+El F1 de la clase mayoritaria es 0,682, más alto que su exactitud, porque aquí la clase más común es la positiva y la regla de mayoría dice siempre internacional (29 TP, 27 FP, 0 FN, 0 TN).
+El bosque equilibra mejor los dos errores y llega a F1 0,724. La regresión queda en F1 0,560 y la red en 0,588.
+La regla acierta 0,732, una fila más que el bosque.
 Eso es menos que `MARGIN`, así que no le gana con claridad.
+
+En la Lección 4, con 64 filas apartadas, la clase mayoritaria acertaba 0,70 y su F1 era 0,00 (0 TP, 0 FP, 19 FN, 45 TN): decía siempre la clase negativa. La regresión logística con TF-IDF acertaba 0,95 y su F1 era 0,91.
+La exactitud sola engaña cuando una clase es más frecuente. Por eso reportamos los cuatro conteos y el F1.
 
 ### Paso 2. Las matrices de confusión
 En este paso dibujamos las matrices de confusión y las guardamos en `outputs/`.
 
 ```python
-for name, pred, file in [("regresión logística", pred_lr, "confusion_regresion.png"), ("bosque", pred_rf, "confusion_bosque.png"), ("una capa oculta", pred_nn, "confusion_red.png")]:  # recorremos los tres métodos con su archivo
+for name, pred, file in [("bosque", pred_rf, "confusion_bosque.png"), ("regresión logística", pred_lr, "confusion_regresion.png"), ("una capa oculta", pred_nn, "confusion_red.png")]:  # recorremos los tres métodos con su archivo
     fig, ax = plt.subplots(figsize=(3.5, 3.2))  # subplots abre la figura
     ConfusionMatrixDisplay.from_predictions(y_test, pred, labels=[0, 1], display_labels=["nacional", "internacional"], cmap="Blues", colorbar=False, ax=ax)  # from_predictions dibuja la matriz de confusión
     ax.set_title(name)  # set_title pone el nombre del método
@@ -644,9 +653,9 @@ La preparación va dentro de cada modelo.
 ```python
 folds = StratifiedKFold(n_splits=N_FOLDS, shuffle=True, random_state=SEED)  # StratifiedKFold arma cinco pliegues con la misma proporción de cada clase
 models = []  # aquí guardamos los tres métodos con su preparación
-for m in (lr, forest, network):  # recorremos los tres métodos
+for m in (forest, lr, network):  # recorremos los tres métodos
     models.append(make_pipeline(prepare, m))  # make_pipeline pone la preparación antes del método
-names = ["regresión logística", "bosque", "una capa oculta"]  # el nombre de cada método
+names = ["bosque", "regresión logística", "una capa oculta"]  # el nombre de cada método
 cv_predictions = []  # aquí guardamos las predicciones fuera del pliegue
 for m in models:  # recorremos los tres métodos
     cv_predictions.append(cross_val_predict(m, train, y_train, cv=folds))  # cross_val_predict predice cada fila con un modelo que no la vio
@@ -657,7 +666,7 @@ rule_train = ((attributes.loc[train.index, "n_authors"] >= 4).astype(int) == y_t
 print(f"{'regla n_authors >= 4':20s} exactitud en las {len(train)} filas de entrenamiento {rule_train:.2f}")  # print muestra la regla
 ```
 
-**Lo que vemos.** Los tres quedan entre 0,61 y 0,65, contra 0,53 de la clase mayoritaria.
+**Lo que vemos.** El bosque queda en 0,62, la regresión en 0,61 y la red en 0,65, contra 0,53 de la clase mayoritaria.
 La regla acierta 0,69.
 El bosque baja de 0,71 a 0,62, así que no leemos un solo número.
 
@@ -986,5 +995,9 @@ print(f"\nL6_CHECKS={passed}/{len(checks)}")  # print muestra cuántas pasaron
 if passed == len(checks):  # pasaron todas
     print("L6_OK. Siga con la Lección 7.")  # print confirma el cuaderno
 ```
+
+La Lección 7 presenta direcciones de investigación en minería de datos.
+No hay cuaderno de esa lección en este curso.
+El proyecto se presenta el sábado 5 de diciembre.
 
 <!-- end NOTEBOOK: -->

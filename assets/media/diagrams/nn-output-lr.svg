@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- With two classes, the output layer of a one hidden layer network is a logistic regression on h1, h2. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 510" width="790" height="510">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .x { font-size:18px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .l { text-anchor:start; }
+ .r { text-anchor:end; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6c8aa3"/></marker>
+</defs>
+<rect x="15" y="30" width="360" height="450" rx="8" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="195.0" y="70.0" class="s">logistic regression</text>
+<circle cx="70.0" cy="150.0" r="30.0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="70.0" y="159.0" class="s">x1</text>
+<line x1="101.0" y1="150.0" x2="170.0" y2="235.0" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<circle cx="70.0" cy="260.0" r="30.0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="70.0" y="269.0" class="s">x2</text>
+<line x1="101.0" y1="260.0" x2="170.0" y2="260.0" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<circle cx="70.0" cy="370.0" r="30.0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="70.0" y="379.0" class="s">x3</text>
+<line x1="101.0" y1="370.0" x2="170.0" y2="285.0" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<circle cx="205.0" cy="260.0" r="34.0" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="205.0" y="269.0" class="b">σ</text>
+<line x1="240.0" y1="260.0" x2="268.0" y2="260.0" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="272" y="225" width="92" height="70" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="318.0" y="268.0" class="x">P(yes)</text>
+<rect x="400" y="30" width="375" height="450" rx="8" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="587.0" y="70.0" class="s">one hidden layer</text>
+<rect x="545" y="100" width="220" height="330" rx="14" fill="none" stroke="#ffa500" stroke-width="3" stroke-dasharray="8 6"/>
+<text x="655.0" y="460.0" class="s" style="fill:#ffa500">output layer</text>
+<circle cx="440.0" cy="150.0" r="26.0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="440.0" y="159.0" class="x">x1</text>
+<line x1="466.0" y1="150.0" x2="560.0" y2="200.0" stroke="#6c8aa3" stroke-width="1.5"/>
+<line x1="466.0" y1="150.0" x2="560.0" y2="320.0" stroke="#6c8aa3" stroke-width="1.5"/>
+<circle cx="440.0" cy="260.0" r="26.0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="440.0" y="269.0" class="x">x2</text>
+<line x1="466.0" y1="260.0" x2="560.0" y2="200.0" stroke="#6c8aa3" stroke-width="1.5"/>
+<line x1="466.0" y1="260.0" x2="560.0" y2="320.0" stroke="#6c8aa3" stroke-width="1.5"/>
+<circle cx="440.0" cy="370.0" r="26.0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="440.0" y="379.0" class="x">x3</text>
+<line x1="466.0" y1="370.0" x2="560.0" y2="200.0" stroke="#6c8aa3" stroke-width="1.5"/>
+<line x1="466.0" y1="370.0" x2="560.0" y2="320.0" stroke="#6c8aa3" stroke-width="1.5"/>
+<circle cx="585.0" cy="200.0" r="26.0" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="585.0" y="209.0" class="x">h1</text>
+<line x1="611.0" y1="200.0" x2="650.0" y2="245.0" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<circle cx="585.0" cy="320.0" r="26.0" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="585.0" y="329.0" class="x">h2</text>
+<line x1="611.0" y1="320.0" x2="650.0" y2="275.0" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<circle cx="675.0" cy="260.0" r="24.0" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="675.0" y="269.0" class="t">σ</text>
+<line x1="675.0" y1="285.0" x2="675.0" y2="340.0" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="625" y="345" width="100" height="60" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="675.0" y="383.0" class="x">P(yes)</text>
+</svg>

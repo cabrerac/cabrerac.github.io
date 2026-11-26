@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Toy table: international is yes when countries >= 2, so the countries column carries the label. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 510" width="790" height="510">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .x { font-size:18px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .l { text-anchor:start; }
+ .r { text-anchor:end; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6c8aa3"/></marker>
+</defs>
+<rect x="55" y="60" width="170" height="56" rx="0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="140.0" y="96.0" class="x">authors</text>
+<rect x="225" y="60" width="170" height="56" rx="0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="310.0" y="96.0" class="x">year</text>
+<rect x="395" y="60" width="170" height="56" rx="0" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="480.0" y="96.0" class="x">countries</text>
+<rect x="565" y="60" width="170" height="56" rx="0" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="650.0" y="96.0" class="x">international</text>
+<rect x="55" y="116" width="170" height="56" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="140.0" y="152.0" class="s">3</text>
+<rect x="225" y="116" width="170" height="56" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="310.0" y="152.0" class="s">2019</text>
+<rect x="395" y="116" width="170" height="56" rx="0" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="480.0" y="152.0" class="s">1</text>
+<rect x="565" y="116" width="170" height="56" rx="0" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="650.0" y="152.0" class="s">no</text>
+<rect x="55" y="172" width="170" height="56" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="140.0" y="208.0" class="s">12</text>
+<rect x="225" y="172" width="170" height="56" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="310.0" y="208.0" class="s">2021</text>
+<rect x="395" y="172" width="170" height="56" rx="0" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="480.0" y="208.0" class="s">4</text>
+<rect x="565" y="172" width="170" height="56" rx="0" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="650.0" y="208.0" class="s">yes</text>
+<rect x="55" y="228" width="170" height="56" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="140.0" y="264.0" class="s">5</text>
+<rect x="225" y="228" width="170" height="56" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="310.0" y="264.0" class="s">2018</text>
+<rect x="395" y="228" width="170" height="56" rx="0" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="480.0" y="264.0" class="s">2</text>
+<rect x="565" y="228" width="170" height="56" rx="0" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="650.0" y="264.0" class="s">yes</text>
+<rect x="55" y="284" width="170" height="56" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="140.0" y="320.0" class="s">2</text>
+<rect x="225" y="284" width="170" height="56" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="310.0" y="320.0" class="s">2020</text>
+<rect x="395" y="284" width="170" height="56" rx="0" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="480.0" y="320.0" class="s">1</text>
+<rect x="565" y="284" width="170" height="56" rx="0" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="650.0" y="320.0" class="s">no</text>
+<rect x="55" y="340" width="170" height="56" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="140.0" y="376.0" class="s">8</text>
+<rect x="225" y="340" width="170" height="56" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="310.0" y="376.0" class="s">2022</text>
+<rect x="395" y="340" width="170" height="56" rx="0" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="480.0" y="376.0" class="s">3</text>
+<rect x="565" y="340" width="170" height="56" rx="0" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="650.0" y="376.0" class="s">yes</text>
+</svg>

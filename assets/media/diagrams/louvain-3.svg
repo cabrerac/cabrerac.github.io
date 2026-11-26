@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Louvain, step 2: each community becomes one node; 4 and 3 links inside, 1 link between. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 510" width="790" height="510">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .x { font-size:18px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .l { text-anchor:start; }
+ .r { text-anchor:end; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6c8aa3"/></marker>
+</defs>
+<path d="M190,215 C110,95 330,95 250,215" fill="none" stroke="#224466" stroke-width="3"/>
+<path d="M560,215 C480,95 700,95 620,215" fill="none" stroke="#224466" stroke-width="3"/>
+<line x1="300.0" y1="290.0" x2="520.0" y2="290.0" stroke="#224466" stroke-width="3"/>
+<circle cx="220.0" cy="290.0" r="80.0" fill="#fff4e0" stroke="#ffa500" stroke-width="3"/>
+<text x="220.0" y="299.0" class="b">1</text>
+<circle cx="590.0" cy="290.0" r="70.0" fill="#e8f0f8" stroke="#224466" stroke-width="3"/>
+<text x="590.0" y="299.0" class="b">2</text>
+<text x="220.0" y="95.0" class="t">4</text>
+<text x="590.0" y="95.0" class="t">3</text>
+<text x="405.0" y="275.0" class="t">1</text>
+</svg>

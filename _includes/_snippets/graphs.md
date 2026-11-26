@@ -153,6 +153,53 @@
     </div>
 </div>
 
+## The Data
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 62%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%; height: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/graph-from-table-2.svg" alt="Duplicate and self links dropped" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 38%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%; height: 100%">
+                <p><b>Preparation:</b> from a table to a graph</p>
+                <ul>
+                    <li><p>Each row is an item, with the items it links to</p></li>
+                    <li><p>Drop duplicate links and self links</p></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## The Data
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 62%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%; height: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/graph-from-table-3.svg" alt="The links that stay, drawn as a graph" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 38%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%; height: 100%">
+                <p><b>Preparation:</b> from a table to a graph</p>
+                <ul>
+                    <li><p>Each row is an item, with the items it links to</p></li>
+                    <li><p>Drop duplicate links and self links</p></li>
+                    <li><p>Keep a link only when both ends are in the set</p></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
 # Modeling
 
 ## Methods
@@ -184,9 +231,9 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <ul>
-                    <li><p><b>Degree:</b> how many links an item has</p></li>
                     <li><p><b>PageRank:</b> links weighted by who makes them</p></li>
-                    <li><p><b>node2vec:</b> which items share a neighbourhood</p></li>
+                    <li><p><b>Betweenness:</b> how often an item lies between the others</p></li>
+                    <li><p><b>Louvain:</b> groups with more links inside than outside</p></li>
                 </ul>
                 <p>These apply to different data sources (e.g., papers, people, web pages, etc).</p>
             </div>

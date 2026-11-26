@@ -64,8 +64,8 @@ En este paso comprobamos que los cinco archivos traen las columnas que el resto 
 assert {"pair", "kept"} <= set(patterns.columns)  # patterns trae las columnas de los pares
 assert {"title", "hdbscan_leido"} <= set(groups.columns)  # groups trae el resultado de los grupos
 assert {"title", "tfidf", "prob_texto"} <= set(text.columns)  # text trae el resultado del filtro de texto
-assert {"title", "graph_support", "alerta_centro"} <= set(graph.columns)  # graph trae el lugar en la red
-assert {"title", "prediction"} <= set(prediction.columns)  # prediction trae el resultado de la predicción
+assert "title" in graph.columns  # graph trae una fila por título, con el resultado de la semana 3 que el grupo haya guardado
+assert "title" in prediction.columns  # prediction trae una fila por título
 assert MIN_ARTICLES < MAX_ARTICLES  # el mínimo queda por debajo del máximo
 print("Paso 0.1: OK")  # print confirma la comprobación
 ```
@@ -121,8 +121,8 @@ print("Paso 2.1: OK")  # print confirma la comprobación
 
 ### Paso 3.1. El lugar en la red y la predicción
 
-En este paso describen un artículo por su lugar entre los demás y dicen si la predicción cuenta.
-Un artículo en el centro solo porque enlaza con muchos es una alerta, no una razón para dejarlo en la lista.
+En este paso describen un artículo con el resultado de grafo que el grupo haya elegido en la semana 3, y dicen si la predicción cuenta.
+El grupo elige y justifica el método. Este cuaderno no prescribe uno.
 
 ```python
 # SU CÓDIGO. Paso 3.1: WEEK3_READING
@@ -130,8 +130,7 @@ Un artículo en el centro solo porque enlaza con muchos es una alerta, no una ra
 ```
 
 **Listo cuando:**
-- `WEEK3_READING` nombra un artículo, dice su lugar en la red y dice si `prediction` cuenta para ese artículo.
-- Si el artículo tiene `alerta_centro`, el texto dice que esa alerta no es un apoyo.
+- `WEEK3_READING` nombra un artículo, dice qué resultado de la semana 3 describe su lugar en la red, justifica el método que usaron y dice si la predicción cuenta para ese artículo.
 
 **Comprobar:**
 
@@ -155,8 +154,8 @@ No vuelvan a entrenar los métodos. Lean las columnas que ya están en los archi
 |---------|---------------|
 | `read_group`, desde `hdbscan_leido` | `groups` |
 | `text_says_read`, desde `tfidf`. `prob_texto` | `text` |
-| `graph_support`, `alerta_centro` | `graph` |
-| `prediction` | `prediction` |
+| las columnas de `graph` que el grupo trata como resultado de grafo | `graph` |
+| las columnas de `prediction` que el grupo trata como predicción | `prediction` |
 
 ```python
 # SU CÓDIGO. Paso 4.1: table, una fila por título, con esas columnas
@@ -166,7 +165,7 @@ No vuelvan a entrenar los métodos. Lean las columnas que ya están en los archi
 **Listo cuando:**
 - `table` tiene una fila por título.
 - Las columnas de apoyo son verdadero o falso.
-- `alerta_centro` está en la tabla y no cuenta como resultado a favor.
+- El grupo deja sentado qué columnas de la semana 3 cuentan como apoyo y por qué, con el método que eligieron.
 
 **Comprobar:**
 
@@ -174,7 +173,7 @@ En este paso comprobamos que la tabla junta los tres archivos.
 
 ```python
 assert len(table) == len(groups) == len(text)  # una fila por título, como en los archivos
-assert table["graph_support"].dtype == table["prediction"].dtype == bool  # las columnas de apoyo son verdadero o falso
+assert "title" in table.columns or table.index.name == "title"  # cada fila queda identificada por su título
 print("Paso 4.1: OK")  # print confirma la comprobación
 ```
 
@@ -185,12 +184,11 @@ Eligen las columnas de `SUPPORT_COLUMNS`, cuentan cuántos resultados a favor ti
 `MIN_SUPPORTS` empieza en 2. Pueden cambiarlo. Muestren cuántos artículos tienen 0, 1, 2 y 3 o más resultados a favor, y expliquen el número que eligieron.
 El filtro de texto de la semana 2 y la predicción de la semana 3 salen, en este curso, de categorías de Wikipedia. Los materiales no dicen si cuentan como un apoyo o como dos. En `SUPPORT_COLUMNS` dejen sentado qué eligieron. El porqué lo anotan en el Paso 4.5.
 Los artículos que se leen son como mucho `MAX_ARTICLES`. Si quedan menos de `MIN_ARTICLES`, no rellenen. Impriman que el resultado es débil.
-Un artículo con `alerta_centro` solo queda por sus otros resultados.
 
 **Cómo armarlo.**
 
 - `supports` es, en cada fila, cuántas columnas de `SUPPORT_COLUMNS` valen verdadero.
-- `in_view` es verdadero si `supports` llega a `MIN_SUPPORTS`. La alerta de nodo central no suma: un artículo con `alerta_centro` solo entra por los otros resultados.
+- `in_view` es verdadero si `supports` llega a `MIN_SUPPORTS`.
 - `drop_one` guarda, para cada columna de `SUPPORT_COLUMNS`, cuántos artículos de `in_view` quedarían por debajo de `MIN_SUPPORTS` si esa columna no contara. Recorran las columnas. En cada una, cuenten de nuevo sin ella.
 - `starter_list` son las filas con `in_view`, ordenadas por `supports`, luego por `prob_texto` y luego por `title`. Las que pasan de `MAX_ARTICLES` quedan con `recortado` verdadero. Las que se leen quedan con `recortado` falso.
 - `SUPPORT_CHOICE` (texto) dice qué valor de `MIN_SUPPORTS` usaron y por qué.
@@ -201,7 +199,7 @@ Un artículo con `alerta_centro` solo queda por sus otros resultados.
 ```
 
 **Listo cuando:**
-- `starter_list` trae `alerta_centro`, `supports`, `prob_texto` y `recortado`.
+- `starter_list` trae `supports`, `prob_texto` y `recortado`.
 - `SUPPORT_CHOICE` (texto) dice qué valor de `MIN_SUPPORTS` usaron y por qué.
 
 **Comprobar:**
@@ -210,7 +208,7 @@ En este paso comprobamos el rango de apoyos y que escribieron la elección.
 
 ```python
 assert starter_list["supports"].between(0, len(SUPPORT_COLUMNS)).all()  # el conteo de apoyos queda en su rango
-assert starter_list["alerta_centro"].dtype == bool and SUPPORT_CHOICE.strip()  # la alerta es verdadero o falso, y escribieron la elección
+assert SUPPORT_CHOICE.strip()  # escribieron la elección
 print("Paso 4.2: OK")  # print confirma la comprobación
 ```
 
@@ -244,7 +242,7 @@ En este paso guardan `outputs/lista_inicial.csv`.
 | Columna | Qué es |
 |---------|--------|
 | las de `SUPPORT_COLUMNS` | cada resultado, en verdadero o falso |
-| `title`, `supports`, `prob_texto`, `recortado`, `alerta_centro`, `hecho_que_saca` | la lista, el recorte, la alerta y el hecho |
+| `title`, `supports`, `prob_texto`, `recortado`, `hecho_que_saca` | la lista, el recorte y el hecho |
 
 ```python
 # SU CÓDIGO. Paso 4.4: outputs/lista_inicial.csv
@@ -260,7 +258,7 @@ En este paso comprobamos que la lista quedó guardada.
 
 ```python
 saved = pd.read_csv("outputs/lista_inicial.csv")  # read_csv vuelve a leer la lista guardada
-assert {"title", "supports", "recortado", "alerta_centro", "hecho_que_saca"} <= set(saved.columns)  # están las columnas de la lista
+assert {"title", "supports", "recortado", "hecho_que_saca"} <= set(saved.columns)  # están las columnas de la lista
 print("Paso 4.4: OK")  # print confirma la comprobación
 ```
 
@@ -285,7 +283,7 @@ Comparen los resultados de las semanas 1, 2 y 3.
 
 ### Paso 4.7. Cuando el modelo no separa las clases
 
-Si en la semana 3 el bosque no superó a la clase mayoritaria, expliquen por qué no logró separar las clases.
+Si en la semana 3 el modelo de predicción no superó a la clase mayoritaria, expliquen por qué no logró separar las clases.
 Si sí la superó, expliquen qué lo impediría.
 
 **Cuando no separa**
@@ -366,7 +364,7 @@ No hay nota de portada.
 |------------------------------------------|-------------|
 | `project-group-<group_id>.ipynb` | Este cuaderno ejecutado |
 | `project-requirements-<group_id>.pdf` | El documento de requerimientos, con la devolución del sábado 14 aplicada |
-| `outputs/lista_inicial.csv` | La lista de inicio, con los resultados que apoyan cada artículo, `recortado`, `alerta_centro` y `hecho_que_saca` |
+| `outputs/lista_inicial.csv` | La lista de inicio, con los resultados que apoyan cada artículo, `recortado` y `hecho_que_saca` |
 | `project-title-es.txt` | El título de la charla, con menos de 15 palabras |
 | `project-abstract-es.txt` | El resumen de la charla, un párrafo de unas 120 palabras |
 

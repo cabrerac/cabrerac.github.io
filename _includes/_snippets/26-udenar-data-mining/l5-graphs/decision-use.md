@@ -8,9 +8,10 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Deployment in this course</b></p>
                 <ul>
-                    <li><p><b>The graph result:</b> what the graph methods say for each item. A hub is a warning, never a place on the list</p></li>
-                    <li><p><b>The list:</b> papers with links, in the top quarter by PageRank, and not a hub. At most 30</p></li>
-                    <li><p><b>What would change it:</b> another hub rule, other seeds, or links from outside the set</p></li>
+                    <li><p><b>The week 3 group:</b> each Louvain community takes the majority of categoria_objetivo among its training papers and applies that label to the held-out papers in the same community. It counts only when that accuracy beats the majority class by more than 0.02</p></li>
+                    <li><p><b>A hub</b> is a warning, never a place on a list</p></li>
+                    <li><p><b>The project:</b> each group picks the methods it uses from what the lectures taught, and writes down why</p></li>
+                    <li><p><b>What would change a result:</b> another hub rule, another resolution or seed, or links from outside the set</p></li>
                 </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
