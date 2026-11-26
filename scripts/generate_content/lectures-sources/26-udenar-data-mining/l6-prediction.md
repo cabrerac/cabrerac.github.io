@@ -1,6 +1,6 @@
 ---
 course_code: 26-udenar-data-mining
-title: Classification, regression, and a given label
+title: Prediction
 description: Lecture 6 is the prediction task. The question is whether the attributes of an item can predict a label that someone gave. Loans, patients, and articles in a table with a given label can feed the task. We explore three methods for this task. Logistic regression, a random forest, and a neural network with one hidden layer. For each method we go through its theory, implementation and evaluation. We end with what deploying a prediction means and its limits.
 session: 6
 start_time: 07:00 am
@@ -76,7 +76,7 @@ notebook_description: Práctica individual de la Lección 6. Predecir una etique
 
 {% include _snippets/26-udenar-data-mining/l6-prediction/practical-slides.md %}
 
-{% include _snippets/26-udenar-data-mining/l6-prediction/week3-saturday.md %}
+{% include _snippets/26-udenar-data-mining/l6-prediction/week3-deliverables.md %}
 
 {% include _snippets/26-udenar-data-mining/l6-prediction/resources.md %}
 

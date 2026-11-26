@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Biased step, step 1: we came from t and stand on v. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 510" width="790" height="510">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .x { font-size:18px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .l { text-anchor:start; }
+ .r { text-anchor:end; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6c8aa3"/></marker>
+</defs>
+<line x1="184.0" y1="320.0" x2="366.0" y2="320.0" stroke="#224466" stroke-width="2.5"/>
+<line x1="167.9" y1="291.1" x2="262.1" y2="138.9" stroke="#224466" stroke-width="2.5"/>
+<line x1="383.1" y1="290.5" x2="296.9" y2="139.5" stroke="#224466" stroke-width="2.5"/>
+<line x1="428.1" y1="300.9" x2="621.9" y2="169.1" stroke="#224466" stroke-width="2.5"/>
+<circle cx="150.0" cy="320.0" r="34.0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="150.0" y="329.0" class="t">t</text>
+<circle cx="400.0" cy="320.0" r="34.0" fill="#fff4e0" stroke="#ffa500" stroke-width="3"/>
+<text x="400.0" y="329.0" class="t">v</text>
+<circle cx="280.0" cy="110.0" r="34.0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="280.0" y="119.0" class="t">x1</text>
+<circle cx="650.0" cy="150.0" r="34.0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="650.0" y="159.0" class="t">x2</text>
+<line x1="184.0" y1="320.0" x2="364.0" y2="320.0" stroke="#ffa500" stroke-width="4" marker-end="url(#ao)"/>
+<text x="270.0" y="390.0" class="s" style="fill:#ffa500">came from t</text>
+<text x="400.0" y="410.0" class="s">stand on v</text>
+</svg>

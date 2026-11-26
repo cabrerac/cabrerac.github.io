@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Scaling: mean 50, sd 10, value 65 gives z = 1.5. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 510" width="790" height="510">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .x { font-size:18px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .l { text-anchor:start; }
+ .r { text-anchor:end; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6c8aa3"/></marker>
+</defs>
+<line x1="60.0" y1="245.0" x2="730.0" y2="245.0" stroke="#224466" stroke-width="3"/>
+<line x1="100.0" y1="230.0" x2="100.0" y2="260.0" stroke="#224466" stroke-width="2"/>
+<text x="100.0" y="210.0" class="s">30</text>
+<text x="100.0" y="300.0" class="s" style="fill:#0e73b8">-2</text>
+<line x1="250.0" y1="230.0" x2="250.0" y2="260.0" stroke="#224466" stroke-width="2"/>
+<text x="250.0" y="210.0" class="s">40</text>
+<text x="250.0" y="300.0" class="s" style="fill:#0e73b8">-1</text>
+<line x1="400.0" y1="230.0" x2="400.0" y2="260.0" stroke="#224466" stroke-width="2"/>
+<text x="400.0" y="210.0" class="s">50</text>
+<text x="400.0" y="300.0" class="s" style="fill:#0e73b8">0</text>
+<line x1="550.0" y1="230.0" x2="550.0" y2="260.0" stroke="#224466" stroke-width="2"/>
+<text x="550.0" y="210.0" class="s">60</text>
+<text x="550.0" y="300.0" class="s" style="fill:#0e73b8">1</text>
+<line x1="700.0" y1="230.0" x2="700.0" y2="260.0" stroke="#224466" stroke-width="2"/>
+<text x="700.0" y="210.0" class="s">70</text>
+<text x="700.0" y="300.0" class="s" style="fill:#0e73b8">2</text>
+<text x="40.0" y="210.0" class="s l">x</text>
+<text x="40.0" y="300.0" class="s l" style="fill:#0e73b8">z</text>
+<circle cx="475.0" cy="245.0" r="14.0" fill="#ffa500" stroke="#ffa500" stroke-width="2"/>
+<text x="475.0" y="175.0" class="b" style="fill:#ffa500">65</text>
+<text x="475.0" y="355.0" class="t" style="fill:#ffa500">z = 1.5</text>
+</svg>

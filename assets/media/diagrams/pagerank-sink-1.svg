@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Rank sink, step 1: d = 1, A 0, B and C hold all the score (real_numbers.json, sink_d1). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 510" width="790" height="510">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .x { font-size:18px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .l { text-anchor:start; }
+ .r { text-anchor:end; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6c8aa3"/></marker>
+</defs>
+<line x1="160.0" y1="250.0" x2="341.4" y2="250.0" stroke="#6c8aa3" stroke-width="2.5" marker-end="url(#ag)"/>
+<path d="M492.6,274.2 Q540.0,290.0 585.5,274.8" fill="none" stroke="#224466" stroke-width="2.5" marker-end="url(#ar)"/>
+<path d="M587.4,225.8 Q540.0,210.0 494.5,225.2" fill="none" stroke="#224466" stroke-width="2.5" marker-end="url(#ar)"/>
+<circle cx="140.0" cy="250.0" r="20.0" fill="#f4f6f8" stroke="#6c8aa3" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="140.0" y="259.0" class="t" style="fill:#6c8aa3">A</text>
+<circle cx="420.0" cy="250.0" r="76.6" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="420.0" y="259.0" class="t">B</text>
+<circle cx="660.0" cy="250.0" r="76.6" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="660.0" y="259.0" class="t">C</text>
+<text x="140.0" y="370.0" class="s" style="fill:#ffa500">0</text>
+<text x="420.0" y="370.0" class="s" style="fill:#ffa500"></text>
+<text x="660.0" y="370.0" class="s" style="fill:#ffa500"></text>
+<path d="M370,370 Q540,430 710,370" fill="none" stroke="#ffa500" stroke-width="3"/>
+<text x="540.0" y="445.0" class="s" style="fill:#ffa500">B + C = 1.000</text>
+</svg>

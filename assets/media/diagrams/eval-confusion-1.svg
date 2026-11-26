@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Confusion matrix, step 1: actual against predicted. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 510" width="790" height="510">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .x { font-size:18px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .l { text-anchor:start; }
+ .r { text-anchor:end; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6c8aa3"/></marker>
+</defs>
+<text x="475.0" y="55.0" class="t">actual</text>
+<text x="355.0" y="95.0" class="s">yes</text>
+<text x="595.0" y="95.0" class="s">no</text>
+<text x="70" y="305" class="t" transform="rotate(-90 70 305)">predicted</text>
+<text x="170.0" y="220.0" class="s">yes</text>
+<text x="170.0" y="390.0" class="s">no</text>
+<rect x="235" y="115" width="240" height="170" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<rect x="475" y="115" width="240" height="170" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<rect x="235" y="285" width="240" height="170" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<rect x="475" y="285" width="240" height="170" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+</svg>

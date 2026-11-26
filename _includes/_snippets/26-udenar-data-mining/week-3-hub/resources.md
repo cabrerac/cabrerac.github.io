@@ -1,6 +1,6 @@
 <!-- RENDER: -->
 
-Lectures **L5** and **L6** are asynchronous. There is no Saturday class for them. Project talks are **Saturday 5 Dec 2026, 07:00 to 13:00 (Colombia)**.
+**Saturday 28 Nov 2026, 07:00 to 13:00 (Colombia)**. Lectures **L5** and **L6**. Project talks are Saturday 5 Dec 2026.
 
 ---
 

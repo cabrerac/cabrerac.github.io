@@ -6,7 +6,7 @@ description: "This course introduces data mining as an iterative process that fi
 institution: "Universidad de Nariño"
 department: "Departamento de Matemáticas y Estadística - Facultad de Ciencias Exactas y Naturales"
 start_date: 06/11/2026
-end_date: 28/11/2026
+end_date: 05/12/2026
 year: 2026
 lectures: 8
 hours: 40

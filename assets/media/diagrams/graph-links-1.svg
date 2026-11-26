@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- What a graph adds, step 1: items alone. Bars are decorative attribute glyphs, not data. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 510" width="790" height="510">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .x { font-size:18px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .l { text-anchor:start; }
+ .r { text-anchor:end; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6c8aa3"/></marker>
+</defs>
+<circle cx="150.0" cy="140.0" r="28.0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="150.0" y="149.0" class="t">A</text>
+<rect x="126" y="199" width="13" height="13" fill="#6c8aa3"/>
+<rect x="143" y="199" width="13" height="13" fill="#6c8aa3"/>
+<rect x="160" y="179" width="13" height="33" fill="#6c8aa3"/>
+<circle cx="150.0" cy="370.0" r="28.0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="150.0" y="379.0" class="t">B</text>
+<rect x="126" y="422" width="13" height="20" fill="#6c8aa3"/>
+<rect x="143" y="416" width="13" height="26" fill="#6c8aa3"/>
+<rect x="160" y="434" width="13" height="8" fill="#6c8aa3"/>
+<circle cx="330.0" cy="255.0" r="28.0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="330.0" y="264.0" class="t">C</text>
+<rect x="306" y="300" width="13" height="27" fill="#6c8aa3"/>
+<rect x="323" y="318" width="13" height="9" fill="#6c8aa3"/>
+<rect x="340" y="314" width="13" height="13" fill="#6c8aa3"/>
+<circle cx="510.0" cy="140.0" r="28.0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="510.0" y="149.0" class="t">D</text>
+<rect x="486" y="178" width="13" height="34" fill="#6c8aa3"/>
+<rect x="503" y="190" width="13" height="22" fill="#6c8aa3"/>
+<rect x="520" y="194" width="13" height="18" fill="#6c8aa3"/>
+<circle cx="510.0" cy="370.0" r="28.0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="510.0" y="379.0" class="t">E</text>
+<rect x="486" y="431" width="13" height="11" fill="#6c8aa3"/>
+<rect x="503" y="407" width="13" height="35" fill="#6c8aa3"/>
+<rect x="520" y="419" width="13" height="23" fill="#6c8aa3"/>
+<circle cx="680.0" cy="255.0" r="28.0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="680.0" y="264.0" class="t">F</text>
+<rect x="656" y="309" width="13" height="18" fill="#6c8aa3"/>
+<rect x="673" y="309" width="13" height="18" fill="#6c8aa3"/>
+<rect x="690" y="299" width="13" height="28" fill="#6c8aa3"/>
+</svg>

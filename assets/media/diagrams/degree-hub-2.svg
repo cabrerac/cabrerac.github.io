@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hub warning, step 2: H flagged; limit max(m, ceil(0.10 (n - 1))) with m = 3, n = 9. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 510" width="790" height="510">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .x { font-size:18px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .l { text-anchor:start; }
+ .r { text-anchor:end; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6c8aa3"/></marker>
+</defs>
+<line x1="395.0" y1="231.0" x2="395.0" y2="104.0" stroke="#ffa500" stroke-width="4"/>
+<line x1="412.0" y1="238.0" x2="501.8" y2="148.2" stroke="#ffa500" stroke-width="4"/>
+<line x1="419.0" y1="255.0" x2="546.0" y2="255.0" stroke="#ffa500" stroke-width="4"/>
+<line x1="412.0" y1="272.0" x2="501.8" y2="361.8" stroke="#ffa500" stroke-width="4"/>
+<line x1="395.0" y1="279.0" x2="395.0" y2="406.0" stroke="#ffa500" stroke-width="4"/>
+<line x1="378.0" y1="272.0" x2="288.2" y2="361.8" stroke="#ffa500" stroke-width="4"/>
+<line x1="371.0" y1="255.0" x2="244.0" y2="255.0" stroke="#ffa500" stroke-width="4"/>
+<line x1="378.0" y1="238.0" x2="288.2" y2="148.2" stroke="#ffa500" stroke-width="4"/>
+<line x1="417.2" y1="89.2" x2="496.6" y2="122.1" stroke="#224466" stroke-width="2.5"/>
+<line x1="372.8" y1="420.8" x2="293.4" y2="387.9" stroke="#224466" stroke-width="2.5"/>
+<circle cx="395.0" cy="255.0" r="24.0" fill="#fff4e0" stroke="#ffa500" stroke-width="3"/>
+<text x="395.0" y="264.0" class="t">H</text>
+<circle cx="395.0" cy="80.0" r="24.0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="395.0" y="89.0" class="t">A</text>
+<circle cx="518.7" cy="131.3" r="24.0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="518.7" y="140.3" class="t">B</text>
+<circle cx="570.0" cy="255.0" r="24.0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="570.0" y="264.0" class="t">C</text>
+<circle cx="518.7" cy="378.7" r="24.0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="518.7" y="387.7" class="t">D</text>
+<circle cx="395.0" cy="430.0" r="24.0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="395.0" y="439.0" class="t">E</text>
+<circle cx="271.3" cy="378.7" r="24.0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="271.3" y="387.7" class="t">F</text>
+<circle cx="220.0" cy="255.0" r="24.0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="220.0" y="264.0" class="t">G</text>
+<circle cx="271.3" cy="131.3" r="24.0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="271.3" y="140.3" class="t">I</text>
+<rect x="620" y="30" width="130" height="56" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="685.0" y="66.0" class="t">hub</text>
+</svg>

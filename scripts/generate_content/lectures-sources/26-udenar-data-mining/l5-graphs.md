@@ -1,6 +1,6 @@
 ---
 course_code: 26-udenar-data-mining
-title: Graphs and an item's place among the others
+title: Graphs
 description: Lecture 5 is the graph task. The question is where each item sits among the others. Papers and their citations, people and their friendships, and web pages and their links can feed the task. We explore three methods for this task. Degree, PageRank, and node2vec. For each method we go through its theory, implementation and evaluation. We end with what deploying an item's place means and its limits.
 session: 5
 start_time: 07:00 am

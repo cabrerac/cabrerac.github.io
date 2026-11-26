@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- A table with a given label: one row highlighted as an item, one missing value. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 510" width="790" height="510">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .x { font-size:18px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .l { text-anchor:start; }
+ .r { text-anchor:end; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6c8aa3"/></marker>
+</defs>
+<rect x="110" y="65" width="150" height="58" rx="0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="185.0" y="102.0" class="x">attribute 1</text>
+<rect x="260" y="65" width="150" height="58" rx="0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="335.0" y="102.0" class="x">attribute 2</text>
+<rect x="410" y="65" width="150" height="58" rx="0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="485.0" y="102.0" class="x">attribute 3</text>
+<rect x="560" y="65" width="150" height="58" rx="0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="635.0" y="102.0" class="x">label</text>
+<rect x="110" y="123" width="150" height="58" rx="0" fill="#fff4e0" stroke="#224466" stroke-width="2"/>
+<text x="185.0" y="160.0" class="s">3.1</text>
+<rect x="260" y="123" width="150" height="58" rx="0" fill="#fff4e0" stroke="#224466" stroke-width="2"/>
+<text x="335.0" y="160.0" class="s">a</text>
+<rect x="410" y="123" width="150" height="58" rx="0" fill="#fff4e0" stroke="#224466" stroke-width="2"/>
+<text x="485.0" y="160.0" class="s">1</text>
+<rect x="560" y="123" width="150" height="58" rx="0" fill="#fff4e0" stroke="#224466" stroke-width="2"/>
+<text x="635.0" y="160.0" class="s">yes</text>
+<rect x="110" y="181" width="150" height="58" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="185.0" y="218.0" class="s">0.4</text>
+<rect x="260" y="181" width="150" height="58" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="335.0" y="218.0" class="s">b</text>
+<rect x="410" y="181" width="150" height="58" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="485.0" y="218.0" class="s">0</text>
+<rect x="560" y="181" width="150" height="58" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="635.0" y="218.0" class="s">no</text>
+<rect x="110" y="239" width="150" height="58" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="185.0" y="276.0" class="s">2.2</text>
+<rect x="260" y="239" width="150" height="58" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="335.0" y="276.0" class="s">a</text>
+<rect x="410" y="239" width="150" height="58" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="485.0" y="276.0" class="s">1</text>
+<rect x="560" y="239" width="150" height="58" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="635.0" y="276.0" class="s">yes</text>
+<rect x="110" y="297" width="150" height="58" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="185.0" y="334.0" class="s">1.7</text>
+<rect x="260" y="297" width="150" height="58" rx="0" fill="#ffffff" stroke="#ffa500" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="335.0" y="334.0" class="s">?</text>
+<rect x="410" y="297" width="150" height="58" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="485.0" y="334.0" class="s">0</text>
+<rect x="560" y="297" width="150" height="58" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="635.0" y="334.0" class="s">no</text>
+<rect x="110" y="355" width="150" height="58" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="185.0" y="392.0" class="s">0.9</text>
+<rect x="260" y="355" width="150" height="58" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="335.0" y="392.0" class="s">b</text>
+<rect x="410" y="355" width="150" height="58" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="485.0" y="392.0" class="s">1</text>
+<rect x="560" y="355" width="150" height="58" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="635.0" y="392.0" class="s">no</text>
+<text x="100.0" y="160.0" class="s r" style="fill:#ffa500">item</text>
+</svg>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Out-of-bag step 2: only trees that did not see row 3 vote on it. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 510" width="790" height="510">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .x { font-size:18px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .l { text-anchor:start; }
+ .r { text-anchor:end; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6c8aa3"/></marker>
+</defs>
+<text x="395.0" y="38.0" class="t">rows 1 to 6</text>
+<rect x="287" y="52" width="32" height="40" rx="4" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="303.0" y="80.0" class="x">1</text>
+<rect x="323" y="52" width="32" height="40" rx="4" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="339.0" y="80.0" class="x">2</text>
+<rect x="359" y="52" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="3"/>
+<text x="375.0" y="80.0" class="x">3</text>
+<rect x="395" y="52" width="32" height="40" rx="4" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="411.0" y="80.0" class="x">4</text>
+<rect x="431" y="52" width="32" height="40" rx="4" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="447.0" y="80.0" class="x">5</text>
+<rect x="467" y="52" width="32" height="40" rx="4" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="483.0" y="80.0" class="x">6</text>
+<line x1="395.0" y1="96.0" x2="138.0" y2="132.0" stroke="#ffa500" stroke-width="3" marker-end="url(#ao)"/>
+<text x="138.0" y="160.0" class="x" style="fill:#ffa500">tree 1</text>
+<rect x="30" y="174" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="46.0" y="202.0" class="x">4</text>
+<rect x="66" y="174" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="82.0" y="202.0" class="x">4</text>
+<rect x="102" y="174" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="118.0" y="202.0" class="x">5</text>
+<rect x="138" y="174" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="154.0" y="202.0" class="x">5</text>
+<rect x="174" y="174" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="190.0" y="202.0" class="x">6</text>
+<rect x="210" y="174" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="226.0" y="202.0" class="x">6</text>
+<text x="138.0" y="236.0" class="x" style="fill:#ffa500">no 3</text>
+<line x1="128.7" y1="281.0" x2="96.1" y2="326.6" stroke="#ffa500" stroke-width="2.5"/>
+<line x1="147.3" y1="281.0" x2="179.9" y2="326.6" stroke="#ffa500" stroke-width="2.5"/>
+<circle cx="138.0" cy="268.0" r="16.0" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<circle cx="88.0" cy="338.0" r="14.0" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<circle cx="188.0" cy="338.0" r="14.0" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<line x1="138.0" y1="355.0" x2="138.0" y2="388.0" stroke="#ffa500" stroke-width="2.5" marker-end="url(#ao)"/>
+<rect x="78" y="392" width="120" height="46" rx="8" fill="#0e73b8" stroke="#224466" stroke-width="2"/>
+<text x="138.0" y="423.0" class="s" style="fill:#ffffff">yes</text>
+<line x1="395.0" y1="96.0" x2="398.0" y2="132.0" stroke="#ffa500" stroke-width="3" marker-end="url(#ao)"/>
+<text x="398.0" y="160.0" class="x" style="fill:#ffa500">tree 2</text>
+<rect x="290" y="174" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="306.0" y="202.0" class="x">1</text>
+<rect x="326" y="174" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="342.0" y="202.0" class="x">2</text>
+<rect x="362" y="174" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="378.0" y="202.0" class="x">2</text>
+<rect x="398" y="174" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="414.0" y="202.0" class="x">2</text>
+<rect x="434" y="174" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="450.0" y="202.0" class="x">6</text>
+<rect x="470" y="174" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="486.0" y="202.0" class="x">6</text>
+<text x="398.0" y="236.0" class="x" style="fill:#ffa500">no 3</text>
+<line x1="388.7" y1="281.0" x2="356.1" y2="326.6" stroke="#ffa500" stroke-width="2.5"/>
+<line x1="407.3" y1="281.0" x2="439.9" y2="326.6" stroke="#ffa500" stroke-width="2.5"/>
+<circle cx="398.0" cy="268.0" r="16.0" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<circle cx="348.0" cy="338.0" r="14.0" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<circle cx="448.0" cy="338.0" r="14.0" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<line x1="398.0" y1="355.0" x2="398.0" y2="388.0" stroke="#ffa500" stroke-width="2.5" marker-end="url(#ao)"/>
+<rect x="338" y="392" width="120" height="46" rx="8" fill="#0e73b8" stroke="#224466" stroke-width="2"/>
+<text x="398.0" y="423.0" class="s" style="fill:#ffffff">yes</text>
+<line x1="395.0" y1="96.0" x2="658.0" y2="132.0" stroke="#6c8aa3" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#ag)"/>
+<text x="658.0" y="160.0" class="x" style="fill:#6c8aa3">tree 3</text>
+<rect x="550" y="174" width="32" height="40" rx="4" fill="#f4f6f8" stroke="#6c8aa3" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="566.0" y="202.0" class="x" style="fill:#6c8aa3">1</text>
+<rect x="586" y="174" width="32" height="40" rx="4" fill="#f4f6f8" stroke="#6c8aa3" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="602.0" y="202.0" class="x" style="fill:#6c8aa3">1</text>
+<rect x="622" y="174" width="32" height="40" rx="4" fill="#f4f6f8" stroke="#6c8aa3" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="638.0" y="202.0" class="x" style="fill:#6c8aa3">3</text>
+<rect x="658" y="174" width="32" height="40" rx="4" fill="#f4f6f8" stroke="#6c8aa3" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="674.0" y="202.0" class="x" style="fill:#6c8aa3">5</text>
+<rect x="694" y="174" width="32" height="40" rx="4" fill="#f4f6f8" stroke="#6c8aa3" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="710.0" y="202.0" class="x" style="fill:#6c8aa3">5</text>
+<rect x="730" y="174" width="32" height="40" rx="4" fill="#f4f6f8" stroke="#6c8aa3" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="746.0" y="202.0" class="x" style="fill:#6c8aa3">6</text>
+<text x="658.0" y="236.0" class="x" style="fill:#6c8aa3">has 3</text>
+<line x1="648.7" y1="281.0" x2="616.1" y2="326.6" stroke="#6c8aa3" stroke-width="2.5"/>
+<line x1="667.3" y1="281.0" x2="699.9" y2="326.6" stroke="#6c8aa3" stroke-width="2.5"/>
+<circle cx="658.0" cy="268.0" r="16.0" fill="#f4f6f8" stroke="#6c8aa3" stroke-width="2" stroke-dasharray="6 4"/>
+<circle cx="608.0" cy="338.0" r="14.0" fill="#f4f6f8" stroke="#6c8aa3" stroke-width="2" stroke-dasharray="6 4"/>
+<circle cx="708.0" cy="338.0" r="14.0" fill="#f4f6f8" stroke="#6c8aa3" stroke-width="2" stroke-dasharray="6 4"/>
+<line x1="138.0" y1="440.0" x2="306.0" y2="480.0" stroke="#ffa500" stroke-width="2" marker-end="url(#ao)"/>
+<line x1="398.0" y1="440.0" x2="398.0" y2="456.0" stroke="#ffa500" stroke-width="2" marker-end="url(#ao)"/>
+<rect x="310" y="458" width="176" height="44" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="398.0" y="488.0" class="s">OOB(3): yes</text>
+</svg>

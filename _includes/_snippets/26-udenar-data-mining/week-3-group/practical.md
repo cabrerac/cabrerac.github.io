@@ -2,31 +2,35 @@
 
 ## Instrucciones
 
-**Propósito.** Cuaderno de grupo de la semana 3 (Lecciones 5 y 6). Su grupo sigue como equipo interno de una alcaldía, con los artículos de su secretaría. Esta semana produce dos resultados. El cuaderno del proyecto es el que junta las tres semanas y escribe la lista de inicio.
+**Propósito.** Cuaderno de grupo de la semana 3 (Lecciones 5 y 6). Su grupo sigue como equipo interno de una alcaldía, con los artículos de su secretaría. El producto del proyecto es una lista de artículos para los nuevos integrantes del equipo.
 
-**Esta semana.** Se suman dos resultados: el lugar de cada artículo en la red de enlaces (`outputs/grafo.csv`) y una predicción (`outputs/prediccion.csv`). Esos archivos son una entrada del cuaderno del proyecto. Aquí no se arma la lista.
+**Esta semana.** El grupo repite en sus artículos lo que hicieron las Lecciones 5 y 6, con el método de grafos y el método de predicción que mejor se ajustan a estos datos: PageRank y un bosque aleatorio.
+PageRank, porque los enlaces son menciones con dirección y PageRank da un puntaje a cada artículo, también a los aislados. node2vec deja sin vector entre el 17% y el 31% de los artículos de cada secretaría, y sus vecinos cambian con la semilla.
+El bosque aleatorio, porque en las cinco particiones de la Lección 6 no se hunde como la regresión logística (0,328 contra 0,836 de la clase mayoritaria en Medio ambiente) y sus importancias dicen qué atributos usa.
+El grado se queda solo para la alerta de nodo central.
+Los resultados son `outputs/grafo.csv` y `outputs/prediccion.csv`. El cuaderno del proyecto los lee cuando arma la lista de inicio.
 
-**Antes de empezar.** Ejecuten primero los cuadernos individuales de las Lecciones 5 y 6. Este cuaderno lo escribe el grupo. Cada paso dice qué código de la Lección 5 o de la Lección 6 adaptar. No peguen sin entender.
+**Antes de empezar.** Ejecuten primero los cuadernos individuales de las Lecciones 5 y 6. Este cuaderno lo escribe el grupo. Traigan de los laboratorios los parámetros y las funciones.
 
 **Datos de entrada.** El archivo de su secretaría: G1 Agricultura, G2 Salud mental, G3 Medio ambiente, G4 Inclusión Social y G5 Vivienda. La columna `links` trae los enlaces de la descripción a otros artículos del mismo archivo. Un enlace es una mención en el texto, no una cita. Las categorías las pusieron quienes editan Wikipedia.
 
 **Materiales.** [L5 Grafos](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l5-graphs.ipynb) y [L6 Predicción](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l6-prediction.ipynb).
 
-**Pregunta del grupo.** ¿Qué lugar ocupa un artículo entre los demás, y la predicción de la Lección 6 cuenta para su secretaría?
+**Las decisiones son del grupo.** El grupo puede cambiar la pregunta o el alcance. Escriban la razón en el paso donde lo cambia.
+
+**Pregunta del grupo.** ¿Qué lugar ocupa un artículo entre los demás, y la predicción del bosque aleatorio supera a la clase mayoritaria en su secretaría?
 
 **Mapa del cuaderno**
 
 | Ejercicio | Tema | Entregable clave |
 |-----------|------|------------------|
 | **0** | Configuración | Grupo, etiqueta, datos, parámetros y funciones |
-| **1** | Comprensión del negocio | Qué esperan del grafo |
-| **2** | Comprensión de los datos | Títulos únicos y enlaces dentro del extracto |
-| **3** | Preparación de los datos | Los grafos y la tabla de la L6 |
-| **4** | Modelado | Grado, PageRank, node2vec y los tres métodos de la L6 |
-| **5** | Evaluación | Un artículo por su lugar y si la L6 cuenta |
-| **6** | Despliegue | `outputs/grafo.csv`, `outputs/prediccion.csv` y cómo entraría cada resultado |
-
-**Cómo leer cada paso.** Cada paso empieza con **En este paso**, dice qué copiar y dónde está, y termina con una celda **Comprobar**. Ejecuten de arriba abajo. Una Comprobar revisa que exista lo pedido, con su forma. No revisa su respuesta. Si falla, corrijan la celda anterior y vuelvan a ejecutar desde ahí.
+| **1** | Comprensión del negocio | La nota de si la pregunta cambió, y qué esperan del grafo |
+| **2** | Comprensión de los datos | Títulos únicos, enlaces y la etiqueta |
+| **3** | Preparación de los datos | Los enlaces, el grafo con dirección, el conjunto apartado y la preparación |
+| **4** | Modelado | Grado para la alerta, PageRank y el bosque aleatorio |
+| **5** | Evaluación | Un artículo por su lugar, aciertos y errores, si la predicción cuenta, `outputs/grafo.csv` y `outputs/prediccion.csv` |
+| **6** | Despliegue | Los artículos para leer (hasta 30), si texto y predicción son uno o dos apoyos, las tres semanas, la separación de clases y la fuga |
 
 ---
 
@@ -34,94 +38,107 @@
 
 ### Paso 0.1. Grupo, etiqueta y datos
 
-En este paso eligen el grupo, ven la etiqueta de la Lección 6 y descargan el archivo de su secretaría. La pregunta y el problema están en el documento de requerimientos.
-
-Cambien solo `GROUP`. La etiqueta de la Lección 6 es `LABEL = "categoria_objetivo"`: 1 si la categoría del artículo (`categoria`) está en `TARGETS[GROUP]`, y 0 si no. `TARGETS` son las categorías de la etiqueta.
+En este paso eligen el grupo y descargan el archivo de su secretaría.
+Cambien solo `GROUP`.
+La etiqueta de la Lección 6 es `LABEL = "categoria_objetivo"`.
+Vale 1 si la categoría del artículo (`categoria`) está en `TARGETS[GROUP]`, y 0 si no.
 
 ```python
-from pathlib import Path
+from pathlib import Path  # Path arma las rutas de las carpetas
 
-import pandas as pd
-import requests
+import pandas as pd  # pandas lee y guarda las tablas
+import requests  # requests descarga el archivo de la secretaría
 
-GROUP = "G1"   # cambie a G2, G3, G4 o G5
-LABEL = "categoria_objetivo"   # 1 si categoria está en TARGETS[GROUP], 0 si no
-TARGETS = {"G1": ["Agrarismo", "Organizaciones agrícolas"], "G2": ["Trastornos mentales", "Psiquiatría"], "G3": ["Conservacionismo"],
-           "G4": ["Hambrunas", "Hambre", "Bancos de alimentos"], "G5": ["Hipotecas", "Arrendamiento", "Huelgas de alquileres",
-           "Vivienda asequible", "Vivienda pública"]}
-EXTRACTS = {"G1": ("Agricultura", "agricultura.csv"), "G2": ("Salud mental", "salud-mental.csv"), "G3": ("Medio ambiente", "medio-ambiente.csv"),
-            "G4": ("Inclusión Social", "inclusion-social.csv"), "G5": ("Vivienda", "vivienda.csv")}
-SECRETARIAT, FILENAME = EXTRACTS[GROUP]
-Path("outputs").mkdir(exist_ok=True)
-path = Path("data") / FILENAME
-path.parent.mkdir(exist_ok=True)
-if not path.is_file():   # descarga una sola vez
-    path.write_bytes(requests.get(f"https://cabrerac.github.io/assets/data/26-udenar-data-mining/{FILENAME}", timeout=60).content)
-df = pd.read_csv(path, keep_default_na=False).drop_duplicates("title").reset_index(drop=True)
-df = df.rename(columns={"label": "categoria"})   # en el extracto la columna se llama label
-print(f"Grupo {GROUP}: secretaría de {SECRETARIAT}, {len(df)} artículos sin títulos repetidos. Etiqueta: {LABEL}")
+GROUP = "G1"  # cambie a G2, G3, G4 o G5
+LABEL = "categoria_objetivo"  # 1 si categoria está en TARGETS[GROUP], 0 si no
+TARGETS = {  # las categorías de la etiqueta de cada secretaría
+    "G1": ["Agrarismo", "Organizaciones agrícolas"],  # Agricultura
+    "G2": ["Trastornos mentales", "Psiquiatría"],  # Salud mental
+    "G3": ["Conservacionismo"],  # Medio ambiente
+    "G4": ["Hambrunas", "Hambre", "Bancos de alimentos"],  # Inclusión Social
+    "G5": ["Hipotecas", "Arrendamiento", "Huelgas de alquileres", "Vivienda asequible", "Vivienda pública"],  # Vivienda
+}
+EXTRACTS = {  # el nombre y el archivo de cada secretaría
+    "G1": ("Agricultura", "agricultura.csv"),  # G1
+    "G2": ("Salud mental", "salud-mental.csv"),  # G2
+    "G3": ("Medio ambiente", "medio-ambiente.csv"),  # G3
+    "G4": ("Inclusión Social", "inclusion-social.csv"),  # G4
+    "G5": ("Vivienda", "vivienda.csv"),  # G5
+}
+SECRETARIAT, FILENAME = EXTRACTS[GROUP]  # tomamos la secretaría y el archivo del grupo
+DATA_DIR = Path("data")  # aquí queda el CSV
+OUTPUTS_DIR = Path("outputs")  # aquí quedan grafo.csv y prediccion.csv
+DATA_DIR.mkdir(parents=True, exist_ok=True)  # mkdir crea la carpeta de datos si no existe
+OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)  # mkdir crea la carpeta de salidas si no existe
+path = DATA_DIR / FILENAME  # la ruta local del archivo
+if not path.is_file():  # usa el archivo si ya está
+    path.write_bytes(requests.get(f"https://cabrerac.github.io/assets/data/26-udenar-data-mining/{FILENAME}", timeout=60).content)  # requests.get descarga el archivo y write_bytes lo guarda
+df = pd.read_csv(path, keep_default_na=False).drop_duplicates("title").reset_index(drop=True)  # read_csv lee los artículos y drop_duplicates deja una fila por título
+df = df.rename(columns={"label": "categoria"})  # en el extracto la columna se llama label
+print(f"Grupo {GROUP}: secretaría de {SECRETARIAT}, {len(df)} artículos sin títulos repetidos. Etiqueta: {LABEL}")  # print muestra el grupo y el tamaño
 ```
 
-### Paso 0.2. Parámetros, librerías y funciones
+### Paso 0.2. Importaciones, parámetros y funciones de apoyo
 
-En este paso copian los parámetros, las librerías y las funciones de las Lecciones 5 y 6.
-
-| Qué copiar | Dónde está |
-|------------|------------|
-| Los parámetros de la L5 (`SUPPORT_SHARE`, `SUPPORT_MIN`, `SEED`, `HUB_SHARE` a `N_RANDOM_PAIRS`), sin cambiar sus valores | L5, Parte 1, Paso 2 |
-| Los parámetros de la L6 (`FLAGGED_SHARE` a `N_FOLDS` y `HIDDEN_UNITS` a `SPLIT_SEEDS`), sin `LABEL` ni cambiar sus valores | L6, Parte 1, Paso 2 |
-| Las importaciones de la L5 (networkx, gensim, random) | L5, Parte 1, Paso 2 |
-| Las importaciones de la L6 (sklearn, scipy) | L6, Parte 1, Paso 2 |
-| `support_floor` | L2, Parte 1, Paso 2 |
-| `hub_threshold` | L5, Parte 1, Paso 2 |
-| `n_flagged` y `min_positives` | L6, Parte 1, Paso 2 |
-| `PROPERTY_COLUMN`, `LABEL_PROPERTY` y `n_claims_without` | L6, Parte 1, Paso 3 |
-| `node2vec_walks` | L5, Parte 4, M3. Las caminatas |
+En este paso preparan lo que usa el resto del cuaderno. Va en tres celdas.
+Primero las importaciones de las Lecciones 5 y 6 que usa este cuaderno: `math`, `networkx`, `numpy` y las de scikit-learn.
 
 ```python
-# SU CÓDIGO. Paso 0.2: parámetros, rutas de la entrega, importaciones, support_floor, hub_threshold, n_flagged, min_positives, n_claims_without, node2vec_walks y vote_of
+# SU CÓDIGO. Paso 0.2a: las importaciones de las Lecciones 5 y 6
+```
 
+Después los parámetros de las Lecciones 5 y 6, con los valores de los laboratorios.
+Este cuaderno no usa los parámetros de node2vec, de la regresión ni de la red.
+
+```python
+# SU CÓDIGO. Paso 0.2b: los parámetros de las Lecciones 5 y 6, MAX_PAPERS y folds
+```
+
+Al final las funciones de tamaño: `support_floor`, `hub_threshold` y `n_flagged`.
+
+```python
+# SU CÓDIGO. Paso 0.2c: support_floor, hub_threshold y n_flagged
 ```
 
 **Listo cuando:**
-- Los parámetros tienen los valores de las Lecciones 5 y 6.
-- Las rutas son, en `outputs/`, `grafo.csv` y `prediccion.csv`.
-- `vote_of(predicciones)` recibe las predicciones de los 3 métodos y devuelve, por fila, la clase que dicen al menos 2 como texto, o `None` si los tres dicen algo distinto. La etiqueta puede tener varias clases.
+- Los parámetros tienen los valores de los laboratorios: `SEED`, `HUB_SHARE`, `MIN_LINKS`, `DAMPING`, `N_TREES`, `MARGIN`, `SPLIT_SEEDS`, `N_FOLDS` y los de las filas apartadas. También `MAX_PAPERS = 30`.
+- `folds` es la validación cruzada en cinco pliegues de la Lección 6, con `SEED`.
 
 **Comprobar:**
 
-En este paso comprobamos que existen las funciones de node2vec y de votación.
+Comprobamos algunos valores de los laboratorios y las tres funciones con unos tamaños conocidos.
 
 ```python
-assert callable(node2vec_walks) and vote_of([["a", "b"], ["a", "c"], ["b", "d"]]) == ["a", None]
-print("Paso 0.2: OK")
+assert callable(RandomForestClassifier) and callable(nx.pagerank) and folds.get_n_splits() == N_FOLDS  # las importaciones y los pliegues están
+assert (DAMPING, N_TREES, MARGIN, SPLIT_SEEDS, MAX_PAPERS) == (0.85, 200, 0.02, (7, 8, 9, 10, 11), 30)  # algunos valores de los laboratorios
+assert support_floor(300) == 9 and hub_threshold(318) == 32 and n_flagged(300) == 60  # las funciones dan los tamaños de las lecciones
+print("Paso 0.2: OK")  # print confirma la comprobación
 ```
 
 ---
 
 ## Ejercicio 1. Comprensión del negocio
 
-### Paso 1.1. Qué esperan del grafo
+### Paso 1.1. ¿Cambió la pregunta?
+
+La pregunta y el problema están en el documento de requerimientos.
+En este paso escriben solo si algo cambió.
+Si la pregunta o el alcance siguen iguales, escriban "Sin cambio".
+Si cambiaron, escriban la línea nueva y por qué.
+
+**Cambio**
+
+**ESCRIBA SU TEXTO AQUÍ**
+
+### Paso 1.2. Qué esperan del grafo
 
 En este paso escriben qué esperan del grafo, antes de mirar resultados.
-La pregunta y el problema están en el documento de requerimientos.
+¿Qué artículo creen que será el más enlazado?
+¿Una persona nueva debería abrirlo primero? ¿Por qué?
 
-```python
-# SU CÓDIGO. Paso 1.1: graph_expectation
+**Lo que esperamos**
 
-```
-
-**Listo cuando:**
-- `graph_expectation` dice qué artículo creen que será el más enlazado y si una persona nueva debería abrirlo primero.
-
-**Comprobar:**
-
-En este paso comprobamos que escribieron qué esperan del grafo.
-
-```python
-assert graph_expectation.strip()
-print("Paso 1.1: OK")
-```
+**ESCRIBA SU TEXTO AQUÍ**
 
 ---
 
@@ -129,179 +146,199 @@ print("Paso 1.1: OK")
 
 ### Paso 2.1. Títulos y enlaces
 
-En este paso revisan los títulos y cómo vienen los enlaces.
-
-| Qué copiar | Dónde está en L5 |
-|------------|------------------|
-| `titles`, `N` y los títulos repetidos | Parte 2, Paso 1 (aquí `df` ya viene sin repetidos) |
-| `listed`, los enlaces escritos | Parte 2, Paso 2 |
+En este paso revisan los títulos y cómo vienen los enlaces, como en la Lección 5, Parte 2.
+Aquí `df` ya viene sin títulos repetidos.
+`listed` guarda, por artículo, la lista de títulos que nombra en `links`.
 
 ```python
 # SU CÓDIGO. Paso 2.1: titles, N y listed
-
 ```
-
-**Listo cuando:**
-- `titles` tiene un título por artículo y `listed` una lista de enlaces por artículo.
-- Saben cuántos artículos no enlazan a nadie, cuántos no tienen `inception_year` y cuántos tienen `kind = Other`.
 
 **Comprobar:**
 
-En este paso comprobamos que hay un título y una lista de enlaces por artículo.
+Comprobamos que hay un título y una lista de enlaces por artículo.
 
 ```python
-assert len(titles) == N == len(listed) == len(df)
-print("Paso 2.1: OK")
+assert len(titles) == N == len(listed) == len(df)  # un título y una lista por artículo
+print("Paso 2.1: OK")  # print confirma la comprobación
+```
+
+### Paso 2.2. La etiqueta y los atributos
+
+En este paso arman la tabla de atributos y la etiqueta, como en la Lección 6, Parte 3.
+`attributes` usa el título como índice.
+Lleva `kind`, `year`, `has_date`, `has_country`, `has_image` y `n_claims_without`.
+`kind` deja como `Other` los tipos con menos de `support_floor(N)` artículos.
+`y` vale 1 si `categoria` está en `TARGETS[GROUP]`, y 0 si no.
+Impriman cuántos artículos tienen 1 y cuántos tienen 0.
+
+```python
+# SU CÓDIGO. Paso 2.2: attributes y y
+```
+
+**Comprobar:**
+
+Comprobamos que hay una etiqueta por artículo y que solo vale 0 o 1.
+
+```python
+assert len(y) == N and set(y.unique()) <= {0, 1}  # una etiqueta por artículo, con 0 o 1
+assert list(y.index) == list(attributes.index)  # la etiqueta va en el mismo orden que los atributos
+print(f"Paso 2.2: OK. Etiqueta en 1: {int(y.sum())} de {N}")  # print confirma la comprobación
 ```
 
 ---
 
 ## Ejercicio 3. Preparación de los datos
 
-### Paso 3.1. Los dos grafos y el componente mayor
+### Paso 3.1. Los enlaces y el grafo con dirección
 
-En este paso arman los dos grafos y el componente mayor.
-
-| Qué copiar | Dónde está en L5 |
-|------------|------------------|
-| `links_out` y `neighbours` | Parte 3, Paso 1 (use `df` en lugar de `papers`) |
-| `directed` y `graph` | Parte 3, Paso 2 |
-| `largest`, `adj` y `no_vector` | Parte 3, Paso 3 |
+En este paso arman los enlaces dentro del extracto, como en la Lección 5, Parte 3.
+`links_out` va con dirección y `neighbours` sin dirección.
+`directed` es el grafo con dirección que usa PageRank.
 
 ```python
-# SU CÓDIGO. Paso 3.1: links_out, neighbours, directed, graph, largest, adj y no_vector
-
+# SU CÓDIGO. Paso 3.1: links_out, neighbours y directed
 ```
-
-**Listo cuando:**
-- Los dos grafos tienen un nodo por título.
-- Cada artículo está en `adj` o en `no_vector`, nunca en los dos.
 
 **Comprobar:**
 
-En este paso comprobamos que el grafo tiene un nodo por artículo y que cada artículo está en `adj` o en `no_vector`.
+Comprobamos que el grafo tiene un nodo por artículo y que ningún artículo se enlaza a sí mismo.
 
 ```python
-assert graph.number_of_nodes() == N and len(adj) + len(no_vector) == N and not set(adj) & set(no_vector)
-print("Paso 3.1: OK")
+assert directed.number_of_nodes() == N == len(neighbours)  # un nodo por artículo
+assert nx.number_of_selfloops(directed) == 0  # nadie se enlaza a sí mismo
+print(f"Paso 3.1: OK. Enlaces con dirección: {directed.number_of_edges()}")  # print confirma la comprobación
 ```
 
-### Paso 3.2. La tabla de la Lección 6
+### Paso 3.2. El conjunto apartado
 
-En este paso arman la tabla con etiqueta, el conjunto apartado y la preparación.
-
-| Qué copiar | Dónde está en L6 |
-|------------|------------------|
-| `attributes` con `kind`, `year`, `has_date`, `has_country`, `has_image` y `n_claims_without` | Parte 3, Paso 1 |
-| `train`, `test`, `y_train` y `y_test` con `n_flagged(N)` filas apartadas | Parte 3, Paso 2 |
-| `prepare`, el `ColumnTransformer` | Parte 3, Paso 3 |
+En este paso apartan `n_flagged(N)` filas con `SEED`, con la misma proporción de cada clase, como en la Lección 6.
+Ningún modelo las ve al aprender.
 
 ```python
-# SU CÓDIGO. Paso 3.2: label_of, attributes, NUMBER_COLUMNS, CATEGORY_COLUMNS, y, inputs, train, test, y_train, y_test y prepare
-
+# SU CÓDIGO. Paso 3.2: train, test, y_train y y_test
 ```
-
-**Listo cuando:**
-- `label_of(attributes)` lee la etiqueta solo de su columna, según `LABEL`, y se detiene con un error si falta. Con `"categoria_objetivo"` da 1 si `categoria` está en `TARGETS[GROUP]` y 0 si no. `y = label_of(attributes)`.
-- `kind` deja como `Other` los tipos con menos de `support_floor(N)` artículos. Si `LABEL` es `"tiene_imagen"`, `has_image` no es entrada.
-- En los números `add_indicator=False`, porque `has_date` ya marca el año faltante.
-- `test` tiene `n_flagged(N)` filas y no comparte títulos con `train`.
 
 **Comprobar:**
 
-En este paso comprobamos el tamaño de la etiqueta y del conjunto apartado, y que no comparte filas con el entrenamiento.
+Comprobamos el tamaño del conjunto apartado y que no comparte filas con el entrenamiento.
 
 ```python
-assert len(y) == N and len(test) == n_flagged(N) and not set(train.index) & set(test.index)
-print("Paso 3.2: OK")
+assert len(test) == n_flagged(N) and len(train) + len(test) == N  # tamaño correcto
+assert not set(train.index) & set(test.index)  # sin filas compartidas
+print("Paso 3.2: OK")  # print confirma la comprobación
+```
+
+### Paso 3.3. La preparación
+
+En este paso arman `prepare`, el `ColumnTransformer` de la Lección 6.
+En los números usen `add_indicator=False`, porque `has_date` ya marca el año faltante.
+
+```python
+# SU CÓDIGO. Paso 3.3: NUMBER_COLUMNS, CATEGORY_COLUMNS y prepare
+```
+
+**Comprobar:**
+
+Comprobamos que la preparación usa las columnas de la tabla.
+
+```python
+assert set(NUMBER_COLUMNS + CATEGORY_COLUMNS) <= set(attributes.columns) and "kind" in CATEGORY_COLUMNS  # las columnas existen
+print("Paso 3.3: OK")  # print confirma la comprobación
 ```
 
 ---
 
 ## Ejercicio 4. Modelado
 
-### Paso 4.1. Grado y PageRank
+### Paso 4.1. Grado y alerta de nodo central
 
-En este paso calculan el grado, el PageRank y los artículos con PageRank alto.
-
-| Qué copiar | Dónde está en L5 |
-|------------|------------------|
-| `degree`, `hubs` con `hub_threshold(N)` y `top_degree` | Parte 4, M1. El grado y la alerta de nodo central |
-| `rank` con `nx.pagerank(directed, alpha=DAMPING)` y `top_rank` | Parte 4, M2. PageRank con networkx |
-| `score`, PageRank redondeado a 6 decimales, y `high_rank` | Parte 4, M2. Los artículos con PageRank alto |
+En este paso cuentan el grado de cada artículo, como en la Lección 5, M1.
+El grado solo sirve aquí para la alerta.
+Un nodo central (`hubs`) es una alerta, no una razón para leerlo.
+Impriman los 5 artículos de más grado.
 
 ```python
-# SU CÓDIGO. Paso 4.1: degree, hubs, top_degree, rank, top_rank, score y high_rank
-
+# SU CÓDIGO. Paso 4.1: degree y hubs
 ```
-
-**Listo cuando:**
-- Un artículo con PageRank alto tiene enlaces, está en el cuarto superior por PageRank entre los artículos con enlaces y **no** es nodo central.
-- Un nodo central (`hubs`) es una alerta, no una razón para leerlo.
 
 **Comprobar:**
 
-En este paso comprobamos que hay al menos un artículo con PageRank alto y que ninguno es nodo central.
+Comprobamos que hay un grado por artículo y que la alerta sigue su regla.
 
 ```python
-assert len(high_rank) >= 1 and not set(high_rank) & set(hubs)
-print("Paso 4.1: OK")
+assert len(degree) == N  # un grado por artículo
+for v in hubs:  # recorremos cada nodo central
+    assert degree[v] >= hub_threshold(N), v  # cada uno llega al umbral de la alerta
+print(f"Paso 4.1: OK. Nodos centrales: {len(hubs)}")  # print confirma la comprobación
 ```
 
-### Paso 4.2. node2vec
+### Paso 4.2. PageRank
 
-En este paso entrenan node2vec con tres semillas y guardan los vecinos de cada artículo.
-
-| Qué copiar | Dónde está en L5 |
-|------------|------------------|
-| Las caminatas y `Word2Vec` con `workers=1` | Parte 4, M3. Los vectores de node2vec |
-| `neighbours_by_seed`, un diccionario por semilla con los 5 vecinos de cada artículo de `adj` | Parte 5, Paso 3 |
+En este paso calculan PageRank con `nx.pagerank(directed, alpha=DAMPING)` y marcan los artículos con PageRank alto, como en la Lección 5, M2.
+Usamos PageRank porque un enlace aquí es una mención con dirección: un artículo sube si lo mencionan artículos que también son mencionados (Page et al., 1998).
+PageRank da un puntaje a todos los artículos.
+node2vec solo da un vector a los del componente mayor, y sus vecinos cambian con la semilla.
+Un artículo con PageRank alto tiene enlaces, está en el cuarto superior por PageRank entre los artículos con enlaces y **no** es nodo central.
+Redondeen PageRank a 6 decimales antes del corte.
 
 ```python
-# SU CÓDIGO. Paso 4.2: neighbours_by_seed y model
-
+# SU CÓDIGO. Paso 4.2: rank y high_rank
 ```
-
-**Listo cuando:**
-- Hay 3 diccionarios de vecinos, uno por semilla de `N2V_SEEDS`.
-- `model` es el de la primera semilla, con un vector de `NODE_DIMENSIONS` números por artículo de `adj`.
 
 **Comprobar:**
 
-En este paso comprobamos que hay tres semillas de vecinos y un vector por artículo de `adj`.
+Comprobamos que PageRank suma 1, que hay artículos con PageRank alto y que ninguno es nodo central.
 
 ```python
-assert len(neighbours_by_seed) == 3 and model.wv.vectors.shape == (len(adj), NODE_DIMENSIONS)
-print("Paso 4.2: OK")
+assert abs(sum(rank.values()) - 1) < 1e-6 and len(rank) == N  # un puntaje por artículo, que suman 1
+assert len(high_rank) >= 1 and not set(high_rank) & set(hubs)  # hay PageRank alto y ningún nodo central
+print(f"Paso 4.2: OK. Con PageRank alto: {len(high_rank)}")  # print confirma la comprobación
 ```
 
-### Paso 4.3. Los tres métodos de la Lección 6
+### Paso 4.3. El bosque aleatorio
 
-En este paso entrenan los tres métodos de la Lección 6 y predicen las filas apartadas.
-
-| Qué copiar | Dónde está en L6 |
-|------------|------------------|
-| `lr` | Parte 4, M1. Regresión logística |
-| `forest` | Parte 4, M2. Bosque aleatorio |
-| `network` | Parte 4, M3. Una capa oculta |
-| `models` con `make_pipeline(prepare, ...)` y `test_predictions` | Parte 6, Paso 1 |
+En este paso entrenan el bosque aleatorio de la Lección 6, M2, con la preparación adelante: `make_pipeline(prepare, RandomForestClassifier(...))`.
+Usamos el bosque porque, con estas etiquetas, no se hunde bajo la clase mayoritaria como la regresión logística, y dice qué atributos usa.
+`test_prediction` es lo que dice el bosque en las filas apartadas.
+`train_prediction` es lo que dice en las filas de entrenamiento, con cinco pliegues (`cross_val_predict` y `folds`), así un modelo que no vio la fila la predice.
 
 ```python
-# SU CÓDIGO. Paso 4.3: lr, forest, network, models y test_predictions
-
+# SU CÓDIGO. Paso 4.3: forest, test_prediction y train_prediction
 ```
-
-**Listo cuando:**
-- Los tres métodos se entrenan con `train`, y `test_predictions` tiene tres listas, una predicción por fila apartada.
 
 **Comprobar:**
 
-En este paso comprobamos que hay tres modelos y una predicción por fila apartada.
+Comprobamos que hay una predicción por fila apartada y por fila de entrenamiento.
 
 ```python
-assert len(models) == 3 and all(len(p) == len(test) for p in test_predictions)
-print("Paso 4.3: OK")
+assert len(test_prediction) == len(test) and len(train_prediction) == len(train)  # una predicción por fila
+print("Paso 4.3: OK")  # print confirma la comprobación
 ```
+
+### Paso 4.4. Qué atributos usa el bosque
+
+En este paso leen las importancias del bosque, como en la Lección 6.
+`importance` es una serie con la importancia de cada columna preparada.
+Impriman las 5 más altas.
+
+```python
+# SU CÓDIGO. Paso 4.4: importance
+```
+
+**Comprobar:**
+
+Comprobamos que las importancias suman 1.
+
+```python
+assert abs(importance.sum() - 1) < 1e-6  # las importancias del bosque suman 1
+print("Paso 4.4: OK")  # print confirma la comprobación
+```
+
+¿El atributo más importante tiene sentido para su secretaría?
+¿Se parece demasiado a la etiqueta? Escriban por qué.
+
+**ESCRIBA SU TEXTO AQUÍ**
 
 ---
 
@@ -309,111 +346,176 @@ print("Paso 4.3: OK")
 
 ### Paso 5.1. Un artículo descrito por su lugar
 
-En este paso miden si los vecinos se repiten y describen un artículo por su lugar en la red.
-
-| Qué copiar | Dónde está en L5 |
-|------------|------------------|
-| `overlap`, la parte de los 5 vecinos que se repite entre semillas | Parte 5, Paso 3 |
-| `near` y `far`, el Jaccard de categorías con vecinos y con pares al azar | Parte 5, Paso 4 (aquí las categorías están en `categories`) |
-| `MY_ARTICLE` y su descripción por grado, PageRank y vecinos | Parte 5, Paso 2 |
+En este paso eligen un artículo y lo describen por su lugar en la red, como en la Lección 5, Parte 5.
+`MY_ARTICLE` es un título del extracto que no es nodo central.
+Impriman su grado, su puesto por PageRank y si tiene PageRank alto.
 
 ```python
-# SU CÓDIGO. Paso 5.1: overlap, near, far, MY_ARTICLE y place_reading
-
+# SU CÓDIGO. Paso 5.1: MY_ARTICLE
 ```
-
-**Listo cuando:**
-- `MY_ARTICLE` es un título del componente mayor y no es nodo central. Si no tiene vector, lo dicen.
-- `place_reading` (texto) dice qué dice su lugar y por qué ser central solo porque enlaza a muchos no es razón para leerlo.
 
 **Comprobar:**
 
-En este paso comprobamos su artículo, la parte de vecinos que se repite y que escribieron su lectura.
+Comprobamos que el artículo está en el extracto y no es nodo central.
 
 ```python
-assert MY_ARTICLE in titles and MY_ARTICLE not in hubs and 0 <= overlap <= 1 and place_reading.strip()
-print("Paso 5.1: OK")
+assert MY_ARTICLE in titles and MY_ARTICLE not in hubs  # un título del extracto que no es alerta
+print("Paso 5.1: OK")  # print confirma la comprobación
 ```
 
-### Paso 5.2. ¿Cuenta la predicción?
+¿Qué dice su lugar en la red?
+¿Por qué ser central solo porque enlaza con muchos no es una razón para leerlo?
 
-En este paso deciden si la predicción le gana a la clase mayor y si cuenta en la lista.
+**ESCRIBA SU TEXTO AQUÍ**
 
-| Qué copiar | Dónde está en L6 |
-|------------|------------------|
-| `folds` y `train_predictions`, las predicciones fuera del pliegue | Parte 5, Paso 3 |
-| `evaluation`, exactitud y F1 macro de la clase mayor y de los tres métodos | Parte 5, Pasos 1 y 3 |
-| `majority` y `l6_counts` | Parte 5, Paso 4 |
-| `seeds_holding` con `SPLIT_SEEDS` y `clone(m)` | Parte 5, Paso 6 |
+### Paso 5.2. Aciertos y errores en las filas apartadas
+
+En este paso cuentan aciertos y errores del bosque en las filas apartadas, como en la Lección 6, Parte 5.
+Sumen la fila de la clase mayoritaria: dar a todos la etiqueta más frecuente.
+Es la línea de referencia.
+`results` tiene una fila por método, con `TP`, `FP`, `FN`, `TN` y `exactitud`.
 
 ```python
-# SU CÓDIGO. Paso 5.2: folds, train_predictions, evaluation, majority, l6_counts, seeds_holding y l6_finding
-
+# SU CÓDIGO. Paso 5.2: majority y results
 ```
-
-**Listo cuando:**
-- La clase mayor es `y_test.value_counts(normalize=True).max()`.
-- `l6_counts` dice si la predicción entra en la lista. Es `True` solo si cada uno de los tres métodos acierta en las filas apartadas más que la clase mayor, por un margen de `MARGIN` (0,02, una o dos filas de unas 60, como en la Lección 6). Si es `False`, la predicción no apoya su lista. Es un resultado normal y válido, no un error: lo informan en el proyecto y explican por qué (los métodos no le ganan a la clase mayor por más de `MARGIN`).
-- `l6_finding` (texto) da la clase mayor, la exactitud de los tres métodos, `l6_counts` y en cuántas de las 5 particiones se sostiene, y qué significa para la lista.
 
 **Comprobar:**
 
-En este paso comprobamos que `l6_counts` es verdadero o falso y que escribieron lo que encontraron.
+Comprobamos las dos filas y que los conteos suman las filas apartadas.
 
 ```python
-assert isinstance(l6_counts, bool) and l6_finding.strip()
-print("Paso 5.2: OK")
+assert list(results.index) == ["clase mayoritaria", "bosque aleatorio"]  # las dos filas, en este orden
+assert (results[["TP", "FP", "FN", "TN"]].sum(axis=1) == len(test)).all()  # los conteos suman las filas apartadas
+print("Paso 5.2: OK")  # print confirma la comprobación
+```
+
+### Paso 5.3. ¿Cuenta la predicción?
+
+En este paso deciden si la predicción cuenta, como en la Lección 6, Parte 5, Paso 4.
+`l6_counts` es `True` solo si el bosque acierta en las filas apartadas más que la clase mayoritaria, por un margen de `MARGIN` (0,02).
+Ese margen es una o dos filas de unas 60.
+`seeds_holding` cuenta en cuántas de las 5 particiones de `SPLIT_SEEDS` se sostiene, con `clone`.
+Si `l6_counts` es `False`, la predicción no apoya su lista. Es un resultado normal y válido, no un error.
+
+```python
+# SU CÓDIGO. Paso 5.3: l6_counts y seeds_holding
+```
+
+**Comprobar:**
+
+Comprobamos que `l6_counts` es verdadero o falso y que `seeds_holding` va de 0 a 5.
+
+```python
+assert isinstance(l6_counts, bool) and 0 <= seeds_holding <= len(SPLIT_SEEDS)  # tipos y rango correctos
+print(f"Paso 5.3: OK. l6_counts = {l6_counts}, se sostiene en {seeds_holding} de {len(SPLIT_SEEDS)}")  # print confirma la comprobación
+```
+
+### Paso 5.4. Guardar el grafo y la predicción
+
+En este paso guardan los dos resultados de esta semana.
+
+```python
+# SU CÓDIGO. Paso 5.4: outputs/grafo.csv y outputs/prediccion.csv
+```
+
+**Listo cuando:**
+- `grafo.csv` tiene `title`, `grado`, `pagerank`, `aislado`, `alerta_centro` y `graph_support`. `graph_support` es verdadero si el artículo está en `high_rank`. `alerta_centro` no es un resultado a favor.
+- `prediccion.csv` tiene `title`, `etiqueta`, `apartada`, `clase_votada` y `prediction`. `clase_votada` es la clase que votan los árboles del bosque. `prediction` es verdadero si esa clase es 1.
+
+**Comprobar:**
+
+Comprobamos las columnas de los dos archivos y que un nodo central nunca tiene `graph_support`.
+
+```python
+grafo, prediccion = pd.read_csv(OUTPUTS_DIR / "grafo.csv"), pd.read_csv(OUTPUTS_DIR / "prediccion.csv")  # read_csv vuelve a leer los dos archivos
+assert {"title", "graph_support", "alerta_centro"} <= set(grafo.columns) and {"title", "clase_votada", "prediction"} <= set(prediccion.columns)  # están las columnas
+assert not (grafo["graph_support"] & grafo["alerta_centro"]).any()  # un nodo central nunca tiene graph_support
+print("Paso 5.4: OK")  # print confirma la comprobación
 ```
 
 ---
 
 ## Ejercicio 6. Despliegue
 
-### Paso 6.1. Guardar el grafo y la predicción
+### Paso 6.1. Artículos para leer
 
-En este paso guardan los dos resultados de esta semana y escriben cómo entraría cada uno en la lista.
-La lista se escribe en el cuaderno del proyecto.
-
-| Archivo | Columnas | Dónde está |
-|---------|----------|------------|
-| `outputs/grafo.csv` | `title`, `grado`, `pagerank`, `aislado`, `alerta_centro` y `graph_support`. Pueden sumar `sin_vector_n2v` y `vecinos_n2v` | L5, Parte 6, Paso 2 |
-| `outputs/prediccion.csv` | `title`, `etiqueta`, `apartada`, `clase_votada` y `prediction` | L6, Parte 6, Paso 6 |
+En este paso arman la lista de lectura de esta semana con los dos métodos.
+PageRank filtra: solo entran los artículos con `graph_support`.
+Si la predicción cuenta (`l6_counts`), primero van los que el bosque marca con `prediction`.
+Después ordenan por PageRank, de mayor a menor.
+Si la predicción no cuenta, ordenan solo por PageRank.
+Guarden como máximo 30 artículos en `reading`, con `title`, `pagerank` y `prediction`.
+Esta lista es la lectura de los resultados de esta semana. La lista de inicio se escribe en el cuaderno del proyecto.
 
 ```python
-# SU CÓDIGO. Paso 6.1: outputs/grafo.csv, outputs/prediccion.csv, GRAPH_USE y PREDICTION_USE
-
+# SU CÓDIGO. Paso 6.1: reading
 ```
 
-**Listo cuando:**
-- `graph_support` es verdadero si el artículo está en `high_rank`.
-- `prediction` es verdadero si la clase votada es `"1"`.
-- `alerta_centro` queda en el archivo del grafo. No es un resultado a favor.
-- `GRAPH_USE` y `PREDICTION_USE` (texto) dicen cómo entraría cada resultado y qué hecho lo cambiaría.
+### Paso 6.2. Interpretación de resultados
+
+¿Por qué se seleccionaron los artículos de la lista resultante esta semana?
+Explique la selección de acuerdo con PageRank, la predicción y la pregunta.
+¿La predicción supera a la clase mayoritaria?
+Si no la supera, escríbalo así y diga qué hecho lo cambiaría.
+
+**Interpretación**
+
+**ESCRIBA SU TEXTO AQUÍ**
 
 **Comprobar:**
 
-En este paso comprobamos que escribieron el uso del grafo y de la predicción, y que se guardaron los dos archivos.
+Comprobamos el largo de la lista y que todo viene del PageRank alto.
 
 ```python
-assert GRAPH_USE.strip() and PREDICTION_USE.strip()
-grafo = pd.read_csv("outputs/grafo.csv")
-prediccion = pd.read_csv("outputs/prediccion.csv")
-assert {"title", "graph_support", "alerta_centro"} <= set(grafo.columns)
-assert {"title", "prediction"} <= set(prediccion.columns)
-print("Paso 6.1: OK")
+assert len(reading) == min(MAX_PAPERS, len(high_rank))  # la lista no pasa de 30
+assert set(reading["title"]) <= set(high_rank)  # todo viene del PageRank alto
+print("Paso 6.2: OK. Armen el ZIP.")  # print confirma la comprobación
 ```
+
+### Paso 6.3. Uno o dos apoyos
+
+El filtro de texto de la semana 2 y la predicción de esta semana salen, en este curso, de categorías de Wikipedia.
+Los materiales no dicen si cuentan como un apoyo o como dos.
+Decidan y anoten por qué.
+
+**Uno o dos apoyos**
+
+**ESCRIBA SU TEXTO AQUÍ**
+
+### Paso 6.4. Las tres semanas
+
+Comparen los resultados de las semanas 1, 2 y 3.
+¿Un método que funcionó en una semana falla en esta? ¿Por qué puede pasar?
+
+**Las tres semanas**
+
+**ESCRIBA SU TEXTO AQUÍ**
+
+### Paso 6.5. Cuando el modelo no separa las clases
+
+Si el bosque no supera a la clase mayoritaria, expliquen por qué no logra separar las clases en su secretaría.
+Si sí la supera, expliquen de todos modos qué lo impediría.
+
+**Cuando no separa**
+
+**ESCRIBA SU TEXTO AQUÍ**
+
+### Paso 6.6. Fuga de la etiqueta
+
+¿Cómo comprobaron si algún atributo se cuela la respuesta (una fuga)?
+¿Qué hicieron con lo que encontraron?
+
+**Fuga**
+
+**ESCRIBA SU TEXTO AQUÍ**
+
+---
 
 ## Registro de contribución
 
 En este paso cada integrante anota su tarea concreta y el grupo dice quién consolida el ZIP.
 
-```python
-# SU CÓDIGO. Registro: contribution_log, una línea por integrante y quién consolida el ZIP
-
-```
-
-**Listo cuando:**
-- `contribution_log` (texto) tiene una línea con una tarea concreta por integrante y dice quién consolidó el ZIP.
+**ESCRIBA SU TEXTO AQUÍ**
 
 ## Para la reflexión individual
 
@@ -421,11 +523,11 @@ Use la [plantilla de la reflexión de la semana 3](https://cabrerac.github.io/as
 
 | Título | Qué escribir |
 |--------|--------------|
-| **Metadatos** | Nombre, grupo, semana 3 (L5 + L6), conteo aproximado de palabras y la lectura que cita. |
-| **Proceso** | Qué hizo el grupo en el cuaderno de la semana 3. Diga cuál fue su contribución. |
-| **Decisión** | Elija un artículo y descríbalo por su lugar en la red. Diga si la predicción de esta semana cuenta para ese artículo y por qué. Un artículo en el centro solo porque enlaza con muchos es una alerta, no una razón. |
-| **Métodos** | Explique cuáles fueron los métodos utilizados en esta semana (grado, PageRank, node2vec y los modelos de predicción) y cómo se comparan entre ellos. |
-| **Ética** | Nombre una elección técnica de esta semana. Diga a quién ayuda o perjudica, o cómo se podría usar mal un resultado de esta semana. Relacione el punto con Page, Brin, Motwani y Winograd (1998) o con LeCun, Bengio y Hinton (2015). |
+| **Metadatos** | Nombre, grupo, semana 3 (L5 + L6) y conteo aproximado de palabras. |
+| **Proceso** | Qué hizo el grupo en el cuaderno de la semana 3. Diga y evidencie cuál fue su contribución con un pantallazo de un bloque de código que usted implementó o ayudó a implementar, y explíquelo en detalle. |
+| **Decisión** | Describa el lugar de los artículos en la red de enlaces y la predicción de la etiqueta que exploró en esta semana. |
+| **Métodos** | Explique cuáles fueron los métodos utilizados en esta semana y cómo se comparan entre ellos. ¿En qué consiste el método node2vec discutido en clase? |
+| **Interpretabilidad** | En sus palabras, explique las razones detrás de los artículos de Wikipedia que esta semana quedaron seleccionados por su lugar en la red y por la predicción. |
 
 ## Entrega
 
@@ -434,9 +536,9 @@ La reflexión individual se entrega el miércoles 2 dic 2026, 23:59 (hora de Col
 
 | Archivo del ZIP `week-3-<group_id>.zip` | Descripción |
 |-----------------------------------------|-------------|
-| `week-3-group-<group_id>.ipynb` | Este cuaderno ejecutado |
+| `week-3-group-<group_id>.ipynb` | Este cuaderno ejecutado, con la nota de la pregunta y la interpretación escritas |
 | `outputs/grafo.csv` | El lugar de cada artículo en la red, con `graph_support` y `alerta_centro` |
-| `outputs/prediccion.csv` | La clase votada y el resultado de la predicción |
+| `outputs/prediccion.csv` | La clase que vota el bosque y el resultado de la predicción |
 
 Estos archivos son el resultado de esta semana.
 El cuaderno del proyecto los lee cuando arma la lista de inicio.

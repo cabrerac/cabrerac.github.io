@@ -3,16 +3,16 @@
 ## PageRank
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 70%">
+    <div class="row" style="height: 65%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/graph-task-taxonomy.svg" alt="Taxonomy of graph methods" style="width: 100%; height: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%; height: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/graph-task-taxonomy.svg" alt="Taxonomy of graph methods" style="height: auto; max-width: 100%; max-height: 100%;">
             </div>
         </div>
     </div>
-    <div class="row" style="height: 30%">
+    <div class="row" style="height: 35%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%; height: 100%">
                 <p><b>Link counts:</b> how many links an item has, and from whom.</p>
                 <p><b>Paths:</b> how an item sits on the shortest paths between others.</p>
                 <p><b>Node embeddings:</b> one vector per item, learned from the links.</p>
@@ -39,18 +39,57 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Degree that weighs who links to a page</b></p>
+            <div class="column vertical-top text-left" style="width: 50%">
                 <p>Degree counts every link the same. PageRank weighs who makes it.</p>
                 <ul>
-                    <li>A random surfer follows links, and now and then jumps to any item.</li>
-                    <li>PageRank is the share of time the surfer spends on each item.</li>
+                    <li><p>A random surfer follows links with probability $d = 0.85$</p></li>
                 </ul>
-                <br>
-                <p>"a page has high rank if the sum of the ranks of its backlinks is high." <a href="https://web.archive.org/web/20241231011600/http://ilpubs.stanford.edu:8090/422/" target="_blank" rel="noopener noreferrer">(Page et al., 1998, p. 3)</a></p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/pagerank-example.svg" alt="PageRank example with nodes sized by score" style="height: 340px">
+                <img src="{{ site.url }}/assets/media/diagrams/pagerank-surfer-1.svg" alt="A surfer on A follows a link" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+        </div>
+    </div>
+</div>
+
+## PageRank
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 50%">
+                <p>Degree counts every link the same. PageRank weighs who makes it.</p>
+                <ul>
+                    <li><p>A random surfer follows links with probability $d = 0.85$</p></li>
+                    <li><p>Now and then the surfer jumps to any item with probability $1 - d = 0.15$</p></li>
+                    <li><p>PageRank is the share of time the surfer spends on each item</p></li>
+                </ul>
+                <p>"a page has high rank if the sum of the ranks of its backlinks is high." (<a href="https://web.archive.org/web/20241231011600/http://ilpubs.stanford.edu:8090/422/" target="_blank" rel="noopener noreferrer">Page et al., 1998</a>, p. 3)</p>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/pagerank-surfer-3.svg" alt="A jump to any node" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+        </div>
+    </div>
+</div>
+
+## PageRank
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>PageRank is the share of time the random surfer spends on an item.</p>
+$$
+PR(v) = \frac{1 - d}{n} + d \sum_{u \to v} \frac{PR(u)}{\text{out}(u)}
+$$
+                <p><b>$(1 - d)/n$:</b> the jump share, which every item gets</p>
+                <p><b>$d = 0.85$:</b> the chance to follow a link</p>
+                <p><b>$\text{out}(u)$:</b> the links $u$ makes, which split its score</p>
+                <p>An item with no links out passes its score to every item.</p>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/pagerank-example.svg" alt="PageRank example with nodes sized by score" style="height: auto; max-width: 100%; max-height: 90%;">
                 <div class="footnote">PageRanks Example - 345Kai and Stannered, Public domain, via Wikimedia Commons</div>
             </div>
         </div>
@@ -60,94 +99,103 @@
 ## PageRank
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 44%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p>PageRank is the share of time a random surfer spends on an item.</p>
-                <br>
-                <p>$$PR(v) = \frac{1 - d}{n} + d \sum_{u \to v} \frac{PR(u)}{\text{out}(u)}$$</p>
-                <br>
-                <p>$PR(v)$ is that share for item $v$.</p>
+            <div class="column vertical-middle text-center" style="width: 30%; height: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/pagerank-iteration-1.svg" alt="Step 0, every item at 0.25" style="height: auto; max-width: 100%; max-height: 100%;">
             </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p>$n$ is the number of items.</p>
-                <p>$(1-d)/n$ is the jump share. Every item gets it, whatever links it has.</p>
-                <p>The sum runs over every item $u$ that links to $v$, and each adds a part of its own score.</p>
-                <p>$d = 0.85$ is the chance to follow a link. $\text{out}(u)$ is the number of links $u$ makes, and its score is split among them.</p>
-                <p>An item with no links out passes its score to every item. Items that link only among themselves would trap the surfer, a rank sink.</p>
+            <div class="column vertical-middle text-left" style="width: 3%"></div>
+            <div class="column vertical-middle text-center" style="width: 30%; height: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/pagerank-iteration-2.svg" alt="Step 1" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 3%"></div>
+            <div class="column vertical-middle text-center" style="width: 30%; height: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/pagerank-iteration-3.svg" alt="The converged scores" style="height: auto; max-width: 100%; max-height: 100%;">
             </div>
         </div>
     </div>
-</div>
-
-## PageRank
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 56%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>Power iteration</b></p>
-                <p>Start with $PR(v) = 1/n$ for every item.</p>
+            <div class="column vertical-top text-left" style="width: 100%; height: 100%">
+                <p><b>Power iteration</b> on four items (A links to B and C, B to C, C to A, D to C):</p>
                 <ul>
-                    <li>Apply the formula to all items until the scores stop changing.</li>
-                    <li><p>The scores add up to 1, so compare them with $1/n$.</p></li>
+                    <li><p><b>Left:</b> step 0 gives every item $PR(v) = 1/n = 0.250$</p></li>
+                    <li><p><b>Middle:</b> step 1 applies the formula once</p></li>
+                    <li><p><b>Right:</b> repeat until the scores stop changing</p></li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
 
-
 ## PageRank
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>A rank sink</b></p>
-                <p>A cites B, and B and C cite each other. Nothing cites A.</p>
-                <ul>
-                    <li><p><b>Without the jump:</b> A drops to 0 after one step, and B and C keep all the score between them</p></li>
-                    <li><p><b>With the jump:</b> every item gets the first term of the formula, so A keeps a small share and the loop cannot hold it all</p></li>
-                    <li><p>A small closed loop can still rank high with few links</p></li>
-                </ul>
-                <br>
-                <p>"Consider two web pages that point to each other but to no other page." <a href="https://web.archive.org/web/20241231011600/http://ilpubs.stanford.edu:8090/422/" target="_blank" rel="noopener noreferrer">(Page et al., 1998, p. 4)</a></p>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/pagerank-abc.svg" alt="Three nodes sized by PageRank. A cites B, and B and C cite each other" style="height: 220px">
-                <div class="footnote">PageRank on a small graph, A cites B, and B and C cite each other</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-## PageRank
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 45%">
-                <p><b>Four items</b></p>
-                <p>A links to B and C. B links to C. C links to A. D links to C.</p>
-                <table class="table">
-                    <thead>
-                        <tr><th>Item</th><th>In-degree</th><th>PageRank</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>A</td><td>1</td><td>0.373</td></tr>
-                        <tr><td>B</td><td>1</td><td>0.196</td></tr>
-                        <tr><td>C</td><td>3</td><td>0.394</td></tr>
-                        <tr><td>D</td><td>0</td><td>0.038</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 55%">
                 <p><b>Same in-degree, different PageRank</b></p>
-                <p>A's one link comes from C, the best placed item. B's comes from A, which splits its score in two.</p>
+                <p>A and B each get one link.</p>
                 <ul>
-                    <li>So A has almost twice the PageRank of B.</li>
-                    <li><p>D gets only the random jump, $0.15 / 4 = 0.0375$.</p></li>
+                    <li><p>A's link comes from C, the best placed item</p></li>
+                    <li><p>B's comes from A, which splits its score in two</p></li>
+                    <li><p>So A has almost twice the PageRank of B</p></li>
+                    <li><p>D gets only the jump share, $0.15 / 4 = 0.0375$</p></li>
+                </ul>
+                <p>The scores add up to 1, so we compare them with $1/n$.</p>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/pagerank-iteration-3.svg" alt="The converged scores" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+        </div>
+    </div>
+</div>
+
+## PageRank
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 54%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%; height: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/pagerank-sink-1.svg" alt="Without the jump B and C trap the score" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 46%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%; height: 100%">
+                <p><b>A rank sink:</b> A links to B, and B and C link to each other. Nothing links to A.</p>
+                <p>"Consider two web pages that point to each other but to no other page." (<a href="https://web.archive.org/web/20241231011600/http://ilpubs.stanford.edu:8090/422/" target="_blank" rel="noopener noreferrer">Page et al., 1998</a>, p. 4)</p>
+                <ul>
+                    <li><p><b>Without the jump ($d = 1$):</b> A drops to 0, and B and C trap all the score between them</p></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## PageRank
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 54%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 47.5%; height: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/pagerank-sink-1.svg" alt="Without the jump B and C trap the score" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 5%"></div>
+            <div class="column vertical-middle text-center" style="width: 47.5%; height: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/pagerank-sink-2.svg" alt="With the jump all three keep a share" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 46%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%; height: 100%">
+                <p><b>A rank sink:</b> A links to B, and B and C link to each other. Nothing links to A.</p>
+                <p>"Consider two web pages that point to each other but to no other page." (<a href="https://web.archive.org/web/20241231011600/http://ilpubs.stanford.edu:8090/422/" target="_blank" rel="noopener noreferrer">Page et al., 1998</a>, p. 4)</p>
+                <ul>
+                    <li><p><b>Without the jump ($d = 1$):</b> A drops to 0, and B and C trap all the score between them</p></li>
+                    <li><p><b>With the jump ($d = 0.85$):</b> A keeps 0.050, and B and C share 0.486 and 0.464</p></li>
                 </ul>
             </div>
         </div>
@@ -159,43 +207,57 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 47.5%">
+            <div class="column vertical-middle text-center" style="width: 47.5%; height: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/pagerank-iteration-3.svg" alt="The converged scores" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 4%"></div>
+            <div class="column vertical-middle text-left" style="width: 47.5%; font-size: 0.85em">
 
 ```text
 give every item the score 1 / n
 repeat for a fixed number of steps
-    give every item the jump share (1 - d) / n
+    give every item (1 - d) / n
     for each item u
         targets = the items u links to
-        if u links to nothing, targets = all items
-        give each target d * score of u / size of targets
+        if u links to nothing
+            targets = all items
+        give each target
+            d * score of u / size of targets
     the new scores replace the old ones
 ```
+</div>
+        </div>
+    </div>
+</div>
 
-            </div>
-            <div class="column vertical-middle text-left" style="width: 5%">
-            </div>
-            <div class="column vertical-middle text-left" style="width: 47.5%">
+## PageRank
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 47.5%; font-size: 0.85em">
 
 ```python
-DAMPING = 0.85
+import networkx as nx
 
-def pagerank(links_out, d=DAMPING, steps=100):
-    nodes = list(links_out)
-    n = len(nodes)
-    rank = {v: 1 / n for v in nodes}
-    for _ in range(steps):
-        new = {v: (1 - d) / n for v in nodes}
-        for u in nodes:
-            targets = links_out[u] or nodes
-            for v in targets:
-                new[v] += d * rank[u] / len(targets)
-        rank = new
-    return rank
-
-rank = pagerank(links_out)
+graph = nx.DiGraph()
+graph.add_edges_from([("A", "B"), ("A", "C"),
+                      ("B", "C"), ("C", "A"),
+                      ("D", "C")])
+rank = nx.pagerank(graph, alpha=0.85)
+for v in sorted(rank):
+    print(v, round(rank[v], 3))
 ```
-
+</div>
+            <div class="column vertical-middle text-left" style="width: 5%"></div>
+            <div class="column vertical-middle text-left" style="width: 47.5%">
+                <p><b>Python usage:</b> networkx</p>
+                <p>PageRank of the four items</p>
+                <ul>
+                    <li><p><b>nx.DiGraph:</b> a directed graph, one edge per link</p></li>
+                    <li><p><b>alpha:</b> the chance to follow a link, $d = 0.85$</p></li>
+                    <li><p><b>Returns:</b> A 0.373, B 0.196, C 0.394, D 0.038</p></li>
+                </ul>
             </div>
         </div>
     </div>

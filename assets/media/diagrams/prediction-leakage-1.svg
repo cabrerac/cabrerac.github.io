@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Target leakage, step 1: an attribute made after the label is known. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 510" width="790" height="510">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .x { font-size:18px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .l { text-anchor:start; }
+ .r { text-anchor:end; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6c8aa3"/></marker>
+</defs>
+<line x1="60.0" y1="290.0" x2="740.0" y2="290.0" stroke="#224466" stroke-width="3" marker-end="url(#ar)"/>
+<text x="740.0" y="330.0" class="s r">time</text>
+<rect x="60" y="160" width="200" height="80" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="160.0" y="195.0" class="s">attributes</text>
+<text x="160.0" y="221.0" class="s">recorded</text>
+<rect x="300" y="160" width="190" height="80" rx="8" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="395.0" y="195.0" class="s">label</text>
+<text x="395.0" y="221.0" class="s">known</text>
+<rect x="540" y="160" width="200" height="80" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="640.0" y="195.0" class="s">late fee</text>
+<text x="640.0" y="221.0" class="s">recorded</text>
+<line x1="490.0" y1="200.0" x2="535.0" y2="200.0" stroke="#ffa500" stroke-width="3" marker-end="url(#ao)"/>
+</svg>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Cosine of node vectors: u and v close in direction, w further away. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 510" width="790" height="510">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .x { font-size:18px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .l { text-anchor:start; }
+ .r { text-anchor:end; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6c8aa3"/></marker>
+</defs>
+<line x1="150.0" y1="410.0" x2="640.0" y2="190.0" stroke="#0e73b8" stroke-width="4" marker-end="url(#ar)"/>
+<line x1="150.0" y1="410.0" x2="560.0" y2="100.0" stroke="#ffa500" stroke-width="4" marker-end="url(#ao)"/>
+<line x1="150.0" y1="410.0" x2="300.0" y2="80.0" stroke="#6c8aa3" stroke-width="3" marker-end="url(#ag)"/>
+<text x="670.0" y="195.0" class="b" style="fill:#0e73b8">u</text>
+<text x="585.0" y="95.0" class="b" style="fill:#ffa500">v</text>
+<text x="300.0" y="65.0" class="b" style="fill:#6c8aa3">w</text>
+<path d="M290,348 A150,150 0 0 0 270,320" fill="none" stroke="#224466" stroke-width="2"/>
+</svg>

@@ -1,44 +1,44 @@
 <!-- SLIDES: -->
 
-## This Week Notebooks
+## Notebooks
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>The <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l6-prediction.ipynb" target="_blank">Lecture 6 notebook</a> follows CRISP-DM</b></p>
-                <p>The notebook runs this task on a table of paper attributes, with a given label.</p>
                 <ul>
-                    <li><b>Part 1, Business understanding:</b> the question description and the check against leakage</li>
-                    <li><b>Part 2, Data understanding:</b> the label and the attributes</li>
-                    <li><b>Part 3, Data preparation:</b> the table, the rows kept apart and the preparation</li>
-                    <li><b>Part 4, Modeling:</b> majority class, logistic regression, a forest and one hidden layer</li>
-                    <li><b>Part 5, Evaluation:</b> right and wrong counts, five folds and a one-line rule with no model</li>
-                    <li><b>Part 6, Deployment:</b> the prediction and a list of at most 30 papers</li>
+                    <li><p><b>Parts 1 to 3:</b> the question, leakage, the label and the table</p></li>
+                    <li><p><b>Part 4:</b> majority class, logistic regression, a forest and a network</p></li>
+                    <li><p><b>Part 5:</b> right and wrong counts, five folds and the rule</p></li>
+                    <li><p><b>Part 6:</b> a list of at most 30 papers</p></li>
                 </ul>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/crisp-dm-process-diagram.png" alt="CRISP-DM process diagram" style="height: auto; max-width: 100%; max-height: 90%;">
+                <div class="footnote">CRISP-DM Process Diagram - Kenneth Jensen, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
 </div>
 
-## This Week Notebooks
+## Notebooks
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>The <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/week-3-group.ipynb" target="_blank">week 3 group notebook</a></b></p>
-                <p>The same steps on the department file, for Lectures 5 and 6. The label is a target category of each Wikipedia article.</p>
+                <p>The same steps on the department file. The label is a target category of each article.</p>
                 <ul>
-                    <li><b>Exercise 0, Setup:</b> group, label, data, parameters and functions</li>
-                    <li><b>Exercise 1, Business understanding:</b> what the group expects from the graph</li>
-                    <li><b>Exercise 2, Data understanding:</b> titles and links</li>
-                    <li><b>Exercise 3, Data preparation:</b> the two graphs, the largest component and the table of Lecture 6</li>
-                    <li><b>Exercise 4, Modeling:</b> degree, PageRank, node2vec, and the three methods of Lecture 6</li>
-                    <li><b>Exercise 5, Evaluation:</b> an article described by its place, and whether the prediction counts</li>
-                    <li><b>Exercise 6, Deployment:</b> save the graph file and the prediction file, and say how each result would enter the list</li>
+                    <li><p><b>Exercise 4:</b> hub warning, PageRank and the forest</p></li>
+                    <li><p><b>Exercise 5:</b> one article, and whether the prediction counts</p></li>
+                    <li><p><b>Exercise 6:</b> the articles to read</p></li>
                 </ul>
-                <p>The notebook ends with a contribution log.</p>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/crisp-dm-process-diagram.png" alt="CRISP-DM process diagram" style="height: auto; max-width: 100%; max-height: 90%;">
+                <div class="footnote">CRISP-DM Process Diagram - Kenneth Jensen, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
             </div>
         </div>
     </div>

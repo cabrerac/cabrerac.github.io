@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Supervised prediction, step 1: labelled rows train a model. Symbolic values. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 510" width="790" height="510">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .x { font-size:18px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .l { text-anchor:start; }
+ .r { text-anchor:end; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6c8aa3"/></marker>
+</defs>
+<rect x="40" y="60" width="85" height="52" rx="0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="82.5" y="94.0" class="x">x1</text>
+<rect x="125" y="60" width="85" height="52" rx="0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="167.5" y="94.0" class="x">x2</text>
+<rect x="210" y="60" width="85" height="52" rx="0" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="252.5" y="94.0" class="x">x3</text>
+<rect x="295" y="60" width="85" height="52" rx="0" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="337.5" y="94.0" class="x">label</text>
+<rect x="40" y="112" width="85" height="52" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="82.5" y="146.0" class="s">3.1</text>
+<rect x="125" y="112" width="85" height="52" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="167.5" y="146.0" class="s">a</text>
+<rect x="210" y="112" width="85" height="52" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="252.5" y="146.0" class="s">1</text>
+<rect x="295" y="112" width="85" height="52" rx="0" fill="#fff4e0" stroke="#224466" stroke-width="2"/>
+<text x="337.5" y="146.0" class="s">yes</text>
+<rect x="40" y="164" width="85" height="52" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="82.5" y="198.0" class="s">0.4</text>
+<rect x="125" y="164" width="85" height="52" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="167.5" y="198.0" class="s">b</text>
+<rect x="210" y="164" width="85" height="52" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="252.5" y="198.0" class="s">0</text>
+<rect x="295" y="164" width="85" height="52" rx="0" fill="#fff4e0" stroke="#224466" stroke-width="2"/>
+<text x="337.5" y="198.0" class="s">no</text>
+<rect x="40" y="216" width="85" height="52" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="82.5" y="250.0" class="s">2.2</text>
+<rect x="125" y="216" width="85" height="52" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="167.5" y="250.0" class="s">a</text>
+<rect x="210" y="216" width="85" height="52" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="252.5" y="250.0" class="s">1</text>
+<rect x="295" y="216" width="85" height="52" rx="0" fill="#fff4e0" stroke="#224466" stroke-width="2"/>
+<text x="337.5" y="250.0" class="s">yes</text>
+<rect x="40" y="268" width="85" height="52" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="82.5" y="302.0" class="s">1.7</text>
+<rect x="125" y="268" width="85" height="52" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="167.5" y="302.0" class="s">c</text>
+<rect x="210" y="268" width="85" height="52" rx="0" fill="#ffffff" stroke="#224466" stroke-width="2"/>
+<text x="252.5" y="302.0" class="s">0</text>
+<rect x="295" y="268" width="85" height="52" rx="0" fill="#fff4e0" stroke="#224466" stroke-width="2"/>
+<text x="337.5" y="302.0" class="s">no</text>
+<line x1="390.0" y1="200.0" x2="480.0" y2="200.0" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<text x="435.0" y="185.0" class="s">fit</text>
+<rect x="490" y="150" width="250" height="100" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="615.0" y="208.0" class="t">model</text>
+</svg>

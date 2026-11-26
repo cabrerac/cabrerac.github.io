@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Bootstrap: draw the kept-apart rows again with replacement, compute F1, take the 2.5th and 97.5th percentiles. Dots are schematic. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 510" width="790" height="510">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .x { font-size:18px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .l { text-anchor:start; }
+ .r { text-anchor:end; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6c8aa3"/></marker>
+</defs>
+<text x="150.0" y="60.0" class="s">rows kept apart</text>
+<rect x="42" y="80" width="32" height="40" rx="4" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="58.0" y="108.0" class="x">1</text>
+<rect x="78" y="80" width="32" height="40" rx="4" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="94.0" y="108.0" class="x">2</text>
+<rect x="114" y="80" width="32" height="40" rx="4" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="130.0" y="108.0" class="x">3</text>
+<rect x="150" y="80" width="32" height="40" rx="4" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="166.0" y="108.0" class="x">4</text>
+<rect x="186" y="80" width="32" height="40" rx="4" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="202.0" y="108.0" class="x">5</text>
+<rect x="222" y="80" width="32" height="40" rx="4" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="238.0" y="108.0" class="x">6</text>
+<line x1="260.0" y1="100.0" x2="330.0" y2="100.0" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="345" y="60" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="361.0" y="88.0" class="x">4</text>
+<rect x="381" y="60" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="397.0" y="88.0" class="x">4</text>
+<rect x="417" y="60" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="433.0" y="88.0" class="x">5</text>
+<rect x="453" y="60" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="469.0" y="88.0" class="x">5</text>
+<rect x="489" y="60" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="505.0" y="88.0" class="x">6</text>
+<rect x="525" y="60" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="541.0" y="88.0" class="x">6</text>
+<line x1="565.0" y1="80.0" x2="610.0" y2="80.0" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<text x="665.0" y="88.0" class="s">F1</text>
+<rect x="345" y="130" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="361.0" y="158.0" class="x">1</text>
+<rect x="381" y="130" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="397.0" y="158.0" class="x">2</text>
+<rect x="417" y="130" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="433.0" y="158.0" class="x">2</text>
+<rect x="453" y="130" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="469.0" y="158.0" class="x">2</text>
+<rect x="489" y="130" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="505.0" y="158.0" class="x">6</text>
+<rect x="525" y="130" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="541.0" y="158.0" class="x">6</text>
+<line x1="565.0" y1="150.0" x2="610.0" y2="150.0" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<text x="665.0" y="158.0" class="s">F1</text>
+<rect x="345" y="200" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="361.0" y="228.0" class="x">1</text>
+<rect x="381" y="200" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="397.0" y="228.0" class="x">1</text>
+<rect x="417" y="200" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="433.0" y="228.0" class="x">3</text>
+<rect x="453" y="200" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="469.0" y="228.0" class="x">5</text>
+<rect x="489" y="200" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="505.0" y="228.0" class="x">5</text>
+<rect x="525" y="200" width="32" height="40" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="541.0" y="228.0" class="x">6</text>
+<line x1="565.0" y1="220.0" x2="610.0" y2="220.0" stroke="#224466" stroke-width="2" marker-end="url(#ar)"/>
+<text x="665.0" y="228.0" class="s">F1</text>
+<text x="500.0" y="280.0" class="s">2,000 draws</text>
+<line x1="80.0" y1="385.0" x2="710.0" y2="385.0" stroke="#224466" stroke-width="3"/>
+<circle cx="395.0" cy="370.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="493.3" cy="361.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="183.1" cy="352.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="472.6" cy="343.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="366.8" cy="370.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="269.2" cy="361.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="509.2" cy="352.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="231.1" cy="343.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="479.9" cy="370.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="448.8" cy="361.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="208.1" cy="352.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="481.3" cy="343.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="317.3" cy="370.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="343.8" cy="361.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="486.5" cy="352.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="218.7" cy="343.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="550.3" cy="370.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="402.5" cy="361.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="252.8" cy="352.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="478.4" cy="343.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="281.1" cy="370.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="419.7" cy="361.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="455.9" cy="352.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="227.6" cy="343.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="598.8" cy="370.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="360.3" cy="361.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="310.6" cy="352.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="635.7" cy="343.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="261.3" cy="370.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="487.8" cy="361.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="422.2" cy="352.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="254.9" cy="343.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="621.2" cy="370.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="326.8" cy="361.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="373.9" cy="352.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="584.8" cy="343.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="258.8" cy="370.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="540.8" cy="361.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="390.0" cy="352.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<circle cx="295.9" cy="343.0" r="4.0" fill="#6c8aa3" stroke="#6c8aa3" stroke-width="1"/>
+<line x1="200.0" y1="345.0" x2="200.0" y2="405.0" stroke="#ffa500" stroke-width="3"/>
+<line x1="590.0" y1="345.0" x2="590.0" y2="405.0" stroke="#ffa500" stroke-width="3"/>
+<text x="200.0" y="435.0" class="s" style="fill:#ffa500">2.5th</text>
+<text x="590.0" y="435.0" class="s" style="fill:#ffa500">97.5th</text>
+</svg>

@@ -6,15 +6,14 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Items and the links among them</b></p>
                 <p>Where does each item sit among the others?</p>
                 <ul>
-                    <li>Each record is an item and the items it links to</li>
-                    <li>A place is read from the links, not from what the item says</li>
+                    <li><p>Each record is an item and the items it links to</p></li>
+                    <li><p>A place is read from the links, not from what the item says</p></li>
                 </ul>
             </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/social-network-analysis.jpg" alt="A network of links among people" style="height: 400px">
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/social-network-analysis.jpg" alt="A network of links among people" style="height: auto; max-width: 100%; max-height: 90%;">
                 <div class="footnote">Social Network Analysis Visualization - Martin Grandjean, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
             </div>
         </div>
@@ -24,17 +23,43 @@
 ## The Task
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 58%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>What a graph adds</b></p>
+            <div class="column vertical-middle text-center" style="width: 100%; height: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/graph-links-1.svg" alt="Six items, each alone" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 42%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%; height: 100%">
                 <p>Many methods look at each item alone, by its own attributes or words.</p>
                 <ul>
-                    <li>A graph looks at the links among items</li>
-                    <li>Two items with no direct link can still share a neighbourhood</li>
-                    <li>A place needs a rule set before the results, such as the rule for a hub</li>
+                    <li><p>A graph looks at the links among items</p></li>
                 </ul>
-                <br>
+            </div>
+        </div>
+    </div>
+</div>
+
+## The Task
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 58%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%; height: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/graph-links-2.svg" alt="Two items with no direct link share a neighbour" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 42%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%; height: 100%">
+                <p>Many methods look at each item alone, by its own attributes or words.</p>
+                <ul>
+                    <li><p>A graph looks at the links among items</p></li>
+                    <li><p>Two items with no direct link can still share a neighbourhood</p></li>
+                </ul>
                 <p>A <b>graph</b> is a set of items, called nodes, and the links among them, called edges.</p>
             </div>
         </div>
@@ -48,28 +73,61 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 55%">
-                <p><b>Items and links in one set</b></p>
-                <p>The data is items and the links among them, inside one set.</p>
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p>Items and the links among them, inside one set.</p>
                 <ul>
                     <li><p><b>Node:</b> one item</p></li>
                     <li><p><b>Directed edge:</b> $u \to v$, item $u$ links to item $v$</p></li>
-                    <li><p><b>Undirected edge:</b> $u - v$, the two items are linked, whatever the direction</p></li>
+                    <li><p><b>Undirected edge:</b> $u - v$, the two items are linked</p></li>
                 </ul>
-                <p>A link to an item outside the set is dropped. An item with no link inside the set is isolated, which does not mean unimportant.</p>
+                <p>Papers and citations, people and friendships, or web pages and links.</p>
             </div>
-            <div class="column vertical-middle text-left" style="width: 45%">
-                <p><b>Examples</b></p>
-                <table class="table">
-                    <thead>
-                        <tr><th>Data</th><th>One node</th><th>Edges</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Papers</td><td>one paper</td><td>citations</td></tr>
-                        <tr><td>People</td><td>one person</td><td>friendships</td></tr>
-                        <tr><td>Web pages</td><td>one page</td><td>links</td></tr>
-                    </tbody>
-                </table>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/graph-words-1.svg" alt="Nodes and directed edges" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+        </div>
+    </div>
+</div>
+
+## The Data
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 60%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%; height: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/graph-words-2.svg" alt="The neighbours of C highlighted" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 40%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%; height: 100%">
+                <ul>
+                    <li><p><b>Neighbours:</b> $N(v)$, the nodes linked to $v$. Here $N(C) = \{A, B, D, F\}$</p></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## The Data
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 60%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%; height: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/graph-words-3.svg" alt="A shortest path from A to E" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 40%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%; height: 100%">
+                <ul>
+                    <li><p><b>Neighbours:</b> $N(v)$, the nodes linked to $v$. Here $N(C) = \{A, B, D, F\}$</p></li>
+                    <li><p><b>Path:</b> a chain of edges from one node to another</p></li>
+                    <li><p><b>Shortest path:</b> a path with the fewest edges, here 3 edges from A to E</p></li>
+                </ul>
             </div>
         </div>
     </div>
@@ -81,20 +139,15 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Words for a graph</b></p>
                 <ul>
-                    <li><p><b>Neighbours:</b> $N(v)$, the nodes linked to $v$</p></li>
-                    <li><p><b>Path:</b> a chain of edges from one node to another</p></li>
-                    <li><p><b>Shortest path:</b> a path with the fewest edges</p></li>
+                    <li><p><b>Component:</b> nodes that can all reach each other</p></li>
+                    <li><p><b>Largest component:</b> the biggest of them</p></li>
+                    <li><p><b>Isolated node:</b> no link to any other item in the set</p></li>
                 </ul>
+                <p>A link to an item outside the set is dropped. Isolated does not mean unimportant.</p>
             </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Parts of a graph</b></p>
-                <ul>
-                    <li><b>Component:</b> nodes that can all reach each other</li>
-                    <li><b>Largest component:</b> the biggest of them</li>
-                    <li><b>Isolated node:</b> no link to any other item in the set</li>
-                </ul>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/graph-parts.svg" alt="The largest component, a small component and an isolated node" style="height: auto; max-width: 100%; max-height: 100%;">
             </div>
         </div>
     </div>
@@ -105,16 +158,16 @@
 ## Methods
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 70%">
+    <div class="row" style="height: 65%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/graph-task-taxonomy.svg" alt="Taxonomy of graph methods" style="width: 100%; height: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%; height: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/graph-task-taxonomy.svg" alt="Taxonomy of graph methods" style="height: auto; max-width: 100%; max-height: 100%;">
             </div>
         </div>
     </div>
-    <div class="row" style="height: 30%">
+    <div class="row" style="height: 35%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%; height: 100%">
                 <p><b>Link counts:</b> how many links an item has, and from whom.</p>
                 <p><b>Paths:</b> how an item sits on the shortest paths between others.</p>
                 <p><b>Node embeddings:</b> one vector per item, learned from the links.</p>
@@ -131,14 +184,14 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <ul>
-                    <li><b>Degree:</b> how many links an item has</li>
-                    <li><b>PageRank:</b> links weighted by who makes them</li>
-                    <li><b>node2vec:</b> which items share a neighbourhood</li>
+                    <li><p><b>Degree:</b> how many links an item has</p></li>
+                    <li><p><b>PageRank:</b> links weighted by who makes them</p></li>
+                    <li><p><b>node2vec:</b> which items share a neighbourhood</p></li>
                 </ul>
                 <p>These apply to different data sources (e.g., papers, people, web pages, etc).</p>
             </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/images/social-network-analysis.jpg" alt="A network of links among people" style="height: 400px">
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/images/social-network-analysis.jpg" alt="A network of links among people" style="height: auto; max-width: 100%; max-height: 90%;">
                 <div class="footnote">Social Network Analysis Visualization - Martin Grandjean, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
             </div>
         </div>

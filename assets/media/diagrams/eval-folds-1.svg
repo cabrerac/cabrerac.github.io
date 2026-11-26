@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Five folds, step 1: one fold predicted, four fitted. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 510" width="790" height="510">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .x { font-size:18px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .l { text-anchor:start; }
+ .r { text-anchor:end; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6c8aa3"/></marker>
+</defs>
+<rect x="160" y="85" width="112" height="56" rx="4" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="216.0" y="121.0" class="x">predict</text>
+<rect x="280" y="85" width="112" height="56" rx="4" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="336.0" y="121.0" class="x">fit</text>
+<rect x="400" y="85" width="112" height="56" rx="4" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="456.0" y="121.0" class="x">fit</text>
+<rect x="520" y="85" width="112" height="56" rx="4" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="576.0" y="121.0" class="x">fit</text>
+<rect x="640" y="85" width="112" height="56" rx="4" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="696.0" y="121.0" class="x">fit</text>
+<text x="140.0" y="121.0" class="s r">run 1</text>
+</svg>

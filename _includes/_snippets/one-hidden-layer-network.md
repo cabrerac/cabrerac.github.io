@@ -1,18 +1,18 @@
 <!-- SLIDES: -->
 
-## One Hidden Layer
+## Neural Network
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 70%">
+    <div class="row" style="height: 65%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/prediction-task-taxonomy.svg" alt="Taxonomy of prediction methods" style="width: 100%; height: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%; height: 100%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/diagrams/prediction-task-taxonomy.svg" alt="Taxonomy of prediction methods" style="height: auto; max-width: 100%; max-height: 100%;">
             </div>
         </div>
     </div>
-    <div class="row" style="height: 30%">
+    <div class="row" style="height: 35%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%; height: 100%">
                 <p><b>Linear models:</b> a weighted sum of the attributes, turned into a class or a number.</p>
                 <p><b>Trees:</b> questions about one attribute at a time, alone or as many trees that vote.</p>
                 <p><b>Neural networks:</b> layers that learn their own attributes from the inputs.</p>
@@ -22,7 +22,7 @@
     </div>
 </div>
 
-## One Hidden Layer
+## Neural Network
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -34,93 +34,153 @@
     </div>
 </div>
 
-## One Hidden Layer
+## Neural Network
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>A small neural network</b></p>
                 <p>Inputs, one hidden layer of units, and an output.</p>
                 <ul>
-                    <li>Each hidden unit is a weighted sum followed by a bend</li>
-                    <li>The output is logistic regression on the hidden units</li>
-                    <li>Every input must be a scaled number, so categories are one-hot encoded and missing values filled</li>
+                    <li><p>Each hidden unit is a weighted sum followed by a bend</p></li>
+                    <li><p>The output is logistic regression on the hidden units</p></li>
+                    <li><p>Every input must be a scaled number, so categories are one-hot encoded and missing values filled</p></li>
                 </ul>
             </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/colored-neural-network.svg" alt="A network with an input, a hidden and an output layer" style="height: 360px">
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/colored-neural-network.svg" alt="A network with an input, a hidden and an output layer" style="height: auto; max-width: 100%; max-height: 90%;">
                 <div class="footnote">Colored neural network - Glosser.ca, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
 </div>
 
-## One Hidden Layer
+## Neural Network
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Forward pass</b></p>
-                <p>$$\mathbf{h} = \text{ReLU}(\mathbf{W}_1 \mathbf{x} + \mathbf{b}_1)$$</p>
-                <p>$$\mathbf{z} = \mathbf{W}_2 \mathbf{h} + \mathbf{b}_2$$</p>
-                <p>$\mathbf{x}$ is the row of inputs. $\mathbf{W}_1$ holds one row of weights per hidden unit and $\mathbf{b}_1$ their intercepts. $\text{ReLU}(a) = \max(0, a)$ is the bend. $\mathbf{W}_2$ and $\mathbf{b}_2$ turn the hidden units $\mathbf{h}$ into scores $\mathbf{z}$.</p>
+$$
+\mathbf{h} = \text{ReLU}(\mathbf{W}_1 \mathbf{x} + \mathbf{b}_1)
+$$
+$$
+\mathbf{z} = \mathbf{W}_2 \mathbf{h} + \mathbf{b}_2
+$$
+                <p><b>$\mathbf{W}_1$, $\mathbf{b}_1$:</b> one row of weights and one intercept per hidden unit</p>
+                <p><b>$\text{ReLU}(a)$:</b> $\max(0, a)$, the bend</p>
+                <p><b>$\mathbf{W}_2$, $\mathbf{b}_2$:</b> turn the hidden units $\mathbf{h}$ into scores $\mathbf{z}$</p>
             </div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/colored-neural-network.svg" alt="A network with an input, a hidden and an output layer" style="height: auto; max-width: 100%; max-height: 90%;">
+                <div class="footnote">Colored neural network - Glosser.ca, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Network
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Output</b></p>
-                <p>$$P(y = c \mid \mathbf{x}) = \frac{e^{z_c}}{\sum_{k} e^{z_k}}$$</p>
-                <p>The numerator is the score of class $c$, made positive. The denominator adds the same over all classes, so the probabilities add to 1. With two classes this is the logistic function.</p>
+$$
+P(y = c \mid \mathbf{x}) = \frac{e^{z_c}}{\sum_{k} e^{z_k}}
+$$
+                <p><b>$z_c$:</b> the score of class $c$</p>
+                <p>The probabilities add to 1. With two classes this is the logistic function.</p>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/logistic-curve.svg" alt="Logistic curve" style="height: auto; max-width: 100%; max-height: 90%;">
+                <div class="footnote">Logistic-curve - Qef, Public domain, via Wikimedia Commons</div>
             </div>
         </div>
     </div>
 </div>
 
-## One Hidden Layer
+## Neural Network
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
+    <div class="row" style="height: 40%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Cross-entropy</b></p>
-                <p>$$\mathcal{L} = -\sum_{i} \log P(y_i \mid \mathbf{x}_i) + \frac{\lambda}{2} \lVert \mathbf{W} \rVert^2$$</p>
-                <p>The sum adds, over the training rows, how unlikely the model found the true label $y_i$. $\lambda$ is the L2 penalty on all weights $\mathbf{W}$.</p>
+            <div class="column vertical-middle text-center" style="width: 30%; height: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/nn-forward-1.svg" alt="The inputs" style="height: auto; max-width: 100%; max-height: 100%;">
             </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 3%"></div>
+            <div class="column vertical-middle text-center" style="width: 30%; height: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/nn-forward-2.svg" alt="The hidden units" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+            <div class="column vertical-middle text-left" style="width: 3%"></div>
+            <div class="column vertical-middle text-center" style="width: 30%; height: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/nn-forward-3.svg" alt="The output" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 60%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%; height: 100%">
+                <p><b>Worked example:</b> $\mathbf{x} = (1, 2)$, $\mathbf{W}_1$ rows $(1, -1)$ and $(0, 1)$, $\mathbf{b}_1 = 0$, output weights $(0.5, 1)$, intercept $-1$</p>
+                <ul>
+                    <li><p><b>Left:</b> inputs $\mathbf{x} = (1, 2)$</p></li>
+                    <li><p><b>Middle:</b> $\mathbf{W}_1 \mathbf{x} = (1 - 2,\ 2) = (-1, 2)$, and $\text{ReLU}$ gives $\mathbf{h} = (0, 2)$</p></li>
+                    <li><p><b>Right:</b> $z = 0.5 \cdot 0 + 1 \cdot 2 - 1 = 1$, and $\sigma(1) = 0.73 \ge 0.5$, so the item is a yes</p></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Network
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 48%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%; height: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/nn-backprop-1.svg" alt="The forward pass computes the loss" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 52%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%; height: 100%">
+                <p><b>Cross-entropy</b> measures how unlikely the true labels were.</p>
+$$
+\mathcal{L} = -\sum_{i} \log P(y_i \mid \mathbf{x}_i) + \frac{\lambda}{2} \lVert \mathbf{W} \rVert^2
+$$
+                <p><b>$y_i$, $\lambda$:</b> the true label of training row $i$, and the L2 penalty on all weights $\mathbf{W}$</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Network
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 48%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-center" style="width: 100%; height: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/nn-backprop-2.svg" alt="The gradients flow back from the loss" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 52%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-top text-left" style="width: 100%; height: 100%">
                 <p><b>Backpropagation</b></p>
-                <p>A forward pass computes the loss.</p>
                 <ul>
-                    <li>The chain rule gives the gradient of the loss for every weight, from the output back to the inputs</li>
-                    <li>Each weight moves a small step against its gradient</li>
-                    <li>Repeat over the training rows until the loss stops falling</li>
+                    <li><p><b>Cross-entropy:</b> the forward pass computes the loss from the true labels</p></li>
+                    <li><p><b>Chain rule:</b> gradients flow backward from the loss to every weight</p></li>
+                    <li><p><b>Update:</b> each weight moves a small step against its gradient until the loss stops falling</p></li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
 
-## One Hidden Layer
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <ul>
-                    <li><p>$\mathbf{x} = (1, 2)$</p></li>
-                    <li><p>$\mathbf{W}_1$ rows $(1, -1)$ and $(0, 1)$, $\mathbf{b}_1 = 0$</p></li>
-                    <li><p>One output with weights $(0.5, 1)$ and intercept $-1$</p></li>
-                </ul>
-            </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p>$\mathbf{W}_1 \mathbf{x} = (1 - 2,\ 2) = (-1, 2)$, and the bend gives $\mathbf{h} = (0, 2)$. The first unit is off.</p>
-                <p>$$z = 0.5 \cdot 0 + 1 \cdot 2 - 1 = 1 \qquad \sigma(1) = 0.73$$</p>
-                <p>0.73 is at least 0.5, so the item is a yes.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-## One Hidden Layer
+## Neural Network
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -129,57 +189,93 @@
                 <p><b>Set before the results</b></p>
                 <ul>
                     <li><p><b>Units:</b> more units fit more, and overfit more</p></li>
-                    <li><p><b>Penalty:</b> the L2 weight $\lambda$, alpha in scikit-learn. Few rows call for a stronger penalty</p></li>
+                    <li><p><b>Penalty:</b> $\lambda$, alpha in scikit-learn. Few rows call for a stronger penalty</p></li>
                     <li><p><b>Steps:</b> how many passes, and when to stop</p></li>
                     <li><p><b>Seed:</b> the starting weights</p></li>
                 </ul>
             </div>
-            <div class="column vertical-middle text-left" style="width: 50%">
-                <p><b>Limits</b></p>
-                <ul>
-                    <li>On a few hundred rows, a network rarely beats a forest</li>
-                    <li>Another seed gives other weights</li>
-                    <li>The hidden units have no names, so the reasons are hard to read</li>
-                </ul>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img src="{{ site.url }}/assets/media/diagrams/nn-forward-3.svg" alt="The output" style="height: auto; max-width: 100%; max-height: 100%;">
             </div>
         </div>
     </div>
 </div>
 
-## One Hidden Layer
+## Neural Network
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-left" style="width: 47.5%">
+            <div class="column vertical-middle text-left" style="width: 50%">
+                <p><b>Limits</b></p>
+                <ul>
+                    <li><p>On a few hundred rows, a network rarely beats a forest</p></li>
+                    <li><p>Another seed gives other weights</p></li>
+                    <li><p>The hidden units have no names, so the reasons are hard to read</p></li>
+                </ul>
+            </div>
+            <div class="column vertical-middle text-center" style="width: 50%">
+                <img class="external-svg" src="{{ site.url }}/assets/media/images/colored-neural-network.svg" alt="A network with an input, a hidden and an output layer" style="height: auto; max-width: 100%; max-height: 90%;">
+                <div class="footnote">Colored neural network - Glosser.ca, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+## Neural Network
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 47.5%; font-size: 0.85em">
 
 ```text
 prepare every column as a scaled number
-start the weights at random, with a fixed seed
+start the weights at random, fixed seed
 repeat
-    forward pass: hidden units, then the output
+    forward pass: hidden units, output
     loss: cross-entropy plus the penalty
-    backward pass: the gradient of every weight
+    backward pass: every gradient
     move each weight a small step
 until the loss stops falling
 predict on the rows kept apart
 ```
+</div>
+            <div class="column vertical-middle text-left" style="width: 4%"></div>
+            <div class="column vertical-middle text-center" style="width: 47.5%; height: 100%">
+                <img src="{{ site.url }}/assets/media/diagrams/nn-backprop-2.svg" alt="The gradients flow back from the loss" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+        </div>
+    </div>
+</div>
 
-            </div>
-            <div class="column vertical-middle text-left" style="width: 5%">
-            </div>
-            <div class="column vertical-middle text-left" style="width: 47.5%">
+## Neural Network
+
+<div class="rows" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="columns" style="width: 100%">
+            <div class="column vertical-middle text-left" style="width: 58%; font-size: 0.85em">
 
 ```python
 from sklearn.neural_network import MLPClassifier
 from sklearn.pipeline import make_pipeline
 
-network = make_pipeline(prepare, MLPClassifier(
+model = make_pipeline(prepare, MLPClassifier(
     hidden_layer_sizes=(8,), alpha=1.0,
-    max_iter=2000, random_state=0))
-predictions = network.fit(X_train, y_train).predict(X_test)
+    max_iter=3000, random_state=7))
+model.fit(X_train, y_train)
+predictions = model.predict(X_test)
 ```
-
+</div>
+            <div class="column vertical-middle text-left" style="width: 4%"></div>
+            <div class="column vertical-middle text-left" style="width: 38%">
+                <p><b>Python usage:</b> scikit-learn</p>
+                <p>One hidden layer of 8 units, with the same preparation</p>
+                <ul>
+                    <li><p><b>hidden_layer_sizes:</b> (8,), one layer of 8 units</p></li>
+                    <li><p><b>alpha:</b> the penalty $\lambda = 1.0$</p></li>
+                    <li><p><b>Returns:</b> in the Lecture 6 notebook, the network stops after 188 steps and 0.625 of the 56 rows kept apart are right</p></li>
+                </ul>
             </div>
         </div>
     </div>

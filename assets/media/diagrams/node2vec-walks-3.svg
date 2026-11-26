@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Walks as sentences, step 3: a window of 1 over the walk gives skip-gram pairs. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 510" width="790" height="510">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .x { font-size:18px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .l { text-anchor:start; }
+ .r { text-anchor:end; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6c8aa3"/></marker>
+</defs>
+<rect x="140" y="70" width="90" height="70" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="185.0" y="113.0" class="b">A</text>
+<rect x="244" y="70" width="90" height="70" rx="8" fill="#fff4e0" stroke="#224466" stroke-width="2"/>
+<text x="289.0" y="113.0" class="b">B</text>
+<rect x="348" y="70" width="90" height="70" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="4"/>
+<text x="393.0" y="113.0" class="b">D</text>
+<rect x="452" y="70" width="90" height="70" rx="8" fill="#fff4e0" stroke="#224466" stroke-width="2"/>
+<text x="497.0" y="113.0" class="b">E</text>
+<rect x="556" y="70" width="90" height="70" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="601.0" y="113.0" class="b">C</text>
+<rect x="234" y="60" width="302" height="90" rx="12" fill="none" stroke="#ffa500" stroke-width="3" stroke-dasharray="8 6"/>
+<text x="385.0" y="190.0" class="s" style="fill:#ffa500">window</text>
+<rect x="80" y="255" width="140" height="64" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="150.0" y="295.0" class="t">(A, B)</text>
+<rect x="245" y="255" width="140" height="64" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="315.0" y="295.0" class="t">(B, A)</text>
+<rect x="410" y="255" width="140" height="64" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="480.0" y="295.0" class="t">(B, D)</text>
+<rect x="575" y="255" width="140" height="64" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="645.0" y="295.0" class="t">(D, B)</text>
+<rect x="80" y="350" width="140" height="64" rx="8" fill="#fff4e0" stroke="#ffa500" stroke-width="2"/>
+<text x="150.0" y="390.0" class="t">(D, E)</text>
+<rect x="245" y="350" width="140" height="64" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="315.0" y="390.0" class="t">(E, D)</text>
+<rect x="410" y="350" width="140" height="64" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="480.0" y="390.0" class="t">(E, C)</text>
+<rect x="575" y="350" width="140" height="64" rx="8" fill="#e8f0f8" stroke="#224466" stroke-width="2"/>
+<text x="645.0" y="390.0" class="t">(C, E)</text>
+</svg>

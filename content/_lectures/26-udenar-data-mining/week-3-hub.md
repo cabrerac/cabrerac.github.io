@@ -6,7 +6,7 @@ email: chc79@cam.ac.uk
 institution: University of Cambridge
 layout: lecture
 lecture_code: week-3-hub
-lecture_date: 01/12/2026
+lecture_date: 28/11/2026
 permalink: /teaching/26-udenar-data-mining/week-3-hub/
 position: Assistant Research Professor
 session: 3
@@ -17,7 +17,7 @@ visible: false
 ---
 
 <link rel="stylesheet" href="/assets/css/lecture-article.css">
-Lectures **L5** and **L6** are asynchronous. There is no Saturday class for them. Project talks are **Saturday 5 Dec 2026, 07:00 to 13:00 (Colombia)**.
+**Saturday 28 Nov 2026, 07:00 to 13:00 (Colombia)**. Lectures **L5** and **L6**. Project talks are Saturday 5 Dec 2026.
 
 ---
 

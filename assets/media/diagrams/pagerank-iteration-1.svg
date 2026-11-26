@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Power iteration, step 0: all 0.25. d = 0.85, computed on the box. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 510" width="790" height="510">
+<defs><style type="text/css"><![CDATA[
+ text { font-family:Segoe UI, Helvetica, Arial, sans-serif; fill:#224466; }
+ .t { font-size:26px; font-weight:600; text-anchor:middle; }
+ .s { font-size:22px; text-anchor:middle; }
+ .x { font-size:18px; text-anchor:middle; }
+ .b { font-size:30px; font-weight:700; text-anchor:middle; }
+ .l { text-anchor:start; }
+ .r { text-anchor:end; }
+ .m { font-family:Consolas, Menlo, monospace; }
+]]></style>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#224466"/></marker>
+<marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffa500"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6c8aa3"/></marker>
+</defs>
+<line x1="237.3" y1="135.3" x2="530.7" y2="114.8" stroke="#224466" stroke-width="2.5" marker-end="url(#ar)"/>
+<path d="M216.2,189.2 Q269.5,245.9 337.6,279.4" fill="none" stroke="#224466" stroke-width="2.5" marker-end="url(#ar)"/>
+<line x1="552.3" y1="157.7" x2="449.1" y2="260.9" stroke="#224466" stroke-width="2.5" marker-end="url(#ar)"/>
+<path d="M353.8,260.8 Q300.5,204.1 232.4,170.6" fill="none" stroke="#224466" stroke-width="2.5" marker-end="url(#ar)"/>
+<line x1="575.2" y1="361.1" x2="466.7" y2="329.5" stroke="#224466" stroke-width="2.5" marker-end="url(#ar)"/>
+<circle cx="170.0" cy="140.0" r="67.5" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="170.0" y="149.0" class="t">A</text>
+<circle cx="600.0" cy="110.0" r="67.5" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="600.0" y="119.0" class="t">B</text>
+<circle cx="400.0" cy="310.0" r="67.5" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="400.0" y="319.0" class="t">C</text>
+<circle cx="640.0" cy="380.0" r="67.5" fill="#d9e8f5" stroke="#224466" stroke-width="2"/>
+<text x="640.0" y="389.0" class="t">D</text>
+<text x="170.0" y="237.5" class="s" style="fill:#ffa500">0.250</text>
+<text x="600.0" y="207.5" class="s" style="fill:#ffa500">0.250</text>
+<text x="400.0" y="407.5" class="s" style="fill:#ffa500">0.250</text>
+<text x="640.0" y="477.5" class="s" style="fill:#ffa500">0.250</text>
+</svg>
