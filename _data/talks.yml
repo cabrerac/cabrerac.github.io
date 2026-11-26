@@ -191,6 +191,6 @@
   month: November
   date: '2026-11-25'
   type: invited_talk
-  status: upcoming
+  status: past
   visible: true
   slides: https://cabrerac.github.io/assets/slides/2026/npl-doa.html
