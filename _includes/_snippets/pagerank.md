@@ -34,7 +34,7 @@
     </div>
 </div>
 
-## Degree
+## PageRank
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -55,7 +55,7 @@ $$
     </div>
 </div>
 
-## Degree
+## PageRank
 
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
@@ -81,11 +81,14 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p>Degree counts every link the same. PageRank weighs who makes it.</p>
                 <ul>
                     <li><p>A random surfer follows links with probability $d = 0.85$</p></li>
+                    <li><p>Now and then the surfer jumps to any item with probability $1 - d = 0.15$</p></li>
+                    <li><p>PageRank is the share of time the surfer spends on each item</p></li>
                 </ul>
+                <p>"a page has high rank if the sum of the ranks of its backlinks is high." (<a href="https://web.archive.org/web/20241231011600/http://ilpubs.stanford.edu:8090/422/" target="_blank" rel="noopener noreferrer">Page et al., 1998</a>, p. 3)</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/diagrams/pagerank-surfer-1.svg" alt="A surfer on A follows a link" style="height: auto; max-width: 100%; max-height: 100%;">
@@ -99,7 +102,7 @@ $$
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p>Degree counts every link the same. PageRank weighs who makes it.</p>
                 <ul>
                     <li><p>A random surfer follows links with probability $d = 0.85$</p></li>

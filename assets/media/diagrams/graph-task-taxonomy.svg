@@ -27,8 +27,8 @@
   <rect x="24" y="112" width="280" height="48" rx="8" class="fam-box"/>
   <text x="164" y="136" class="fam-txt">Link counts</text>
   <path class="edge" d="M 164 160 V 178"/>
-  <rect x="24" y="178" width="280" height="40" rx="8" class="taught-box"/>
-  <text x="164" y="198" class="taught-txt">Degree</text>
+  <rect x="24" y="178" width="280" height="40" rx="8" class="leaf-box"/>
+  <text x="164" y="198" class="leaf-txt">Degree</text>
   <path class="edge" d="M 164 218 V 236"/>
   <rect x="24" y="236" width="280" height="40" rx="8" class="taught-box"/>
   <text x="164" y="256" class="taught-txt">PageRank</text>
@@ -39,8 +39,8 @@
   <rect x="336" y="112" width="280" height="48" rx="8" class="fam-box"/>
   <text x="476" y="136" class="fam-txt">Paths</text>
   <path class="edge" d="M 476 160 V 178"/>
-  <rect x="336" y="178" width="280" height="40" rx="8" class="leaf-box"/>
-  <text x="476" y="198" class="leaf-txt">Betweenness</text>
+  <rect x="336" y="178" width="280" height="40" rx="8" class="taught-box"/>
+  <text x="476" y="198" class="taught-txt">Betweenness</text>
   <path class="edge" d="M 476 218 V 236"/>
   <rect x="336" y="236" width="280" height="40" rx="8" class="leaf-box"/>
   <text x="476" y="256" class="leaf-txt">Closeness</text>
@@ -48,8 +48,8 @@
   <rect x="648" y="112" width="280" height="48" rx="8" class="fam-box"/>
   <text x="788" y="136" class="fam-txt">Node embeddings</text>
   <path class="edge" d="M 788 160 V 178"/>
-  <rect x="648" y="178" width="280" height="40" rx="8" class="taught-box"/>
-  <text x="788" y="198" class="taught-txt">node2vec</text>
+  <rect x="648" y="178" width="280" height="40" rx="8" class="leaf-box"/>
+  <text x="788" y="198" class="leaf-txt">node2vec</text>
   <path class="edge" d="M 788 218 V 236"/>
   <rect x="648" y="236" width="280" height="40" rx="8" class="leaf-box"/>
   <text x="788" y="256" class="leaf-txt">DeepWalk</text>
@@ -60,8 +60,8 @@
   <rect x="960" y="112" width="296" height="48" rx="8" class="fam-box"/>
   <text x="1108" y="136" class="fam-txt">Communities</text>
   <path class="edge" d="M 1108 160 V 178"/>
-  <rect x="960" y="178" width="296" height="40" rx="8" class="leaf-box"/>
-  <text x="1108" y="198" class="leaf-txt">Louvain</text>
+  <rect x="960" y="178" width="296" height="40" rx="8" class="taught-box"/>
+  <text x="1108" y="198" class="taught-txt">Louvain</text>
   <path class="edge" d="M 1108 218 V 236"/>
   <rect x="960" y="236" width="296" height="40" rx="8" class="leaf-box"/>
   <text x="1108" y="256" class="leaf-txt">Label propagation</text>
