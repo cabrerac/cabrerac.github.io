@@ -6,9 +6,10 @@ description: Lecture 6 is the prediction task. The question is whether the attri
   of an item can predict a label that someone gave. Loans, patients, and articles
   in a table with a given label can feed the task. We explore three methods for this
   task. Logistic regression, a neural network with one hidden layer, and transformers.
-  For logistic regression and the network we go through theory, implementation and
-  evaluation; for transformers we explain the mechanism, without training one. We
-  end with what deploying a prediction means and its limits.
+  For logistic regression and the network we go through theory and implementation.
+  For transformers we explain the mechanism, without training one. We then evaluate
+  the trained methods on marked items they never saw. We end with what deploying a
+  prediction means and its limits.
 email: chc79@cam.ac.uk
 end_time: 01:00 pm
 group_notebook: week-3-group
