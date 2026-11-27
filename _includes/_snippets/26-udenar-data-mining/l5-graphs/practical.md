@@ -391,23 +391,6 @@ print(f"PageRank: OK ({len(top_rank) - len(not_by_degree)} de los 10 primeros ta
 **Lo que vemos.** PageRank premia que te cite alguien importante.
 "Obesity in children and young people" tiene grado 6 y está entre los 3 primeros.
 
-### El sumidero de puntaje
-En este paso vemos por qué hace falta el salto al azar.
-Un **sumidero** es un grupo de nodos que se enlazan entre ellos y no enlazan a nadie más.
-El puntaje entra y no sale.
-En el grafo de juguete A cita a B, y B y C se citan entre ellos.
-
-```python
-sink = nx.DiGraph()  # DiGraph arma el grafo de juguete, con dirección
-sink.add_nodes_from(["A", "B", "C"])  # add_nodes_from pone los tres nodos
-sink.add_edges_from([("A", "B"), ("B", "C"), ("C", "B")])  # A cita a B, y B y C se citan entre ellos
-toy_rank = nx.pagerank(sink, alpha=DAMPING)  # nx.pagerank calcula el puntaje con el salto de la lección
-print(f"d = {DAMPING}: A {toy_rank['A']:.3f}, B y C juntos {toy_rank['B'] + toy_rank['C']:.3f}")  # print muestra el puntaje de A y del sumidero
-```
-
-**Lo que vemos.** Sin salto (d = 1) el puntaje se quedaría en B y C, y `nx.pagerank` no converge.
-Con el salto A conserva su parte del azar, 0,15 / 3 = 0,05.
-
 ### Los artículos con PageRank alto
 En este paso marcamos los artículos con **PageRank alto**.
 Tienen enlaces, están en el cuarto superior por PageRank entre los artículos con enlaces y no son un nodo central.

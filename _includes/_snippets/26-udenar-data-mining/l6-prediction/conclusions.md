@@ -15,7 +15,7 @@
                     <tbody>
                         <tr><td>Loans</td><td>repaid</td></tr>
                         <tr><td>Patients</td><td>a given label</td></tr>
-                        <tr><td>Articles</td><td>internacional</td></tr>
+                        <tr><td>Articles</td><td>must read</td></tr>
                     </tbody>
                 </table>
                 <p><b>Data understanding</b></p>

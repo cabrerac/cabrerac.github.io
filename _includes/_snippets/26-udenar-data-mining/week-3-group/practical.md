@@ -166,7 +166,7 @@ print("Paso 2.1: OK")  # print confirma la comprobación
 
 ### Paso 2.2. La etiqueta y los atributos
 
-En este paso arman la tabla de atributos y la etiqueta, como en la Lección 6, Parte 3.
+En este paso arman la tabla de atributos y la etiqueta.
 `attributes` usa el título como índice.
 Lleva `kind`, `year`, `has_date`, `has_country`, `has_image` y `n_claims_without`.
 `kind` deja como `Other` los tipos con menos de `support_floor(N)` artículos.
@@ -235,7 +235,7 @@ print("Paso 3.2: OK")  # print confirma la comprobación
 
 ### Paso 3.3. La preparación
 
-En este paso arman `prepare`, el `ColumnTransformer` de la Lección 6.
+En este paso arman `prepare`, el `ColumnTransformer` de las diapositivas de la Lección 6.
 En los números usen `add_indicator=False`, porque `has_date` ya marca el año faltante.
 
 ```python
@@ -300,7 +300,7 @@ print("Paso 4.2: OK")  # print confirma la comprobación
 
 ### Paso 4.3. Una capa oculta
 
-En este paso entrenan la red de una capa oculta de la Lección 6, M2, con la preparación adelante: `make_pipeline(prepare, MLPClassifier(...))`.
+En este paso entrenan la red de una capa oculta de la Lección 6, con la preparación adelante: `make_pipeline(prepare, MLPClassifier(...))`.
 Usen `hidden_layer_sizes=(HIDDEN_UNITS,)`, `alpha=PENALTY`, `max_iter=3000` y `random_state=SEED`.
 `test_prediction` es lo que dice la red en las filas apartadas.
 `train_prediction` es lo que dice en las filas de entrenamiento, con cinco pliegues (`cross_val_predict` y `folds`), así un modelo que no vio la fila la predice.

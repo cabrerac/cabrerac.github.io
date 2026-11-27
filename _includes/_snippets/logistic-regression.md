@@ -192,7 +192,7 @@ prepare = ColumnTransformer([
                 <ul>
                     <li><p><b>make_pipeline:</b> the preparation is learned again each time the model is fit</p></li>
                     <li><p><b>class_weight:</b> "balanced" gives both classes the same weight</p></li>
-                    <li><p><b>Returns:</b> one class per row kept apart. In the Lecture 6 notebook, 0.607 of the 56 rows are right, against 0.518 for the majority class</p></li>
+                    <li><p><b>Returns:</b> one class per row kept apart</p></li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 4%"></div>

@@ -19,7 +19,7 @@ visible: false
 group_notebook: week-3-group
 notebook_language: es
 notebook_title: Predicción
-notebook_description: Práctica individual de la Lección 6. Predecir una etiqueta dada a partir de los atributos del artículo, sin usar el texto ni un conteo de popularidad, y contar aciertos y errores sobre ejemplos marcados.
+notebook_description: Práctica individual de la Lección 6. Predecir desde el resumen si un artículo se debe leer, con la etiqueta de tema de la Lección 4. Comparar la regresión logística y una red con una capa oculta, y contar aciertos y errores sobre artículos apartados.
 ---
 
 <!-- SLIDES: -->

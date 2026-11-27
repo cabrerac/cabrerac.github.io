@@ -7,14 +7,14 @@
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
                 <p><b>The <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/l6-prediction.ipynb" target="_blank">Lecture 6 notebook</a> follows CRISP-DM</b></p>
-                <p>The notebook runs this task on papers, with a given label. It trains logistic regression and one hidden layer. It does not train a transformer, and it does not use trees.</p>
+                <p>The notebook predicts, from the abstract, whether a paper must be read. The label is the Lecture 4 topic label. It trains logistic regression and one hidden layer, and compares them. It does not train a transformer, and it does not use trees.</p>
                 <ul>
-                    <li><b>Part 1, Business understanding:</b> the question and the titles</li>
-                    <li><b>Part 2, Data understanding:</b> the label and the attributes</li>
-                    <li><b>Part 3, Data preparation:</b> the labelled table, the held-out set, scaled columns</li>
+                    <li><b>Part 1, Business understanding:</b> the question and what "must read" assumes</li>
+                    <li><b>Part 2, Data understanding:</b> the label from the OpenAlex topics, and the abstracts</li>
+                    <li><b>Part 3, Data preparation:</b> the held-out set and TF-IDF from the training rows</li>
                     <li><b>Part 4, Modeling:</b> the majority class, logistic regression and one hidden layer</li>
-                    <li><b>Part 5, Evaluation:</b> accuracy against the majority class and the one-line rule</li>
-                    <li><b>Part 6, Deployment:</b> an article is flagged only if both methods agree; prediccion_l6.csv, lectura_l6.csv</li>
+                    <li><b>Part 5, Evaluation:</b> both against the majority class and a keyword rule, over five splits, and a label leak</li>
+                    <li><b>Part 6, Deployment:</b> a paper is listed only if both methods say read, in prediccion_l6.csv and lectura_l6.csv</li>
                 </ul>
             </div>
         </div>
