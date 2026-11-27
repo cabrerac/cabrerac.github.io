@@ -64,8 +64,8 @@ $$
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Worked example.</b> Two groups, A B C and D E F, joined only through X. $m = 8$.</p>
                 <ul>
-                    <li><p><b>A B C X:</b> 4 links inside, degrees $2 + 2 + 3 + 2 = 9$</p></li>
-                    <li><p><b>D E F:</b> 3 links inside, degrees $3 + 2 + 2 = 7$</p></li>
+                    <li><p><b>A B C X:</b> 4 links inside, degrees 2 + 2 + 3 + 2 = 9</p></li>
+                    <li><p><b>D E F:</b> 3 links inside, degrees 3 + 2 + 2 = 7</p></li>
                 </ul>
 $$
 Q = \frac{4}{8} - \left(\frac{9}{16}\right)^2 + \frac{3}{8} - \left(\frac{7}{16}\right)^2 = 0.367

@@ -186,63 +186,12 @@ $$
                     <li><p>A's link comes from C, the best placed item</p></li>
                     <li><p>B's comes from A, which splits its score in two</p></li>
                     <li><p>So A has almost twice the PageRank of B</p></li>
-                    <li><p>D gets only the jump share, $0.15 / 4 = 0.0375$</p></li>
+                    <li><p>D gets only the jump share</p></li>
                 </ul>
                 <p>The scores add up to 1, so we compare them with $1/n$.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/diagrams/pagerank-iteration-3.svg" alt="The converged scores" style="height: auto; max-width: 100%; max-height: 100%;">
-            </div>
-        </div>
-    </div>
-</div>
-
-## PageRank
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 65%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%; height: 100%">
-                <img src="{{ site.url }}/assets/media/diagrams/pagerank-sink-1.svg" alt="Without the jump B and C trap the score" style="height: auto; max-width: 100%; max-height: 100%;">
-            </div>
-        </div>
-    </div>
-    <div class="row" style="height: 35%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%; height: 100%">
-                <p><b>A rank sink:</b> A links to B, and B and C link to each other. Nothing links to A.</p>
-                <p>"Consider two web pages that point to each other but to no other page." (<a href="https://web.archive.org/web/20241231011600/http://ilpubs.stanford.edu:8090/422/" target="_blank" rel="noopener noreferrer">Page et al., 1998</a>, p. 4)</p>
-                <ul>
-                    <li><p><b>Without the jump ($d = 1$):</b> A drops to 0, and B and C trap all the score between them</p></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-## PageRank
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 65%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 47.5%; height: 100%">
-                <img src="{{ site.url }}/assets/media/diagrams/pagerank-sink-1.svg" alt="Without the jump B and C trap the score" style="height: auto; max-width: 100%; max-height: 100%;">
-            </div>
-            <div class="column vertical-middle text-left" style="width: 5%"></div>
-            <div class="column vertical-middle text-center" style="width: 47.5%; height: 100%">
-                <img src="{{ site.url }}/assets/media/diagrams/pagerank-sink-2.svg" alt="With the jump all three keep a share" style="height: auto; max-width: 100%; max-height: 100%;">
-            </div>
-        </div>
-    </div>
-    <div class="row" style="height: 35%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%; height: 100%">
-                <p><b>A rank sink:</b> A links to B, and B and C link to each other. Nothing links to A.</p>
-                <p>"Consider two web pages that point to each other but to no other page." (<a href="https://web.archive.org/web/20241231011600/http://ilpubs.stanford.edu:8090/422/" target="_blank" rel="noopener noreferrer">Page et al., 1998</a>, p. 4)</p>
-                <ul>
-                    <li><p><b>Without the jump ($d = 1$):</b> A drops to 0, and B and C trap all the score between them</p></li>
-                    <li><p><b>With the jump ($d = 0.85$):</b> A keeps 0.050, and B and C share 0.486 and 0.464</p></li>
-                </ul>
             </div>
         </div>
     </div>
