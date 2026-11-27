@@ -68,7 +68,7 @@
                 <ul>
                     <li>Prediction of a given label</li>
                     <li>Data and methods</li>
-                    <li>Random forests, logistic regression, one hidden layer</li>
+                    <li>Logistic regression, one hidden layer, and transformers</li>
                     <li>Evaluation and deployment</li>
                 </ul>
             </div>
