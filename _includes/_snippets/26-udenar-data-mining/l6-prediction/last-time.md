@@ -31,7 +31,7 @@
                     <li><b>The task:</b> can the attributes of an item predict a label that someone gave?</li>
                     <li><b>The data:</b> a table of attributes with a given label, and the rows kept apart</li>
                     <li><b>Modeling:</b> logistic regression, one hidden layer, and transformers</li>
-                    <li><b>Evaluation:</b> four counts on items kept apart, against the majority class</li>
+                    <li><b>Evaluation:</b> accuracy against the majority class</li>
                     <li><b>Deployment:</b> what using a prediction would mean, and its limits</li>
                 </ul>
             </div>

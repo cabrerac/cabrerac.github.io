@@ -57,12 +57,12 @@ Cada paso empieza con **En este paso**. Si tiene código, termina con una celda 
 
 | Parte | Fase CRISP-DM | Qué sale |
 |-------|---------------|----------|
-| 1 | Comprensión del negocio | La pregunta de hoy, los parámetros y la función contra la fuga |
+| 1 | Comprensión del negocio | La pregunta de hoy y los parámetros |
 | 2 | Comprensión de los datos | La etiqueta y los atributos |
 | 3 | Preparación de los datos | La tabla, el conjunto apartado y la preparación |
 | 4 | Modelado | Clase mayoritaria, regresión logística y una capa oculta |
-| 5 | Evaluación | Aciertos y errores, cinco pliegues, la regla de una línea y una fuga a propósito |
-| 6 | Despliegue | La predicción y una lista de hasta 30 artículos |
+| 5 | Evaluación | Aciertos y errores contra la clase mayoritaria y la regla de una línea |
+| 6 | Despliegue | La predicción en `outputs/prediccion_l6.csv` y hasta 30 artículos en `outputs/lectura_l6.csv` |
 
 **Carpetas.** La celda de configuración crea `data/` (datos descargados) y `outputs/` (tablas y gráficos).
 
@@ -102,8 +102,8 @@ from sklearn.compose import ColumnTransformer  # ColumnTransformer prepara cada 
 from sklearn.dummy import DummyClassifier  # DummyClassifier dice siempre la clase mayoritaria
 from sklearn.impute import SimpleImputer  # SimpleImputer llena los faltantes
 from sklearn.linear_model import LogisticRegression  # LogisticRegression es la regresión logística
-from sklearn.metrics import ConfusionMatrixDisplay, accuracy_score, confusion_matrix, f1_score  # medidas de aciertos y errores
-from sklearn.model_selection import StratifiedKFold, cross_val_predict, train_test_split  # particiones y pliegues
+from sklearn.metrics import ConfusionMatrixDisplay, accuracy_score, confusion_matrix  # medidas de aciertos y errores
+from sklearn.model_selection import train_test_split  # particiones
 from sklearn.neural_network import MLPClassifier  # MLPClassifier es la red con una capa oculta
 from sklearn.pipeline import make_pipeline  # make_pipeline encadena la preparación y el modelo
 from sklearn.preprocessing import OneHotEncoder, StandardScaler  # columnas de 0 y 1, y escalado
@@ -124,7 +124,6 @@ FLAGGED_MIN = 40  # mínimo de filas apartadas
 POSITIVE_SHARE = 0.10  # proporción mínima de positivos en la etiqueta
 POSITIVES_MIN = 30  # mínimo de positivos
 C_REG = 10  # penalización de la regresión logística (más alto, menos penalización)
-N_FOLDS = 5  # número de pliegues
 
 # L6 (no cambiar)
 LABEL = "internacional"  # laboratorio: autores de al menos dos países
@@ -167,70 +166,7 @@ def min_positives(n: int) -> int:
 print(f"Etiqueta: {LABEL} (n_countries >= 2). Una capa oculta de {HIDDEN_UNITS} unidades con penalización {PENALTY}")  # print muestra la etiqueta y los parámetros
 ```
 
-### Paso 3. La fuga de la respuesta
-En este paso escribimos la función que quita de `n_claims` la propiedad que define la etiqueta.
-Los artículos de nutrición no tienen `n_claims`, pero las tablas de Wikidata sí.
-Si `n_claims` cuenta la etiqueta, el modelo vería la respuesta.
-Eso es una **fuga**.
-La probamos con una tabla de juguete.
-
-```python
-PROPERTY_COLUMN = {"P18": "has_image"}  # propiedad de Wikidata -> columna de la tabla
-LABEL_PROPERTY = {"tiene_imagen": "P18"}  # etiquetas que son una propiedad contada en n_claims
-
-
-def n_claims_without(table, label):
-    """Devuelve n_claims sin la propiedad de Wikidata que define la etiqueta.
-
-    Qué hace: n_claims cuenta las propiedades distintas de cada artículo. Si la etiqueta es
-    una de esas propiedades (por ejemplo P18, la imagen), cada fila positiva suma 1 a su
-    propio n_claims, y el modelo vería la respuesta. En ese caso restamos la columna de la
-    propiedad. Para cualquier otra etiqueta, n_claims queda igual.
-
-    Entrada:
-        table: una tabla con n_claims y las columnas de PROPERTY_COLUMN.
-        label: el nombre de la etiqueta.
-
-    Salida:
-        Una serie de enteros con n_claims sin la propiedad de la etiqueta.
-    """
-    prop = LABEL_PROPERTY.get(label)  # get devuelve la propiedad de la etiqueta, o None si no es una propiedad
-    if prop is None:  # la etiqueta no es una propiedad
-        return table["n_claims"].astype(int)  # n_claims queda igual
-    column = PROPERTY_COLUMN[prop]  # la columna que guarda esa propiedad
-    return (table["n_claims"] - table[column]).astype(int)  # restamos la propiedad de la etiqueta
-
-
-toy_table = pd.DataFrame({"n_claims": [12, 7, 1, 0], "has_image": [1, 0, 1, 0]})  # DataFrame arma la tabla de juguete
-result = n_claims_without(toy_table, "tiene_imagen")  # n_claims_without quita la imagen de n_claims
-y = toy_table["has_image"]  # la etiqueta de juguete es tener imagen
-print(pd.DataFrame({"n_claims": toy_table["n_claims"], "has_image": y, "sin la imagen": result}))  # print muestra antes y después
-```
-
-**Lo que vemos.** Las dos filas con imagen pierden una propiedad.
-Las otras quedan igual.
-
-**Comprobar:**
-
-Comprobamos que la función quita la imagen de `n_claims` en las filas con imagen y nada más.
-
-```python
-assert (result >= 0).all()  # ningún conteo queda negativo
-assert (toy_table.loc[toy_table["has_image"] == 1, "n_claims"] >= 1).all()  # las filas con imagen tenían al menos una propiedad
-assert ((toy_table["n_claims"] - result) == y).all()  # la diferencia es justo la imagen
-print("Fuga quitada con una etiqueta que es una propiedad: OK")  # print confirma la comprobación
-```
-
-**Comprobar:**
-
-Comprobamos que con una etiqueta que no es una propiedad, `n_claims` no cambia.
-
-```python
-assert (n_claims_without(toy_table, "categoria") == toy_table["n_claims"]).all()  # con otra etiqueta n_claims queda igual
-print("Con otra etiqueta, n_claims queda igual: OK")  # print confirma la comprobación
-```
-
-### Paso 4. Descargar los artículos
+### Paso 3. Descargar los artículos
 En este paso descargamos los artículos y quitamos los títulos repetidos, como en la Lección 5.
 
 ```python
@@ -262,7 +198,7 @@ N = len(papers)  # len cuenta los artículos
 print(f"{len(raw)} filas, {N} sin títulos repetidos, como en la L5")  # print muestra los dos tamaños
 ```
 
-### Paso 5. La pregunta
+### Paso 4. La pregunta
 La pregunta es la de la Lección 1.
 El equipo decide qué artículos de nutrición leer, y qué filtro los puso en la lista.
 La lista tiene entre 10 y 30 artículos.
@@ -273,7 +209,7 @@ MAX_PAPERS = 30  # la lista tiene como máximo 30 artículos
 print(f"Lista: entre {MIN_PAPERS} y {MAX_PAPERS} artículos")  # print muestra el tamaño de la lista
 ```
 
-### Paso 6. Los títulos de esta lección
+### Paso 5. Los títulos de esta lección
 En este paso dejamos una fila por título.
 La predicción de más adelante se escribe en esa tabla.
 No leemos los archivos de las lecciones anteriores.
@@ -481,7 +417,7 @@ print("Tres predicciones sobre las filas apartadas: OK")  # print confirma la co
 ### Paso 1. Aciertos y errores en las filas apartadas
 En este paso contamos TP, FP, FN y TN de cada método, y su exactitud.
 Al lado ponemos una regla de una línea: **internacional si tiene al menos 4 autores**.
-4 es el umbral que más acierta en las filas de entrenamiento (Paso 6).
+4 es el umbral que más acierta en las filas de entrenamiento (Paso 5).
 
 ```python
 def counts_of(y, pred):
@@ -497,7 +433,7 @@ def counts_of(y, pred):
         Un diccionario con TP, FP, FN, TN y la exactitud a 3 decimales.
     """
     tn, fp, fn, tp = confusion_matrix(y, pred, labels=[0, 1]).ravel()  # confusion_matrix cuenta los cuatro casos y ravel los deja en fila
-    return {"TP": int(tp), "FP": int(fp), "FN": int(fn), "TN": int(tn), "exactitud": round(accuracy_score(y, pred), 3), "F1": round(f1_score(y, pred, pos_label=1, zero_division=0), 3)}  # devolvemos los conteos, la exactitud y el F1
+    return {"TP": int(tp), "FP": int(fp), "FN": int(fn), "TN": int(tn), "exactitud": round(accuracy_score(y, pred), 3)}  # devolvemos los conteos y la exactitud
 
 
 pred_rule = (attributes.loc[test.index, "n_authors"] >= 4).astype(int).to_numpy()  # la regla dice internacional desde 4 autores
@@ -513,7 +449,7 @@ results  # mostramos la tabla
 **Comprobar:**
 
 Comprobamos que los cuatro casos suman las filas apartadas y que los dos métodos igualan o superan a la clase mayoritaria.
-Esta comprobación no decide si la predicción cuenta. Eso se decide en el Paso 4: un método cuenta solo si su exactitud queda más de `MARGIN` (0,02) por encima de la clase mayoritaria.
+Esta comprobación no decide si la predicción cuenta. Eso se decide en el Paso 3: un método cuenta solo si su exactitud queda más de `MARGIN` (0,02) por encima de la clase mayoritaria.
 
 ```python
 assert (results[["TP", "FP", "FN", "TN"]].sum(axis=1) == len(y_test)).all()  # los cuatro casos suman las filas apartadas
@@ -523,13 +459,10 @@ print("Los dos métodos igualan o superan a la clase mayoritaria: OK")  # print 
 ```
 
 **Lo que vemos.** Los dos métodos le ganan a la clase mayoritaria (0,518): regresión 0,607 y red 0,625.
-El F1 de la clase mayoritaria es 0,682, más alto que su exactitud, porque aquí la clase más común es la positiva y la regla de mayoría dice siempre internacional (29 TP, 27 FP, 0 FN, 0 TN).
-La regresión queda en F1 0,560 y la red en 0,588.
 La regla acierta 0,732.
 Eso es más que `MARGIN` frente a la clase mayoritaria, y también más que los dos métodos.
 
-En la Lección 4, con 64 filas apartadas, la clase mayoritaria acertaba 0,70 y su F1 era 0,00 (0 TP, 0 FP, 19 FN, 45 TN): decía siempre la clase negativa. La regresión logística con TF-IDF acertaba 0,95 y su F1 era 0,91.
-La exactitud sola engaña cuando una clase es más frecuente. Por eso reportamos los cuatro conteos y el F1.
+En la Lección 4, con 64 filas apartadas, la clase mayoritaria acertaba 0,70 y la regresión logística con TF-IDF 0,95.
 
 ### Paso 2. Las matrices de confusión
 En este paso dibujamos las matrices de confusión y las guardamos en `outputs/`.
@@ -546,36 +479,15 @@ for name, pred, file in [("regresión logística", pred_lr, "confusion_regresion
 
 **Lo que vemos.** Las matrices de la celda de arriba muestran los aciertos y errores de cada método.
 
-### Paso 3. Cinco pliegues en las filas de entrenamiento
-En este paso repetimos la cuenta con cinco pliegues sobre las 220 filas de entrenamiento.
-La preparación va dentro de cada modelo.
-
-```python
-folds = StratifiedKFold(n_splits=N_FOLDS, shuffle=True, random_state=SEED)  # StratifiedKFold arma cinco pliegues con la misma proporción de cada clase
-models = []  # aquí guardamos los dos métodos con su preparación
-for m in (lr, network):  # recorremos los dos métodos
-    models.append(make_pipeline(prepare, m))  # make_pipeline pone la preparación antes del método
-names = ["regresión logística", "una capa oculta"]  # el nombre de cada método
-cv_predictions = []  # aquí guardamos las predicciones fuera del pliegue
-for m in models:  # recorremos los dos métodos
-    cv_predictions.append(cross_val_predict(m, train, y_train, cv=folds))  # cross_val_predict predice cada fila con un modelo que no la vio
-majority_cv = max(y_train.mean(), 1 - y_train.mean())  # la parte de la clase mayoritaria en las filas de entrenamiento
-for name, p in zip(names, cv_predictions):  # recorremos cada método con sus predicciones
-    print(f"{name:20s} exactitud en cinco pliegues {accuracy_score(y_train, p):.2f} (clase mayoritaria {majority_cv:.2f})")  # print compara con la clase mayoritaria
-rule_train = ((attributes.loc[train.index, "n_authors"] >= 4).astype(int) == y_train).mean()  # mean da la parte de aciertos de la regla
-print(f"{'regla n_authors >= 4':20s} exactitud en las {len(train)} filas de entrenamiento {rule_train:.2f}")  # print muestra la regla
-```
-
-**Lo que vemos.** La regresión queda en 0,61 y la red en 0,65, contra 0,53 de la clase mayoritaria.
-La regla acierta 0,69.
-Un solo número no basta: por eso también miramos los cinco pliegues.
-
-### Paso 4. ¿Cuenta la predicción?
+### Paso 3. ¿Cuenta la predicción?
 En este paso decidimos si la predicción suma un resultado.
 Cuenta (`l6_counts`) solo si los dos métodos quedan más de `MARGIN` (0,02) por encima de la clase mayoritaria en las filas apartadas.
 Después repetimos con otras cuatro particiones, con copias sin entrenar (`clone`).
 
 ```python
+models = []  # aquí guardamos los dos métodos con su preparación
+for m in (lr, network):  # recorremos los dos métodos
+    models.append(make_pipeline(prepare, m).fit(train, y_train))  # make_pipeline pone la preparación antes del método y fit lo entrena
 majority = max(np.mean(y_test), 1 - np.mean(y_test))  # la parte de la clase mayoritaria en las filas apartadas
 l6_counts = True  # empezamos suponiendo que cuenta
 for m in models:  # recorremos los dos métodos
@@ -602,7 +514,7 @@ if seeds_holding < len(SPLIT_SEEDS):  # no se sostiene en todas
 En otros datos puede salir `l6_counts = False`.
 Es un resultado normal y se informa con su razón.
 
-### Paso 5. ¿De dónde sale la señal?
+### Paso 4. ¿De dónde sale la señal?
 En este paso probamos dos variantes: solo `n_authors`, y todo menos `n_authors`.
 Así vemos qué atributo lleva la señal.
 
@@ -648,7 +560,7 @@ print("Todo menos n_authors:", heldout_accuracy(without_authors))  # heldout_acc
 print(f"Regla n_authors >= 4 en las {len(labelled)} filas con etiqueta: {((attributes.loc[labelled.index, 'n_authors'] >= 4).astype(int) == y).mean():.2f}")  # print muestra la regla en todas las filas con etiqueta
 ```
 
-### Paso 6. La regla y los modelos en las cinco particiones
+### Paso 5. La regla y los modelos en las cinco particiones
 En este paso repetimos la comparación en las cinco particiones de `SPLIT_SEEDS`.
 La última columna es el umbral que más acierta en las filas de entrenamiento.
 
@@ -695,54 +607,6 @@ for t in wrong:  # recorremos cada error
     print(f"{t[:80]}  autores {attributes.loc[t, 'n_authors']:.0f}, países {attributes.loc[t, 'n_countries']}, la regresión dijo {said_lr[t]}")  # print muestra autores, países y lo que dijo la regresión
 ```
 
-### Paso 7. Qué pasa si se cuela la etiqueta
-En este paso vemos una fuga con los artículos de nutrición, no con una tabla de juguete.
-
-La etiqueta `internacional` sale de `n_countries`: vale 1 si hay dos o más países.
-En el Paso 2 de la Parte 2 no usamos `n_countries` como atributo, precisamente por eso.
-Ahora la añadimos a propósito.
-Entrenamos otra regresión logística (la de la Parte 4 no cambia) y comparamos la exactitud en las mismas filas apartadas.
-
-```python
-train_leaked = train.copy()  # copy deja el entrenamiento original sin cambios
-test_leaked = test.copy()  # copy deja las filas apartadas originales sin cambios
-train_leaked["n_countries"] = attributes.loc[train.index, "n_countries"]  # loc trae el número de países, del que sale la etiqueta
-test_leaked["n_countries"] = attributes.loc[test.index, "n_countries"]  # loc trae el mismo dato en las filas apartadas
-NUMBER_COLUMNS_LEAKED = ["year", "n_authors", "is_oa", "n_countries"]  # las columnas de números, ahora con la fuga
-numbers_leaked = make_pipeline(SimpleImputer(strategy="median", add_indicator=True), StandardScaler())  # la misma preparación de números que en la Parte 3
-categories_leaked = make_pipeline(SimpleImputer(strategy="most_frequent"), OneHotEncoder(handle_unknown="ignore"))  # la misma preparación de categorías
-prepare_leaked = ColumnTransformer([("num", numbers_leaked, NUMBER_COLUMNS_LEAKED), ("cat", categories_leaked, CATEGORY_COLUMNS)])  # ColumnTransformer aplica cada preparación a sus columnas
-lr_leaked = make_pipeline(prepare_leaked, LogisticRegression(class_weight="balanced", C=C_REG, max_iter=1000))  # make_pipeline pone la preparación antes de una regresión nueva
-lr_leaked.fit(train_leaked, y_train)  # fit entrena esa regresión con la columna que se cuela
-pred_lr_leaked = lr_leaked.predict(test_leaked)  # predict responde en las mismas filas apartadas
-leak_rows = {}  # aquí guardamos la exactitud de cada fila
-leak_rows["clase mayoritaria"] = {"exactitud": round(accuracy_score(y_test, pred_majority), 3)}  # accuracy_score mide la clase mayoritaria
-leak_rows["regresión logística"] = {"exactitud": round(accuracy_score(y_test, pred_lr), 3)}  # la regresión de la Parte 4, sin n_countries
-leak_rows["regresión con n_countries"] = {"exactitud": round(accuracy_score(y_test, pred_lr_leaked), 3)}  # la regresión nueva, con la fuga
-leak_compare = pd.DataFrame(leak_rows).T  # DataFrame arma la tabla y T deja un método por fila
-print(leak_compare)  # print muestra las tres exactitudes
-weights_leaked = pd.Series(lr_leaked[-1].coef_[0], index=lr_leaked[0].get_feature_names_out())  # el último paso es la regresión y el primero la preparación
-print(weights_leaked.sort_values().round(2))  # sort_values ordena los pesos de menor a mayor
-```
-
-**Lo que vemos.** Los números salen de la celda de arriba.
-La clase mayoritaria acierta 0,518 de las filas apartadas.
-La regresión de la Parte 4 acierta 0,607.
-Si añadimos `n_countries`, la regresión acierta 0,982.
-El peso de `num__n_countries` es 18,50, por encima de los otros atributos.
-Eso no es un atributo independiente: es el dato del que sale la etiqueta.
-En otros datos una fuga puede ser más disimulada, por ejemplo una categoría casi igual a la etiqueta.
-
-**Comprobar:**
-
-Comprobamos que las tablas originales no tienen `n_countries` y que, con esa columna, la regresión acierta más.
-
-```python
-assert "n_countries" not in train.columns and "n_countries" not in test.columns  # las tablas originales no tienen la fuga
-assert accuracy_score(y_test, pred_lr_leaked) > accuracy_score(y_test, pred_lr)  # con la fuga la regresión acierta más
-print("Fuga con n_countries: OK")  # print confirma la comprobación
-```
-
 ---
 
 ## Parte 6. Despliegue
@@ -750,22 +614,14 @@ print("Fuga con n_countries: OK")  # print confirma la comprobación
 ### Paso 1. El resultado de la predicción
 En este paso definimos el resultado de la predicción.
 Es positivo si **los dos métodos** dicen que sí.
-Cada artículo lo puntúa un modelo que no vio su etiqueta.
-Los artículos sin etiqueta no reciben este resultado.
+Solo las filas apartadas reciben el resultado: las puntúa un modelo que no vio su etiqueta.
+Las filas de entrenamiento y los artículos sin etiqueta no reciben este resultado.
 
 ```python
-folds = StratifiedKFold(n_splits=5, shuffle=True, random_state=SEED)  # StratifiedKFold arma los cinco pliegues
-models = []  # aquí guardamos los dos métodos con su preparación
-for m in (lr, network):  # recorremos los dos métodos
-    models.append(make_pipeline(prepare, m))  # make_pipeline pone la preparación antes del método
-
-train_votes = 0  # aquí sumamos los votos en las filas de entrenamiento
-for m in models:  # recorremos los dos métodos
-    train_votes = train_votes + cross_val_predict(m, train, y_train, cv=folds)  # fuera del pliegue, cada fila la predice un modelo que no la vio
 test_votes = 0  # aquí sumamos los votos en las filas apartadas
-for m in models:  # recorremos los dos métodos
-    test_votes = test_votes + m.fit(train, y_train).predict(test)  # en las apartadas responde el modelo entrenado sin ellas
-voted = pd.concat([train.assign(votes=train_votes), test.assign(votes=test_votes)])["votes"]  # concat junta los votos, con el título como índice, como table
+for m in models:  # recorremos los dos métodos de la Parte 5
+    test_votes = test_votes + m.predict(test)  # en las apartadas responde el modelo entrenado sin ellas
+voted = test.assign(votes=test_votes)["votes"]  # assign guarda los votos, con el título como índice, como table
 table["prediction"] = (voted >= 2).reindex(table.index, fill_value=False)  # los dos métodos de acuerdo. Las filas sin etiqueta quedan en False
 
 majority = max(np.mean(y_test), 1 - np.mean(y_test))  # la parte de la clase mayoritaria en las filas apartadas
@@ -773,16 +629,16 @@ l6_counts = True  # empezamos suponiendo que cuenta
 for m in models:  # recorremos los dos métodos
     if np.mean(m.predict(test) == y_test) <= majority + MARGIN:  # no supera a la clase mayoritaria por más de MARGIN
         l6_counts = False  # con un método que no la supera, la predicción no cuenta
-print(f"Predichos positivos: {table['prediction'].sum()} de {len(labelled)} con etiqueta. l6_counts = {l6_counts}")  # print muestra el resultado
+print(f"Predichos positivos: {table['prediction'].sum()} de {len(test)} filas apartadas. l6_counts = {l6_counts}")  # print muestra el resultado
 ```
 
 **Comprobar:**
 
-Comprobamos que solo los artículos con etiqueta reciben el resultado y que los votos cuadran.
+Comprobamos que solo las filas apartadas reciben el resultado y que los votos cuadran.
 
 ```python
-assert not table.loc[~table.index.isin(labelled.index), "prediction"].any()  # los artículos sin etiqueta quedan en False
-assert table.loc[labelled.index, "prediction"].sum() == (train_votes >= 2).sum() + (test_votes >= 2).sum()  # los positivos son los de 2 votos
+assert not table.loc[~table.index.isin(test.index), "prediction"].any()  # las filas no apartadas quedan en False
+assert table.loc[test.index, "prediction"].sum() == (test_votes >= 2).sum()  # los positivos son los de 2 votos
 print("Resultado de la predicción sin filas vistas: OK")  # print confirma la comprobación
 ```
 
@@ -802,8 +658,14 @@ reading = table.loc[chosen, ["prediction"]].copy()  # copy toma las filas elegid
 reading["votos"] = voted.reindex(reading.index)  # reindex trae los votos de cada artículo
 reading = reading.reset_index().sort_values(["votos", "title"], ascending=[False, True])  # sort_values ordena por votos y después por título
 reading_list = reading.head(MAX_PAPERS)  # head se queda con los MAX_PAPERS primeros
+reading_path = OUTPUTS_DIR / "lectura_l6.csv"  # Path fija la ruta de la lista
+reading_list.to_csv(reading_path, index=False)  # to_csv escribe la lista y deja fuera el índice
 print(f"Predichos positivos: {len(reading)}. En la lista: {len(reading_list)}.")  # print muestra los dos conteos
+reading_list.head(10)  # head muestra los 10 primeros títulos
 ```
+
+Arriba quedan los artículos con más votos.
+Si la predicción no cuenta, la lista queda vacía y lo dice la celda.
 
 **Comprobar:**
 

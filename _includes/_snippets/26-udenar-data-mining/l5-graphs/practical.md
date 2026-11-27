@@ -62,7 +62,7 @@ Cada paso empieza con **En este paso**. Si tiene código, termina con una celda 
 | 3 | Preparación de los datos | La lista de enlaces y los dos grafos |
 | 4 | Modelado | PageRank (con el grado), intermediación y Louvain |
 | 5 | Evaluación | Contra las citas, un artículo descrito por su lugar, modularidad y la intermediación frente al grado |
-| 6 | Despliegue | La lista del grafo, hasta 30 artículos, en `outputs/grafo_l5.csv` |
+| 6 | Despliegue | Hasta 30 artículos en `outputs/lectura_l5.csv`. El grafo completo queda en `outputs/grafo_l5.csv` |
 
 **Carpetas.** La celda de configuración crea `data/` (datos descargados) y `outputs/` (tablas y gráficos).
 
@@ -815,8 +815,52 @@ En este paso escribimos cómo entra el grafo y qué lo cambiaría.
 | Cómo se lee | El grafo solo ve las citas dentro del conjunto. Un artículo aislado no tiene lugar. No es un artículo malo. La intermediación y la comunidad se leen en el archivo, y no deciden esta lista |
 | Qué lo cambia | Otro corte que el cuarto superior. Otra regla para los nodos centrales. Más artículos o más enlaces. Usar la intermediación o la comunidad para decidir la lista |
 
-### Paso 4. Comprobación final
-En este paso revisamos que el cuaderno guardó el grafo y las figuras.
+### Paso 4. Artículos para leer
+La lista reúne los artículos con PageRank alto: tienen enlaces, están en el cuarto superior entre esos artículos y no son un nodo central.
+Ordenamos de mayor a menor PageRank y, si empatan, por título.
+De esos artículos guardamos como máximo 30 en `outputs/lectura_l5.csv`, el tope de la Lección 1.
+Esta lista usa solo el grafo de hoy.
+
+```python
+reading_list = pd.DataFrame({  # DataFrame arma la lista con el título y PageRank
+    "title": list(table.index[table["en_lista"]]),  # los títulos que ya marcamos en la lista
+    "pagerank": [round(rank[t], 6) for t in table.index[table["en_lista"]]],  # round deja PageRank con 6 decimales
+})
+reading_list = reading_list.sort_values(["pagerank", "title"], ascending=[False, True])  # sort_values ordena de mayor a menor PageRank y, si empatan, por título
+reading_list = reading_list.head(MAX_PAPERS).reset_index(drop=True)  # head corta la lista en 30 artículos
+reading_path = OUTPUTS_DIR / "lectura_l5.csv"  # Path fija la ruta de la lista
+reading_list.to_csv(reading_path, index=False)  # to_csv escribe la lista y deja fuera el índice
+print(f"Artículos con PageRank alto: {len(high_rank)}. En la lista: {len(reading_list)}.")  # print muestra los dos conteos
+reading_list.head(10)  # head muestra los 10 primeros títulos
+```
+
+Examinamos cuántos artículos tienen PageRank alto y cuántos entran en la lista.
+Arriba quedan los de PageRank más alto.
+Si hay varias ediciones de la misma guía, el equipo abre la más reciente.
+
+**Comprobar:**
+
+En este paso comprobamos el largo de la lista, su orden y que sale solo del PageRank alto.
+
+```python
+assert len(reading_list) == min(MAX_PAPERS, len(high_rank)) and (reading_list["pagerank"] > 0).all()  # la lista no pasa de 30 y todos tienen PageRank
+assert reading_list["pagerank"].is_monotonic_decreasing  # PageRank no sube al bajar en la lista
+assert set(reading_list["title"]) <= set(high_rank)  # la lista sale solo del PageRank alto
+print("Lista de lectura: OK")  # print confirma la comprobación
+```
+
+En esta iteración describimos los 318 artículos por su lugar en las citas del conjunto.
+PageRank pone arriba artículos citados por otros de puntaje alto, y no solo los de más grado.
+La intermediación señala artículos que unen grupos, a veces con un grado más bajo.
+Louvain arma 153 comunidades, con modularidad 0,590. 122 son un artículo aislado.
+La lista guarda 30 artículos, los de PageRank más alto entre los que tienen enlaces y no son un nodo central.
+
+La principal razón detrás de estos resultados es que el grafo solo ve las citas dentro del conjunto.
+Un artículo aislado no tiene lugar en esta lista, y no es un artículo malo.
+Estos hallazgos deben reportarse como parte del proceso de minería y al mismo tiempo informar futuras iteraciones.
+
+### Paso 5. Comprobación final
+En este paso revisamos que el cuaderno guardó el grafo, la lista y las figuras.
 
 ```python
 def _check_ok(name, check):
@@ -838,6 +882,11 @@ def graph_saved():
     return graph_path.is_file()  # is_file dice si el archivo existe
 
 
+def reading_saved():
+    """Dice si el archivo de la lista quedó guardado."""
+    return reading_path.is_file()  # is_file dice si el archivo existe
+
+
 def figures_saved():
     """Dice si las tres figuras de la lección quedaron guardadas."""
     for name in ["grado_l5.png", "intermediacion_grado_l5.png", "comunidades_l5.png"]:  # recorremos las tres figuras
@@ -848,6 +897,7 @@ def figures_saved():
 
 checks = [  # cada comprobación tiene un nombre y una función
     ("outputs/grafo_l5.csv", graph_saved),  # el archivo del grafo
+    ("outputs/lectura_l5.csv", reading_saved),  # el archivo de la lista
     ("Histograma de grado, intermediación y comunidades", figures_saved),  # las tres figuras
 ]
 passed = 0  # aquí contamos las comprobaciones que pasan
@@ -857,46 +907,5 @@ print(f"\nL5_CHECKS={passed}/{len(checks)}")  # print muestra cuántas pasaron
 if passed == len(checks):  # pasaron todas
     print("L5_OK")  # print confirma el cuaderno
 ```
-
-### Paso 5. Artículos para leer
-La lista reúne los artículos con PageRank alto: tienen enlaces, están en el cuarto superior entre esos artículos y no son un nodo central.
-Ordenamos de mayor a menor PageRank y, si empatan, por título.
-De esos artículos mostramos como máximo 30, el tope de la Lección 1.
-Esta lista usa solo el grafo de hoy.
-
-```python
-graph_list = pd.DataFrame({  # DataFrame arma la lista con el título y PageRank
-    "title": list(table.index[table["en_lista"]]),  # los títulos que ya marcamos en la lista
-    "pagerank": [round(rank[t], 6) for t in table.index[table["en_lista"]]],  # round deja PageRank con 6 decimales
-})
-graph_list = graph_list.sort_values(["pagerank", "title"], ascending=[False, True])  # sort_values ordena de mayor a menor PageRank y, si empatan, por título
-graph_list = graph_list.head(MAX_PAPERS).reset_index(drop=True)  # head corta la lista en 30 artículos
-print(f"Artículos con PageRank alto: {len(high_rank)}. En la lista: {len(graph_list)}.")  # print muestra los dos conteos
-graph_list.head(10)
-```
-
-Examinamos cuántos artículos tienen PageRank alto y cuántos entran en la lista. Arriba quedan los de PageRank más alto.
-Si hay varias ediciones de la misma guía, el equipo abre la más reciente.
-
-**Comprobar:**
-
-En este paso comprobamos el largo de la lista, su orden y que sale solo del PageRank alto.
-
-```python
-assert len(graph_list) == min(MAX_PAPERS, len(high_rank)) and (graph_list["pagerank"] > 0).all()  # la lista no pasa de 30 y todos tienen PageRank
-assert graph_list["pagerank"].is_monotonic_decreasing  # PageRank no sube al bajar en la lista
-assert set(graph_list["title"]) <= set(high_rank)  # la lista sale solo del PageRank alto
-print("Lista del grafo: OK")  # print confirma la comprobación
-```
-
-En esta iteración describimos los 318 artículos por su lugar en las citas del conjunto.
-PageRank pone arriba artículos citados por otros de puntaje alto, y no solo los de más grado.
-La intermediación señala artículos que unen grupos, a veces con un grado más bajo.
-Louvain arma 153 comunidades, con modularidad 0,590; 122 son un artículo aislado.
-La lista guarda 30 artículos, los de PageRank más alto entre los que tienen enlaces y no son un nodo central.
-
-La principal razón detrás de estos resultados es que el grafo solo ve las citas dentro del conjunto.
-Un artículo aislado no tiene lugar en esta lista, y no es un artículo malo.
-Estos hallazgos deben reportarse como parte del proceso de minería y al mismo tiempo informar futuras iteraciones.
 
 <!-- end NOTEBOOK: -->

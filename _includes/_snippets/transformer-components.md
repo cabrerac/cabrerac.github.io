@@ -133,7 +133,7 @@ $$
                     <li><p><b>Repeat:</b> until $V$ reaches the chosen size</p></li>
                 </ul>
                 <br>
-<img src="{{ site.url }}/assets/media/diagrams/transformer-bpe-examples.svg" alt="Subword pieces of four words" style="max-height: 220px; max-width: 100%; width: auto;">
+<img src="{{ site.url }}/assets/media/diagrams/transformer-bpe-examples.svg" alt="Subword pieces of four words" style="max-height: 190px; max-width: 100%; width: auto;">
                 <br>
                 <p>No word is out of the vocabulary. An uncommon word still splits into known pieces.</p>
 <div class="footnote">Tokens from the <a href="https://arxiv.org/abs/2412.15115">Qwen2.5-0.5B-Instruct</a> tokeniser.</div>

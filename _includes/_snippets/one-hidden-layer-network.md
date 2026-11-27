@@ -42,18 +42,13 @@
                 <p><b>Forward pass</b></p>
                 <br>
 $$
-\mathbf{h} = \text{ReLU}(\mathbf{W}_1 \mathbf{x} + \mathbf{b}_1)
+\hat{y}_k(\mathbf{x}, \mathbf{w}) = \sigma\left( \sum_{j=1}^M w_{kj}^{(2)} \, h\left( \sum_{i=1}^D w_{ji}^{(1)} x_i + w_{j0}^{(1)} \right) + w_{k0}^{(2)} \right)
 $$
-$$
-z = \mathbf{w}_2 \cdot \mathbf{h} + b_2
-$$
-                <br>
-                <p><b>$\mathbf{W}_1$</b> and <b>$\mathbf{b}_1$</b> are one row of weights and one intercept per hidden unit. <b>$\text{ReLU}(a)$</b> is $\max(0, a)$, the bend.</p>
-                <p><b>$\mathbf{w}_2$</b> and <b>$b_2$</b> turn the hidden units $\mathbf{h}$ into one score $z$.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
-                <img class="external-svg" src="{{ site.url }}/assets/media/images/colored-neural-network.svg" alt="A network with an input, a hidden and an output layer" style="height: auto; max-width: 100%; max-height: 90%;">
-                <div class="footnote">Colored neural network - Glosser.ca, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons</div>
+                <img src="{{ site.url }}/assets/media/images/neural-network.png" alt="Two-layer Neural Network" style="height: auto; max-width: 100%;">
+                <div class="footnote">Two-layer Neural Network - <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">(Bishop, 2006)</a>.</div>
+            </div>
             </div>
         </div>
     </div>
@@ -89,46 +84,14 @@ $$
 ## Neural Network
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 40%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 30%; height: 100%">
-                <img src="{{ site.url }}/assets/media/diagrams/nn-forward-1.svg" alt="The inputs" style="height: auto; max-width: 100%; max-height: 100%;">
-            </div>
-            <div class="column vertical-middle text-left" style="width: 3%"></div>
-            <div class="column vertical-middle text-center" style="width: 30%; height: 100%">
-                <img src="{{ site.url }}/assets/media/diagrams/nn-forward-2.svg" alt="The hidden units" style="height: auto; max-width: 100%; max-height: 100%;">
-            </div>
-            <div class="column vertical-middle text-left" style="width: 3%"></div>
-            <div class="column vertical-middle text-center" style="width: 30%; height: 100%">
-                <img src="{{ site.url }}/assets/media/diagrams/nn-forward-3.svg" alt="The output" style="height: auto; max-width: 100%; max-height: 100%;">
-            </div>
-        </div>
-    </div>
-    <div class="row" style="height: 60%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 100%; height: 100%">
-                <p><b>Worked example:</b> $\mathbf{x} = (1, 2)$, $\mathbf{W}_1$ rows $(1, -1)$ and $(0, 1)$, $\mathbf{b}_1 = 0$, output weights $(0.5, 1)$, intercept $-1$</p>
-                <ul>
-                    <li><p><b>Left:</b> inputs $\mathbf{x} = (1, 2)$</p></li>
-                    <li><p><b>Middle:</b> $\mathbf{W}_1 \mathbf{x} = (1 - 2,\ 2) = (-1, 2)$, and $\text{ReLU}$ gives $\mathbf{h} = (0, 2)$</p></li>
-                    <li><p><b>Right:</b> $z = 0.5 \cdot 0 + 1 \cdot 2 - 1 = 1$, and $\sigma(1) = 0.73 \ge 0.5$, so the item is a yes</p></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-## Neural Network
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 48%">
+    <div class="row" style="height: 50%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%; height: 100%">
                 <img src="{{ site.url }}/assets/media/diagrams/nn-backprop-1.svg" alt="The forward pass computes the loss" style="height: auto; max-width: 100%; max-height: 100%;">
             </div>
         </div>
     </div>
-    <div class="row" style="height: 52%">
+    <div class="row" style="height: 50%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%; height: 100%">
                 <p><b>Cross-entropy</b> measures how unlikely the true labels were. With two classes it is the log loss of logistic regression.</p>
@@ -145,14 +108,18 @@ $$
 ## Neural Network
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 65%">
+    <div class="row" style="height: 63%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-middle text-center" style="width: 100%; height: 100%">
+            <div class="column vertical-middle text-center" style="width: 50%; height: 100%">
                 <img src="{{ site.url }}/assets/media/diagrams/nn-backprop-2.svg" alt="The gradients flow back from the loss" style="height: auto; max-width: 100%; max-height: 100%;">
+            </div>
+            <div class="column vertical-middle text-center" style="width: 50%; height: 100%">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Gradient_descent.gif" alt="Gradient Descent Algorithm" style="max-width: 100%; height: auto;">
+                <div class="footnote">Gradient Descent Algorithm - Jacopo Bertolotti, CC0, via Wikimedia Commons.</div>
             </div>
         </div>
     </div>
-    <div class="row" style="height: 35%">
+    <div class="row" style="height: 37%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%; height: 100%">
                 <p><b>Backpropagation</b></p>
@@ -229,7 +196,6 @@ predict on the rows kept apart
                 <ul>
                     <li><p><b>hidden_layer_sizes:</b> (8,), one layer of 8 units</p></li>
                     <li><p><b>alpha:</b> the penalty $\lambda = 1.0$</p></li>
-                    <li><p><b>Returns:</b> in the Lecture 6 notebook, the network stops after 188 steps and 0.625 of the 56 rows kept apart are right</p></li>
                 </ul>
             </div>
             <div class="column vertical-middle text-left" style="width: 4%"></div>

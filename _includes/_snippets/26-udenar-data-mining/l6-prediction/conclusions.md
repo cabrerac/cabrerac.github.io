@@ -19,7 +19,7 @@
                     </tbody>
                 </table>
                 <p><b>Data understanding</b></p>
-                <p>A table with a given label, and leakage</p>
+                <p>A table with a given label</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 33%">
                 <img src="{{ site.url }}/assets/media/diagrams/logreg-scaling-2.svg" alt="One-hot columns for a colour" style="max-height: 155px; max-width: 100%; width: auto;">
@@ -38,7 +38,7 @@
             <div class="column vertical-middle text-center" style="width: 33%">
                 <img src="{{ site.url }}/assets/media/diagrams/eval-counts.svg" alt="Accuracy against the majority class" style="max-height: 155px; max-width: 100%; width: auto;">
                 <p><b>Evaluation</b></p>
-                <p>Four counts on rows kept apart, against the majority class</p>
+                <p>Accuracy against the majority class</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 33%">
                 <img class="external-svg" src="{{ site.url }}/assets/media/images/crisp-dm-process-diagram.png" alt="CRISP-DM process diagram" style="max-height: 155px; max-width: 100%; width: auto;">

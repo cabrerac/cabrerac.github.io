@@ -72,14 +72,14 @@ $$
 ## Logistic Regression
 
 <div class="rows" style="height: 100%">
-    <div class="row" style="height: 46%">
+    <div class="row" style="height: 50%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-center" style="width: 100%; height: 100%">
                 <img src="{{ site.url }}/assets/media/diagrams/logreg-scaling-1.svg" alt="A value of 65 becomes 1.5" style="height: auto; max-width: 100%; max-height: 100%;">
             </div>
         </div>
     </div>
-    <div class="row" style="height: 54%">
+    <div class="row" style="height: 50%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-top text-left" style="width: 100%; height: 100%">
                 <p><b>Preparation:</b> scaling</p>

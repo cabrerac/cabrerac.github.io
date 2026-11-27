@@ -1,7 +1,7 @@
 ---
 course_code: 26-udenar-data-mining
 title: Prediction
-description: Lecture 6 is the prediction task. The question is whether the attributes of an item can predict a label that someone gave. Loans, patients, and articles in a table with a given label can feed the task. We start from the majority class. We explore three methods for this task. Logistic regression, a neural network with one hidden layer whose output layer is a logistic regression, and transformers, the architecture inside the text encoder used in Lecture 4. For logistic regression and the network we go through theory, implementation and evaluation. For transformers we explain the mechanism, without training one. We end with why accuracy misleads, a leakage demo, and what deploying a prediction means and its limits.
+description: Lecture 6 is the prediction task. The question is whether the attributes of an item can predict a label that someone gave. Loans, patients, and articles in a table with a given label can feed the task. We explore three methods for this task. Logistic regression, a neural network with one hidden layer, and transformers. For logistic regression and the network we go through theory, implementation and evaluation; for transformers we explain the mechanism, without training one. We end with what deploying a prediction means and its limits.
 session: 6
 start_time: 07:00 am
 end_time: 01:00 pm
@@ -55,26 +55,6 @@ notebook_description: Práctica individual de la Lección 6. Predecir una etique
 {% include _snippets/transformer-components.md %}
 
 {% include _snippets/transformer-families.md %}
-
-<!-- SLIDES: -->
-
-# Evaluation
-
-<!-- end SLIDES: -->
-
-{% include _snippets/classification-evaluation.md %}
-
-{% include _snippets/classification-uncertainty.md %}
-
-{% include _snippets/five-folds-code.md %}
-
-<!-- SLIDES: -->
-
-# Leakage
-
-<!-- end SLIDES: -->
-
-{% include _snippets/target-leakage-demo.md %}
 
 <!-- SLIDES: -->
 
