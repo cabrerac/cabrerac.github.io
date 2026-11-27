@@ -129,7 +129,7 @@ N_FOLDS = 5  # en cuántas partes partimos los artículos para dar una probabili
 TARGET_TOPICS = ["obesity", "diet", "nutrition", "nutritional",  # las palabras del peso, la comida y la nutrición
                  "diabetes", "cardiovascular", "lipoproteins", "blood pressure", "hypertension"]  # las palabras de las enfermedades
 
-# L6 (no cambiar)
+# L6
 HIDDEN_UNITS = 8  # igual que la diapositiva de la red
 PENALTY = 1.0  # pocas filas, así que una penalización más fuerte que la de la diapositiva (1e-4)
 MARGIN = 0.02  # cuánto sobre la clase mayoritaria debe quedar cada método para que la L6 cuente
@@ -513,16 +513,22 @@ En este paso miramos los artículos apartados donde los dos métodos coinciden y
 
 ```python
 said = pd.DataFrame({"regresión": pred_lr, "red": pred_nn, "etiqueta": y_test.to_numpy()}, index=test.index)  # DataFrame pone lo que dijo cada método junto a la etiqueta
-agreement = said.groupby(["regresión", "red"]).size()  # groupby cuenta cada combinación de respuestas
-print(agreement)  # print muestra los cuatro casos
+rows = []  # aquí guardamos una fila por combinación de respuestas
+for lr_said in (0, 1):  # recorremos lo que puede decir la regresión
+    for nn_said in (0, 1):  # recorremos lo que puede decir la red
+        group = said[(said["regresión"] == lr_said) & (said["red"] == nn_said)]  # los artículos con esta combinación
+        rows.append({"regresión": "leer" if lr_said else "no leer", "red": "leer" if nn_said else "no leer", "artículos": len(group), "del tema": int(group["etiqueta"].sum())})  # append guarda el conteo y cuántos son del tema
+agreement = pd.DataFrame(rows)  # DataFrame arma las cuatro combinaciones, incluida la que está en cero
+print(agreement.to_string(index=False))  # print muestra la tabla sin el índice
 only_lr = said[(said["regresión"] == 1) & (said["red"] == 0)]  # los artículos que solo la regresión manda a leer
 print(f"Solo la regresión dice leer: {len(only_lr)}, y {only_lr['etiqueta'].sum()} son del tema")  # print cuenta los aciertos de ese grupo
 for t in only_lr.index[:3]:  # recorremos hasta tres de esos artículos
     print("  ", t[:90])  # print muestra el comienzo del título
 ```
 
-**Lo que vemos.** Los dos dicen leer en 10 artículos, y los 10 son del tema.
-La red nunca dice leer cuando la regresión dice que no.
+**Lo que vemos.** Los dos dicen no leer en 47 artículos, y 4 de ellos sí son del tema.
+Los dos dicen leer en 10, y los 10 son del tema.
+La red nunca dice leer cuando la regresión dice que no, así que esa fila queda en 0.
 La regresión suma 7 artículos más, y 6 de ellos son del tema.
 Por eso la regresión encuentra más artículos del tema.
 
