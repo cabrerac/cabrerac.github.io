@@ -536,7 +536,6 @@ Por eso la regresión encuentra más artículos del tema.
 Una fuga es una entrada que ya contiene la etiqueta.
 En este cuaderno la etiqueta se arma buscando palabras en los temas de OpenAlex.
 Si un método lee esos temas, lee la respuesta y no el resumen.
-En este paso miramos un artículo apartado del tema y volvemos a entrenar los dos métodos.
 Esta vez la entrada son solo los temas, en las mismas filas.
 La exactitud con el resumen queda al lado, para ver el salto.
 
