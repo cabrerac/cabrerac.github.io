@@ -257,7 +257,7 @@ print("Paso 3.3: OK")  # print confirma la comprobación
 
 ### Paso 4.1. Comunidades de Louvain
 
-En este paso agrupan los artículos con `nx.community.louvain_communities(graph, seed=SEED)`, como en la Lección 5, M3.
+En este paso agrupan los artículos con `nx.community.louvain_communities(graph, seed=SEED)`, como en la Lección 5, Louvain.
 Calculen la modularidad con `nx.community.modularity`.
 `community_of` guarda el identificador de la comunidad de cada artículo.
 `community_size` guarda el tamaño de esa comunidad.

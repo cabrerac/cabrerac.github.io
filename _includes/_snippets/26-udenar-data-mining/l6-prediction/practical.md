@@ -47,8 +47,8 @@ Cada modelo se compara con la **clase mayoritaria** y con una regla de una líne
 
 | Método | Pregunta | Preparación que necesita |
 |--------|----------|--------------------------|
-| M1. Regresión logística | ¿Qué atributos pesan a favor y en contra? | Números escalados, categorías en columnas de 0 y 1, faltantes llenados. Ya la usamos en la Lección 4 con TF-IDF |
-| M2. Una capa oculta | ¿Qué combinación de atributos separa las clases? | Todo numérico y escalado, faltantes llenados. La capa de salida es una regresión logística |
+| Regresión logística | ¿Qué atributos pesan a favor y en contra? | Números escalados, categorías en columnas de 0 y 1, faltantes llenados. Ya la usamos en la Lección 4 con TF-IDF |
+| Una capa oculta | ¿Qué combinación de atributos separa las clases? | Todo numérico y escalado, faltantes llenados. La capa de salida es una regresión logística |
 
 **Qué hacer.** Ejecute las celdas de arriba hacia abajo.
 Cada paso empieza con **En este paso**. Si tiene código, termina con una celda **Comprobar**.
@@ -364,7 +364,7 @@ majority = max(np.mean(y_test), 1 - np.mean(y_test))  # la parte de la clase may
 print(f"La clase mayoritaria acierta {accuracy_score(y_test, pred_majority):.2f} de las apartadas")  # accuracy_score cuenta la parte de aciertos
 ```
 
-### M1. Regresión logística
+### Regresión logística
 En este paso usamos la regresión logística de la Lección 4.
 Un peso positivo empuja hacia internacional.
 `class_weight="balanced"` da el mismo peso a las dos clases.
@@ -382,7 +382,7 @@ print(weights.sort_values().round(2))  # sort_values ordena los pesos de menor a
 Revisión (1,32) y artículo (0,98) empujan hacia internacional, y preprint (-1,13) hacia nacional.
 `n_authors` pesa 0,44.
 
-### M2. Una capa oculta
+### Una capa oculta
 En este paso entrenamos una red con una capa oculta de `HIDDEN_UNITS` unidades.
 `PENALTY` es la penalización L2 (`alpha`).
 Es más fuerte que la de la diapositiva porque hay pocas filas.
@@ -695,70 +695,5 @@ reading_path = OUTPUTS_DIR / "lectura_l6.csv"  # Path fija la ruta de la lista
 reading_list.to_csv(reading_path, index=False)  # to_csv escribe la lista y deja fuera el índice
 print(f"Guardado: {prediction_path} ({len(prediction_table)} filas) y {reading_path} ({len(reading_list)} filas)")  # print confirma dónde quedaron
 ```
-
-### Paso 4. Qué cambiaría la decisión
-En este paso escribimos cómo entra la predicción y qué la cambiaría.
-
-| Qué | Respuesta |
-|-----|-----------|
-| Cómo entra | Entra en la lista si los dos métodos dicen que sí, con un modelo que no vio la etiqueta, y solo si los dos superan a la clase mayoritaria |
-| Cómo se lee | La señal es el número de autores. Los dos modelos no le ganan con claridad a contar autores. Con otras semillas la ventaja cambia |
-| Qué lo cambia | Otra etiqueta. Otra partición de los datos. Los artículos sin afiliación. Otro margen que 0,02 |
-
-**Lo que vemos.** La lista nombra artículos que los modelos marcan como internacionales.
-Ser internacional no es, por sí solo, una razón para leer.
-
-### Paso 5. Comprobación final
-En este paso revisamos que el cuaderno guardó la predicción, la lista y las figuras.
-
-```python
-def _check_ok(name, check):
-    """Ejecuta una comprobación sin detener el cuaderno: un error cuenta como incompleto.
-
-    Salida:
-        True si la comprobación pasó, False si no.
-    """
-    try:  # intentamos la comprobación
-        ok = bool(check())  # check devuelve True si pasó
-    except Exception:  # cualquier error cuenta como incompleto
-        ok = False  # la comprobación no pasó
-    print(f"{name}: {'OK' if ok else 'incompleto'}")  # print muestra el resultado
-    return ok  # devolvemos si pasó
-
-
-def prediction_saved():
-    """Dice si el archivo de la predicción quedó guardado."""
-    return prediction_path.is_file()  # is_file dice si el archivo existe
-
-
-def reading_saved():
-    """Dice si el archivo de la lista quedó guardado."""
-    return reading_path.is_file()  # is_file dice si el archivo existe
-
-
-def confusion_saved():
-    """Dice si las dos matrices de confusión quedaron guardadas."""
-    for name in ["confusion_regresion.png", "confusion_red.png"]:  # recorremos las dos figuras
-        if not (OUTPUTS_DIR / name).is_file():  # is_file dice si la figura existe
-            return False  # falta una figura
-    return True  # están las dos
-
-
-checks = [  # cada comprobación tiene un nombre y una función
-    ("outputs/prediccion_l6.csv", prediction_saved),  # el archivo de la predicción
-    ("outputs/lectura_l6.csv", reading_saved),  # el archivo de la lista
-    ("Matrices de confusión", confusion_saved),  # las dos figuras
-]
-passed = 0  # aquí contamos las comprobaciones que pasan
-for name, check in checks:  # recorremos cada comprobación
-    passed += _check_ok(name, check)  # _check_ok suma 1 si pasó
-print(f"\nL6_CHECKS={passed}/{len(checks)}")  # print muestra cuántas pasaron
-if passed == len(checks):  # pasaron todas
-    print("L6_OK. Siga con la Lección 7.")  # print confirma el cuaderno
-```
-
-La Lección 7 presenta direcciones de investigación en minería de datos.
-No hay cuaderno de esa lección en este curso.
-El proyecto se presenta el sábado 5 de diciembre.
 
 <!-- end NOTEBOOK: -->

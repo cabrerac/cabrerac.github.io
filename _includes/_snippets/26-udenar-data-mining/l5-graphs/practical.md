@@ -46,9 +46,9 @@ Un artículo **citado por artículos importantes** puede ser el que el colega ne
 
 | Método | Pregunta | Preparación que necesita |
 |--------|----------|--------------------------|
-| M1. PageRank | ¿Lo citan artículos que también son citados? | La lista de enlaces con dirección, un grafo dirigido. El grado entra aquí, como idea, no como método aparte |
-| M2. Intermediación | ¿Queda en los caminos más cortos entre otros? | La misma lista sin dirección |
-| M3. Louvain | ¿Qué grupos tienen más enlaces por dentro que por fuera? | La misma lista sin dirección |
+| PageRank | ¿Lo citan artículos que también son citados? | La lista de enlaces con dirección, un grafo dirigido. El grado entra aquí, como idea, no como método aparte |
+| Intermediación | ¿Queda en los caminos más cortos entre otros? | La misma lista sin dirección |
+| Louvain | ¿Qué grupos tienen más enlaces por dentro que por fuera? | La misma lista sin dirección |
 
 **Qué hacer.** Ejecute las celdas de arriba hacia abajo.
 Cada paso empieza con **En este paso**. Si tiene código, termina con una celda **Comprobar**.
@@ -306,7 +306,7 @@ El grafo no dice nada de ellos.
 
 ## Parte 4. Modelado
 
-### M1. El grado, dentro de PageRank
+### El grado, dentro de PageRank
 En este paso contamos el **grado** de cada artículo con `graph.degree` y su parte del total posible.
 El grado no es un método aparte en esta lección.
 Sirve para leer PageRank: un enlace no pesa lo mismo si viene de un nodo muy enlazado o de uno poco enlazado.
@@ -358,7 +358,7 @@ print(f"Grado: OK ({len(hubs)} nodos centrales, el más enlazado tiene {max(degr
 **Lo que vemos.** El más enlazado tiene 25 enlaces y no llega a la alerta.
 Arriba están los estudios de carga global, que todos usan de referencia.
 
-### M1. PageRank
+### PageRank
 En este paso calculamos PageRank con `nx.pagerank` (Page et al., 1998, en la [copia archivada del informe](https://web.archive.org/web/20241231011600/http://ilpubs.stanford.edu:8090/422/)).
 Un artículo sube si lo citan artículos que a su vez tienen puntaje alto.
 Con probabilidad `DAMPING` el navegante sigue un enlace.
@@ -391,7 +391,7 @@ print(f"PageRank: OK ({len(top_rank) - len(not_by_degree)} de los 10 primeros ta
 **Lo que vemos.** PageRank premia que te cite alguien importante.
 "Obesity in children and young people" tiene grado 6 y está entre los 3 primeros.
 
-### M1. El sumidero de puntaje
+### El sumidero de puntaje
 En este paso vemos por qué hace falta el salto al azar.
 Un **sumidero** es un grupo de nodos que se enlazan entre ellos y no enlazan a nadie más.
 El puntaje entra y no sale.
@@ -408,7 +408,7 @@ print(f"d = {DAMPING}: A {toy_rank['A']:.3f}, B y C juntos {toy_rank['B'] + toy_
 **Lo que vemos.** Sin salto (d = 1) el puntaje se quedaría en B y C, y `nx.pagerank` no converge.
 Con el salto A conserva su parte del azar, 0,15 / 3 = 0,05.
 
-### M1. Los artículos con PageRank alto
+### Los artículos con PageRank alto
 En este paso marcamos los artículos con **PageRank alto**.
 Tienen enlaces, están en el cuarto superior por PageRank entre los artículos con enlaces y no son un nodo central.
 Redondeamos PageRank a 6 decimales, el mismo valor que guarda `grafo_l5.csv`.
@@ -442,7 +442,7 @@ assert not set(high_rank) & set(hubs)  # ninguno es nodo central
 print(f"PageRank alto: OK ({len(high_rank)})")  # print confirma la comprobación
 ```
 
-### M2. Caminos más cortos e intermediación
+### Caminos más cortos e intermediación
 En este paso medimos la **intermediación** (Freeman, 1977).
 Un artículo tiene intermediación alta si queda en muchos caminos más cortos entre otros.
 No es lo mismo que el grado: puede unir dos grupos sin tener muchos enlaces.
@@ -458,7 +458,7 @@ print(f"Desde el primero por PageRank se alcanzan {len(reach) - 1} artículos. E
 **Lo que vemos.** Se llega a los otros 147 del componente mayor, en 5 pasos como máximo.
 Los otros 170 no se alcanzan.
 
-### M2. Intermediación con networkx
+### Intermediación con networkx
 En este paso calculamos la intermediación de cada artículo con `nx.betweenness_centrality`.
 Listamos los 10 primeros y los comparamos con los 10 de más grado.
 Un artículo de intermediación alta que no está entre los 10 de más grado une grupos que el grado no pone arriba.
@@ -492,7 +492,7 @@ print("Intermediación: OK")  # print confirma la comprobación
 Otros no: "Defining and Setting National Goals for Cardiovascular Health Promotion and Disease Reduction" tiene intermediación 0,0221 y grado 11, y no está entre los 10 de más grado.
 La guía de ejemplo también queda entre los 10 de más intermediación, con grado 10.
 
-### M3. Comunidades de Louvain
+### Comunidades de Louvain
 En este paso agrupamos los artículos con Louvain (Blondel et al., 2008).
 Una comunidad tiene más enlaces por dentro que los que habría al azar.
 La **modularidad** resume esa diferencia: más cerca de 1, más nítidos los grupos.
@@ -547,7 +547,7 @@ Las más grandes tienen 38, 32, 23 y 16 artículos.
 122 comunidades son un artículo aislado, los mismos 122 aislados de la Parte 3.
 La partición tiene sentido sobre los que sí tienen enlaces.
 
-### M3. Una lectura de dos comunidades
+### Una lectura de dos comunidades
 En este paso leemos la comunidad más grande y la segunda.
 Imprimimos unos títulos de cada una, los de más grado.
 
@@ -858,54 +858,5 @@ La lista guarda 30 artículos, los de PageRank más alto entre los que tienen en
 La principal razón detrás de estos resultados es que el grafo solo ve las citas dentro del conjunto.
 Un artículo aislado no tiene lugar en esta lista, y no es un artículo malo.
 Estos hallazgos deben reportarse como parte del proceso de minería y al mismo tiempo informar futuras iteraciones.
-
-### Paso 5. Comprobación final
-En este paso revisamos que el cuaderno guardó el grafo, la lista y las figuras.
-
-```python
-def _check_ok(name, check):
-    """Ejecuta una comprobación sin detener el cuaderno: un error cuenta como incompleto.
-
-    Salida:
-        True si la comprobación pasó, False si no.
-    """
-    try:  # intentamos la comprobación
-        ok = bool(check())  # check devuelve True si pasó
-    except Exception:  # cualquier error cuenta como incompleto
-        ok = False  # la comprobación no pasó
-    print(f"{name}: {'OK' if ok else 'incompleto'}")  # print muestra el resultado
-    return ok  # devolvemos si pasó
-
-
-def graph_saved():
-    """Dice si el archivo del grafo quedó guardado."""
-    return graph_path.is_file()  # is_file dice si el archivo existe
-
-
-def reading_saved():
-    """Dice si el archivo de la lista quedó guardado."""
-    return reading_path.is_file()  # is_file dice si el archivo existe
-
-
-def figures_saved():
-    """Dice si las tres figuras de la lección quedaron guardadas."""
-    for name in ["grado_l5.png", "intermediacion_grado_l5.png", "comunidades_l5.png"]:  # recorremos las tres figuras
-        if not (OUTPUTS_DIR / name).is_file():  # is_file dice si la figura existe
-            return False  # falta una figura
-    return True  # están las tres
-
-
-checks = [  # cada comprobación tiene un nombre y una función
-    ("outputs/grafo_l5.csv", graph_saved),  # el archivo del grafo
-    ("outputs/lectura_l5.csv", reading_saved),  # el archivo de la lista
-    ("Histograma de grado, intermediación y comunidades", figures_saved),  # las tres figuras
-]
-passed = 0  # aquí contamos las comprobaciones que pasan
-for name, check in checks:  # recorremos cada comprobación
-    passed += _check_ok(name, check)  # _check_ok suma 1 si pasó
-print(f"\nL5_CHECKS={passed}/{len(checks)}")  # print muestra cuántas pasaron
-if passed == len(checks):  # pasaron todas
-    print("L5_OK")  # print confirma el cuaderno
-```
 
 <!-- end NOTEBOOK: -->
