@@ -6,26 +6,12 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 50%">
-                <p>Can the attributes of an item predict a label that someone gave?</p>
-                <ul>
-                    <li><p>Each record is an item with attributes and a label, given by a rule or by people</p></li>
-                    <li><p>A model learns the label from items whose label is known</p></li>
-                </ul>
-            </div>
-            <div class="column vertical-middle text-center" style="width: 50%">
-                <img src="{{ site.url }}/assets/media/diagrams/decision-tree-1.svg" alt="A generic decision tree" style="height: auto; max-width: 100%; max-height: 100%;">
-            </div>
-        </div>
-    </div>
-</div>
-
-## The Task
-
-<div class="rows" style="height: 100%">
-    <div class="row" style="height: 100%">
-        <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 50%">
                 <p><b>Supervised prediction</b> learns a given label from the attributes of items whose label is known, and then predicts it for new items.</p>
+                <ul>
+                    <li><p>A class as the label is classification</p></li>
+                    <li><p>A number as the label is regression</p></li>
+                    <li><p>A good label is not something the attributes contain by construction</p></li>
+                </ul>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/diagrams/prediction-label-1.svg" alt="Labelled rows train a model" style="height: auto; max-width: 100%; max-height: 100%;">
@@ -39,7 +25,7 @@
 <div class="rows" style="height: 100%">
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
-            <div class="column vertical-top text-left" style="width: 50%">
+            <div class="column vertical-middle text-left" style="width: 50%">
                 <p><b>Supervised prediction</b> learns a given label from the attributes of items whose label is known, and then predicts it for new items.</p>
                 <ul>
                     <li><p>A class as the label is classification</p></li>

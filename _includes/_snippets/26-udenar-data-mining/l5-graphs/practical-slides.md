@@ -14,7 +14,7 @@
                     <li><b>Part 3, Data preparation:</b> the links inside the set and the two graphs</li>
                     <li><b>Part 4, Modeling:</b> PageRank with the hub warning, betweenness, and Louvain</li>
                     <li><b>Part 5, Evaluation:</b> citations, betweenness against degree, and the largest component</li>
-                    <li><b>Part 6, Deployment:</b> the graph table, outputs/grafo_l5.csv</li>
+                    <li><b>Part 6, Deployment:</b> a graph list of up to 30 articles</li>
                 </ul>
             </div>
         </div>

@@ -8,6 +8,13 @@
             <div class="column vertical-middle text-left" style="width: 50%">
                 <p>Logistic regression turns a weighted sum of an item's attributes into the probability of a class.</p>
                 <p>In Lecture 4, $\mathbf{x}$ was a row of TF-IDF weights, one per word. Here it is a row of attributes.</p>
+                <br>
+$$
+P(y = 1 \mid \mathbf{x}) = \sigma(\mathbf{w} \cdot \mathbf{x} + b)
+$$
+                <br>
+                <p><b>$\mathbf{w}$</b> is one weight per attribute. <b>$b$</b> is the intercept.</p>
+                <p><b>$\sigma$</b> is the logistic function, from any number to a value between 0 and 1.</p>
             </div>
             <div class="column vertical-middle text-center" style="width: 50%">
                 <img src="{{ site.url }}/assets/media/diagrams/logreg-sum-1.svg" alt="A weighted sum of the attributes" style="height: auto; max-width: 100%; max-height: 100%;">

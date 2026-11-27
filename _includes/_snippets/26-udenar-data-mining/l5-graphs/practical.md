@@ -24,27 +24,9 @@ print(toy_neighbours)  # print muestra los vecinos de cada nodo
 print("Grado de cada nodo:", toy_degree)  # print muestra el grado de cada nodo
 ```
 
-### Búsqueda por niveles
-La búsqueda por amplitud visita primero a los vecinos.
-Después visita a los vecinos de los vecinos, y cuenta los pasos.
-Los nodos que faltan por explorar se guardan en una estructura de cola.
-
-```python
-from collections import deque  # deque es una cola: sacamos por un lado y agregamos por el otro
-
-steps = {"A": 0}  # A está a 0 pasos de sí mismo
-queue = deque(["A"])  # la cola empieza con A
-while queue:  # seguimos mientras queden nodos en la cola
-    u = queue.popleft()  # popleft saca el primer nodo de la cola
-    for v in sorted(toy[u]):  # recorremos sus vecinos en orden alfabético
-        if v not in steps:  # solo los vecinos que todavía no visitamos
-            steps[v] = steps[u] + 1  # el vecino queda a un paso más que u
-            queue.append(v)  # append pone al vecino al final de la cola
-assert steps == {"A": 0, "B": 1, "C": 1, "D": 2}  # comprobamos los pasos del ejemplo
-print(f"Pasos desde A: {steps}. E no se alcanza. Repaso de Python: OK")  # print muestra los pasos desde A
-```
-
-D está a dos pasos de A porque hay que pasar por C. La Parte 4 usa esta búsqueda para la intermediación, que se apoya en los caminos más cortos.
+E no tiene vecinos, así que su grado es 0.
+En la Parte 4, `graph.degree` de networkx cuenta el grado sobre el grafo de los artículos.
+La intermediación se apoya en los caminos más cortos, que también calcula networkx.
 
 ---
 
@@ -107,7 +89,6 @@ En este paso importamos las librerías, creamos las carpetas y fijamos los pará
 
 ```python
 import math  # math.ceil redondea hacia arriba los mínimos
-from collections import deque  # deque es la cola de la búsqueda en anchura
 from pathlib import Path  # Path arma las rutas de las carpetas
 
 import matplotlib.pyplot as plt  # matplotlib dibuja las figuras
@@ -326,20 +307,19 @@ El grafo no dice nada de ellos.
 ## Parte 4. Modelado
 
 ### M1. El grado, dentro de PageRank
-En este paso contamos el **grado** de cada artículo y su parte del total posible.
+En este paso contamos el **grado** de cada artículo con `graph.degree` y su parte del total posible.
 El grado no es un método aparte en esta lección.
 Sirve para leer PageRank: un enlace no pesa lo mismo si viene de un nodo muy enlazado o de uno poco enlazado.
 Un artículo enlazado con al menos el 10% de los otros es una **alerta**.
 Con 318 artículos, `hub_threshold` pide 32 enlaces.
 
 ```python
-n = len(neighbours)  # len cuenta los nodos
-degree = {}  # aquí guardamos el grado de cada artículo
+n = graph.number_of_nodes()  # number_of_nodes cuenta los nodos
+degree = dict(graph.degree())  # degree da el grado de cada artículo
 degree_share = {}  # aquí guardamos la parte de los otros con la que se enlaza
 isolated = []  # aquí guardamos los artículos sin enlaces
 hubs = []  # aquí guardamos los nodos centrales, las alertas
-for v in neighbours:  # recorremos cada artículo
-    degree[v] = len(neighbours[v])  # len cuenta sus vecinos, que es el grado
+for v in graph:  # recorremos cada artículo
     degree_share[v] = degree[v] / (n - 1)  # dividimos por los n - 1 otros artículos
     if degree[v] == 0:  # sin vecinos quiere decir aislado
         isolated.append(v)  # append guarda el aislado
@@ -378,72 +358,12 @@ print(f"Grado: OK ({len(hubs)} nodos centrales, el más enlazado tiene {max(degr
 **Lo que vemos.** El más enlazado tiene 25 enlaces y no llega a la alerta.
 Arriba están los estudios de carga global, que todos usan de referencia.
 
-### M1. PageRank a mano
-En este paso calculamos PageRank a mano, con el código de las diapositivas (Page et al., 1998, en la [copia archivada del informe](https://web.archive.org/web/20241231011600/http://ilpubs.stanford.edu:8090/422/)).
+### M1. PageRank
+En este paso calculamos PageRank con `nx.pagerank` (Page et al., 1998, en la [copia archivada del informe](https://web.archive.org/web/20241231011600/http://ilpubs.stanford.edu:8090/422/)).
 Un artículo sube si lo citan artículos que a su vez tienen puntaje alto.
 Con probabilidad `DAMPING` el navegante sigue un enlace.
 Si no, salta a cualquier artículo.
-
-```python
-DAMPING = 0.85  # probabilidad de seguir un enlace
-
-
-def pagerank(links_out, d=DAMPING, steps=100):
-    """PageRank a mano, por iteración de potencias, como en la diapositiva.
-
-    Qué hace: todos empiezan con el mismo puntaje 1/n. En cada vuelta, cada artículo reparte
-    su puntaje en partes iguales entre los artículos que cita, con peso d, y todos
-    reciben además (1 - d)/n por el salto al azar. Un artículo que no cita a nadie
-    reparte entre todos. Después de suficientes vueltas los puntajes dejan de cambiar.
-
-    Entrada:
-        links_out: diccionario de cada título al conjunto de títulos que cita.
-        d: probabilidad de seguir un enlace, DAMPING = 0.85.
-        steps: número de vueltas.
-
-    Salida:
-        Un diccionario de cada título a su PageRank. Los puntajes suman 1.
-    """
-    nodes = list(links_out)  # list guarda los títulos en orden
-    n = len(nodes)  # len cuenta los artículos
-    rank = {}  # aquí guardamos el puntaje de cada artículo
-    for v in nodes:  # recorremos cada artículo
-        rank[v] = 1 / n  # todos empiezan con el mismo puntaje
-    for _ in range(steps):  # repetimos steps vueltas
-        new = {}  # aquí armamos los puntajes de esta vuelta
-        for v in nodes:  # recorremos cada artículo
-            new[v] = (1 - d) / n  # cada uno recibe su parte del salto al azar
-        for u in nodes:  # recorremos cada artículo que reparte
-            targets = links_out[u] or nodes  # sin enlaces, salta a cualquiera
-            for v in targets:  # recorremos cada artículo que recibe
-                new[v] += d * rank[u] / len(targets)  # u reparte su puntaje en partes iguales
-        rank = new  # los puntajes nuevos reemplazan a los viejos
-    return rank  # devolvemos el puntaje final
-
-
-rank = pagerank(links_out)  # pagerank calcula el puntaje a mano
-hand_rank = rank  # guardamos el cálculo a mano para compararlo con networkx
-print(f"Suma de los puntajes: {sum(rank.values()):.6f}")  # sum suma los puntajes, que deben dar 1
-```
-
-### M1. El sumidero de puntaje
-En este paso vemos por qué hace falta el salto al azar.
-Un **sumidero** es un grupo de nodos que se enlazan entre ellos y no enlazan a nadie más.
-El puntaje entra y no sale.
-En el grafo de juguete A cita a B, y B y C se citan entre ellos.
-
-```python
-sink = {"A": {"B"}, "B": {"C"}, "C": {"B"}}  # A cita a B, y B y C se citan entre ellos
-for d in (1.0, DAMPING):  # probamos sin salto y con el salto de la lección
-    toy_rank = pagerank(sink, d=d)  # pagerank calcula el puntaje del grafo de juguete
-    print(f"d = {d}: A {toy_rank['A']:.3f}, B y C juntos {toy_rank['B'] + toy_rank['C']:.3f}")  # print muestra el puntaje de A y del sumidero
-```
-
-**Lo que vemos.** Sin salto (d = 1) B y C se quedan con todo y A queda en 0.
-Con el salto A conserva su parte del azar, 0,15 / 3 = 0,05.
-
-### M1. PageRank con networkx
-En este paso usamos `networkx.pagerank` y lo comparamos con el cálculo a mano.
+Usamos el grafo con dirección.
 Ponemos los 10 primeros por PageRank junto a los 10 primeros por grado.
 
 ```python
@@ -453,11 +373,6 @@ not_by_degree = []  # aquí guardamos los de PageRank alto que no están entre l
 for v in top_rank:  # recorremos los 10 primeros por PageRank
     if v not in top_degree:  # no está entre los 10 de más grado
         not_by_degree.append(v)  # append lo guarda
-
-diff = 0.0  # aquí guardamos la diferencia más grande
-for v in rank:  # recorremos cada artículo
-    diff = max(diff, abs(rank[v] - hand_rank[v]))  # max se queda con la diferencia más grande
-print(f"Diferencia más grande con el cálculo a mano: {diff:.1e}")  # print muestra la diferencia
 print(f"El primero tiene {rank[top_rank[0]]:.3f}, {rank[top_rank[0]] * N:.1f} veces el puntaje uniforme 1/{N}")  # print compara el primero con el puntaje uniforme
 for v in top_rank:  # recorremos los 10 primeros por PageRank
     mark = "" if v in top_degree else "  <- no está entre los 10 de más grado"  # marcamos los que el grado no pone arriba
@@ -466,16 +381,32 @@ for v in top_rank:  # recorremos los 10 primeros por PageRank
 
 **Comprobar:**
 
-Comprobamos que PageRank suma 1 y que el cálculo a mano coincide con networkx.
+Comprobamos que PageRank suma 1.
 
 ```python
 assert abs(sum(rank.values()) - 1) < 1e-6  # los puntajes suman 1
-assert diff < 1e-3  # el cálculo a mano coincide con networkx
 print(f"PageRank: OK ({len(top_rank) - len(not_by_degree)} de los 10 primeros también están entre los 10 de más grado)")  # print confirma la comprobación
 ```
 
 **Lo que vemos.** PageRank premia que te cite alguien importante.
 "Obesity in children and young people" tiene grado 6 y está entre los 3 primeros.
+
+### M1. El sumidero de puntaje
+En este paso vemos por qué hace falta el salto al azar.
+Un **sumidero** es un grupo de nodos que se enlazan entre ellos y no enlazan a nadie más.
+El puntaje entra y no sale.
+En el grafo de juguete A cita a B, y B y C se citan entre ellos.
+
+```python
+sink = nx.DiGraph()  # DiGraph arma el grafo de juguete, con dirección
+sink.add_nodes_from(["A", "B", "C"])  # add_nodes_from pone los tres nodos
+sink.add_edges_from([("A", "B"), ("B", "C"), ("C", "B")])  # A cita a B, y B y C se citan entre ellos
+toy_rank = nx.pagerank(sink, alpha=DAMPING)  # nx.pagerank calcula el puntaje con el salto de la lección
+print(f"d = {DAMPING}: A {toy_rank['A']:.3f}, B y C juntos {toy_rank['B'] + toy_rank['C']:.3f}")  # print muestra el puntaje de A y del sumidero
+```
+
+**Lo que vemos.** Sin salto (d = 1) el puntaje se quedaría en B y C, y `nx.pagerank` no converge.
+Con el salto A conserva su parte del azar, 0,15 / 3 = 0,05.
 
 ### M1. Los artículos con PageRank alto
 En este paso marcamos los artículos con **PageRank alto**.
@@ -516,37 +447,11 @@ En este paso medimos la **intermediación** (Freeman, 1977).
 Un artículo tiene intermediación alta si queda en muchos caminos más cortos entre otros.
 No es lo mismo que el grado: puede unir dos grupos sin tener muchos enlaces.
 Usamos el grafo sin dirección.
-Primero repetimos la búsqueda por niveles desde el primero por PageRank.
+Primero medimos con `nx.single_source_shortest_path_length` cuántos artículos se alcanzan desde el primero por PageRank, y a cuántos pasos está el más lejano.
 
 ```python
-def distances_from(source, neighbours):
-    """Búsqueda en anchura: cuántos pasos hay desde source hasta cada nodo alcanzable.
-
-    Qué hace: visita primero a los vecinos de source, después a los vecinos de esos vecinos,
-    y así, con una cola. Cada nodo se visita una sola vez, la primera vez que se
-    encuentra, y esa es su distancia más corta. Los nodos que no se alcanzan no
-    aparecen en el resultado.
-
-    Entrada:
-        source: el nodo de partida.
-        neighbours: diccionario de cada nodo a su conjunto de vecinos, sin dirección.
-
-    Salida:
-        Un diccionario de cada nodo alcanzable a su número de pasos desde source.
-    """
-    dist = {source: 0}  # source está a 0 pasos de sí mismo
-    queue = deque([source])  # la cola empieza con source
-    while queue:  # seguimos mientras queden nodos en la cola
-        u = queue.popleft()  # popleft saca el primer nodo de la cola
-        for v in neighbours[u]:  # recorremos sus vecinos
-            if v not in dist:  # solo los que todavía no visitamos
-                dist[v] = dist[u] + 1  # el vecino queda a un paso más que u
-                queue.append(v)  # append pone al vecino al final de la cola
-    return dist  # devolvemos los pasos hasta cada nodo alcanzable
-
-
 first = top_rank[0]  # el primero por PageRank
-reach = distances_from(first, neighbours)  # distances_from cuenta los pasos desde ese artículo
+reach = nx.single_source_shortest_path_length(graph, first)  # single_source_shortest_path_length cuenta los pasos desde ese artículo
 print(f"Desde el primero por PageRank se alcanzan {len(reach) - 1} artículos. El más lejano está a {max(reach.values())} pasos")  # print muestra cuántos se alcanzan y el más lejano
 ```
 
@@ -637,8 +542,8 @@ assert 0 <= modularity <= 1  # la modularidad de una partición queda entre 0 y 
 print("Louvain: OK")  # print confirma la comprobación
 ```
 
-**Lo que vemos.** Hay 152 comunidades y la modularidad es 0,590.
-Las más grandes tienen 40, 33, 22 y 16 artículos.
+**Lo que vemos.** Hay 153 comunidades y la modularidad es 0,590.
+Las más grandes tienen 38, 32, 23 y 16 artículos.
 122 comunidades son un artículo aislado, los mismos 122 aislados de la Parte 3.
 La partición tiene sentido sobre los que sí tienen enlaces.
 
@@ -655,8 +560,8 @@ for i in (0, 1):  # recorremos las dos comunidades más grandes
         print(f"  grado {degree[t]:3d}  {t[:80]}")  # print muestra el grado y el título
 ```
 
-**Lo que vemos.** La comunidad 0 (40 artículos) junta los estudios de carga global de la enfermedad.
-La comunidad 1 (33 artículos) junta guías clínicas de corazón y de accidente cerebrovascular.
+**Lo que vemos.** La comunidad 0 (38 artículos) junta los estudios de carga global de la enfermedad.
+La comunidad 1 (32 artículos) junta guías clínicas de corazón y de accidente cerebrovascular.
 El artículo de ejemplo está en la comunidad 1.
 
 ---
@@ -827,8 +732,10 @@ La intermediación y la comunidad se guardan en el archivo, para leerlas, y no d
 ```python
 table = pd.DataFrame(index=pd.Index(titles, name="title"))  # DataFrame arma una fila por título
 table["graph_support"] = table.index.isin(high_rank)  # isin marca los artículos con PageRank alto
-by_rank_series = pd.Series(rank).loc[high_rank].sort_values(ascending=False)  # sort_values ordena los de PageRank alto de mayor a menor
-kept = by_rank_series.head(MAX_PAPERS).index  # head se queda con los MAX_PAPERS primeros
+by_rank = pd.DataFrame({"title": high_rank})  # DataFrame arma una fila por artículo de PageRank alto
+by_rank["pagerank"] = [rank[t] for t in high_rank]  # guardamos su PageRank
+by_rank = by_rank.sort_values(["pagerank", "title"], ascending=[False, True])  # sort_values ordena de mayor a menor PageRank y, si empatan, por título
+kept = by_rank.head(MAX_PAPERS)["title"]  # head se queda con los MAX_PAPERS primeros
 table["en_lista"] = table.index.isin(kept)  # isin marca los que entran en la lista
 print(f"PageRank alto: {int(table['graph_support'].sum())}. En la lista: {int(table['en_lista'].sum())}.")  # print muestra los dos conteos
 ```
@@ -841,7 +748,7 @@ Comprobamos que hay una fila por artículo y que la lista no pasa de 30.
 assert len(table) == N and table.index.is_unique  # una fila por artículo, sin repetidos
 assert table["graph_support"].sum() == len(high_rank) and table["en_lista"].sum() == min(MAX_PAPERS, len(high_rank))  # los conteos coinciden con la Parte 4
 assert set(table.index[table["en_lista"]]) <= set(high_rank)  # la lista sale solo del PageRank alto
-print("Lista del grafo: OK")  # print confirma la comprobación
+print("Marcas de la lista: OK")  # print confirma las marcas que usa el archivo
 ```
 
 Los artículos con PageRank alto son el resultado que usa la lista de esta lección.
@@ -950,5 +857,46 @@ print(f"\nL5_CHECKS={passed}/{len(checks)}")  # print muestra cuántas pasaron
 if passed == len(checks):  # pasaron todas
     print("L5_OK")  # print confirma el cuaderno
 ```
+
+### Paso 5. Artículos para leer
+La lista reúne los artículos con PageRank alto: tienen enlaces, están en el cuarto superior entre esos artículos y no son un nodo central.
+Ordenamos de mayor a menor PageRank y, si empatan, por título.
+De esos artículos mostramos como máximo 30, el tope de la Lección 1.
+Esta lista usa solo el grafo de hoy.
+
+```python
+graph_list = pd.DataFrame({  # DataFrame arma la lista con el título y PageRank
+    "title": list(table.index[table["en_lista"]]),  # los títulos que ya marcamos en la lista
+    "pagerank": [round(rank[t], 6) for t in table.index[table["en_lista"]]],  # round deja PageRank con 6 decimales
+})
+graph_list = graph_list.sort_values(["pagerank", "title"], ascending=[False, True])  # sort_values ordena de mayor a menor PageRank y, si empatan, por título
+graph_list = graph_list.head(MAX_PAPERS).reset_index(drop=True)  # head corta la lista en 30 artículos
+print(f"Artículos con PageRank alto: {len(high_rank)}. En la lista: {len(graph_list)}.")  # print muestra los dos conteos
+graph_list.head(10)
+```
+
+Examinamos cuántos artículos tienen PageRank alto y cuántos entran en la lista. Arriba quedan los de PageRank más alto.
+Si hay varias ediciones de la misma guía, el equipo abre la más reciente.
+
+**Comprobar:**
+
+En este paso comprobamos el largo de la lista, su orden y que sale solo del PageRank alto.
+
+```python
+assert len(graph_list) == min(MAX_PAPERS, len(high_rank)) and (graph_list["pagerank"] > 0).all()  # la lista no pasa de 30 y todos tienen PageRank
+assert graph_list["pagerank"].is_monotonic_decreasing  # PageRank no sube al bajar en la lista
+assert set(graph_list["title"]) <= set(high_rank)  # la lista sale solo del PageRank alto
+print("Lista del grafo: OK")  # print confirma la comprobación
+```
+
+En esta iteración describimos los 318 artículos por su lugar en las citas del conjunto.
+PageRank pone arriba artículos citados por otros de puntaje alto, y no solo los de más grado.
+La intermediación señala artículos que unen grupos, a veces con un grado más bajo.
+Louvain arma 153 comunidades, con modularidad 0,590; 122 son un artículo aislado.
+La lista guarda 30 artículos, los de PageRank más alto entre los que tienen enlaces y no son un nodo central.
+
+La principal razón detrás de estos resultados es que el grafo solo ve las citas dentro del conjunto.
+Un artículo aislado no tiene lugar en esta lista, y no es un artículo malo.
+Estos hallazgos deben reportarse como parte del proceso de minería y al mismo tiempo informar futuras iteraciones.
 
 <!-- end NOTEBOOK: -->
