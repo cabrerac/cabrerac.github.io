@@ -1,6 +1,6 @@
 <!-- RENDER: -->
 
-**Saturday 5 Dec 2026, 07:00 to 13:00 (Colombia), 12:00 to 18:00 (UK)**. Final project talks. Each group presents its starter list (`outputs/lista_inicial.csv`) and its project notebook. There is no new mining.
+**Saturday 5 Dec 2026, 07:00 to 13:00 (Colombia), 12:00 to 18:00 (UK)**. Final project talks. Each group presents its article list (`outputs/lista_articulos.csv`) and its project notebook. There is no new mining.
 
 ---
 
@@ -8,19 +8,18 @@
 
 | Slot | Colombia | UK | Group | Secretaría | Talk title |
 |------|----------|----|-------|------------|------------|
-| Setup | 07:00-07:30 | 12:00-12:30 | All | Sound and screen check per group | |
-| Talk 1 | 07:30-08:00 | 12:30-13:00 | G1 | Agricultura | to be confirmed |
-| Talk 2 | 08:00-08:30 | 13:00-13:30 | G2 | Salud mental | to be confirmed |
-| Talk 3 | 08:30-09:00 | 13:30-14:00 | G3 | Medio ambiente | to be confirmed |
-| Break | 09:00-09:08 | 14:00-14:08 | | | |
-| Talk 4 | 09:08-09:38 | 14:08-14:38 | G4 | Inclusión Social | to be confirmed |
-| Break | 09:38-09:45 | 14:38-14:45 | | | |
-| Talk 5 | 09:45-10:15 | 14:45-15:15 | G5 | Vivienda | to be confirmed |
-| Break | 10:15-10:30 | 15:15-15:30 | | | |
-| Optional talk | 10:30-11:30 | 15:30-16:30 | | Future research directions in data mining (if used) | |
-| Close | 11:30-12:00 | 16:30-17:00 | | Moodle survey and final deadlines | |
+| Opening | 07:00-07:15 | 12:00-12:15 | All | G3 checks sound and screen | |
+| Talk 1 | 07:15-07:35 | 12:15-12:35 | G3 | Medio ambiente | to be confirmed |
+| Talk 2 | 07:40-08:00 | 12:40-13:00 | G1 | Agricultura | to be confirmed |
+| Talk 3 | 08:05-08:25 | 13:05-13:25 | G2 | Salud mental | to be confirmed |
+| Break | 08:25-08:40 | 13:25-13:40 | | | |
+| Talk 4 | 08:40-09:00 | 13:40-14:00 | G4 | Inclusión Social | to be confirmed |
+| Talk 5 | 09:05-09:25 | 14:05-14:25 | G5 | Vivienda | to be confirmed |
+| Break | 09:25-09:40 | 14:25-14:40 | | | |
+| Optional talk | 09:40-10:40 | 14:40-15:40 | | Future research directions in data mining (if used) | |
+| Close | 10:40-11:10 | 15:40-16:10 | | Moodle survey and final deadlines | |
 
-Each talk is about 20 minutes, then about 10 minutes of questions. The titles come from the project notebook.
+Each group has 20 minutes.
 
 ---
 
@@ -42,7 +41,7 @@ Upload the slides as a PDF on Moodle, as `project-slides-<group_id>.pdf`, by **F
 | What | When (Colombia) |
 |------|-----------------|
 | Slides `project-slides-<group_id>.pdf` (Moodle) | Fri 4 Dec, 23:59 |
-| Project zip `project-<group_id>.zip` (requirements PDF, project notebook, `outputs/lista_inicial.csv`, talk title and abstract) | Tue 8 Dec, 23:59 |
+| Project zip `project-<group_id>.zip` (requirements PDF, project notebook, `outputs/lista_articulos.csv`) | Tue 8 Dec, 23:59 |
 | Project reflection `project-reflection-<apellido>-<inicial>.pdf` (first surname and first initial) | Wed 9 Dec, 23:59 |
 
 The slides and both final items go through Moodle.

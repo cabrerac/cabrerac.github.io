@@ -21,7 +21,7 @@ visible: false
 ---
 
 <link rel="stylesheet" href="/assets/css/lecture-article.css">
-**Saturday 5 Dec 2026, 07:00 to 13:00 (Colombia), 12:00 to 18:00 (UK)**. Final project talks. Each group presents its starter list (`outputs/lista_inicial.csv`) and its project notebook. There is no new mining.
+**Saturday 5 Dec 2026, 07:00 to 13:00 (Colombia), 12:00 to 18:00 (UK)**. Final project talks. Each group presents its article list (`outputs/lista_articulos.csv`) and its project notebook. There is no new mining.
 
 ---
 
@@ -40,7 +40,7 @@ visible: false
 | Optional talk | 09:40-10:40 | 14:40-15:40 | | Future research directions in data mining (if used) | |
 | Close | 10:40-11:10 | 15:40-16:10 | | Moodle survey and final deadlines | |
 
-Each group has 20 minutes. The titles come from the project notebook.
+Each group has 20 minutes.
 
 ---
 
@@ -62,7 +62,7 @@ Upload the slides as a PDF on Moodle, as `project-slides-<group_id>.pdf`, by **F
 | What | When (Colombia) |
 |------|-----------------|
 | Slides `project-slides-<group_id>.pdf` (Moodle) | Fri 4 Dec, 23:59 |
-| Project zip `project-<group_id>.zip` (requirements PDF, project notebook, `outputs/lista_inicial.csv`, talk title and abstract) | Tue 8 Dec, 23:59 |
+| Project zip `project-<group_id>.zip` (requirements PDF, project notebook, `outputs/lista_articulos.csv`) | Tue 8 Dec, 23:59 |
 | Project reflection `project-reflection-<apellido>-<inicial>.pdf` (first surname and first initial) | Wed 9 Dec, 23:59 |
 
 The slides and both final items go through Moodle.
