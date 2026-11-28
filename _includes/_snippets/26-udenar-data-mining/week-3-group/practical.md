@@ -30,7 +30,7 @@ Los resultados son `outputs/grafo.csv` y `outputs/prediccion.csv`. El cuaderno d
 | **3** | Preparación de los datos | Los enlaces, el grafo sin dirección, el conjunto apartado y la preparación |
 | **4** | Modelado | Louvain, la regla de mayoría por comunidad y la red con una capa oculta |
 | **5** | Evaluación | Un artículo por su comunidad, aciertos y errores, si cada método cuenta, `outputs/grafo.csv` y `outputs/prediccion.csv` |
-| **6** | Despliegue | Los artículos para leer (hasta 30), si texto y predicción son uno o dos apoyos, las tres semanas, la separación de clases y la fuga |
+| **6** | Despliegue | Los artículos para leer (hasta 30) y la interpretación |
 
 **Cómo leer cada paso.** Cada paso empieza con **En este paso**. Si el paso tiene código, termina con una celda **Comprobar**.
 
@@ -454,43 +454,6 @@ assert set(reading["title"]) <= set(grafo.loc[grafo["graph_support"], "title"]) 
 print("Paso 6.2: OK. Armen el ZIP.")  # print confirma la comprobación
 ```
 
-### Paso 6.3. Uno o dos apoyos
-
-El filtro de texto de la semana 2 y la predicción de esta semana salen, en este curso, de categorías de Wikipedia.
-Los materiales no dicen si cuentan como un apoyo o como dos.
-Decidan y anoten por qué.
-
-**Uno o dos apoyos**
-
-**ESCRIBA SU TEXTO AQUÍ**
-
-### Paso 6.4. Las tres semanas
-
-Comparen los resultados de las semanas 1, 2 y 3.
-¿Un método que funcionó en una semana falla en esta? ¿Por qué puede pasar?
-
-**Las tres semanas**
-
-**ESCRIBA SU TEXTO AQUÍ**
-
-### Paso 6.5. Cuando el modelo no separa las clases
-
-Si la red no supera a la clase mayoritaria, expliquen por qué no logra separar las clases en su secretaría.
-Si sí la supera, expliquen de todos modos qué lo impediría.
-
-**Cuando no separa**
-
-**ESCRIBA SU TEXTO AQUÍ**
-
-### Paso 6.6. Fuga de la etiqueta
-
-¿Cómo comprobaron si algún atributo se cuela la respuesta (una fuga)?
-¿Qué hicieron con lo que encontraron?
-
-**Fuga**
-
-**ESCRIBA SU TEXTO AQUÍ**
-
 ---
 
 ## Registro de contribución
@@ -501,15 +464,9 @@ En este paso cada integrante anota su tarea concreta y el grupo dice quién cons
 
 ## Para la reflexión individual
 
-Use la [plantilla de la reflexión de la semana 3](https://cabrerac.github.io/assets/documents/26-udenar-data-mining/reflection-week-3-template.docx) y mantenga sus títulos. Extensión: entre 700 y 1000 palabras. Por debajo de 500 palabras el texto queda corto.
-
-| Título | Qué escribir |
-|--------|--------------|
-| **Metadatos** | Nombre, grupo, semana 3 (L5 + L6) y conteo aproximado de palabras. |
-| **Proceso** | Qué hizo el grupo en el cuaderno de la semana 3. Diga y evidencie cuál fue su contribución con un pantallazo de un bloque de código que usted implementó o ayudó a implementar, y explíquelo en detalle. |
-| **Decisión** | Describa las comunidades de menciones y la predicción de la etiqueta que exploró en esta semana. |
-| **Métodos** | Explique cuáles fueron los métodos utilizados en esta semana y cómo se comparan entre ellos y con la clase mayoritaria. ¿En qué consiste la intermediación discutida en la Lección 5? |
-| **Interpretabilidad** | En sus palabras, explique las razones detrás de los artículos de Wikipedia que esta semana quedaron seleccionados por su comunidad y por la predicción. |
+Use la [plantilla de la reflexión de la semana 3](https://cabrerac.github.io/assets/documents/26-udenar-data-mining/reflection-week-3-template.docx) y mantenga sus títulos.
+Extensión: entre 700 y 1000 palabras.
+Por debajo de 500 palabras el texto queda corto.
 
 ## Entrega
 

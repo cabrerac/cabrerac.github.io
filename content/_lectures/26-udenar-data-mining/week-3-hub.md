@@ -26,7 +26,7 @@ visible: false
 - [Lecture 5](/teaching/26-udenar-data-mining/l5-graphs/)
 - [Lecture 6](/teaching/26-udenar-data-mining/l6-prediction/)
 - [Saturday plan](/assets/documents/26-udenar-data-mining/week-3-session-plan-es.pdf)
-- L5 methods: PageRank, betweenness (intermediación) and Louvain communities. L6 methods: a random forest, logistic regression and a one-hidden-layer network.
+- L5 methods: PageRank, betweenness (intermediación) and Louvain communities. L6 methods: logistic regression and a one-hidden-layer network on the abstract, compared with a keyword rule.
 - [Page, L., Brin, S., Motwani, R. and Winograd, T. (1998)](https://web.archive.org/web/20241231011600/http://ilpubs.stanford.edu:8090/422/)
 - [Freeman, L. C. (1977)](https://doi.org/10.2307/3033543)
 - [Blondel, V. D., Guillaume, J.-L., Lambiotte, R. and Lefebvre, E. (2008)](https://doi.org/10.1088/1742-5468/2008/10/P10008)
