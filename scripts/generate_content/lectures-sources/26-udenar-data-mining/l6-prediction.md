@@ -15,7 +15,7 @@ layout: lecture
 lecture_code: l6-prediction
 lecture_date: 28/11/2026
 permalink: /teaching/26-udenar-data-mining/l6-prediction/
-visible: false
+visible: true
 group_notebook: week-3-group
 notebook_language: es
 notebook_title: Predicción

@@ -29,7 +29,7 @@ position: Assistant Research Professor
 session: 6
 start_time: 07:00 am
 title: Prediction
-visible: false
+visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">

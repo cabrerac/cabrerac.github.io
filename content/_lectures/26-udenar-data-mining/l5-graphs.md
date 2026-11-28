@@ -26,7 +26,7 @@ position: Assistant Research Professor
 session: 5
 start_time: 07:00 am
 title: Graphs
-visible: false
+visible: true
 ---
 
 <link rel="stylesheet" href="/assets/css/slides.css">
