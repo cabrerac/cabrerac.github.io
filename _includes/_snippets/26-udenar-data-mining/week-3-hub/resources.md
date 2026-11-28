@@ -30,10 +30,9 @@
 
 - Group zip `week-3-<group_id>.zip`, with the notebook, `outputs/grafo.csv` and `outputs/prediccion.csv`, due Tue 1 Dec 2026, 23:59
 - Reflection `week-3-reflection-<surname>-<initial>.pdf`, [template](/assets/documents/26-udenar-data-mining/reflection-week-3-template.docx), due Wed 2 Dec 2026, 23:59
-- Project slides Fri 4 Dec 2026, talks Sat 5 Dec 2026, project zip Tue 8 Dec 2026, project reflection Wed 9 Dec 2026. [Week 4 page](/teaching/26-udenar-data-mining/l8-final-project/)
+- Talks Sat 5 Dec 2026. Each group shares its slides in the talk. Project zip Tue 8 Dec 2026. Project reflection Wed 9 Dec 2026. [Week 4 page](/teaching/26-udenar-data-mining/l8-final-project/)
 - [Requirements template (Word)](/assets/documents/26-udenar-data-mining/project-requirements-template.docx)
 - [Project notebook](https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/project-group.ipynb)
-- [Slides template](/assets/documents/26-udenar-data-mining/project-presentation-template.pptx)
 - [Project reflection template (Word)](/assets/documents/26-udenar-data-mining/project-reflection-template.docx)
 
 ---

@@ -50,10 +50,11 @@
     <div class="row" style="height: 100%">
         <div class="columns" style="width: 100%">
             <div class="column vertical-middle text-left" style="width: 100%">
-                <p><b>After the talks on Saturday 5 December</b></p>
+                <p><b>Saturday 5 December, then the deliverables</b></p>
                 <ul>
-                    <li><b>Tuesday 8 December, 23:59:</b> zip project-<group-id>.zip, with the <a href="https://cabrerac.github.io/assets/documents/26-udenar-data-mining/project-requirements-template.docx" target="_blank">requirements template</a>, the <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/project-group.ipynb" target="_blank">project notebook</a>, and outputs/lista_articulos.csv</li>
-                    <li><b>Wednesday 9 December, 23:59:</b> reflection project-reflection-<apellido>-<inicial>.pdf. <a href="https://cabrerac.github.io/assets/documents/26-udenar-data-mining/project-reflection-template.docx" target="_blank">Reflection template</a></li>
+                    <li><b>Saturday 5 December:</b> each group makes its slides and shares them in the talk.</li>
+                    <li><b>Tuesday 8 December, 23:59:</b> zip project-[group-id].zip, with the <a href="https://cabrerac.github.io/assets/documents/26-udenar-data-mining/project-requirements-template.docx" target="_blank">requirements template</a>, the <a href="https://colab.research.google.com/github/cabrerac/cabrerac.github.io/blob/gh-pages/assets/notebooks/26-udenar-data-mining/project-group.ipynb" target="_blank">project notebook</a>, and outputs/lista_articulos.csv</li>
+                    <li><b>Wednesday 9 December, 23:59:</b> reflection project-reflection-[apellido]-[inicial].pdf. <a href="https://cabrerac.github.io/assets/documents/26-udenar-data-mining/project-reflection-template.docx" target="_blank">Reflection template</a></li>
                 </ul>
             </div>
         </div>

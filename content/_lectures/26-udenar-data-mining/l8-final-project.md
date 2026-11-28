@@ -46,14 +46,7 @@ Each group has 20 minutes.
 
 ### Slides
 
-Upload the slides as a PDF on Moodle, as `project-slides-<group_id>.pdf`, by **Friday 4 Dec, 23:59 (Colombia)**. A group that misses it presents from its own laptop. One or more members may speak. Use these six slide headings:
-
-1. The secretaría and the new person's question.
-2. The starter list, short enough to read aloud.
-3. What results support each article.
-4. An article described by its place among the others.
-5. What fact would remove an article, and what would change on the list.
-6. What the list cannot decide.
+Each group makes its slides and shares them in the talk. One or more members may speak.
 
 ---
 
@@ -61,11 +54,10 @@ Upload the slides as a PDF on Moodle, as `project-slides-<group_id>.pdf`, by **F
 
 | What | When (Colombia) |
 |------|-----------------|
-| Slides `project-slides-<group_id>.pdf` (Moodle) | Fri 4 Dec, 23:59 |
 | Project zip `project-<group_id>.zip` (requirements PDF, project notebook, `outputs/lista_articulos.csv`) | Tue 8 Dec, 23:59 |
 | Project reflection `project-reflection-<apellido>-<inicial>.pdf` (first surname and first initial) | Wed 9 Dec, 23:59 |
 
-The slides and both final items go through Moodle.
+The zip and the reflection go through Moodle. The slides are shared in the talk.
 
 ---
 

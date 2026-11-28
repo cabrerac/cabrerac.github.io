@@ -15,7 +15,7 @@
 ## Entrega
 
 El ZIP se entrega el martes 8 dic 2026, 23:59 (hora de Colombia), con el cuaderno ejecutado y renombrado.
-Las diapositivas van en su propia tarea, el viernes 4 de diciembre. No van en este ZIP.
+Cada grupo comparte sus diapositivas en la charla del sábado 5 de diciembre. No van en este ZIP.
 No hay nota de portada.
 
 | Archivo del ZIP `project-<group_id>.zip` | Descripción |
